@@ -4,6 +4,7 @@ import { JobCardComponent } from '../job-card/job-card.component';
 
 @Component({
   selector: 'app-kanban-column',
+  standalone: true,
   imports: [JobCardComponent],
   templateUrl: './kanban-column.component.html',
   styleUrl: './kanban-column.component.css'

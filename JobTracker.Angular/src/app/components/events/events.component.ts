@@ -10,6 +10,7 @@ type EventFilter = 'all' | 'upcoming' | 'past';
 
 @Component({
   selector: 'app-events',
+  standalone: true,
   imports: [FormsModule, SelectDropdownComponent, DatePickerComponent, TimePickerComponent],
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'

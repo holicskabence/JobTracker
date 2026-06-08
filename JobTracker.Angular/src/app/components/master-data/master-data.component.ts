@@ -5,6 +5,7 @@ import { JobStoreService } from '../../services/job-store.service';
 
 @Component({
   selector: 'app-master-data',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './master-data.component.html',
   styleUrl: './master-data.component.css'

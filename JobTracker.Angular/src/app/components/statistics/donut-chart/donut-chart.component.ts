@@ -14,6 +14,7 @@ export interface DonutSlice {
 
 @Component({
   selector: 'app-donut-chart',
+  standalone: true,
   templateUrl: './donut-chart.component.html',
   styleUrl: './donut-chart.component.css'
 })

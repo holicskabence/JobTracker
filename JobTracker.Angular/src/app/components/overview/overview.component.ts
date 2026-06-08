@@ -6,6 +6,7 @@ import { DashboardTab } from '../../models/job.model';
 
 @Component({
   selector: 'app-overview',
+  standalone: true,
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.css'
 })

@@ -5,6 +5,7 @@ import { KanbanColumnComponent } from '../kanban-column/kanban-column.component'
 
 @Component({
   selector: 'app-kanban',
+  standalone: true,
   imports: [KanbanColumnComponent],
   templateUrl: './kanban.component.html',
   styleUrl: './kanban.component.css'

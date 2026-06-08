@@ -3,6 +3,7 @@ import { DashboardTab } from '../../../models/job.model';
 
 @Component({
   selector: 'app-dashboard-header',
+  standalone: true,
   templateUrl: './dashboard-header.component.html',
   styleUrl: './dashboard-header.component.css'
 })

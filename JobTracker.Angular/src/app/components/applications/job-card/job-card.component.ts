@@ -5,6 +5,7 @@ import { StatusDropdownComponent } from '../../shared/status-dropdown/status-dro
 
 @Component({
   selector: 'app-job-card',
+  standalone: true,
   imports: [StatusDropdownComponent],
   templateUrl: './job-card.component.html',
   styleUrl: './job-card.component.css'

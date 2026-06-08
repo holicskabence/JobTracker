@@ -6,6 +6,7 @@ import { StatusDropdownComponent } from '../status-dropdown/status-dropdown.comp
 
 @Component({
   selector: 'app-add-job-modal',
+  standalone: true,
   imports: [FormsModule, StatusDropdownComponent],
   templateUrl: './add-job-modal.component.html',
   styleUrl: './add-job-modal.component.css'

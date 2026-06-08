@@ -6,6 +6,7 @@ type FilterCategory = 'Mind' | QuestionCategory;
 
 @Component({
   selector: 'app-practice',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './practice.component.html',
   styleUrl: './practice.component.css'

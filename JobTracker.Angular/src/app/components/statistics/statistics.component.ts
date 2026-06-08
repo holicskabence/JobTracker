@@ -6,6 +6,7 @@ import { DonutChartComponent } from './donut-chart/donut-chart.component';
 
 @Component({
   selector: 'app-statistics',
+  standalone: true,
   imports: [AreaChartComponent, DonutChartComponent],
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.css'

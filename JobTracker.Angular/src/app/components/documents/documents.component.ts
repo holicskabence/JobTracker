@@ -6,6 +6,7 @@ import { SelectDropdownComponent } from '../shared/select-dropdown/select-dropdo
 
 @Component({
   selector: 'app-documents',
+  standalone: true,
   imports: [FormsModule, SelectDropdownComponent],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.css'
@@ -17,6 +18,10 @@ export class DocumentsComponent {
   readonly templates = OUTREACH_TEMPLATES;
   readonly copiedId = signal<number | null>(null);
   readonly templatesOpen = signal(false);
+
+  toggleTemplates(): void {
+    this.templatesOpen.update(open => !open);
+  }
 
   readonly docFilter = signal('Mind');
   readonly filterOptions = ['Mind', ...DOCUMENT_TYPES] as const;

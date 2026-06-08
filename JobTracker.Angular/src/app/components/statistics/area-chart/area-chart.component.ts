@@ -16,6 +16,7 @@ export interface HoveredCol {
 
 @Component({
   selector: 'app-area-chart',
+  standalone: true,
   templateUrl: './area-chart.component.html',
   styleUrl: './area-chart.component.css'
 })

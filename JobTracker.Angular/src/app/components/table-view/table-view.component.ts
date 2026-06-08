@@ -9,6 +9,7 @@ type SortDir = 'asc' | 'desc';
 
 @Component({
   selector: 'app-table-view',
+  standalone: true,
   imports: [NgClass, FormsModule],
   templateUrl: './table-view.component.html',
   styleUrl: './table-view.component.css'

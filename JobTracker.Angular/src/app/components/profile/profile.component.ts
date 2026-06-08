@@ -5,6 +5,7 @@ import { UserProfile } from '../../models/user.model';
 
 @Component({
   selector: 'app-profile',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'

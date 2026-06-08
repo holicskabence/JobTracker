@@ -1,65 +1,71 @@
-import { Component, computed, HostListener, inject, Input, Output, EventEmitter } from '@angular/core';
-import { JobStatus } from '../../../models/job.model';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter, map, startWith } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { DashboardTab } from '../../../models/job.model';
+import { AuthService } from '../../../services/auth.service';
 import { JobStoreService } from '../../../services/job-store.service';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { DashboardHeaderComponent } from '../dashboard-header/dashboard-header.component';
+import { AddJobModalComponent } from '../../shared/add-job-modal/add-job-modal.component';
 
 @Component({
-  selector: 'app-status-dropdown',
-  templateUrl: './status-dropdown.component.html',
-  styleUrl: './status-dropdown.component.css'
+  selector: 'app-dashboard',
+  standalone: true,
+  imports: [RouterOutlet, SidebarComponent, DashboardHeaderComponent, AddJobModalComponent],
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.css'
 })
-export class StatusDropdownComponent {
-  private readonly store = inject(JobStoreService);
+export class DashboardComponent implements OnInit {
+  private readonly router = inject(Router);
+  readonly auth = inject(AuthService);
+  readonly store = inject(JobStoreService);
 
-  @Input({ required: true }) value!: JobStatus;
-  @Input() variant: 'dots' | 'form' = 'dots';
-  @Output() valueChange = new EventEmitter<JobStatus>();
+  readonly collapsed = signal(false);
+  readonly mobileOpen = signal(false);
 
-  isOpen = false;
-  panelTop = 0;
-  panelLeft = 0;
-  panelWidth = 192;
+  private readonly url = toSignal(
+    this.router.events.pipe(
+      filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+      map(e => e.urlAfterRedirects),
+      startWith(this.router.url)
+    ),
+    { initialValue: this.router.url }
+  );
 
-  readonly options = computed(() => this.store.statusConfigs());
+  readonly activeTab = computed<DashboardTab>(() => {
+    const segments = this.url().split('/').filter(Boolean);
+    return (segments[1] ?? 'attekintes') as DashboardTab;
+  });
 
-  toggle(event: MouseEvent): void {
-    event.stopPropagation();
-    if (!this.isOpen) {
-      const btn = event.currentTarget as HTMLElement;
-      const r = btn.getBoundingClientRect();
-      const estimatedH = this.options().length * 40 + 10;
+  readonly userName = computed(() => {
+    const user = this.auth.currentUser();
+    return user ? `${user.firstName} ${user.lastName}`.trim() : '';
+  });
 
-      if (this.variant === 'form') {
-        this.panelLeft = r.left;
-        this.panelWidth = Math.max(r.width, 192);
-      } else {
-        this.panelWidth = 192;
-        this.panelLeft = r.right - this.panelWidth;
-      }
+  readonly userEmail = computed(() => this.auth.currentUser()?.email ?? '');
 
-      if (this.panelLeft + this.panelWidth > window.innerWidth - 8) {
-        this.panelLeft = window.innerWidth - this.panelWidth - 8;
-      }
-      if (this.panelLeft < 8) this.panelLeft = 8;
-
-      const spaceBelow = window.innerHeight - r.bottom - 8;
-      if (spaceBelow >= estimatedH || r.top < estimatedH) {
-        this.panelTop = r.bottom + 4;
-      } else {
-        this.panelTop = r.top - estimatedH - 4;
-      }
-    }
-    this.isOpen = !this.isOpen;
+  ngOnInit(): void {
+    this.store.loadInitialData();
   }
 
-  pick(key: JobStatus, event: MouseEvent): void {
-    event.stopPropagation();
-    this.valueChange.emit(key);
-    this.isOpen = false;
+  toggleCollapsed(): void {
+    this.collapsed.update(v => !v);
   }
 
-  @HostListener('document:click')
-  onDocClick(): void { this.isOpen = false; }
+  openMobileMenu(): void {
+    this.mobileOpen.set(true);
+  }
 
-  colorFor(key: string): string { return this.store.colorFor(key); }
-  labelFor(key: string): string { return this.store.labelFor(key); }
+  closeMobileMenu(): void {
+    this.mobileOpen.set(false);
+  }
+
+  addJob(): void {
+    this.store.openModal(null);
+  }
+
+  logout(): void {
+    this.auth.logout();
+  }
 }

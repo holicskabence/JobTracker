@@ -4,6 +4,7 @@ import { JobStoreService } from '../../../services/job-store.service';
 
 @Component({
   selector: 'app-status-dropdown',
+  standalone: true,
   templateUrl: './status-dropdown.component.html',
   styleUrl: './status-dropdown.component.css'
 })
