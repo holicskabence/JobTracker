@@ -19,7 +19,7 @@ public static class ServiceCollectionExtensions
         IConfiguration configuration)
     {
         services.AddDbContext<JobTrackerDbContext>(options =>
-            options.UseSqlite(configuration.GetConnectionString("Default")));
+            options.UseSqlServer(configuration.GetConnectionString("Default")));
 
         services.AddScoped<IJobRepository, JobRepository>();
         services.AddScoped<ICalendarEventRepository, CalendarEventRepository>();

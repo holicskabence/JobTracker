@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobTracker.Infrastructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobTracker.Application", "JobTracker.Application\JobTracker.Application.csproj", "{AA999592-44D3-4DDF-A151-B4BC79CD687B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobTracker.WebApi", "JobTracker.WebApi\JobTracker.WebApi.csproj", "{0B1921AC-70AA-410D-845B-639738CBB162}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{AA999592-44D3-4DDF-A151-B4BC79CD687B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA999592-44D3-4DDF-A151-B4BC79CD687B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA999592-44D3-4DDF-A151-B4BC79CD687B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B1921AC-70AA-410D-845B-639738CBB162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B1921AC-70AA-410D-845B-639738CBB162}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B1921AC-70AA-410D-845B-639738CBB162}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B1921AC-70AA-410D-845B-639738CBB162}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
