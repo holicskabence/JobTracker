@@ -1,0 +1,61 @@
+<div class="modal-backdrop" (click)="onBackdropClick($event)">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+
+        <div class="modal-header">
+            <h2 class="modal-title" id="modal-title">{{ isEdit ? 'Jelentkezés szerkesztése' : 'Új jelentkezés' }}</h2>
+            <button class="modal-close" (click)="close.emit()" aria-label="Bezárás">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+
+        <form class="modal-form" (ngSubmit)="submit()" #f="ngForm">
+
+            <div class="field">
+                <label class="field-label" for="company">Cég neve</label>
+                <input id="company" class="field-input" type="text" placeholder="pl. Acme Corp" autocomplete="off"
+                    required [(ngModel)]="company" name="company"
+                    [class.field-input--error]="submitted && !company.trim()" />
+                @if (submitted && !company.trim()) {
+                <span class="field-error">A cég neve kötelező.</span>
+                }
+            </div>
+
+            <div class="field">
+                <label class="field-label" for="position">Pozíció</label>
+                <input id="position" class="field-input" type="text" placeholder="pl. Frontend Engineer"
+                    autocomplete="off" required [(ngModel)]="position" name="position"
+                    [class.field-input--error]="submitted && !position.trim()" />
+                @if (submitted && !position.trim()) {
+                <span class="field-error">A pozíció megnevezése kötelező.</span>
+                }
+            </div>
+
+            <div class="field">
+                <label class="field-label" for="link">
+                    Link
+                    <span class="field-optional">(opcionális)</span>
+                </label>
+                <input id="link" class="field-input" type="text" placeholder="pl. careers.acme.com" autocomplete="off"
+                    [(ngModel)]="link" name="link" />
+            </div>
+
+            <div class="field">
+                <label class="field-label">Kezdeti státusz</label>
+                <app-status-dropdown variant="form" [value]="status" (valueChange)="status = $event" />
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn btn--ghost" (click)="close.emit()">Mégse</button>
+                <button type="submit" class="btn btn--primary">
+                    {{ isEdit ? 'Mentés' : 'Hozzáadás' }}
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
