@@ -14,25 +14,25 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { PracticeComponent } from './components/practice/practice.component';
 
 export const routes: Routes = [
-  { path: 'login',    component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [authGuard],
     children: [
-      { path: '',              redirectTo: 'attekintes', pathMatch: 'full' },
-      { path: 'attekintes',    component: OverviewComponent },
+      { path: '', redirectTo: 'attekintes', pathMatch: 'full' },
+      { path: 'attekintes', component: OverviewComponent },
       { path: 'jelentkezesek', component: KanbanComponent },
-      { path: 'tablazat',      component: TableViewComponent },
-      { path: 'esemenyek',     component: EventsComponent },
-      { path: 'dokumentumok',  component: DocumentsComponent },
-      { path: 'statisztika',   component: StatisticsComponent },
-      { path: 'torzsadatok',   component: MasterDataComponent },
-      { path: 'profil',        component: ProfileComponent },
-      { path: 'gyakorlas',     component: PracticeComponent },
+      { path: 'tablazat', component: TableViewComponent },
+      { path: 'esemenyek', component: EventsComponent },
+      { path: 'dokumentumok', component: DocumentsComponent },
+      { path: 'statisztika', component: StatisticsComponent },
+      { path: 'torzsadatok', component: MasterDataComponent },
+      { path: 'profil', component: ProfileComponent },
+      { path: 'gyakorlas', component: PracticeComponent },
     ]
   },
-  { path: '',   redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard' }
 ];

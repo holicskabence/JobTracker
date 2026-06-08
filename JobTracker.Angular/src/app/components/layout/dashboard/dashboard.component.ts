@@ -1,10 +1,11 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { filter, map, startWith } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, ElementRef, inject, signal, OnInit, OnDestroy } from '@angular/core';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { gsap } from 'gsap';
 import { DashboardTab } from '../../../models/job.model';
-import { AuthService } from '../../../services/auth.service';
 import { JobStoreService } from '../../../services/job-store.service';
+import { AuthService } from '../../../services/auth.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { DashboardHeaderComponent } from '../dashboard-header/dashboard-header.component';
 import { AddJobModalComponent } from '../../shared/add-job-modal/add-job-modal.component';
@@ -12,60 +13,64 @@ import { AddJobModalComponent } from '../../shared/add-job-modal/add-job-modal.c
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent, DashboardHeaderComponent, AddJobModalComponent],
+  imports: [
+    RouterOutlet,
+    SidebarComponent,
+    DashboardHeaderComponent,
+    AddJobModalComponent,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent implements OnInit {
-  private readonly router = inject(Router);
-  readonly auth = inject(AuthService);
+export class DashboardComponent implements OnInit, OnDestroy {
   readonly store = inject(JobStoreService);
+  readonly auth = inject(AuthService);
+  private router = inject(Router);
+  private el: ElementRef<HTMLElement> = inject(ElementRef);
 
-  readonly collapsed = signal(false);
-  readonly mobileOpen = signal(false);
+  readonly activeTab = signal<DashboardTab>('attekintes');
+  readonly sidebarCollapsed = signal(false);
+  readonly sidebarMobileOpen = signal(false);
 
-  private readonly url = toSignal(
-    this.router.events.pipe(
-      filter((e): e is NavigationEnd => e instanceof NavigationEnd),
-      map(e => e.urlAfterRedirects),
-      startWith(this.router.url)
-    ),
-    { initialValue: this.router.url }
-  );
+  readonly modalOpen = this.store.modalOpen;
+  readonly editingJob = this.store.editingJob;
 
-  readonly activeTab = computed<DashboardTab>(() => {
-    const segments = this.url().split('/').filter(Boolean);
-    return (segments[1] ?? 'attekintes') as DashboardTab;
-  });
-
-  readonly userName = computed(() => {
-    const user = this.auth.currentUser();
-    return user ? `${user.firstName} ${user.lastName}`.trim() : '';
-  });
-
-  readonly userEmail = computed(() => this.auth.currentUser()?.email ?? '');
+  private routerSub?: Subscription;
 
   ngOnInit(): void {
     this.store.loadInitialData();
+    this.syncTab(this.router.url);
+    this.routerSub = this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe(e => this.syncTab((e as NavigationEnd).urlAfterRedirects));
   }
 
-  toggleCollapsed(): void {
-    this.collapsed.update(v => !v);
+  ngOnDestroy(): void {
+    this.routerSub?.unsubscribe();
   }
 
-  openMobileMenu(): void {
-    this.mobileOpen.set(true);
+  private syncTab(url: string): void {
+    const seg = url.split('/').filter(Boolean).pop() as DashboardTab;
+    const valid: DashboardTab[] = [
+      'attekintes', 'jelentkezesek', 'tablazat', 'esemenyek',
+      'dokumentumok', 'statisztika', 'torzsadatok', 'profil', 'gyakorlas'
+    ];
+    this.activeTab.set(valid.includes(seg) ? seg : 'attekintes');
   }
 
-  closeMobileMenu(): void {
-    this.mobileOpen.set(false);
+  navigateToTab(tab: DashboardTab): void {
+    this.router.navigate(['/dashboard', tab]);
+    this.sidebarMobileOpen.set(false);
   }
 
-  addJob(): void {
-    this.store.openModal(null);
+  onRouteActivate(): void {
+    const main = this.el.nativeElement.querySelector<HTMLElement>('.content-body');
+    if (main) {
+      gsap.fromTo(main, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.38, ease: 'power3.out', clearProps: 'transform' });
+    }
   }
 
-  logout(): void {
-    this.auth.logout();
-  }
+  logout(): void { this.auth.logout(); }
+  openAddModal(): void { this.store.openModal(null); }
+  closeModal(): void { this.store.closeModal(); }
 }

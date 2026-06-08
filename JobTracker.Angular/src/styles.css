@@ -1,1 +1,134 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --clr-bg: #f4f2f0;
+    --clr-bg-2: #fcfbfa;
+    --clr-white: #ffffff;
+    --clr-dark: #0a0a0a;
+    --clr-dark-2: #101010;
+    --clr-muted: #9b9b99;
+    --clr-border: #eae8e5;
+    --clr-green: #26ac00;
+    --clr-green-dk: #209400;
+    --clr-blue: #5fb9fa;
+    --clr-yellow: #f59e0b;
+    --clr-red: #ef4444;
+    --clr-shadow: rgba(0, 0, 0, 0.06);
+    --clr-shadow-md: rgba(0, 0, 0, 0.1);
+
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+
+    --gap-section: 1.5rem;
+    --gap-card: 0.75rem;
+    --gap-form: 0.875rem;
+
+    --padding-card: 1.5rem;
+    --padding-input: 0.5625rem 0.75rem;
+    --padding-button: 0.5625rem 1rem;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--clr-bg);
+    color: var(--clr-dark);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+    background-color: var(--clr-green);
+    color: var(--clr-white);
+}
+
+.status-dot--mentett {
+    background-color: #9b9b99;
+}
+
+.status-dot--beadva {
+    background-color: #5fb9fa;
+}
+
+.status-dot--visszahivas {
+    background-color: #f59e0b;
+}
+
+.status-dot--ajanlat {
+    background-color: #26ac00;
+}
+
+.status-dot--elutasitva {
+    background-color: #ef4444;
+}
+
+.status-badge--mentett {
+    color: #9b9b99;
+    background-color: rgba(155, 155, 153, 0.1);
+}
+
+.status-badge--beadva {
+    color: #5fb9fa;
+    background-color: rgba(95, 185, 250, 0.1);
+}
+
+.status-badge--visszahivas {
+    color: #f59e0b;
+    background-color: rgba(245, 158, 11, 0.1);
+}
+
+.status-badge--ajanlat {
+    color: #26ac00;
+    background-color: rgba(38, 172, 0, 0.1);
+}
+
+.status-badge--elutasitva {
+    color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.avatar-bg--mentett {
+    color: #9b9b99;
+    background-color: rgba(155, 155, 153, 0.12);
+}
+
+.avatar-bg--beadva {
+    color: #5fb9fa;
+    background-color: rgba(95, 185, 250, 0.12);
+}
+
+.avatar-bg--visszahivas {
+    color: #f59e0b;
+    background-color: rgba(245, 158, 11, 0.12);
+}
+
+.avatar-bg--ajanlat {
+    color: #26ac00;
+    background-color: rgba(38, 172, 0, 0.12);
+}
+
+.avatar-bg--elutasitva {
+    color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.12);
+}
