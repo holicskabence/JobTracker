@@ -1,4 +1,5 @@
 using System.Text;
+using JobTracker.Application.Interfaces;
 using JobTracker.Domain.Interfaces;
 using JobTracker.Infrastructure.Data;
 using JobTracker.Infrastructure.Repositories;
