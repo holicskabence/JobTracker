@@ -1,0 +1,145 @@
+﻿<div class="stats">
+
+  <h2 class="stats-title">Jelentkezési aktivitás (Idei év)</h2>
+
+  <div class="stats-kpi">
+
+    <div class="kpi-card kpi-card--1">
+      <p class="kpi-card-label">Összes jelentkezés</p>
+      <p class="kpi-card-value">{{ total() }}</p>
+      <div class="kpi-card-sub">
+        <div class="kpi-card-bar-track">
+          <div class="kpi-card-bar-fill" [style.width.%]="goalProgress()"></div>
+        </div>
+        <span>cél: {{ goal() }}</span>
+      </div>
+    </div>
+
+    <div class="kpi-card kpi-card--2">
+      <p class="kpi-card-label">Aktív folyamatban</p>
+      <p class="kpi-card-value">{{ stats().activeJobs }}</p>
+      <div class="kpi-card-sub">
+        <span class="kpi-card-chip">{{ stats().callbacks }} visszahívás</span>
+      </div>
+    </div>
+
+    <div class="kpi-card kpi-card--3">
+      <p class="kpi-card-label">Callback arány</p>
+      <p class="kpi-card-value">{{ callbackRate() }}%</p>
+      <div class="kpi-card-sub">{{ stats().callbacks }} / {{ total() }} válasz</div>
+    </div>
+
+    <div class="kpi-card kpi-card--4">
+      <p class="kpi-card-label">Sikerességi arány</p>
+      <p class="kpi-card-value">{{ stats().successRate }}%</p>
+      <div class="kpi-card-sub">
+        <span>{{ stats().offers }} ajánlat</span>
+        <span class="kpi-card-sep">·</span>
+        <span>{{ stats().rejections }} elutasítás</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="stats-kpi stats-kpi--extra">
+
+    <div class="kpi-card kpi-card--5">
+      <p class="kpi-card-label">Függő válasz</p>
+      <p class="kpi-card-value kpi-card-value--blue">{{ pendingCount() }}</p>
+      <div class="kpi-card-sub">beadott, választ vár</div>
+    </div>
+
+    <div class="kpi-card kpi-card--6">
+      <p class="kpi-card-label">Ajánlatok száma</p>
+      <p class="kpi-card-value kpi-card-value--green">{{ stats().offers }}</p>
+      <div class="kpi-card-sub">elfogadott / ajánlott</div>
+    </div>
+
+    <div class="kpi-card kpi-card--7">
+      <p class="kpi-card-label">Elutasítási arány</p>
+      <p class="kpi-card-value kpi-card-value--red">{{ rejectionRate() }}%</p>
+      <div class="kpi-card-sub">{{ stats().rejections }} elutasítás</div>
+    </div>
+
+    <div class="kpi-card kpi-card--8">
+      <p class="kpi-card-label">Visszahívás arány</p>
+      <p class="kpi-card-value kpi-card-value--amber">{{ callbackRate() }}%</p>
+      <div class="kpi-card-sub">{{ stats().callbacks }} visszahívás</div>
+    </div>
+
+  </div>
+
+  <div class="stats-grid">
+
+    <div class="chart-card chart-card--wide">
+      <h3 class="chart-card-label">Havi beadott jelentkezések és visszahívások</h3>
+      <div class="chart-card-body">
+        <app-area-chart [data]="monthlyData()" />
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3 class="chart-card-label">Státusz megoszlás</h3>
+      <div class="chart-card-body chart-card-body--donut">
+        <app-donut-chart [distribution]="distribution()" [total]="total()" />
+      </div>
+    </div>
+
+  </div>
+
+  <div class="stats-grid stats-grid--bottom">
+
+    <div class="chart-card chart-card--funnel">
+      <h3 class="chart-card-label">Státusz tölcsér</h3>
+      <div class="chart-card-body">
+        @if (total() === 0) {
+        <div class="stats-empty">Még nincsenek rögzített jelentkezések.</div>
+        } @else {
+        <div class="funnel">
+          @for (item of funnel(); track item.key) {
+          <div class="funnel-row">
+            <div class="funnel-meta">
+              <span class="funnel-dot" [style.background-color]="item.color"></span>
+              <span class="funnel-label">{{ item.label }}</span>
+            </div>
+            <div class="funnel-track">
+              <div class="funnel-fill" [style.width.%]="item.count / funnelMax() * 100"
+                [style.background-color]="item.color"></div>
+            </div>
+            <div class="funnel-right">
+              <span class="funnel-count">{{ item.count }}</span>
+              <span class="funnel-pct">{{ item.percent }}%</span>
+            </div>
+          </div>
+          }
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="chart-card chart-card--top">
+      <h3 class="chart-card-label">Top 5 cég</h3>
+      <div class="chart-card-body">
+        @if (topCompanies().length === 0) {
+        <div class="stats-empty">Még nincsenek rögzített jelentkezések.</div>
+        } @else {
+        <div class="top-list">
+          @for (co of topCompanies(); track co.name) {
+          <div class="top-row">
+            <span class="top-rank">{{ co.rank }}</span>
+            <span class="top-avatar">{{ co.name[0].toUpperCase() }}</span>
+            <span class="top-name">{{ co.name }}</span>
+            <div class="top-bar-wrap">
+              <div class="top-bar" [style.width.%]="co.count / topCompanies()[0].count * 100"></div>
+            </div>
+            <span class="top-count">{{ co.count }}</span>
+          </div>
+          }
+        </div>
+        }
+      </div>
+    </div>
+
+  </div>
+
+</div>

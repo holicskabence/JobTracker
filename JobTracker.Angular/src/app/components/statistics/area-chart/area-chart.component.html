@@ -1,0 +1,66 @@
+<div class="chart-wrap">
+  <svg class="chart-svg" [attr.viewBox]="'0 0 ' + VW + ' ' + VH" preserveAspectRatio="xMidYMid meet"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#26ac00" stop-opacity="0.22" />
+        <stop offset="100%" stop-color="#26ac00" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+
+    @for (g of gridLines; track g.y) {
+    <line [attr.x1]="x0" [attr.y1]="g.y" [attr.x2]="VW - PAD.right" [attr.y2]="g.y" class="grid-line" />
+    <text [attr.x]="x0 - 8" [attr.y]="g.y + 4" class="axis-label axis-label--y">{{ g.label }}</text>
+    }
+
+    @if (areaPath) {
+    <path [attr.d]="areaPath" fill="url(#areaGrad)" />
+    }
+
+    @if (callbacksPath) {
+    <path [attr.d]="callbacksPath" class="line line--cb" fill="none" />
+    }
+
+    @if (submittedPath) {
+    <path [attr.d]="submittedPath" class="line line--sub" fill="none" />
+    }
+
+    @for (pt of subPoints; track pt.x) {
+    <circle [attr.cx]="pt.x" [attr.cy]="pt.y" r="5" class="dot dot--sub" />
+    }
+
+    @for (pt of cbPoints; track pt.x) {
+    <circle [attr.cx]="pt.x" [attr.cy]="pt.y" r="4" class="dot dot--cb" />
+    }
+
+    @for (lbl of xLabels; track lbl.x) {
+    <text [attr.x]="lbl.x" [attr.y]="yBottom + 20" class="axis-label axis-label--x">{{ lbl.text }}</text>
+    }
+
+    @for (lbl of xLabels; track lbl.x; let i = $index) {
+    <rect class="hit-col" [attr.x]="lbl.x - colHalfWidth" [attr.y]="y0" [attr.width]="colHalfWidth * 2"
+      [attr.height]="ch + 10" (mouseenter)="onColEnter(i)" (mouseleave)="onColLeave()" />
+    }
+
+    @if (hovered) {
+    <g class="chart-tooltip">
+      <line class="tooltip-vline" [attr.x1]="hovered.x" [attr.y1]="y0" [attr.x2]="hovered.x" [attr.y2]="yBottom" />
+      <rect class="tooltip-rect" [attr.x]="tooltipX(hovered.x)" [attr.y]="y0 + 4" width="104" height="46" rx="7" />
+      <text class="tooltip-month" [attr.x]="tooltipCenterX(hovered.x)" [attr.y]="y0 + 19">{{ hovered.month }}</text>
+      <text class="tooltip-row tooltip-row--sub" [attr.x]="tooltipCenterX(hovered.x)" [attr.y]="y0 + 33">Beadva: {{
+        hovered.sub }}</text>
+      <text class="tooltip-row tooltip-row--cb" [attr.x]="tooltipCenterX(hovered.x)" [attr.y]="y0 + 44">Visszahívás: {{
+        hovered.cb }}</text>
+    </g>
+    }
+  </svg>
+
+  <div class="legend">
+    <span class="legend-item legend-item--sub">
+      <span class="legend-dot legend-dot--sub"></span>Beadva
+    </span>
+    <span class="legend-item legend-item--cb">
+      <span class="legend-dot legend-dot--cb"></span>Visszahívás
+    </span>
+  </div>
+</div>

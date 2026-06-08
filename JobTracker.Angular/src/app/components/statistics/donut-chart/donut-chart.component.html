@@ -1,0 +1,34 @@
+<div class="donut-wrap">
+  <div class="donut-svg-wrap">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="donut-svg">
+      @if (slices.length > 0) {
+      @for (s of slices; track s.status) {
+      <path [attr.d]="s.path" [attr.fill]="s.color" class="slice" (mouseenter)="hoverSlice(s.status)"
+        (mouseleave)="clearHover()" />
+      }
+      } @else {
+      <circle cx="100" cy="100" [attr.r]="R" fill="none" stroke-width="24" stroke="var(--clr-border)"
+        class="empty-ring" />
+      }
+    </svg>
+
+    <div class="donut-center">
+      <span class="donut-center-value">{{ centerValue }}</span>
+      <span class="donut-center-label">{{ centerLabel }}</span>
+    </div>
+  </div>
+
+  @if (slices.length > 0) {
+  <div class="donut-legend">
+    @for (s of slices; track s.status) {
+    <div class="donut-legend-item" [class.donut-legend-item--active]="hoveredSlice?.status === s.status"
+      [style.border-left-color]="hoveredSlice?.status === s.status ? s.color : 'transparent'"
+      (mouseenter)="hoverSlice(s.status)" (mouseleave)="clearHover()">
+      <span class="donut-legend-dot" [style.background-color]="s.color"></span>
+      <span class="donut-legend-name">{{ s.label }}</span>
+      <span class="donut-legend-val">{{ s.value }}</span>
+    </div>
+    }
+  </div>
+  }
+</div>

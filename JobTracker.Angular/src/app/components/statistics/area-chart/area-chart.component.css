@@ -1,0 +1,152 @@
+.chart-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chart-svg {
+  flex: 1;
+  width: 100%;
+  overflow: visible;
+  animation: chart-reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.25s;
+}
+
+@keyframes chart-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0% 0 0);
+  }
+}
+
+.grid-line {
+  stroke: var(--clr-border);
+  stroke-width: 1;
+}
+
+.axis-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  fill: var(--clr-muted);
+}
+
+.axis-label--y {
+  text-anchor: end;
+}
+
+.axis-label--x {
+  text-anchor: middle;
+}
+
+.line {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.line--sub {
+  stroke: #26ac00;
+  stroke-width: 2.5;
+}
+
+.line--cb {
+  stroke: #f59e0b;
+  stroke-width: 2;
+}
+
+.dot {
+  pointer-events: none;
+}
+
+.dot--sub {
+  fill: #26ac00;
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+.dot--cb {
+  fill: #f59e0b;
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+/* Hit areas */
+.hit-col {
+  fill: transparent;
+  cursor: crosshair;
+}
+
+/* Tooltip */
+.chart-tooltip {
+  pointer-events: none;
+}
+
+.tooltip-vline {
+  stroke: var(--clr-border);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+
+.tooltip-rect {
+  fill: var(--clr-dark, #1a1a2e);
+  opacity: 0.92;
+}
+
+.tooltip-month {
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  fill: #ffffff;
+  text-anchor: middle;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.tooltip-row {
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  text-anchor: middle;
+}
+
+.tooltip-row--sub {
+  fill: #26ac00;
+}
+
+.tooltip-row--cb {
+  fill: #f59e0b;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: flex-end;
+  padding-top: 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--clr-muted);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.legend-dot--sub {
+  background-color: #26ac00;
+}
+
+.legend-dot--cb {
+  background-color: #f59e0b;
+}
