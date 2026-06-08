@@ -1,0 +1,25 @@
+<div class="kanban-column" [class.kanban-column--over]="isDragOver" (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+
+    <div class="kanban-column-header">
+        <div class="kanban-column-title-row">
+            <span class="kanban-column-dot" [style.background-color]="color"></span>
+            <h4 class="kanban-column-title">{{ label }}</h4>
+        </div>
+        <span class="kanban-column-count">{{ jobs.length }}</span>
+    </div>
+
+    <div class="kanban-column-cards">
+
+        @for (job of jobs; track job.id) {
+        <app-job-card [job]="job" [isSelected]="isSelected(job.id)" (toggleSelect)="toggleSelect.emit($event)" />
+        }
+
+        @if (jobs.length === 0) {
+        <div class="kanban-column-empty" [class.kanban-column-empty--over]="isDragOver">
+            Húzz ide egy kártyát
+        </div>
+        }
+    </div>
+
+</div>
