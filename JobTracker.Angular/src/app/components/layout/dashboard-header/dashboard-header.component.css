@@ -1,0 +1,113 @@
+.dh {
+    height: 64px;
+    border-bottom: 1px solid var(--clr-border);
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.header-hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    border: none;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--clr-muted);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.header-hamburger:hover {
+    background-color: var(--clr-bg);
+    color: var(--clr-dark);
+}
+
+@media (min-width: 768px) {
+    .header-hamburger {
+        display: none;
+    }
+}
+
+.header-title {
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--clr-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .header-title {
+        font-size: 1.0625rem;
+    }
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.header-user {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--clr-dark);
+    white-space: nowrap;
+    display: none;
+}
+
+@media (min-width: 900px) {
+    .header-user {
+        display: block;
+    }
+}
+
+.header-add-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--clr-green);
+    color: var(--clr-white);
+    border: none;
+    border-radius: var(--radius-full);
+    padding: 0.5625rem 1.125rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 1px 3px var(--clr-shadow);
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.header-add-btn:hover {
+    background-color: var(--clr-green-dk);
+}
+
+
+.header-add-label {
+    display: none;
+}
+
+@media (min-width: 480px) {
+    .header-add-label {
+        display: inline;
+    }
+}
+
+@media (max-width: 479px) {
+    .header-add-btn {
+        padding: var(--padding-input);
+    }
+}
