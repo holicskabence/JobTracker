@@ -6,6 +6,7 @@ import { gsap } from 'gsap';
 import { DashboardTab } from '../../../models/job.model';
 import { JobStoreService } from '../../../services/job-store.service';
 import { PlannerService } from '../../../services/planner.service';
+import { PracticeService } from '../../../services/practice.service';
 import { AuthService } from '../../../services/auth.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { DashboardHeaderComponent } from '../dashboard-header/dashboard-header.component';
@@ -26,6 +27,7 @@ import { AddJobModalComponent } from '../../shared/add-job-modal/add-job-modal.c
 export class DashboardComponent implements OnInit, OnDestroy {
   readonly store = inject(JobStoreService);
   readonly planner = inject(PlannerService);
+  readonly practice = inject(PracticeService);
   readonly auth = inject(AuthService);
   private router = inject(Router);
   private el: ElementRef<HTMLElement> = inject(ElementRef);
@@ -42,6 +44,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.loadInitialData();
     this.planner.loadAll();
+    this.practice.loadAll();
     this.syncTab(this.router.url);
     this.routerSub = this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))

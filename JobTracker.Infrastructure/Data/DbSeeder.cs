@@ -16,6 +16,8 @@ public static class DbSeeder
         SeedCalendarEvents(ctx, demoUserId);
         SeedPlannerTasks(ctx, demoUserId);
         SeedDocuments(ctx, demoUserId);
+        SeedPracticeCategories(ctx, demoUserId);
+        SeedPracticeQuestions(ctx, demoUserId);
     }
 
     public static async Task ResetUserDataAsync(JobTrackerDbContext ctx, int userId)
@@ -26,6 +28,8 @@ public static class DbSeeder
         ctx.UserDocuments.RemoveRange(ctx.UserDocuments.Where(x => x.UserId == userId));
         ctx.EventTypes.RemoveRange(ctx.EventTypes.Where(x => x.UserId == userId));
         ctx.JobStatusConfigs.RemoveRange(ctx.JobStatusConfigs.Where(x => x.UserId == userId));
+        ctx.PracticeQuestions.RemoveRange(ctx.PracticeQuestions.Where(x => x.UserId == userId));
+        ctx.PracticeCategories.RemoveRange(ctx.PracticeCategories.Where(x => x.UserId == userId));
         await ctx.SaveChangesAsync();
 
         ctx.JobStatusConfigs.AddRange(BuildStatusConfigs(userId));
@@ -34,6 +38,8 @@ public static class DbSeeder
         ctx.CalendarEvents.AddRange(BuildCalendarEvents(userId));
         ctx.PlannerTasks.AddRange(BuildPlannerTasks(userId));
         ctx.UserDocuments.AddRange(BuildDocuments(userId));
+        ctx.PracticeCategories.AddRange(BuildPracticeCategories(userId));
+        ctx.PracticeQuestions.AddRange(BuildPracticeQuestions(userId));
         await ctx.SaveChangesAsync();
     }
 
@@ -48,6 +54,13 @@ public static class DbSeeder
     {
         if (ctx.EventTypes.Any(t => t.UserId == userId)) return;
         ctx.EventTypes.AddRange(BuildEventTypes(userId));
+        ctx.SaveChanges();
+    }
+
+    private static void SeedPracticeCategories(JobTrackerDbContext ctx, int userId)
+    {
+        if (ctx.PracticeCategories.Any(c => c.UserId == userId)) return;
+        ctx.PracticeCategories.AddRange(BuildPracticeCategories(userId));
         ctx.SaveChanges();
     }
 
@@ -100,6 +113,13 @@ public static class DbSeeder
         ctx.SaveChanges();
     }
 
+    private static void SeedPracticeQuestions(JobTrackerDbContext ctx, int userId)
+    {
+        if (ctx.PracticeQuestions.Any(q => q.UserId == userId)) return;
+        ctx.PracticeQuestions.AddRange(BuildPracticeQuestions(userId));
+        ctx.SaveChanges();
+    }
+
     private static JobStatusConfig[] BuildStatusConfigs(int userId) =>
     [
         new JobStatusConfig { UserId = userId, Key = "Mentett", Label = "Mentett", Color = "#9b9b99", SortOrder = 0 },
@@ -116,6 +136,13 @@ public static class DbSeeder
         new EventType { Name = "Rendszertervezés", UserId = userId },
         new EventType { Name = "Tesztfeladat", UserId = userId },
         new EventType { Name = "Ajánlat egyeztetés", UserId = userId }
+    ];
+
+    private static PracticeCategory[] BuildPracticeCategories(int userId) =>
+    [
+        new PracticeCategory { UserId = userId, Name = "Technikai", Color = "#26ac00" },
+        new PracticeCategory { UserId = userId, Name = "HR", Color = "#f59e0b" },
+        new PracticeCategory { UserId = userId, Name = "Rendszertervezés", Color = "#8b5cf6" }
     ];
 
     private static Job[] BuildJobs(int userId) =>
@@ -148,5 +175,73 @@ public static class DbSeeder
         new UserDocument { UserId = userId, Name = "Kovacs_Bence_Frontend_CV_2026_HU.pdf", Type = "Önéletrajz", Updated = "2026-05-20", Version = "v2.4" },
         new UserDocument { UserId = userId, Name = "Kovacs_Bence_Senior_Developer_EN.pdf", Type = "Önéletrajz", Updated = "2026-06-01", Version = "v3.0" },
         new UserDocument { UserId = userId, Name = "Standard_Motivacios_Level_HUN.docx", Type = "Kísérőlevél", Updated = "2026-04-10", Version = "v1.1" }
+    ];
+
+    private static PracticeQuestion[] BuildPracticeQuestions(int userId) =>
+    [
+        new PracticeQuestion
+        {
+            UserId = userId,
+            Category = "Technikai",
+            Question = "Hogyan működik a React/Angular Virtual DOM / Change Detection és miért nyújt jobb teljesítményt?",
+            Hint = "Angularban: zone.js, OnPush stratégia, signals. Általánosan: diffing algoritmus, batch update.",
+            SampleAnswer = "Az Angular alapból zone.js segítségével figyeli az aszinkron eseményeket és indít change detection ciklust. Az OnPush stratégiával csak akkor fut le, ha az Input-ok referenciája változik, ami drasztikusan csökkenti a felesleges ciklusokat. Az újabb Angular Signals rendszerben a reaktivitás teljesen granulárissá válik: csak a signal-t olvasó kifejezések frissülnek. Ez hasonló a React Virtual DOM diffing megközelítéséhez, ahol a közvetlen DOM műveletek helyett memóriában számoljuk ki a minimálisan szükséges változtatásokat."
+        },
+        new PracticeQuestion
+        {
+            UserId = userId,
+            Category = "Technikai",
+            Question = "Mi a különbség a state management megoldások között? Mikor érdemes NgRx-et, Signals-t vagy Service-t használni?",
+            Hint = "Globális vs. lokális állapot, felesleges újrarenderelések, egyszerűség vs. skálázhatóság.",
+            SampleAnswer = "Egyszerű, lokális állapothoz elegendő egy Component Signal. Megosztott állapothoz kis-közepes alkalmazásban egy Injectable Service + Signal tökéletes, mivel kevés boilerplate-tel biztosít reaktív szinkronizációt. NGRx-re csak igazán komplex, sok akciót és side-effectet igénylő alkalmazásoknál van szükség, ahol a Redux DevTools és a time-travel debugging értéket ad. A kulcs: ne vezess be komplexitást, amíg a probléma nem igényli."
+        },
+        new PracticeQuestion
+        {
+            UserId = userId,
+            Category = "HR",
+            Question = "Mesélj el egy helyzetet, amikor nézeteltérésed volt egy fejlesztőtársaddal. Hogyan oldottad meg?",
+            Hint = "Használd a STAR módszert. Fókuszálj az empátiára, az adatokon alapuló érvelésre és a kompromisszumra.",
+            SampleAnswer = "Egy projektben a PM azonnali kiadást kért egy animált funkcióhoz, ami szerintem rontotta az akadálymentesítést. Ahelyett, hogy konfrontálódtam volna, gyors Lighthouse-tesztet csináltam mindkét verzióhoz és megmutattam a számadatokat. Felajánlottam egy CSS-alapú átmenetet, ami vizuálisan szép volt, de nem terhelte a processzort. A PM elfogadta, a funkció időben és minőségben jelent meg. A tanulság: az adatokkal alátámasztott javaslat sokkal meggyőzőbb a konfrontációnál."
+        },
+        new PracticeQuestion
+        {
+            UserId = userId,
+            Category = "Rendszertervezés",
+            Question = "Hogyan terveznél meg egy képekkel teli közösségi feedet minimális betöltési idővel?",
+            Hint = "Lazy loading, CDN, WebP/AVIF formátumok, Infinite scroll, lista-virtualizáció.",
+            SampleAnswer = "Több rétegű megközelítést alkalmaznék. Infrastrukturálisan: CDN (pl. Cloudflare) a képek kiszolgálásához, modern formátumokban (WebP/AVIF) és reszponzív méretekben (srcset). Frontenden: Intersection Observer alapú Lazy Loading, hogy csak a látható képek töltődjenek be. A felhasználói élményhez LQIP (Low Quality Image Placeholder) blur-t mutatnék betöltés alatt. A lista-teljesítményhez virtualizált scrollt (CDK Virtual Scroll Angularban) alkalmaznék, hogy egyszerre csak 20-30 DOM elem létezzen, függetlenül az adatok számától."
+        },
+        new PracticeQuestion
+        {
+            UserId = userId,
+            Category = "HR",
+            Question = "Hol látod magad 5 év múlva szakmailag, és hogyan támogatja ezt a pozíció?",
+            Hint = "Mutass elhivatottságot a folyamatos tanulás és az esetleges Tech Lead / mentori szerepek iránt.",
+            SampleAnswer = "Szeretném elmélyíteni a tudásom a modern frontend architektúrák és a teljesítmény-optimalizáció terén, de a célom az is, hogy aktív mentorként és technológiai döntéshozóként (Tech Lead) segítsem a csapatot. Ez a pozíció a komplex, skálázódó termékkel kiváló lehetőséget ad mélyebb technológiai kihívások leküzdésére, miközben a növekvő fejlesztői csapat teret enged a vezetői képességeim fejlesztéséhez is."
+        },
+        new PracticeQuestion
+        {
+            UserId = userId,
+            Category = "Technikai",
+            Question = "Magyarázd el a CSS specificitást és mikor okozhat problémát egy nagy alkalmazásban.",
+            Hint = "Inline > ID > Class > Element. CSS Modules, BEM, scoped styles mint megoldások.",
+            SampleAnswer = "A CSS specificitás határozza meg, melyik stílusszabály \"nyeri\" az ütközést: inline style (1000) > ID (100) > Class/Pseudo-class/Attribute (10) > Element (1). Nagy alkalmazásban ez \"specificity war\"-hoz vezet, ahol fejlesztők egyre magasabb specificitású szelektorokat írnak a felülíráshoz, ami karbantartási rémálomhoz vezet. Megoldások: BEM névadási konvenció (a class alapú hierarchia olvasható marad), CSS Modules vagy Angular Scoped Styles (komponent-szintű izoláció), vagy utility-first CSS mint Tailwind, ahol az összes osztály 10-es specificitású."
+        },
+        new PracticeQuestion
+        {
+            UserId = userId,
+            Category = "Rendszertervezés",
+            Question = "Tervezz meg egy valós idejű értesítési rendszert (pl. chat alkalmazáshoz).",
+            Hint = "WebSocket vs. SSE vs. Long Polling. Reconnection logika, message queue, scale-out.",
+            SampleAnswer = "Valós idejű, kétirányú kommunikációhoz WebSocket a legjobb. Az architektúra: frontend WebSocket kapcsolat egy Gateway szerverre (pl. Socket.io/SignalR), amely Redis Pub/Sub-on keresztül kommunikál a háttérszolgáltatásokkal. Ez lehetővé teszi a horizontális skálázást, mivel minden Gateway-példány feliratkozik a releváns csatornákra. Fontosak még: automatikus reconnection exponenciális backoff-fal, üzenet-sorrend garantálása (sequence number), offline üzenetek tárolása Message Queue-ban (pl. RabbitMQ) és a kapcsolat állapotának kijelzése a UI-on."
+        },
+        new PracticeQuestion
+        {
+            UserId = userId,
+            Category = "Technikai",
+            Question = "Mi az a TypeScript Generic és mikor érdemes használni?",
+            Hint = "Típusbiztonság kódismétlés nélkül. Constraints, default types, conditional types.",
+            SampleAnswer = "A Generic egy típusparaméter, amely lehetővé teszi, hogy egy függvény vagy osztály különböző típusokkal működjön anélkül, hogy elveszítené a típusbiztonságot. Pl. egy `function identity<T>(arg: T): T` bármely típussal hívható és a visszatérési értéke is pontosan az a típus lesz. Érdemes használni: generikus adatstruktúráknál (Repository<T>), API wrapper-eknél (ApiResponse<T>), hook-oknál és utility típusoknál. Constraint-ekkel (`<T extends object>`) tovább szűkíthetjük a megengedett típusokat."
+        }
     ];
 }

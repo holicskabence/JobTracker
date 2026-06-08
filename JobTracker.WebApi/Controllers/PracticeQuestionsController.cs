@@ -1,0 +1,34 @@
+using JobTracker.Application.DTOs;
+using JobTracker.Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+
+namespace JobTracker.WebApi.Controllers;
+
+[Route("api/practice-questions")]
+public sealed class PracticeQuestionsController(IPracticeQuestionService svc) : AuthorizedControllerBase
+{
+    [HttpGet]
+    public async Task<IActionResult> GetAll() =>
+        Ok(await svc.GetAllAsync(CurrentUserId));
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreatePracticeQuestionRequest request)
+    {
+        var created = await svc.CreateAsync(request, CurrentUserId);
+        return StatusCode(201, created);
+    }
+
+    [HttpPatch("{id:int}/feedback")]
+    public async Task<IActionResult> SetFeedback(int id, [FromBody] RatePracticeQuestionRequest request)
+    {
+        var updated = await svc.SetFeedbackAsync(id, request, CurrentUserId);
+        return updated is null ? NotFound(new { message = "A kérdés nem található." }) : Ok(updated);
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await svc.DeleteAsync(id, CurrentUserId);
+        return deleted ? NoContent() : NotFound(new { message = "A kérdés nem található." });
+    }
+}

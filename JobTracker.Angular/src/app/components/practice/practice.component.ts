@@ -1,6 +1,7 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PREP_QUESTIONS, PrepQuestion, FeedbackType, QuestionCategory } from '../../models/practice.model';
+import { PracticeService } from '../../services/practice.service';
+import { FeedbackType, PrepQuestion, QuestionCategory } from '../../models/practice.model';
 
 type FilterCategory = 'Mind' | QuestionCategory;
 
@@ -12,20 +13,21 @@ type FilterCategory = 'Mind' | QuestionCategory;
   styleUrl: './practice.component.css'
 })
 export class PracticeComponent {
-  readonly allQuestions = PREP_QUESTIONS;
-  readonly categories: FilterCategory[] = ['Mind', 'Technikai', 'HR', 'Rendszertervezés'];
+  readonly practice = inject(PracticeService);
+
+  readonly categories = computed<FilterCategory[]>(() =>
+    ['Mind', ...this.practice.categories().map(c => c.name)]
+  );
 
   readonly selectedCategory = signal<FilterCategory>('Mind');
   readonly currentIdx = signal(0);
   readonly userAnswer = signal('');
   readonly showSample = signal(false);
-  readonly feedbackMap = signal<Map<number, FeedbackType>>(new Map());
 
   readonly filteredQuestions = computed<PrepQuestion[]>(() => {
     const cat = this.selectedCategory();
-    return cat === 'Mind'
-      ? this.allQuestions
-      : this.allQuestions.filter(q => q.category === cat);
+    const all = this.practice.questions();
+    return cat === 'Mind' ? all : all.filter(q => q.category === cat);
   });
 
   readonly currentQuestion = computed<PrepQuestion | null>(() => {
@@ -34,24 +36,21 @@ export class PracticeComponent {
     return list[idx] ?? null;
   });
 
-  readonly progress = computed(() => {
-    const list = this.filteredQuestions();
-    return list.length === 0 ? 0 : Math.round(((this.currentIdx() + 1) / list.length) * 100);
+  readonly cardDeck = computed<PrepQuestion[]>(() => {
+    const q = this.currentQuestion();
+    return q ? [q] : [];
   });
 
-  readonly answeredCount = computed(() => {
-    const fb = this.feedbackMap();
-    return this.filteredQuestions().filter(q => fb.has(q.id)).length;
-  });
+  readonly answeredCount = computed(() =>
+    this.filteredQuestions().filter(q => q.feedback !== null).length
+  );
 
   readonly ratingBreakdown = computed(() => {
-    const fb = this.feedbackMap();
     const list = this.filteredQuestions();
-    const rated = list.filter(q => fb.has(q.id));
     return {
-      hard: rated.filter(q => fb.get(q.id) === 'hard').length,
-      good: rated.filter(q => fb.get(q.id) === 'good').length,
-      easy: rated.filter(q => fb.get(q.id) === 'easy').length,
+      hard: list.filter(q => q.feedback === 'hard').length,
+      good: list.filter(q => q.feedback === 'good').length,
+      easy: list.filter(q => q.feedback === 'easy').length,
       total: list.length
     };
   });
@@ -78,9 +77,7 @@ export class PracticeComponent {
   rate(type: FeedbackType): void {
     const q = this.currentQuestion();
     if (!q) return;
-    const map = new Map(this.feedbackMap());
-    map.set(q.id, type);
-    this.feedbackMap.set(map);
+    this.practice.rate(q.id, type);
     setTimeout(() => this.next(), 350);
   }
 
@@ -101,8 +98,8 @@ export class PracticeComponent {
     }
   }
 
-  getFeedback(id: number): FeedbackType | undefined {
-    return this.feedbackMap().get(id);
+  getFeedback(id: number): FeedbackType | null {
+    return this.practice.questions().find(q => q.id === id)?.feedback ?? null;
   }
 
   getReadinessLabel(): string {
@@ -121,17 +118,15 @@ export class PracticeComponent {
     return '#ef4444';
   }
 
-  feedbackLabel(fb: FeedbackType | undefined): string {
+  feedbackLabel(fb: FeedbackType | null): string {
     if (fb === 'easy') return 'EASY';
     if (fb === 'good') return 'GOOD';
     if (fb === 'hard') return 'HARD';
     return '';
   }
 
-  categorySlug(cat: QuestionCategory): string {
-    if (cat === 'Technikai') return 'tech';
-    if (cat === 'HR') return 'hr';
-    return 'sys';
+  categoryColor(cat: QuestionCategory): string {
+    return this.practice.categories().find(c => c.name === cat)?.color ?? '#9b9b99';
   }
 
   trackByCategory(_: number, cat: FilterCategory): string { return cat; }

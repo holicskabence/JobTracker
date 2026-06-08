@@ -2,7 +2,7 @@
 
     <div class="pf-filterbar">
         <div class="pf-filters">
-            @for (cat of categories; track trackByCategory($index, cat)) {
+            @for (cat of categories(); track trackByCategory($index, cat)) {
             <button class="pf-filter" [class.pf-filter--active]="selectedCategory() === cat"
                 (click)="selectCategory(cat)">{{ cat }}</button>
             }
@@ -12,81 +12,86 @@
 
     <div class="pf-layout">
 
-        <div class="pf-card">
-            @if (currentQuestion(); as q) {
+        <div class="pf-deck">
+            @for (q of cardDeck(); track q.id) {
+            <div class="pf-card pf-card--deal">
 
-            <div class="pf-card-top">
-                <span class="pf-cat pf-cat--{{ categorySlug(q.category) }}">{{ q.category }}</span>
-                @if (getFeedback(q.id); as fb) {
-                <span class="pf-answered pf-answered--{{ fb }}">MEGVÁLASZOLVA ({{ feedbackLabel(fb) }})</span>
-                }
-            </div>
+                <div class="pf-card-top">
+                    <span class="pf-cat" [style.background-color]="categoryColor(q.category) + '1a'"
+                        [style.color]="categoryColor(q.category)">{{ q.category }}</span>
+                    @if (getFeedback(q.id); as fb) {
+                    <span class="pf-answered pf-answered--{{ fb }}">MEGVÁLASZOLVA ({{ feedbackLabel(fb) }})</span>
+                    }
+                </div>
 
-            <h2 class="pf-question">{{ q.question }}</h2>
+                <h2 class="pf-question">{{ q.question }}</h2>
 
-            <div class="pf-hint">
-                <svg class="pf-hint-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="12" y1="8" x2="12" y2="12" />
-                    <line x1="12" y1="16" x2="12.01" y2="16" />
-                </svg>
-                <p class="pf-hint-text"><strong>Tipp:</strong> {{ q.hint }}</p>
-            </div>
+                <div class="pf-hint">
+                    <svg class="pf-hint-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                    <p class="pf-hint-text"><strong>Tipp:</strong> {{ q.hint }}</p>
+                </div>
 
-            <hr class="pf-divider" />
+                <hr class="pf-divider" />
 
-            @if (!showSample()) {
-            <label class="pf-ans-label">SAJÁT MEGFOGALMAZÁSOM</label>
-            <textarea class="pf-textarea" [ngModel]="userAnswer()" (ngModelChange)="userAnswer.set($event)"
-                placeholder="Gépeld be ide a válaszod vázlatát vagy kulcsszavait..." rows="4">
+                @if (!showSample()) {
+                <label class="pf-ans-label">SAJÁT MEGFOGALMAZÁSOM</label>
+                <textarea class="pf-textarea" [ngModel]="userAnswer()" (ngModelChange)="userAnswer.set($event)"
+                    placeholder="Gépeld be ide a válaszod vázlatát vagy kulcsszavait..." rows="4">
           </textarea>
 
-            <div class="pf-footer">
-                <button class="pf-reveal-btn" [disabled]="!userAnswer().trim()" (click)="revealSample()">
-                    Mintaválasz megtekintése
-                </button>
-                <div class="pf-nav">
-                    <button class="pf-nav-btn" (click)="prev()" [disabled]="currentIdx() === 0">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="15 18 9 12 15 6" />
-                        </svg>
+                <div class="pf-footer">
+                    <button class="pf-reveal-btn" [disabled]="!userAnswer().trim()" (click)="revealSample()">
+                        Mintaválasz megtekintése
                     </button>
-                    <button class="pf-nav-btn" (click)="next()"
-                        [disabled]="currentIdx() === filteredQuestions().length - 1">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="9 18 15 12 9 6" />
-                        </svg>
-                    </button>
+                    <div class="pf-nav">
+                        <button class="pf-nav-btn" (click)="prev()" [disabled]="currentIdx() === 0">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="15 18 9 12 15 6" />
+                            </svg>
+                        </button>
+                        <button class="pf-nav-btn pf-nav-btn--primary" (click)="next()"
+                            [disabled]="currentIdx() === filteredQuestions().length - 1">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            } @else {
-            <div class="pf-compare">
-                <div class="pf-compare-col">
-                    <div class="pf-compare-label pf-compare-label--yours">A TE VÁLASZOD</div>
-                    <p class="pf-compare-text">{{ userAnswer() }}</p>
+                } @else {
+                <div class="pf-compare">
+                    <div class="pf-compare-col">
+                        <div class="pf-compare-label pf-compare-label--yours">A TE VÁLASZOD</div>
+                        <p class="pf-compare-text">{{ userAnswer() }}</p>
+                    </div>
+                    <div class="pf-compare-col pf-compare-col--sample">
+                        <div class="pf-compare-label pf-compare-label--sample">MINTAVÁLASZ</div>
+                        <p class="pf-compare-text">{{ q.sampleAnswer }}</p>
+                    </div>
                 </div>
-                <div class="pf-compare-col pf-compare-col--sample">
-                    <div class="pf-compare-label pf-compare-label--sample">MINTAVÁLASZ</div>
-                    <p class="pf-compare-text">{{ q.sampleAnswer }}</p>
-                </div>
-            </div>
 
-            <div class="pf-rating">
-                <p class="pf-rating-label">Hogyan sikerült?</p>
-                <div class="pf-rating-btns">
-                    <button class="pf-rate pf-rate--hard" (click)="rate('hard')">⏳ Nehéz volt</button>
-                    <button class="pf-rate pf-rate--good" (click)="rate('good')">👍 Jól ment</button>
-                    <button class="pf-rate pf-rate--easy" (click)="rate('easy')">🎯 Könnyű</button>
+                <div class="pf-rating">
+                    <p class="pf-rating-label">Hogyan sikerült?</p>
+                    <div class="pf-rating-btns">
+                        <button class="pf-rate pf-rate--hard" (click)="rate('hard')">⏳ Nehéz volt</button>
+                        <button class="pf-rate pf-rate--good" (click)="rate('good')">👍 Jól ment</button>
+                        <button class="pf-rate pf-rate--easy" (click)="rate('easy')">🎯 Könnyű</button>
+                    </div>
                 </div>
-            </div>
-            }
+                }
 
-            } @else {
-            <p class="pf-empty">Nincs kérdés ebben a kategóriában.</p>
+            </div>
+            } @empty {
+            <div class="pf-card">
+                <p class="pf-empty">Nincs kérdés ebben a kategóriában.</p>
+            </div>
             }
         </div>
 

@@ -1,0 +1,11 @@
+using JobTracker.Application.DTOs;
+
+namespace JobTracker.Application.Interfaces;
+
+public interface IPracticeQuestionService
+{
+    Task<IReadOnlyList<PracticeQuestionResponse>> GetAllAsync(int userId);
+    Task<PracticeQuestionResponse> CreateAsync(CreatePracticeQuestionRequest request, int userId);
+    Task<PracticeQuestionResponse?> SetFeedbackAsync(int id, RatePracticeQuestionRequest request, int userId);
+    Task<bool> DeleteAsync(int id, int userId);
+}

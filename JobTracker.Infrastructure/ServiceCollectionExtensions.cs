@@ -27,6 +27,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IUserDocumentRepository, UserDocumentRepository>();
         services.AddScoped<IEventTypeRepository, EventTypeRepository>();
         services.AddScoped<IJobStatusConfigRepository, JobStatusConfigRepository>();
+        services.AddScoped<IPracticeQuestionRepository, PracticeQuestionRepository>();
+        services.AddScoped<IPracticeCategoryRepository, PracticeCategoryRepository>();
         services.AddScoped<IAppUserRepository, AppUserRepository>();
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IDemoResetService, DemoResetService>();
