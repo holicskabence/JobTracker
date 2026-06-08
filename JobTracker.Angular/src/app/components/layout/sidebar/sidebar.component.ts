@@ -1,0 +1,21 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+
+@Component({
+  selector: 'app-sidebar',
+  imports: [RouterLink, RouterLinkActive],
+  templateUrl: './sidebar.component.html',
+  styleUrl: './sidebar.component.css'
+})
+export class SidebarComponent {
+  @Input() activeTab = '';
+  @Input() collapsed = false;
+  @Input() mobileOpen = false;
+  @Input() userName = '';
+  @Input() userEmail = '';
+  @Output() toggleCollapsed = new EventEmitter<void>();
+  @Output() closeMobile = new EventEmitter<void>();
+  @Output() logout = new EventEmitter<void>();
+
+  get userInitial(): string { return this.userName.charAt(0).toUpperCase() || '?'; }
+}
