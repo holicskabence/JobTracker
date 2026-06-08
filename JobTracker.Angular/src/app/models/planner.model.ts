@@ -21,14 +21,6 @@ export interface UserDocument {
   version: string;
 }
 
-export const EVENT_TYPES = [
-  'HR Megkeresés',
-  'Technikai Interjú',
-  'Rendszertervezés',
-  'Tesztfeladat',
-  'Ajánlat egyeztetés'
-] as const;
-
 export const DOCUMENT_TYPES = ['Önéletrajz', 'Kísérőlevél', 'Portfólió', 'Egyéb'] as const;
 
 export const OUTREACH_TEMPLATES = [

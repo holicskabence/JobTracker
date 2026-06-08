@@ -1,4 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { JobApiService } from './job-api.service';
 import {
   Job,
@@ -60,18 +61,24 @@ export class JobStoreService {
     const key = label.trim();
     if (!key) return;
     if (this.statusConfigs().some(c => c.key === key)) return;
-    this.api.createStatusConfig({ key, label: key, color }).subscribe(created =>
-      this.statusConfigs.update(prev => [...prev, created])
-    );
+    this.error.set('');
+    this.api.createStatusConfig({ key, label: key, color }).subscribe({
+      next: created => this.statusConfigs.update(prev => [...prev, created]),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült létrehozni a státuszt.')
+    });
   }
 
   deleteStatus(key: string): void {
     const cfg = this.statusConfigs().find(c => c.key === key);
     if (!cfg?.id) return;
     if (this.statusConfigs().length <= 1) return;
-    this.api.deleteStatusConfig(cfg.id).subscribe(() =>
-      this.statusConfigs.update(prev => prev.filter(c => c.key !== key))
-    );
+    this.error.set('');
+    this.api.deleteStatusConfig(cfg.id).subscribe({
+      next: () => this.statusConfigs.update(prev => prev.filter(c => c.key !== key)),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült törölni a státuszt.')
+    });
   }
 
   loadInitialData(): void {

@@ -7,29 +7,30 @@ namespace JobTracker.Application.Services;
 
 public sealed class CalendarEventService(ICalendarEventRepository repo) : ICalendarEventService
 {
-    public async Task<IReadOnlyList<CalendarEventResponse>> GetAllAsync()
+    public async Task<IReadOnlyList<CalendarEventResponse>> GetAllAsync(int userId)
     {
-        var events = await repo.GetAllAsync();
+        var events = await repo.GetAllByUserAsync(userId);
         return events.Select(Map).ToList();
     }
 
-    public async Task<IReadOnlyList<CalendarEventResponse>> GetUpcomingAsync()
+    public async Task<IReadOnlyList<CalendarEventResponse>> GetUpcomingAsync(int userId)
     {
         var today = DateTime.Today.ToString("yyyy-MM-dd");
-        var events = await repo.GetUpcomingAsync(today);
+        var events = await repo.GetUpcomingAsync(today, userId);
         return events.Select(Map).ToList();
     }
 
-    public async Task<CalendarEventResponse?> GetByIdAsync(int id)
+    public async Task<CalendarEventResponse?> GetByIdAsync(int id, int userId)
     {
-        var ev = await repo.GetByIdAsync(id);
+        var ev = await repo.GetByIdAsync(id, userId);
         return ev is null ? null : Map(ev);
     }
 
-    public async Task<CalendarEventResponse> CreateAsync(CreateCalendarEventRequest request)
+    public async Task<CalendarEventResponse> CreateAsync(int userId, CreateCalendarEventRequest request)
     {
         var ev = new CalendarEvent
         {
+            UserId = userId,
             Type = request.Type,
             Company = request.Company,
             Date = request.Date,
@@ -40,9 +41,9 @@ public sealed class CalendarEventService(ICalendarEventRepository repo) : ICalen
         return Map(ev);
     }
 
-    public async Task<CalendarEventResponse?> UpdateAsync(int id, UpdateCalendarEventRequest request)
+    public async Task<CalendarEventResponse?> UpdateAsync(int id, int userId, UpdateCalendarEventRequest request)
     {
-        var ev = await repo.GetByIdAsync(id);
+        var ev = await repo.GetByIdAsync(id, userId);
         if (ev is null) return null;
 
         ev.Type = request.Type;
@@ -55,7 +56,7 @@ public sealed class CalendarEventService(ICalendarEventRepository repo) : ICalen
         return Map(ev);
     }
 
-    public async Task<bool> DeleteAsync(int id) => await repo.DeleteAsync(id);
+    public async Task<bool> DeleteAsync(int id, int userId) => await repo.DeleteAsync(id, userId);
 
     private static CalendarEventResponse Map(CalendarEvent e) =>
         new(e.Id, e.Type, e.Company, e.Date, e.Time, e.Notes);

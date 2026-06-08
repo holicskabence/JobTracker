@@ -4,5 +4,7 @@ using JobTracker.Domain.Entities;
 
 public interface IPlannerTaskRepository : IRepository<PlannerTask>
 {
-    Task<PlannerTask?> ToggleCompletedAsync(int id);
+    Task<IReadOnlyList<PlannerTask>> GetAllByUserAsync(int userId);
+    Task<PlannerTask?> ToggleCompletedAsync(int id, int userId);
+    Task<bool> DeleteAsync(int id, int userId);
 }

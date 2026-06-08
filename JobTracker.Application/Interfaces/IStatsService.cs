@@ -4,5 +4,5 @@ namespace JobTracker.Application.Interfaces;
 
 public interface IStatsService
 {
-    Task<IReadOnlyList<MonthlyStatsResponse>> GetMonthlyAsync();
+    Task<IReadOnlyList<MonthlyStatsResponse>> GetMonthlyAsync(int userId);
 }

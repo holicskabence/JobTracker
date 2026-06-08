@@ -23,6 +23,8 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
             e.Property(x => x.Position).IsRequired().HasMaxLength(200);
             e.Property(x => x.Date).IsRequired().HasMaxLength(10);
             e.Property(x => x.Status).IsRequired().HasMaxLength(50);
+            e.HasIndex(x => x.UserId);
+            e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
         });
 
         builder.Entity<CalendarEvent>(e =>
@@ -33,12 +35,16 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
             e.Property(x => x.Date).IsRequired().HasMaxLength(10);
             e.Property(x => x.Time).IsRequired().HasMaxLength(5);
             e.Property(x => x.Notes).HasMaxLength(1000);
+            e.HasIndex(x => x.UserId);
+            e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
         });
 
         builder.Entity<PlannerTask>(e =>
         {
             e.HasKey(x => x.Id);
             e.Property(x => x.Text).IsRequired().HasMaxLength(500);
+            e.HasIndex(x => x.UserId);
+            e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
         });
 
         builder.Entity<UserDocument>(e =>
@@ -48,13 +54,16 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
             e.Property(x => x.Type).IsRequired().HasMaxLength(100);
             e.Property(x => x.Updated).IsRequired().HasMaxLength(10);
             e.Property(x => x.Version).IsRequired().HasMaxLength(50);
+            e.HasIndex(x => x.UserId);
+            e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
         });
 
         builder.Entity<EventType>(e =>
         {
             e.HasKey(x => x.Id);
             e.Property(x => x.Name).IsRequired().HasMaxLength(100);
-            e.HasIndex(x => x.Name).IsUnique();
+            e.HasIndex(x => new { x.UserId, x.Name }).IsUnique();
+            e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
         });
 
         builder.Entity<JobStatusConfig>(e =>
@@ -63,7 +72,8 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
             e.Property(x => x.Key).IsRequired().HasMaxLength(50);
             e.Property(x => x.Label).IsRequired().HasMaxLength(100);
             e.Property(x => x.Color).IsRequired().HasMaxLength(20);
-            e.HasIndex(x => x.Key).IsUnique();
+            e.HasIndex(x => new { x.UserId, x.Key }).IsUnique();
+            e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
         });
 
         builder.Entity<AppUser>(e =>

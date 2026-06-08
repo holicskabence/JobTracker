@@ -107,7 +107,12 @@ namespace JobTracker.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("CalendarEvents");
                 });
@@ -125,9 +130,12 @@ namespace JobTracker.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
+                    b.HasIndex("UserId", "Name")
                         .IsUnique();
 
                     b.ToTable("EventTypes");
@@ -164,7 +172,12 @@ namespace JobTracker.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Jobs");
                 });
@@ -195,9 +208,12 @@ namespace JobTracker.Infrastructure.Migrations
                     b.Property<int>("SortOrder")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("Key")
+                    b.HasIndex("UserId", "Key")
                         .IsUnique();
 
                     b.ToTable("JobStatusConfigs");
@@ -222,7 +238,12 @@ namespace JobTracker.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("PlannerTasks");
                 });
@@ -250,6 +271,9 @@ namespace JobTracker.Infrastructure.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Version")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -257,7 +281,63 @@ namespace JobTracker.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("UserDocuments");
+                });
+
+            modelBuilder.Entity("JobTracker.Domain.Entities.CalendarEvent", b =>
+                {
+                    b.HasOne("JobTracker.Domain.Entities.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("JobTracker.Domain.Entities.EventType", b =>
+                {
+                    b.HasOne("JobTracker.Domain.Entities.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("JobTracker.Domain.Entities.Job", b =>
+                {
+                    b.HasOne("JobTracker.Domain.Entities.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("JobTracker.Domain.Entities.JobStatusConfig", b =>
+                {
+                    b.HasOne("JobTracker.Domain.Entities.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("JobTracker.Domain.Entities.PlannerTask", b =>
+                {
+                    b.HasOne("JobTracker.Domain.Entities.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("JobTracker.Domain.Entities.UserDocument", b =>
+                {
+                    b.HasOne("JobTracker.Domain.Entities.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

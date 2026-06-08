@@ -29,6 +29,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IJobStatusConfigRepository, JobStatusConfigRepository>();
         services.AddScoped<IAppUserRepository, AppUserRepository>();
         services.AddScoped<IJwtService, JwtService>();
+        services.AddScoped<IDemoResetService, DemoResetService>();
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

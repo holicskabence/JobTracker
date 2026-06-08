@@ -1,20 +1,12 @@
-using System.Security.Claims;
 using JobTracker.Application.DTOs;
 using JobTracker.Application.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobTracker.WebApi.Controllers;
 
-[ApiController]
 [Route("api/profile")]
-[Authorize]
-public sealed class ProfileController(IUserProfileService svc) : ControllerBase
+public sealed class ProfileController(IUserProfileService svc) : AuthorizedControllerBase
 {
-    private int CurrentUserId =>
-        int.Parse(User.FindFirstValue(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub)
-            ?? User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-
     [HttpGet]
     public async Task<IActionResult> Get()
     {

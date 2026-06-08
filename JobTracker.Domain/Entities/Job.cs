@@ -3,6 +3,7 @@ namespace JobTracker.Domain.Entities;
 public class Job
 {
     public int Id { get; set; }
+    public int UserId { get; set; }
     public string Company { get; set; } = string.Empty;
     public string Position { get; set; } = string.Empty;
     public string? Link { get; set; }

@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -46,8 +47,8 @@ export class RegisterComponent {
         this.loading.set(false);
         this.router.navigate(['/login']);
       },
-      error: () => {
-        this.errors['general'] = 'Regisztráció sikertelen. Próbáld meg újra.';
+      error: (err: HttpErrorResponse) => {
+        this.errors['general'] = err.error?.message ?? 'Regisztráció sikertelen. Próbáld meg újra.';
         this.loading.set(false);
       }
     });

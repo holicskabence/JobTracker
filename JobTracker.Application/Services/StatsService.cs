@@ -6,9 +6,9 @@ namespace JobTracker.Application.Services;
 
 public sealed class StatsService(IJobRepository repo) : IStatsService
 {
-    public async Task<IReadOnlyList<MonthlyStatsResponse>> GetMonthlyAsync()
+    public async Task<IReadOnlyList<MonthlyStatsResponse>> GetMonthlyAsync(int userId)
     {
-        var jobs = await repo.GetAllAsync();
+        var jobs = await repo.GetAllByUserAsync(userId);
 
         return jobs
             .Where(j => !string.IsNullOrEmpty(j.Date) && j.Date.Length >= 7)

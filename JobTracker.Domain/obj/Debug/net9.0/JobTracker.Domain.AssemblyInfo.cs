@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("JobTracker.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c5b0457193ba33ebb85a38d023778ac2bb787208")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a57c46ff94b017586b7760d13f34c714e4128cc5")]
 [assembly: System.Reflection.AssemblyProductAttribute("JobTracker.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("JobTracker.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

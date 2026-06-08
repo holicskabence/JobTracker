@@ -1,7 +1,7 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, tap, map, catchError, of } from 'rxjs';
+import { Observable, tap, map } from 'rxjs';
 import { UserProfile } from '../models/user.model';
 
 interface AuthResponse {
@@ -29,18 +29,6 @@ interface UpdateProfileRequest {
   goal: number;
 }
 
-const OFFLINE_DEMO_USER: UserProfile = {
-  id: 0,
-  firstName: 'Bence',
-  lastName: 'Holicska',
-  name: 'Holicska Bence',
-  position: 'Fullstack Developer',
-  email: 'benceholicska@gmail.com',
-  phone: '+36 30 123 4567',
-  goal: 30,
-  joinDate: '2026. március'
-};
-
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   readonly currentUser = signal<UserProfile | null>(null);
@@ -64,11 +52,10 @@ export class AuthService {
     }
   }
 
-  login(email: string, password: string): Observable<boolean> {
+  login(email: string, password: string): Observable<void> {
     return this.http.post<AuthResponse>('/api/auth/login', { email, password }).pipe(
       tap(res => this.persistSession(res)),
-      map(() => true),
-      catchError(() => of(false))
+      map(() => undefined)
     );
   }
 
@@ -77,11 +64,7 @@ export class AuthService {
       email: 'benceholicska@gmail.com', password: 'Demo@1234'
     }).pipe(
       tap(res => this.persistSession(res)),
-      map(() => undefined as void),
-      catchError(() => {
-        this.currentUser.set(OFFLINE_DEMO_USER);
-        return of(undefined as void);
-      })
+      map(() => undefined as void)
     );
   }
 
@@ -108,10 +91,9 @@ export class AuthService {
     );
   }
 
-  changePassword(currentPassword: string, newPassword: string): Observable<{ ok: boolean; message?: string }> {
-    return this.http.patch('/api/profile/password', { currentPassword, newPassword }, { observe: 'response' }).pipe(
-      map(res => ({ ok: res.status === 204 })),
-      catchError(() => of({ ok: false, message: 'A jelenlegi jelszó nem helyes.' }))
+  changePassword(currentPassword: string, newPassword: string): Observable<void> {
+    return this.http.patch<void>('/api/profile/password', { currentPassword, newPassword }).pipe(
+      map(() => undefined)
     );
   }
 

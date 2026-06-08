@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobTracker.WebApi.Controllers;
 
-[ApiController]
 [Route("api/stats")]
-public sealed class StatsController(IStatsService svc) : ControllerBase
+public sealed class StatsController(IStatsService svc) : AuthorizedControllerBase
 {
     [HttpGet("monthly")]
     public async Task<IActionResult> GetMonthly() =>
-        Ok(await svc.GetMonthlyAsync());
+        Ok(await svc.GetMonthlyAsync(CurrentUserId));
 }

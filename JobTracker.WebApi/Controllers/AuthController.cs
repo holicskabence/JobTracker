@@ -12,7 +12,9 @@ public sealed class AuthController(IAuthService svc) : ControllerBase
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
         var result = await svc.RegisterAsync(request);
-        return Ok(result);
+        return result is null
+            ? Conflict(new { message = "Ezzel az email címmel már regisztráltak felhasználót." })
+            : Ok(result);
     }
 
     [HttpPost("login")]

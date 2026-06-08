@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -28,16 +29,11 @@ export class LoginComponent {
     }
     this.loading.set(true);
     this.auth.login(this.email.trim(), this.password).subscribe({
-      next: ok => {
-        if (ok) {
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.error = 'Hibás e-mail cím vagy jelszó.';
-          this.loading.set(false);
-        }
-      },
-      error: () => {
-        this.error = 'Nem sikerült csatlakozni a szerverhez.';
+      next: () => this.router.navigate(['/dashboard']),
+      error: (err: HttpErrorResponse) => {
+        this.error = err.status === 401
+          ? (err.error?.message ?? 'Hibás e-mail cím vagy jelszó.')
+          : 'Nem sikerült csatlakozni a szerverhez.';
         this.loading.set(false);
       }
     });

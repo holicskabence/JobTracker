@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { UserProfile } from '../../models/user.model';
 
@@ -78,19 +79,15 @@ export class ProfileComponent implements OnInit {
     if (this.newPwd !== this.confirmPwd) { this.pwdError = 'A két jelszó nem egyezik.'; return; }
 
     this.auth.changePassword(this.currentPwd, this.newPwd).subscribe({
-      next: result => {
-        if (result.ok) {
-          this.currentPwd = '';
-          this.newPwd = '';
-          this.confirmPwd = '';
-          this.pwdSaved = true;
-          setTimeout(() => this.pwdSaved = false, 2500);
-        } else {
-          this.pwdError = result.message ?? 'A jelenlegi jelszó nem helyes.';
-        }
+      next: () => {
+        this.currentPwd = '';
+        this.newPwd = '';
+        this.confirmPwd = '';
+        this.pwdSaved = true;
+        setTimeout(() => this.pwdSaved = false, 2500);
       },
-      error: () => {
-        this.pwdError = 'Jelszócsere sikertelen.';
+      error: (err: HttpErrorResponse) => {
+        this.pwdError = err.error?.message ?? 'Jelszócsere sikertelen.';
       }
     });
   }

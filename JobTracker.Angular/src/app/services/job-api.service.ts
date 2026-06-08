@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, of } from 'rxjs';
-import { Job, JobStatus, JobStatusConfig, MonthlyStatsPoint, DEFAULT_STATUS_CONFIGS } from '../models/job.model';
-import { INITIAL_JOBS, MONTHLY_STATS } from '../data/mock-data';
+import { Observable, map } from 'rxjs';
+import { Job, JobStatus, JobStatusConfig, MonthlyStatsPoint } from '../models/job.model';
 
 @Injectable({ providedIn: 'root' })
 export class JobApiService {
@@ -10,9 +9,7 @@ export class JobApiService {
 
   // ── Jobs ─────────────────────────────────────────────────
   getJobs(): Observable<Job[]> {
-    return this.http.get<Job[]>('/api/jobs').pipe(
-      catchError(() => of(INITIAL_JOBS))
-    );
+    return this.http.get<Job[]>('/api/jobs');
   }
 
   createJob(job: Omit<Job, 'id' | 'date'>): Observable<Job> {
@@ -38,16 +35,13 @@ export class JobApiService {
       map(stats => stats.map(s => ({
         ...s,
         month: new Date(s.month + '-01').toLocaleDateString('hu-HU', { month: 'short' })
-      }))),
-      catchError(() => of(MONTHLY_STATS))
+      })))
     );
   }
 
   // ── Status configs ───────────────────────────────────────
   getStatusConfigs(): Observable<JobStatusConfig[]> {
-    return this.http.get<JobStatusConfig[]>('/api/status-configs').pipe(
-      catchError(() => of(DEFAULT_STATUS_CONFIGS))
-    );
+    return this.http.get<JobStatusConfig[]>('/api/status-configs');
   }
 
   createStatusConfig(data: { key: string; label: string; color: string }): Observable<JobStatusConfig> {
