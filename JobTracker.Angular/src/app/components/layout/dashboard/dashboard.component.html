@@ -1,0 +1,46 @@
+<div class="sd" [class.status-dropdown--form]="variant === 'form'">
+
+    @if (variant === 'dots') {
+    <button type="button" class="status-dropdown-trigger status-dropdown-trigger--dots"
+        [class.status-dropdown-trigger--open]="isOpen" (click)="toggle($event)" title="Státusz módosítása">
+        <svg width="15" height="15" viewBox="0 0 24 24">
+            <circle cx="12" cy="5" r="2" fill="currentColor" />
+            <circle cx="12" cy="12" r="2" fill="currentColor" />
+            <circle cx="12" cy="19" r="2" fill="currentColor" />
+        </svg>
+    </button>
+    }
+
+    @if (variant === 'form') {
+    <button type="button" class="status-dropdown-trigger status-dropdown-trigger--form"
+        [class.status-dropdown-trigger--open]="isOpen" (click)="toggle($event)">
+        <span class="status-dropdown-form-dot" [style.background-color]="colorFor(value)"></span>
+        <span class="status-dropdown-form-label">{{ labelFor(value) }}</span>
+        <svg class="status-dropdown-form-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+            [style.transform]="isOpen ? 'rotate(180deg)' : 'none'">
+            <polyline points="6 9 12 15 18 9" />
+        </svg>
+    </button>
+    }
+
+    @if (isOpen) {
+    <div class="status-dropdown-panel" [style.top.px]="panelTop" [style.left.px]="panelLeft"
+        [style.width.px]="panelWidth" (click)="$event.stopPropagation()">
+        @for (opt of options(); track opt.key) {
+        <button type="button" class="status-dropdown-option" [class.status-dropdown-option--current]="opt.key === value"
+            (click)="pick(opt.key, $event)">
+            <span class="status-dropdown-dot" [style.background-color]="opt.color"></span>
+            <span class="status-dropdown-name">{{ opt.label }}</span>
+            @if (opt.key === value) {
+            <svg class="status-dropdown-check" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+            }
+        </button>
+        }
+    </div>
+    }
+
+</div>
