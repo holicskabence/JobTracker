@@ -1,0 +1,60 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, map, of } from 'rxjs';
+import { Job, JobStatus, JobStatusConfig, MonthlyStatsPoint, DEFAULT_STATUS_CONFIGS } from '../models/job.model';
+import { INITIAL_JOBS, MONTHLY_STATS } from '../data/mock-data';
+
+@Injectable({ providedIn: 'root' })
+export class JobApiService {
+  constructor(private readonly http: HttpClient) { }
+
+  // ── Jobs ─────────────────────────────────────────────────
+  getJobs(): Observable<Job[]> {
+    return this.http.get<Job[]>('/api/jobs').pipe(
+      catchError(() => of(INITIAL_JOBS))
+    );
+  }
+
+  createJob(job: Omit<Job, 'id' | 'date'>): Observable<Job> {
+    const payload = { ...job, date: new Date().toISOString().split('T')[0] };
+    return this.http.post<Job>('/api/jobs', payload);
+  }
+
+  updateJob(id: number, data: Omit<Job, 'id'>): Observable<Job> {
+    return this.http.put<Job>(`/api/jobs/${id}`, data);
+  }
+
+  updateJobStatus(jobId: number, status: JobStatus): Observable<Job> {
+    return this.http.patch<Job>(`/api/jobs/${jobId}`, { status });
+  }
+
+  deleteJob(id: number): Observable<void> {
+    return this.http.delete<void>(`/api/jobs/${id}`);
+  }
+
+  // ── Monthly stats ────────────────────────────────────────
+  getMonthlyStats(): Observable<MonthlyStatsPoint[]> {
+    return this.http.get<{ month: string; submitted: number; callbacks: number }[]>('/api/stats/monthly').pipe(
+      map(stats => stats.map(s => ({
+        ...s,
+        month: new Date(s.month + '-01').toLocaleDateString('hu-HU', { month: 'short' })
+      }))),
+      catchError(() => of(MONTHLY_STATS))
+    );
+  }
+
+  // ── Status configs ───────────────────────────────────────
+  getStatusConfigs(): Observable<JobStatusConfig[]> {
+    return this.http.get<JobStatusConfig[]>('/api/status-configs').pipe(
+      catchError(() => of(DEFAULT_STATUS_CONFIGS))
+    );
+  }
+
+  createStatusConfig(data: { key: string; label: string; color: string }): Observable<JobStatusConfig> {
+    return this.http.post<JobStatusConfig>('/api/status-configs', data);
+  }
+
+  deleteStatusConfig(id: number): Observable<void> {
+    return this.http.delete<void>(`/api/status-configs/${id}`);
+  }
+}
