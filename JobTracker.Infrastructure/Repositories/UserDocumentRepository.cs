@@ -11,6 +11,9 @@ public sealed class UserDocumentRepository(JobTrackerDbContext ctx)
     public async Task<IReadOnlyList<UserDocument>> GetAllByUserAsync(int userId) =>
         await Ctx.UserDocuments.Where(d => d.UserId == userId).ToListAsync();
 
+    public async Task<UserDocument?> GetByIdAndUserAsync(int id, int userId) =>
+        await Ctx.UserDocuments.FirstOrDefaultAsync(d => d.Id == id && d.UserId == userId);
+
     public async Task<bool> DeleteAsync(int id, int userId)
     {
         var doc = await Ctx.UserDocuments.FirstOrDefaultAsync(d => d.Id == id && d.UserId == userId);

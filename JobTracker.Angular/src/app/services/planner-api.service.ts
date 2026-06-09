@@ -45,8 +45,18 @@ export class PlannerApiService {
     return this.http.get<UserDocument[]>('/api/documents');
   }
 
-  createDocument(data: Omit<UserDocument, 'id' | 'updated'>): Observable<UserDocument> {
+  createDocument(data: Omit<UserDocument, 'id' | 'updated' | 'hasFile' | 'fileName'>): Observable<UserDocument> {
     return this.http.post<UserDocument>('/api/documents', data);
+  }
+
+  uploadDocumentFile(id: number, file: File): Observable<UserDocument> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post<UserDocument>(`/api/documents/${id}/file`, formData);
+  }
+
+  downloadDocumentFile(id: number): Observable<Blob> {
+    return this.http.get(`/api/documents/${id}/file`, { responseType: 'blob' });
   }
 
   deleteDocument(id: number): Observable<void> {

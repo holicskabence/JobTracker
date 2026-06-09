@@ -8,4 +8,6 @@ public class UserDocument
     public string Type { get; set; } = string.Empty;
     public string Updated { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
+    public string? BlobName { get; set; }
+    public string? FileName { get; set; }
 }

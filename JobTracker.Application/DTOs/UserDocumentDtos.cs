@@ -5,7 +5,9 @@ public record UserDocumentResponse(
     string Name,
     string Type,
     string Updated,
-    string Version
+    string Version,
+    bool HasFile,
+    string? FileName
 );
 
 public record CreateUserDocumentRequest(

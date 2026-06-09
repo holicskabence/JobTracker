@@ -1,7 +1,9 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, computed, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FeedbackType, PracticeCategory, PrepQuestion } from '../models/practice.model';
 import { CreatePracticeQuestionPayload, PracticeApiService } from './practice-api.service';
+
+const PRACTICE_DATES_KEY = 'practice_dates';
 
 @Injectable({ providedIn: 'root' })
 export class PracticeService {
@@ -9,7 +11,60 @@ export class PracticeService {
   readonly categories = signal<PracticeCategory[]>([]);
   readonly error = signal<string>('');
 
+  private readonly _practiceDates = signal<string[]>(this._loadDates());
+
+  readonly practiceStreak = computed(() => {
+    const dates = new Set(this._practiceDates());
+    const today = new Date();
+    let count = 0;
+    for (let i = 0; i < 365; i++) {
+      const d = new Date(today);
+      d.setDate(today.getDate() - i);
+      const key = d.toISOString().split('T')[0];
+      if (dates.has(key)) { count++; }
+      else if (i > 0) { break; }
+    }
+    return count;
+  });
+
+  readonly lastPracticedDaysAgo = computed((): number | null => {
+    const dates = this._practiceDates();
+    if (!dates.length) return null;
+    const latest = [...dates].sort().at(-1)!;
+    const last = new Date(latest); last.setHours(0, 0, 0, 0);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    return Math.round((today.getTime() - last.getTime()) / 86_400_000);
+  });
+
+  readonly readinessScore = computed(() => {
+    const qs = this.questions();
+    const total = qs.length;
+    if (total === 0) return 0;
+    const easy = qs.filter(q => q.feedback === 'easy').length;
+    const good = qs.filter(q => q.feedback === 'good').length;
+    const hard = qs.filter(q => q.feedback === 'hard').length;
+    return Math.round(((easy * 1 + good * 0.6 + hard * 0.2) / total) * 100);
+  });
+
+  readonly answeredCount = computed(() =>
+    this.questions().filter(q => q.feedback !== null).length
+  );
+
   constructor(private readonly api: PracticeApiService) { }
+
+  private _loadDates(): string[] {
+    try { return JSON.parse(localStorage.getItem(PRACTICE_DATES_KEY) ?? '[]'); }
+    catch { return []; }
+  }
+
+  private _saveToday(): void {
+    const today = new Date().toISOString().split('T')[0];
+    const dates = this._practiceDates();
+    if (dates.includes(today)) return;
+    const updated = [...dates, today];
+    localStorage.setItem(PRACTICE_DATES_KEY, JSON.stringify(updated));
+    this._practiceDates.set(updated);
+  }
 
   loadAll(): void {
     this.error.set('');
@@ -56,6 +111,7 @@ export class PracticeService {
 
   rate(id: number, feedback: FeedbackType): void {
     this.error.set('');
+    this._saveToday();
     this.api.rateQuestion(id, feedback).subscribe({
       next: updated => this.questions.update(prev => prev.map(q => q.id === id ? updated : q)),
       error: (err: HttpErrorResponse) =>

@@ -32,6 +32,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IAppUserRepository, AppUserRepository>();
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IDemoResetService, DemoResetService>();
+        services.AddSingleton<IBlobStorageService, BlobStorageService>();
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

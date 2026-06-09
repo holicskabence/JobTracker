@@ -74,6 +74,43 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "JobTracker.WebApi.Controllers.DocumentsController",
+    "Method": "UploadFile",
+    "RelativePath": "api/documents/{id}/file",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "JobTracker.WebApi.Controllers.DocumentsController",
+    "Method": "DownloadFile",
+    "RelativePath": "api/documents/{id}/file",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "JobTracker.WebApi.Controllers.EventTypesController",
     "Method": "GetAll",
     "RelativePath": "api/event-types",

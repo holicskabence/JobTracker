@@ -202,4 +202,15 @@ C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.
 C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\Azure.Storage.Blobs.dll
+C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\Azure.Storage.Common.dll
+C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\System.Diagnostics.DiagnosticSource.dll
+C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\System.IO.Hashing.dll
+C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\System.IO.Pipelines.dll
+C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\System.Text.Encodings.Web.dll
+C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Text.Encodings.Web.dll
 C:\JobTracker\JobTracker.WebApi\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

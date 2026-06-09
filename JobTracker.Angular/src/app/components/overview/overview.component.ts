@@ -2,6 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { JobStoreService } from '../../services/job-store.service';
 import { PlannerService } from '../../services/planner.service';
+import { PracticeService } from '../../services/practice.service';
 import { DashboardTab } from '../../models/job.model';
 
 @Component({
@@ -14,6 +15,7 @@ export class OverviewComponent {
   private readonly router = inject(Router);
   readonly store = inject(JobStoreService);
   readonly planner = inject(PlannerService);
+  readonly practice = inject(PracticeService);
 
   navigate(tab: DashboardTab): void {
     this.router.navigate(['/dashboard', tab]);
@@ -162,6 +164,31 @@ export class OverviewComponent {
     if (diff <= 7) return `${diff} nap múlva`;
     return new Date(d).toLocaleDateString('hu-HU', { month: 'long', day: 'numeric' });
   }
+
+  readonly practiceStreakLabel = computed(() => {
+    const days = this.practice.lastPracticedDaysAgo();
+    if (days === null) return 'Még nem gyakoroltál';
+    if (days === 0) return 'Ma gyakoroltál! 🔥';
+    if (days === 1) return 'Tegnap – folytasd ma!';
+    if (days <= 3) return `${days} napja nem volt gyakorlás`;
+    return `${days} napja nem gyakoroltál – ideje visszatérni!`;
+  });
+
+  readonly readinessColor = computed(() => {
+    const s = this.practice.readinessScore();
+    if (s >= 80) return '#26ac00';
+    if (s >= 60) return '#5fb9fa';
+    if (s >= 40) return '#f59e0b';
+    return '#ef4444';
+  });
+
+  readonly readinessLabel = computed(() => {
+    const s = this.practice.readinessScore();
+    if (s >= 80) return 'Kiváló';
+    if (s >= 60) return 'Jó';
+    if (s >= 40) return 'Fejleszthető';
+    return 'Kezdő';
+  });
 
   initial(s: string): string { return s.charAt(0).toUpperCase(); }
   colorFor(status: string): string { return this.store.colorFor(status); }

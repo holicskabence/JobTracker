@@ -39,13 +39,30 @@
             </div>
           </div>
 
-          <button class="documents-add-btn" type="submit">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-            </svg>
-            Rögzítés
-          </button>
+          <div class="documents-form-actions">
+            <label class="documents-file-label">
+              <input type="file" class="documents-file-input" (change)="onFileSelected($event)" accept=".pdf,.doc,.docx" />
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              @if (selectedFile) {
+                <span class="documents-file-name">{{ selectedFile.name }}</span>
+              } @else {
+                <span>Fájl csatolása (opcionális)</span>
+              }
+            </label>
+
+            <button class="documents-add-btn" type="submit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+              Rögzítés
+            </button>
+          </div>
 
         </form>
       </div>
@@ -65,12 +82,22 @@
       <div class="documents-list">
         @for (doc of filteredDocuments(); track doc.id; let i = $index) {
           <div class="documents-item" [class.documents-item--first]="i === 0">
-            <div class="documents-item-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-              </svg>
+            <div class="documents-item-icon" [class.documents-item-icon--has-file]="doc.hasFile">
+              @if (doc.hasFile) {
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <polyline points="8 13 10 15 16 13"/>
+                  <line x1="10" y1="15" x2="10" y2="9"/>
+                </svg>
+              } @else {
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+              }
             </div>
             <div class="documents-item-body">
               <span class="documents-item-name">{{ doc.name }}</span>
@@ -80,17 +107,52 @@
                 <span>{{ doc.version }}</span>
                 <span class="documents-item-sep">·</span>
                 <span>{{ doc.updated }}</span>
+                @if (doc.hasFile) {
+                  <span class="documents-item-sep">·</span>
+                  <span class="documents-item-file-badge">Feltöltve</span>
+                }
               </div>
             </div>
-            <button class="documents-item-del" (click)="planner.deleteDocument(doc.id)" title="Törlés">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="3 6 5 6 21 6"/>
-                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
-                <path d="M10 11v6M14 11v6"/>
-                <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
-              </svg>
-            </button>
+
+            <div class="documents-item-actions">
+              @if (doc.hasFile) {
+                <button class="documents-item-dl" (click)="downloadFile(doc.id, doc.fileName!)" title="Letöltés">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                       stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                </button>
+              }
+
+              <label class="documents-item-upload" [class.documents-item-upload--loading]="uploadingId() === doc.id" title="Fájl feltöltése / cserélése">
+                <input type="file" class="documents-file-input" (change)="onUploadFile(doc.id, $event)" accept=".pdf,.doc,.docx" [disabled]="uploadingId() === doc.id" />
+                @if (uploadingId() === doc.id) {
+                  <svg class="documents-spin" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                       stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                  </svg>
+                } @else {
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                       stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                  </svg>
+                }
+              </label>
+
+              <button class="documents-item-del" (click)="planner.deleteDocument(doc.id)" title="Törlés">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6"/>
+                  <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+                  <path d="M10 11v6M14 11v6"/>
+                  <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+                </svg>
+              </button>
+            </div>
           </div>
         }
 

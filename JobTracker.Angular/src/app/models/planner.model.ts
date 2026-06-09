@@ -19,6 +19,8 @@ export interface UserDocument {
   type: string;
   updated: string;
   version: string;
+  hasFile: boolean;
+  fileName: string | null;
 }
 
 export const DOCUMENT_TYPES = ['Önéletrajz', 'Kísérőlevél', 'Portfólió', 'Egyéb'] as const;

@@ -56,6 +56,8 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
             e.Property(x => x.Type).IsRequired().HasMaxLength(100);
             e.Property(x => x.Updated).IsRequired().HasMaxLength(10);
             e.Property(x => x.Version).IsRequired().HasMaxLength(50);
+            e.Property(x => x.BlobName).HasMaxLength(500);
+            e.Property(x => x.FileName).HasMaxLength(260);
             e.HasIndex(x => x.UserId);
             e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
         });
