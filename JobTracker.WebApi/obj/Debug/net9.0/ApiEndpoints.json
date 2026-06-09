@@ -474,6 +474,42 @@
   },
   {
     "ContainingType": "JobTracker.WebApi.Controllers.ProfileController",
+    "Method": "UploadAvatar",
+    "RelativePath": "api/profile/avatar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "JobTracker.WebApi.Controllers.ProfileController",
+    "Method": "GetAvatar",
+    "RelativePath": "api/profile/avatar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "JobTracker.WebApi.Controllers.ProfileController",
+    "Method": "DeleteAvatar",
+    "RelativePath": "api/profile/avatar",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "JobTracker.WebApi.Controllers.ProfileController",
     "Method": "ChangePassword",
     "RelativePath": "api/profile/password",
     "HttpMethod": "PATCH",

@@ -4,6 +4,7 @@
 
         <app-sidebar [activeTab]="activeTab()" [collapsed]="sidebarCollapsed()" [mobileOpen]="sidebarMobileOpen()"
             [userName]="auth.currentUser()?.name ?? ''" [userEmail]="auth.currentUser()?.email ?? ''"
+            [avatarUrl]="auth.avatarObjectUrl()"
             (toggleCollapsed)="sidebarCollapsed.set(!sidebarCollapsed())" (closeMobile)="sidebarMobileOpen.set(false)"
             (logout)="logout()" />
 

@@ -18,6 +18,7 @@ interface UserProfileResponse {
   phone: string;
   goal: number;
   joinDate: string;
+  hasAvatar: boolean;
 }
 
 interface UpdateProfileRequest {
@@ -33,6 +34,7 @@ interface UpdateProfileRequest {
 export class AuthService {
   readonly currentUser = signal<UserProfile | null>(null);
   readonly isLoggedIn = computed(() => this.currentUser() !== null);
+  readonly avatarObjectUrl = signal<string | null>(null);
 
   private readonly router = inject(Router);
 
@@ -45,11 +47,53 @@ export class AuthService {
     const userJson = localStorage.getItem('jt_user');
     if (token && userJson) {
       try {
-        this.currentUser.set(JSON.parse(userJson));
+        const user: UserProfile = JSON.parse(userJson);
+        this.currentUser.set(user);
+        if (user.hasAvatar) this.loadAvatar();
       } catch {
         this.clearStorage();
       }
     }
+  }
+
+  loadAvatar(): void {
+    this.http.get('/api/profile/avatar', { responseType: 'blob' }).subscribe({
+      next: blob => {
+        const prev = this.avatarObjectUrl();
+        if (prev) URL.revokeObjectURL(prev);
+        this.avatarObjectUrl.set(URL.createObjectURL(blob));
+      },
+      error: () => this.avatarObjectUrl.set(null)
+    });
+  }
+
+  uploadAvatar(file: File): Observable<UserProfile> {
+    const fd = new FormData();
+    fd.append('file', file);
+    return this.http.post<UserProfileResponse>('/api/profile/avatar', fd).pipe(
+      map(r => this.mapProfile(r)),
+      tap(user => {
+        this.currentUser.set(user);
+        localStorage.setItem('jt_user', JSON.stringify(user));
+        this.loadAvatar();
+      })
+    );
+  }
+
+  deleteAvatar(): Observable<void> {
+    return this.http.delete<void>('/api/profile/avatar').pipe(
+      tap(() => {
+        const user = this.currentUser();
+        if (user) {
+          const updated = { ...user, hasAvatar: false };
+          this.currentUser.set(updated);
+          localStorage.setItem('jt_user', JSON.stringify(updated));
+        }
+        const prev = this.avatarObjectUrl();
+        if (prev) URL.revokeObjectURL(prev);
+        this.avatarObjectUrl.set(null);
+      })
+    );
   }
 
   login(email: string, password: string): Observable<void> {
@@ -78,6 +122,9 @@ export class AuthService {
   logout(): void {
     this.clearStorage();
     this.currentUser.set(null);
+    const prev = this.avatarObjectUrl();
+    if (prev) URL.revokeObjectURL(prev);
+    this.avatarObjectUrl.set(null);
     this.router.navigate(['/login']);
   }
 
@@ -102,6 +149,10 @@ export class AuthService {
     localStorage.setItem('jt_token', res.token);
     localStorage.setItem('jt_user', JSON.stringify(user));
     this.currentUser.set(user);
+    const prev = this.avatarObjectUrl();
+    if (prev) URL.revokeObjectURL(prev);
+    this.avatarObjectUrl.set(null);
+    if (user.hasAvatar) this.loadAvatar();
   }
 
   private mapProfile(r: UserProfileResponse): UserProfile {
@@ -114,7 +165,8 @@ export class AuthService {
       email: r.email,
       phone: r.phone,
       goal: r.goal,
-      joinDate: r.joinDate
+      joinDate: r.joinDate,
+      hasAvatar: r.hasAvatar ?? false
     };
   }
 

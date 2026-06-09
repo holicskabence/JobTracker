@@ -8,4 +8,5 @@ export interface UserProfile {
   phone:     string;
   goal:      number;
   joinDate:  string;
+  hasAvatar: boolean;
 }

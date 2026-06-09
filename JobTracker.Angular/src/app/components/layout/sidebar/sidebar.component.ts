@@ -14,6 +14,7 @@ export class SidebarComponent {
   @Input() mobileOpen = false;
   @Input() userName = '';
   @Input() userEmail = '';
+  @Input() avatarUrl: string | null = null;
   @Output() toggleCollapsed = new EventEmitter<void>();
   @Output() closeMobile = new EventEmitter<void>();
   @Output() logout = new EventEmitter<void>();

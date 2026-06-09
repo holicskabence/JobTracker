@@ -11,4 +11,5 @@ public class AppUser
     public string Phone { get; set; } = string.Empty;
     public int Goal { get; set; } = 30;
     public string JoinDate { get; set; } = string.Empty;
+    public string? AvatarBlobName { get; set; }
 }

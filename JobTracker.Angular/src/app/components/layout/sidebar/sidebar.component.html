@@ -157,7 +157,13 @@
     <div class="sidebar-footer">
 
         <div class="sidebar-user">
-            <div class="sidebar-user-avatar">{{ userInitial }}</div>
+            <div class="sidebar-user-avatar">
+                @if (avatarUrl) {
+                <img class="sidebar-user-avatar-img" [src]="avatarUrl" alt="" />
+                } @else {
+                {{ userInitial }}
+                }
+            </div>
             <div class="sidebar-user-info">
                 <span class="sidebar-user-name">{{ userName }}</span>
                 <span class="sidebar-user-email">{{ userEmail }}</span>

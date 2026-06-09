@@ -32,6 +32,9 @@ export class ProfileComponent implements OnInit {
   pwdError = '';
   pwdSaved = false;
 
+  avatarUploading = false;
+  avatarError = '';
+
   ngOnInit(): void {
     const u = this.auth.currentUser();
     if (u) {
@@ -89,6 +92,24 @@ export class ProfileComponent implements OnInit {
       error: (err: HttpErrorResponse) => {
         this.pwdError = err.error?.message ?? 'Jelszócsere sikertelen.';
       }
+    });
+  }
+
+  onAvatarSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    this.avatarError = '';
+    this.avatarUploading = true;
+    this.auth.uploadAvatar(file).subscribe({
+      next: () => { this.avatarUploading = false; },
+      error: () => { this.avatarUploading = false; this.avatarError = 'Feltöltés sikertelen.'; }
+    });
+  }
+
+  deleteAvatar(): void {
+    this.avatarError = '';
+    this.auth.deleteAvatar().subscribe({
+      error: () => { this.avatarError = 'Törlés sikertelen.'; }
     });
   }
 

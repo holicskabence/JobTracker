@@ -111,6 +111,7 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
             e.Property(x => x.Position).HasMaxLength(200);
             e.Property(x => x.Phone).HasMaxLength(50);
             e.Property(x => x.JoinDate).HasMaxLength(50);
+            e.Property(x => x.AvatarBlobName).HasMaxLength(500);
             e.HasIndex(x => x.Email).IsUnique();
         });
     }

@@ -27,4 +27,29 @@ public sealed class ProfileController(IUserProfileService svc) : AuthorizedContr
         var ok = await svc.ChangePasswordAsync(CurrentUserId, request);
         return ok ? NoContent() : BadRequest(new { message = "Hibás jelenlegi jelszó." });
     }
+
+    [HttpPost("avatar")]
+    [RequestSizeLimit(5 * 1024 * 1024)]
+    public async Task<IActionResult> UploadAvatar(IFormFile file)
+    {
+        if (file.Length == 0) return BadRequest();
+        using var stream = file.OpenReadStream();
+        var result = await svc.UploadAvatarAsync(CurrentUserId, stream, file.ContentType);
+        return result is null ? NotFound() : Ok(result);
+    }
+
+    [HttpGet("avatar")]
+    public async Task<IActionResult> GetAvatar()
+    {
+        var result = await svc.GetAvatarAsync(CurrentUserId);
+        if (result is null) return NotFound();
+        return File(result.Value.Content, result.Value.ContentType);
+    }
+
+    [HttpDelete("avatar")]
+    public async Task<IActionResult> DeleteAvatar()
+    {
+        var ok = await svc.DeleteAvatarAsync(CurrentUserId);
+        return ok ? NoContent() : NotFound();
+    }
 }

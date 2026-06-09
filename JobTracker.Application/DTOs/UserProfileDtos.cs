@@ -8,7 +8,8 @@ public record UserProfileResponse(
     string Email,
     string Phone,
     int Goal,
-    string JoinDate
+    string JoinDate,
+    bool HasAvatar
 );
 
 public record UpdateProfileRequest(
