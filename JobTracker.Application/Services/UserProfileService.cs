@@ -23,6 +23,7 @@ public sealed class UserProfileService(IAppUserRepository repo, IBlobStorageServ
         user.Email = request.Email.Trim();
         user.Phone = request.Phone.Trim();
         user.Goal = request.Goal;
+        user.UseAiEvaluation = request.UseAiEvaluation;
 
         await repo.UpdateAsync(user);
         return Map(user);
@@ -72,5 +73,5 @@ public sealed class UserProfileService(IAppUserRepository repo, IBlobStorageServ
     }
 
     private static UserProfileResponse Map(Domain.Entities.AppUser u) =>
-        new(u.Id, u.FirstName, u.LastName, u.Position, u.Email, u.Phone, u.Goal, u.JoinDate, u.AvatarBlobName is not null);
+        new(u.Id, u.FirstName, u.LastName, u.Position, u.Email, u.Phone, u.Goal, u.JoinDate, u.AvatarBlobName is not null, u.UseAiEvaluation);
 }

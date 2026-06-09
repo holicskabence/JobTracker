@@ -12,4 +12,5 @@ public class AppUser
     public int Goal { get; set; } = 30;
     public string JoinDate { get; set; } = string.Empty;
     public string? AvatarBlobName { get; set; }
+    public bool UseAiEvaluation { get; set; } = false;
 }

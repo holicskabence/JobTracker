@@ -1,9 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PracticeService } from '../../services/practice.service';
+import { PracticeApiService } from '../../services/practice-api.service';
+import { AuthService } from '../../services/auth.service';
 import { FeedbackType, PrepQuestion, QuestionCategory } from '../../models/practice.model';
 
 type FilterCategory = 'Mind' | QuestionCategory;
+type AiVerdict = 'könnyű' | 'jó' | 'nehéz' | null;
 
 @Component({
   selector: 'app-practice',
@@ -14,6 +17,8 @@ type FilterCategory = 'Mind' | QuestionCategory;
 })
 export class PracticeComponent {
   readonly practice = inject(PracticeService);
+  private readonly api = inject(PracticeApiService);
+  private readonly auth = inject(AuthService);
 
   readonly categories = computed<FilterCategory[]>(() =>
     ['Mind', ...this.practice.categories().map(c => c.name)]
@@ -22,7 +27,17 @@ export class PracticeComponent {
   readonly selectedCategory = signal<FilterCategory>('Mind');
   readonly currentIdx = signal(0);
   readonly userAnswer = signal('');
+  readonly customPrompt = signal('');
   readonly showSample = signal(false);
+
+  readonly aiLoading = signal(false);
+  readonly aiFeedback = signal<string | null>(null);
+  readonly aiTypedText = signal('');
+  readonly aiVerdict = signal<AiVerdict>(null);
+  readonly aiError = signal<string | null>(null);
+  readonly aiDone = signal(false);
+
+  readonly useAiEvaluation = computed(() => this.auth.currentUser()?.useAiEvaluation ?? false);
 
   readonly filteredQuestions = computed<PrepQuestion[]>(() => {
     const cat = this.selectedCategory();
@@ -65,13 +80,74 @@ export class PracticeComponent {
     this.selectedCategory.set(cat);
     this.currentIdx.set(0);
     this.userAnswer.set('');
+    this.customPrompt.set('');
     this.showSample.set(false);
+    this.resetAi();
   }
 
   revealSample(): void {
-    if (this.userAnswer().trim()) {
+    if (!this.userAnswer().trim()) return;
+    if (this.useAiEvaluation()) {
+      this.requestAiEvaluation();
+    } else {
       this.showSample.set(true);
     }
+  }
+
+  private requestAiEvaluation(): void {
+    const q = this.currentQuestion();
+    if (!q) return;
+
+    this.aiLoading.set(true);
+    this.aiFeedback.set(null);
+    this.aiTypedText.set('');
+    this.aiVerdict.set(null);
+    this.aiError.set(null);
+    this.aiDone.set(false);
+    this.showSample.set(true);
+
+    this.api.evaluateAnswer(q.id, this.userAnswer(), this.customPrompt() || undefined).subscribe({
+      next: res => {
+        this.aiLoading.set(false);
+        this.aiFeedback.set(res.feedback);
+        this.aiVerdict.set(res.verdict as AiVerdict);
+        this.startTypewriter(res.feedback);
+      },
+      error: () => {
+        this.aiLoading.set(false);
+        this.aiError.set('Az AI értékelés sikertelen volt. Kérlek próbáld újra.');
+      }
+    });
+  }
+
+  private startTypewriter(text: string): void {
+    let i = 0;
+    const interval = setInterval(() => {
+      i++;
+      this.aiTypedText.set(text.slice(0, i));
+      if (i >= text.length) {
+        clearInterval(interval);
+        this.aiDone.set(true);
+      }
+    }, 16);
+  }
+
+  private resetAi(): void {
+    this.aiLoading.set(false);
+    this.aiFeedback.set(null);
+    this.aiTypedText.set('');
+    this.aiVerdict.set(null);
+    this.aiError.set(null);
+    this.aiDone.set(false);
+  }
+
+  /** AI által meghatározott értékelés alapján rate-el és továbblép */
+  proceedWithAiVerdict(): void {
+    const verdict = this.aiVerdict();
+    const feedbackType: FeedbackType =
+      verdict === 'könnyű' ? 'easy' :
+      verdict === 'nehéz'  ? 'hard' : 'good';
+    this.rate(feedbackType);
   }
 
   rate(type: FeedbackType): void {
@@ -86,7 +162,9 @@ export class PracticeComponent {
     if (this.currentIdx() < max) {
       this.currentIdx.update(i => i + 1);
       this.userAnswer.set('');
+      this.customPrompt.set('');
       this.showSample.set(false);
+      this.resetAi();
     }
   }
 
@@ -94,8 +172,22 @@ export class PracticeComponent {
     if (this.currentIdx() > 0) {
       this.currentIdx.update(i => i - 1);
       this.userAnswer.set('');
+      this.customPrompt.set('');
       this.showSample.set(false);
+      this.resetAi();
     }
+  }
+
+  verdictLabel(v: AiVerdict): string {
+    if (v === 'könnyű') return '🎯 Könnyű volt';
+    if (v === 'nehéz')  return '⏳ Nehéz volt';
+    return '👍 Jól ment';
+  }
+
+  verdictFeedbackType(v: AiVerdict): FeedbackType {
+    if (v === 'könnyű') return 'easy';
+    if (v === 'nehéz')  return 'hard';
+    return 'good';
   }
 
   getFeedback(id: number): FeedbackType | null {

@@ -588,3 +588,253 @@
 .pf-tips-list strong {
     color: #92400e;
 }
+
+/* Custom prompt field */
+.pf-custom-prompt-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.pf-custom-prompt-label {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #7c3aed;
+}
+
+.pf-custom-prompt-opt {
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--clr-muted);
+    font-size: 0.6875rem;
+}
+
+.pf-textarea--sm {
+    rows: 2;
+    font-size: 0.8125rem;
+    border-color: rgba(124, 58, 237, 0.25);
+}
+
+.pf-textarea--sm:focus {
+    border-color: #7c3aed;
+}
+
+/* AI reveal button variant */
+.pf-reveal-btn--ai {
+    color: #7c3aed;
+    border-color: rgba(124, 58, 237, 0.3);
+    background: rgba(124, 58, 237, 0.06);
+}
+
+.pf-reveal-btn--ai:hover:not(:disabled) {
+    background: rgba(124, 58, 237, 0.12);
+    border-color: #7c3aed;
+    color: #5b21b6;
+}
+
+/* AI feedback bubble */
+.pf-ai-bubble {
+    background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 12px;
+    padding: 1rem 1.125rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+}
+
+.pf-ai-bubble--error {
+    background: rgba(239, 68, 68, 0.06);
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+.pf-ai-bubble--error p {
+    font-size: 0.8125rem;
+    color: #dc2626;
+    margin: 0;
+}
+
+.pf-ai-bubble--loading {
+    background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+}
+
+.pf-ai-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.pf-ai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #7c3aed;
+    background: rgba(124, 58, 237, 0.1);
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+}
+
+.pf-ai-thinking {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    font-style: italic;
+}
+
+/* Typing dots animation */
+.pf-ai-dots {
+    display: flex;
+    gap: 5px;
+    padding: 0.25rem 0;
+}
+
+.pf-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7c3aed;
+    animation: pf-dot-bounce 1.4s infinite ease-in-out both;
+}
+
+.pf-dot:nth-child(1) { animation-delay: 0s; }
+.pf-dot:nth-child(2) { animation-delay: 0.16s; }
+.pf-dot:nth-child(3) { animation-delay: 0.32s; }
+
+@keyframes pf-dot-bounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+/* Typewriter text */
+.pf-ai-text {
+    font-size: 0.875rem;
+    color: #1e1b4b;
+    line-height: 1.7;
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.pf-ai-cursor {
+    display: inline-block;
+    width: 2px;
+    color: #7c3aed;
+    font-weight: 300;
+    animation: pf-cursor-blink 0.8s step-end infinite;
+}
+
+.pf-ai-cursor--hidden {
+    opacity: 0;
+    animation: none;
+}
+
+@keyframes pf-cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* AI verdict row */
+.pf-ai-verdict {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 0.875rem 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--clr-border);
+    background: var(--clr-bg);
+    animation: pf-verdict-in 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pf-verdict-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.pf-ai-verdict--easy {
+    border-color: rgba(38, 172, 0, 0.25);
+    background: rgba(38, 172, 0, 0.05);
+}
+
+.pf-ai-verdict--good {
+    border-color: rgba(37, 99, 235, 0.25);
+    background: rgba(37, 99, 235, 0.05);
+}
+
+.pf-ai-verdict--hard {
+    border-color: rgba(217, 119, 6, 0.25);
+    background: rgba(217, 119, 6, 0.05);
+}
+
+.pf-ai-verdict-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pf-ai-verdict-label {
+    font-size: 0.75rem;
+    color: var(--clr-muted);
+    font-weight: 500;
+}
+
+.pf-ai-verdict-badge {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--clr-dark);
+}
+
+.pf-ai-verdict-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.pf-ai-proceed-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    background: var(--clr-dark);
+    color: #fff;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    white-space: nowrap;
+}
+
+.pf-ai-proceed-btn:hover {
+    background: #000;
+    transform: translateY(-1px);
+}
+
+.pf-ai-override-label {
+    font-size: 0.75rem;
+    color: var(--clr-muted);
+    white-space: nowrap;
+}
+
+.pf-ai-override-btns {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.pf-rate--sm {
+    padding: 0.375rem 0.625rem;
+    font-size: 1rem;
+    line-height: 1;
+}

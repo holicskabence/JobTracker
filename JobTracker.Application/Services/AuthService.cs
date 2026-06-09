@@ -120,5 +120,5 @@ public sealed class AuthService(
     }
 
     private static UserProfileResponse MapProfile(AppUser u) =>
-        new(u.Id, u.FirstName, u.LastName, u.Position, u.Email, u.Phone, u.Goal, u.JoinDate, u.AvatarBlobName is not null);
+        new(u.Id, u.FirstName, u.LastName, u.Position, u.Email, u.Phone, u.Goal, u.JoinDate, u.AvatarBlobName is not null, u.UseAiEvaluation);
 }

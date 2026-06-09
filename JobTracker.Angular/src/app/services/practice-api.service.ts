@@ -46,4 +46,11 @@ export class PracticeApiService {
   deleteCategory(id: number): Observable<void> {
     return this.http.delete<void>(`/api/practice-categories/${id}`);
   }
+
+  evaluateAnswer(questionId: number, userAnswer: string, customPrompt?: string): Observable<{ feedback: string; verdict: string }> {
+    return this.http.post<{ feedback: string; verdict: string }>(
+      `/api/practice-questions/${questionId}/evaluate`,
+      { userAnswer, customPrompt: customPrompt ?? null }
+    );
+  }
 }

@@ -31,4 +31,11 @@ public sealed class PracticeQuestionsController(IPracticeQuestionService svc) : 
         var deleted = await svc.DeleteAsync(id, CurrentUserId);
         return deleted ? NoContent() : NotFound(new { message = "A kérdés nem található." });
     }
+
+    [HttpPost("{id:int}/evaluate")]
+    public async Task<IActionResult> EvaluateAnswer(int id, [FromBody] AiEvaluateRequest request)
+    {
+        var result = await svc.EvaluateAnswerAsync(id, CurrentUserId, request.UserAnswer, request.CustomPrompt);
+        return result is null ? NotFound(new { message = "A kérdés nem található." }) : Ok(result);
+    }
 }

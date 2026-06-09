@@ -242,6 +242,10 @@
               "target": "Package",
               "version": "[8.19.1, )"
             },
+            "OpenAI": {
+              "target": "Package",
+              "version": "[2.11.0, )"
+            },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[8.19.1, )"

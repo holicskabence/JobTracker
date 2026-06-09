@@ -41,12 +41,36 @@
                 @if (!showSample()) {
                 <label class="pf-ans-label">SAJÁT MEGFOGALMAZÁSOM</label>
                 <textarea class="pf-textarea" [ngModel]="userAnswer()" (ngModelChange)="userAnswer.set($event)"
-                    placeholder="Gépeld be ide a válaszod vázlatát vagy kulcsszavait..." rows="4">
-          </textarea>
+                    placeholder="Gépeld be ide a válaszod vázlatát vagy kulcsszavait..." rows="4"></textarea>
+
+                @if (useAiEvaluation()) {
+                <div class="pf-custom-prompt-wrap">
+                    <label class="pf-custom-prompt-label">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        Egyéni utasítás az AI-nak
+                        <span class="pf-custom-prompt-opt">(opcionális)</span>
+                    </label>
+                    <textarea class="pf-textarea pf-textarea--sm" rows="2"
+                        [ngModel]="customPrompt()" (ngModelChange)="customPrompt.set($event)"
+                        placeholder="pl. Figyelj arra, hogy megemlítettem-e a STAR módszert. / Junior fejlesztőként értékelj."></textarea>
+                </div>
+                }
 
                 <div class="pf-footer">
-                    <button class="pf-reveal-btn" [disabled]="!userAnswer().trim()" (click)="revealSample()">
+                    <button class="pf-reveal-btn" [class.pf-reveal-btn--ai]="useAiEvaluation()"
+                        [disabled]="!userAnswer().trim()" (click)="revealSample()">
+                        @if (useAiEvaluation()) {
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+                            style="margin-right:5px;vertical-align:-2px">
+                            <circle cx="12" cy="12" r="10" /><path d="M12 8v4l3 3" />
+                        </svg>
+                        AI értékelés kérése
+                        } @else {
                         Mintaválasz megtekintése
+                        }
                     </button>
                     <div class="pf-nav">
                         <button class="pf-nav-btn" (click)="prev()" [disabled]="currentIdx() === 0">
@@ -64,6 +88,80 @@
                         </button>
                     </div>
                 </div>
+
+                } @else if (useAiEvaluation()) {
+
+                <div class="pf-compare">
+                    <div class="pf-compare-col">
+                        <div class="pf-compare-label pf-compare-label--yours">A TE VÁLASZOD</div>
+                        <p class="pf-compare-text">{{ userAnswer() }}</p>
+                    </div>
+                </div>
+
+                @if (aiLoading()) {
+                <div class="pf-ai-bubble pf-ai-bubble--loading">
+                    <div class="pf-ai-header">
+                        <span class="pf-ai-badge">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" /><path d="M12 8v4l3 3" />
+                            </svg>
+                            AI Coach
+                        </span>
+                        <span class="pf-ai-thinking">elemez...</span>
+                    </div>
+                    <div class="pf-ai-dots">
+                        <span class="pf-dot"></span>
+                        <span class="pf-dot"></span>
+                        <span class="pf-dot"></span>
+                    </div>
+                </div>
+
+                } @else if (aiError()) {
+                <div class="pf-ai-bubble pf-ai-bubble--error">
+                    <p>{{ aiError() }}</p>
+                </div>
+
+                } @else if (aiFeedback()) {
+                <div class="pf-ai-bubble">
+                    <div class="pf-ai-header">
+                        <span class="pf-ai-badge">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" /><path d="M12 8v4l3 3" />
+                            </svg>
+                            AI Coach visszajelzése
+                        </span>
+                    </div>
+                    <p class="pf-ai-text">{{ aiTypedText() }}<span class="pf-ai-cursor"
+                            [class.pf-ai-cursor--hidden]="aiDone()">|</span></p>
+                </div>
+
+                @if (aiDone()) {
+                <div class="pf-ai-verdict" [class]="'pf-ai-verdict--' + verdictFeedbackType(aiVerdict())">
+                    <div class="pf-ai-verdict-left">
+                        <span class="pf-ai-verdict-label">AI értékelés:</span>
+                        <span class="pf-ai-verdict-badge">{{ verdictLabel(aiVerdict()) }}</span>
+                    </div>
+                    <div class="pf-ai-verdict-actions">
+                        <button class="pf-ai-proceed-btn" (click)="proceedWithAiVerdict()">
+                            Tovább az AI értékelés alapján
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6" />
+                            </svg>
+                        </button>
+                        <span class="pf-ai-override-label">vagy felülírás:</span>
+                        <div class="pf-ai-override-btns">
+                            <button class="pf-rate pf-rate--hard pf-rate--sm" (click)="rate('hard')">⏳</button>
+                            <button class="pf-rate pf-rate--good pf-rate--sm" (click)="rate('good')">👍</button>
+                            <button class="pf-rate pf-rate--easy pf-rate--sm" (click)="rate('easy')">🎯</button>
+                        </div>
+                    </div>
+                </div>
+                }
+
+                }
 
                 } @else {
                 <div class="pf-compare">

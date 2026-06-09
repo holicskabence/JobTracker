@@ -9,7 +9,8 @@ public record UserProfileResponse(
     string Phone,
     int Goal,
     string JoinDate,
-    bool HasAvatar
+    bool HasAvatar,
+    bool UseAiEvaluation
 );
 
 public record UpdateProfileRequest(
@@ -18,7 +19,8 @@ public record UpdateProfileRequest(
     string Position,
     string Email,
     string Phone,
-    int Goal
+    int Goal,
+    bool UseAiEvaluation
 );
 
 public record ChangePasswordRequest(

@@ -1,12 +1,13 @@
 export interface UserProfile {
-  id:        number;
-  firstName: string;
-  lastName:  string;
-  name:      string;
-  position:  string;
-  email:     string;
-  phone:     string;
-  goal:      number;
-  joinDate:  string;
-  hasAvatar: boolean;
+  id:               number;
+  firstName:        string;
+  lastName:         string;
+  name:             string;
+  position:         string;
+  email:            string;
+  phone:            string;
+  goal:             number;
+  joinDate:         string;
+  hasAvatar:        boolean;
+  useAiEvaluation:  boolean;
 }

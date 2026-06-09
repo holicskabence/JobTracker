@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   position = '';
   email = '';
   goal = 30;
+  useAiEvaluation = false;
   saved = false;
   saveError = '';
 
@@ -44,6 +45,7 @@ export class ProfileComponent implements OnInit {
       this.position = u.position;
       this.email = u.email;
       this.goal = u.goal;
+      this.useAiEvaluation = u.useAiEvaluation;
     }
   }
 
@@ -62,7 +64,8 @@ export class ProfileComponent implements OnInit {
       position: this.position.trim(),
       email: this.email.trim(),
       phone: this.phone.trim(),
-      goal: this.goal
+      goal: this.goal,
+      useAiEvaluation: this.useAiEvaluation
     }).subscribe({
       next: () => {
         this.saved = true;

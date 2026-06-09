@@ -731,6 +731,48 @@
         }
       }
     },
+    "/api/practice-questions/{id}/evaluate": {
+      "post": {
+        "tags": [
+          "PracticeQuestions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AiEvaluateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AiEvaluateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AiEvaluateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/profile": {
       "get": {
         "tags": [
@@ -1061,6 +1103,20 @@
   },
   "components": {
     "schemas": {
+      "AiEvaluateRequest": {
+        "type": "object",
+        "properties": {
+          "userAnswer": {
+            "type": "string",
+            "nullable": true
+          },
+          "customPrompt": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ChangePasswordRequest": {
         "type": "object",
         "properties": {
@@ -1371,6 +1427,9 @@
           "goal": {
             "type": "integer",
             "format": "int32"
+          },
+          "useAiEvaluation": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

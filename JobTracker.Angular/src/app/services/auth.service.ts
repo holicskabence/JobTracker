@@ -19,6 +19,7 @@ interface UserProfileResponse {
   goal: number;
   joinDate: string;
   hasAvatar: boolean;
+  useAiEvaluation: boolean;
 }
 
 interface UpdateProfileRequest {
@@ -28,6 +29,7 @@ interface UpdateProfileRequest {
   email: string;
   phone: string;
   goal: number;
+  useAiEvaluation: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -166,7 +168,8 @@ export class AuthService {
       phone: r.phone,
       goal: r.goal,
       joinDate: r.joinDate,
-      hasAvatar: r.hasAvatar ?? false
+      hasAvatar: r.hasAvatar ?? false,
+      useAiEvaluation: r.useAiEvaluation ?? false
     };
   }
 

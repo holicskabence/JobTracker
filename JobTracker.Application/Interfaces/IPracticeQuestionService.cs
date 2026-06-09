@@ -8,4 +8,5 @@ public interface IPracticeQuestionService
     Task<PracticeQuestionResponse> CreateAsync(CreatePracticeQuestionRequest request, int userId);
     Task<PracticeQuestionResponse?> SetFeedbackAsync(int id, RatePracticeQuestionRequest request, int userId);
     Task<bool> DeleteAsync(int id, int userId);
+    Task<AiEvaluateResponse?> EvaluateAnswerAsync(int questionId, int userId, string userAnswer, string? customPrompt);
 }

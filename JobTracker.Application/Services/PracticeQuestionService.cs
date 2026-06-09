@@ -5,7 +5,7 @@ using JobTracker.Domain.Interfaces;
 
 namespace JobTracker.Application.Services;
 
-public sealed class PracticeQuestionService(IPracticeQuestionRepository repo) : IPracticeQuestionService
+public sealed class PracticeQuestionService(IPracticeQuestionRepository repo, IAzureOpenAiService aiService) : IPracticeQuestionService
 {
     public async Task<IReadOnlyList<PracticeQuestionResponse>> GetAllAsync(int userId)
     {
@@ -38,6 +38,17 @@ public sealed class PracticeQuestionService(IPracticeQuestionRepository repo) : 
     }
 
     public async Task<bool> DeleteAsync(int id, int userId) => await repo.DeleteAsync(id, userId);
+
+    public async Task<AiEvaluateResponse?> EvaluateAnswerAsync(int questionId, int userId, string userAnswer, string? customPrompt)
+    {
+        var question = await repo.GetByIdAsync(questionId, userId);
+        if (question is null) return null;
+
+        var (feedback, verdict) = await aiService.EvaluateAnswerAsync(
+            question.Question, question.Hint, question.SampleAnswer, userAnswer, customPrompt);
+
+        return new AiEvaluateResponse(feedback, verdict);
+    }
 
     private static PracticeQuestionResponse Map(PracticeQuestion q) =>
         new(q.Id, q.Category, q.Question, q.Hint, q.SampleAnswer, q.Feedback);
