@@ -45,11 +45,10 @@ public sealed class AzureOpenAiService : IAzureOpenAiService
             "3. Rövid összefoglalót arról, mennyire volt teljes a válasz\n\n" +
             "Legyél tömör (4-6 mondat), barátságos de őszinte. Markdown formázást NE használj." +
             extraInstruction + "\n\n" +
-            "Válaszolj kizárólag JSON formátumban: {\"feedback\": \"<4-6 mondatos értékelés>\", \"verdict\": \"<könnyű | jó | nehéz>\"}\n\n" +
+            "Válaszolj kizárólag JSON formátumban: {\"feedback\": \"<4-6 mondatos értékelés>\", \"verdict\": \"<helyes | helytelen>\"}\n\n" +
             "A verdict értéke:\n" +
-            "- \"könnyű\" ha a jelölt válasza teljes, pontos és magabiztos volt\n" +
-            "- \"jó\" ha a válasz nagyobb részt helyes, de vannak kisebb hiányosságok\n" +
-            "- \"nehéz\" ha a válasz hiányos, pontatlan vagy jelentős javításra szorul";
+            "- \"helyes\" ha a jelölt válasza lényegében helyes, tartalmazza a kulcspontokat\n" +
+            "- \"helytelen\" ha a válasz hiányos, pontatlan vagy jelentős javításra szorul";
 
         var userContent =
             "Kérdés: " + question + "\n\n" +
@@ -87,8 +86,7 @@ public sealed class AzureOpenAiService : IAzureOpenAiService
 
     private static string NormalizeVerdict(string raw) => raw.ToLowerInvariant().Trim() switch
     {
-        "könnyű" or "konnyu" or "easy" => "könnyű",
-        "nehéz" or "nehez" or "hard"   => "nehéz",
-        _                               => "jó"
+        "helyes" or "correct" or "igen" or "jó" or "könnyű" or "good" or "easy" => "correct",
+        _ => "incorrect"
     };
 }

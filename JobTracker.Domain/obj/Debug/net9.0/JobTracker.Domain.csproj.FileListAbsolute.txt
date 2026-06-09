@@ -1,7 +1,7 @@
-c:\JobTracker\JobTracker.Domain\obj\Debug\net9.0\JobTracker.Domain.GeneratedMSBuildEditorConfig.editorconfig
 c:\JobTracker\JobTracker.Domain\bin\Debug\net9.0\JobTracker.Domain.deps.json
 c:\JobTracker\JobTracker.Domain\bin\Debug\net9.0\JobTracker.Domain.dll
 c:\JobTracker\JobTracker.Domain\bin\Debug\net9.0\JobTracker.Domain.pdb
+c:\JobTracker\JobTracker.Domain\obj\Debug\net9.0\JobTracker.Domain.GeneratedMSBuildEditorConfig.editorconfig
 c:\JobTracker\JobTracker.Domain\obj\Debug\net9.0\JobTracker.Domain.AssemblyInfoInputs.cache
 c:\JobTracker\JobTracker.Domain\obj\Debug\net9.0\JobTracker.Domain.AssemblyInfo.cs
 c:\JobTracker\JobTracker.Domain\obj\Debug\net9.0\JobTracker.Domain.csproj.CoreCompileInputs.cache

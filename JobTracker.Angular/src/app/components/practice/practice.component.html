@@ -1,87 +1,123 @@
-<div class="pf-page">
+<div class="pr-page">
 
-    <div class="pf-filterbar">
-        <div class="pf-filters">
-            @for (cat of categories(); track trackByCategory($index, cat)) {
-            <button class="pf-filter" [class.pf-filter--active]="selectedCategory() === cat"
-                (click)="selectCategory(cat)">{{ cat }}</button>
-            }
+    <div class="pr-header">
+        <div class="pr-header-left">
+            <h1 class="pr-title">Gyakorlás</h1>
+            <p class="pr-sub">Interjúra való felkészülés kártyákkal</p>
         </div>
-        <span class="pf-counter">{{ currentIdx() + 1 }} / {{ filteredQuestions().length }} kártya</span>
+        <div class="pr-tabs">
+            <button class="pr-tab" [class.pr-tab--active]="activeTab() === 'practice'"
+                (click)="activeTab.set('practice')">Gyakorlás</button>
+            <button class="pr-tab" [class.pr-tab--active]="activeTab() === 'questions'"
+                (click)="activeTab.set('questions')">Kérdések</button>
+            <button class="pr-tab" [class.pr-tab--active]="activeTab() === 'results'"
+                (click)="activeTab.set('results')">Eredmények</button>
+        </div>
     </div>
 
-    <div class="pf-layout">
+    @if (activeTab() === 'practice') {
 
-        <div class="pf-deck">
-            @for (q of cardDeck(); track q.id) {
-            <div class="pf-card pf-card--deal">
+    <div class="pr-filter-row">
+        <div class="pr-filter-pills">
+            @for (cat of categories(); track trackByCategory($index, cat)) {
+            <button class="pr-pill" [class.pr-pill--active]="selectedCategory() === cat && !showOnlyFailed()"
+                (click)="selectCategory(cat)">{{ cat }}</button>
+            }
+            <button class="pr-pill pr-pill--failed" [class.pr-pill--active]="showOnlyFailed()" (click)="toggleFailed()">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+                Nem sikerültek
+            </button>
+        </div>
+        <span class="pr-progress-text">{{ currentIdx() + 1 }}&nbsp;/&nbsp;{{ filteredQuestions().length }}</span>
+    </div>
 
-                <div class="pf-card-top">
-                    <span class="pf-cat" [style.background-color]="categoryColor(q.category) + '1a'"
-                        [style.color]="categoryColor(q.category)">{{ q.category }}</span>
-                    @if (getFeedback(q.id); as fb) {
-                    <span class="pf-answered pf-answered--{{ fb }}">MEGVÁLASZOLVA ({{ feedbackLabel(fb) }})</span>
-                    }
+    <div class="pr-body">
+
+        <div class="pr-deck">
+
+            @if (leavingCard(); as lc) {
+            <div class="pr-card pr-card--ghost" [class.pr-card--ghost-bwd]="animDir() === 'bwd'">
+                <div class="pr-card-head">
+                    <span class="pr-cat-badge" [style.color]="categoryColor(lc.category)"
+                        [style.background]="categoryColor(lc.category) + '18'">{{ lc.category }}</span>
                 </div>
-
-                <h2 class="pf-question">{{ q.question }}</h2>
-
-                <div class="pf-hint">
-                    <svg class="pf-hint-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                <h2 class="pr-question">{{ lc.question }}</h2>
+                @if (lc.hint) {
+                <div class="pr-hint-row">
+                    <svg class="pr-hint-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10" />
                         <line x1="12" y1="8" x2="12" y2="12" />
                         <line x1="12" y1="16" x2="12.01" y2="16" />
                     </svg>
-                    <p class="pf-hint-text"><strong>Tipp:</strong> {{ q.hint }}</p>
-                </div>
-
-                <hr class="pf-divider" />
-
-                @if (!showSample()) {
-                <label class="pf-ans-label">SAJÁT MEGFOGALMAZÁSOM</label>
-                <textarea class="pf-textarea" [ngModel]="userAnswer()" (ngModelChange)="userAnswer.set($event)"
-                    placeholder="Gépeld be ide a válaszod vázlatát vagy kulcsszavait..." rows="4"></textarea>
-
-                @if (useAiEvaluation()) {
-                <div class="pf-custom-prompt-wrap">
-                    <label class="pf-custom-prompt-label">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                        </svg>
-                        Egyéni utasítás az AI-nak
-                        <span class="pf-custom-prompt-opt">(opcionális)</span>
-                    </label>
-                    <textarea class="pf-textarea pf-textarea--sm" rows="2"
-                        [ngModel]="customPrompt()" (ngModelChange)="customPrompt.set($event)"
-                        placeholder="pl. Figyelj arra, hogy megemlítettem-e a STAR módszert. / Junior fejlesztőként értékelj."></textarea>
+                    <span class="pr-hint-text">{{ lc.hint }}</span>
                 </div>
                 }
+            </div>
+            }
 
-                <div class="pf-footer">
-                    <button class="pf-reveal-btn" [class.pf-reveal-btn--ai]="useAiEvaluation()"
+            @if (currentQuestion(); as q) {
+            <div class="pr-card">
+
+                <div class="pr-card-head">
+                    <span class="pr-cat-badge" [style.color]="categoryColor(q.category)"
+                        [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
+                    @if (getFeedback(q.id); as fb) {
+                    <span class="pr-done-badge" [class]="'pr-done-badge--' + fb">
+                        {{ fb === 'correct' ? '✓ Helyes' : '✗ Helytelen' }}
+                    </span>
+                    }
+                    <span class="pr-idx-badge">{{ currentIdx() + 1 }} / {{ filteredQuestions().length }}</span>
+                </div>
+
+                <h2 class="pr-question">{{ q.question }}</h2>
+
+                <div class="pr-hint-row">
+                    <svg class="pr-hint-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                    <span class="pr-hint-text">{{ q.hint }}</span>
+                </div>
+
+                <div class="pr-divider"></div>
+
+                @if (!showSample()) {
+
+                <label class="pr-input-label">A TE VÁLASZOD</label>
+                <textarea class="pr-textarea" [ngModel]="userAnswer()" (ngModelChange)="userAnswer.set($event)" rows="4"
+                    placeholder="Gépeld be a válaszod vázlatát vagy kulcsszavait…"></textarea>
+
+                <div class="pr-card-footer">
+                    <button class="pr-reveal-btn" [class.pr-reveal-btn--ai]="useAiEvaluation()"
                         [disabled]="!userAnswer().trim()" (click)="revealSample()">
                         @if (useAiEvaluation()) {
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
-                            style="margin-right:5px;vertical-align:-2px">
-                            <circle cx="12" cy="12" r="10" /><path d="M12 8v4l3 3" />
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 8v4l3 3" />
                         </svg>
-                        AI értékelés kérése
+                        AI értékelés
                         } @else {
                         Mintaválasz megtekintése
                         }
                     </button>
-                    <div class="pf-nav">
-                        <button class="pf-nav-btn" (click)="prev()" [disabled]="currentIdx() === 0">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    <div class="pr-nav">
+                        <button class="pr-nav-btn" (click)="prev()" [disabled]="currentIdx() === 0">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="15 18 9 12 15 6" />
                             </svg>
                         </button>
-                        <button class="pf-nav-btn pf-nav-btn--primary" (click)="next()"
+                        <button class="pr-nav-btn" (click)="next()"
                             [disabled]="currentIdx() === filteredQuestions().length - 1">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="9 18 15 12 9 6" />
                             </svg>
@@ -91,167 +127,325 @@
 
                 } @else if (useAiEvaluation()) {
 
-                <div class="pf-compare">
-                    <div class="pf-compare-col">
-                        <div class="pf-compare-label pf-compare-label--yours">A TE VÁLASZOD</div>
-                        <p class="pf-compare-text">{{ userAnswer() }}</p>
-                    </div>
+                <div class="pr-compare-single">
+                    <p class="pr-compare-label">A TE VÁLASZOD</p>
+                    <p class="pr-compare-text">{{ userAnswer() }}</p>
                 </div>
 
                 @if (aiLoading()) {
-                <div class="pf-ai-bubble pf-ai-bubble--loading">
-                    <div class="pf-ai-header">
-                        <span class="pf-ai-badge">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10" /><path d="M12 8v4l3 3" />
-                            </svg>
-                            AI Coach
-                        </span>
-                        <span class="pf-ai-thinking">elemez...</span>
+                <div class="pr-ai-box pr-ai-box--loading">
+                    <div class="pr-ai-top">
+                        <span class="pr-ai-badge">AI Coach</span>
+                        <span class="pr-ai-thinking">elemez…</span>
                     </div>
-                    <div class="pf-ai-dots">
-                        <span class="pf-dot"></span>
-                        <span class="pf-dot"></span>
-                        <span class="pf-dot"></span>
+                    <div class="pr-ai-dots">
+                        <span class="pr-dot"></span>
+                        <span class="pr-dot"></span>
+                        <span class="pr-dot"></span>
                     </div>
                 </div>
-
                 } @else if (aiError()) {
-                <div class="pf-ai-bubble pf-ai-bubble--error">
-                    <p>{{ aiError() }}</p>
+                <div class="pr-ai-box pr-ai-box--error">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                    {{ aiError() }}
                 </div>
-
                 } @else if (aiFeedback()) {
-                <div class="pf-ai-bubble">
-                    <div class="pf-ai-header">
-                        <span class="pf-ai-badge">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10" /><path d="M12 8v4l3 3" />
-                            </svg>
-                            AI Coach visszajelzése
-                        </span>
+                <div class="pr-ai-box">
+                    <div class="pr-ai-top">
+                        <span class="pr-ai-badge">AI Coach visszajelzése</span>
                     </div>
-                    <p class="pf-ai-text">{{ aiTypedText() }}<span class="pf-ai-cursor"
-                            [class.pf-ai-cursor--hidden]="aiDone()">|</span></p>
-                </div>
+                    <p class="pr-ai-text">{{ aiTypedText() }}<span class="pr-cursor"
+                            [class.pr-cursor--off]="aiDone()">|</span></p>
 
-                @if (aiDone()) {
-                <div class="pf-ai-verdict" [class]="'pf-ai-verdict--' + verdictFeedbackType(aiVerdict())">
-                    <div class="pf-ai-verdict-left">
-                        <span class="pf-ai-verdict-label">AI értékelés:</span>
-                        <span class="pf-ai-verdict-badge">{{ verdictLabel(aiVerdict()) }}</span>
-                    </div>
-                    <div class="pf-ai-verdict-actions">
-                        <button class="pf-ai-proceed-btn" (click)="proceedWithAiVerdict()">
-                            Tovább az AI értékelés alapján
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="9 18 15 12 9 6" />
-                            </svg>
-                        </button>
-                        <span class="pf-ai-override-label">vagy felülírás:</span>
-                        <div class="pf-ai-override-btns">
-                            <button class="pf-rate pf-rate--hard pf-rate--sm" (click)="rate('hard')">⏳</button>
-                            <button class="pf-rate pf-rate--good pf-rate--sm" (click)="rate('good')">👍</button>
-                            <button class="pf-rate pf-rate--easy pf-rate--sm" (click)="rate('easy')">🎯</button>
+                    @if (aiDone()) {
+                    <div class="pr-verdict-bar" [class]="'pr-verdict-bar--' + (aiVerdict() ?? 'correct')">
+                        <div class="pr-verdict-left">
+                            <span class="pr-verdict-label">AI döntése:</span>
+                            <strong class="pr-verdict-val">
+                                @if (aiVerdict() === 'correct') { ✓ Helyes }
+                                @else { ✗ Helytelen }
+                            </strong>
+                        </div>
+                        <div class="pr-verdict-right">
+                            <button class="pr-proceed-btn" (click)="proceedWithAiVerdict()">
+                                Tovább
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6" />
+                                </svg>
+                            </button>
+                            <span class="pr-override-label">felülírás:</span>
+                            <button class="pr-rate-sm pr-rate-sm--ok" (click)="rate('correct')">✓</button>
+                            <button class="pr-rate-sm pr-rate-sm--no" (click)="rate('incorrect')">✗</button>
                         </div>
                     </div>
+                    }
                 </div>
-                }
-
                 }
 
                 } @else {
-                <div class="pf-compare">
-                    <div class="pf-compare-col">
-                        <div class="pf-compare-label pf-compare-label--yours">A TE VÁLASZOD</div>
-                        <p class="pf-compare-text">{{ userAnswer() }}</p>
+
+                <div class="pr-compare">
+                    <div class="pr-compare-col">
+                        <p class="pr-compare-label">A TE VÁLASZOD</p>
+                        <p class="pr-compare-text">{{ userAnswer() }}</p>
                     </div>
-                    <div class="pf-compare-col pf-compare-col--sample">
-                        <div class="pf-compare-label pf-compare-label--sample">MINTAVÁLASZ</div>
-                        <p class="pf-compare-text">{{ q.sampleAnswer }}</p>
+                    <div class="pr-compare-col pr-compare-col--sample">
+                        <p class="pr-compare-label pr-compare-label--green">MINTAVÁLASZ</p>
+                        <p class="pr-compare-text">{{ q.sampleAnswer }}</p>
                     </div>
                 </div>
 
-                <div class="pf-rating">
-                    <p class="pf-rating-label">Hogyan sikerült?</p>
-                    <div class="pf-rating-btns">
-                        <button class="pf-rate pf-rate--hard" (click)="rate('hard')">⏳ Nehéz volt</button>
-                        <button class="pf-rate pf-rate--good" (click)="rate('good')">👍 Jól ment</button>
-                        <button class="pf-rate pf-rate--easy" (click)="rate('easy')">🎯 Könnyű</button>
-                    </div>
+                <div class="pr-rating-row">
+                    <span class="pr-rating-label">Sikerült?</span>
+                    <button class="pr-rate-btn pr-rate-btn--no" (click)="rate('incorrect')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                        Helytelen
+                    </button>
+                    <button class="pr-rate-btn pr-rate-btn--ok" (click)="rate('correct')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        Helyes
+                    </button>
                 </div>
+
                 }
-
             </div>
-            } @empty {
-            <div class="pf-card">
-                <p class="pf-empty">Nincs kérdés ebben a kategóriában.</p>
+
+            } @else if (!leavingCard()) {
+            <div class="pr-card pr-card--empty">
+                <p class="pr-empty-msg">
+                    @if (showOnlyFailed()) { Nincs hibás kérdés. Remek munka! 🎉 }
+                    @else { Nincs kérdés ebben a kategóriában. }
+                </p>
             </div>
             }
         </div>
 
-        <aside class="pf-aside">
-
-            <div class="pf-stat-card">
-                <div class="pf-stat-head">
-                    <div class="pf-stat-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="8" r="6" />
-                            <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="pf-stat-title">Felkészültségi Mutató</div>
-                        <div class="pf-stat-sub">Gyakorlási és önértékelési statisztikák</div>
-                    </div>
+        <!-- Aside: stats -->
+        <aside class="pr-aside">
+            <div class="pr-stat-card">
+                <p class="pr-stat-label">FELKÉSZÜLTSÉG</p>
+                <div class="pr-stat-score-row">
+                    <span class="pr-stat-pct" [style.color]="getReadinessColor()">{{ readinessScore() }}%</span>
+                    <span class="pr-stat-grade" [style.color]="getReadinessColor()">{{ getReadinessLabel() }}</span>
                 </div>
-
-                <div class="pf-coverage-row">
-                    <span class="pf-coverage-label">Lefedettségi arány</span>
-                    <span class="pf-coverage-pct" [style.color]="getReadinessColor()">{{ readinessScore() }}%</span>
+                <div class="pr-bar-track">
+                    <div class="pr-bar-fill" [style.width.%]="readinessScore()"
+                        [style.background]="getReadinessColor()"></div>
                 </div>
-                <div class="pf-bar-bg">
-                    <div class="pf-bar-fill" [style.width.%]="readinessScore()"
-                        [style.background]="getReadinessColor()">
+                <p class="pr-stat-note">{{ answeredCount() }} / {{ filteredQuestions().length }} megválaszolva</p>
+                <div class="pr-stat-sep"></div>
+                <div class="pr-breakdown">
+                    <div class="pr-breakdown-row">
+                        <span class="pr-breakdown-dot pr-breakdown-dot--ok"></span>
+                        <span class="pr-breakdown-key">Helyes</span>
+                        <span class="pr-breakdown-val">{{ ratingBreakdown().correct }}</span>
                     </div>
-                </div>
-                <div class="pf-answered-note">{{ answeredCount() }} / {{ filteredQuestions().length }} kérdés
-                    megválaszolva</div>
-
-                <div class="pf-breakdown">
-                    <div class="pf-brow">
-                        <span class="pf-brow-label">Könnyűnek jelölt (🎯):</span>
-                        <span class="pf-brow-val">{{ ratingBreakdown().easy }} db</span>
-                    </div>
-                    <div class="pf-brow">
-                        <span class="pf-brow-label">Alakuló válasz (👍):</span>
-                        <span class="pf-brow-val">{{ ratingBreakdown().good }} db</span>
-                    </div>
-                    <div class="pf-brow">
-                        <span class="pf-brow-label">Még nehéznek tűnő (⏳):</span>
-                        <span class="pf-brow-val">{{ ratingBreakdown().hard }} db</span>
+                    <div class="pr-breakdown-row">
+                        <span class="pr-breakdown-dot pr-breakdown-dot--no"></span>
+                        <span class="pr-breakdown-key">Helytelen</span>
+                        <span class="pr-breakdown-val">{{ ratingBreakdown().incorrect }}</span>
                     </div>
                 </div>
             </div>
 
-            <div class="pf-tips-card">
-                <div class="pf-tips-title">💡 Hogyan gyakorolj hatékonyan?</div>
-                <ol class="pf-tips-list">
-                    <li><strong>Fogalmazz röviden:</strong> Ne másold be szó szerint a mintaválaszt. Törekedj arra, hogy
-                        a saját szavaiddal, 3-4 kulcsfontosságú gondolattal válaszolj.</li>
-                    <li><strong>Aktív felidézés:</strong> Írás előtt próbáld meg félhangosan is kimondani a válaszod,
-                        mintha egy valódi interjúztatónak beszélnél.</li>
-                    <li><strong>Ismételj:</strong> Amit ma nehéznek (⏳) jelöltél meg, azt holnap fusd át újra a
-                        kategóriaszűrők segítségével!</li>
-                </ol>
+            @if (showOnlyFailed()) {
+            <div class="pr-tip-card">
+                <p class="pr-tip-title">💡 Tipp</p>
+                <p class="pr-tip-text">Értékeld újra a hibás kérdéseket, ahogy javul a tudásod.</p>
             </div>
-
+            }
         </aside>
 
     </div>
+    }
+
+    @if (activeTab() === 'questions') {
+    <div class="pr-mgmt">
+
+        <!-- Categories -->
+        <div class="pr-section">
+            <div class="pr-section-head">
+                <h3 class="pr-section-title">Kategóriák</h3>
+                @if (!showAddCatForm()) {
+                <button class="pr-add-btn pr-add-btn--sm" (click)="openAddCatForm()">+ Új kategória</button>
+                }
+            </div>
+
+            @if (showAddCatForm()) {
+            <div class="pr-inline-form">
+                <div class="pr-form-row">
+                    <input class="pr-input" type="text" [ngModel]="newCatName()"
+                        (ngModelChange)="newCatName.set($event)" placeholder="Kategória neve…" />
+                    <div class="pr-color-picker">
+                        @for (c of catColors; track c) {
+                        <button type="button" class="pr-color-dot" [class.pr-color-dot--active]="newCatColor() === c"
+                            [style.background]="c" (click)="newCatColor.set(c)"></button>
+                        }
+                    </div>
+                </div>
+                <div class="pr-form-actions">
+                    <button class="pr-save-btn" (click)="submitCategory()">Mentés</button>
+                    <button class="pr-cancel-btn" (click)="cancelAddCatForm()">Mégse</button>
+                </div>
+            </div>
+            }
+
+            <div class="pr-cat-list">
+                @for (cat of practice.categories(); track cat.id) {
+                <div class="pr-cat-row">
+                    <span class="pr-cat-dot" [style.background]="cat.color"></span>
+                    <span class="pr-cat-name">{{ cat.name }}</span>
+                    <span class="pr-cat-count">{{ countByCategory(cat.name) }} kérdés</span>
+                    <button class="pr-del-btn" (click)="deleteCategory(cat.id)" title="Törlés">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                            <path d="M10 11v6M14 11v6" />
+                            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                        </svg>
+                    </button>
+                </div>
+                }
+            </div>
+        </div>
+
+        <div class="pr-section">
+            <div class="pr-section-head">
+                <h3 class="pr-section-title">
+                    Kérdések
+                    <span class="pr-section-count">({{ practice.questions().length }})</span>
+                </h3>
+                @if (!showAddForm()) {
+                <button class="pr-add-btn" (click)="openAddForm()">+ Új kérdés</button>
+                }
+            </div>
+
+            @if (showAddForm()) {
+            <div class="pr-inline-form">
+                <div class="pr-field">
+                    <label class="pr-field-label">Kategória</label>
+                    <select class="pr-select" [ngModel]="formCat()" (ngModelChange)="formCat.set($event)">
+                        @for (cat of practice.categories(); track cat.id) {
+                        <option [value]="cat.name">{{ cat.name }}</option>
+                        }
+                    </select>
+                </div>
+                <div class="pr-field">
+                    <label class="pr-field-label">Kérdés <span class="pr-req">*</span></label>
+                    <textarea class="pr-textarea" rows="2" [ngModel]="formQuestion()"
+                        (ngModelChange)="formQuestion.set($event)" placeholder="Az interjú kérdés szövege…"></textarea>
+                </div>
+                <div class="pr-field">
+                    <label class="pr-field-label">Tipp / Kulcspontok</label>
+                    <input class="pr-input" type="text" [ngModel]="formHint()" (ngModelChange)="formHint.set($event)"
+                        placeholder="Rövid tipp vagy kulcsszavak…" />
+                </div>
+                <div class="pr-field">
+                    <label class="pr-field-label">Mintaválasz <span class="pr-req">*</span></label>
+                    <textarea class="pr-textarea" rows="3" [ngModel]="formSampleAnswer()"
+                        (ngModelChange)="formSampleAnswer.set($event)"
+                        placeholder="Az elvárt/ideális válasz…"></textarea>
+                </div>
+                @if (formError()) {
+                <p class="pr-form-error">{{ formError() }}</p>
+                }
+                <div class="pr-form-actions">
+                    <button class="pr-save-btn" (click)="submitQuestion()">Hozzáadás</button>
+                    <button class="pr-cancel-btn" (click)="cancelAddForm()">Mégse</button>
+                </div>
+            </div>
+            }
+
+            <div class="pr-q-list">
+                @for (q of practice.questions(); track q.id) {
+                <div class="pr-q-row">
+                    <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(q.category)"
+                        [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
+                    <div class="pr-q-body">
+                        <p class="pr-q-text">{{ q.question }}</p>
+                        @if (q.hint) {
+                        <p class="pr-q-hint">{{ q.hint }}</p>
+                        }
+                    </div>
+                    @if (q.feedback) {
+                    <span class="pr-fb-dot" [class]="'pr-fb-dot--' + q.feedback">
+                        {{ q.feedback === 'correct' ? '✓' : '✗' }}
+                    </span>
+                    }
+                    <button class="pr-del-btn" (click)="deleteQuestion(q.id)" title="Törlés">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                            <path d="M10 11v6M14 11v6" />
+                            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                        </svg>
+                    </button>
+                </div>
+                } @empty {
+                <p class="pr-list-empty">Még nincs kérdés. Adj hozzá egyet a fenti gombbal!</p>
+                }
+            </div>
+        </div>
+
+    </div>
+    }
+    @if (activeTab() === 'results') {
+    <div class="pr-results">
+
+        <div class="pr-kpi-row">
+            <div class="pr-kpi pr-kpi--ok">
+                <span class="pr-kpi-num">{{ resultsSummary().correct }}</span>
+                <span class="pr-kpi-lbl">Helyes</span>
+            </div>
+            <div class="pr-kpi pr-kpi--no">
+                <span class="pr-kpi-num">{{ resultsSummary().incorrect }}</span>
+                <span class="pr-kpi-lbl">Helytelen</span>
+            </div>
+            <div class="pr-kpi pr-kpi--na">
+                <span class="pr-kpi-num">{{ resultsSummary().unanswered }}</span>
+                <span class="pr-kpi-lbl">Nem értékelt</span>
+            </div>
+            <div class="pr-kpi pr-kpi--score">
+                <span class="pr-kpi-num">{{ resultsSummary().score }}%</span>
+                <span class="pr-kpi-lbl">Összesített</span>
+            </div>
+        </div>
+
+        <div class="pr-section">
+            <div class="pr-res-list">
+                @for (q of practice.questions(); track q.id) {
+                <div class="pr-res-row" [class]="'pr-res-row--' + (q.feedback ?? 'none')">
+                    <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(q.category)"
+                        [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
+                    <p class="pr-res-q">{{ q.question }}</p>
+                    <span class="pr-res-badge" [class]="'pr-res-badge--' + (q.feedback ?? 'none')">
+                        @if (q.feedback === 'correct') { ✓ Helyes }
+                        @else if (q.feedback === 'incorrect') { ✗ Helytelen }
+                        @else { — }
+                    </span>
+                </div>
+                } @empty {
+                <p class="pr-list-empty">Még nincsenek kérdések.</p>
+                }
+            </div>
+        </div>
+
+    </div>
+    }
 
 </div>

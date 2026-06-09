@@ -40,10 +40,8 @@ export class PracticeService {
     const qs = this.questions();
     const total = qs.length;
     if (total === 0) return 0;
-    const easy = qs.filter(q => q.feedback === 'easy').length;
-    const good = qs.filter(q => q.feedback === 'good').length;
-    const hard = qs.filter(q => q.feedback === 'hard').length;
-    return Math.round(((easy * 1 + good * 0.6 + hard * 0.2) / total) * 100);
+    const correct = qs.filter(q => q.feedback === 'correct').length;
+    return Math.round((correct / total) * 100);
   });
 
   readonly answeredCount = computed(() =>

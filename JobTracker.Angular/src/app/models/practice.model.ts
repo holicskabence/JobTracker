@@ -1,5 +1,5 @@
 export type QuestionCategory = string;
-export type FeedbackType = 'hard' | 'good' | 'easy';
+export type FeedbackType = 'correct' | 'incorrect';
 
 export interface PrepQuestion {
   id: number;
