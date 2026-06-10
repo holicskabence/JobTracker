@@ -116,9 +116,11 @@
   .kanban-scroll {
     padding: 1rem;
     gap: 1rem;
+    scroll-snap-type: x mandatory;
   }
 
   .bulk-bar {
     padding: 0.75rem 1rem;
+    flex-direction: row;
   }
 }

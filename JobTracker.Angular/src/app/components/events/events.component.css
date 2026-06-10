@@ -588,11 +588,6 @@
   .events-form-card { padding: 1rem; }
   .events-section-title { font-size: 1rem; }
 
-  .events-input,
-  .events-task-input {
-    font-size: 1rem;
-  }
-
   .events-filters {
     width: 100%;
     flex: 1;

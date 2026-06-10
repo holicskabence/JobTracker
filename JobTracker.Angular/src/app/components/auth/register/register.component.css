@@ -10,7 +10,7 @@
 .login-card {
   background-color: var(--clr-white);
   border-radius: var(--radius-xl);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   width: 100%;
   max-width: 460px;
   padding: 2.5rem 2rem;
@@ -73,7 +73,7 @@
 
 .oauth-btn:hover {
   background-color: var(--clr-bg);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .login-card-divider {
@@ -87,7 +87,8 @@
   content: '';
   position: absolute;
   top: 50%;
-  left: 0; right: 0;
+  left: 0;
+  right: 0;
   height: 1px;
   background-color: var(--clr-border);
 }
@@ -162,9 +163,13 @@
   padding-right: 2.75rem;
 }
 
-.auth-form-input::placeholder { color: #c8c8c8; }
+.auth-form-input::placeholder {
+  color: #c8c8c8;
+}
 
-.auth-form-input:focus { box-shadow: 0 0 0 2px var(--clr-green); }
+.auth-form-input:focus {
+  box-shadow: 0 0 0 2px var(--clr-green);
+}
 
 .auth-form-input--error {
   border-color: #ef4444;
@@ -190,7 +195,9 @@
   transition: color 0.15s;
 }
 
-.auth-form-eye:hover { color: var(--clr-dark); }
+.auth-form-eye:hover {
+  color: var(--clr-dark);
+}
 
 .login-card-btn {
   width: 100%;
@@ -210,7 +217,9 @@
   color: var(--clr-white);
 }
 
-.login-card-btn--primary:hover { background-color: #000; }
+.login-card-btn--primary:hover {
+  background-color: #000;
+}
 
 .login-card-register {
   font-size: 0.875rem;
@@ -225,4 +234,22 @@
   text-decoration: none;
 }
 
-.login-card-link:hover { color: var(--clr-green); }
+.login-card-link:hover {
+  color: var(--clr-green);
+}
+
+@media (max-width: 767px) {
+  .login-page {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .login-card {
+    max-width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    justify-content: center;
+    padding: 2.5rem 1.5rem;
+  }
+}

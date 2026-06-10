@@ -80,3 +80,11 @@
     border-color: var(--clr-green);
     color: var(--clr-green);
 }
+
+@media (max-width: 767px) {
+    .kanban-column {
+        width: calc(100vw - 2rem);
+        min-width: calc(100vw - 2rem);
+        scroll-snap-align: start;
+    }
+}

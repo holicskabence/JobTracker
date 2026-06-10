@@ -20,8 +20,8 @@
     <div class="pr-filter-row">
         <div class="pr-filter-pills">
             @for (cat of categories(); track trackByCategory($index, cat)) {
-            <button class="pr-pill" [class.pr-pill--active]="selectedFilter() === cat"
-                (click)="selectFilter(cat)">{{ cat }}</button>
+            <button class="pr-pill" [class.pr-pill--active]="selectedFilter() === cat" (click)="selectFilter(cat)">{{
+                cat }}</button>
             }
             <button class="pr-pill pr-pill--failed" [class.pr-pill--active]="selectedFilter() === 'failed'"
                 (click)="selectFilter('failed')">
@@ -32,7 +32,6 @@
                 Megválaszolatlan
             </button>
         </div>
-        <span class="pr-progress-text">{{ currentIdx() + 1 }}&nbsp;/&nbsp;{{ filteredQuestions().length }}</span>
     </div>
 
     <div class="pr-body">
@@ -286,17 +285,20 @@
                         <tr>
                             <th class="pr-q-th pr-q-th--sortable" (click)="qSort('category')">
                                 Kategória
-                                <span class="pr-q-sort-icon" [class.pr-q-sort-icon--active]="qSortKey() === 'category'">{{
+                                <span class="pr-q-sort-icon"
+                                    [class.pr-q-sort-icon--active]="qSortKey() === 'category'">{{
                                     qSortIcon('category') }}</span>
                             </th>
                             <th class="pr-q-th pr-q-th--sortable" (click)="qSort('question')">
                                 Kérdés
-                                <span class="pr-q-sort-icon" [class.pr-q-sort-icon--active]="qSortKey() === 'question'">{{
+                                <span class="pr-q-sort-icon"
+                                    [class.pr-q-sort-icon--active]="qSortKey() === 'question'">{{
                                     qSortIcon('question') }}</span>
                             </th>
                             <th class="pr-q-th pr-q-th--sortable" (click)="qSort('feedback')">
                                 Állapot
-                                <span class="pr-q-sort-icon" [class.pr-q-sort-icon--active]="qSortKey() === 'feedback'">{{
+                                <span class="pr-q-sort-icon"
+                                    [class.pr-q-sort-icon--active]="qSortKey() === 'feedback'">{{
                                     qSortIcon('feedback') }}</span>
                             </th>
                             <th class="pr-q-th pr-q-th--actions">Műveletek</th>
@@ -330,7 +332,8 @@
                                         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                                     </svg>
                                 </button>
-                                <button class="pr-icon-btn pr-icon-btn--danger" (click)="deleteQuestion(q.id)" title="Törlés">
+                                <button class="pr-icon-btn pr-icon-btn--danger" (click)="deleteQuestion(q.id)"
+                                    title="Törlés">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="3 6 5 6 21 6" />
@@ -425,7 +428,8 @@
     <div class="modal-backdrop" (click)="closeQuestionModal()">
         <div class="modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
             <div class="modal-header">
-                <h2 class="modal-title">{{ editingQuestionId() !== null ? 'Kérdés szerkesztése' : 'Új kérdés hozzáadása' }}</h2>
+                <h2 class="modal-title">{{ editingQuestionId() !== null ? 'Kérdés szerkesztése' : 'Új kérdés hozzáadása'
+                    }}</h2>
                 <button class="modal-close" (click)="closeQuestionModal()" aria-label="Bezárás">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round">

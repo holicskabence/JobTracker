@@ -237,3 +237,19 @@
 .login-card-link:hover {
   color: var(--clr-green);
 }
+
+@media (max-width: 767px) {
+  .login-page {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .login-card {
+    max-width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    justify-content: center;
+    padding: 2.5rem 1.5rem;
+  }
+}
