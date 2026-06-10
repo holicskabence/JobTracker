@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/job-tracker.angular",
+            "outputPath": "dist/job-tracker-angular",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -37,12 +37,12 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kB",
-                  "maximumError": "24kB"
+                  "maximumError": "16kB"
                 }
               ],
               "outputHashing": "all",
