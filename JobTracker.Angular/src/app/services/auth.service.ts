@@ -121,6 +121,20 @@ export class AuthService {
     );
   }
 
+  googleLogin(idToken: string): Observable<void> {
+    return this.http.post<AuthResponse>('/api/auth/google', { token: idToken }).pipe(
+      tap(res => this.persistSession(res)),
+      map(() => undefined)
+    );
+  }
+
+  facebookLogin(accessToken: string): Observable<void> {
+    return this.http.post<AuthResponse>('/api/auth/facebook', { token: accessToken }).pipe(
+      tap(res => this.persistSession(res)),
+      map(() => undefined)
+    );
+  }
+
   logout(): void {
     this.clearStorage();
     this.currentUser.set(null);

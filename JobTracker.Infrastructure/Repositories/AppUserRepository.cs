@@ -10,4 +10,10 @@ public sealed class AppUserRepository(JobTrackerDbContext ctx)
 {
     public async Task<AppUser?> GetByEmailAsync(string email) =>
         await Ctx.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+    public async Task<AppUser?> GetByGoogleIdAsync(string googleId) =>
+        await Ctx.Users.FirstOrDefaultAsync(u => u.GoogleId == googleId);
+
+    public async Task<AppUser?> GetByFacebookIdAsync(string facebookId) =>
+        await Ctx.Users.FirstOrDefaultAsync(u => u.FacebookId == facebookId);
 }

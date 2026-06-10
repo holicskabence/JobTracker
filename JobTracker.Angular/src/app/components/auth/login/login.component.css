@@ -214,6 +214,13 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+.google-btn-hidden {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  overflow: hidden;
+}
+
 .login-card-register {
   font-size: 0.875rem;
   color: var(--clr-muted);

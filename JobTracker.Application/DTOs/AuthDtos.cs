@@ -9,4 +9,6 @@ public record RegisterRequest(
 
 public record LoginRequest(string Email, string Password);
 
+public record ExternalAuthRequest(string Token);
+
 public record AuthResponse(string Token, UserProfileResponse Profile);

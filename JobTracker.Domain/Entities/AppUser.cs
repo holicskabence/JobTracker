@@ -13,4 +13,6 @@ public class AppUser
     public string JoinDate { get; set; } = string.Empty;
     public string? AvatarBlobName { get; set; }
     public bool UseAiEvaluation { get; set; } = false;
+    public string? GoogleId { get; set; }
+    public string? FacebookId { get; set; }
 }

@@ -1,8 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../../services/auth.service';
+import { SocialAuthService } from '../../../services/social-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,15 +12,25 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements AfterViewInit {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly social = inject(SocialAuthService);
+
+  @ViewChild('googleBtn') googleBtn?: ElementRef<HTMLDivElement>;
 
   email = '';
   password = '';
   showPwd = false;
   error = '';
   loading = signal(false);
+
+  ngAfterViewInit(): void {
+    if (this.googleBtn) {
+      this.social.initGoogleButton(this.googleBtn.nativeElement);
+      this.social.onGoogleCredential().subscribe(idToken => this.handleGoogleCredential(idToken));
+    }
+  }
 
   submit(): void {
     this.error = '';
@@ -49,7 +60,39 @@ export class LoginComponent {
     });
   }
 
-  oauthLogin(): void {
-    this.loginDemo();
+  googleLogin(): void {
+    this.error = '';
+    if (this.googleBtn) this.social.triggerGoogle(this.googleBtn.nativeElement);
+  }
+
+  facebookLogin(): void {
+    this.error = '';
+    this.loading.set(true);
+    this.social.signInWithFacebook()
+      .then(accessToken => {
+        this.auth.facebookLogin(accessToken).subscribe({
+          next: () => this.router.navigate(['/dashboard']),
+          error: () => {
+            this.error = 'Sikertelen Facebook bejelentkezés.';
+            this.loading.set(false);
+          }
+        });
+      })
+      .catch((err: Error) => {
+        this.error = err.message || 'Sikertelen Facebook bejelentkezés.';
+        this.loading.set(false);
+      });
+  }
+
+  private handleGoogleCredential(idToken: string): void {
+    this.error = '';
+    this.loading.set(true);
+    this.auth.googleLogin(idToken).subscribe({
+      next: () => this.router.navigate(['/dashboard']),
+      error: () => {
+        this.error = 'Sikertelen Google bejelentkezés.';
+        this.loading.set(false);
+      }
+    });
   }
 }

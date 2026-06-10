@@ -35,6 +35,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IAppUserRepository, AppUserRepository>();
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IDemoResetService, DemoResetService>();
+        services.AddScoped<IGoogleAuthService, GoogleAuthService>();
+        services.AddScoped<IFacebookAuthService, FacebookAuthService>();
+        services.AddHttpClient();
         services.AddSingleton<IBlobStorageService, BlobStorageService>();
         services.AddSingleton<IAzureOpenAiService, AzureOpenAiService>();
 

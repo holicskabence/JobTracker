@@ -23,4 +23,22 @@ public sealed class AuthController(IAuthService svc) : ControllerBase
         var result = await svc.LoginAsync(request);
         return result is null ? Unauthorized(new { message = "Hibás email cím vagy jelszó." }) : Ok(result);
     }
+
+    [HttpPost("google")]
+    public async Task<IActionResult> GoogleLogin([FromBody] ExternalAuthRequest request)
+    {
+        var result = await svc.GoogleLoginAsync(request.Token);
+        return result is null
+            ? Unauthorized(new { message = "Sikertelen Google bejelentkezés." })
+            : Ok(result);
+    }
+
+    [HttpPost("facebook")]
+    public async Task<IActionResult> FacebookLogin([FromBody] ExternalAuthRequest request)
+    {
+        var result = await svc.FacebookLoginAsync(request.Token);
+        return result is null
+            ? Unauthorized(new { message = "Sikertelen Facebook bejelentkezés." })
+            : Ok(result);
+    }
 }

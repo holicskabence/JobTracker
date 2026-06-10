@@ -38,6 +38,10 @@ namespace JobTracker.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("FacebookId")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -45,6 +49,10 @@ namespace JobTracker.Infrastructure.Migrations
 
                     b.Property<int>("Goal")
                         .HasColumnType("int");
+
+                    b.Property<string>("GoogleId")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("JoinDate")
                         .IsRequired()
@@ -79,6 +87,14 @@ namespace JobTracker.Infrastructure.Migrations
 
                     b.HasIndex("Email")
                         .IsUnique();
+
+                    b.HasIndex("FacebookId")
+                        .IsUnique()
+                        .HasFilter("[FacebookId] IS NOT NULL");
+
+                    b.HasIndex("GoogleId")
+                        .IsUnique()
+                        .HasFilter("[GoogleId] IS NOT NULL");
 
                     b.ToTable("Users");
                 });

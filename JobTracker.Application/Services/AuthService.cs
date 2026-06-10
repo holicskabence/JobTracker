@@ -9,6 +9,8 @@ public sealed class AuthService(
     IAppUserRepository repo,
     IJwtService jwt,
     IDemoResetService demoReset,
+    IGoogleAuthService googleAuth,
+    IFacebookAuthService facebookAuth,
     IJobStatusConfigRepository statusConfigRepo,
     IEventTypeRepository eventTypeRepo,
     IPracticeQuestionRepository practiceQuestionRepo,
@@ -42,12 +44,74 @@ public sealed class AuthService(
             JoinDate     = DateTime.Now.ToString("yyyy. MMMM", new System.Globalization.CultureInfo("hu-HU"))
         };
         await repo.AddAsync(user);
-        await SeedDefaultStatusConfigsAsync(user.Id);
-        await SeedDefaultEventTypesAsync(user.Id);
-        await SeedDefaultPracticeCategoriesAsync(user.Id);
-        await SeedDefaultPracticeQuestionsAsync(user.Id);
+        await SeedDefaultsAsync(user.Id);
 
         return new AuthResponse(jwt.GenerateToken(user), MapProfile(user));
+    }
+
+    public async Task<AuthResponse?> GoogleLoginAsync(string idToken)
+    {
+        var info = await googleAuth.ValidateAsync(idToken);
+        if (info is null) return null;
+
+        var user = await ResolveExternalUserAsync(info, isGoogle: true);
+        await demoReset.ResetIfDemoAccountAsync(user.Id, user.Email);
+
+        return new AuthResponse(jwt.GenerateToken(user), MapProfile(user));
+    }
+
+    public async Task<AuthResponse?> FacebookLoginAsync(string accessToken)
+    {
+        var info = await facebookAuth.ValidateAsync(accessToken);
+        if (info is null) return null;
+
+        var user = await ResolveExternalUserAsync(info, isGoogle: false);
+        await demoReset.ResetIfDemoAccountAsync(user.Id, user.Email);
+
+        return new AuthResponse(jwt.GenerateToken(user), MapProfile(user));
+    }
+
+    private async Task<AppUser> ResolveExternalUserAsync(ExternalUserInfo info, bool isGoogle)
+    {
+        var existing = isGoogle
+            ? await repo.GetByGoogleIdAsync(info.ProviderId)
+            : await repo.GetByFacebookIdAsync(info.ProviderId);
+        if (existing is not null) return existing;
+
+        var email = info.Email.Trim().ToLowerInvariant();
+        var byEmail = await repo.GetByEmailAsync(email);
+        if (byEmail is not null)
+        {
+            if (isGoogle) byEmail.GoogleId = info.ProviderId;
+            else byEmail.FacebookId = info.ProviderId;
+            return await repo.UpdateAsync(byEmail);
+        }
+
+        var user = new AppUser
+        {
+            FirstName    = info.FirstName,
+            LastName     = info.LastName,
+            Email        = email,
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(Guid.NewGuid().ToString()),
+            Phone        = string.Empty,
+            Position     = string.Empty,
+            Goal         = 30,
+            JoinDate     = DateTime.Now.ToString("yyyy. MMMM", new System.Globalization.CultureInfo("hu-HU")),
+            GoogleId     = isGoogle ? info.ProviderId : null,
+            FacebookId   = isGoogle ? null : info.ProviderId
+        };
+        await repo.AddAsync(user);
+        await SeedDefaultsAsync(user.Id);
+
+        return user;
+    }
+
+    private async Task SeedDefaultsAsync(int userId)
+    {
+        await SeedDefaultStatusConfigsAsync(userId);
+        await SeedDefaultEventTypesAsync(userId);
+        await SeedDefaultPracticeCategoriesAsync(userId);
+        await SeedDefaultPracticeQuestionsAsync(userId);
     }
 
     private async Task SeedDefaultStatusConfigsAsync(int userId)
