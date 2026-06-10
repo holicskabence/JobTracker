@@ -9,6 +9,9 @@ C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Azure.Identity.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Azure.Storage.Blobs.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Azure.Storage.Common.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\BCrypt-Net-Next.dll
+C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Google.Apis.dll
+C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Google.Apis.Auth.dll
+C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Google.Apis.Core.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Microsoft.AspNetCore.OpenApi.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
@@ -44,6 +47,7 @@ C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Microsoft.Identity
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Microsoft.OpenApi.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Microsoft.SqlServer.Server.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Microsoft.Win32.SystemEvents.dll
+C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Newtonsoft.Json.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\OpenAI.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\BouncyCastle.Crypto.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\SQLitePCLRaw.batteries_v2.dll
@@ -53,6 +57,7 @@ C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Swashbuckle.AspNet
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\System.ClientModel.dll
+C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\System.CodeDom.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\System.Configuration.ConfigurationManager.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\System.Diagnostics.DiagnosticSource.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\System.Drawing.Common.dll
@@ -60,6 +65,7 @@ C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\System.Formats.Asn
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\System.IdentityModel.Tokens.Jwt.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\System.IO.Hashing.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\System.IO.Pipelines.dll
+C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\System.Management.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\System.Memory.Data.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\System.Net.ServerSentEvents.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\System.Runtime.Caching.dll
@@ -98,6 +104,7 @@ C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\runtimes\win-x64\n
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\runtimes\win-x86\native\e_sqlite3.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\runtimes\win\lib\net7.0\System.Management.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\JobTracker\JobTracker.WebApi\obj\Release\net9.0\PubTmp\Out\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
