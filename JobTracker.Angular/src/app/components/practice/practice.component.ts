@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, HostListener, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PracticeService } from '../../services/practice.service';
 import { PracticeApiService } from '../../services/practice-api.service';
@@ -7,6 +7,9 @@ import { FeedbackType, PrepQuestion, QuestionCategory } from '../../models/pract
 
 type Tab = 'practice' | 'questions' | 'results';
 type FilterCategory = 'Mind' | QuestionCategory;
+type FeedbackFilter = 'failed' | 'unanswered';
+type ActiveFilter = FilterCategory | FeedbackFilter;
+type QSortKey = 'category' | 'question' | 'feedback';
 
 @Component({
   selector: 'app-practice',
@@ -27,27 +30,27 @@ export class PracticeComponent {
   readonly categories = computed<FilterCategory[]>(() =>
     ['Mind', ...this.practice.categories().map(c => c.name)]
   );
-  readonly selectedCategory = signal<FilterCategory>('Mind');
-  readonly showOnlyFailed = signal(false);
+  readonly selectedFilter = signal<ActiveFilter>('Mind');
   readonly currentIdx = signal(0);
   readonly userAnswer = signal('');
   readonly showSample = signal(false);
 
   readonly filteredQuestions = computed<PrepQuestion[]>(() => {
-    const cat = this.selectedCategory();
-    const onlyFailed = this.showOnlyFailed();
+    const filter = this.selectedFilter();
     let list = this.practice.questions();
-    if (cat !== 'Mind') list = list.filter(q => q.category === cat);
-    if (onlyFailed) list = list.filter(q => q.feedback === 'incorrect');
+    if (filter === 'failed') {
+      list = list.filter(q => q.feedback === 'incorrect');
+    } else if (filter === 'unanswered') {
+      list = list.filter(q => q.feedback === null);
+    } else if (filter !== 'Mind') {
+      list = list.filter(q => q.category === filter);
+    }
     return list;
   });
 
   readonly currentQuestion = computed<PrepQuestion | null>(() =>
     this.filteredQuestions()[this.currentIdx()] ?? null
   );
-
-  readonly leavingCard = signal<PrepQuestion | null>(null);
-  readonly animDir = signal<'fwd' | 'bwd'>('fwd');
 
   readonly answeredCount = computed(() =>
     this.filteredQuestions().filter(q => q.feedback !== null).length
@@ -77,18 +80,42 @@ export class PracticeComponent {
   readonly aiError = signal<string | null>(null);
   readonly aiDone = signal(false);
 
-  readonly showAddForm = signal(false);
+  readonly showQuestionModal = signal(false);
+  readonly editingQuestionId = signal<number | null>(null);
   readonly formCat = signal('');
   readonly formQuestion = signal('');
   readonly formHint = signal('');
   readonly formSampleAnswer = signal('');
   readonly formError = signal('');
 
-  readonly showAddCatForm = signal(false);
-  readonly newCatName = signal('');
-  readonly newCatColor = signal('#26ac00');
+  // ── Questions tab: search & sort ────────────────────────────────────────────
+  readonly qSearch = signal('');
+  readonly qSortKey = signal<QSortKey>('category');
+  readonly qSortDir = signal<'asc' | 'desc'>('asc');
 
-  readonly catColors = ['#26ac00', '#5fb9fa', '#f59e0b', '#8b5cf6', '#ef4444', '#ec4899', '#14b8a6'];
+  readonly sortedQuestions = computed<PrepQuestion[]>(() => {
+    const term = this.qSearch().trim().toLowerCase();
+    const key = this.qSortKey();
+    const dir = this.qSortDir() === 'asc' ? 1 : -1;
+
+    let list = this.practice.questions();
+    if (term) {
+      list = list.filter(q =>
+        q.question.toLowerCase().includes(term) ||
+        q.hint.toLowerCase().includes(term) ||
+        q.category.toLowerCase().includes(term)
+      );
+    }
+
+    return [...list].sort((a, b) => {
+      const va = key === 'feedback' ? (a.feedback ?? '') : a[key];
+      const vb = key === 'feedback' ? (b.feedback ?? '') : b[key];
+      return va < vb ? -dir : va > vb ? dir : 0;
+    });
+  });
+
+  // ── Results tab ─────────────────────────────────────────────────────────────
+  readonly expandedResultId = signal<number | null>(null);
 
   readonly resultsSummary = computed(() => {
     const qs = this.practice.questions();
@@ -101,18 +128,8 @@ export class PracticeComponent {
     };
   });
 
-  selectCategory(cat: FilterCategory): void {
-    this.leavingCard.set(null);
-    this.selectedCategory.set(cat);
-    this.currentIdx.set(0);
-    this.userAnswer.set('');
-    this.showSample.set(false);
-    this.resetAi();
-  }
-
-  toggleFailed(): void {
-    this.leavingCard.set(null);
-    this.showOnlyFailed.update(v => !v);
+  selectFilter(filter: ActiveFilter): void {
+    this.selectedFilter.set(filter);
     this.currentIdx.set(0);
     this.userAnswer.set('');
     this.showSample.set(false);
@@ -185,36 +202,41 @@ export class PracticeComponent {
 
   next(): void {
     if (this.currentIdx() >= this.filteredQuestions().length - 1) return;
-    this.leavingCard.set(this.currentQuestion());
-    this.animDir.set('fwd');
     this.currentIdx.update(i => i + 1);
     this.userAnswer.set('');
     this.showSample.set(false);
     this.resetAi();
-    setTimeout(() => this.leavingCard.set(null), 430);
   }
 
   prev(): void {
     if (this.currentIdx() <= 0) return;
-    this.leavingCard.set(this.currentQuestion());
-    this.animDir.set('bwd');
     this.currentIdx.update(i => i - 1);
     this.userAnswer.set('');
     this.showSample.set(false);
     this.resetAi();
-    setTimeout(() => this.leavingCard.set(null), 430);
   }
 
-  openAddForm(): void {
-    this.showAddForm.set(true);
+  openAddQuestionModal(): void {
+    this.editingQuestionId.set(null);
     this.formCat.set(this.practice.categories()[0]?.name ?? '');
     this.formQuestion.set('');
     this.formHint.set('');
     this.formSampleAnswer.set('');
     this.formError.set('');
+    this.showQuestionModal.set(true);
   }
 
-  cancelAddForm(): void { this.showAddForm.set(false); }
+  openEditQuestionModal(q: PrepQuestion): void {
+    this.editingQuestionId.set(q.id);
+    this.formCat.set(q.category);
+    this.formQuestion.set(q.question);
+    this.formHint.set(q.hint);
+    this.formSampleAnswer.set(q.sampleAnswer);
+    this.formError.set('');
+    this.showQuestionModal.set(true);
+  }
+
+  closeQuestionModal(): void { this.showQuestionModal.set(false); }
 
   submitQuestion(): void {
     const cat = this.formCat().trim();
@@ -225,21 +247,68 @@ export class PracticeComponent {
     if (!q) { this.formError.set('A kérdés szövege kötelező.'); return; }
     if (!sa) { this.formError.set('A mintaválasz kötelező.'); return; }
     this.formError.set('');
-    this.practice.addQuestion({ category: cat, question: q, hint: h, sampleAnswer: sa });
-    this.showAddForm.set(false);
+
+    const editingId = this.editingQuestionId();
+    if (editingId !== null) {
+      this.practice.updateQuestion(editingId, { category: cat, question: q, hint: h, sampleAnswer: sa });
+    } else {
+      this.practice.addQuestion({ category: cat, question: q, hint: h, sampleAnswer: sa });
+    }
+    this.showQuestionModal.set(false);
   }
 
   deleteQuestion(id: number): void { this.practice.deleteQuestion(id); }
 
-  openAddCatForm(): void { this.showAddCatForm.set(true); this.newCatName.set(''); }
-  cancelAddCatForm(): void { this.showAddCatForm.set(false); }
-  submitCategory(): void {
-    const name = this.newCatName().trim();
-    if (!name) return;
-    this.practice.addCategory(name, this.newCatColor());
-    this.showAddCatForm.set(false);
+  // ── Category dropdown (modal) ───────────────────────────────────────────────
+  catDropOpen = false;
+  catDropTop = 0;
+  catDropLeft = 0;
+  catDropWidth = 0;
+
+  toggleCatDrop(event: MouseEvent): void {
+    event.stopPropagation();
+    if (!this.catDropOpen) {
+      const btn = event.currentTarget as HTMLElement;
+      const r = btn.getBoundingClientRect();
+      const estimatedH = this.practice.categories().length * 40 + 10;
+      this.catDropLeft = r.left;
+      this.catDropWidth = Math.max(r.width, 192);
+      if (this.catDropLeft + this.catDropWidth > window.innerWidth - 8) {
+        this.catDropLeft = window.innerWidth - this.catDropWidth - 8;
+      }
+      this.catDropTop = (window.innerHeight - r.bottom - 8 >= estimatedH || r.top < estimatedH)
+        ? r.bottom + 4
+        : r.top - estimatedH - 4;
+    }
+    this.catDropOpen = !this.catDropOpen;
   }
-  deleteCategory(id: number): void { this.practice.deleteCategory(id); }
+
+  pickCategory(name: string, event: MouseEvent): void {
+    event.stopPropagation();
+    this.formCat.set(name);
+    this.catDropOpen = false;
+  }
+
+  @HostListener('document:click')
+  closeCatDrop(): void { this.catDropOpen = false; }
+
+  qSort(key: QSortKey): void {
+    if (this.qSortKey() === key) {
+      this.qSortDir.update(d => d === 'asc' ? 'desc' : 'asc');
+    } else {
+      this.qSortKey.set(key);
+      this.qSortDir.set('asc');
+    }
+  }
+
+  qSortIcon(key: QSortKey): string {
+    if (this.qSortKey() !== key) return '↕';
+    return this.qSortDir() === 'asc' ? '↑' : '↓';
+  }
+
+  toggleResultExpand(id: number): void {
+    this.expandedResultId.update(cur => cur === id ? null : id);
+  }
 
   getFeedback(id: number): FeedbackType | null {
     return this.practice.questions().find(q => q.id === id)?.feedback ?? null;
@@ -269,10 +338,6 @@ export class PracticeComponent {
 
   categoryColor(cat: QuestionCategory): string {
     return this.practice.categories().find(c => c.name === cat)?.color ?? '#9b9b99';
-  }
-
-  countByCategory(name: string): number {
-    return this.practice.questions().filter(q => q.category === name).length;
   }
 
   trackByCategory(_: number, cat: FilterCategory): string { return cat; }

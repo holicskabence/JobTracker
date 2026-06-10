@@ -27,6 +27,19 @@ public sealed class PracticeQuestionService(IPracticeQuestionRepository repo, IA
         return Map(question);
     }
 
+    public async Task<PracticeQuestionResponse?> UpdateAsync(int id, UpdatePracticeQuestionRequest request, int userId)
+    {
+        var question = await repo.GetByIdAsync(id, userId);
+        if (question is null) return null;
+
+        question.Category = request.Category.Trim();
+        question.Question = request.Question.Trim();
+        question.Hint = request.Hint.Trim();
+        question.SampleAnswer = request.SampleAnswer.Trim();
+        await repo.UpdateAsync(question);
+        return Map(question);
+    }
+
     public async Task<PracticeQuestionResponse?> SetFeedbackAsync(int id, RatePracticeQuestionRequest request, int userId)
     {
         var question = await repo.GetByIdAsync(id, userId);

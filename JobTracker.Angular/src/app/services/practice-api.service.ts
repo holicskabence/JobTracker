@@ -10,6 +10,8 @@ export interface CreatePracticeQuestionPayload {
   sampleAnswer: string;
 }
 
+export type UpdatePracticeQuestionPayload = CreatePracticeQuestionPayload;
+
 export interface CreatePracticeCategoryPayload {
   name: string;
   color: string;
@@ -25,6 +27,10 @@ export class PracticeApiService {
 
   createQuestion(data: CreatePracticeQuestionPayload): Observable<PrepQuestion> {
     return this.http.post<PrepQuestion>('/api/practice-questions', data);
+  }
+
+  updateQuestion(id: number, data: UpdatePracticeQuestionPayload): Observable<PrepQuestion> {
+    return this.http.put<PrepQuestion>(`/api/practice-questions/${id}`, data);
   }
 
   rateQuestion(id: number, feedback: FeedbackType | null): Observable<PrepQuestion> {

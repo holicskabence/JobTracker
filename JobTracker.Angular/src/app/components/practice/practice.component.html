@@ -20,16 +20,16 @@
     <div class="pr-filter-row">
         <div class="pr-filter-pills">
             @for (cat of categories(); track trackByCategory($index, cat)) {
-            <button class="pr-pill" [class.pr-pill--active]="selectedCategory() === cat && !showOnlyFailed()"
-                (click)="selectCategory(cat)">{{ cat }}</button>
+            <button class="pr-pill" [class.pr-pill--active]="selectedFilter() === cat"
+                (click)="selectFilter(cat)">{{ cat }}</button>
             }
-            <button class="pr-pill pr-pill--failed" [class.pr-pill--active]="showOnlyFailed()" (click)="toggleFailed()">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
+            <button class="pr-pill pr-pill--failed" [class.pr-pill--active]="selectedFilter() === 'failed'"
+                (click)="selectFilter('failed')">
                 Nem sikerültek
+            </button>
+            <button class="pr-pill pr-pill--unanswered" [class.pr-pill--active]="selectedFilter() === 'unanswered'"
+                (click)="selectFilter('unanswered')">
+                Megválaszolatlan
             </button>
         </div>
         <span class="pr-progress-text">{{ currentIdx() + 1 }}&nbsp;/&nbsp;{{ filteredQuestions().length }}</span>
@@ -39,27 +39,6 @@
 
         <div class="pr-deck">
 
-            @if (leavingCard(); as lc) {
-            <div class="pr-card pr-card--ghost" [class.pr-card--ghost-bwd]="animDir() === 'bwd'">
-                <div class="pr-card-head">
-                    <span class="pr-cat-badge" [style.color]="categoryColor(lc.category)"
-                        [style.background]="categoryColor(lc.category) + '18'">{{ lc.category }}</span>
-                </div>
-                <h2 class="pr-question">{{ lc.question }}</h2>
-                @if (lc.hint) {
-                <div class="pr-hint-row">
-                    <svg class="pr-hint-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="12" y1="8" x2="12" y2="12" />
-                        <line x1="12" y1="16" x2="12.01" y2="16" />
-                    </svg>
-                    <span class="pr-hint-text">{{ lc.hint }}</span>
-                </div>
-                }
-            </div>
-            }
-
             @if (currentQuestion(); as q) {
             <div class="pr-card">
 
@@ -68,7 +47,7 @@
                         [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
                     @if (getFeedback(q.id); as fb) {
                     <span class="pr-done-badge" [class]="'pr-done-badge--' + fb">
-                        {{ fb === 'correct' ? '✓ Helyes' : '✗ Helytelen' }}
+                        {{ fb === 'correct' ? '✓ Helyes' : 'Helytelen' }}
                     </span>
                     }
                     <span class="pr-idx-badge">{{ currentIdx() + 1 }} / {{ filteredQuestions().length }}</span>
@@ -168,7 +147,7 @@
                             <span class="pr-verdict-label">AI döntése:</span>
                             <strong class="pr-verdict-val">
                                 @if (aiVerdict() === 'correct') { ✓ Helyes }
-                                @else { ✗ Helytelen }
+                                @else { Helytelen }
                             </strong>
                         </div>
                         <div class="pr-verdict-right">
@@ -204,11 +183,6 @@
                 <div class="pr-rating-row">
                     <span class="pr-rating-label">Sikerült?</span>
                     <button class="pr-rate-btn pr-rate-btn--no" (click)="rate('incorrect')">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18" />
-                            <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
                         Helytelen
                     </button>
                     <button class="pr-rate-btn pr-rate-btn--ok" (click)="rate('correct')">
@@ -222,11 +196,11 @@
 
                 }
             </div>
-
-            } @else if (!leavingCard()) {
+            } @else {
             <div class="pr-card pr-card--empty">
                 <p class="pr-empty-msg">
-                    @if (showOnlyFailed()) { Nincs hibás kérdés. Remek munka! 🎉 }
+                    @if (selectedFilter() === 'failed') { Nincs hibás kérdés. Remek munka! 🎉 }
+                    @else if (selectedFilter() === 'unanswered') { Nincs megválaszolatlan kérdés. }
                     @else { Nincs kérdés ebben a kategóriában. }
                 </p>
             </div>
@@ -261,7 +235,7 @@
                 </div>
             </div>
 
-            @if (showOnlyFailed()) {
+            @if (selectedFilter() === 'failed') {
             <div class="pr-tip-card">
                 <p class="pr-tip-title">💡 Tipp</p>
                 <p class="pr-tip-text">Értékeld újra a hibás kérdéseket, ahogy javul a tudásod.</p>
@@ -275,130 +249,111 @@
     @if (activeTab() === 'questions') {
     <div class="pr-mgmt">
 
-        <!-- Categories -->
-        <div class="pr-section">
-            <div class="pr-section-head">
-                <h3 class="pr-section-title">Kategóriák</h3>
-                @if (!showAddCatForm()) {
-                <button class="pr-add-btn pr-add-btn--sm" (click)="openAddCatForm()">+ Új kategória</button>
-                }
-            </div>
-
-            @if (showAddCatForm()) {
-            <div class="pr-inline-form">
-                <div class="pr-form-row">
-                    <input class="pr-input" type="text" [ngModel]="newCatName()"
-                        (ngModelChange)="newCatName.set($event)" placeholder="Kategória neve…" />
-                    <div class="pr-color-picker">
-                        @for (c of catColors; track c) {
-                        <button type="button" class="pr-color-dot" [class.pr-color-dot--active]="newCatColor() === c"
-                            [style.background]="c" (click)="newCatColor.set(c)"></button>
-                        }
-                    </div>
-                </div>
-                <div class="pr-form-actions">
-                    <button class="pr-save-btn" (click)="submitCategory()">Mentés</button>
-                    <button class="pr-cancel-btn" (click)="cancelAddCatForm()">Mégse</button>
-                </div>
-            </div>
-            }
-
-            <div class="pr-cat-list">
-                @for (cat of practice.categories(); track cat.id) {
-                <div class="pr-cat-row">
-                    <span class="pr-cat-dot" [style.background]="cat.color"></span>
-                    <span class="pr-cat-name">{{ cat.name }}</span>
-                    <span class="pr-cat-count">{{ countByCategory(cat.name) }} kérdés</span>
-                    <button class="pr-del-btn" (click)="deleteCategory(cat.id)" title="Törlés">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-                            <path d="M10 11v6M14 11v6" />
-                            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
-                        </svg>
-                    </button>
-                </div>
-                }
-            </div>
-        </div>
-
         <div class="pr-section">
             <div class="pr-section-head">
                 <h3 class="pr-section-title">
                     Kérdések
                     <span class="pr-section-count">({{ practice.questions().length }})</span>
                 </h3>
-                @if (!showAddForm()) {
-                <button class="pr-add-btn" (click)="openAddForm()">+ Új kérdés</button>
-                }
+                <button class="pr-add-btn" (click)="openAddQuestionModal()">+ Új kérdés</button>
             </div>
 
-            @if (showAddForm()) {
-            <div class="pr-inline-form">
-                <div class="pr-field">
-                    <label class="pr-field-label">Kategória</label>
-                    <select class="pr-select" [ngModel]="formCat()" (ngModelChange)="formCat.set($event)">
-                        @for (cat of practice.categories(); track cat.id) {
-                        <option [value]="cat.name">{{ cat.name }}</option>
-                        }
-                    </select>
-                </div>
-                <div class="pr-field">
-                    <label class="pr-field-label">Kérdés <span class="pr-req">*</span></label>
-                    <textarea class="pr-textarea" rows="2" [ngModel]="formQuestion()"
-                        (ngModelChange)="formQuestion.set($event)" placeholder="Az interjú kérdés szövege…"></textarea>
-                </div>
-                <div class="pr-field">
-                    <label class="pr-field-label">Tipp / Kulcspontok</label>
-                    <input class="pr-input" type="text" [ngModel]="formHint()" (ngModelChange)="formHint.set($event)"
-                        placeholder="Rövid tipp vagy kulcsszavak…" />
-                </div>
-                <div class="pr-field">
-                    <label class="pr-field-label">Mintaválasz <span class="pr-req">*</span></label>
-                    <textarea class="pr-textarea" rows="3" [ngModel]="formSampleAnswer()"
-                        (ngModelChange)="formSampleAnswer.set($event)"
-                        placeholder="Az elvárt/ideális válasz…"></textarea>
-                </div>
-                @if (formError()) {
-                <p class="pr-form-error">{{ formError() }}</p>
-                }
-                <div class="pr-form-actions">
-                    <button class="pr-save-btn" (click)="submitQuestion()">Hozzáadás</button>
-                    <button class="pr-cancel-btn" (click)="cancelAddForm()">Mégse</button>
-                </div>
-            </div>
-            }
-
-            <div class="pr-q-list">
-                @for (q of practice.questions(); track q.id) {
-                <div class="pr-q-row">
-                    <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(q.category)"
-                        [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
-                    <div class="pr-q-body">
-                        <p class="pr-q-text">{{ q.question }}</p>
-                        @if (q.hint) {
-                        <p class="pr-q-hint">{{ q.hint }}</p>
-                        }
-                    </div>
-                    @if (q.feedback) {
-                    <span class="pr-fb-dot" [class]="'pr-fb-dot--' + q.feedback">
-                        {{ q.feedback === 'correct' ? '✓' : '✗' }}
-                    </span>
-                    }
-                    <button class="pr-del-btn" (click)="deleteQuestion(q.id)" title="Törlés">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-                            <path d="M10 11v6M14 11v6" />
-                            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+            <div class="pr-q-toolbar">
+                <div class="pr-q-search-wrap">
+                    <svg class="pr-q-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input class="pr-q-search" type="text" placeholder="Keresés a kérdések között…"
+                        [ngModel]="qSearch()" (ngModelChange)="qSearch.set($event)" />
+                    @if (qSearch()) {
+                    <button class="pr-q-search-clear" (click)="qSearch.set('')" title="Törlés">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3" stroke-linecap="round">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
                         </svg>
                     </button>
+                    }
                 </div>
-                } @empty {
-                <p class="pr-list-empty">Még nincs kérdés. Adj hozzá egyet a fenti gombbal!</p>
-                }
+                <span class="pr-q-count">{{ sortedQuestions().length }} találat</span>
+            </div>
+
+            <div class="pr-q-table-wrap">
+                <table class="pr-q-table">
+                    <thead>
+                        <tr>
+                            <th class="pr-q-th pr-q-th--sortable" (click)="qSort('category')">
+                                Kategória
+                                <span class="pr-q-sort-icon" [class.pr-q-sort-icon--active]="qSortKey() === 'category'">{{
+                                    qSortIcon('category') }}</span>
+                            </th>
+                            <th class="pr-q-th pr-q-th--sortable" (click)="qSort('question')">
+                                Kérdés
+                                <span class="pr-q-sort-icon" [class.pr-q-sort-icon--active]="qSortKey() === 'question'">{{
+                                    qSortIcon('question') }}</span>
+                            </th>
+                            <th class="pr-q-th pr-q-th--sortable" (click)="qSort('feedback')">
+                                Állapot
+                                <span class="pr-q-sort-icon" [class.pr-q-sort-icon--active]="qSortKey() === 'feedback'">{{
+                                    qSortIcon('feedback') }}</span>
+                            </th>
+                            <th class="pr-q-th pr-q-th--actions">Műveletek</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (q of sortedQuestions(); track q.id) {
+                        <tr class="pr-q-tr">
+                            <td class="pr-q-td">
+                                <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(q.category)"
+                                    [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
+                            </td>
+                            <td class="pr-q-td pr-q-td--main">
+                                <p class="pr-q-text">{{ q.question }}</p>
+                                @if (q.hint) {
+                                <p class="pr-q-hint">{{ q.hint }}</p>
+                                }
+                            </td>
+                            <td class="pr-q-td">
+                                @if (q.feedback; as fb) {
+                                <span class="pr-fb-badge" [class]="'pr-fb-badge--' + fb">{{ feedbackLabel(fb) }}</span>
+                                } @else {
+                                <span class="pr-fb-badge pr-fb-badge--none">—</span>
+                                }
+                            </td>
+                            <td class="pr-q-td pr-q-td--actions">
+                                <button class="pr-icon-btn" (click)="openEditQuestionModal(q)" title="Szerkesztés">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                    </svg>
+                                </button>
+                                <button class="pr-icon-btn pr-icon-btn--danger" (click)="deleteQuestion(q.id)" title="Törlés">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="3 6 5 6 21 6" />
+                                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                                        <path d="M10 11v6M14 11v6" />
+                                        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        } @empty {
+                        <tr>
+                            <td colspan="4" class="pr-list-empty">
+                                @if (qSearch()) {
+                                Nincs találat a(z) „{{ qSearch() }}" keresésre.
+                                } @else {
+                                Még nincs kérdés. Adj hozzá egyet a fenti gombbal!
+                                }
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -429,15 +384,33 @@
         <div class="pr-section">
             <div class="pr-res-list">
                 @for (q of practice.questions(); track q.id) {
-                <div class="pr-res-row" [class]="'pr-res-row--' + (q.feedback ?? 'none')">
-                    <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(q.category)"
-                        [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
-                    <p class="pr-res-q">{{ q.question }}</p>
-                    <span class="pr-res-badge" [class]="'pr-res-badge--' + (q.feedback ?? 'none')">
-                        @if (q.feedback === 'correct') { ✓ Helyes }
-                        @else if (q.feedback === 'incorrect') { ✗ Helytelen }
-                        @else { — }
-                    </span>
+                <div class="pr-res-item">
+                    <button type="button" class="pr-res-row" [class]="'pr-res-row--' + (q.feedback ?? 'none')"
+                        (click)="toggleResultExpand(q.id)">
+                        <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(q.category)"
+                            [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
+                        <p class="pr-res-q">{{ q.question }}</p>
+                        <span class="pr-res-badge" [class]="'pr-res-badge--' + (q.feedback ?? 'none')">
+                            @if (q.feedback === 'correct') { ✓ Helyes }
+                            @else if (q.feedback === 'incorrect') { Helytelen }
+                            @else { — }
+                        </span>
+                        <svg class="pr-res-chevron" [class.pr-res-chevron--open]="expandedResultId() === q.id"
+                            width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    @if (expandedResultId() === q.id) {
+                    <div class="pr-res-detail">
+                        @if (q.hint) {
+                        <p class="pr-res-detail-label">Tipp</p>
+                        <p class="pr-res-detail-text">{{ q.hint }}</p>
+                        }
+                        <p class="pr-res-detail-label pr-res-detail-label--green">Mintaválasz</p>
+                        <p class="pr-res-detail-text">{{ q.sampleAnswer }}</p>
+                    </div>
+                    }
                 </div>
                 } @empty {
                 <p class="pr-list-empty">Még nincsenek kérdések.</p>
@@ -445,6 +418,84 @@
             </div>
         </div>
 
+    </div>
+    }
+
+    @if (showQuestionModal()) {
+    <div class="modal-backdrop" (click)="closeQuestionModal()">
+        <div class="modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h2 class="modal-title">{{ editingQuestionId() !== null ? 'Kérdés szerkesztése' : 'Új kérdés hozzáadása' }}</h2>
+                <button class="modal-close" (click)="closeQuestionModal()" aria-label="Bezárás">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-form">
+                <div class="pr-field">
+                    <label class="pr-field-label">Kategória</label>
+                    <div class="cat-drop" [class.cat-drop--open]="catDropOpen">
+                        <button type="button" class="cat-drop-trigger" (click)="toggleCatDrop($event)">
+                            <span class="cat-drop-dot" [style.background-color]="categoryColor(formCat())"></span>
+                            <span class="cat-drop-label">{{ formCat() || 'Válassz kategóriát…' }}</span>
+                            <svg class="cat-drop-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                                [style.transform]="catDropOpen ? 'rotate(180deg)' : 'none'">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                        </button>
+                        @if (catDropOpen) {
+                        <div class="cat-drop-panel" [style.top.px]="catDropTop" [style.left.px]="catDropLeft"
+                            [style.width.px]="catDropWidth" (click)="$event.stopPropagation()">
+                            @for (cat of practice.categories(); track cat.id) {
+                            <button type="button" class="cat-drop-option"
+                                [class.cat-drop-option--current]="cat.name === formCat()"
+                                (click)="pickCategory(cat.name, $event)">
+                                <span class="cat-drop-dot" [style.background-color]="cat.color"></span>
+                                <span class="cat-drop-name">{{ cat.name }}</span>
+                                @if (cat.name === formCat()) {
+                                <svg class="cat-drop-check" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                }
+                            </button>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="pr-field">
+                    <label class="pr-field-label">Kérdés <span class="pr-req">*</span></label>
+                    <textarea class="pr-textarea" rows="2" [ngModel]="formQuestion()"
+                        (ngModelChange)="formQuestion.set($event)" placeholder="Az interjú kérdés szövege…"></textarea>
+                </div>
+                <div class="pr-field">
+                    <label class="pr-field-label">Tipp / Kulcspontok</label>
+                    <input class="pr-input" type="text" [ngModel]="formHint()" (ngModelChange)="formHint.set($event)"
+                        placeholder="Rövid tipp vagy kulcsszavak…" />
+                </div>
+                <div class="pr-field">
+                    <label class="pr-field-label">Mintaválasz <span class="pr-req">*</span></label>
+                    <textarea class="pr-textarea" rows="3" [ngModel]="formSampleAnswer()"
+                        (ngModelChange)="formSampleAnswer.set($event)"
+                        placeholder="Az elvárt/ideális válasz…"></textarea>
+                </div>
+                @if (formError()) {
+                <p class="pr-form-error">{{ formError() }}</p>
+                }
+                <div class="modal-actions">
+                    <button type="button" class="btn btn--ghost" (click)="closeQuestionModal()">Mégse</button>
+                    <button type="button" class="btn btn--primary" (click)="submitQuestion()">
+                        {{ editingQuestionId() !== null ? 'Mentés' : 'Hozzáadás' }}
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
     }
 

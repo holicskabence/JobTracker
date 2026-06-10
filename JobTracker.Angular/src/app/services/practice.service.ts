@@ -1,7 +1,7 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FeedbackType, PracticeCategory, PrepQuestion } from '../models/practice.model';
-import { CreatePracticeQuestionPayload, PracticeApiService } from './practice-api.service';
+import { CreatePracticeQuestionPayload, PracticeApiService, UpdatePracticeQuestionPayload } from './practice-api.service';
 
 const PRACTICE_DATES_KEY = 'practice_dates';
 
@@ -104,6 +104,15 @@ export class PracticeService {
       next: created => this.questions.update(prev => [...prev, created]),
       error: (err: HttpErrorResponse) =>
         this.error.set(err.error?.message ?? 'Nem sikerült létrehozni a kérdést.')
+    });
+  }
+
+  updateQuestion(id: number, data: UpdatePracticeQuestionPayload): void {
+    this.error.set('');
+    this.api.updateQuestion(id, data).subscribe({
+      next: updated => this.questions.update(prev => prev.map(q => q.id === id ? updated : q)),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a kérdést.')
     });
   }
 

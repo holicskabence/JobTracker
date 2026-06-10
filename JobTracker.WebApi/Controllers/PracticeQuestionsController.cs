@@ -18,6 +18,13 @@ public sealed class PracticeQuestionsController(IPracticeQuestionService svc) : 
         return StatusCode(201, created);
     }
 
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Update(int id, [FromBody] UpdatePracticeQuestionRequest request)
+    {
+        var updated = await svc.UpdateAsync(id, request, CurrentUserId);
+        return updated is null ? NotFound(new { message = "A kérdés nem található." }) : Ok(updated);
+    }
+
     [HttpPatch("{id:int}/feedback")]
     public async Task<IActionResult> SetFeedback(int id, [FromBody] RatePracticeQuestionRequest request)
     {

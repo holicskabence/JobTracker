@@ -411,6 +411,27 @@
   },
   {
     "ContainingType": "JobTracker.WebApi.Controllers.PracticeQuestionsController",
+    "Method": "Update",
+    "RelativePath": "api/practice-questions/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "JobTracker.Application.DTOs.UpdatePracticeQuestionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "JobTracker.WebApi.Controllers.PracticeQuestionsController",
     "Method": "Delete",
     "RelativePath": "api/practice-questions/{id}",
     "HttpMethod": "DELETE",

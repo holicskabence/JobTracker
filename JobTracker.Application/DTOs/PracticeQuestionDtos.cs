@@ -16,4 +16,11 @@ public record CreatePracticeQuestionRequest(
     string SampleAnswer
 );
 
+public record UpdatePracticeQuestionRequest(
+    string Category,
+    string Question,
+    string Hint,
+    string SampleAnswer
+);
+
 public record RatePracticeQuestionRequest(string? Feedback);
