@@ -1,0 +1,19 @@
+:host {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-4);
+}
+
+.page-header-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--clr-dark);
+    margin: 0 0 var(--space-1);
+}
+
+.page-header-subtitle {
+    font-size: 0.875rem;
+    color: var(--clr-muted);
+    margin: 0;
+}

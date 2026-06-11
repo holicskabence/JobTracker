@@ -1,0 +1,17 @@
+<div class="auth-page">
+    <div class="auth-card" [style.--auth-max-width]="maxWidth">
+        <div class="auth-card-logo">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="var(--clr-green)" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="9" height="9" rx="2" opacity="0.85" />
+                <rect x="13" y="2" width="9" height="9" rx="2" opacity="0.45" />
+                <rect x="2" y="13" width="9" height="9" rx="2" opacity="0.45" />
+                <rect x="13" y="13" width="9" height="9" rx="2" opacity="0.85" />
+            </svg>
+        </div>
+
+        <h1 class="auth-card-title">{{ title }}</h1>
+        <p class="auth-card-subtitle">{{ subtitle }}</p>
+
+        <ng-content></ng-content>
+    </div>
+</div>

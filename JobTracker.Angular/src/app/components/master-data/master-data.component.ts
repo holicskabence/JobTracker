@@ -4,11 +4,14 @@ import { PlannerService } from '../../services/planner.service';
 import { JobStoreService } from '../../services/job-store.service';
 import { PracticeService } from '../../services/practice.service';
 import { AuthService } from '../../services/auth.service';
+import { CardComponent } from '../shared/card/card.component';
+import { BadgeComponent } from '../shared/badge/badge.component';
+import { PageHeaderComponent } from '../shared/page-header/page-header.component';
 
 @Component({
   selector: 'app-master-data',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CardComponent, BadgeComponent, PageHeaderComponent],
   templateUrl: './master-data.component.html',
   styleUrl: './master-data.component.css'
 })

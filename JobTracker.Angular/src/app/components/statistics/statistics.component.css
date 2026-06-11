@@ -37,14 +37,7 @@
 
 /* Chart cards */
 .chart-card {
-  background-color: var(--clr-white);
-  border: 1px solid var(--clr-border);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 1px 3px var(--clr-shadow);
-  padding: var(--padding-card);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-4);
   min-height: 360px;
   animation: card-in 0.5s ease-out both;
 }
@@ -80,6 +73,10 @@
   min-height: 0;
 }
 
+.chart-card-body app-empty-state {
+  height: 100%;
+}
+
 .chart-card-body--donut {
   display: flex;
   align-items: center;
@@ -89,7 +86,7 @@
 .stats-kpi {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 @media (min-width: 1024px) {
@@ -99,14 +96,8 @@
 }
 
 .kpi-card {
-  background-color: var(--clr-white);
-  border: 1px solid var(--clr-border);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 1px 3px var(--clr-shadow);
-  padding: 1.25rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  padding: var(--space-5) var(--space-6);
+  gap: var(--space-2);
   animation: card-in 0.5s ease-out both;
 }
 
@@ -148,13 +139,13 @@
   color: var(--clr-muted);
   display: flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: var(--space-1-5);
   flex-wrap: wrap;
 }
 
 .kpi-card-bar-track {
   flex: 1;
-  height: 4px;
+  height: var(--space-1);
   background-color: var(--clr-border);
   border-radius: var(--radius-full);
   overflow: hidden;
@@ -166,15 +157,6 @@
   background-color: var(--clr-green);
   border-radius: var(--radius-full);
   transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.kpi-card-chip {
-  background-color: rgba(245, 158, 11, 0.12);
-  color: #b45309;
-  border-radius: var(--radius-full);
-  padding: 0.125rem 0.5625rem;
-  font-size: 0.6875rem;
-  font-weight: 700;
 }
 
 .kpi-card-sep {
@@ -238,7 +220,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--gap-form);
-  padding: 0.25rem 0;
+  padding: var(--space-1) 0;
 }
 
 .funnel-row {
@@ -251,12 +233,12 @@
 .funnel-meta {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
 .funnel-dot {
-  width: 8px;
-  height: 8px;
+  width: var(--space-2);
+  height: var(--space-2);
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -271,7 +253,7 @@
 }
 
 .funnel-track {
-  height: 10px;
+  height: var(--space-2-5);
   background-color: var(--clr-bg);
   border-radius: var(--radius-full);
   overflow: hidden;
@@ -288,7 +270,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.0625rem;
+  gap: var(--space-0-5);
   min-width: 44px;
 }
 
@@ -315,7 +297,7 @@
   display: grid;
   grid-template-columns: 1.25rem 2rem 1fr 80px 2rem;
   align-items: center;
-  gap: 0.625rem;
+  gap: var(--space-2-5);
 }
 
 .top-rank {
@@ -326,8 +308,8 @@
 }
 
 .top-avatar {
-  width: 2rem;
-  height: 2rem;
+  width: var(--space-8);
+  height: var(--space-8);
   border-radius: 50%;
   background-color: rgba(38, 172, 0, 0.1);
   color: var(--clr-green);
@@ -348,7 +330,7 @@
 }
 
 .top-bar-wrap {
-  height: 6px;
+  height: var(--space-1-5);
   background-color: var(--clr-bg);
   border-radius: var(--radius-full);
   overflow: hidden;
@@ -369,17 +351,6 @@
   text-align: right;
 }
 
-.stats-empty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  min-height: 120px;
-  color: var(--clr-muted);
-  font-size: 0.875rem;
-  text-align: center;
-}
-
 @media (max-width: 479px) {
   .kpi-card-value {
     font-size: 1.625rem;
@@ -389,8 +360,8 @@
     grid-template-columns: 100px 1fr auto;
   }
 
-  .chart-card {
-    padding: 1.125rem;
+  app-card.chart-card {
+    padding: var(--space-5);
     min-height: 280px;
   }
 }

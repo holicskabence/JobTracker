@@ -14,7 +14,7 @@
 
 @media (min-width: 1024px) {
     .page {
-        padding: 2rem;
+        padding: var(--space-8);
     }
 }
 
@@ -48,7 +48,7 @@
 
 .content-body {
     flex: 1;
-    padding: 1.25rem 1rem;
+    padding: var(--space-5) var(--space-4);
     overflow-y: auto;
     overflow-x: hidden;
     min-height: 0;
@@ -62,7 +62,7 @@
 
 @media (min-width: 1024px) {
     .content-body {
-        padding: 2rem;
+        padding: var(--space-8);
     }
 }
 

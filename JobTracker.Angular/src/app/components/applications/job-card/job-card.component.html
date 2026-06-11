@@ -1,4 +1,4 @@
-<article class="card" [class.card--selected]="isSelected" [class.card--dragging]="isDragging" draggable="true"
+<app-card class="card" [class.card--selected]="isSelected" [class.card--dragging]="isDragging" draggable="true"
   (dragstart)="onDragStart($event)" (dragend)="onDragEnd()" (click)="onCardClick()">
 
   <div class="card-menu" (click)="$event.stopPropagation()">
@@ -41,4 +41,4 @@
     </div>
   </div>
 
-</article>
+</app-card>

@@ -1,10 +1,10 @@
 .dh {
     height: 64px;
     border-bottom: 1px solid var(--clr-border);
-    padding: 0 1rem;
+    padding: 0 var(--space-4);
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: var(--space-4);
     flex-shrink: 0;
 }
 
@@ -55,7 +55,7 @@
 .header-right {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: var(--space-4);
     flex-shrink: 0;
 }
 
@@ -76,12 +76,12 @@
 .header-add-btn {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
     background-color: var(--clr-green);
     color: var(--clr-white);
     border: none;
     border-radius: var(--radius-full);
-    padding: 0.5625rem 1.125rem;
+    padding: var(--padding-button);
     font-size: 0.875rem;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;

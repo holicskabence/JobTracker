@@ -1,0 +1,31 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-card);
+    background-color: var(--clr-white);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px var(--clr-shadow);
+    padding: var(--padding-card);
+    box-sizing: border-box;
+}
+
+:host(.card--radius-md) {
+    border-radius: var(--radius-md);
+}
+
+:host(.card--radius-xl) {
+    border-radius: var(--radius-xl);
+}
+
+:host(.card--padding-lg) {
+    padding: var(--space-8);
+}
+
+:host(.card--padding-none) {
+    padding: 0;
+}
+
+:host(.card--gap-none) {
+    gap: 0;
+}

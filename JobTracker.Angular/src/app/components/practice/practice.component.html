@@ -1,10 +1,6 @@
 <div class="pr-page">
 
-    <div class="pr-header">
-        <div class="pr-header-left">
-            <h1 class="pr-title">Gyakorlás</h1>
-            <p class="pr-sub">Interjúra való felkészülés kártyákkal</p>
-        </div>
+    <app-page-header class="pr-header" title="Gyakorlás" subtitle="Interjúra való felkészülés kártyákkal">
         <div class="pr-tabs">
             <button class="pr-tab" [class.pr-tab--active]="activeTab() === 'practice'"
                 (click)="activeTab.set('practice')">Gyakorlás</button>
@@ -13,7 +9,7 @@
             <button class="pr-tab" [class.pr-tab--active]="activeTab() === 'results'"
                 (click)="activeTab.set('results')">Eredmények</button>
         </div>
-    </div>
+    </app-page-header>
 
     @if (activeTab() === 'practice') {
 
@@ -39,7 +35,7 @@
         <div class="pr-deck">
 
             @if (currentQuestion(); as q) {
-            <div class="pr-card">
+            <app-card class="pr-card" radius="xl">
 
                 <div class="pr-card-head">
                     <span class="pr-cat-badge" [style.color]="categoryColor(q.category)"
@@ -194,21 +190,18 @@
                 </div>
 
                 }
-            </div>
+            </app-card>
             } @else {
-            <div class="pr-card pr-card--empty">
-                <p class="pr-empty-msg">
-                    @if (selectedFilter() === 'failed') { Nincs hibás kérdés. Remek munka! 🎉 }
-                    @else if (selectedFilter() === 'unanswered') { Nincs megválaszolatlan kérdés. }
-                    @else { Nincs kérdés ebben a kategóriában. }
-                </p>
-            </div>
+            <app-card class="pr-card pr-card--empty" radius="xl">
+                <app-empty-state
+                    [message]="selectedFilter() === 'failed' ? 'Nincs hibás kérdés. Remek munka! 🎉' : (selectedFilter() === 'unanswered' ? 'Nincs megválaszolatlan kérdés.' : 'Nincs kérdés ebben a kategóriában.')"></app-empty-state>
+            </app-card>
             }
         </div>
 
         <!-- Aside: stats -->
         <aside class="pr-aside">
-            <div class="pr-stat-card">
+            <app-card class="pr-stat-card">
                 <p class="pr-stat-label">FELKÉSZÜLTSÉG</p>
                 <div class="pr-stat-score-row">
                     <span class="pr-stat-pct" [style.color]="getReadinessColor()">{{ readinessScore() }}%</span>
@@ -232,7 +225,7 @@
                         <span class="pr-breakdown-val">{{ ratingBreakdown().incorrect }}</span>
                     </div>
                 </div>
-            </div>
+            </app-card>
 
             @if (selectedFilter() === 'failed') {
             <div class="pr-tip-card">
@@ -248,7 +241,7 @@
     @if (activeTab() === 'questions') {
     <div class="pr-mgmt">
 
-        <div class="pr-section">
+        <app-card class="pr-section" gap="none">
             <div class="pr-section-head">
                 <h3 class="pr-section-title">
                     Kérdések
@@ -346,19 +339,16 @@
                         </tr>
                         } @empty {
                         <tr>
-                            <td colspan="4" class="pr-list-empty">
-                                @if (qSearch()) {
-                                Nincs találat a(z) „{{ qSearch() }}" keresésre.
-                                } @else {
-                                Még nincs kérdés. Adj hozzá egyet a fenti gombbal!
-                                }
+                            <td colspan="4">
+                                <app-empty-state
+                                    [message]="qSearch() ? 'Nincs találat a(z) „' + qSearch() + '&quot; keresésre.' : 'Még nincs kérdés. Adj hozzá egyet a fenti gombbal!'"></app-empty-state>
                             </td>
                         </tr>
                         }
                     </tbody>
                 </table>
             </div>
-        </div>
+        </app-card>
 
     </div>
     }
@@ -366,25 +356,25 @@
     <div class="pr-results">
 
         <div class="pr-kpi-row">
-            <div class="pr-kpi pr-kpi--ok">
+            <app-card class="pr-kpi pr-kpi--ok">
                 <span class="pr-kpi-num">{{ resultsSummary().correct }}</span>
                 <span class="pr-kpi-lbl">Helyes</span>
-            </div>
-            <div class="pr-kpi pr-kpi--no">
+            </app-card>
+            <app-card class="pr-kpi pr-kpi--no">
                 <span class="pr-kpi-num">{{ resultsSummary().incorrect }}</span>
                 <span class="pr-kpi-lbl">Helytelen</span>
-            </div>
-            <div class="pr-kpi pr-kpi--na">
+            </app-card>
+            <app-card class="pr-kpi pr-kpi--na">
                 <span class="pr-kpi-num">{{ resultsSummary().unanswered }}</span>
                 <span class="pr-kpi-lbl">Nem értékelt</span>
-            </div>
-            <div class="pr-kpi pr-kpi--score">
+            </app-card>
+            <app-card class="pr-kpi pr-kpi--score">
                 <span class="pr-kpi-num">{{ resultsSummary().score }}%</span>
                 <span class="pr-kpi-lbl">Összesített</span>
-            </div>
+            </app-card>
         </div>
 
-        <div class="pr-section">
+        <app-card class="pr-section" gap="none">
             <div class="pr-res-list">
                 @for (q of practice.questions(); track q.id) {
                 <div class="pr-res-item">
@@ -416,10 +406,10 @@
                     }
                 </div>
                 } @empty {
-                <p class="pr-list-empty">Még nincsenek kérdések.</p>
+                <app-empty-state message="Még nincsenek kérdések."></app-empty-state>
                 }
             </div>
-        </div>
+        </app-card>
 
     </div>
     }

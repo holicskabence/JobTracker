@@ -5,13 +5,15 @@ import { CalendarEvent } from '../../models/planner.model';
 import { SelectDropdownComponent } from '../shared/select-dropdown/select-dropdown.component';
 import { DatePickerComponent } from '../shared/date-picker/date-picker.component';
 import { TimePickerComponent } from '../shared/time-picker/time-picker.component';
+import { CardComponent } from '../shared/card/card.component';
+import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 
 type EventFilter = 'all' | 'upcoming' | 'past';
 
 @Component({
   selector: 'app-events',
   standalone: true,
-  imports: [FormsModule, SelectDropdownComponent, DatePickerComponent, TimePickerComponent],
+  imports: [FormsModule, SelectDropdownComponent, DatePickerComponent, TimePickerComponent, CardComponent, EmptyStateComponent],
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'
 })

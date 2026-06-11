@@ -1,13 +1,10 @@
 <div class="pf">
 
-    <div class="profile-page-head">
-        <h2 class="profile-page-title">Profil Beállítások</h2>
-        <p class="profile-page-sub">Szerkeszd a személyes adataidat és a céljaidat.</p>
-    </div>
+    <app-page-header title="Profil Beállítások" subtitle="Szerkeszd a személyes adataidat és a céljaidat."></app-page-header>
 
     <div class="profile-body">
 
-        <div class="profile-card profile-card--summary">
+        <app-card class="profile-card--summary" radius="xl" padding="lg">
 
             <div class="profile-avatar-wrap">
                 <div class="profile-avatar">
@@ -84,9 +81,9 @@
                 Kijelentkezés
             </button>
 
-        </div>
+        </app-card>
 
-        <div class="profile-card profile-card--form">
+        <app-card class="profile-card--form" radius="xl" padding="lg" gap="none">
 
             <h3 class="profile-form-title">Személyes adatok módosítása</h3>
 
@@ -301,7 +298,7 @@
 
             </form>
 
-        </div>
+        </app-card>
 
     </div>
 

@@ -1,0 +1,16 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    text-align: center;
+    padding: var(--space-8) var(--space-4);
+    color: var(--clr-muted);
+}
+
+.empty-state-message {
+    font-size: 0.875rem;
+    color: var(--clr-muted);
+    margin: 0;
+}

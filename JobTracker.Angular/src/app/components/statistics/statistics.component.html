@@ -4,7 +4,7 @@
 
   <div class="stats-kpi">
 
-    <div class="kpi-card kpi-card--1">
+    <app-card class="kpi-card kpi-card--1">
       <p class="kpi-card-label">Összes jelentkezés</p>
       <p class="kpi-card-value">{{ total() }}</p>
       <div class="kpi-card-sub">
@@ -13,23 +13,23 @@
         </div>
         <span>cél: {{ goal() }}</span>
       </div>
-    </div>
+    </app-card>
 
-    <div class="kpi-card kpi-card--2">
+    <app-card class="kpi-card kpi-card--2">
       <p class="kpi-card-label">Aktív folyamatban</p>
       <p class="kpi-card-value">{{ stats().activeJobs }}</p>
       <div class="kpi-card-sub">
-        <span class="kpi-card-chip">{{ stats().callbacks }} visszahívás</span>
+        <app-badge variant="yellow">{{ stats().callbacks }} visszahívás</app-badge>
       </div>
-    </div>
+    </app-card>
 
-    <div class="kpi-card kpi-card--3">
+    <app-card class="kpi-card kpi-card--3">
       <p class="kpi-card-label">Callback arány</p>
       <p class="kpi-card-value">{{ callbackRate() }}%</p>
       <div class="kpi-card-sub">{{ stats().callbacks }} / {{ total() }} válasz</div>
-    </div>
+    </app-card>
 
-    <div class="kpi-card kpi-card--4">
+    <app-card class="kpi-card kpi-card--4">
       <p class="kpi-card-label">Sikerességi arány</p>
       <p class="kpi-card-value">{{ stats().successRate }}%</p>
       <div class="kpi-card-sub">
@@ -37,63 +37,63 @@
         <span class="kpi-card-sep">·</span>
         <span>{{ stats().rejections }} elutasítás</span>
       </div>
-    </div>
+    </app-card>
 
   </div>
 
   <div class="stats-kpi stats-kpi--extra">
 
-    <div class="kpi-card kpi-card--5">
+    <app-card class="kpi-card kpi-card--5">
       <p class="kpi-card-label">Függő válasz</p>
       <p class="kpi-card-value kpi-card-value--blue">{{ pendingCount() }}</p>
       <div class="kpi-card-sub">beadott, választ vár</div>
-    </div>
+    </app-card>
 
-    <div class="kpi-card kpi-card--6">
+    <app-card class="kpi-card kpi-card--6">
       <p class="kpi-card-label">Ajánlatok száma</p>
       <p class="kpi-card-value kpi-card-value--green">{{ stats().offers }}</p>
       <div class="kpi-card-sub">elfogadott / ajánlott</div>
-    </div>
+    </app-card>
 
-    <div class="kpi-card kpi-card--7">
+    <app-card class="kpi-card kpi-card--7">
       <p class="kpi-card-label">Elutasítási arány</p>
       <p class="kpi-card-value kpi-card-value--red">{{ rejectionRate() }}%</p>
       <div class="kpi-card-sub">{{ stats().rejections }} elutasítás</div>
-    </div>
+    </app-card>
 
-    <div class="kpi-card kpi-card--8">
+    <app-card class="kpi-card kpi-card--8">
       <p class="kpi-card-label">Visszahívás arány</p>
       <p class="kpi-card-value kpi-card-value--amber">{{ callbackRate() }}%</p>
       <div class="kpi-card-sub">{{ stats().callbacks }} visszahívás</div>
-    </div>
+    </app-card>
 
   </div>
 
   <div class="stats-grid">
 
-    <div class="chart-card chart-card--wide">
+    <app-card class="chart-card chart-card--wide">
       <h3 class="chart-card-label">Havi beadott jelentkezések és visszahívások</h3>
       <div class="chart-card-body">
         <app-area-chart [data]="monthlyData()" />
       </div>
-    </div>
+    </app-card>
 
-    <div class="chart-card">
+    <app-card class="chart-card">
       <h3 class="chart-card-label">Státusz megoszlás</h3>
       <div class="chart-card-body chart-card-body--donut">
         <app-donut-chart [distribution]="distribution()" [total]="total()" />
       </div>
-    </div>
+    </app-card>
 
   </div>
 
   <div class="stats-grid stats-grid--bottom">
 
-    <div class="chart-card chart-card--funnel">
+    <app-card class="chart-card chart-card--funnel">
       <h3 class="chart-card-label">Státusz tölcsér</h3>
       <div class="chart-card-body">
         @if (total() === 0) {
-        <div class="stats-empty">Még nincsenek rögzített jelentkezések.</div>
+        <app-empty-state message="Még nincsenek rögzített jelentkezések."></app-empty-state>
         } @else {
         <div class="funnel">
           @for (item of funnel(); track item.key) {
@@ -115,13 +115,13 @@
         </div>
         }
       </div>
-    </div>
+    </app-card>
 
-    <div class="chart-card chart-card--top">
+    <app-card class="chart-card chart-card--top">
       <h3 class="chart-card-label">Top 5 cég</h3>
       <div class="chart-card-body">
         @if (topCompanies().length === 0) {
-        <div class="stats-empty">Még nincsenek rögzített jelentkezések.</div>
+        <app-empty-state message="Még nincsenek rögzített jelentkezések."></app-empty-state>
         } @else {
         <div class="top-list">
           @for (co of topCompanies(); track co.name) {
@@ -138,7 +138,7 @@
         </div>
         }
       </div>
-    </div>
+    </app-card>
 
   </div>
 

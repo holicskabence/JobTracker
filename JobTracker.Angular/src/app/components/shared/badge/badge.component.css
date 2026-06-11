@@ -1,0 +1,37 @@
+:host {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-2-5);
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+:host(.badge--green) {
+    color: var(--clr-green);
+    background-color: rgba(38, 172, 0, 0.1);
+}
+
+:host(.badge--blue) {
+    color: var(--clr-blue);
+    background-color: rgba(95, 185, 250, 0.1);
+}
+
+:host(.badge--yellow) {
+    color: var(--clr-yellow);
+    background-color: rgba(245, 158, 11, 0.1);
+}
+
+:host(.badge--red) {
+    color: var(--clr-red);
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+:host(.badge--gray) {
+    color: var(--clr-muted);
+    background-color: rgba(155, 155, 153, 0.1);
+}

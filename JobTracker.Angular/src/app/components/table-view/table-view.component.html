@@ -108,7 +108,7 @@
   <div class="table-view-cards">
 
     @for (job of sortedJobs(); track job.id) {
-    <div class="table-view-card">
+    <app-card class="table-view-card">
 
       <div class="table-view-card-head">
         <div>
@@ -144,7 +144,7 @@
       </a>
       }
 
-    </div>
+    </app-card>
     }
 
     @if (sortedJobs().length === 0) {

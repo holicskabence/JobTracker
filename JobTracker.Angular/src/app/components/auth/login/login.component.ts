@@ -4,11 +4,12 @@ import { Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../../services/auth.service';
 import { SocialAuthService } from '../../../services/social-auth.service';
+import { AuthCardComponent } from '../../shared/auth-card/auth-card.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, AuthCardComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

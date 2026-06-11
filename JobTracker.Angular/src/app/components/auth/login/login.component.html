@@ -1,16 +1,4 @@
-<div class="login-page">
-    <div class="login-card">
-        <div class="login-card-logo">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="var(--clr-green)" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="2" width="9" height="9" rx="2" opacity="0.85" />
-                <rect x="13" y="2" width="9" height="9" rx="2" opacity="0.45" />
-                <rect x="2" y="13" width="9" height="9" rx="2" opacity="0.45" />
-                <rect x="13" y="13" width="9" height="9" rx="2" opacity="0.85" />
-            </svg>
-        </div>
-
-        <h1 class="login-card-title">Üdvözlünk újra!</h1>
-        <p class="login-card-subtitle">Lépj be az álláskeresési asszisztensedbe.</p>
+<app-auth-card title="Üdvözlünk újra!" subtitle="Lépj be az álláskeresési asszisztensedbe.">
         <div class="oauth-btns">
             <button class="oauth-btn oauth-btn--google" type="button" (click)="googleLogin()">
                 <svg width="18" height="18" viewBox="0 0 24 24">
@@ -106,5 +94,4 @@
             Nincs még fiókod? <a routerLink="/register" class="login-card-link">Regisztrálj itt</a>
         </p>
 
-    </div>
-</div>
+</app-auth-card>

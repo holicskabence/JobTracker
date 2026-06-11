@@ -4,10 +4,14 @@ import { JobStoreService } from '../../services/job-store.service';
 import { PlannerService } from '../../services/planner.service';
 import { PracticeService } from '../../services/practice.service';
 import { DashboardTab } from '../../models/job.model';
+import { CardComponent } from '../shared/card/card.component';
+import { BadgeComponent } from '../shared/badge/badge.component';
+import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 
 @Component({
   selector: 'app-overview',
   standalone: true,
+  imports: [CardComponent, BadgeComponent, EmptyStateComponent],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.css'
 })

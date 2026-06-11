@@ -4,6 +4,9 @@ import { PracticeService } from '../../services/practice.service';
 import { PracticeApiService } from '../../services/practice-api.service';
 import { AuthService } from '../../services/auth.service';
 import { FeedbackType, PrepQuestion, QuestionCategory } from '../../models/practice.model';
+import { CardComponent } from '../shared/card/card.component';
+import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
+import { PageHeaderComponent } from '../shared/page-header/page-header.component';
 
 type Tab = 'practice' | 'questions' | 'results';
 type FilterCategory = 'Mind' | QuestionCategory;
@@ -14,7 +17,7 @@ type QSortKey = 'category' | 'question' | 'feedback';
 @Component({
   selector: 'app-practice',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CardComponent, EmptyStateComponent, PageHeaderComponent],
   templateUrl: './practice.component.html',
   styleUrl: './practice.component.css'
 })

@@ -107,7 +107,7 @@
       <!-- Event Cards -->
       <div class="events-list">
         @for (ev of filteredEvents(); track ev.id) {
-          <div class="events-card" [class.events-card--editing]="editingId() === ev.id">
+          <app-card class="events-card" radius="xl" gap="none" [class.events-card--editing]="editingId() === ev.id">
 
             <div class="events-card-top">
               <div class="events-card-icon">
@@ -156,25 +156,18 @@
             @if (ev.notes) {
               <p class="events-card-notes">{{ ev.notes }}</p>
             }
-          </div>
+          </app-card>
         }
 
         @if (filteredEvents().length === 0) {
-          <div class="events-empty">
-            @if (eventFilter() === 'upcoming') {
-              Nincsenek közelgő események.
-            } @else if (eventFilter() === 'past') {
-              Nincsenek elmúlt események.
-            } @else {
-              Nincsenek rögzített közelgő interjúk.
-            }
-          </div>
+          <app-empty-state class="events-empty"
+            [message]="eventFilter() === 'upcoming' ? 'Nincsenek közelgő események.' : eventFilter() === 'past' ? 'Nincsenek elmúlt események.' : 'Nincsenek rögzített közelgő interjúk.'"></app-empty-state>
         }
       </div>
     </div>
 
     <!-- ─── RIGHT: Tasks ─── -->
-    <div class="events-tasks-card">
+    <app-card class="events-tasks-card" radius="xl" gap="none">
 
       <div class="events-tasks-head">
         <div class="events-tasks-title">
@@ -244,14 +237,14 @@
         }
 
         @if (visibleTasks().length === 0 && planner.tasks().length > 0) {
-          <div class="events-task-empty">Minden kész! 🎉</div>
+          <app-empty-state class="events-task-empty" message="Minden kész! 🎉"></app-empty-state>
         }
         @if (planner.tasks().length === 0) {
-          <div class="events-task-empty">Nincsenek teendők. Adj hozzá feladatot!</div>
+          <app-empty-state class="events-task-empty" message="Nincsenek teendők. Adj hozzá feladatot!"></app-empty-state>
         }
       </div>
 
-    </div>
+    </app-card>
 
   </div>
 </div>

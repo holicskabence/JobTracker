@@ -9,16 +9,16 @@
 .tv {
   flex: 1;
   overflow: auto;
-  padding: 1.25rem 2rem 2rem;
+  padding: var(--space-5) var(--space-8) var(--space-8);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .table-view-toolbar {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-4);
   flex-shrink: 0;
 }
 
@@ -30,7 +30,7 @@
 
 .table-view-search-icon {
   position: absolute;
-  left: 0.875rem;
+  left: var(--space-3-5);
   top: 50%;
   transform: translateY(-50%);
   color: var(--clr-muted);
@@ -42,7 +42,7 @@
   background-color: var(--clr-bg);
   border: none;
   border-radius: var(--radius-md);
-  padding: 0.6875rem 2.5rem 0.6875rem 2.5rem;
+  padding: var(--space-3) var(--space-10);
   font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   color: var(--clr-dark);
@@ -61,11 +61,11 @@
 
 .table-view-search-clear {
   position: absolute;
-  right: 0.625rem;
+  right: var(--space-2-5);
   top: 50%;
   transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
+  width: var(--space-5);
+  height: var(--space-5);
   border: none;
   border-radius: var(--radius-full);
   background-color: var(--clr-border);
@@ -103,7 +103,7 @@
 }
 
 .table-view-th {
-  padding: 0.75rem 1rem;
+  padding: var(--space-3) var(--space-4);
   text-align: left;
   font-size: 0.75rem;
   font-weight: 600;
@@ -129,7 +129,7 @@
 }
 
 .table-view-sort-icon {
-  margin-left: 4px;
+  margin-left: var(--space-1);
   opacity: 0.3;
 }
 
@@ -147,7 +147,7 @@
 }
 
 .table-view-td {
-  padding: 0.875rem 1rem;
+  padding: var(--space-3-5) var(--space-4);
   border-bottom: 1px solid rgba(234, 232, 229, 0.5);
   vertical-align: middle;
 }
@@ -156,7 +156,7 @@
   display: block;
   font-weight: 700;
   color: var(--clr-dark);
-  margin-bottom: 2px;
+  margin-bottom: var(--space-0-5);
 }
 
 .table-view-position {
@@ -168,8 +168,8 @@
 .table-view-status-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  padding: 0.25rem 0.625rem;
+  gap: var(--space-1-5);
+  padding: var(--space-1) var(--space-2-5);
   border-radius: var(--radius-full);
   font-size: 0.75rem;
   font-weight: 600;
@@ -196,7 +196,7 @@
 .table-view-link-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: var(--space-1-5);
   font-size: 0.8rem;
   font-weight: 500;
   color: var(--clr-green);
@@ -216,8 +216,8 @@
 }
 
 .table-view-action-btn {
-  width: 2rem;
-  height: 2rem;
+  width: var(--space-8);
+  height: var(--space-8);
   border: none;
   border-radius: var(--radius-sm);
   background: transparent;
@@ -236,7 +236,7 @@
 
 .table-view-empty {
   text-align: center;
-  padding: 3rem 1rem;
+  padding: var(--space-12) var(--space-4);
   color: var(--clr-muted);
   font-size: 0.9rem;
 }
@@ -246,13 +246,7 @@
 }
 
 .table-view-card {
-  background-color: var(--clr-white);
-  border: 1px solid var(--clr-border);
-  border-radius: var(--radius-lg);
-  padding: 1rem 1.125rem;
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-card);
+  padding: var(--space-4) var(--space-5);
 }
 
 .table-view-card-head {
@@ -272,14 +266,14 @@
 .table-view-card-pos {
   font-size: 0.8125rem;
   color: var(--clr-muted);
-  margin-top: 0.125rem;
+  margin-top: var(--space-0-5);
 }
 
 .table-view-card-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 
@@ -292,7 +286,7 @@
 .table-view-card-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: var(--space-1-5);
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--clr-green);
@@ -305,7 +299,7 @@
 
 @media (max-width: 767px) {
   .tv {
-    padding: 1rem 1rem 1.5rem;
+    padding: var(--space-4) var(--space-4) var(--space-6);
     overflow-y: auto;
     overflow-x: hidden;
   }
@@ -317,7 +311,7 @@
   .table-view-cards {
     display: flex;
     flex-direction: column;
-    gap: 0.625rem;
+    gap: var(--space-2-5);
   }
 
   .table-view-search {

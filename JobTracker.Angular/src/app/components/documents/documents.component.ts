@@ -3,11 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { PlannerService } from '../../services/planner.service';
 import { DOCUMENT_TYPES, OUTREACH_TEMPLATES } from '../../models/planner.model';
 import { SelectDropdownComponent } from '../shared/select-dropdown/select-dropdown.component';
+import { CardComponent } from '../shared/card/card.component';
+import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 
 @Component({
   selector: 'app-documents',
   standalone: true,
-  imports: [FormsModule, SelectDropdownComponent],
+  imports: [FormsModule, SelectDropdownComponent, CardComponent, EmptyStateComponent],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.css'
 })

@@ -3,6 +3,7 @@ import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Job } from '../../models/job.model';
 import { JobStoreService } from '../../services/job-store.service';
+import { CardComponent } from '../shared/card/card.component';
 
 type SortKey = 'company' | 'status' | 'date';
 type SortDir = 'asc' | 'desc';
@@ -10,7 +11,7 @@ type SortDir = 'asc' | 'desc';
 @Component({
   selector: 'app-table-view',
   standalone: true,
-  imports: [NgClass, FormsModule],
+  imports: [NgClass, FormsModule, CardComponent],
   templateUrl: './table-view.component.html',
   styleUrl: './table-view.component.css'
 })

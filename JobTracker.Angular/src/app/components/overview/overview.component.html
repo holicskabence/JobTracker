@@ -2,22 +2,22 @@
 
     <div class="stats-grid">
 
-        <div class="card">
+        <app-card>
             <h3 class="card-label">Összes jelentkezés</h3>
             <div class="card-value">{{ stats().totalJobs }}</div>
             <div class="progress-track">
                 <div class="progress-fill" [style.width.%]="progressWidth()"></div>
             </div>
             <p class="card-footnote">Cél: 50 jelentkezés</p>
-        </div>
+        </app-card>
 
-        <div class="card">
+        <app-card>
             <h3 class="card-label">Aktív folyamatban</h3>
             <div class="card-value">{{ stats().activeJobs }}</div>
-            <span class="badge badge--yellow">{{ stats().callbacks }} visszahívás</span>
-        </div>
+            <app-badge variant="yellow">{{ stats().callbacks }} visszahívás</app-badge>
+        </app-card>
 
-        <div class="card">
+        <app-card>
             <h3 class="card-label">Sikeres / elutasított arány</h3>
             <div class="card-value-row">
                 <span class="card-value">{{ stats().successRate }}%</span>
@@ -42,19 +42,19 @@
                     {{ stats().rejections }} elutasítva
                 </span>
             </div>
-        </div>
+        </app-card>
 
     </div>
 
     <div class="overview-row">
 
-        <div class="card upcoming-card">
+        <app-card class="upcoming-card" gap="none">
             <div class="overview-card-header">
                 <h3 class="overview-card-title">Közelgő Interjúk</h3>
                 <button class="card-link" type="button" (click)="navigate('esemenyek')">Összes</button>
             </div>
             @if (upcomingEvents().length === 0) {
-            <p class="card-empty">Nincs közelgő esemény a naptárban.</p>
+            <app-empty-state message="Nincs közelgő esemény a naptárban."></app-empty-state>
             } @else {
             <div class="timeline">
                 @for (ev of upcomingEvents(); track ev.id; let last = $last) {
@@ -84,15 +84,15 @@
                 }
             </div>
             }
-        </div>
+        </app-card>
 
-        <div class="card quick-tasks-card">
+        <app-card class="quick-tasks-card" gap="none">
             <div class="overview-card-header">
                 <h3 class="overview-card-title">Gyors Teendők</h3>
                 <button class="card-link" type="button" (click)="navigate('esemenyek')">Összes</button>
             </div>
             @if (quickTasks().length === 0) {
-            <p class="card-empty">Minden teendőd kész! 🎉</p>
+            <app-empty-state message="Minden teendőd kész! 🎉"></app-empty-state>
             } @else {
             <div class="quick-tasks-list">
                 @for (task of quickTasks(); track task.id) {
@@ -117,13 +117,13 @@
                 </div>
                 <span class="quick-tasks-count">{{ tasksDone() }} / {{ tasksTotal() }} kész</span>
             </div>
-        </div>
+        </app-card>
 
     </div>
 
     <div class="practice-row">
 
-        <div class="card pov-streak-card" (click)="navigate('gyakorlas')">
+        <app-card class="pov-streak-card" (click)="navigate('gyakorlas')">
             <div class="pov-card-head">
                 <div class="pov-icon pov-icon--blue">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -141,9 +141,9 @@
             <p class="pov-streak-unit">egymást követő nap</p>
             <div class="pov-divider"></div>
             <p class="pov-streak-msg">{{ practiceStreakLabel() }}</p>
-        </div>
+        </app-card>
 
-        <div class="card pov-readiness-card" (click)="navigate('gyakorlas')">
+        <app-card class="pov-readiness-card" (click)="navigate('gyakorlas')">
             <div class="pov-card-head">
                 <div class="pov-icon pov-icon--green">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -169,7 +169,7 @@
                     <polyline points="9 18 15 12 9 6"/>
                 </svg>
             </div>
-        </div>
+        </app-card>
 
     </div>
 

@@ -3,11 +3,14 @@ import { JobStoreService } from '../../services/job-store.service';
 import { AuthService } from '../../services/auth.service';
 import { AreaChartComponent } from './area-chart/area-chart.component';
 import { DonutChartComponent } from './donut-chart/donut-chart.component';
+import { CardComponent } from '../shared/card/card.component';
+import { BadgeComponent } from '../shared/badge/badge.component';
+import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 
 @Component({
   selector: 'app-statistics',
   standalone: true,
-  imports: [AreaChartComponent, DonutChartComponent],
+  imports: [AreaChartComponent, DonutChartComponent, CardComponent, BadgeComponent, EmptyStateComponent],
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.css'
 })

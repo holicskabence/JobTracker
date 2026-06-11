@@ -3,11 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { UserProfile } from '../../models/user.model';
+import { CardComponent } from '../shared/card/card.component';
+import { PageHeaderComponent } from '../shared/page-header/page-header.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CardComponent, PageHeaderComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
