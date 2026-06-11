@@ -7,6 +7,7 @@
     text-align: center;
     padding: var(--space-8) var(--space-4);
     color: var(--clr-muted);
+    height: 100%;
 }
 
 .empty-state-message {

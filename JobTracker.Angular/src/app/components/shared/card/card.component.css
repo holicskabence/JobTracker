@@ -19,7 +19,7 @@
 }
 
 :host(.card--padding-lg) {
-    padding: var(--space-8);
+    /* padding: var(--space-8); */
 }
 
 :host(.card--padding-none) {

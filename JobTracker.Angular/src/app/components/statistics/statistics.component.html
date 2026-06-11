@@ -23,26 +23,6 @@
       </div>
     </app-card>
 
-    <app-card class="kpi-card kpi-card--3">
-      <p class="kpi-card-label">Callback arány</p>
-      <p class="kpi-card-value">{{ callbackRate() }}%</p>
-      <div class="kpi-card-sub">{{ stats().callbacks }} / {{ total() }} válasz</div>
-    </app-card>
-
-    <app-card class="kpi-card kpi-card--4">
-      <p class="kpi-card-label">Sikerességi arány</p>
-      <p class="kpi-card-value">{{ stats().successRate }}%</p>
-      <div class="kpi-card-sub">
-        <span>{{ stats().offers }} ajánlat</span>
-        <span class="kpi-card-sep">·</span>
-        <span>{{ stats().rejections }} elutasítás</span>
-      </div>
-    </app-card>
-
-  </div>
-
-  <div class="stats-kpi stats-kpi--extra">
-
     <app-card class="kpi-card kpi-card--5">
       <p class="kpi-card-label">Függő válasz</p>
       <p class="kpi-card-value kpi-card-value--blue">{{ pendingCount() }}</p>
@@ -53,18 +33,6 @@
       <p class="kpi-card-label">Ajánlatok száma</p>
       <p class="kpi-card-value kpi-card-value--green">{{ stats().offers }}</p>
       <div class="kpi-card-sub">elfogadott / ajánlott</div>
-    </app-card>
-
-    <app-card class="kpi-card kpi-card--7">
-      <p class="kpi-card-label">Elutasítási arány</p>
-      <p class="kpi-card-value kpi-card-value--red">{{ rejectionRate() }}%</p>
-      <div class="kpi-card-sub">{{ stats().rejections }} elutasítás</div>
-    </app-card>
-
-    <app-card class="kpi-card kpi-card--8">
-      <p class="kpi-card-label">Visszahívás arány</p>
-      <p class="kpi-card-value kpi-card-value--amber">{{ callbackRate() }}%</p>
-      <div class="kpi-card-sub">{{ stats().callbacks }} visszahívás</div>
     </app-card>
 
   </div>

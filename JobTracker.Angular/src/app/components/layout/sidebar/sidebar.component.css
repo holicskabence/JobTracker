@@ -289,6 +289,13 @@
     border-bottom: 1px solid var(--clr-border);
     margin-bottom: var(--space-1);
     flex-shrink: 0;
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: background-color 0.15s;
+}
+
+.sidebar-user:hover {
+    background-color: rgba(234, 232, 229, 0.6);
 }
 
 .sidebar-user-avatar {

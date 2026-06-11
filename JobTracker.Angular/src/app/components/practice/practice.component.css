@@ -105,6 +105,18 @@
     color: #fff;
 }
 
+.pr-pill--active:hover {
+    background: var(--clr-green-dk);
+    border-color: var(--clr-green-dk);
+    color: #fff;
+}
+
+.pr-pill--failed.pr-pill--active:hover,
+.pr-pill--unanswered.pr-pill--active:hover {
+    filter: brightness(0.88);
+    color: #fff;
+}
+
 .pr-progress-text {
     font-size: 0.8125rem;
     font-weight: 600;

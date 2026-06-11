@@ -140,23 +140,12 @@
             <span class="sidebar-label">Gyakorlás</span>
         </a>
 
-        <a class="sidebar-btn" routerLink="/dashboard/profil" routerLinkActive="sidebar-btn--active"
-            (click)="closeMobile.emit()" title="Profil">
-            <span class="sidebar-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                </svg>
-            </span>
-            <span class="sidebar-label">Profil</span>
-        </a>
-
     </div>
 
     <div class="sidebar-footer">
 
-        <div class="sidebar-user">
+        <div class="sidebar-user" routerLink="/dashboard/profil" routerLinkActive="sidebar-user--active"
+            (click)="closeMobile.emit()" title="Profil">
             <div class="sidebar-user-avatar">
                 @if (avatarUrl) {
                 <img class="sidebar-user-avatar-img" [src]="avatarUrl" alt="" />
