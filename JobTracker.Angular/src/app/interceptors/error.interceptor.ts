@@ -2,14 +2,21 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { NotificationService } from '../services/notification.service';
+import { AuthService } from '../services/auth.service';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const notifications = inject(NotificationService);
+  const auth = inject(AuthService);
 
   return next(req).pipe(
     catchError((err: unknown) => {
       if (err instanceof HttpErrorResponse) {
-        notifications.error(extractErrorMessage(err));
+        if (err.status === 401 && !req.url.includes('/api/auth/') && auth.isLoggedIn()) {
+          notifications.error('A munkamenet lejárt. Jelentkezz be újra.');
+          auth.logout();
+        } else {
+          notifications.error(extractErrorMessage(err));
+        }
       }
       return throwError(() => err);
     })

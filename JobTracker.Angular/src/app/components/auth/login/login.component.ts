@@ -25,6 +25,7 @@ export class LoginComponent implements AfterViewInit {
   showPwd = false;
   error = '';
   loading = signal(false);
+  loadingAction = signal<'email' | 'demo' | 'google' | 'facebook' | null>(null);
 
   ngAfterViewInit(): void {
     if (this.googleBtn) {
@@ -40,6 +41,7 @@ export class LoginComponent implements AfterViewInit {
       return;
     }
     this.loading.set(true);
+    this.loadingAction.set('email');
     this.auth.login(this.email.trim(), this.password).subscribe({
       next: () => this.router.navigate(['/dashboard']),
       error: (err: HttpErrorResponse) => {
@@ -47,15 +49,18 @@ export class LoginComponent implements AfterViewInit {
           ? (err.error?.message ?? 'Hibás e-mail cím vagy jelszó.')
           : 'Nem sikerült csatlakozni a szerverhez.';
         this.loading.set(false);
+        this.loadingAction.set(null);
       }
     });
   }
 
   loginDemo(): void {
     this.loading.set(true);
+    this.loadingAction.set('demo');
     this.auth.loginDemo().subscribe({
       complete: () => {
         this.loading.set(false);
+        this.loadingAction.set(null);
         this.router.navigate(['/dashboard']);
       }
     });
@@ -69,6 +74,7 @@ export class LoginComponent implements AfterViewInit {
   facebookLogin(): void {
     this.error = '';
     this.loading.set(true);
+    this.loadingAction.set('facebook');
     this.social.signInWithFacebook()
       .then(accessToken => {
         this.auth.facebookLogin(accessToken).subscribe({
@@ -76,23 +82,27 @@ export class LoginComponent implements AfterViewInit {
           error: () => {
             this.error = 'Sikertelen Facebook bejelentkezés.';
             this.loading.set(false);
+            this.loadingAction.set(null);
           }
         });
       })
       .catch((err: Error) => {
         this.error = err.message || 'Sikertelen Facebook bejelentkezés.';
         this.loading.set(false);
+        this.loadingAction.set(null);
       });
   }
 
   private handleGoogleCredential(idToken: string): void {
     this.error = '';
     this.loading.set(true);
+    this.loadingAction.set('google');
     this.auth.googleLogin(idToken).subscribe({
       next: () => this.router.navigate(['/dashboard']),
       error: () => {
         this.error = 'Sikertelen Google bejelentkezés.';
         this.loading.set(false);
+        this.loadingAction.set(null);
       }
     });
   }

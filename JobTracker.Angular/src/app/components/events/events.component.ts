@@ -1,5 +1,6 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
 import { PlannerService } from '../../services/planner.service';
 import { CalendarEvent } from '../../models/planner.model';
 import { SelectDropdownComponent } from '../shared/select-dropdown/select-dropdown.component';
@@ -7,22 +8,25 @@ import { DatePickerComponent } from '../shared/date-picker/date-picker.component
 import { TimePickerComponent } from '../shared/time-picker/time-picker.component';
 import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
+import { BreakpointService } from '../../services/breakpoint.service';
 
 type EventFilter = 'all' | 'upcoming' | 'past';
 
 @Component({
   selector: 'app-events',
   standalone: true,
-  imports: [FormsModule, SelectDropdownComponent, DatePickerComponent, TimePickerComponent, CardComponent, EmptyStateComponent],
+  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, DatePickerComponent, TimePickerComponent, CardComponent, EmptyStateComponent],
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'
 })
 export class EventsComponent implements OnInit {
   readonly planner = inject(PlannerService);
+  readonly breakpoint = inject(BreakpointService);
 
   readonly eventFilter   = signal<EventFilter>('all');
   readonly hideCompleted = signal(false);
   readonly editingId     = signal<number | null>(null);
+  readonly formOpen      = signal(false);
 
   readonly completedCount = computed(() => this.planner.tasks().filter(t => t.completed).length);
 
@@ -60,9 +64,23 @@ export class EventsComponent implements OnInit {
     this.newEventTime    = ev.time;
     this.newEventNotes   = ev.notes;
     this.submitted       = false;
+    this.formOpen.set(true);
   }
 
   cancelEdit(): void {
+    this.editingId.set(null);
+    this.formOpen.set(false);
+    this.resetForm();
+  }
+
+  openAddForm(): void {
+    this.editingId.set(null);
+    this.resetForm();
+    this.formOpen.set(true);
+  }
+
+  closeForm(): void {
+    this.formOpen.set(false);
     this.editingId.set(null);
     this.resetForm();
   }
@@ -86,6 +104,7 @@ export class EventsComponent implements OnInit {
     } else {
       this.planner.addEvent(data);
     }
+    this.formOpen.set(false);
     this.resetForm();
   }
 

@@ -1,25 +1,29 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
 import { PlannerService } from '../../services/planner.service';
 import { DOCUMENT_TYPES, OUTREACH_TEMPLATES } from '../../models/planner.model';
 import { SelectDropdownComponent } from '../shared/select-dropdown/select-dropdown.component';
 import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
+import { BreakpointService } from '../../services/breakpoint.service';
 
 @Component({
   selector: 'app-documents',
   standalone: true,
-  imports: [FormsModule, SelectDropdownComponent, CardComponent, EmptyStateComponent],
+  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, CardComponent, EmptyStateComponent],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.css'
 })
 export class DocumentsComponent {
   readonly planner = inject(PlannerService);
+  readonly breakpoint = inject(BreakpointService);
 
   readonly docTypes = DOCUMENT_TYPES;
   readonly templates = OUTREACH_TEMPLATES;
   readonly copiedId = signal<number | null>(null);
   readonly templatesOpen = signal(false);
+  readonly formOpen = signal(false);
 
   toggleTemplates(): void {
     this.templatesOpen.update(open => !open);
@@ -56,6 +60,19 @@ export class DocumentsComponent {
       { name: this.newDocName.trim(), type: this.newDocType, version: this.newDocVersion },
       file ?? undefined
     );
+    this.newDocName = '';
+    this.newDocVersion = 'v1.0';
+    this.selectedFile = null;
+    this.submitted = false;
+    this.formOpen.set(false);
+  }
+
+  openAddForm(): void {
+    this.formOpen.set(true);
+  }
+
+  closeForm(): void {
+    this.formOpen.set(false);
     this.newDocName = '';
     this.newDocVersion = 'v1.0';
     this.selectedFile = null;

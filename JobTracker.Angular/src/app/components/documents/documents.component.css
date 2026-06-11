@@ -384,6 +384,98 @@
 
 .documents-empty {
   padding: var(--space-12) var(--space-4);
+  border: 2px dashed var(--clr-border);
+  border-radius: var(--radius-xl);
+}
+
+.documents-mobile-add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-4);
+  background-color: var(--clr-bg-2);
+  border: 2px dashed var(--clr-border);
+  border-radius: var(--radius-xl);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--clr-green);
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.documents-mobile-add-btn:hover {
+  border-color: var(--clr-green);
+  background-color: rgba(38, 172, 0, 0.04);
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(10, 10, 10, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: var(--space-4);
+}
+
+.modal {
+  background-color: var(--clr-white);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  width: 100%;
+  max-width: 32rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modal-in 0.18s ease-out;
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.modal-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--clr-dark);
+  margin: 0;
+}
+
+.modal-close {
+  width: var(--space-8);
+  height: var(--space-8);
+  border: none;
+  border-radius: var(--radius-full);
+  background-color: var(--clr-bg);
+  color: var(--clr-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.modal-close:hover {
+  background-color: var(--clr-border);
+  color: var(--clr-dark);
+}
+
+.modal-form {
+  padding: var(--padding-card);
 }
 
 .documents-templates {
