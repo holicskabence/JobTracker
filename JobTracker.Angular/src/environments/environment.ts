@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
   apiUrl: '',
-  googleClientId: '<GOOGLE_OAUTH_CLIENT_ID>',
+  googleClientId: '923220706297-6umkbd18ba1encmmju7plptrvf577u6h.apps.googleusercontent.com',
   facebookAppId: '995554238028766'
 };
