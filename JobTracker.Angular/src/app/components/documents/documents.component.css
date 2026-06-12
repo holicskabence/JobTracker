@@ -239,7 +239,6 @@
 
 .documents-list {
   background-color: var(--clr-white);
-  border: 1px solid var(--clr-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
   min-width: 0;

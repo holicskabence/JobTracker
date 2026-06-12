@@ -12,7 +12,13 @@
 
 @media (min-width: 768px) {
     .stats-grid {
-        grid-template-columns: repeat(3, 1fr);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--gap-section);
+    }
+
+    .stats-grid app-card:nth-child(3) {
+        grid-column: 1 / -1;
     }
 }
 
