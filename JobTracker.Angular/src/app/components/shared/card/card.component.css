@@ -1,6 +1,7 @@
 :host {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: var(--gap-card);
     background-color: var(--clr-white);
     border: 1px solid var(--clr-border);
@@ -16,10 +17,6 @@
 
 :host(.card--radius-xl) {
     border-radius: var(--radius-xl);
-}
-
-:host(.card--padding-lg) {
-    /* padding: var(--space-8); */
 }
 
 :host(.card--padding-none) {

@@ -10,7 +10,7 @@
     gap: var(--gap-section);
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
     .stats-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
