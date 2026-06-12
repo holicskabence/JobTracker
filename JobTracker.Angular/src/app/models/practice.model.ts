@@ -15,3 +15,13 @@ export interface PracticeCategory {
   name: string;
   color: string;
 }
+
+export interface PracticeAttempt {
+  id: number;
+  practiceQuestionId: number;
+  category: QuestionCategory;
+  question: string;
+  userAnswer: string;
+  feedback: FeedbackType;
+  createdAt: string;
+}

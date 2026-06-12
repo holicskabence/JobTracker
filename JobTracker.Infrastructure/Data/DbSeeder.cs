@@ -30,6 +30,7 @@ public static class DbSeeder
         ctx.JobStatusConfigs.RemoveRange(ctx.JobStatusConfigs.Where(x => x.UserId == userId));
         ctx.PracticeQuestions.RemoveRange(ctx.PracticeQuestions.Where(x => x.UserId == userId));
         ctx.PracticeCategories.RemoveRange(ctx.PracticeCategories.Where(x => x.UserId == userId));
+        ctx.PracticeAttempts.RemoveRange(ctx.PracticeAttempts.Where(x => x.UserId == userId));
         await ctx.SaveChangesAsync();
 
         ctx.JobStatusConfigs.AddRange(BuildStatusConfigs(userId));

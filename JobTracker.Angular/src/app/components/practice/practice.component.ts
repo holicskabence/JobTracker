@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { PracticeService } from '../../services/practice.service';
 import { PracticeApiService } from '../../services/practice-api.service';
 import { AuthService } from '../../services/auth.service';
-import { FeedbackType, PrepQuestion, QuestionCategory } from '../../models/practice.model';
+import { FeedbackType, PracticeAttempt, PrepQuestion, QuestionCategory } from '../../models/practice.model';
 import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { PageHeaderComponent } from '../shared/page-header/page-header.component';
@@ -131,6 +131,20 @@ export class PracticeComponent {
     };
   });
 
+  readonly attemptGroups = computed(() => {
+    const groups = new Map<string, PracticeAttempt[]>();
+    for (const a of this.practice.attempts()) {
+      const key = this.dateKey(a.createdAt);
+      const list = groups.get(key);
+      if (list) { list.push(a); } else { groups.set(key, [a]); }
+    }
+    return [...groups.entries()].map(([date, attempts]) => ({
+      date,
+      label: this.formatDateLabel(date),
+      attempts
+    }));
+  });
+
   selectFilter(filter: ActiveFilter): void {
     this.selectedFilter.set(filter);
     this.currentIdx.set(0);
@@ -199,7 +213,7 @@ export class PracticeComponent {
   rate(type: FeedbackType): void {
     const q = this.currentQuestion();
     if (!q) return;
-    this.practice.rate(q.id, type);
+    this.practice.rate(q.id, type, this.userAnswer().trim());
     setTimeout(() => this.next(), 350);
   }
 
@@ -345,4 +359,24 @@ export class PracticeComponent {
 
   trackByCategory(_: number, cat: FilterCategory): string { return cat; }
   trackByQuestion(_: number, q: PrepQuestion): number { return q.id; }
+
+  private dateKey(iso: string): string {
+    const d = new Date(iso);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  }
+
+  private formatDateLabel(dateKey: string): string {
+    const [y, m, d] = dateKey.split('-').map(Number);
+    const date = new Date(y, m - 1, d);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const diffDays = Math.round((today.getTime() - date.getTime()) / 86_400_000);
+    if (diffDays === 0) return 'Ma';
+    if (diffDays === 1) return 'Tegnap';
+    return date.toLocaleDateString('hu-HU', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+
+  formatAttemptTime(iso: string): string {
+    return new Date(iso).toLocaleTimeString('hu-HU', { hour: '2-digit', minute: '2-digit' });
+  }
 }

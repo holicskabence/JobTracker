@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FeedbackType, PracticeCategory, PrepQuestion, QuestionCategory } from '../models/practice.model';
+import { FeedbackType, PracticeAttempt, PracticeCategory, PrepQuestion, QuestionCategory } from '../models/practice.model';
 
 export interface CreatePracticeQuestionPayload {
   category: QuestionCategory;
@@ -58,5 +58,13 @@ export class PracticeApiService {
       `/api/practice-questions/${questionId}/evaluate`,
       { userAnswer, customPrompt: customPrompt ?? null }
     );
+  }
+
+  getAttempts(): Observable<PracticeAttempt[]> {
+    return this.http.get<PracticeAttempt[]>('/api/practice-attempts');
+  }
+
+  createAttempt(practiceQuestionId: number, userAnswer: string, feedback: FeedbackType): Observable<PracticeAttempt> {
+    return this.http.post<PracticeAttempt>('/api/practice-attempts', { practiceQuestionId, userAnswer, feedback });
   }
 }

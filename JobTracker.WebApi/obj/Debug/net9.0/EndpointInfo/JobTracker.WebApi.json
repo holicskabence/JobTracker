@@ -623,6 +623,47 @@
         }
       }
     },
+    "/api/practice-attempts": {
+      "get": {
+        "tags": [
+          "PracticeAttempts"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "PracticeAttempts"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePracticeAttemptRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePracticeAttemptRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePracticeAttemptRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/practice-categories": {
       "get": {
         "tags": [
@@ -1317,6 +1358,24 @@
         "type": "object",
         "properties": {
           "text": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreatePracticeAttemptRequest": {
+        "type": "object",
+        "properties": {
+          "practiceQuestionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userAnswer": {
+            "type": "string",
+            "nullable": true
+          },
+          "feedback": {
             "type": "string",
             "nullable": true
           }

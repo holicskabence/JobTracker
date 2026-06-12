@@ -14,6 +14,7 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
     public DbSet<JobStatusConfig> JobStatusConfigs => Set<JobStatusConfig>();
     public DbSet<PracticeQuestion> PracticeQuestions => Set<PracticeQuestion>();
     public DbSet<PracticeCategory> PracticeCategories => Set<PracticeCategory>();
+    public DbSet<PracticeAttempt> PracticeAttempts => Set<PracticeAttempt>();
     public DbSet<AppUser> Users => Set<AppUser>();
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -98,6 +99,17 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
             e.Property(x => x.Name).IsRequired().HasMaxLength(50);
             e.Property(x => x.Color).IsRequired().HasMaxLength(20);
             e.HasIndex(x => new { x.UserId, x.Name }).IsUnique();
+            e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<PracticeAttempt>(e =>
+        {
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Category).IsRequired().HasMaxLength(50);
+            e.Property(x => x.Question).IsRequired().HasMaxLength(1000);
+            e.Property(x => x.UserAnswer).HasMaxLength(4000);
+            e.Property(x => x.Feedback).IsRequired().HasMaxLength(20);
+            e.HasIndex(x => x.UserId);
             e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
         });
 

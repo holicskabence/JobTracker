@@ -1,6 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FeedbackType, PracticeCategory, PrepQuestion } from '../models/practice.model';
+import { FeedbackType, PracticeAttempt, PracticeCategory, PrepQuestion } from '../models/practice.model';
 import { CreatePracticeQuestionPayload, PracticeApiService, UpdatePracticeQuestionPayload } from './practice-api.service';
 
 const PRACTICE_DATES_KEY = 'practice_dates';
@@ -9,6 +9,7 @@ const PRACTICE_DATES_KEY = 'practice_dates';
 export class PracticeService {
   readonly questions = signal<PrepQuestion[]>([]);
   readonly categories = signal<PracticeCategory[]>([]);
+  readonly attempts = signal<PracticeAttempt[]>([]);
   readonly error = signal<string>('');
 
   private readonly _practiceDates = signal<string[]>(this._loadDates());
@@ -74,6 +75,10 @@ export class PracticeService {
       next: data => this.categories.set(data),
       error: () => this.error.set('Nem sikerült betölteni a kérdés kategóriákat.')
     });
+    this.api.getAttempts().subscribe({
+      next: data => this.attempts.set(data),
+      error: () => this.error.set('Nem sikerült betölteni a gyakorlási naplót.')
+    });
   }
 
   addCategory(name: string, color: string): void {
@@ -116,13 +121,17 @@ export class PracticeService {
     });
   }
 
-  rate(id: number, feedback: FeedbackType): void {
+  rate(id: number, feedback: FeedbackType, userAnswer: string): void {
     this.error.set('');
     this._saveToday();
     this.api.rateQuestion(id, feedback).subscribe({
       next: updated => this.questions.update(prev => prev.map(q => q.id === id ? updated : q)),
       error: (err: HttpErrorResponse) =>
         this.error.set(err.error?.message ?? 'Nem sikerült menteni az értékelést.')
+    });
+    this.api.createAttempt(id, userAnswer, feedback).subscribe({
+      next: attempt => this.attempts.update(prev => [attempt, ...prev]),
+      error: () => this.error.set('Nem sikerült rögzíteni a naplóbejegyzést.')
     });
   }
 

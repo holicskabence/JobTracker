@@ -374,6 +374,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "JobTracker.WebApi.Controllers.PracticeAttemptsController",
+    "Method": "GetAll",
+    "RelativePath": "api/practice-attempts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "JobTracker.WebApi.Controllers.PracticeAttemptsController",
+    "Method": "Create",
+    "RelativePath": "api/practice-attempts",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "JobTracker.Application.DTOs.CreatePracticeAttemptRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "JobTracker.WebApi.Controllers.PracticeCategoriesController",
     "Method": "GetAll",
     "RelativePath": "api/practice-categories",
