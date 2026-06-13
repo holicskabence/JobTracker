@@ -412,42 +412,7 @@
             </app-card>
         </div>
 
-        <app-card class="pr-section" gap="none">
-            <div class="pr-res-list">
-                @for (q of practice.questions(); track q.id) {
-                <div class="pr-res-item">
-                    <button type="button" class="pr-res-row" [class]="'pr-res-row--' + (q.feedback ?? 'none')"
-                        (click)="toggleResultExpand(q.id)">
-                        <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(q.category)"
-                            [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
-                        <p class="pr-res-q">{{ q.question }}</p>
-                        <span class="pr-res-badge" [class]="'pr-res-badge--' + (q.feedback ?? 'none')">
-                            @if (q.feedback === 'correct') { ✓ Helyes }
-                            @else if (q.feedback === 'incorrect') { Helytelen }
-                            @else { — }
-                        </span>
-                        <svg class="pr-res-chevron" [class.pr-res-chevron--open]="expandedResultId() === q.id"
-                            width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                    </button>
-                    @if (expandedResultId() === q.id) {
-                    <div class="pr-res-detail">
-                        @if (q.hint) {
-                        <p class="pr-res-detail-label">Tipp</p>
-                        <p class="pr-res-detail-text">{{ q.hint }}</p>
-                        }
-                        <p class="pr-res-detail-label pr-res-detail-label--green">Mintaválasz</p>
-                        <p class="pr-res-detail-text">{{ q.sampleAnswer }}</p>
-                    </div>
-                    }
-                </div>
-                } @empty {
-                <app-empty-state message="Még nincsenek kérdések."></app-empty-state>
-                }
-            </div>
-        </app-card>
+       
 
         <app-card class="pr-section" gap="none">
             <div class="pr-section-head">

@@ -1,7 +1,7 @@
 .overview {
     display: flex;
     flex-direction: column;
-    gap: var(--space-8);
+    gap: var(--gap-section);
 }
 
 .stats-grid {
@@ -271,6 +271,7 @@
     display: flex;
     flex-direction: column;
     margin-top: var(--space-2);
+    height: 100%;
 }
 
 .timeline-item {
