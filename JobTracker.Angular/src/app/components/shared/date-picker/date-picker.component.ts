@@ -18,7 +18,9 @@ export class DatePickerComponent {
 
   isOpen = false;
   panelTop = 0;
+  panelBottom = 0;
   panelLeft = 0;
+  openUpward = false;
 
   readonly viewYear = signal(new Date().getFullYear());
   readonly viewMonth = signal(new Date().getMonth());
@@ -53,8 +55,26 @@ export class DatePickerComponent {
       this.viewMonth.set(m - 1);
     }
     const r = (event.currentTarget as HTMLElement).getBoundingClientRect();
-    this.panelTop = r.bottom + 6;
-    this.panelLeft = r.left;
+    const panelWidth = 292;
+    const panelHeight = 340;
+    const margin = 8;
+
+    let left = r.left;
+    if (left + panelWidth > window.innerWidth - margin) {
+      left = window.innerWidth - panelWidth - margin;
+    }
+    if (left < margin) left = margin;
+
+    const spaceBelow = window.innerHeight - r.bottom;
+    const spaceAbove = r.top;
+
+    this.openUpward = spaceBelow < panelHeight && spaceAbove > spaceBelow;
+    if (this.openUpward) {
+      this.panelBottom = window.innerHeight - r.top + 6;
+    } else {
+      this.panelTop = r.bottom + 6;
+    }
+    this.panelLeft = left;
     this.isOpen = true;
   }
 

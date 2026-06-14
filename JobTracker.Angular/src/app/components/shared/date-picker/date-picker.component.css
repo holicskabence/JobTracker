@@ -59,6 +59,9 @@
   position: fixed;
   z-index: 9999;
   width: 292px;
+  max-width: calc(100vw - 16px);
+  max-height: calc(100vh - 16px);
+  overflow-y: auto;
   background-color: var(--clr-white);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-xl);

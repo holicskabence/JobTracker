@@ -19,7 +19,9 @@ export class TimePickerComponent implements AfterViewInit {
 
   isOpen = false;
   panelTop = 0;
+  panelBottom = 0;
   panelLeft = 0;
+  openUpward = false;
 
   readonly hours = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'));
   readonly minutes = ['00', '15', '30', '45'];
@@ -37,8 +39,27 @@ export class TimePickerComponent implements AfterViewInit {
     event.stopPropagation();
     if (this.isOpen) { this.isOpen = false; return; }
     const r = (event.currentTarget as HTMLElement).getBoundingClientRect();
-    this.panelTop = r.bottom + 6;
-    this.panelLeft = r.left;
+    const panelWidth = 196;
+    const panelHeight = 290;
+    const margin = 8;
+
+    let left = r.left;
+    if (left + panelWidth > window.innerWidth - margin) {
+      left = window.innerWidth - panelWidth - margin;
+    }
+    if (left < margin) left = margin;
+
+    const spaceBelow = window.innerHeight - r.bottom;
+    const spaceAbove = r.top;
+
+    this.openUpward = spaceBelow < panelHeight && spaceAbove > spaceBelow;
+    if (this.openUpward) {
+      this.panelBottom = window.innerHeight - r.top + 6;
+    } else {
+      this.panelTop = r.bottom + 6;
+    }
+
+    this.panelLeft = left;
     this.isOpen = true;
     setTimeout(() => this.scrollToSelected(), 0);
   }

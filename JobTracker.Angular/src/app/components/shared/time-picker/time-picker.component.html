@@ -15,7 +15,8 @@
     </button>
 
     @if (isOpen) {
-    <div class="time-picker-panel" [style.top.px]="panelTop" [style.left.px]="panelLeft"
+    <div class="time-picker-panel" [style.top]="openUpward ? null : panelTop + 'px'"
+        [style.bottom]="openUpward ? panelBottom + 'px' : null" [style.left.px]="panelLeft"
         (click)="$event.stopPropagation()">
 
         <div class="time-picker-cols">
