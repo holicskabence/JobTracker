@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { JobStoreService } from '../../services/job-store.service';
 import { PlannerService } from '../../services/planner.service';
 import { PracticeService } from '../../services/practice.service';
+import { AuthService } from '../../services/auth.service';
 import { DashboardTab } from '../../models/job.model';
 import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
@@ -20,6 +21,7 @@ export class OverviewComponent {
   readonly store = inject(JobStoreService);
   readonly planner = inject(PlannerService);
   readonly practice = inject(PracticeService);
+  private readonly auth = inject(AuthService);
 
   navigate(tab: DashboardTab): void {
     this.router.navigate(['/dashboard', tab]);
@@ -27,8 +29,9 @@ export class OverviewComponent {
 
   readonly stats = this.store.stats;
   readonly recentJobs = computed(() => this.store.jobs().slice(0, 4));
+  readonly goal = computed(() => this.auth.currentUser()?.goal ?? 50);
   readonly progressWidth = computed(() =>
-    Math.min((this.store.stats().totalJobs / 50) * 100, 100)
+    Math.min((this.store.stats().totalJobs / this.goal()) * 100, 100)
   );
 
   readonly upcomingEvents = computed(() => {

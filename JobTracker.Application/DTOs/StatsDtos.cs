@@ -1,7 +1,6 @@
 namespace JobTracker.Application.DTOs;
 
-public record MonthlyStatsResponse(
-    string Month,
-    int Submitted,
-    int Callbacks
+public record StatsSeriesPoint(
+    string Period,
+    Dictionary<string, int> Counts
 );

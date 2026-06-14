@@ -96,9 +96,15 @@ export class PracticeService {
   updateCategory(id: number, name: string, color: string): void {
     const trimmed = name.trim();
     if (!trimmed) return;
+    const oldName = this.categories().find(c => c.id === id)?.name;
     this.error.set('');
     this.api.updateCategory(id, { name: trimmed, color }).subscribe({
-      next: updated => this.categories.update(prev => prev.map(c => c.id === id ? updated : c)),
+      next: updated => {
+        this.categories.update(prev => prev.map(c => c.id === id ? updated : c));
+        if (oldName && oldName !== trimmed) {
+          this.questions.update(prev => prev.map(q => q.category === oldName ? { ...q, category: trimmed } : q));
+        }
+      },
       error: (err: HttpErrorResponse) =>
         this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a kategóriát.')
     });

@@ -44,30 +44,11 @@
 .line {
   stroke-linecap: round;
   stroke-linejoin: round;
-}
-
-.line--sub {
-  stroke: #26ac00;
   stroke-width: 2.5;
-}
-
-.line--cb {
-  stroke: #f59e0b;
-  stroke-width: 2;
 }
 
 .dot {
   pointer-events: none;
-}
-
-.dot--sub {
-  fill: #26ac00;
-  stroke: #fff;
-  stroke-width: 2;
-}
-
-.dot--cb {
-  fill: #f59e0b;
   stroke: #fff;
   stroke-width: 2;
 }
@@ -94,7 +75,7 @@
   opacity: 0.92;
 }
 
-.tooltip-month {
+.tooltip-title {
   font-family: 'Poppins', sans-serif;
   font-size: 10px;
   font-weight: 700;
@@ -109,14 +90,6 @@
   font-size: 10px;
   font-weight: 500;
   text-anchor: middle;
-}
-
-.tooltip-row--sub {
-  fill: #26ac00;
-}
-
-.tooltip-row--cb {
-  fill: #f59e0b;
 }
 
 /* Legend */
@@ -141,12 +114,4 @@
   height: var(--space-2-5);
   border-radius: var(--radius-full);
   flex-shrink: 0;
-}
-
-.legend-dot--sub {
-  background-color: #26ac00;
-}
-
-.legend-dot--cb {
-  background-color: #f59e0b;
 }

@@ -5,7 +5,7 @@ using JobTracker.Domain.Interfaces;
 
 namespace JobTracker.Application.Services;
 
-public sealed class EventTypeService(IEventTypeRepository repo) : IEventTypeService
+public sealed class EventTypeService(IEventTypeRepository repo, ICalendarEventRepository calendarEventRepo) : IEventTypeService
 {
     public async Task<IReadOnlyList<EventTypeResponse>> GetAllAsync(int userId)
     {
@@ -27,8 +27,14 @@ public sealed class EventTypeService(IEventTypeRepository repo) : IEventTypeServ
         var type = await repo.GetByIdAsync(id, userId);
         if (type is null) return null;
 
-        type.Name = request.Name.Trim();
+        var oldName = type.Name;
+        var newName = request.Name.Trim();
+        type.Name = newName;
         await repo.UpdateAsync(type);
+
+        if (oldName != newName)
+            await calendarEventRepo.RenameTypeAsync(oldName, newName, userId);
+
         return Map(type);
     }
 

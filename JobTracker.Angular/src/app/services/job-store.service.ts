@@ -6,13 +6,14 @@ import {
   JobStats,
   JobStatus,
   JobStatusConfig,
-  MonthlyStatsPoint
+  StatsGranularity,
+  StatsSeriesPoint
 } from '../models/job.model';
 
 @Injectable({ providedIn: 'root' })
 export class JobStoreService {
   readonly jobs = signal<Job[]>([]);
-  readonly monthlyStats = signal<MonthlyStatsPoint[]>([]);
+  readonly statsSeries = signal<StatsSeriesPoint[]>([]);
   readonly loading = signal<boolean>(false);
   readonly error = signal<string>('');
   readonly statusConfigs = signal<JobStatusConfig[]>([]);
@@ -108,10 +109,14 @@ export class JobStoreService {
       error: () => this.error.set('Nem sikerült betölteni az állásokat.')
     });
 
-    this.api.getMonthlyStats().subscribe({
-      next: stats => this.monthlyStats.set(stats),
+    this.api.getStatsSeries('month').subscribe({
+      next: series => this.statsSeries.set(series),
       complete: () => this.loading.set(false)
     });
+  }
+
+  loadStatsSeries(granularity: StatsGranularity): void {
+    this.api.getStatsSeries(granularity).subscribe(series => this.statsSeries.set(series));
   }
 
   addJob(data: Omit<Job, 'id' | 'date'>): void {

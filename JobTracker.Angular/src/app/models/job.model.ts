@@ -19,10 +19,11 @@ export interface Job {
   status: JobStatus;
 }
 
-export interface MonthlyStatsPoint {
-  month: string;
-  submitted: number;
-  callbacks: number;
+export type StatsGranularity = 'day' | 'week' | 'month';
+
+export interface StatsSeriesPoint {
+  period: string;
+  counts: Record<string, number>;
 }
 
 export interface JobStats {

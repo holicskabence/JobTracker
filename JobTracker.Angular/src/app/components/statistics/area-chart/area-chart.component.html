@@ -1,11 +1,18 @@
 <div class="chart-wrap">
+  @if (!series.length) {
+  <app-empty-state message="Válassz ki legalább egy mutatót a megjelenítéshez."></app-empty-state>
+  } @else if (!categories.length) {
+  <app-empty-state message="Még nincsenek rögzített jelentkezések."></app-empty-state>
+  } @else {
   <svg class="chart-svg" [attr.viewBox]="'0 0 ' + VW + ' ' + VH" preserveAspectRatio="xMidYMid meet"
     xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#26ac00" stop-opacity="0.22" />
-        <stop offset="100%" stop-color="#26ac00" stop-opacity="0" />
+      @for (s of seriesLines; track s.key) {
+      <linearGradient [attr.id]="'areaGrad-' + s.key" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" [attr.stop-color]="s.color" stop-opacity="0.2" />
+        <stop offset="100%" [attr.stop-color]="s.color" stop-opacity="0" />
       </linearGradient>
+      }
     </defs>
 
     @for (g of gridLines; track g.y) {
@@ -13,54 +20,51 @@
     <text [attr.x]="x0 - 8" [attr.y]="g.y + 4" class="axis-label axis-label--y">{{ g.label }}</text>
     }
 
-    @if (areaPath) {
-    <path [attr.d]="areaPath" fill="url(#areaGrad)" />
+    @if (seriesLines.length === 1) {
+    <path [attr.d]="seriesLines[0].areaPath" [attr.fill]="'url(#areaGrad-' + seriesLines[0].key + ')'" />
     }
 
-    @if (callbacksPath) {
-    <path [attr.d]="callbacksPath" class="line line--cb" fill="none" />
+    @for (s of seriesLines; track s.key) {
+    <path [attr.d]="s.path" class="line" [style.stroke]="s.color" fill="none" />
     }
 
-    @if (submittedPath) {
-    <path [attr.d]="submittedPath" class="line line--sub" fill="none" />
+    @for (s of seriesLines; track s.key) {
+    @for (pt of s.points; track $index; let i = $index) {
+    <circle [attr.cx]="pt.x" [attr.cy]="pt.y" r="4" class="dot" [attr.data-col]="i" [style.fill]="s.color" />
     }
-
-    @for (pt of subPoints; track pt.x) {
-    <circle [attr.cx]="pt.x" [attr.cy]="pt.y" r="5" class="dot dot--sub" />
-    }
-
-    @for (pt of cbPoints; track pt.x) {
-    <circle [attr.cx]="pt.x" [attr.cy]="pt.y" r="4" class="dot dot--cb" />
     }
 
     @for (lbl of xLabels; track lbl.x) {
     <text [attr.x]="lbl.x" [attr.y]="yBottom + 20" class="axis-label axis-label--x">{{ lbl.text }}</text>
     }
 
-    @for (lbl of xLabels; track lbl.x; let i = $index) {
-    <rect class="hit-col" [attr.x]="lbl.x - colHalfWidth" [attr.y]="y0" [attr.width]="colHalfWidth * 2"
+    @for (pos of colPositions; track pos.x; let i = $index) {
+    <rect class="hit-col" [attr.x]="pos.x - colHalfWidth" [attr.y]="y0" [attr.width]="colHalfWidth * 2"
       [attr.height]="ch + 10" (mouseenter)="onColEnter(i)" (mouseleave)="onColLeave()" />
     }
 
     @if (hovered) {
     <g class="chart-tooltip">
       <line class="tooltip-vline" [attr.x1]="hovered.x" [attr.y1]="y0" [attr.x2]="hovered.x" [attr.y2]="yBottom" />
-      <rect class="tooltip-rect" [attr.x]="tooltipX(hovered.x)" [attr.y]="y0 + 4" width="104" height="46" rx="7" />
-      <text class="tooltip-month" [attr.x]="tooltipCenterX(hovered.x)" [attr.y]="y0 + 19">{{ hovered.month }}</text>
-      <text class="tooltip-row tooltip-row--sub" [attr.x]="tooltipCenterX(hovered.x)" [attr.y]="y0 + 33">Beadva: {{
-        hovered.sub }}</text>
-      <text class="tooltip-row tooltip-row--cb" [attr.x]="tooltipCenterX(hovered.x)" [attr.y]="y0 + 44">Visszahívás: {{
-        hovered.cb }}</text>
+      <rect class="tooltip-rect" [attr.x]="tooltipX(hovered.x)" [attr.y]="y0 + 4" [attr.width]="tooltipW"
+        [attr.height]="tooltipHeight()" rx="7" />
+      <text class="tooltip-title" [attr.x]="tooltipCenterX(hovered.x)" [attr.y]="y0 + 19">{{ hovered.label }}</text>
+      @for (row of hovered.rows; track row.key; let i = $index) {
+      <text class="tooltip-row" [style.fill]="row.color" [attr.x]="tooltipCenterX(hovered.x)"
+        [attr.y]="y0 + 33 + i * 13">{{ row.label }}: {{ row.value }}</text>
+      }
     </g>
     }
   </svg>
+  }
 
+  @if (series.length) {
   <div class="legend">
-    <span class="legend-item legend-item--sub">
-      <span class="legend-dot legend-dot--sub"></span>Beadva
+    @for (s of series; track s.key) {
+    <span class="legend-item">
+      <span class="legend-dot" [style.background-color]="s.color"></span>{{ s.label }}
     </span>
-    <span class="legend-item legend-item--cb">
-      <span class="legend-dot legend-dot--cb"></span>Visszahívás
-    </span>
+    }
   </div>
+  }
 </div>

@@ -22,4 +22,11 @@ public sealed class PracticeQuestionRepository(JobTrackerDbContext ctx)
         await Ctx.SaveChangesAsync();
         return true;
     }
+
+    public async Task RenameCategoryAsync(string oldName, string newName, int userId)
+    {
+        await Ctx.PracticeQuestions
+            .Where(q => q.UserId == userId && q.Category == oldName)
+            .ExecuteUpdateAsync(s => s.SetProperty(q => q.Category, newName));
+    }
 }

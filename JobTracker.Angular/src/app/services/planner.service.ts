@@ -114,9 +114,10 @@ export class PlannerService {
     if (!trimmed) return;
     const obj = this._eventTypeObjects().find(t => t.name === oldName);
     if (!obj || trimmed === obj.name) return;
-    this.api.updateEventType(obj.id, trimmed).subscribe(updated =>
-      this._eventTypeObjects.update(prev => prev.map(t => t.id === obj.id ? updated : t))
-    );
+    this.api.updateEventType(obj.id, trimmed).subscribe(updated => {
+      this._eventTypeObjects.update(prev => prev.map(t => t.id === obj.id ? updated : t));
+      this.events.update(prev => prev.map(e => e.type === oldName ? { ...e, type: trimmed } : e));
+    });
   }
 
   deleteEventType(name: string): void {

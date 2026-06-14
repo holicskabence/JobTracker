@@ -17,8 +17,8 @@
             <div class="field">
                 <label class="field-label" for="company">Cég neve</label>
                 <input id="company" class="field-input" type="text" placeholder="pl. Acme Corp" autocomplete="off"
-                    required [(ngModel)]="company" name="company"
-                    [class.field-input--error]="submitted && !company.trim()" />
+                    required [(ngModel)]="company" name="company" (ngModelChange)="duplicate = false"
+                    [class.field-input--error]="(submitted && !company.trim()) || duplicate" />
                 @if (submitted && !company.trim()) {
                 <span class="field-error">A cég neve kötelező.</span>
                 }
@@ -28,9 +28,14 @@
                 <label class="field-label" for="position">Pozíció</label>
                 <input id="position" class="field-input" type="text" placeholder="pl. Frontend Engineer"
                     autocomplete="off" required [(ngModel)]="position" name="position"
-                    [class.field-input--error]="submitted && !position.trim()" />
+                    (ngModelChange)="duplicate = false"
+                    [class.field-input--error]="(submitted && !position.trim()) || duplicate" />
                 @if (submitted && !position.trim()) {
                 <span class="field-error">A pozíció megnevezése kötelező.</span>
+                }
+                @if (duplicate) {
+                <span class="field-error">Ezzel a céggel és pozícióval már szerepel jelentkezés a feltöltött adatok
+                    között.</span>
                 }
             </div>
 

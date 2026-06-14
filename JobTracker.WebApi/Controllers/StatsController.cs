@@ -6,7 +6,12 @@ namespace JobTracker.WebApi.Controllers;
 [Route("api/stats")]
 public sealed class StatsController(IStatsService svc) : AuthorizedControllerBase
 {
-    [HttpGet("monthly")]
-    public async Task<IActionResult> GetMonthly() =>
-        Ok(await svc.GetMonthlyAsync(CurrentUserId));
+    private static readonly HashSet<string> ValidGranularities = ["day", "week", "month"];
+
+    [HttpGet("series")]
+    public async Task<IActionResult> GetSeries([FromQuery] string granularity = "month")
+    {
+        var g = ValidGranularities.Contains(granularity) ? granularity : "month";
+        return Ok(await svc.GetSeriesAsync(CurrentUserId, g));
+    }
 }

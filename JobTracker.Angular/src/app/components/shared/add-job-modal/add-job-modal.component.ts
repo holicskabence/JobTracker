@@ -20,6 +20,7 @@ export class AddJobModalComponent implements OnChanges {
   link = '';
   status: JobStatus = 'Mentett';
   submitted = false;
+  duplicate = false;
 
   constructor(private readonly store: JobStoreService) { }
 
@@ -38,17 +39,36 @@ export class AddJobModalComponent implements OnChanges {
         this.status = 'Mentett';
         this.submitted = false;
       }
+      this.duplicate = false;
     }
   }
 
   get isEdit(): boolean { return this.editJob != null; }
 
+  private isDuplicate(company: string, position: string): boolean {
+    return this.store.jobs().some(j =>
+      j.id !== this.editJob?.id &&
+      j.company.trim().toLowerCase() === company.toLowerCase() &&
+      j.position.trim().toLowerCase() === position.toLowerCase()
+    );
+  }
+
   submit(): void {
     this.submitted = true;
+    this.duplicate = false;
     if (!this.company.trim() || !this.position.trim()) return;
+
+    const company = this.company.trim();
+    const position = this.position.trim();
+
+    if (this.isDuplicate(company, position)) {
+      this.duplicate = true;
+      return;
+    }
+
     const data = {
-      company: this.company.trim(),
-      position: this.position.trim(),
+      company,
+      position,
       link: this.link.trim() || undefined,
       status: this.status
     };

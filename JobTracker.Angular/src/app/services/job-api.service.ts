@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
-import { Job, JobStatus, JobStatusConfig, MonthlyStatsPoint } from '../models/job.model';
+import { Observable } from 'rxjs';
+import { Job, JobStatus, JobStatusConfig, StatsGranularity, StatsSeriesPoint } from '../models/job.model';
 
 @Injectable({ providedIn: 'root' })
 export class JobApiService {
@@ -29,14 +29,9 @@ export class JobApiService {
     return this.http.delete<void>(`/api/jobs/${id}`);
   }
 
-  // ── Monthly stats ────────────────────────────────────────
-  getMonthlyStats(): Observable<MonthlyStatsPoint[]> {
-    return this.http.get<{ month: string; submitted: number; callbacks: number }[]>('/api/stats/monthly').pipe(
-      map(stats => stats.map(s => ({
-        ...s,
-        month: new Date(s.month + '-01').toLocaleDateString('hu-HU', { month: 'short' })
-      })))
-    );
+  // ── Stats series ─────────────────────────────────────────
+  getStatsSeries(granularity: StatsGranularity): Observable<StatsSeriesPoint[]> {
+    return this.http.get<StatsSeriesPoint[]>('/api/stats/series', { params: { granularity } });
   }
 
   // ── Status configs ───────────────────────────────────────

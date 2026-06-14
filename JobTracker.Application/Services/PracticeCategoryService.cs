@@ -5,7 +5,7 @@ using JobTracker.Domain.Interfaces;
 
 namespace JobTracker.Application.Services;
 
-public sealed class PracticeCategoryService(IPracticeCategoryRepository repo) : IPracticeCategoryService
+public sealed class PracticeCategoryService(IPracticeCategoryRepository repo, IPracticeQuestionRepository questionRepo) : IPracticeCategoryService
 {
     public async Task<IReadOnlyList<PracticeCategoryResponse>> GetAllAsync(int userId)
     {
@@ -28,9 +28,15 @@ public sealed class PracticeCategoryService(IPracticeCategoryRepository repo) : 
         var category = await repo.GetByIdAsync(id, userId);
         if (category is null) return null;
 
-        category.Name = request.Name.Trim();
+        var oldName = category.Name;
+        var newName = request.Name.Trim();
+        category.Name = newName;
         category.Color = request.Color;
         await repo.UpdateAsync(category);
+
+        if (oldName != newName)
+            await questionRepo.RenameCategoryAsync(oldName, newName, userId);
+
         return Map(category);
     }
 

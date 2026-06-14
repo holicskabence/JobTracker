@@ -29,4 +29,11 @@ public sealed class CalendarEventRepository(JobTrackerDbContext ctx)
         await Ctx.SaveChangesAsync();
         return true;
     }
+
+    public async Task RenameTypeAsync(string oldName, string newName, int userId)
+    {
+        await Ctx.CalendarEvents
+            .Where(e => e.UserId == userId && e.Type == oldName)
+            .ExecuteUpdateAsync(s => s.SetProperty(e => e.Type, newName));
+    }
 }
