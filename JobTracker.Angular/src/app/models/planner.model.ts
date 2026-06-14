@@ -23,7 +23,7 @@ export interface UserDocument {
   fileName: string | null;
 }
 
-export const DOCUMENT_TYPES = ['Önéletrajz', 'Kísérőlevél', 'Portfólió', 'Egyéb'] as const;
+export const DOCUMENT_TYPES = ['Önéletrajz', 'Kísérőlevél', 'Egyéb'] as const;
 
 export const OUTREACH_TEMPLATES = [
   {

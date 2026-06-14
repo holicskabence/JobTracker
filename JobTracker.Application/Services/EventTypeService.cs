@@ -22,6 +22,16 @@ public sealed class EventTypeService(IEventTypeRepository repo) : IEventTypeServ
         return Map(type);
     }
 
+    public async Task<EventTypeResponse?> UpdateAsync(int id, UpdateEventTypeRequest request, int userId)
+    {
+        var type = await repo.GetByIdAsync(id, userId);
+        if (type is null) return null;
+
+        type.Name = request.Name.Trim();
+        await repo.UpdateAsync(type);
+        return Map(type);
+    }
+
     public async Task<bool> DeleteAsync(int id, int userId) => await repo.DeleteAsync(id, userId);
 
     private static EventTypeResponse Map(EventType t) => new(t.Id, t.Name);

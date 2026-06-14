@@ -23,6 +23,17 @@ public sealed class PracticeCategoryService(IPracticeCategoryRepository repo) : 
         return Map(category);
     }
 
+    public async Task<PracticeCategoryResponse?> UpdateAsync(int id, UpdatePracticeCategoryRequest request, int userId)
+    {
+        var category = await repo.GetByIdAsync(id, userId);
+        if (category is null) return null;
+
+        category.Name = request.Name.Trim();
+        category.Color = request.Color;
+        await repo.UpdateAsync(category);
+        return Map(category);
+    }
+
     public async Task<bool> DeleteAsync(int id, int userId) => await repo.DeleteAsync(id, userId);
 
     private static PracticeCategoryResponse Map(PracticeCategory c) => new(c.Id, c.Name, c.Color);

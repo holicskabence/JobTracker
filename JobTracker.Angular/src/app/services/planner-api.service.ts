@@ -71,6 +71,10 @@ export class PlannerApiService {
     return this.http.post<EventTypeDto>('/api/event-types', { name });
   }
 
+  updateEventType(id: number, name: string): Observable<EventTypeDto> {
+    return this.http.put<EventTypeDto>(`/api/event-types/${id}`, { name });
+  }
+
   deleteEventType(id: number): Observable<void> {
     return this.http.delete<void>(`/api/event-types/${id}`);
   }

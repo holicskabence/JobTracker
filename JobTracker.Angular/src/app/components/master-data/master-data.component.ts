@@ -7,6 +7,8 @@ import { AuthService } from '../../services/auth.service';
 import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
 import { PageHeaderComponent } from '../shared/page-header/page-header.component';
+import { JobStatusConfig } from '../../models/job.model';
+import { PracticeCategory } from '../../models/practice.model';
 
 @Component({
   selector: 'app-master-data',
@@ -39,25 +41,73 @@ export class MasterDataComponent {
 
   readonly STATUS_PRESETS = ['#9b9b99', '#5fb9fa', '#f59e0b', '#26ac00', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4'];
 
+  selectedEventType: string | null = null;
+
   addEventType(): void {
-    if (!this.newEventTypeName.trim()) return;
-    this.planner.addEventType(this.newEventTypeName.trim());
+    const trimmed = this.newEventTypeName.trim();
+    if (!trimmed) return;
+    if (this.selectedEventType) {
+      this.planner.updateEventType(this.selectedEventType, trimmed);
+      this.cancelEventTypeEdit();
+      return;
+    }
+    this.planner.addEventType(trimmed);
+    this.newEventTypeName = '';
+  }
+
+  selectEventType(type: string): void {
+    if (this.selectedEventType === type) {
+      this.cancelEventTypeEdit();
+      return;
+    }
+    this.selectedEventType = type;
+    this.newEventTypeName = type;
+  }
+
+  cancelEventTypeEdit(): void {
+    this.selectedEventType = null;
     this.newEventTypeName = '';
   }
 
   deleteEventType(type: string): void {
     if (this.planner.eventTypes().length <= 1) return;
+    if (this.selectedEventType === type) this.cancelEventTypeEdit();
     this.planner.deleteEventType(type);
   }
 
+  selectedStatusKey: string | null = null;
+
   addStatus(): void {
-    if (!this.newStatusLabel.trim()) return;
-    this.jobStore.addStatus(this.newStatusLabel.trim(), this.newStatusColor);
+    const trimmed = this.newStatusLabel.trim();
+    if (!trimmed) return;
+    if (this.selectedStatusKey) {
+      this.jobStore.updateStatus(this.selectedStatusKey, trimmed, this.newStatusColor);
+      this.cancelStatusEdit();
+      return;
+    }
+    this.jobStore.addStatus(trimmed, this.newStatusColor);
+    this.newStatusLabel = '';
+    this.newStatusColor = '#5fb9fa';
+  }
+
+  selectStatus(cfg: JobStatusConfig): void {
+    if (this.selectedStatusKey === cfg.key) {
+      this.cancelStatusEdit();
+      return;
+    }
+    this.selectedStatusKey = cfg.key;
+    this.newStatusLabel = cfg.label;
+    this.newStatusColor = cfg.color;
+  }
+
+  cancelStatusEdit(): void {
+    this.selectedStatusKey = null;
     this.newStatusLabel = '';
     this.newStatusColor = '#5fb9fa';
   }
 
   deleteStatus(key: string): void {
+    if (this.selectedStatusKey === key) this.cancelStatusEdit();
     this.jobStore.deleteStatus(key);
   }
 
@@ -126,16 +176,41 @@ export class MasterDataComponent {
     this.categoryFormOpen = !this.categoryFormOpen;
   }
 
+  selectedCategoryId: number | null = null;
+
   addCategory(): void {
-    if (!this.newCategoryName.trim()) return;
-    this.practice.addCategory(this.newCategoryName.trim(), this.newCategoryColor);
+    const trimmed = this.newCategoryName.trim();
+    if (!trimmed) return;
+    if (this.selectedCategoryId !== null) {
+      this.practice.updateCategory(this.selectedCategoryId, trimmed, this.newCategoryColor);
+      this.cancelCategoryEdit();
+      return;
+    }
+    this.practice.addCategory(trimmed, this.newCategoryColor);
     this.newCategoryName = '';
     this.newCategoryColor = '#5fb9fa';
     this.categoryFormOpen = false;
   }
 
+  selectCategory(cat: PracticeCategory): void {
+    if (this.selectedCategoryId === cat.id) {
+      this.cancelCategoryEdit();
+      return;
+    }
+    this.selectedCategoryId = cat.id;
+    this.newCategoryName = cat.name;
+    this.newCategoryColor = cat.color;
+  }
+
+  cancelCategoryEdit(): void {
+    this.selectedCategoryId = null;
+    this.newCategoryName = '';
+    this.newCategoryColor = '#5fb9fa';
+  }
+
   deleteCategory(id: number): void {
     if (this.practice.categories().length <= 1) return;
+    if (this.selectedCategoryId === id) this.cancelCategoryEdit();
     this.practice.deleteCategory(id);
   }
 }

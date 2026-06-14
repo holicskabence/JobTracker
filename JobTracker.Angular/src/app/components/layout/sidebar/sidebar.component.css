@@ -287,12 +287,17 @@
     gap: var(--gap-card);
     padding: var(--space-2-5) var(--space-3);
     overflow: hidden;
-    border-bottom: 1px solid var(--clr-border);
-    margin-bottom: var(--space-1);
     flex-shrink: 0;
     cursor: pointer;
     border-radius: var(--radius-md);
     transition: background-color 0.15s;
+}
+
+.sidebar-divider {
+    height: 1px;
+    background-color: var(--clr-border);
+    margin: var(--space-1) calc(-1 * var(--space-2));
+    flex-shrink: 0;
 }
 
 .sidebar-user:hover {

@@ -109,6 +109,16 @@ export class PlannerService {
     );
   }
 
+  updateEventType(oldName: string, newName: string): void {
+    const trimmed = newName.trim();
+    if (!trimmed) return;
+    const obj = this._eventTypeObjects().find(t => t.name === oldName);
+    if (!obj || trimmed === obj.name) return;
+    this.api.updateEventType(obj.id, trimmed).subscribe(updated =>
+      this._eventTypeObjects.update(prev => prev.map(t => t.id === obj.id ? updated : t))
+    );
+  }
+
   deleteEventType(name: string): void {
     const obj = this._eventTypeObjects().find(t => t.name === name);
     if (!obj) return;

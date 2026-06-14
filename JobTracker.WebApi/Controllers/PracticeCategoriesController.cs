@@ -20,6 +20,13 @@ public sealed class PracticeCategoriesController(IPracticeCategoryService svc) :
             : StatusCode(201, created);
     }
 
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Update(int id, [FromBody] UpdatePracticeCategoryRequest request)
+    {
+        var updated = await svc.UpdateAsync(id, request, CurrentUserId);
+        return updated is null ? NotFound(new { message = "A kategória nem található." }) : Ok(updated);
+    }
+
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {

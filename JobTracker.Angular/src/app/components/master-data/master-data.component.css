@@ -163,11 +163,17 @@
     border: 1px solid var(--clr-border);
     border-radius: var(--radius-full);
     padding: var(--space-1-5) var(--space-2) var(--space-1-5) var(--space-2-5);
-    transition: border-color 0.15s;
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .master-data-tag:hover {
     border-color: var(--clr-muted);
+}
+
+.master-data-tag--selected {
+    border-color: var(--clr-green);
+    box-shadow: 0 0 0 2px rgba(38, 172, 0, 0.18);
 }
 
 .master-data-tag-dot {

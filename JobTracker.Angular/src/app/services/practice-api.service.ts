@@ -49,6 +49,10 @@ export class PracticeApiService {
     return this.http.post<PracticeCategory>('/api/practice-categories', data);
   }
 
+  updateCategory(id: number, data: CreatePracticeCategoryPayload): Observable<PracticeCategory> {
+    return this.http.put<PracticeCategory>(`/api/practice-categories/${id}`, data);
+  }
+
   deleteCategory(id: number): Observable<void> {
     return this.http.delete<void>(`/api/practice-categories/${id}`);
   }

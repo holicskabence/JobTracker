@@ -25,10 +25,12 @@
 
             <div class="master-data-tags">
                 @for (type of planner.eventTypes(); track type) {
-                <div class="master-data-tag">
+                <div class="master-data-tag" [class.master-data-tag--selected]="selectedEventType === type"
+                    (click)="selectEventType(type)" title="Kiválasztás módosításhoz">
                     <span class="master-data-tag-dot" style="background-color: var(--clr-green)"></span>
                     <span class="master-data-tag-text">{{ type }}</span>
-                    <button type="button" class="master-data-tag-del" (click)="deleteEventType(type)"
+                    <button type="button" class="master-data-tag-del"
+                        (click)="$event.stopPropagation(); deleteEventType(type)"
                         [disabled]="planner.eventTypes().length <= 1" title="Törlés">
                         <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                             stroke-linecap="round">
@@ -43,13 +45,24 @@
             <form class="master-data-add-form" (ngSubmit)="addEventType()">
                 <input class="master-data-input" type="text" placeholder="Új típus neve…" [(ngModel)]="newEventTypeName"
                     name="newEventType" />
+                @if (selectedEventType) {
+                <button type="button" class="master-data-cancel-btn" (click)="cancelEventTypeEdit()">Mégse</button>
+                }
                 <button class="master-data-add-btn" type="submit">
+                    @if (selectedEventType) {
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    Mentés
+                    } @else {
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round">
                         <line x1="12" y1="5" x2="12" y2="19" />
                         <line x1="5" y1="12" x2="19" y2="12" />
                     </svg>
                     Hozzáadás
+                    }
                 </button>
             </form>
         </app-card>
@@ -72,10 +85,12 @@
 
             <div class="master-data-tags">
                 @for (cfg of jobStore.statusConfigs(); track cfg.key) {
-                <div class="master-data-tag">
+                <div class="master-data-tag" [class.master-data-tag--selected]="selectedStatusKey === cfg.key"
+                    (click)="selectStatus(cfg)" title="Kiválasztás módosításhoz">
                     <span class="master-data-tag-dot" [style.background-color]="cfg.color"></span>
                     <span class="master-data-tag-text">{{ cfg.label }}</span>
-                    <button type="button" class="master-data-tag-del" (click)="deleteStatus(cfg.key)"
+                    <button type="button" class="master-data-tag-del"
+                        (click)="$event.stopPropagation(); deleteStatus(cfg.key)"
                         [disabled]="jobStore.statusConfigs().length <= 1" title="Törlés">
                         <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                             stroke-linecap="round">
@@ -97,13 +112,24 @@
                         (click)="newStatusColor = preset" [title]="preset"></button>
                     }
                 </div>
+                @if (selectedStatusKey) {
+                <button type="button" class="master-data-cancel-btn" (click)="cancelStatusEdit()">Mégse</button>
+                }
                 <button class="master-data-add-btn" type="submit">
+                    @if (selectedStatusKey) {
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    Mentés
+                    } @else {
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round">
                         <line x1="12" y1="5" x2="12" y2="19" />
                         <line x1="5" y1="12" x2="19" y2="12" />
                     </svg>
                     Hozzáadás
+                    }
                 </button>
             </form>
         </app-card>
@@ -128,10 +154,12 @@
 
             <div class="master-data-tags">
                 @for (cat of practice.categories(); track cat.id) {
-                <div class="master-data-tag">
+                <div class="master-data-tag" [class.master-data-tag--selected]="selectedCategoryId === cat.id"
+                    (click)="selectCategory(cat)" title="Kiválasztás módosításhoz">
                     <span class="master-data-tag-dot" [style.background-color]="cat.color"></span>
                     <span class="master-data-tag-text">{{ cat.name }}</span>
-                    <button type="button" class="master-data-tag-del" (click)="deleteCategory(cat.id)"
+                    <button type="button" class="master-data-tag-del"
+                        (click)="$event.stopPropagation(); deleteCategory(cat.id)"
                         [disabled]="practice.categories().length <= 1" title="Törlés">
                         <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                             stroke-linecap="round">
@@ -153,13 +181,24 @@
                         (click)="newCategoryColor = preset" [title]="preset"></button>
                     }
                 </div>
+                @if (selectedCategoryId !== null) {
+                <button type="button" class="master-data-cancel-btn" (click)="cancelCategoryEdit()">Mégse</button>
+                }
                 <button class="master-data-add-btn" type="submit">
+                    @if (selectedCategoryId !== null) {
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    Mentés
+                    } @else {
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round">
                         <line x1="12" y1="5" x2="12" y2="19" />
                         <line x1="5" y1="12" x2="19" y2="12" />
                     </svg>
                     Hozzáadás
+                    }
                 </button>
             </form>
         </app-card>

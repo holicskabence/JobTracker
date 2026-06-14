@@ -5,6 +5,7 @@ export interface JobStatusConfig {
   key:   string;
   label: string;
   color: string;
+  sortOrder?: number;
 }
 
 export type DashboardTab = 'attekintes' | 'jelentkezesek' | 'tablazat' | 'esemenyek' | 'dokumentumok' | 'statisztika' | 'profil' | 'torzsadatok' | 'gyakorlas';

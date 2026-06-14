@@ -20,6 +20,13 @@ public sealed class EventTypesController(IEventTypeService svc) : AuthorizedCont
             : StatusCode(201, created);
     }
 
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Update(int id, [FromBody] UpdateEventTypeRequest request)
+    {
+        var updated = await svc.UpdateAsync(id, request, CurrentUserId);
+        return updated is null ? NotFound(new { message = "Az esemény típus nem található." }) : Ok(updated);
+    }
+
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {

@@ -286,7 +286,6 @@
     border-radius: var(--radius-md);
     padding: var(--space-3) var(--space-4);
     font-family: 'Poppins', sans-serif;
-    font-size: 0.875rem;
     color: var(--clr-dark);
     line-height: 1.55;
     resize: vertical;
@@ -1369,18 +1368,6 @@
     gap: var(--space-1-5);
 }
 
-@media (max-width: 700px) {
-    .pr-q-table-wrap {
-        display: none;
-    }
-
-    .pr-q-cards {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-2-5);
-    }
-}
-
 .pr-q-table {
     width: 100%;
     border-collapse: collapse;
@@ -1612,4 +1599,21 @@
 
 .btn--primary:hover:not(:disabled) {
     background-color: #000;
+}
+
+@media (max-width: 700px) {
+    .pr-q-table-wrap {
+        display: none;
+    }
+
+    .pr-q-cards {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-section);
+    }
+
+    .pr-fb-badge {
+        display: none;
+        
+    }
 }

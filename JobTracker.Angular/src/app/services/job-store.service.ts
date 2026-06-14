@@ -69,6 +69,19 @@ export class JobStoreService {
     });
   }
 
+  updateStatus(key: string, label: string, color: string): void {
+    const cfg = this.statusConfigs().find(c => c.key === key);
+    if (!cfg?.id) return;
+    const trimmedLabel = label.trim();
+    if (!trimmedLabel) return;
+    this.error.set('');
+    this.api.updateStatusConfig(cfg.id, { label: trimmedLabel, color, sortOrder: cfg.sortOrder ?? 0 }).subscribe({
+      next: updated => this.statusConfigs.update(prev => prev.map(c => c.key === key ? updated : c)),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a státuszt.')
+    });
+  }
+
   deleteStatus(key: string): void {
     const cfg = this.statusConfigs().find(c => c.key === key);
     if (!cfg?.id) return;

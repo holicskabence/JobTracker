@@ -93,6 +93,17 @@ export class PracticeService {
     });
   }
 
+  updateCategory(id: number, name: string, color: string): void {
+    const trimmed = name.trim();
+    if (!trimmed) return;
+    this.error.set('');
+    this.api.updateCategory(id, { name: trimmed, color }).subscribe({
+      next: updated => this.categories.update(prev => prev.map(c => c.id === id ? updated : c)),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a kategóriát.')
+    });
+  }
+
   deleteCategory(id: number): void {
     if (this.categories().length <= 1) return;
     this.error.set('');
