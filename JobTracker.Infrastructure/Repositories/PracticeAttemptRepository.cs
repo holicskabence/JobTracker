@@ -13,4 +13,11 @@ public sealed class PracticeAttemptRepository(JobTrackerDbContext ctx)
             .Where(a => a.UserId == userId)
             .OrderByDescending(a => a.CreatedAt)
             .ToListAsync();
+
+    public async Task DeleteAllByUserAsync(int userId)
+    {
+        await Ctx.PracticeAttempts
+            .Where(a => a.UserId == userId)
+            .ExecuteDeleteAsync();
+    }
 }

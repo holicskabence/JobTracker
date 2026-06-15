@@ -74,6 +74,14 @@ export class PracticeComponent {
     return Math.round((correct / total) * 100);
   });
 
+  readonly answerRatio = computed(() => {
+    const { correct, incorrect } = this.ratingBreakdown();
+    const answered = correct + incorrect;
+    if (answered === 0) return { correctPct: 0, incorrectPct: 0, answered: 0 };
+    const correctPct = Math.round((correct / answered) * 100);
+    return { correctPct, incorrectPct: 100 - correctPct, answered };
+  });
+
   readonly useAiEvaluation = computed(() => this.auth.currentUser()?.useAiEvaluation ?? false);
 
   readonly aiLoading = signal(false);
@@ -82,6 +90,8 @@ export class PracticeComponent {
   readonly aiVerdict = signal<'correct' | 'incorrect' | null>(null);
   readonly aiError = signal<string | null>(null);
   readonly aiDone = signal(false);
+
+  readonly showResetConfirm = signal(false);
 
   readonly showQuestionModal = signal(false);
   readonly editingQuestionId = signal<number | null>(null);
@@ -233,6 +243,14 @@ export class PracticeComponent {
     this.resetAi();
   }
 
+  goToIndex(idx: number): void {
+    if (idx < 0 || idx >= this.filteredQuestions().length || idx === this.currentIdx()) return;
+    this.currentIdx.set(idx);
+    this.userAnswer.set('');
+    this.showSample.set(false);
+    this.resetAi();
+  }
+
   openAddQuestionModal(): void {
     this.editingQuestionId.set(null);
     this.formCat.set(this.practice.categories()[0]?.name ?? '');
@@ -275,6 +293,18 @@ export class PracticeComponent {
   }
 
   deleteQuestion(id: number): void { this.practice.deleteQuestion(id); }
+
+  openResetConfirm(): void { this.showResetConfirm.set(true); }
+  closeResetConfirm(): void { this.showResetConfirm.set(false); }
+
+  confirmResetStatistics(): void {
+    this.practice.resetStatistics();
+    this.showResetConfirm.set(false);
+    this.currentIdx.set(0);
+    this.userAnswer.set('');
+    this.showSample.set(false);
+    this.resetAi();
+  }
 
   // ── Category dropdown (modal) ───────────────────────────────────────────────
   catDropOpen = false;

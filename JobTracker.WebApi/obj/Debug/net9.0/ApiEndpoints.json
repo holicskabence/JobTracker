@@ -170,6 +170,27 @@
   },
   {
     "ContainingType": "JobTracker.WebApi.Controllers.EventTypesController",
+    "Method": "Update",
+    "RelativePath": "api/event-types/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "JobTracker.Application.DTOs.UpdateEventTypeRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "JobTracker.WebApi.Controllers.EventTypesController",
     "Method": "Delete",
     "RelativePath": "api/event-types/{id}",
     "HttpMethod": "DELETE",
@@ -427,6 +448,27 @@
   },
   {
     "ContainingType": "JobTracker.WebApi.Controllers.PracticeCategoriesController",
+    "Method": "Update",
+    "RelativePath": "api/practice-categories/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "JobTracker.Application.DTOs.UpdatePracticeCategoryRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "JobTracker.WebApi.Controllers.PracticeCategoriesController",
     "Method": "Delete",
     "RelativePath": "api/practice-categories/{id}",
     "HttpMethod": "DELETE",
@@ -626,12 +668,18 @@
   },
   {
     "ContainingType": "JobTracker.WebApi.Controllers.StatsController",
-    "Method": "GetMonthly",
-    "RelativePath": "api/stats/monthly",
+    "Method": "GetSeries",
+    "RelativePath": "api/stats/series",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "granularity",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {

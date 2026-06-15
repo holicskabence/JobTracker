@@ -41,6 +41,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     min-height: 0;
+    background-color: var(--clr-bg-2);
 }
 
 @media (min-width: 768px) {
@@ -62,12 +63,6 @@
 
 .content-body--table {
     padding: 0;
-    overflow: hidden;
-}
-
-@media (max-width: 767px) {
-    .content-body--table {
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
+    overflow-y: auto;
+    overflow-x: hidden;
 }

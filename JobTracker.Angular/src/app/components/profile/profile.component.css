@@ -15,6 +15,7 @@
     align-items: center;
     text-align: center;
     gap: var(--space-1);
+    min-width: 350px;
 }
 
 .profile-card--form {

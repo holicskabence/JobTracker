@@ -29,4 +29,11 @@ public sealed class PracticeQuestionRepository(JobTrackerDbContext ctx)
             .Where(q => q.UserId == userId && q.Category == oldName)
             .ExecuteUpdateAsync(s => s.SetProperty(q => q.Category, newName));
     }
+
+    public async Task ResetFeedbackAsync(int userId)
+    {
+        await Ctx.PracticeQuestions
+            .Where(q => q.UserId == userId)
+            .ExecuteUpdateAsync(s => s.SetProperty(q => q.Feedback, (string?)null));
+    }
 }

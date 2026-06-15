@@ -23,7 +23,7 @@ export class MasterDataComponent {
   readonly practice = inject(PracticeService);
   private readonly auth = inject(AuthService);
 
-  readonly isDemoUser = computed(() => this.auth.currentUser()?.email === 'benceholicska@gmail.com');
+  readonly isDemoUser = computed(() => this.auth.currentUser()?.email === 'demo@jobtracker.app');
 
   newEventTypeName = '';
   newStatusLabel = '';

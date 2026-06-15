@@ -5,7 +5,10 @@ using JobTracker.Domain.Interfaces;
 
 namespace JobTracker.Application.Services;
 
-public sealed class PracticeQuestionService(IPracticeQuestionRepository repo, IAzureOpenAiService aiService) : IPracticeQuestionService
+public sealed class PracticeQuestionService(
+    IPracticeQuestionRepository repo,
+    IPracticeAttemptRepository attemptRepo,
+    IAzureOpenAiService aiService) : IPracticeQuestionService
 {
     public async Task<IReadOnlyList<PracticeQuestionResponse>> GetAllAsync(int userId)
     {
@@ -51,6 +54,13 @@ public sealed class PracticeQuestionService(IPracticeQuestionRepository repo, IA
     }
 
     public async Task<bool> DeleteAsync(int id, int userId) => await repo.DeleteAsync(id, userId);
+
+    public async Task<IReadOnlyList<PracticeQuestionResponse>> ResetStatisticsAsync(int userId)
+    {
+        await repo.ResetFeedbackAsync(userId);
+        await attemptRepo.DeleteAllByUserAsync(userId);
+        return await GetAllAsync(userId);
+    }
 
     public async Task<AiEvaluateResponse?> EvaluateAnswerAsync(int questionId, int userId, string userAnswer, string? customPrompt)
     {

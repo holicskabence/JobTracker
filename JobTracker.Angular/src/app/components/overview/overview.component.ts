@@ -28,7 +28,7 @@ export class OverviewComponent {
   }
 
   readonly stats = this.store.stats;
-  readonly recentJobs = computed(() => this.store.jobs().slice(0, 4));
+  readonly recentJobs = computed(() => this.store.jobs().slice(0, 5));
   readonly goal = computed(() => this.auth.currentUser()?.goal ?? 50);
   readonly progressWidth = computed(() =>
     Math.min((this.store.stats().totalJobs / this.goal()) * 100, 100)
@@ -42,7 +42,7 @@ export class OverviewComponent {
       .slice(0, 3);
   });
 
-  readonly quickTasks = computed(() => this.planner.tasks().slice(0, 4));
+  readonly quickTasks = computed(() => this.planner.tasks().filter(t => !t.completed).slice(0, 4));
   readonly tasksDone = computed(() => this.planner.tasks().filter(t => t.completed).length);
   readonly tasksTotal = computed(() => this.planner.tasks().length);
 

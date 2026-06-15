@@ -221,5 +221,5 @@ C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\Google.Apis.Core.dll
 C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\Newtonsoft.Json.dll
 C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\System.Management.dll
 C:\JobTracker\JobTracker.WebApi\bin\Debug\net9.0\runtimes\win\lib\net7.0\System.Management.dll
-C:\JobTracker\JobTracker.WebApi\obj\Debug\net9.0\swae.build.ex.cache
 C:\JobTracker\JobTracker.WebApi\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+c:\JobTracker\JobTracker.WebApi\obj\Debug\net9.0\swae.build.ex.cache

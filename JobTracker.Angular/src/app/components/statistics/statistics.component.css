@@ -435,6 +435,7 @@
   text-align: right;
 }
 
+
 @media (max-width: 479px) {
   .kpi-card-value {
     font-size: 1.625rem;

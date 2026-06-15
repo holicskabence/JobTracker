@@ -68,6 +68,10 @@ export class PracticeApiService {
     return this.http.get<PracticeAttempt[]>('/api/practice-attempts');
   }
 
+  resetStatistics(): Observable<PrepQuestion[]> {
+    return this.http.post<PrepQuestion[]>('/api/practice-questions/reset-statistics', {});
+  }
+
   createAttempt(practiceQuestionId: number, userAnswer: string, feedback: FeedbackType): Observable<PracticeAttempt> {
     return this.http.post<PracticeAttempt>('/api/practice-attempts', { practiceQuestionId, userAnswer, feedback });
   }

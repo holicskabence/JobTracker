@@ -152,6 +152,20 @@ export class PracticeService {
     });
   }
 
+  resetStatistics(): void {
+    this.error.set('');
+    this.api.resetStatistics().subscribe({
+      next: questions => {
+        this.questions.set(questions);
+        this.attempts.set([]);
+        localStorage.removeItem(PRACTICE_DATES_KEY);
+        this._practiceDates.set([]);
+      },
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült alaphelyzetbe állítani a statisztikát.')
+    });
+  }
+
   deleteQuestion(id: number): void {
     this.error.set('');
     this.api.deleteQuestion(id).subscribe({

@@ -10,4 +10,5 @@ public interface IPracticeQuestionService
     Task<PracticeQuestionResponse?> SetFeedbackAsync(int id, RatePracticeQuestionRequest request, int userId);
     Task<bool> DeleteAsync(int id, int userId);
     Task<AiEvaluateResponse?> EvaluateAnswerAsync(int questionId, int userId, string userAnswer, string? customPrompt);
+    Task<IReadOnlyList<PracticeQuestionResponse>> ResetStatisticsAsync(int userId);
 }

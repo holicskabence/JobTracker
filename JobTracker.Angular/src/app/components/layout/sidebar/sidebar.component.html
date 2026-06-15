@@ -47,19 +47,6 @@
             <span class="sidebar-label">Áttekintés</span>
         </a>
 
-        <a class="sidebar-btn" routerLink="/dashboard/jelentkezesek" routerLinkActive="sidebar-btn--active"
-            (click)="closeMobile.emit()" title="Jelentkezések">
-            <span class="sidebar-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="7" width="20" height="14" rx="2" />
-                    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-                    <line x1="8" y1="12" x2="16" y2="12" />
-                </svg>
-            </span>
-            <span class="sidebar-label">Jelentkezések</span>
-        </a>
-
         <a class="sidebar-btn" routerLink="/dashboard/tablazat" routerLinkActive="sidebar-btn--active"
             (click)="closeMobile.emit()" title="Táblázat">
             <span class="sidebar-icon">
@@ -74,6 +61,33 @@
             <span class="sidebar-label">Táblázat</span>
         </a>
 
+        <a class="sidebar-btn" routerLink="/dashboard/jelentkezesek" routerLinkActive="sidebar-btn--active"
+            (click)="closeMobile.emit()" title="Jelentkezések">
+            <span class="sidebar-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" />
+                    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+                    <line x1="8" y1="12" x2="16" y2="12" />
+                </svg>
+            </span>
+            <span class="sidebar-label">Jelentkezések</span>
+        </a>
+
+        <a class="sidebar-btn" routerLink="/dashboard/gyakorlas" routerLinkActive="sidebar-btn--active"
+            (click)="closeMobile.emit()" title="Gyakorlás">
+            <span class="sidebar-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.7-4.27 2.5 2.5 0 0 1-1.7-3.27 3 3 0 0 1 .25-5.5A2.5 2.5 0 0 1 9.5 2Z" />
+                    <path
+                        d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.7-4.27 2.5 2.5 0 0 0 1.7-3.27 3 3 0 0 0-.25-5.5A2.5 2.5 0 0 0 14.5 2Z" />
+                </svg>
+            </span>
+            <span class="sidebar-label">Gyakorlás</span>
+        </a>
+
         <a class="sidebar-btn" routerLink="/dashboard/esemenyek" routerLinkActive="sidebar-btn--active"
             (click)="closeMobile.emit()" title="Események & Teendők">
             <span class="sidebar-icon">
@@ -85,7 +99,7 @@
                     <line x1="3" y1="10" x2="21" y2="10" />
                 </svg>
             </span>
-            <span class="sidebar-label">Események</span>
+            <span class="sidebar-label">Események & Teendők</span>
         </a>
 
         <a class="sidebar-btn" routerLink="/dashboard/dokumentumok" routerLinkActive="sidebar-btn--active"
@@ -126,18 +140,6 @@
                 </svg>
             </span>
             <span class="sidebar-label">Törzsadatok</span>
-        </a>
-
-        <a class="sidebar-btn" routerLink="/dashboard/gyakorlas" routerLinkActive="sidebar-btn--active"
-            (click)="closeMobile.emit()" title="Gyakorlás">
-            <span class="sidebar-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.7-4.27 2.5 2.5 0 0 1-1.7-3.27 3 3 0 0 1 .25-5.5A2.5 2.5 0 0 1 9.5 2Z"/>
-                    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.7-4.27 2.5 2.5 0 0 0 1.7-3.27 3 3 0 0 0-.25-5.5A2.5 2.5 0 0 0 14.5 2Z"/>
-                </svg>
-            </span>
-            <span class="sidebar-label">Gyakorlás</span>
         </a>
 
     </div>

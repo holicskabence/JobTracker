@@ -1328,7 +1328,11 @@
 }
 
 .pr-q-table-wrap {
-    overflow-x: auto;
+    background-color: var(--clr-white);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px var(--clr-shadow);
+    overflow: hidden;
 }
 
 .pr-q-cards {
@@ -1374,14 +1378,18 @@
     font-size: 0.875rem;
 }
 
+.pr-q-table thead {
+    background-color: var(--clr-bg);
+}
+
 .pr-q-th {
-    padding: var(--space-2-5) var(--space-3);
+    padding: var(--space-3) var(--space-4);
     text-align: left;
-    font-size: 0.6875rem;
-    font-weight: 700;
+    font-size: 0.75rem;
+    font-weight: 600;
     color: var(--clr-muted);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     border-bottom: 1px solid var(--clr-border);
     white-space: nowrap;
     user-select: none;
@@ -1419,8 +1427,8 @@
 }
 
 .pr-q-td {
-    padding: var(--space-3);
-    border-bottom: 1px solid rgba(234, 232, 229, 0.5);
+    padding: var(--space-3-5) var(--space-4);
+    border-bottom: 1px solid var(--clr-border);
     vertical-align: middle;
 }
 

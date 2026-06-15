@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 public static class DbSeeder
 {
-    public const string DemoEmail = "benceholicska@gmail.com";
+    public const string DemoEmail = "demo@jobtracker.app";
 
     public static void Seed(JobTrackerDbContext ctx)
     {
@@ -72,12 +72,12 @@ public static class DbSeeder
 
         var user = new AppUser
         {
-            FirstName = "Bence",
-            LastName = "Holicska",
+            FirstName = "John",
+            LastName = "Doe",
             Position = "Fullstack Developer",
             Email = DemoEmail,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword("Demo@1234"),
-            Phone = "+36 30 123 4567",
+            Phone = "+1 555 123 4567",
             Goal = 30,
             JoinDate = "2026. március"
         };
@@ -173,8 +173,8 @@ public static class DbSeeder
 
     private static UserDocument[] BuildDocuments(int userId) =>
     [
-        new UserDocument { UserId = userId, Name = "Kovacs_Bence_Frontend_CV_2026_HU.pdf", Type = "Önéletrajz", Updated = "2026-05-20", Version = "v2.4" },
-        new UserDocument { UserId = userId, Name = "Kovacs_Bence_Senior_Developer_EN.pdf", Type = "Önéletrajz", Updated = "2026-06-01", Version = "v3.0" },
+        new UserDocument { UserId = userId, Name = "Doe_John_Frontend_CV_2026_HU.pdf", Type = "Önéletrajz", Updated = "2026-05-20", Version = "v2.4" },
+        new UserDocument { UserId = userId, Name = "Doe_John_Senior_Developer_EN.pdf", Type = "Önéletrajz", Updated = "2026-06-01", Version = "v3.0" },
         new UserDocument { UserId = userId, Name = "Standard_Motivacios_Level_HUN.docx", Type = "Kísérőlevél", Updated = "2026-04-10", Version = "v1.1" }
     ];
 

@@ -45,4 +45,8 @@ public sealed class PracticeQuestionsController(IPracticeQuestionService svc) : 
         var result = await svc.EvaluateAnswerAsync(id, CurrentUserId, request.UserAnswer, request.CustomPrompt);
         return result is null ? NotFound(new { message = "A kérdés nem található." }) : Ok(result);
     }
+
+    [HttpPost("reset-statistics")]
+    public async Task<IActionResult> ResetStatistics() =>
+        Ok(await svc.ResetStatisticsAsync(CurrentUserId));
 }

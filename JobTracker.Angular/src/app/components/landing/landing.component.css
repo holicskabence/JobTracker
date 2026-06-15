@@ -58,7 +58,7 @@
 
 .landing-btn--ghost {
     background-color: transparent;
-    border-color: var(--clr-border);
+    
     color: var(--clr-dark);
 }
 
@@ -129,10 +129,8 @@
     gap: var(--space-2-5);
 }
 
-/* ---------- hero ---------- */
-
 .hero {
-    padding: var(--space-12) var(--space-6) var(--space-12);
+    padding: calc(var(--space-12) * 2) var(--space-6) var(--space-12);
 }
 
 .hero-content {
@@ -356,11 +354,25 @@
     flex-shrink: 0;
 }
 
-.mock-dot--gray { background-color: #9b9b99; }
-.mock-dot--blue { background-color: var(--clr-blue); }
-.mock-dot--yellow { background-color: var(--clr-yellow); }
-.mock-dot--green { background-color: var(--clr-green); }
-.mock-dot--red { background-color: var(--clr-red); }
+.mock-dot--gray {
+    background-color: #9b9b99;
+}
+
+.mock-dot--blue {
+    background-color: var(--clr-blue);
+}
+
+.mock-dot--yellow {
+    background-color: var(--clr-yellow);
+}
+
+.mock-dot--green {
+    background-color: var(--clr-green);
+}
+
+.mock-dot--red {
+    background-color: var(--clr-red);
+}
 
 .mock-column-count {
     margin-left: auto;
@@ -488,11 +500,30 @@
     margin-bottom: var(--space-1);
 }
 
-.panel-icon--blue { color: var(--clr-blue); background-color: rgba(95, 185, 250, 0.12); }
-.panel-icon--purple { color: #8b5cf6; background-color: rgba(139, 92, 246, 0.12); }
-.panel-icon--yellow { color: var(--clr-yellow); background-color: rgba(245, 158, 11, 0.12); }
-.panel-icon--green { color: var(--clr-green); background-color: rgba(38, 172, 0, 0.12); }
-.panel-icon--red { color: var(--clr-red); background-color: rgba(239, 68, 68, 0.12); }
+.panel-icon--blue {
+    color: var(--clr-blue);
+    background-color: rgba(95, 185, 250, 0.12);
+}
+
+.panel-icon--purple {
+    color: #8b5cf6;
+    background-color: rgba(139, 92, 246, 0.12);
+}
+
+.panel-icon--yellow {
+    color: var(--clr-yellow);
+    background-color: rgba(245, 158, 11, 0.12);
+}
+
+.panel-icon--green {
+    color: var(--clr-green);
+    background-color: rgba(38, 172, 0, 0.12);
+}
+
+.panel-icon--red {
+    color: var(--clr-red);
+    background-color: rgba(239, 68, 68, 0.12);
+}
 
 .panel-cell-title {
     font-size: 1.0625rem;

@@ -107,7 +107,7 @@ export class AuthService {
 
   loginDemo(): Observable<void> {
     return this.http.post<AuthResponse>('/api/auth/login', {
-      email: 'benceholicska@gmail.com', password: 'Demo@1234'
+      email: 'demo@jobtracker.app', password: 'Demo@1234'
     }).pipe(
       tap(res => this.persistSession(res)),
       map(() => undefined as void)
