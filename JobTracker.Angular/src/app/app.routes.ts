@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
+import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { DashboardComponent } from './components/layout/dashboard/dashboard.component';
@@ -33,6 +34,6 @@ export const routes: Routes = [
       { path: 'gyakorlas', component: PracticeComponent },
     ]
   },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', component: LandingComponent, pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard' }
 ];
