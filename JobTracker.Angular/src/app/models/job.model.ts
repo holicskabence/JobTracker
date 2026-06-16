@@ -1,11 +1,12 @@
 export type JobStatus = string;
 
 export interface JobStatusConfig {
-  id?:   number;
-  key:   string;
-  label: string;
-  color: string;
-  sortOrder?: number;
+  id?:           number;
+  key:           string;
+  label:         string;
+  color:         string;
+  sortOrder?:    number;
+  showInKanban?: boolean;
 }
 
 export type DashboardTab = 'attekintes' | 'jelentkezesek' | 'tablazat' | 'esemenyek' | 'dokumentumok' | 'statisztika' | 'profil' | 'torzsadatok' | 'gyakorlas';

@@ -79,6 +79,118 @@
     min-height: var(--space-8);
 }
 
+.status-row--dragging {
+    opacity: 0.4;
+}
+
+.status-row--drag-over {
+    border-color: var(--clr-green);
+    box-shadow: 0 0 0 2px rgba(38, 172, 0, 0.18);
+    background-color: rgba(38, 172, 0, 0.04);
+}
+
+.status-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1-5);
+}
+
+.status-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2-5);
+    background-color: var(--clr-bg-2);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-2-5);
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    user-select: none;
+}
+
+.status-row:hover {
+    border-color: var(--clr-muted);
+}
+
+.status-row--selected {
+    border-color: var(--clr-green);
+    box-shadow: 0 0 0 2px rgba(38, 172, 0, 0.18);
+}
+
+.status-row-order {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    flex-shrink: 0;
+}
+
+.status-order-btn {
+    width: 18px;
+    height: 18px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--clr-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background-color 0.12s, color 0.12s;
+}
+
+.status-order-btn:hover:not(:disabled) {
+    background-color: var(--clr-border);
+    color: var(--clr-dark);
+}
+
+.status-order-btn:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+}
+
+.status-row-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.status-row-label {
+    flex: 1;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--clr-dark);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.status-kanban-btn {
+    width: var(--space-6);
+    height: var(--space-6);
+    border: none;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--clr-green);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
+    transition: background-color 0.12s, color 0.12s;
+}
+
+.status-kanban-btn:hover {
+    background-color: var(--clr-border);
+}
+
+.status-kanban-btn--hidden {
+    color: var(--clr-muted);
+    opacity: 0.5;
+}
+
 .master-data-question-list {
     display: flex;
     flex-direction: column;
@@ -309,8 +421,15 @@
 }
 
 @keyframes cat-panel-in {
-    from { opacity: 0; transform: translateY(-6px) scale(0.97); }
-    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+    from {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .cat-drop-option {
@@ -373,7 +492,9 @@
 }
 
 @media (max-width: 767px) {
-    .master-data-add-btn {
+
+    .master-data-add-btn,
+    .master-data-cancel-btn {
         width: 100%;
         justify-content: center;
     }
@@ -442,8 +563,13 @@
 }
 
 @keyframes md-overlay-in {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .md-modal {
@@ -458,8 +584,15 @@
 }
 
 @keyframes md-modal-in {
-    from { transform: translateY(20px) scale(0.97); opacity: 0; }
-    to   { transform: translateY(0)    scale(1);    opacity: 1; }
+    from {
+        transform: translateY(20px) scale(0.97);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
 }
 
 .md-modal-head {

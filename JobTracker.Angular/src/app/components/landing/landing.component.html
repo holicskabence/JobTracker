@@ -553,43 +553,20 @@
     </main>
 
     <footer class="landing-footer">
-        <div class="landing-footer-top">
-            <div class="landing-footer-brand">
-                <div class="landing-brand">
-                    <div class="landing-logo">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--clr-green)"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <rect x="2" y="2" width="9" height="9" rx="2" opacity="0.85" />
-                            <rect x="13" y="2" width="9" height="9" rx="2" opacity="0.45" />
-                            <rect x="2" y="13" width="9" height="9" rx="2" opacity="0.45" />
-                            <rect x="13" y="13" width="9" height="9" rx="2" opacity="0.85" />
-                        </svg>
-                    </div>
-                    <span class="landing-brand-name">JobTracker</span>
+        <div class="landing-footer-inner">
+            <div class="landing-brand">
+                <div class="landing-logo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--clr-green)"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="9" height="9" rx="2" opacity="0.85" />
+                        <rect x="13" y="2" width="9" height="9" rx="2" opacity="0.45" />
+                        <rect x="2" y="13" width="9" height="9" rx="2" opacity="0.45" />
+                        <rect x="13" y="13" width="9" height="9" rx="2" opacity="0.85" />
+                    </svg>
                 </div>
-                <p class="landing-footer-text">Az álláskeresésed irányítópultja.</p>
+                <span class="landing-brand-name">JobTracker</span>
             </div>
-
-            <div class="landing-footer-col">
-                <h5 class="landing-footer-heading">Funkciók</h5>
-                <a href="#funkciok">Kanban tábla</a>
-                <a href="#statisztika">Statisztika</a>
-                <a href="#hogyan">Hogyan működik</a>
-            </div>
-
-            <div class="landing-footer-col">
-                <h5 class="landing-footer-heading">Fiók</h5>
-                @if (auth.isLoggedIn()) {
-                <a routerLink="/dashboard">Dashboard</a>
-                } @else {
-                <a routerLink="/login">Bejelentkezés</a>
-                <a routerLink="/register">Regisztráció</a>
-                }
-            </div>
-        </div>
-
-        <div class="landing-footer-bottom">
-            <span>© 2026 JobTracker. Minden jog fenntartva.</span>
+            <span class="landing-footer-copy">© 2026 JobTracker. Minden jog fenntartva.</span>
         </div>
     </footer>
 

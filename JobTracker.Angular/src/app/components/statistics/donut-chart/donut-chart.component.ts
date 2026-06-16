@@ -1,13 +1,12 @@
-import { Component, ElementRef, Input, OnChanges } from '@angular/core';
+import { Component, ElementRef, computed, inject, signal } from '@angular/core';
 import { gsap } from 'gsap';
-import { JobStatus, STATUS_CSS_KEYS, STATUS_COLORS, STATUS_LABELS } from '../../../models/job.model';
+import { JobStoreService } from '../../../services/job-store.service';
 
 export interface DonutSlice {
-  status: JobStatus;
+  status: string;
   label: string;
   value: number;
   color: string;
-  cssKey: string;
   path: string;
   midAngle: number;
 }
@@ -18,12 +17,11 @@ export interface DonutSlice {
   templateUrl: './donut-chart.component.html',
   styleUrl: './donut-chart.component.css'
 })
-export class DonutChartComponent implements OnChanges {
-  @Input() distribution: Partial<Record<JobStatus, number>> = {};
-  @Input() total = 0;
+export class DonutChartComponent {
+  private readonly store = inject(JobStoreService);
+  private readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
 
-  slices: DonutSlice[] = [];
-  hoveredSlice: DonutSlice | null = null;
+  readonly hoveredSlice = signal<DonutSlice | null>(null);
 
   readonly CX = 100;
   readonly CY = 100;
@@ -31,30 +29,66 @@ export class DonutChartComponent implements OnChanges {
   readonly IR = 54;
   readonly GAP_DEG = 4;
 
-  constructor(private el: ElementRef<HTMLElement>) { }
+  readonly total = computed(() => this.store.jobs().length);
 
-  ngOnChanges(): void {
-    this.hoveredSlice = null;
-    this.buildSlices();
+  readonly slices = computed(() => {
+    const jobs = this.store.jobs();
+    const configs = this.store.statusConfigs();
+
+    const distMap: Record<string, number> = {};
+    for (const job of jobs) {
+      distMap[job.status] = (distMap[job.status] ?? 0) + 1;
+    }
+
+    const nonZero = Object.entries(distMap).filter(([, v]) => v > 0);
+    const sum = nonZero.reduce((s, [, v]) => s + v, 0);
+    if (sum === 0) return [];
+
+    const gapTotal = nonZero.length * this.GAP_DEG;
+    const available = 360 - gapTotal;
+    let angle = -90;
+
+    return nonZero.map(([status, value]) => {
+      const cfg = configs.find(c => c.key === status);
+      const sweep = (value / sum) * available;
+      const startDeg = angle + this.GAP_DEG / 2;
+      const endDeg = startDeg + sweep;
+      angle = endDeg + this.GAP_DEG / 2;
+
+      return {
+        status,
+        label: cfg?.label ?? status,
+        value,
+        color: cfg?.color ?? '#9b9b99',
+        path: this.arc(startDeg, endDeg),
+        midAngle: (startDeg + endDeg) / 2
+      };
+    });
+  });
+
+  get centerValue(): string {
+    const h = this.hoveredSlice();
+    return h ? String(h.value) : String(this.total());
   }
 
-  get centerValue(): string { return this.hoveredSlice ? String(this.hoveredSlice.value) : String(this.total); }
-  get centerLabel(): string { return this.hoveredSlice ? this.hoveredSlice.label : 'Összes'; }
+  get centerLabel(): string {
+    const h = this.hoveredSlice();
+    return h ? h.label : 'Összes';
+  }
 
-  hoverSlice(status: JobStatus): void {
-    if (this.hoveredSlice?.status === status) return;
+  hoverSlice(status: string): void {
+    if (this.hoveredSlice()?.status === status) return;
 
-    const idx = this.slices.findIndex(s => s.status === status);
+    const idx = this.slices().findIndex(s => s.status === status);
     const paths = this.el.nativeElement.querySelectorAll<SVGPathElement>('.slice');
 
-    // Reset all to 1
     gsap.to(paths, { scale: 1, duration: 0.15 });
 
     if (idx >= 0 && paths[idx]) {
       gsap.to(paths[idx], { scale: 1.1, duration: 0.22, ease: 'back.out(1.5)' });
     }
 
-    this.hoveredSlice = this.slices[idx] ?? null;
+    this.hoveredSlice.set(this.slices()[idx] ?? null);
 
     const val = this.el.nativeElement.querySelector('.donut-center-value')!;
     const lbl = this.el.nativeElement.querySelector('.donut-center-label')!;
@@ -65,12 +99,12 @@ export class DonutChartComponent implements OnChanges {
   }
 
   clearHover(): void {
-    if (!this.hoveredSlice) return;
+    if (!this.hoveredSlice()) return;
 
     const paths = this.el.nativeElement.querySelectorAll<SVGPathElement>('.slice');
     gsap.to(paths, { scale: 1, duration: 0.18, ease: 'power2.out' });
 
-    this.hoveredSlice = null;
+    this.hoveredSlice.set(null);
 
     const val = this.el.nativeElement.querySelector('.donut-center-value')!;
     const lbl = this.el.nativeElement.querySelector('.donut-center-label')!;
@@ -78,34 +112,6 @@ export class DonutChartComponent implements OnChanges {
       { opacity: 0.7, scale: 0.92 },
       { opacity: 1, scale: 1, duration: 0.18, ease: 'power2.out', stagger: 0.03 }
     );
-  }
-
-  private buildSlices(): void {
-    const entries = Object.entries(this.distribution) as [JobStatus, number][];
-    const nonZero = entries.filter(([, v]) => v > 0);
-    const sum = nonZero.reduce((s, [, v]) => s + v, 0);
-    if (sum === 0) { this.slices = []; return; }
-
-    const gapTotal = nonZero.length * this.GAP_DEG;
-    const available = 360 - gapTotal;
-    let angle = -90;
-
-    this.slices = nonZero.map(([status, value]) => {
-      const sweep = (value / sum) * available;
-      const startDeg = angle + this.GAP_DEG / 2;
-      const endDeg = startDeg + sweep;
-      angle = endDeg + this.GAP_DEG / 2;
-
-      return {
-        status,
-        label: STATUS_LABELS[status],
-        value,
-        color: STATUS_COLORS[status],
-        cssKey: STATUS_CSS_KEYS[status],
-        path: this.arc(startDeg, endDeg),
-        midAngle: (startDeg + endDeg) / 2
-      };
-    });
   }
 
   private arc(startDeg: number, endDeg: number): string {

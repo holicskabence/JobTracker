@@ -13,7 +13,7 @@ import { KanbanColumnComponent } from '../kanban-column/kanban-column.component'
 export class KanbanComponent {
   readonly store = inject(JobStoreService);
 
-  readonly columns = computed(() => this.store.statusConfigs());
+  readonly columns = computed(() => this.store.statusConfigs().filter(c => c.showInKanban !== false));
   readonly selectedIds = signal(new Set<number>());
   readonly hasSelection = computed(() => this.selectedIds().size > 0);
   readonly selectionCount = computed(() => this.selectedIds().size);

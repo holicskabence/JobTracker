@@ -37,12 +37,12 @@ export class LandingComponent implements AfterViewInit, OnDestroy {
 
     gsap.timeline({ defaults: { ease: 'power3.out' } })
       .from(root.querySelector('.landing-nav'), { y: -24, opacity: 0, duration: 0.8 })
-      .from(root.querySelector('.hero-title'), { y: 28, opacity: 0, duration: 0.95 }, '-=0.4')
-      .from(root.querySelector('.hero-subtitle'), { y: 20, opacity: 0, duration: 0.85 }, '-=0.55')
-      .from(root.querySelector('.hero-actions'), { y: 16, opacity: 0, duration: 0.75 }, '-=0.5')
-      .from(root.querySelector('.hero-note'), { opacity: 0, duration: 0.75 }, '-=0.45')
-      .from(root.querySelector('.hero-stage'), { y: 50, opacity: 0, scale: 0.96, duration: 1.15 }, '-=0.6')
-      .from(root.querySelectorAll('.mock-column'), { y: 24, opacity: 0, duration: 0.7, stagger: 0.08 }, '-=0.55');
+      .from(root.querySelector('.hero-title'), { y: 28, opacity: 0, duration: 0.95 }, '-=0.7')
+      .from(root.querySelector('.hero-subtitle'), { y: 20, opacity: 0, duration: 0.85 }, '-=0.75')
+      .from(root.querySelector('.hero-actions'), { y: 16, opacity: 0, duration: 0.75 }, '-=0.7')
+      .from(root.querySelector('.hero-note'), { opacity: 0, duration: 0.75 }, '-=0.65')
+      .from(root.querySelector('.hero-stage'), { y: 50, opacity: 0, scale: 0.96, duration: 1.15 }, '-=0.7')
+      .from(root.querySelectorAll('.mock-column'), { y: 24, opacity: 0, duration: 0.7, stagger: 0.08 }, '-=0.75');
 
     this.floatTween = gsap.to(root.querySelector('.app-frame'), {
       y: -10, duration: 3.5, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 1.5
@@ -55,12 +55,12 @@ export class LandingComponent implements AfterViewInit, OnDestroy {
     root.querySelectorAll<HTMLElement>('.panel-section').forEach(section => {
       const heading = section.querySelectorAll('.section-title, .section-subtitle');
       if (heading.length) {
-        this.scrollFrom(heading, { y: 24, opacity: 0, stagger: 0.1 }, section);
+        this.scrollFrom(heading, { y: 24, opacity: 0, stagger: 0.06 }, section);
       }
 
       const cells = section.querySelectorAll('.panel-cell');
       if (cells.length) {
-        this.scrollFrom(cells, { y: 30, opacity: 0, stagger: 0.08 }, section.querySelector('.panel-grid') ?? section);
+        this.scrollFrom(cells, { y: 30, opacity: 0, stagger: 0.05 }, section.querySelector('.panel-grid') ?? section);
       }
 
       const statsPanel = section.querySelector<HTMLElement>('.stats-panel');
@@ -76,8 +76,8 @@ export class LandingComponent implements AfterViewInit, OnDestroy {
   }
 
   private animateStats(statsPanel: HTMLElement): void {
-    this.scrollFrom(statsPanel.querySelectorAll('.stats-panel-col'), { y: 30, opacity: 0, stagger: 0.15 }, statsPanel);
-    this.scrollFrom(statsPanel.querySelectorAll('.stat-legend li'), { x: -16, opacity: 0, stagger: 0.06, delay: 0.2 }, statsPanel);
+    this.scrollFrom(statsPanel.querySelectorAll('.stats-panel-col'), { y: 30, opacity: 0, stagger: 0.09 }, statsPanel);
+    this.scrollFrom(statsPanel.querySelectorAll('.stat-legend li'), { x: -16, opacity: 0, stagger: 0.04, delay: 0.1 }, statsPanel);
 
     const donut = statsPanel.querySelector<HTMLElement>('.stat-donut');
     if (donut) {
@@ -91,7 +91,7 @@ export class LandingComponent implements AfterViewInit, OnDestroy {
         transformOrigin: 'bottom',
         duration: 0.7,
         ease: 'power3.out',
-        stagger: 0.05,
+        stagger: 0.03,
         scrollTrigger: { trigger: statsPanel, start: 'top 75%', once: true }
       });
       if (tween.scrollTrigger) this.triggers.push(tween.scrollTrigger);

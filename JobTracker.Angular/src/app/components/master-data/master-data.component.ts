@@ -111,6 +111,47 @@ export class MasterDataComponent {
     this.jobStore.deleteStatus(key);
   }
 
+  draggedStatusIndex: number | null = null;
+  dragOverStatusIndex: number | null = null;
+
+  onStatusDragStart(index: number): void {
+    this.draggedStatusIndex = index;
+  }
+
+  onStatusDragOver(event: DragEvent, index: number): void {
+    event.preventDefault();
+    this.dragOverStatusIndex = index;
+  }
+
+  onStatusDrop(event: DragEvent, targetIndex: number): void {
+    event.preventDefault();
+    if (this.draggedStatusIndex !== null && this.draggedStatusIndex !== targetIndex) {
+      this.jobStore.moveStatusToIndex(this.draggedStatusIndex, targetIndex);
+    }
+    this.draggedStatusIndex = null;
+    this.dragOverStatusIndex = null;
+  }
+
+  onStatusDragEnd(): void {
+    this.draggedStatusIndex = null;
+    this.dragOverStatusIndex = null;
+  }
+
+  moveStatusUp(key: string, event: MouseEvent): void {
+    event.stopPropagation();
+    this.jobStore.moveStatusUp(key);
+  }
+
+  moveStatusDown(key: string, event: MouseEvent): void {
+    event.stopPropagation();
+    this.jobStore.moveStatusDown(key);
+  }
+
+  toggleStatusKanban(key: string, event: MouseEvent): void {
+    event.stopPropagation();
+    this.jobStore.toggleStatusKanban(key);
+  }
+
   catDropOpen = false;
   catDropTop = 0;
   catDropLeft = 0;

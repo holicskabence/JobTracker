@@ -22,7 +22,9 @@ export class JobStoreService {
   readonly editingJob = signal<Job | null>(null);
 
   readonly statusColumns = computed(() =>
-    this.statusConfigs().map(c => ({ status: c.key, label: c.label }))
+    this.statusConfigs()
+      .filter(c => c.showInKanban !== false)
+      .map(c => ({ status: c.key, label: c.label }))
   );
 
   readonly stats = computed<JobStats>(() => {
@@ -76,10 +78,73 @@ export class JobStoreService {
     const trimmedLabel = label.trim();
     if (!trimmedLabel) return;
     this.error.set('');
-    this.api.updateStatusConfig(cfg.id, { label: trimmedLabel, color, sortOrder: cfg.sortOrder ?? 0 }).subscribe({
+    this.api.updateStatusConfig(cfg.id, {
+      label: trimmedLabel,
+      color,
+      sortOrder: cfg.sortOrder ?? 0,
+      showInKanban: cfg.showInKanban ?? true
+    }).subscribe({
       next: updated => this.statusConfigs.update(prev => prev.map(c => c.key === key ? updated : c)),
       error: (err: HttpErrorResponse) =>
         this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a státuszt.')
+    });
+  }
+
+  toggleStatusKanban(key: string): void {
+    const cfg = this.statusConfigs().find(c => c.key === key);
+    if (!cfg?.id) return;
+    this.error.set('');
+    this.api.updateStatusConfig(cfg.id, {
+      label: cfg.label,
+      color: cfg.color,
+      sortOrder: cfg.sortOrder ?? 0,
+      showInKanban: !(cfg.showInKanban ?? true)
+    }).subscribe({
+      next: updated => this.statusConfigs.update(prev => prev.map(c => c.key === key ? updated : c)),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a státuszt.')
+    });
+  }
+
+  moveStatusUp(key: string): void {
+    const configs = [...this.statusConfigs()];
+    const idx = configs.findIndex(c => c.key === key);
+    if (idx <= 0) return;
+    [configs[idx - 1], configs[idx]] = [configs[idx], configs[idx - 1]];
+    const reordered = configs.map((c, i) => ({ ...c, sortOrder: i }));
+    this.statusConfigs.set(reordered);
+    this.api.reorderStatusConfigs(reordered.map(c => ({ id: c.id!, sortOrder: c.sortOrder! }))).subscribe({
+      next: updated => this.statusConfigs.set(updated),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült menteni a sorrendet.')
+    });
+  }
+
+  moveStatusDown(key: string): void {
+    const configs = [...this.statusConfigs()];
+    const idx = configs.findIndex(c => c.key === key);
+    if (idx < 0 || idx >= configs.length - 1) return;
+    [configs[idx], configs[idx + 1]] = [configs[idx + 1], configs[idx]];
+    const reordered = configs.map((c, i) => ({ ...c, sortOrder: i }));
+    this.statusConfigs.set(reordered);
+    this.api.reorderStatusConfigs(reordered.map(c => ({ id: c.id!, sortOrder: c.sortOrder! }))).subscribe({
+      next: updated => this.statusConfigs.set(updated),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült menteni a sorrendet.')
+    });
+  }
+
+  moveStatusToIndex(fromIndex: number, toIndex: number): void {
+    if (fromIndex === toIndex) return;
+    const configs = [...this.statusConfigs()];
+    const [moved] = configs.splice(fromIndex, 1);
+    configs.splice(toIndex, 0, moved);
+    const reordered = configs.map((c, i) => ({ ...c, sortOrder: i }));
+    this.statusConfigs.set(reordered);
+    this.api.reorderStatusConfigs(reordered.map(c => ({ id: c.id!, sortOrder: c.sortOrder! }))).subscribe({
+      next: updated => this.statusConfigs.set(updated),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült menteni a sorrendet.')
     });
   }
 
@@ -109,7 +174,7 @@ export class JobStoreService {
       error: () => this.error.set('Nem sikerült betölteni az állásokat.')
     });
 
-    this.api.getStatsSeries('month').subscribe({
+    this.api.getStatsSeries('day').subscribe({
       next: series => this.statsSeries.set(series),
       complete: () => this.loading.set(false)
     });

@@ -25,7 +25,8 @@ public sealed class JobStatusConfigService(IJobStatusConfigRepository repo) : IJ
             Key = key,
             Label = request.Label.Trim(),
             Color = request.Color,
-            SortOrder = all.Count > 0 ? all.Max(c => c.SortOrder) + 1 : 0
+            SortOrder = all.Count > 0 ? all.Max(c => c.SortOrder) + 1 : 0,
+            ShowInKanban = true
         };
         await repo.AddAsync(config);
         return Map(config);
@@ -39,6 +40,7 @@ public sealed class JobStatusConfigService(IJobStatusConfigRepository repo) : IJ
         config.Label = request.Label.Trim();
         config.Color = request.Color;
         config.SortOrder = request.SortOrder;
+        config.ShowInKanban = request.ShowInKanban;
 
         await repo.UpdateAsync(config);
         return Map(config);
@@ -46,6 +48,20 @@ public sealed class JobStatusConfigService(IJobStatusConfigRepository repo) : IJ
 
     public async Task<bool> DeleteAsync(int id, int userId) => await repo.DeleteAsync(id, userId);
 
+    public async Task<IReadOnlyList<JobStatusConfigResponse>> ReorderAsync(IEnumerable<ReorderStatusConfigItem> items, int userId)
+    {
+        var all = await repo.GetAllByUserAsync(userId);
+        foreach (var item in items)
+        {
+            var config = all.FirstOrDefault(c => c.Id == item.Id);
+            if (config is null) continue;
+            config.SortOrder = item.SortOrder;
+            await repo.UpdateAsync(config);
+        }
+        var updated = await repo.GetAllByUserAsync(userId);
+        return updated.OrderBy(c => c.SortOrder).Select(Map).ToList();
+    }
+
     private static JobStatusConfigResponse Map(JobStatusConfig c) =>
-        new(c.Id, c.Key, c.Label, c.Color, c.SortOrder);
+        new(c.Id, c.Key, c.Label, c.Color, c.SortOrder, c.ShowInKanban);
 }

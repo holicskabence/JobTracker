@@ -8,4 +8,5 @@ public class JobStatusConfig
     public string Label { get; set; } = string.Empty;
     public string Color { get; set; } = string.Empty;
     public int SortOrder { get; set; }
+    public bool ShowInKanban { get; set; } = true;
 }

@@ -589,6 +589,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "JobTracker.WebApi.Controllers.PracticeQuestionsController",
+    "Method": "ResetStatistics",
+    "RelativePath": "api/practice-questions/reset-statistics",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "JobTracker.WebApi.Controllers.ProfileController",
     "Method": "Get",
     "RelativePath": "api/profile",
@@ -740,6 +750,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "JobTracker.WebApi.Controllers.StatusConfigsController",
+    "Method": "Reorder",
+    "RelativePath": "api/status-configs/reorder",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "items",
+        "Type": "System.Collections.Generic.List\u00601[[JobTracker.Application.DTOs.ReorderStatusConfigItem, JobTracker.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": true
       }
     ],

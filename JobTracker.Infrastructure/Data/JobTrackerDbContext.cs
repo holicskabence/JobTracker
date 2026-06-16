@@ -77,6 +77,7 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
             e.Property(x => x.Key).IsRequired().HasMaxLength(50);
             e.Property(x => x.Label).IsRequired().HasMaxLength(100);
             e.Property(x => x.Color).IsRequired().HasMaxLength(20);
+            e.Property(x => x.ShowInKanban).HasDefaultValue(true);
             e.HasIndex(x => new { x.UserId, x.Key }).IsUnique();
             e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
         });

@@ -20,7 +20,7 @@ export class StatisticsComponent {
   private readonly auth = inject(AuthService);
 
   readonly statusConfigs = this.store.statusConfigs;
-  readonly granularity = signal<StatsGranularity>('month');
+  readonly granularity = signal<StatsGranularity>('day');
   readonly selectedMetrics = signal<string[]>([]);
 
   readonly chartCategories = computed(() => {
@@ -107,13 +107,15 @@ export class StatisticsComponent {
     return t > 0 ? Math.round((this.stats().rejections / t) * 100) : 0;
   });
 
-  readonly distribution = computed<Partial<Record<string, number>>>(() => {
-    const jobs = this.store.jobs();
-    const result: Partial<Record<string, number>> = {};
-    for (const job of jobs) {
-      result[job.status] = (result[job.status] ?? 0) + 1;
+  readonly weekdayDistribution = computed(() => {
+    const labels = ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat', 'Vasárnap'];
+    const counts = new Array(7).fill(0);
+    for (const job of this.store.jobs()) {
+      const dow = (new Date(job.date).getDay() + 6) % 7;
+      counts[dow]++;
     }
-    return result;
+    const max = Math.max(1, ...counts);
+    return labels.map((name, i) => ({ name, count: counts[i], pct: Math.round((counts[i] / max) * 100) }));
   });
 
   readonly funnel = computed(() => {

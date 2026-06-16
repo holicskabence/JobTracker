@@ -43,11 +43,15 @@ export class JobApiService {
     return this.http.post<JobStatusConfig>('/api/status-configs', data);
   }
 
-  updateStatusConfig(id: number, data: { label: string; color: string; sortOrder: number }): Observable<JobStatusConfig> {
+  updateStatusConfig(id: number, data: { label: string; color: string; sortOrder: number; showInKanban: boolean }): Observable<JobStatusConfig> {
     return this.http.put<JobStatusConfig>(`/api/status-configs/${id}`, data);
   }
 
   deleteStatusConfig(id: number): Observable<void> {
     return this.http.delete<void>(`/api/status-configs/${id}`);
+  }
+
+  reorderStatusConfigs(items: { id: number; sortOrder: number }[]): Observable<JobStatusConfig[]> {
+    return this.http.post<JobStatusConfig[]>('/api/status-configs/reorder', items);
   }
 }

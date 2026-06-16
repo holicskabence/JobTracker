@@ -31,7 +31,7 @@
 
 @media (min-width: 1024px) {
   .stats-grid {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -435,6 +435,65 @@
   text-align: right;
 }
 
+
+.chart-card--weekday {
+  min-height: 200px;
+  animation-delay: 0.24s;
+}
+
+.weekday-body {
+  display: flex;
+  align-items: stretch;
+}
+
+.weekday-bars {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--space-3);
+  width: 100%;
+  align-items: end;
+}
+
+.weekday-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1-5);
+}
+
+.weekday-track {
+  width: 100%;
+  height: 120px;
+  background-color: var(--clr-bg);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.weekday-fill {
+  width: 100%;
+  background-color: var(--clr-green);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  opacity: 0.75;
+  min-height: 4px;
+  transition: height 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.weekday-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--clr-dark);
+  line-height: 1;
+}
+
+.weekday-name {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--clr-muted);
+  text-align: center;
+  white-space: nowrap;
+}
 
 @media (max-width: 479px) {
   .kpi-card-value {
