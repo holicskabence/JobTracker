@@ -11,6 +11,13 @@ export class PlannerService {
   readonly documents = signal<UserDocument[]>([]);
   readonly eventTypes = computed(() => this._eventTypeObjects().map(t => t.name));
 
+  readonly upcomingInterviewCount = computed(() => {
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    return this.events().filter(e =>
+      e.type.toLowerCase().includes('interj') && new Date(e.date) >= today
+    ).length;
+  });
+
   constructor(private readonly api: PlannerApiService) { }
 
   loadAll(): void {

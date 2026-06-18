@@ -25,6 +25,7 @@ public static class ServiceCollectionExtensions
                     errorNumbersToAdd: null)));
 
         services.AddScoped<IJobRepository, JobRepository>();
+        services.AddScoped<IJobStatusHistoryRepository, JobStatusHistoryRepository>();
         services.AddScoped<ICalendarEventRepository, CalendarEventRepository>();
         services.AddScoped<IPlannerTaskRepository, PlannerTaskRepository>();
         services.AddScoped<IUserDocumentRepository, UserDocumentRepository>();

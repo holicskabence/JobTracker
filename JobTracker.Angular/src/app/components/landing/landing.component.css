@@ -4,8 +4,6 @@
     overflow-x: hidden;
 }
 
-/* ---------- shared ---------- */
-
 .landing-brand {
     display: flex;
     align-items: center;
@@ -81,8 +79,6 @@
     font-size: 0.9375rem;
 }
 
-/* ---------- nav ---------- */
-
 .landing-header {
     position: sticky;
     top: 0;
@@ -149,7 +145,7 @@
 }
 
 .hero-subtitle {
-    font-size: 1.0625rem;
+    font-size: 0.9rem;
     line-height: 1.65;
     color: var(--clr-muted);
     max-width: 34rem;
@@ -164,13 +160,6 @@
     flex-wrap: wrap;
     margin-bottom: var(--space-4);
 }
-
-.hero-note {
-    font-size: 0.8125rem;
-    color: var(--clr-muted);
-}
-
-/* ---------- hero stage / app mockup ---------- */
 
 .hero-stage {
     max-width: 1400px;
@@ -729,7 +718,7 @@
 
 .weekday-bars {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: var(--space-3);
     width: 100%;
     align-items: end;
@@ -773,6 +762,10 @@
     color: var(--clr-muted);
     text-align: center;
     white-space: nowrap;
+}
+
+.weekday-name-short {
+    display: none;
 }
 
 .stats-panel-note {
@@ -851,6 +844,10 @@
     .landing-nav-links {
         display: none;
     }
+
+    .landing-nav-actions {
+        display: none;
+    }
 }
 
 @media (max-width: 700px) {
@@ -890,12 +887,28 @@
         min-width: 100%;
     }
 
+    .kanban-column:nth-child(2) {
+        order: -1;
+    }
+
     .stats-panel {
         padding: var(--space-5);
     }
 
     .stat-donut-row {
         gap: var(--space-5);
+    }
+
+    .weekday-bars {
+        gap: var(--space-1-5);
+    }
+
+    .weekday-name-full {
+        display: none;
+    }
+
+    .weekday-name-short {
+        display: inline;
     }
 
     .cta-inner {

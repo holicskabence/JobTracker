@@ -22,6 +22,7 @@ public static class DbSeeder
 
     public static async Task ResetUserDataAsync(JobTrackerDbContext ctx, int userId)
     {
+        ctx.JobStatusHistories.RemoveRange(ctx.JobStatusHistories.Where(x => x.UserId == userId));
         ctx.Jobs.RemoveRange(ctx.Jobs.Where(x => x.UserId == userId));
         ctx.CalendarEvents.RemoveRange(ctx.CalendarEvents.Where(x => x.UserId == userId));
         ctx.PlannerTasks.RemoveRange(ctx.PlannerTasks.Where(x => x.UserId == userId));
@@ -35,12 +36,16 @@ public static class DbSeeder
 
         ctx.JobStatusConfigs.AddRange(BuildStatusConfigs(userId));
         ctx.EventTypes.AddRange(BuildEventTypes(userId));
-        ctx.Jobs.AddRange(BuildJobs(userId));
+        var jobs = BuildJobs(userId);
+        ctx.Jobs.AddRange(jobs);
         ctx.CalendarEvents.AddRange(BuildCalendarEvents(userId));
         ctx.PlannerTasks.AddRange(BuildPlannerTasks(userId));
         ctx.UserDocuments.AddRange(BuildDocuments(userId));
         ctx.PracticeCategories.AddRange(BuildPracticeCategories(userId));
         ctx.PracticeQuestions.AddRange(BuildPracticeQuestions(userId));
+        await ctx.SaveChangesAsync();
+
+        ctx.JobStatusHistories.AddRange(BuildInitialStatusHistory(userId, jobs));
         await ctx.SaveChangesAsync();
     }
 
@@ -89,7 +94,11 @@ public static class DbSeeder
     private static void SeedJobs(JobTrackerDbContext ctx, int userId)
     {
         if (ctx.Jobs.Any(j => j.UserId == userId)) return;
-        ctx.Jobs.AddRange(BuildJobs(userId));
+        var jobs = BuildJobs(userId);
+        ctx.Jobs.AddRange(jobs);
+        ctx.SaveChanges();
+
+        ctx.JobStatusHistories.AddRange(BuildInitialStatusHistory(userId, jobs));
         ctx.SaveChanges();
     }
 
@@ -156,6 +165,19 @@ public static class DbSeeder
         new Job { UserId = userId, Company = "Google", Position = "Software Engineer", Date = "2026-06-03", Status = "Visszahivas", Link = "https://careers.google.com" },
         new Job { UserId = userId, Company = "Stripe", Position = "Frontend Developer", Date = "2026-06-04", Status = "Mentett" }
     ];
+
+    private static JobStatusHistory[] BuildInitialStatusHistory(int userId, Job[] jobs) =>
+        jobs
+            .Select(j => new JobStatusHistory
+            {
+                JobId = j.Id,
+                UserId = userId,
+                Status = j.Status,
+                ChangedAt = DateOnly.TryParse(j.Date, out var date)
+                    ? date.ToDateTime(TimeOnly.MinValue)
+                    : DateTime.UtcNow
+            })
+            .ToArray();
 
     private static CalendarEvent[] BuildCalendarEvents(int userId) =>
     [

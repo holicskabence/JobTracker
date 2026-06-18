@@ -7,6 +7,7 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
     : DbContext(options)
 {
     public DbSet<Job> Jobs => Set<Job>();
+    public DbSet<JobStatusHistory> JobStatusHistories => Set<JobStatusHistory>();
     public DbSet<CalendarEvent> CalendarEvents => Set<CalendarEvent>();
     public DbSet<PlannerTask> PlannerTasks => Set<PlannerTask>();
     public DbSet<UserDocument> UserDocuments => Set<UserDocument>();
@@ -28,6 +29,16 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
             e.Property(x => x.Status).IsRequired().HasMaxLength(50);
             e.HasIndex(x => x.UserId);
             e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<JobStatusHistory>(e =>
+        {
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Status).IsRequired().HasMaxLength(50);
+            e.HasIndex(x => x.JobId);
+            e.HasIndex(x => x.UserId);
+            e.HasOne<Job>().WithMany().HasForeignKey(x => x.JobId).OnDelete(DeleteBehavior.Cascade);
+            e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
         });
 
         builder.Entity<CalendarEvent>(e =>

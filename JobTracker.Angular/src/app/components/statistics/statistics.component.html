@@ -19,7 +19,7 @@
       <p class="kpi-card-label">Aktív folyamatban</p>
       <p class="kpi-card-value">{{ stats().activeJobs }}</p>
       <div class="kpi-card-sub">
-        <app-badge variant="yellow">{{ stats().callbacks }} visszahívás</app-badge>
+        <app-badge variant="yellow">{{ planner.upcomingInterviewCount() }} interjú</app-badge>
       </div>
     </app-card>
 

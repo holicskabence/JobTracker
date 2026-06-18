@@ -14,7 +14,7 @@
         <app-card>
             <h3 class="card-label">Aktív folyamatban</h3>
             <div class="card-value">{{ stats().activeJobs }}</div>
-            <app-badge variant="yellow">{{ stats().callbacks }} visszahívás</app-badge>
+            <app-badge variant="yellow">{{ planner.upcomingInterviewCount() }} interjú</app-badge>
         </app-card>
 
         <app-card>

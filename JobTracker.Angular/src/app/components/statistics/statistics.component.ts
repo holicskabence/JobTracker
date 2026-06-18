@@ -1,6 +1,7 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { JobStoreService } from '../../services/job-store.service';
 import { AuthService } from '../../services/auth.service';
+import { PlannerService } from '../../services/planner.service';
 import { AreaChartComponent, ChartSeriesInput } from './area-chart/area-chart.component';
 import { DonutChartComponent } from './donut-chart/donut-chart.component';
 import { CardComponent } from '../shared/card/card.component';
@@ -18,6 +19,7 @@ import { StatsGranularity } from '../../models/job.model';
 export class StatisticsComponent {
   private readonly store = inject(JobStoreService);
   private readonly auth = inject(AuthService);
+  readonly planner = inject(PlannerService);
 
   readonly statusConfigs = this.store.statusConfigs;
   readonly granularity = signal<StatsGranularity>('day');

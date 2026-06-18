@@ -6,22 +6,25 @@ using JobTracker.Domain.Interfaces;
 
 namespace JobTracker.Application.Services;
 
-public sealed class StatsService(IJobRepository repo) : IStatsService
+public sealed class StatsService(IJobStatusHistoryRepository historyRepo) : IStatsService
 {
     public async Task<IReadOnlyList<StatsSeriesPoint>> GetSeriesAsync(int userId, string granularity)
     {
-        var jobs = await repo.GetAllByUserAsync(userId);
+        var history = await historyRepo.GetAllByUserAsync(userId);
+        if (history.Count == 0) return [];
 
-        var validJobs = jobs
-            .Where(j => DateOnly.TryParse(j.Date, out _))
+        var historyByJob = history
+            .GroupBy(h => h.JobId)
+            .ToDictionary(g => g.Key, g => g.OrderBy(h => h.ChangedAt).ToList());
+
+        var earliest = DateOnly.FromDateTime(history.Min(h => h.ChangedAt));
+        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+
+        var periods = BuildPeriods(earliest, today, granularity);
+
+        var points = periods
+            .Select(p => new StatsSeriesPoint(p.Key, CountByStatus(historyByJob, p.AsOf)))
             .ToList();
-
-        var grouped = granularity switch
-        {
-            "day" => GroupByDay(validJobs),
-            "week" => GroupByWeek(validJobs),
-            _ => GroupByMonth(validJobs)
-        };
 
         var limit = granularity switch
         {
@@ -30,36 +33,56 @@ public sealed class StatsService(IJobRepository repo) : IStatsService
             _ => 12
         };
 
-        return grouped.Count > limit
-            ? grouped.Skip(grouped.Count - limit).ToList()
-            : grouped;
+        return points.Count > limit ? points.Skip(points.Count - limit).ToList() : points;
     }
 
-    private static List<StatsSeriesPoint> GroupByDay(IEnumerable<Job> jobs) =>
-        jobs
-            .GroupBy(j => j.Date[..10])
-            .OrderBy(g => g.Key)
-            .Select(ToSeriesPoint)
-            .ToList();
+    // For each job, finds the status it held as of the given day (its most recent
+    // transition on or before that day), then tallies how many jobs were in each status.
+    private static Dictionary<string, int> CountByStatus(
+        Dictionary<int, List<JobStatusHistory>> historyByJob, DateOnly asOf)
+    {
+        var counts = new Dictionary<string, int>();
+        foreach (var entries in historyByJob.Values)
+        {
+            var status = StatusAsOf(entries, asOf);
+            if (status is null) continue;
+            counts[status] = counts.GetValueOrDefault(status) + 1;
+        }
+        return counts;
+    }
 
-    private static List<StatsSeriesPoint> GroupByMonth(IEnumerable<Job> jobs) =>
-        jobs
-            .GroupBy(j => j.Date[..7])
-            .OrderBy(g => g.Key)
-            .Select(ToSeriesPoint)
-            .ToList();
+    private static string? StatusAsOf(List<JobStatusHistory> entries, DateOnly asOf)
+    {
+        string? status = null;
+        foreach (var entry in entries)
+        {
+            if (DateOnly.FromDateTime(entry.ChangedAt) > asOf) break;
+            status = entry.Status;
+        }
+        return status;
+    }
 
-    private static List<StatsSeriesPoint> GroupByWeek(IEnumerable<Job> jobs) =>
-        jobs
-            .GroupBy(j =>
-            {
-                var date = DateOnly.Parse(j.Date[..10]).ToDateTime(TimeOnly.MinValue);
-                return $"{ISOWeek.GetYear(date)}-W{ISOWeek.GetWeekOfYear(date):D2}";
-            })
-            .OrderBy(g => g.Key)
-            .Select(ToSeriesPoint)
-            .ToList();
+    private static List<(string Key, DateOnly AsOf)> BuildPeriods(DateOnly start, DateOnly end, string granularity)
+    {
+        var keyFn = PeriodKeyFn(granularity);
+        var periods = new List<(string Key, DateOnly AsOf)>();
 
-    private static StatsSeriesPoint ToSeriesPoint(IGrouping<string, Job> g) =>
-        new(g.Key, g.GroupBy(j => j.Status).ToDictionary(s => s.Key, s => s.Count()));
+        for (var date = start; date <= end; date = date.AddDays(1))
+        {
+            var key = keyFn(date);
+            if (periods.Count > 0 && periods[^1].Key == key)
+                periods[^1] = (key, date);
+            else
+                periods.Add((key, date));
+        }
+
+        return periods;
+    }
+
+    private static Func<DateOnly, string> PeriodKeyFn(string granularity) => granularity switch
+    {
+        "day" => d => d.ToString("yyyy-MM-dd"),
+        "week" => d => $"{ISOWeek.GetYear(d.ToDateTime(TimeOnly.MinValue))}-W{ISOWeek.GetWeekOfYear(d.ToDateTime(TimeOnly.MinValue)):D2}",
+        _ => d => d.ToString("yyyy-MM")
+    };
 }

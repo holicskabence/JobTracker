@@ -92,8 +92,13 @@
 
 .overview-row {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--gap-section);
+    min-width: 0;
+}
+
+.overview-row > app-card {
+    min-width: 0;
 }
 
 @media (min-width: 768px) {
@@ -425,10 +430,14 @@
 }
 
 .quick-task-text {
+    flex: 1;
+    min-width: 0;
     font-size: 0.8125rem;
     color: var(--clr-dark);
     line-height: 1.4;
     text-align: left;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .quick-task-text--done {
