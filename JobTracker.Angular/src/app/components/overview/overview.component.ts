@@ -42,7 +42,13 @@ export class OverviewComponent {
       .slice(0, 3);
   });
 
-  readonly quickTasks = computed(() => this.planner.tasks().filter(t => !t.completed).slice(0, 4));
+  readonly quickTasks = computed(() => {
+    const tasks = this.planner.tasks();
+    const active = tasks.filter(t => !t.completed);
+    if (active.length >= 3) return active.slice(0, 3);
+    const completed = tasks.filter(t => t.completed);
+    return [...active, ...completed].slice(0, 3);
+  });
   readonly tasksDone = computed(() => this.planner.tasks().filter(t => t.completed).length);
   readonly tasksTotal = computed(() => this.planner.tasks().length);
 

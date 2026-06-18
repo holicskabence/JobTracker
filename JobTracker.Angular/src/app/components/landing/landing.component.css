@@ -217,6 +217,8 @@
     border-radius: var(--radius-lg);
     box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.25);
     overflow: hidden;
+    will-change: transform;
+    backface-visibility: hidden;
 }
 
 .app-frame-top {
@@ -321,32 +323,6 @@
     white-space: nowrap;
 }
 
-.mock-board {
-    display: flex;
-    flex: 1;
-    gap: var(--space-2-5);
-}
-
-.mock-column {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-}
-
-.mock-column-head {
-    display: flex;
-    align-items: center;
-    gap: var(--space-1-5);
-    font-size: 0.625rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    color: var(--clr-muted);
-    margin-bottom: var(--space-0-5);
-}
-
 .mock-dot {
     width: 6px;
     height: 6px;
@@ -374,69 +350,148 @@
     background-color: var(--clr-red);
 }
 
-.mock-column-count {
-    margin-left: auto;
-    background-color: var(--clr-bg);
-    color: var(--clr-muted);
-    font-size: 0.625rem;
-    font-weight: 700;
-    padding: 1px 6px;
-    border-radius: var(--radius-full);
-}
+/* ---------- kanban demo (mirrors kanban / kanban-column / job-card components) ---------- */
 
-.mock-card {
+.kanban {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    background-color: var(--clr-white);
-    border: 1px solid var(--clr-border);
-    border-radius: var(--radius-xs);
-    padding: var(--space-2);
-    box-shadow: 0 1px 2px var(--clr-shadow);
+    flex: 1;
+    min-height: 0;
 }
 
-.mock-card--accent {
-    border-left: 3px solid var(--clr-yellow);
+.kanban-scroll {
+    flex: 1;
+    display: flex;
+    gap: var(--gap-section);
+    align-items: stretch;
+    overflow: hidden;
 }
 
-.mock-card-company {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--clr-dark);
+.kanban-column {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-card);
 }
 
-.mock-card-position {
-    font-size: 0.6875rem;
-    color: var(--clr-muted);
-}
-
-.mock-card-footer {
+.kanban-column-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-2);
-    margin-top: 2px;
 }
 
-.mock-card-date {
+.kanban-column-title-row {
     display: flex;
     align-items: center;
-    gap: 3px;
-    font-size: 0.625rem;
-    color: var(--clr-muted);
-    white-space: nowrap;
+    gap: var(--space-2);
 }
 
-.mock-card-action {
-    width: 18px;
-    height: 18px;
+.kanban-column-dot {
+    width: var(--space-2-5);
+    height: var(--space-2-5);
+    border-radius: var(--radius-full);
     flex-shrink: 0;
-    border-radius: var(--radius-xs);
+}
+
+.kanban-column-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--clr-dark);
+    margin: 0;
+}
+
+.kanban-column-count {
     background-color: var(--clr-bg);
+    color: var(--clr-muted);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    padding: var(--space-0-5) var(--space-2);
+    border-radius: var(--radius-full);
+}
+
+.kanban-column-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-card);
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    background-color: var(--clr-white);
+    border: 1.5px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px var(--clr-shadow);
+    padding: var(--space-4);
+    box-sizing: border-box;
+    position: relative;
+}
+
+.card-menu {
+    position: absolute;
+    top: var(--space-2-5);
+    right: var(--space-2-5);
+}
+
+.card-company {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--clr-dark);
+    padding-right: 2.25rem;
+    margin: var(--space-1) 0 var(--space-0-5);
+}
+
+.card-position {
+    font-size: 0.8125rem;
+    color: var(--clr-muted);
+    margin: 0 0 var(--space-2);
+}
+
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(234, 232, 229, 0.6);
+    padding-top: var(--space-3);
+    margin-top: auto;
+}
+
+.card-date {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1-5);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--clr-muted);
+}
+
+.card-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.card-action-btn {
+    width: var(--space-7);
+    height: var(--space-7);
+    border-radius: var(--radius-full);
+    background-color: var(--clr-bg);
+    color: var(--clr-muted);
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.status-dropdown-trigger--dots {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-xs);
     color: var(--clr-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* ---------- panel sections ---------- */
@@ -667,38 +722,57 @@
     font-weight: 700;
 }
 
-.bar-chart-bars {
+.weekday-body {
+    display: flex;
+    align-items: stretch;
+}
+
+.weekday-bars {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: var(--space-3);
+    width: 100%;
+    align-items: end;
+}
+
+.weekday-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1-5);
+}
+
+.weekday-track {
+    width: 100%;
+    height: 120px;
+    background-color: var(--clr-bg);
+    border-radius: var(--radius-sm);
     display: flex;
     align-items: flex-end;
-    gap: var(--space-2-5);
-    height: 140px;
-    padding: var(--space-3);
-    background-color: var(--clr-bg);
-    border-radius: var(--radius-md);
+    overflow: hidden;
 }
 
-.bar {
-    flex: 1;
-    min-height: 6px;
-    border-radius: var(--radius-xs);
-    background-color: rgba(38, 172, 0, 0.18);
-}
-
-.bar--active {
+.weekday-fill {
+    width: 100%;
     background-color: var(--clr-green);
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    opacity: 0.75;
+    min-height: 4px;
 }
 
-.bar-chart-labels {
-    display: flex;
-    gap: var(--space-2-5);
-    margin-top: var(--space-2);
+.weekday-count {
     font-size: 0.75rem;
-    color: var(--clr-muted);
+    font-weight: 700;
+    color: var(--clr-dark);
+    line-height: 1;
 }
 
-.bar-chart-labels span {
-    flex: 1;
+.weekday-name {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--clr-muted);
     text-align: center;
+    white-space: nowrap;
 }
 
 .stats-panel-note {
@@ -787,10 +861,6 @@
     .app-frame-body {
         min-height: 0;
     }
-
-    .mock-column {
-        min-height: 150px;
-    }
 }
 
 @media (max-width: 640px) {
@@ -810,12 +880,14 @@
         margin-bottom: var(--space-8);
     }
 
-    .mock-board {
-        flex-wrap: wrap;
+    .kanban-scroll {
+        gap: var(--space-4);
     }
 
-    .mock-column {
-        flex: 1 1 45%;
+    .kanban-column {
+        flex: none;
+        width: 100%;
+        min-width: 100%;
     }
 
     .stats-panel {

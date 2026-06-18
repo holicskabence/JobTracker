@@ -42,10 +42,11 @@ export class LandingComponent implements AfterViewInit, OnDestroy {
       .from(root.querySelector('.hero-actions'), { y: 16, opacity: 0, duration: 0.75 }, '-=0.7')
       .from(root.querySelector('.hero-note'), { opacity: 0, duration: 0.75 }, '-=0.65')
       .from(root.querySelector('.hero-stage'), { y: 50, opacity: 0, scale: 0.96, duration: 1.15 }, '-=0.7')
-      .from(root.querySelectorAll('.mock-column'), { y: 24, opacity: 0, duration: 0.7, stagger: 0.08 }, '-=0.75');
+      .from(root.querySelectorAll('.kanban-column'), { y: 24, opacity: 0, duration: 0.7, stagger: 0.08 }, '-=0.75');
 
     this.floatTween = gsap.to(root.querySelector('.app-frame'), {
-      y: -10, duration: 3.5, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 1.5
+      y: -10, duration: 3.5, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 1.5,
+      force3D: true
     });
   }
 
@@ -84,7 +85,7 @@ export class LandingComponent implements AfterViewInit, OnDestroy {
       this.scrollFrom(donut, { scale: 0, rotate: -90, opacity: 0, duration: 0.95, ease: 'back.out(1.6)' }, statsPanel);
     }
 
-    const bars = statsPanel.querySelectorAll<HTMLElement>('.bar');
+    const bars = statsPanel.querySelectorAll<HTMLElement>('.weekday-fill');
     if (bars.length) {
       const tween = gsap.from(bars, {
         scaleY: 0,
