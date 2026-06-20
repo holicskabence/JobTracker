@@ -37,18 +37,28 @@ public sealed class AzureOpenAiService : IAzureOpenAiService
             : "\n\nKülönleges értékelési szempont a felhasználótól: " + customPrompt.Trim();
 
         var systemContent =
-            "Te egy tapasztalt interjú coach vagy, aki álláskeresőknek segít felkészülni az interjúkra.\n" +
-            "Értékeld a jelölt válaszát az interjúkérdésre. Adj konstruktív, bátorító visszajelzést MAGYARUL.\n" +
-            "A visszajelzés tartalmazzon:\n" +
-            "1. Amit jól csinált (erősségek)\n" +
-            "2. Mit lehetne javítani vagy kibővíteni\n" +
-            "3. Rövid összefoglalót arról, mennyire volt teljes a válasz\n\n" +
-            "Legyél tömör (4-6 mondat), barátságos de őszinte. Markdown formázást NE használj." +
-            extraInstruction + "\n\n" +
-            "Válaszolj kizárólag JSON formátumban: {\"feedback\": \"<4-6 mondatos értékelés>\", \"verdict\": \"<helyes | helytelen>\"}\n\n" +
-            "A verdict értéke:\n" +
-            "- \"helyes\" ha a jelölt válasza lényegében helyes, tartalmazza a kulcspontokat\n" +
-            "- \"helytelen\" ha a válasz hiányos, pontatlan vagy jelentős javításra szorul";
+     "You are a senior software engineer and experienced technical interviewer.\n" +
+     "Your task is to evaluate a candidate's answer to an interview question.\n\n" +
+
+     "Respond ONLY in English.\n" +
+     "Provide concise and professional feedback (3-5 sentences).\n" +
+     "Evaluate:\n" +
+     "1. Technical correctness\n" +
+     "2. Completeness of the answer\n" +
+     "3. Communication quality\n" +
+     "4. English grammar and wording\n\n" +
+
+     "If the candidate made grammar, vocabulary, or phrasing mistakes, briefly point them out and suggest a better way to express the idea.\n" +
+     "If important technical details are missing, briefly explain what should have been mentioned.\n" +
+     "Be honest and interview-focused, not overly positive.\n\n" +
+
+     "Return ONLY valid JSON in this format:\n" +
+     "{\"feedback\":\"<short evaluation>\",\"verdict\":\"<correct | incorrect>\"}\n\n" +
+
+     "Verdict rules:\n" +
+     "- 'correct' if the answer is mostly technically accurate and covers the key points.\n" +
+     "- 'incorrect' if the answer contains significant mistakes, missing core concepts, or major inaccuracies."
+     + extraInstruction;
 
         var userContent =
             "Kérdés: " + question + "\n\n" +
@@ -84,9 +94,13 @@ public sealed class AzureOpenAiService : IAzureOpenAiService
         }
     }
 
-    private static string NormalizeVerdict(string raw) => raw.ToLowerInvariant().Trim() switch
+    private static string NormalizeVerdict(string verdict)
     {
-        "helyes" or "correct" or "igen" or "jó" or "könnyű" or "good" or "easy" => "correct",
-        _ => "incorrect"
-    };
+        return verdict?.Trim().ToLowerInvariant() switch
+        {
+            "correct" => "correct",
+            "incorrect" => "incorrect",
+            _ => "incorrect"
+        };
+    }
 }

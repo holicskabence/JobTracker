@@ -34,14 +34,14 @@ public sealed class AuthService(
 
         var user = new AppUser
         {
-            FirstName    = request.FirstName.Trim(),
-            LastName     = request.LastName.Trim(),
-            Email        = email,
+            FirstName = request.FirstName.Trim(),
+            LastName = request.LastName.Trim(),
+            Email = email,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
-            Phone        = string.Empty,
-            Position     = string.Empty,
-            Goal         = 30,
-            JoinDate     = DateTime.Now.ToString("yyyy. MMMM", new System.Globalization.CultureInfo("hu-HU"))
+            Phone = string.Empty,
+            Position = string.Empty,
+            Goal = 30,
+            JoinDate = DateTime.Now.ToString("yyyy. MMMM", new System.Globalization.CultureInfo("hu-HU"))
         };
         await repo.AddAsync(user);
         await SeedDefaultsAsync(user.Id);
@@ -89,16 +89,16 @@ public sealed class AuthService(
 
         var user = new AppUser
         {
-            FirstName    = info.FirstName,
-            LastName     = info.LastName,
-            Email        = email,
+            FirstName = info.FirstName,
+            LastName = info.LastName,
+            Email = email,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(Guid.NewGuid().ToString()),
-            Phone        = string.Empty,
-            Position     = string.Empty,
-            Goal         = 30,
-            JoinDate     = DateTime.Now.ToString("yyyy. MMMM", new System.Globalization.CultureInfo("hu-HU")),
-            GoogleId     = isGoogle ? info.ProviderId : null,
-            FacebookId   = isGoogle ? null : info.ProviderId
+            Phone = string.Empty,
+            Position = string.Empty,
+            Goal = 30,
+            JoinDate = DateTime.Now.ToString("yyyy. MMMM", new System.Globalization.CultureInfo("hu-HU")),
+            GoogleId = isGoogle ? info.ProviderId : null,
+            FacebookId = isGoogle ? null : info.ProviderId
         };
         await repo.AddAsync(user);
         await SeedDefaultsAsync(user.Id);

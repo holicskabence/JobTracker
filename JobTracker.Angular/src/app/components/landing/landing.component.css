@@ -79,6 +79,11 @@
     font-size: 0.9375rem;
 }
 
+.landing-btn-arrow {
+    position: relative;
+    top: 1px;
+}
+
 .landing-header {
     position: sticky;
     top: 0;
