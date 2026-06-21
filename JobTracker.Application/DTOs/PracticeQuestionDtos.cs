@@ -24,3 +24,5 @@ public record UpdatePracticeQuestionRequest(
 );
 
 public record RatePracticeQuestionRequest(string? Feedback);
+
+public record BulkCreatePracticeQuestionsRequest(IReadOnlyList<CreatePracticeQuestionRequest> Questions);

@@ -1,7 +1,7 @@
 import { Component, computed, HostListener, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PracticeService } from '../../services/practice.service';
-import { PracticeApiService } from '../../services/practice-api.service';
+import { CreatePracticeQuestionPayload, PracticeApiService } from '../../services/practice-api.service';
 import { AuthService } from '../../services/auth.service';
 import { FeedbackType, PracticeAttempt, PrepQuestion, QuestionCategory } from '../../models/practice.model';
 import { CardComponent } from '../shared/card/card.component';
@@ -37,8 +37,10 @@ export class PracticeComponent {
   readonly currentIdx = signal(0);
   readonly userAnswer = signal('');
   readonly showSample = signal(false);
+  readonly randomOrder = signal(false);
+  private readonly randomOrderIds = signal<number[]>([]);
 
-  readonly filteredQuestions = computed<PrepQuestion[]>(() => {
+  private readonly naturalFilteredQuestions = computed<PrepQuestion[]>(() => {
     const filter = this.selectedFilter();
     let list = this.practice.questions();
     if (filter === 'failed') {
@@ -51,9 +53,36 @@ export class PracticeComponent {
     return list;
   });
 
+  readonly filteredQuestions = computed<PrepQuestion[]>(() => {
+    const list = this.naturalFilteredQuestions();
+    if (!this.randomOrder()) return list;
+
+    const byId = new Map(list.map(q => [q.id, q]));
+    const ordered: PrepQuestion[] = [];
+    for (const id of this.randomOrderIds()) {
+      const q = byId.get(id);
+      if (q) { ordered.push(q); byId.delete(id); }
+    }
+    ordered.push(...byId.values());
+    return ordered;
+  });
+
   readonly currentQuestion = computed<PrepQuestion | null>(() =>
     this.filteredQuestions()[this.currentIdx()] ?? null
   );
+
+  // ── Practice tab: jump-to-question search ───────────────────────────────────
+  readonly jumpSearch = signal('');
+  readonly jumpDropOpen = signal(false);
+
+  readonly jumpResults = computed(() => {
+    const term = this.jumpSearch().trim().toLowerCase();
+    if (!term) return [];
+    return this.filteredQuestions()
+      .map((q, idx) => ({ q, idx }))
+      .filter(({ q }) => q.question.toLowerCase().includes(term) || q.category.toLowerCase().includes(term))
+      .slice(0, 8);
+  });
 
   readonly answeredCount = computed(() =>
     this.filteredQuestions().filter(q => q.feedback !== null).length
@@ -101,10 +130,24 @@ export class PracticeComponent {
   readonly formSampleAnswer = signal('');
   readonly formError = signal('');
 
+  // ── Questions tab: bulk JSON import ─────────────────────────────────────────
+  readonly importing = signal(false);
+  readonly importError = signal('');
+  readonly importSuccess = signal('');
+
   // ── Questions tab: search & sort ────────────────────────────────────────────
   readonly qSearch = signal('');
   readonly qSortKey = signal<QSortKey>('category');
   readonly qSortDir = signal<'asc' | 'desc'>('asc');
+
+  // ── Questions tab: multi-select & bulk delete ───────────────────────────────
+  readonly selectedQuestionIds = signal<Set<number>>(new Set());
+  readonly showBulkDeleteConfirm = signal(false);
+  readonly selectedQuestionCount = computed(() => this.selectedQuestionIds().size);
+  readonly isAllQuestionsSelected = computed(() => {
+    const list = this.sortedQuestions();
+    return list.length > 0 && list.every(q => this.selectedQuestionIds().has(q.id));
+  });
 
   readonly sortedQuestions = computed<PrepQuestion[]>(() => {
     const term = this.qSearch().trim().toLowerCase();
@@ -157,6 +200,32 @@ export class PracticeComponent {
 
   selectFilter(filter: ActiveFilter): void {
     this.selectedFilter.set(filter);
+    this.currentIdx.set(0);
+    this.userAnswer.set('');
+    this.showSample.set(false);
+    this.resetAi();
+    if (this.randomOrder()) this.reshuffle();
+  }
+
+  toggleRandomOrder(): void {
+    this.randomOrder.update(v => !v);
+    if (this.randomOrder()) {
+      this.reshuffle();
+    } else {
+      this.currentIdx.set(0);
+      this.userAnswer.set('');
+      this.showSample.set(false);
+      this.resetAi();
+    }
+  }
+
+  reshuffle(): void {
+    const ids = this.naturalFilteredQuestions().map(q => q.id);
+    for (let i = ids.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [ids[i], ids[j]] = [ids[j], ids[i]];
+    }
+    this.randomOrderIds.set(ids);
     this.currentIdx.set(0);
     this.userAnswer.set('');
     this.showSample.set(false);
@@ -251,6 +320,26 @@ export class PracticeComponent {
     this.resetAi();
   }
 
+  onJumpSearchChange(value: string): void {
+    this.jumpSearch.set(value);
+    this.jumpDropOpen.set(true);
+  }
+
+  onJumpFocus(): void {
+    if (this.jumpSearch().trim()) this.jumpDropOpen.set(true);
+  }
+
+  clearJumpSearch(): void {
+    this.jumpSearch.set('');
+    this.jumpDropOpen.set(false);
+  }
+
+  jumpToQuestion(idx: number): void {
+    this.goToIndex(idx);
+    this.jumpSearch.set('');
+    this.jumpDropOpen.set(false);
+  }
+
   openAddQuestionModal(): void {
     this.editingQuestionId.set(null);
     this.formCat.set(this.practice.categories()[0]?.name ?? '');
@@ -293,6 +382,108 @@ export class PracticeComponent {
   }
 
   deleteQuestion(id: number): void { this.practice.deleteQuestion(id); }
+
+  triggerImportFile(input: HTMLInputElement): void {
+    this.importError.set('');
+    this.importSuccess.set('');
+    input.click();
+  }
+
+  async onImportFileSelected(event: Event): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    input.value = '';
+    if (!file) return;
+
+    this.importError.set('');
+    this.importSuccess.set('');
+    this.importing.set(true);
+
+    try {
+      const items = this.parseImportJson(await file.text());
+      const existingNames = new Set(this.practice.categories().map(c => c.name));
+      const newCategoryNames = [...new Set(items.map(i => i.category))].filter(name => !existingNames.has(name));
+      for (const name of newCategoryNames) {
+        this.practice.addCategory(name, this.randomCategoryColor());
+      }
+
+      this.practice.addQuestions(items, createdCount => {
+        this.importing.set(false);
+        if (createdCount !== null) {
+          this.importSuccess.set(`${createdCount} kérdés sikeresen importálva.`);
+        }
+      });
+    } catch (err) {
+      this.importing.set(false);
+      this.importError.set(err instanceof Error ? err.message : 'Érvénytelen JSON fájl.');
+    }
+  }
+
+  private parseImportJson(text: string): CreatePracticeQuestionPayload[] {
+    let raw: unknown;
+    try {
+      raw = JSON.parse(text);
+    } catch {
+      throw new Error('A fájl nem érvényes JSON.');
+    }
+    if (!Array.isArray(raw) || raw.length === 0) {
+      throw new Error('A JSON fájlnak egy nem üres kérdéslistának (tömbnek) kell lennie.');
+    }
+
+    return raw.map((item, idx) => {
+      const o = item as Record<string, unknown>;
+      const category = String(o?.['category'] ?? '').trim();
+      const question = String(o?.['question'] ?? '').trim();
+      const hint = String(o?.['hint'] ?? '').trim();
+      const sampleAnswer = String(o?.['sampleAnswer'] ?? '').trim();
+      if (!category || !question || !sampleAnswer) {
+        throw new Error(`A ${idx + 1}. kérdésnél hiányzik a kategória, a kérdés szövege vagy a mintaválasz.`);
+      }
+      return { category, question, hint, sampleAnswer };
+    });
+  }
+
+  private randomCategoryColor(): string {
+    const palette = ['#5fb9fa', '#26ac00', '#f59e0b', '#ef4444', '#9b59b6', '#06b6d4', '#ec4899'];
+    return palette[Math.floor(Math.random() * palette.length)];
+  }
+
+  isQuestionSelected(id: number): boolean {
+    return this.selectedQuestionIds().has(id);
+  }
+
+  toggleQuestionSelection(id: number): void {
+    this.selectedQuestionIds.update(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) { next.delete(id); } else { next.add(id); }
+      return next;
+    });
+  }
+
+  toggleSelectAllQuestions(): void {
+    if (this.isAllQuestionsSelected()) {
+      this.selectedQuestionIds.set(new Set());
+    } else {
+      this.selectedQuestionIds.set(new Set(this.sortedQuestions().map(q => q.id)));
+    }
+  }
+
+  clearQuestionSelection(): void { this.selectedQuestionIds.set(new Set()); }
+
+  openBulkDeleteConfirm(): void {
+    if (this.selectedQuestionCount() === 0) return;
+    this.showBulkDeleteConfirm.set(true);
+  }
+
+  closeBulkDeleteConfirm(): void { this.showBulkDeleteConfirm.set(false); }
+
+  confirmBulkDeleteQuestions(): void {
+    for (const id of this.selectedQuestionIds()) {
+      this.practice.deleteQuestion(id);
+    }
+    this.clearQuestionSelection();
+    this.showBulkDeleteConfirm.set(false);
+  }
 
   openResetConfirm(): void { this.showResetConfirm.set(true); }
   closeResetConfirm(): void { this.showResetConfirm.set(false); }
@@ -337,7 +528,10 @@ export class PracticeComponent {
   }
 
   @HostListener('document:click')
-  closeCatDrop(): void { this.catDropOpen = false; }
+  closeCatDrop(): void {
+    this.catDropOpen = false;
+    this.jumpDropOpen.set(false);
+  }
 
   qSort(key: QSortKey): void {
     if (this.qSortKey() === key) {

@@ -129,6 +129,20 @@ export class PracticeService {
     });
   }
 
+  addQuestions(data: CreatePracticeQuestionPayload[], onDone?: (createdCount: number | null) => void): void {
+    this.error.set('');
+    this.api.createQuestions(data).subscribe({
+      next: created => {
+        this.questions.update(prev => [...prev, ...created]);
+        onDone?.(created.length);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.error.set(err.error?.message ?? 'Nem sikerült importálni a kérdéseket.');
+        onDone?.(null);
+      }
+    });
+  }
+
   updateQuestion(id: number, data: UpdatePracticeQuestionPayload): void {
     this.error.set('');
     this.api.updateQuestion(id, data).subscribe({

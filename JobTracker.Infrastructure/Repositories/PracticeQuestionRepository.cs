@@ -14,6 +14,14 @@ public sealed class PracticeQuestionRepository(JobTrackerDbContext ctx)
     public async Task<PracticeQuestion?> GetByIdAsync(int id, int userId) =>
         await Ctx.PracticeQuestions.FirstOrDefaultAsync(q => q.Id == id && q.UserId == userId);
 
+    public async Task<IReadOnlyList<PracticeQuestion>> AddRangeAsync(IEnumerable<PracticeQuestion> questions)
+    {
+        var list = questions.ToList();
+        await Ctx.PracticeQuestions.AddRangeAsync(list);
+        await Ctx.SaveChangesAsync();
+        return list;
+    }
+
     public async Task<bool> DeleteAsync(int id, int userId)
     {
         var question = await GetByIdAsync(id, userId);

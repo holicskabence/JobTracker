@@ -18,6 +18,13 @@ public sealed class PracticeQuestionsController(IPracticeQuestionService svc) : 
         return StatusCode(201, created);
     }
 
+    [HttpPost("bulk")]
+    public async Task<IActionResult> CreateMany([FromBody] BulkCreatePracticeQuestionsRequest request)
+    {
+        var created = await svc.CreateManyAsync(request.Questions, CurrentUserId);
+        return StatusCode(201, created);
+    }
+
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] UpdatePracticeQuestionRequest request)
     {

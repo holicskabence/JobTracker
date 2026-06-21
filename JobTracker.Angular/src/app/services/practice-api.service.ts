@@ -29,6 +29,10 @@ export class PracticeApiService {
     return this.http.post<PrepQuestion>('/api/practice-questions', data);
   }
 
+  createQuestions(questions: CreatePracticeQuestionPayload[]): Observable<PrepQuestion[]> {
+    return this.http.post<PrepQuestion[]>('/api/practice-questions/bulk', { questions });
+  }
+
   updateQuestion(id: number, data: UpdatePracticeQuestionPayload): Observable<PrepQuestion> {
     return this.http.put<PrepQuestion>(`/api/practice-questions/${id}`, data);
   }

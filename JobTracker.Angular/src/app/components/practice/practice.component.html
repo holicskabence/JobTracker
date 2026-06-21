@@ -27,6 +27,68 @@
                 (click)="selectFilter('unanswered')">
                 Megválaszolatlan
             </button>
+
+            <span class="pr-filter-divider"></span>
+
+            <button class="pr-pill" [class.pr-pill--active]="randomOrder()" (click)="toggleRandomOrder()"
+                title="Kérdések véletlen sorrendben">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 3 21 3 21 8" />
+                    <line x1="4" y1="20" x2="21" y2="3" />
+                    <polyline points="21 16 21 21 16 21" />
+                    <line x1="15" y1="15" x2="21" y2="21" />
+                    <line x1="4" y1="4" x2="9" y2="9" />
+                </svg>
+                Véletlen sorrend
+            </button>
+            @if (randomOrder()) {
+            <button class="pr-shuffle-btn" (click)="reshuffle()" [disabled]="filteredQuestions().length < 2"
+                title="Új véletlen sorrend">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10" />
+                    <polyline points="1 20 1 14 7 14" />
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                </svg>
+            </button>
+            }
+        </div>
+
+        <div class="pr-jump-wrap" (click)="$event.stopPropagation()">
+            <div class="pr-jump-search-wrap">
+                <svg class="pr-jump-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input class="pr-jump-search" type="text" placeholder="Ugrás egy kérdéshez…" [ngModel]="jumpSearch()"
+                    (ngModelChange)="onJumpSearchChange($event)" (focus)="onJumpFocus()" />
+                @if (jumpSearch()) {
+                <button class="pr-jump-search-clear" (click)="clearJumpSearch()" title="Törlés">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+                }
+            </div>
+            @if (jumpDropOpen() && jumpSearch().trim()) {
+            <div class="pr-jump-panel">
+                @for (item of jumpResults(); track item.q.id) {
+                <button type="button" class="pr-jump-option" [class.pr-jump-option--current]="item.idx === currentIdx()"
+                    (click)="jumpToQuestion(item.idx)">
+                    <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(item.q.category)"
+                        [style.background]="categoryColor(item.q.category) + '18'">{{ item.q.category }}</span>
+                    <span class="pr-jump-option-text">{{ item.q.question }}</span>
+                    <span class="pr-jump-option-idx">#{{ item.idx + 1 }}</span>
+                </button>
+                } @empty {
+                <p class="pr-jump-empty">Nincs találat.</p>
+                }
+            </div>
+            }
         </div>
     </div>
 
@@ -245,8 +307,23 @@
                     Kérdések
                     <span class="pr-section-count">({{ practice.questions().length }})</span>
                 </h3>
-                <button class="pr-add-btn" (click)="openAddQuestionModal()">+ Új kérdés</button>
+                <div class="pr-section-actions">
+                    <input #importFileInput type="file" accept="application/json,.json" hidden
+                        (change)="onImportFileSelected($event)" />
+                    <button class="pr-import-btn" [disabled]="importing()"
+                        (click)="triggerImportFile(importFileInput)">
+                        @if (importing()) { Importálás… } @else { JSON importálás }
+                    </button>
+                    <button class="pr-add-btn" (click)="openAddQuestionModal()">+ Új kérdés</button>
+                </div>
             </div>
+
+            @if (importError()) {
+            <p class="pr-import-msg pr-import-msg--error">{{ importError() }}</p>
+            }
+            @if (importSuccess()) {
+            <p class="pr-import-msg pr-import-msg--success">{{ importSuccess() }}</p>
+            }
 
             <div class="pr-q-toolbar">
                 <div class="pr-q-search-wrap">
@@ -270,10 +347,24 @@
                 <span class="pr-q-count">{{ sortedQuestions().length }} találat</span>
             </div>
 
+            @if (selectedQuestionCount() > 0) {
+            <div class="pr-q-bulk-bar">
+                <span class="pr-q-bulk-count">{{ selectedQuestionCount() }} kiválasztva</span>
+                <div class="pr-q-bulk-actions">
+                    <button class="pr-q-bulk-clear" (click)="clearQuestionSelection()">Kijelölés törlése</button>
+                    <button class="pr-q-bulk-delete" (click)="openBulkDeleteConfirm()">Kijelöltek törlése</button>
+                </div>
+            </div>
+            }
+
             <div class="pr-q-table-wrap">
                 <table class="pr-q-table">
                     <thead>
                         <tr>
+                            <th class="pr-q-th pr-q-th--check">
+                                <input type="checkbox" class="pr-q-checkbox" [checked]="isAllQuestionsSelected()"
+                                    (change)="toggleSelectAllQuestions()" title="Mind kijelölése" />
+                            </th>
                             <th class="pr-q-th pr-q-th--sortable" (click)="qSort('category')">
                                 Kategória
                                 <span class="pr-q-sort-icon"
@@ -297,7 +388,11 @@
                     </thead>
                     <tbody>
                         @for (q of sortedQuestions(); track q.id) {
-                        <tr class="pr-q-tr">
+                        <tr class="pr-q-tr" [class.pr-q-tr--selected]="isQuestionSelected(q.id)">
+                            <td class="pr-q-td pr-q-td--check">
+                                <input type="checkbox" class="pr-q-checkbox" [checked]="isQuestionSelected(q.id)"
+                                    (change)="toggleQuestionSelection(q.id)" />
+                            </td>
                             <td class="pr-q-td">
                                 <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(q.category)"
                                     [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
@@ -337,7 +432,7 @@
                         </tr>
                         } @empty {
                         <tr>
-                            <td colspan="4">
+                            <td colspan="5">
                                 <app-empty-state
                                     [message]="qSearch() ? 'Nincs találat a(z) „' + qSearch() + '&quot; keresésre.' : 'Még nincs kérdés. Adj hozzá egyet a fenti gombbal!'"></app-empty-state>
                             </td>
@@ -349,10 +444,14 @@
 
             <div class="pr-q-cards">
                 @for (q of sortedQuestions(); track q.id) {
-                <app-card class="pr-q-card">
+                <app-card class="pr-q-card" [class.pr-q-card--selected]="isQuestionSelected(q.id)">
                     <div class="pr-q-card-head">
-                        <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(q.category)"
-                            [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
+                        <div class="pr-q-card-head-left">
+                            <input type="checkbox" class="pr-q-checkbox" [checked]="isQuestionSelected(q.id)"
+                                (change)="toggleQuestionSelection(q.id)" />
+                            <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(q.category)"
+                                [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
+                        </div>
                         @if (q.feedback; as fb) {
                         <span class="pr-fb-badge" [class]="'pr-fb-badge--' + fb">{{ feedbackLabel(fb) }}</span>
                         } @else {
@@ -528,6 +627,32 @@
                     <button type="button" class="btn btn--primary" (click)="submitQuestion()">
                         {{ editingQuestionId() !== null ? 'Mentés' : 'Hozzáadás' }}
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+
+    @if (showBulkDeleteConfirm()) {
+    <div class="modal-backdrop" (click)="closeBulkDeleteConfirm()">
+        <div class="modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h2 class="modal-title">Kérdések törlése</h2>
+                <button class="modal-close" (click)="closeBulkDeleteConfirm()" aria-label="Bezárás">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-form">
+                <p class="pr-confirm-text">Biztosan törlöd a kijelölt {{ selectedQuestionCount() }} kérdést? Ez a
+                    művelet nem vonható vissza.</p>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn--ghost" (click)="closeBulkDeleteConfirm()">Mégse</button>
+                    <button type="button" class="btn btn--danger"
+                        (click)="confirmBulkDeleteQuestions()">Törlés</button>
                 </div>
             </div>
         </div>

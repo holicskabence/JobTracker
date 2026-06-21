@@ -30,6 +30,26 @@ public sealed class PracticeQuestionService(
         return Map(question);
     }
 
+    public async Task<IReadOnlyList<PracticeQuestionResponse>> CreateManyAsync(IReadOnlyList<CreatePracticeQuestionRequest> requests, int userId)
+    {
+        var questions = requests
+            .Where(r => !string.IsNullOrWhiteSpace(r.Category) && !string.IsNullOrWhiteSpace(r.Question) && !string.IsNullOrWhiteSpace(r.SampleAnswer))
+            .Select(r => new PracticeQuestion
+            {
+                UserId = userId,
+                Category = r.Category.Trim(),
+                Question = r.Question.Trim(),
+                Hint = r.Hint?.Trim() ?? string.Empty,
+                SampleAnswer = r.SampleAnswer.Trim()
+            })
+            .ToList();
+
+        if (questions.Count == 0) return [];
+
+        var created = await repo.AddRangeAsync(questions);
+        return created.Select(Map).ToList();
+    }
+
     public async Task<PracticeQuestionResponse?> UpdateAsync(int id, UpdatePracticeQuestionRequest request, int userId)
     {
         var question = await repo.GetByIdAsync(id, userId);
