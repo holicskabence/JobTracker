@@ -139,6 +139,7 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
             e.Property(x => x.UseAiEvaluation).HasDefaultValue(false);
             e.Property(x => x.GoogleId).HasMaxLength(100);
             e.Property(x => x.FacebookId).HasMaxLength(100);
+            e.Property(x => x.PreferredLanguage).IsRequired().HasMaxLength(10).HasDefaultValue("hu");
             e.HasIndex(x => x.Email).IsUnique();
             e.HasIndex(x => x.GoogleId).IsUnique().HasFilter("[GoogleId] IS NOT NULL");
             e.HasIndex(x => x.FacebookId).IsUnique().HasFilter("[FacebookId] IS NOT NULL");

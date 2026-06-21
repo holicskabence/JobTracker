@@ -1,3 +1,10 @@
+.login-lang-switcher {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 10;
+}
+
 .login-card-form {
   width: 100%;
   display: flex;

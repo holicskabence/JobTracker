@@ -4,7 +4,8 @@ public record RegisterRequest(
     string FirstName,
     string LastName,
     string Email,
-    string Password
+    string Password,
+    string? PreferredLanguage = null
 );
 
 public record LoginRequest(string Email, string Password);

@@ -1,5 +1,6 @@
 import { Component, computed, HostListener, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PracticeService } from '../../services/practice.service';
 import { CreatePracticeQuestionPayload, PracticeApiService } from '../../services/practice-api.service';
 import { AuthService } from '../../services/auth.service';
@@ -17,7 +18,7 @@ type QSortKey = 'category' | 'question' | 'feedback';
 @Component({
   selector: 'app-practice',
   standalone: true,
-  imports: [FormsModule, CardComponent, EmptyStateComponent, PageHeaderComponent],
+  imports: [FormsModule, CardComponent, EmptyStateComponent, PageHeaderComponent, TranslateModule],
   templateUrl: './practice.component.html',
   styleUrl: './practice.component.css'
 })
@@ -25,6 +26,7 @@ export class PracticeComponent {
   readonly practice = inject(PracticeService);
   private readonly api = inject(PracticeApiService);
   private readonly auth = inject(AuthService);
+  private readonly translate = inject(TranslateService);
 
   // ── Tab navigation ──────────────────────────────────────────────────────────
   readonly activeTab = signal<Tab>('practice');
@@ -39,6 +41,7 @@ export class PracticeComponent {
   readonly showSample = signal(false);
   readonly randomOrder = signal(false);
   private readonly randomOrderIds = signal<number[]>([]);
+  private readonly idxDraft = signal<string | null>(null);
 
   private readonly naturalFilteredQuestions = computed<PrepQuestion[]>(() => {
     const filter = this.selectedFilter();
@@ -70,6 +73,8 @@ export class PracticeComponent {
   readonly currentQuestion = computed<PrepQuestion | null>(() =>
     this.filteredQuestions()[this.currentIdx()] ?? null
   );
+
+  readonly idxDisplayValue = computed(() => this.idxDraft() ?? String(this.currentIdx() + 1));
 
   // ── Practice tab: jump-to-question search ───────────────────────────────────
   readonly jumpSearch = signal('');
@@ -261,7 +266,7 @@ export class PracticeComponent {
       },
       error: () => {
         this.aiLoading.set(false);
-        this.aiError.set('Az AI értékelés sikertelen volt. Kérlek próbáld újra.');
+        this.aiError.set(this.translate.instant('practice.errors.aiEvaluationFailed'));
       }
     });
   }
@@ -320,6 +325,22 @@ export class PracticeComponent {
     this.resetAi();
   }
 
+  onIdxInputChange(value: string): void {
+    this.idxDraft.set(value);
+  }
+
+  confirmIdxInput(): void {
+    const draft = this.idxDraft();
+    if (draft !== null) {
+      const n = Math.trunc(Number(draft));
+      const total = this.filteredQuestions().length;
+      if (Number.isFinite(n) && n >= 1 && n <= total) {
+        this.goToIndex(n - 1);
+      }
+    }
+    this.idxDraft.set(null);
+  }
+
   onJumpSearchChange(value: string): void {
     this.jumpSearch.set(value);
     this.jumpDropOpen.set(true);
@@ -367,9 +388,9 @@ export class PracticeComponent {
     const q = this.formQuestion().trim();
     const h = this.formHint().trim();
     const sa = this.formSampleAnswer().trim();
-    if (!cat) { this.formError.set('Válassz kategóriát.'); return; }
-    if (!q) { this.formError.set('A kérdés szövege kötelező.'); return; }
-    if (!sa) { this.formError.set('A mintaválasz kötelező.'); return; }
+    if (!cat) { this.formError.set(this.translate.instant('practice.errors.categoryRequired')); return; }
+    if (!q) { this.formError.set(this.translate.instant('practice.errors.questionRequired')); return; }
+    if (!sa) { this.formError.set(this.translate.instant('practice.errors.sampleAnswerRequired')); return; }
     this.formError.set('');
 
     const editingId = this.editingQuestionId();
@@ -410,12 +431,12 @@ export class PracticeComponent {
       this.practice.addQuestions(items, createdCount => {
         this.importing.set(false);
         if (createdCount !== null) {
-          this.importSuccess.set(`${createdCount} kérdés sikeresen importálva.`);
+          this.importSuccess.set(`${createdCount} ${this.translate.instant('practice.import.successSuffix')}`);
         }
       });
     } catch (err) {
       this.importing.set(false);
-      this.importError.set(err instanceof Error ? err.message : 'Érvénytelen JSON fájl.');
+      this.importError.set(err instanceof Error ? err.message : this.translate.instant('practice.errors.invalidJsonFile'));
     }
   }
 
@@ -424,10 +445,10 @@ export class PracticeComponent {
     try {
       raw = JSON.parse(text);
     } catch {
-      throw new Error('A fájl nem érvényes JSON.');
+      throw new Error(this.translate.instant('practice.errors.fileNotValidJson'));
     }
     if (!Array.isArray(raw) || raw.length === 0) {
-      throw new Error('A JSON fájlnak egy nem üres kérdéslistának (tömbnek) kell lennie.');
+      throw new Error(this.translate.instant('practice.errors.jsonMustBeNonEmptyArray'));
     }
 
     return raw.map((item, idx) => {
@@ -437,7 +458,7 @@ export class PracticeComponent {
       const hint = String(o?.['hint'] ?? '').trim();
       const sampleAnswer = String(o?.['sampleAnswer'] ?? '').trim();
       if (!category || !question || !sampleAnswer) {
-        throw new Error(`A ${idx + 1}. kérdésnél hiányzik a kategória, a kérdés szövege vagy a mintaválasz.`);
+        throw new Error(`${this.translate.instant('practice.errors.importItemMissingFieldsPrefix')} ${idx + 1}${this.translate.instant('practice.errors.importItemMissingFieldsSuffix')}`);
       }
       return { category, question, hint, sampleAnswer };
     });
@@ -556,8 +577,8 @@ export class PracticeComponent {
   }
 
   feedbackLabel(fb: FeedbackType | null): string {
-    if (fb === 'correct') return 'HELYES';
-    if (fb === 'incorrect') return 'HELYTELEN';
+    if (fb === 'correct') return this.translate.instant('practice.feedbackLabel.correct');
+    if (fb === 'incorrect') return this.translate.instant('practice.feedbackLabel.incorrect');
     return '';
   }
 
@@ -571,10 +592,10 @@ export class PracticeComponent {
 
   getReadinessLabel(): string {
     const score = this.readinessScore();
-    if (score >= 80) return 'Kiváló';
-    if (score >= 60) return 'Jó';
-    if (score >= 40) return 'Fejleszthető';
-    return 'Kezdő';
+    if (score >= 80) return this.translate.instant('practice.readinessLabel.excellent');
+    if (score >= 60) return this.translate.instant('practice.readinessLabel.good');
+    if (score >= 40) return this.translate.instant('practice.readinessLabel.improvable');
+    return this.translate.instant('practice.readinessLabel.beginner');
   }
 
   categoryColor(cat: QuestionCategory): string {
@@ -595,8 +616,8 @@ export class PracticeComponent {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const diffDays = Math.round((today.getTime() - date.getTime()) / 86_400_000);
-    if (diffDays === 0) return 'Ma';
-    if (diffDays === 1) return 'Tegnap';
+    if (diffDays === 0) return this.translate.instant('practice.dateLabel.today');
+    if (diffDays === 1) return this.translate.instant('practice.dateLabel.yesterday');
     return date.toLocaleDateString('hu-HU', { year: 'numeric', month: 'long', day: 'numeric' });
   }
 

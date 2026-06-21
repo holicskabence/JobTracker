@@ -7,10 +7,10 @@
         <circle cx="11" cy="11" r="8" />
         <line x1="21" y1="21" x2="16.65" y2="16.65" />
       </svg>
-      <input class="table-view-search" type="text" placeholder="Keresés…" [ngModel]="searchRaw()"
+      <input class="table-view-search" type="text" [placeholder]="'tableView.searchPlaceholder' | translate" [ngModel]="searchRaw()"
         (ngModelChange)="searchRaw.set($event)" name="search" />
       @if (searchRaw()) {
-      <button class="table-view-search-clear" (click)="searchRaw.set('')" title="Törlés">
+      <button class="table-view-search-clear" (click)="searchRaw.set('')" [title]="'tableView.clear' | translate">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
           stroke-linecap="round">
           <line x1="18" y1="6" x2="6" y2="18" />
@@ -19,7 +19,7 @@
       </button>
       }
     </div>
-    <span class="table-view-count">{{ sortedJobs().length }} találat</span>
+    <span class="table-view-count">{{ 'tableView.resultsCount' | translate:{ count: sortedJobs().length } }}</span>
   </div>
 
   <div class="table-view-table-wrap">
@@ -27,22 +27,22 @@
     <thead class="table-view-head">
       <tr>
         <th class="table-view-th table-view-th--sortable" (click)="sort('company')">
-          Cég / Pozíció
+          {{ 'tableView.columns.companyPosition' | translate }}
           <span class="table-view-sort-icon" [class.table-view-sort-icon--active]="sortKey() === 'company'">{{
             sortIcon('company') }}</span>
         </th>
         <th class="table-view-th table-view-th--sortable" (click)="sort('status')">
-          Státusz
+          {{ 'tableView.columns.status' | translate }}
           <span class="table-view-sort-icon" [class.table-view-sort-icon--active]="sortKey() === 'status'">{{
             sortIcon('status') }}</span>
         </th>
         <th class="table-view-th table-view-th--sortable" (click)="sort('date')">
-          Dátum
+          {{ 'tableView.columns.date' | translate }}
           <span class="table-view-sort-icon" [class.table-view-sort-icon--active]="sortKey() === 'date'">{{
             sortIcon('date') }}</span>
         </th>
-        <th class="table-view-th">Link</th>
-        <th class="table-view-th table-view-th--actions">Műveletek</th>
+        <th class="table-view-th">{{ 'tableView.columns.link' | translate }}</th>
+        <th class="table-view-th table-view-th--actions">{{ 'tableView.columns.actions' | translate }}</th>
       </tr>
     </thead>
     <tbody>
@@ -72,7 +72,7 @@
               <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
               <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
             </svg>
-            Megnyitás
+            {{ 'tableView.openLink' | translate }}
           </a>
           } @else {
           <span class="table-view-no-link">—</span>
@@ -80,7 +80,7 @@
         </td>
 
         <td class="table-view-td table-view-td--actions">
-          <button class="table-view-action-btn" title="Szerkesztés" (click)="openEdit(job)">
+          <button class="table-view-action-btn" [title]="'tableView.edit' | translate" (click)="openEdit(job)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
               stroke-linecap="round" stroke-linejoin="round">
               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
@@ -96,9 +96,9 @@
       <tr>
         <td colspan="5" class="table-view-empty">
           @if (searchRaw()) {
-          Nincs találat a(z) „{{ searchRaw() }}" keresésre
+          {{ 'tableView.noResultsFor' | translate:{ term: searchRaw() } }}
           } @else {
-          Nincs még jelentkezés
+          {{ 'tableView.noApplicationsYet' | translate }}
           }
         </td>
       </tr>
@@ -117,7 +117,7 @@
           <div class="table-view-card-company">{{ job.company }}</div>
           <div class="table-view-card-pos">{{ job.position }}</div>
         </div>
-        <button class="table-view-action-btn" title="Szerkesztés" (click)="openEdit(job)">
+        <button class="table-view-action-btn" [title]="'tableView.edit' | translate" (click)="openEdit(job)">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
             stroke-linecap="round" stroke-linejoin="round">
             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
@@ -132,19 +132,21 @@
           <span class="table-view-status-dot" [style.background-color]="colorFor(job.status)"></span>
           {{ statusLabel(job.status) }}
         </span>
-        <span class="table-view-card-date">{{ job.date }}</span>
       </div>
 
-      @if (job.link) {
-      <a class="table-view-card-link" [href]="safeLink(job.link)" target="_blank" rel="noreferrer">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-          stroke-linecap="round" stroke-linejoin="round">
-          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-        </svg>
-        Megnyitás
-      </a>
-      }
+      <div class="table-view-card-footer">
+        @if (job.link) {
+        <a class="table-view-card-link" [href]="safeLink(job.link)" target="_blank" rel="noreferrer">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+          </svg>
+          {{ 'tableView.openLink' | translate }}
+        </a>
+        }
+        <span class="table-view-card-date">{{ job.date }}</span>
+      </div>
 
     </app-card>
     }
@@ -152,9 +154,9 @@
     @if (sortedJobs().length === 0) {
     <div class="table-view-empty">
       @if (searchRaw()) {
-      Nincs találat a(z) „{{ searchRaw() }}" keresésre
+      {{ 'tableView.noResultsFor' | translate:{ term: searchRaw() } }}
       } @else {
-      Nincs még jelentkezés
+      {{ 'tableView.noApplicationsYet' | translate }}
       }
     </div>
     }

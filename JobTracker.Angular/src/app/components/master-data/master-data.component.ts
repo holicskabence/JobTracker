@@ -1,5 +1,6 @@
 import { Component, computed, HostListener, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { PlannerService } from '../../services/planner.service';
 import { JobStoreService } from '../../services/job-store.service';
 import { PracticeService } from '../../services/practice.service';
@@ -13,7 +14,7 @@ import { PracticeCategory } from '../../models/practice.model';
 @Component({
   selector: 'app-master-data',
   standalone: true,
-  imports: [FormsModule, CardComponent, BadgeComponent, PageHeaderComponent],
+  imports: [FormsModule, TranslateModule, CardComponent, BadgeComponent, PageHeaderComponent],
   templateUrl: './master-data.component.html',
   styleUrl: './master-data.component.css'
 })

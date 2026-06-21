@@ -2,7 +2,7 @@
   @for (item of items(); track item.id) {
     <div class="toast toast--{{ item.type }}" role="alert">
       <span class="toast__message">{{ item.message }}</span>
-      <button type="button" class="toast__close" (click)="dismiss(item.id)" aria-label="Bezárás">×</button>
+      <button type="button" class="toast__close" (click)="dismiss(item.id)" [attr.aria-label]="'shared.toast.close' | translate">×</button>
     </div>
   }
 </div>

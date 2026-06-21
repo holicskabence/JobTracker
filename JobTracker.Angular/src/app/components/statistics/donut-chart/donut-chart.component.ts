@@ -1,5 +1,6 @@
 import { Component, ElementRef, computed, inject, signal } from '@angular/core';
 import { gsap } from 'gsap';
+import { TranslateService } from '@ngx-translate/core';
 import { JobStoreService } from '../../../services/job-store.service';
 
 export interface DonutSlice {
@@ -20,6 +21,7 @@ export interface DonutSlice {
 export class DonutChartComponent {
   private readonly store = inject(JobStoreService);
   private readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly translate = inject(TranslateService);
 
   readonly hoveredSlice = signal<DonutSlice | null>(null);
 
@@ -73,7 +75,7 @@ export class DonutChartComponent {
 
   get centerLabel(): string {
     const h = this.hoveredSlice();
-    return h ? h.label : 'Összes';
+    return h ? h.label : this.translate.instant('statistics.statusDistribution.total');
   }
 
   hoverSlice(status: string): void {

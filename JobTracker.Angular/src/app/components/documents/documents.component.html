@@ -1,29 +1,27 @@
 <div class="doc">
+
+  <app-page-header [title]="'documents.sectionTitle' | translate" [subtitle]="'documents.sectionSubtitle' | translate"></app-page-header>
+
   <div class="documents-grid">
 
     <div class="documents-left">
-
-      <div class="documents-section-head">
-        <h2 class="documents-section-title">Önéletrajzok &amp; Kísérőlevelek</h2>
-        <p class="documents-section-sub">Kövesd nyomon és kezeld az önéletrajz verzióidat egy helyen.</p>
-      </div>
 
       <ng-template #documentFormFields>
         <form class="documents-form" (ngSubmit)="submitDoc()">
 
           <div class="documents-form-row">
             <div class="documents-field documents-field--name">
-              <label class="documents-label">Fájl vagy Link neve</label>
-              <input class="documents-input" type="text" placeholder="pl. Kovacs_Bence_React_CV_2026.pdf"
+              <label class="documents-label">{{ 'documents.fileOrLinkNameLabel' | translate }}</label>
+              <input class="documents-input" type="text" [placeholder]="'documents.fileNamePlaceholder' | translate"
                      [(ngModel)]="newDocName" name="docName" required
                      [class.documents-input--error]="submitted && !newDocName.trim()" />
               @if (submitted && !newDocName.trim()) {
-                <span class="documents-error">A fájl neve kötelező.</span>
+                <span class="documents-error">{{ 'documents.fileNameRequiredError' | translate }}</span>
               }
             </div>
 
             <div class="documents-field">
-              <label class="documents-label">Típus</label>
+              <label class="documents-label">{{ 'documents.typeLabel' | translate }}</label>
               <app-select-dropdown
                 [options]="docTypes"
                 [value]="newDocType"
@@ -32,7 +30,7 @@
             </div>
 
             <div class="documents-field">
-              <label class="documents-label">Verzió</label>
+              <label class="documents-label">{{ 'documents.versionLabel' | translate }}</label>
               <input class="documents-input" type="text" placeholder="v1.0"
                      [(ngModel)]="newDocVersion" name="docVersion" />
             </div>
@@ -50,7 +48,7 @@
               @if (selectedFile) {
                 <span class="documents-file-name">{{ selectedFile.name }}</span>
               } @else {
-                <span>Fájl csatolása (opcionális)</span>
+                <span>{{ 'documents.attachFileOptional' | translate }}</span>
               }
             </label>
 
@@ -59,7 +57,7 @@
                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
                 <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
               </svg>
-              Rögzítés
+              {{ 'documents.submitBtn' | translate }}
             </button>
           </div>
 
@@ -73,15 +71,15 @@
             <line x1="12" y1="5" x2="12" y2="19"/>
             <line x1="5" y1="12" x2="19" y2="12"/>
           </svg>
-          Fájl / link rögzítése
+          {{ 'documents.recordFileOrLink' | translate }}
         </button>
 
         @if (formOpen()) {
           <div class="modal-backdrop" (click)="closeForm()">
             <div class="modal" role="dialog" aria-modal="true" aria-labelledby="documents-modal-title" (click)="$event.stopPropagation()">
               <div class="modal-header">
-                <h2 class="modal-title" id="documents-modal-title">Új fájl / link rögzítése</h2>
-                <button class="modal-close" type="button" (click)="closeForm()" aria-label="Bezárás">
+                <h2 class="modal-title" id="documents-modal-title">{{ 'documents.newFileOrLinkTitle' | translate }}</h2>
+                <button class="modal-close" type="button" (click)="closeForm()" [attr.aria-label]="'documents.closeBtn' | translate">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
                     <line x1="18" y1="6" x2="6" y2="18"/>
                     <line x1="6" y1="6" x2="18" y2="18"/>
@@ -96,7 +94,7 @@
         }
       } @else {
         <div class="documents-form-card">
-          <h3 class="documents-form-title">Új fájl / link rögzítése</h3>
+          <h3 class="documents-form-title">{{ 'documents.newFileOrLinkTitle' | translate }}</h3>
           <ng-container [ngTemplateOutlet]="documentFormFields"></ng-container>
         </div>
       }
@@ -108,7 +106,7 @@
               class="documents-filter-btn"
               [class.documents-filter-btn--active]="docFilter() === f"
               (click)="docFilter.set(f)"
-            >{{ f }}</button>
+            >{{ typeLabel(f) }}</button>
           }
         </div>
       </div>
@@ -136,21 +134,21 @@
             <div class="documents-item-body">
               <span class="documents-item-name">{{ doc.name }}</span>
               <div class="documents-item-meta">
-                <span class="documents-item-badge">{{ doc.type }}</span>
+                <span class="documents-item-badge">{{ typeLabel(doc.type) }}</span>
                 <span class="documents-item-sep">·</span>
                 <span>{{ doc.version }}</span>
                 <span class="documents-item-sep">·</span>
                 <span>{{ doc.updated }}</span>
                 @if (doc.hasFile) {
                   <span class="documents-item-sep">·</span>
-                  <span class="documents-item-file-badge">Feltöltve</span>
+                  <span class="documents-item-file-badge">{{ 'documents.uploadedBadge' | translate }}</span>
                 }
               </div>
             </div>
 
             <div class="documents-item-actions">
               @if (doc.hasFile) {
-                <button class="documents-item-dl" (click)="downloadFile(doc.id, doc.fileName!)" title="Letöltés">
+                <button class="documents-item-dl" (click)="downloadFile(doc.id, doc.fileName!)" [title]="'documents.downloadTitle' | translate">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -160,7 +158,7 @@
                 </button>
               }
 
-              <label class="documents-item-upload" [class.documents-item-upload--loading]="uploadingId() === doc.id" title="Fájl feltöltése / cserélése">
+              <label class="documents-item-upload" [class.documents-item-upload--loading]="uploadingId() === doc.id" [title]="'documents.uploadOrReplaceTitle' | translate">
                 <input type="file" class="documents-file-input" (change)="onUploadFile(doc.id, $event)" accept=".pdf,.doc,.docx" [disabled]="uploadingId() === doc.id" />
                 @if (uploadingId() === doc.id) {
                   <svg class="documents-spin" width="14" height="14" viewBox="0 0 24 24" fill="none"
@@ -177,7 +175,7 @@
                 }
               </label>
 
-              <button class="documents-item-del" (click)="planner.deleteDocument(doc.id)" title="Törlés">
+              <button class="documents-item-del" (click)="planner.deleteDocument(doc.id)" [title]="'documents.deleteTitle' | translate">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="3 6 5 6 21 6"/>
@@ -192,7 +190,7 @@
 
         @if (filteredDocuments().length === 0) {
           <app-empty-state class="documents-empty"
-            [message]="docFilter() !== 'Mind' ? ('Nincs ' + docFilter() + ' típusú dokumentum.') : 'Nincsenek rögzített dokumentumok.'"></app-empty-state>
+            [message]="noDocumentsMessage()"></app-empty-state>
         }
       </div>
 
@@ -208,7 +206,7 @@
             <line x1="12" y1="8" x2="12" y2="12"/>
             <line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
-          <span class="documents-tmpl-title">Kapcsolatfelvételi Sablonok</span>
+          <span class="documents-tmpl-title">{{ 'documents.outreachTemplatesTitle' | translate }}</span>
         </div>
         <svg class="documents-tmpl-chevron" [class.documents-tmpl-chevron--open]="templatesOpen()"
              width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -226,11 +224,11 @@
             <line x1="12" y1="8" x2="12" y2="12"/>
             <line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
-          <h3 class="documents-tmpl-title">Kapcsolatfelvételi Sablonok</h3>
+          <h3 class="documents-tmpl-title">{{ 'documents.outreachTemplatesTitle' | translate }}</h3>
         </div>
 
         <p class="documents-tmpl-sub">
-          Egyszerűsítsd az outreach folyamatokat! Másold és módosítsd az alábbi professzionális sablonokat.
+          {{ 'documents.outreachTemplatesSubtitle' | translate }}
         </p>
 
         @for (tmpl of templates; track tmpl.id) {
@@ -248,14 +246,14 @@
                      stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
-                Másolva!
+                {{ 'documents.copiedBtn' | translate }}
               } @else {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
                 </svg>
-                Másolás
+                {{ 'documents.copyBtn' | translate }}
               }
             </button>
           </app-card>

@@ -1,5 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { JobStoreService } from '../../services/job-store.service';
 import { PlannerService } from '../../services/planner.service';
 import { PracticeService } from '../../services/practice.service';
@@ -12,7 +13,7 @@ import { EmptyStateComponent } from '../shared/empty-state/empty-state.component
 @Component({
   selector: 'app-overview',
   standalone: true,
-  imports: [CardComponent, BadgeComponent, EmptyStateComponent],
+  imports: [CardComponent, BadgeComponent, EmptyStateComponent, TranslateModule],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.css'
 })
@@ -22,6 +23,7 @@ export class OverviewComponent {
   readonly planner = inject(PlannerService);
   readonly practice = inject(PracticeService);
   private readonly auth = inject(AuthService);
+  private readonly translate = inject(TranslateService);
 
   navigate(tab: DashboardTab): void {
     this.router.navigate(['/dashboard', tab]);
@@ -63,44 +65,44 @@ export class OverviewComponent {
       const ev = soon[0];
       return {
         emoji: '🎯',
-        title: 'Felkészülési idő!',
-        text: `${ev.company} – ${ev.type} közeleg (${this.fmtDate(ev.date)}). Nézd át a noteszed, készítsd elő a kérdéseidet.`,
-        cta: 'Eseményekhez',
+        title: this.translate.instant('overview.coachTip.prepTime.title'),
+        text: this.translate.instant('overview.coachTip.prepTime.text', { company: ev.company, type: ev.type, date: this.fmtDate(ev.date) }),
+        cta: this.translate.instant('overview.coachTip.prepTime.cta'),
         tab: 'esemenyek' as DashboardTab
       };
     }
     if (s.callbacks > 0) {
       return {
         emoji: '📞',
-        title: 'Van visszahívásod!',
-        text: `${s.callbacks} aktív visszahívás vár rád. A gyors reagálás sokat számít a kiválasztásnál.`,
-        cta: 'Megnézem',
+        title: this.translate.instant('overview.coachTip.callback.title'),
+        text: this.translate.instant('overview.coachTip.callback.text', { count: s.callbacks }),
+        cta: this.translate.instant('overview.coachTip.callback.cta'),
         tab: 'jelentkezesek' as DashboardTab
       };
     }
     if (s.totalJobs < 5) {
       return {
         emoji: '🚀',
-        title: 'Indítsd be a keresést!',
-        text: 'Még kevés a jelentkezésed. Napi 2–3 célzott pályázat a leghatékonyabb stratégia – kezdd el ma!',
-        cta: 'Jelentkezések',
+        title: this.translate.instant('overview.coachTip.startSearch.title'),
+        text: this.translate.instant('overview.coachTip.startSearch.text'),
+        cta: this.translate.instant('overview.coachTip.startSearch.cta'),
         tab: 'jelentkezesek' as DashboardTab
       };
     }
     if (s.successRate === 0 && s.totalJobs >= 5) {
       return {
         emoji: '⏳',
-        title: 'Türelem – a folyamat halad!',
-        text: `${s.totalJobs} pályázatod van útban. Frissítsd a LinkedIn profilod és kövesd fel a cégeket egy héttel az interjú után.`,
-        cta: 'Összes megtekintése',
+        title: this.translate.instant('overview.coachTip.patience.title'),
+        text: this.translate.instant('overview.coachTip.patience.text', { count: s.totalJobs }),
+        cta: this.translate.instant('overview.coachTip.patience.cta'),
         tab: 'jelentkezesek' as DashboardTab
       };
     }
     return {
       emoji: '💪',
-      title: 'Jól haladsz!',
-      text: `${s.totalJobs} jelentkezéssel, ${s.successRate}%-os sikerrátával komoly keresés folyik. Tartsd fenn a lendületet!`,
-      cta: 'Összes megtekintése',
+      title: this.translate.instant('overview.coachTip.goodProgress.title'),
+      text: this.translate.instant('overview.coachTip.goodProgress.text', { count: s.totalJobs, rate: s.successRate }),
+      cta: this.translate.instant('overview.coachTip.goodProgress.cta'),
       tab: 'jelentkezesek' as DashboardTab
     };
   });
@@ -137,11 +139,11 @@ export class OverviewComponent {
 
   readonly streakLabel = computed(() => {
     const n = this.streak();
-    if (n === 0) return 'Ma még nem volt jelentkezés';
-    if (n === 1) return 'Első nap – csináld holnap is!';
-    if (n < 5) return `${n} napos streak – hajtás!`;
-    if (n < 14) return `${n} napos streak! 🔥`;
-    return `${n} napos streak! 🔥🔥`;
+    if (n === 0) return this.translate.instant('overview.streak.none');
+    if (n === 1) return this.translate.instant('overview.streak.firstDay');
+    if (n < 5) return this.translate.instant('overview.streak.short', { count: n });
+    if (n < 14) return this.translate.instant('overview.streak.medium', { count: n });
+    return this.translate.instant('overview.streak.long', { count: n });
   });
 
   private readonly EVENT_COLORS: Record<string, string> = {
@@ -172,19 +174,19 @@ export class OverviewComponent {
     const target = new Date(d); target.setHours(0, 0, 0, 0);
     const today = new Date(); today.setHours(0, 0, 0, 0);
     const diff = Math.round((target.getTime() - today.getTime()) / 86_400_000);
-    if (diff === 0) return 'Ma';
-    if (diff === 1) return 'Holnap';
-    if (diff <= 7) return `${diff} nap múlva`;
+    if (diff === 0) return this.translate.instant('overview.relativeDate.today');
+    if (diff === 1) return this.translate.instant('overview.relativeDate.tomorrow');
+    if (diff <= 7) return this.translate.instant('overview.relativeDate.inDays', { count: diff });
     return new Date(d).toLocaleDateString('hu-HU', { month: 'long', day: 'numeric' });
   }
 
   readonly practiceStreakLabel = computed(() => {
     const days = this.practice.lastPracticedDaysAgo();
-    if (days === null) return 'Még nem gyakoroltál';
-    if (days === 0) return 'Ma gyakoroltál! 🔥';
-    if (days === 1) return 'Tegnap – folytasd ma!';
-    if (days <= 3) return `${days} napja nem volt gyakorlás`;
-    return `${days} napja nem gyakoroltál – ideje visszatérni!`;
+    if (days === null) return this.translate.instant('overview.practiceStreak.never');
+    if (days === 0) return this.translate.instant('overview.practiceStreak.today');
+    if (days === 1) return this.translate.instant('overview.practiceStreak.yesterday');
+    if (days <= 3) return this.translate.instant('overview.practiceStreak.few', { count: days });
+    return this.translate.instant('overview.practiceStreak.many', { count: days });
   });
 
   readonly readinessColor = computed(() => {
@@ -197,10 +199,10 @@ export class OverviewComponent {
 
   readonly readinessLabel = computed(() => {
     const s = this.practice.readinessScore();
-    if (s >= 80) return 'Kiváló';
-    if (s >= 60) return 'Jó';
-    if (s >= 40) return 'Fejleszthető';
-    return 'Kezdő';
+    if (s >= 80) return this.translate.instant('overview.readiness.excellent');
+    if (s >= 60) return this.translate.instant('overview.readiness.good');
+    if (s >= 40) return this.translate.instant('overview.readiness.improvable');
+    return this.translate.instant('overview.readiness.beginner');
   });
 
   initial(s: string): string { return s.charAt(0).toUpperCase(); }

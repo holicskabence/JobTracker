@@ -1,11 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Job, JobStatus } from '../../../models/job.model';
 import { JobCardComponent } from '../job-card/job-card.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-kanban-column',
   standalone: true,
-  imports: [JobCardComponent],
+  imports: [JobCardComponent, TranslateModule],
   templateUrl: './kanban-column.component.html',
   styleUrl: './kanban-column.component.css'
 })

@@ -1,20 +1,23 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../services/auth.service';
 import { UserProfile } from '../../models/user.model';
 import { CardComponent } from '../shared/card/card.component';
 import { PageHeaderComponent } from '../shared/page-header/page-header.component';
+import { LanguageSwitcherComponent } from '../shared/language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule, CardComponent, PageHeaderComponent],
+  imports: [FormsModule, TranslateModule, CardComponent, PageHeaderComponent, LanguageSwitcherComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit {
   readonly auth = inject(AuthService);
+  private readonly translate = inject(TranslateService);
 
   firstName = '';
   lastName = '';
@@ -67,24 +70,25 @@ export class ProfileComponent implements OnInit {
       email: this.email.trim(),
       phone: this.phone.trim(),
       goal: this.goal,
-      useAiEvaluation: this.useAiEvaluation
+      useAiEvaluation: this.useAiEvaluation,
+      preferredLanguage: this.user?.preferredLanguage ?? 'hu'
     }).subscribe({
       next: () => {
         this.saved = true;
         setTimeout(() => this.saved = false, 2000);
       },
       error: () => {
-        this.saveError = 'Mentés sikertelen. Próbáld meg újra.';
+        this.saveError = this.translate.instant('profile.personalData.saveError');
       }
     });
   }
 
   changePassword(): void {
     this.pwdError = '';
-    if (!this.currentPwd) { this.pwdError = 'Add meg a jelenlegi jelszavadat.'; return; }
-    if (!this.newPwd) { this.pwdError = 'Az új jelszó nem lehet üres.'; return; }
-    if (this.newPwd.length < 6) { this.pwdError = 'Az új jelszónak legalább 6 karakter hosszúnak kell lennie.'; return; }
-    if (this.newPwd !== this.confirmPwd) { this.pwdError = 'A két jelszó nem egyezik.'; return; }
+    if (!this.currentPwd) { this.pwdError = this.translate.instant('profile.password.currentPwdRequired'); return; }
+    if (!this.newPwd) { this.pwdError = this.translate.instant('profile.password.newPwdRequired'); return; }
+    if (this.newPwd.length < 6) { this.pwdError = this.translate.instant('profile.password.newPwdMinLength'); return; }
+    if (this.newPwd !== this.confirmPwd) { this.pwdError = this.translate.instant('profile.password.mismatch'); return; }
 
     this.auth.changePassword(this.currentPwd, this.newPwd).subscribe({
       next: () => {
@@ -95,7 +99,7 @@ export class ProfileComponent implements OnInit {
         setTimeout(() => this.pwdSaved = false, 2500);
       },
       error: (err: HttpErrorResponse) => {
-        this.pwdError = err.error?.message ?? 'Jelszócsere sikertelen.';
+        this.pwdError = err.error?.message ?? this.translate.instant('profile.password.changeError');
       }
     });
   }
@@ -107,14 +111,14 @@ export class ProfileComponent implements OnInit {
     this.avatarUploading = true;
     this.auth.uploadAvatar(file).subscribe({
       next: () => { this.avatarUploading = false; },
-      error: () => { this.avatarUploading = false; this.avatarError = 'Feltöltés sikertelen.'; }
+      error: () => { this.avatarUploading = false; this.avatarError = this.translate.instant('profile.summary.avatarUploadError'); }
     });
   }
 
   deleteAvatar(): void {
     this.avatarError = '';
     this.auth.deleteAvatar().subscribe({
-      error: () => { this.avatarError = 'Törlés sikertelen.'; }
+      error: () => { this.avatarError = this.translate.instant('profile.summary.avatarDeleteError'); }
     });
   }
 

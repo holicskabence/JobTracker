@@ -1,9 +1,14 @@
-<app-auth-card title="Fiók létrehozása" subtitle="Csatlakozz és kövesd nyomon álláskeresésed." maxWidth="460px">
+<div class="register-page-wrap">
+    <div class="register-lang-switcher">
+        <app-language-switcher variant="light" />
+    </div>
+
+    <app-auth-card [title]="'auth.register.title' | translate" [subtitle]="'auth.register.subtitle' | translate" maxWidth="460px">
         <form class="login-card-form" (ngSubmit)="submit()">
 
             <div class="reg-row">
                 <div class="lf">
-                    <label class="auth-form-label">KERESZTNÉV</label>
+                    <label class="auth-form-label">{{ 'auth.register.firstNameLabel' | translate }}</label>
                     <input class="auth-form-input" [class.auth-form-input--error]="errors['firstName']" type="text"
                         placeholder="Bence" autocomplete="given-name" [(ngModel)]="firstName" name="firstName" />
                     @if (errors['firstName']) {
@@ -11,7 +16,7 @@
                     }
                 </div>
                 <div class="lf">
-                    <label class="auth-form-label">VEZETÉKNÉV</label>
+                    <label class="auth-form-label">{{ 'auth.register.lastNameLabel' | translate }}</label>
                     <input class="auth-form-input" [class.auth-form-input--error]="errors['lastName']" type="text"
                         placeholder="Kovács" autocomplete="family-name" [(ngModel)]="lastName" name="lastName" />
                     @if (errors['lastName']) {
@@ -21,7 +26,7 @@
             </div>
 
             <div class="lf">
-                <label class="auth-form-label">E-MAIL CÍM</label>
+                <label class="auth-form-label">{{ 'auth.register.emailLabel' | translate }}</label>
                 <div class="auth-form-wrap">
                     <svg class="auth-form-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -37,7 +42,7 @@
             </div>
 
             <div class="lf">
-                <label class="auth-form-label">JELSZÓ</label>
+                <label class="auth-form-label">{{ 'auth.register.passwordLabel' | translate }}</label>
                 <div class="auth-form-wrap">
                     <svg class="auth-form-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -45,7 +50,7 @@
                         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                     </svg>
                     <input class="auth-form-input" [class.auth-form-input--error]="errors['password']"
-                        [type]="showPwd ? 'text' : 'password'" placeholder="Min. 6 karakter" autocomplete="new-password"
+                        [type]="showPwd ? 'text' : 'password'" [placeholder]="'auth.register.passwordPlaceholder' | translate" autocomplete="new-password"
                         [(ngModel)]="password" name="password" />
                     <button type="button" class="auth-form-eye" (click)="showPwd = !showPwd">
                         @if (showPwd) {
@@ -70,7 +75,7 @@
             </div>
 
             <div class="lf">
-                <label class="auth-form-label">JELSZÓ MEGERŐSÍTÉSE</label>
+                <label class="auth-form-label">{{ 'auth.register.confirmPasswordLabel' | translate }}</label>
                 <div class="auth-form-wrap">
                     <svg class="auth-form-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -86,13 +91,14 @@
             </div>
 
             <button class="login-card-btn login-card-btn--primary" type="submit">
-                Fiók létrehozása
+                {{ 'auth.register.submitBtn' | translate }}
             </button>
 
         </form>
 
         <p class="login-card-register">
-            Már van fiókod? <a routerLink="/login" class="login-card-link">Lépj be itt</a>
+            {{ 'auth.register.hasAccountText' | translate }} <a routerLink="/login" class="login-card-link">{{ 'auth.register.loginLink' | translate }}</a>
         </p>
 
-</app-auth-card>
+    </app-auth-card>
+</div>

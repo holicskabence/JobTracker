@@ -1,7 +1,7 @@
 <div class="md">
 
-    <app-page-header title="Törzsadat-karbantartás"
-        subtitle="Kezeld az alkalmazásban használt legördülő listákat. A változtatások azonnal érvénybe lépnek."></app-page-header>
+    <app-page-header [title]="'masterData.pageHeader.title' | translate"
+        [subtitle]="'masterData.pageHeader.subtitle' | translate"></app-page-header>
 
     <div class="master-data-grid">
 
@@ -17,21 +17,21 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="master-data-card-title">Esemény típusok</h3>
-                    <p class="master-data-card-sub">Interjú, visszahívás és egyéb esemény kategóriák</p>
+                    <h3 class="master-data-card-title">{{ 'masterData.eventTypes.title' | translate }}</h3>
+                    <p class="master-data-card-sub">{{ 'masterData.eventTypes.subtitle' | translate }}</p>
                 </div>
-                <app-badge variant="green" class="master-data-badge">{{ planner.eventTypes().length }} db</app-badge>
+                <app-badge variant="green" class="master-data-badge">{{ 'masterData.badge.count' | translate:{ count: planner.eventTypes().length } }}</app-badge>
             </div>
 
             <div class="master-data-tags">
                 @for (type of planner.eventTypes(); track type) {
                 <div class="master-data-tag" [class.master-data-tag--selected]="selectedEventType === type"
-                    (click)="selectEventType(type)" title="Kiválasztás módosításhoz">
+                    (click)="selectEventType(type)" [title]="'masterData.selectToEdit' | translate">
                     <span class="master-data-tag-dot" style="background-color: var(--clr-green)"></span>
                     <span class="master-data-tag-text">{{ type }}</span>
                     <button type="button" class="master-data-tag-del"
                         (click)="$event.stopPropagation(); deleteEventType(type)"
-                        [disabled]="planner.eventTypes().length <= 1" title="Törlés">
+                        [disabled]="planner.eventTypes().length <= 1" [title]="'masterData.delete' | translate">
                         <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                             stroke-linecap="round">
                             <line x1="18" y1="6" x2="6" y2="18" />
@@ -43,10 +43,10 @@
             </div>
 
             <form class="master-data-add-form" (ngSubmit)="addEventType()">
-                <input class="master-data-input" type="text" placeholder="Új típus neve…" [(ngModel)]="newEventTypeName"
+                <input class="master-data-input" type="text" [placeholder]="'masterData.eventTypes.newPlaceholder' | translate" [(ngModel)]="newEventTypeName"
                     name="newEventType" />
                 @if (selectedEventType) {
-                <button type="button" class="master-data-cancel-btn" (click)="cancelEventTypeEdit()">Mégse</button>
+                <button type="button" class="master-data-cancel-btn" (click)="cancelEventTypeEdit()">{{ 'masterData.cancel' | translate }}</button>
                 }
                 <button class="master-data-add-btn" type="submit">
                     @if (selectedEventType) {
@@ -54,14 +54,14 @@
                         stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    Mentés
+                    {{ 'masterData.save' | translate }}
                     } @else {
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round">
                         <line x1="12" y1="5" x2="12" y2="19" />
                         <line x1="5" y1="12" x2="19" y2="12" />
                     </svg>
-                    Hozzáadás
+                    {{ 'masterData.add' | translate }}
                     }
                 </button>
             </form>
@@ -79,21 +79,21 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="master-data-card-title">Felkészülési kategóriák</h3>
-                    <p class="master-data-card-sub">A gyakorló kérdések témakörei és szűrői</p>
+                    <h3 class="master-data-card-title">{{ 'masterData.categories.title' | translate }}</h3>
+                    <p class="master-data-card-sub">{{ 'masterData.categories.subtitle' | translate }}</p>
                 </div>
-                <app-badge variant="green" class="master-data-badge">{{ practice.categories().length }} db</app-badge>
+                <app-badge variant="green" class="master-data-badge">{{ 'masterData.badge.count' | translate:{ count: practice.categories().length } }}</app-badge>
             </div>
 
             <div class="master-data-tags">
                 @for (cat of practice.categories(); track cat.id) {
                 <div class="master-data-tag" [class.master-data-tag--selected]="selectedCategoryId === cat.id"
-                    (click)="selectCategory(cat)" title="Kiválasztás módosításhoz">
+                    (click)="selectCategory(cat)" [title]="'masterData.selectToEdit' | translate">
                     <span class="master-data-tag-dot" [style.background-color]="cat.color"></span>
                     <span class="master-data-tag-text">{{ cat.name }}</span>
                     <button type="button" class="master-data-tag-del"
                         (click)="$event.stopPropagation(); deleteCategory(cat.id)"
-                        [disabled]="practice.categories().length <= 1" title="Törlés">
+                        [disabled]="practice.categories().length <= 1" [title]="'masterData.delete' | translate">
                         <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                             stroke-linecap="round">
                             <line x1="18" y1="6" x2="6" y2="18" />
@@ -105,7 +105,7 @@
             </div>
 
             <form class="master-data-add-form master-data-add-form--color" (ngSubmit)="addCategory()">
-                <input class="master-data-input" type="text" placeholder="Új kategória neve…"
+                <input class="master-data-input" type="text" [placeholder]="'masterData.categories.newPlaceholder' | translate"
                     [(ngModel)]="newCategoryName" name="newCategoryName" />
                 <div class="master-data-color-picker">
                     @for (preset of STATUS_PRESETS; track preset) {
@@ -115,7 +115,7 @@
                     }
                 </div>
                 @if (selectedCategoryId !== null) {
-                <button type="button" class="master-data-cancel-btn" (click)="cancelCategoryEdit()">Mégse</button>
+                <button type="button" class="master-data-cancel-btn" (click)="cancelCategoryEdit()">{{ 'masterData.cancel' | translate }}</button>
                 }
                 <button class="master-data-add-btn" type="submit">
                     @if (selectedCategoryId !== null) {
@@ -123,14 +123,14 @@
                         stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    Mentés
+                    {{ 'masterData.save' | translate }}
                     } @else {
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round">
                         <line x1="12" y1="5" x2="12" y2="19" />
                         <line x1="5" y1="12" x2="19" y2="12" />
                     </svg>
-                    Hozzáadás
+                    {{ 'masterData.add' | translate }}
                     }
                 </button>
             </form>
@@ -146,10 +146,10 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="master-data-card-title">Jelentkezés státuszok</h3>
-                    <p class="master-data-card-sub">A Kanban tábla és a szűrők által használt státuszok</p>
+                    <h3 class="master-data-card-title">{{ 'masterData.statuses.title' | translate }}</h3>
+                    <p class="master-data-card-sub">{{ 'masterData.statuses.subtitle' | translate }}</p>
                 </div>
-                <app-badge variant="green" class="master-data-badge">{{ jobStore.statusConfigs().length }} db</app-badge>
+                <app-badge variant="green" class="master-data-badge">{{ 'masterData.badge.count' | translate:{ count: jobStore.statusConfigs().length } }}</app-badge>
             </div>
 
             <div class="status-list">
@@ -163,17 +163,17 @@
                     (dragover)="onStatusDragOver($event, i)"
                     (drop)="onStatusDrop($event, i)"
                     (dragend)="onStatusDragEnd()"
-                    (click)="selectStatus(cfg)" title="Kiválasztás módosításhoz">
+                    (click)="selectStatus(cfg)" [title]="'masterData.selectToEdit' | translate">
 
                     <div class="status-row-order">
                         <button type="button" class="status-order-btn" (click)="moveStatusUp(cfg.key, $event)"
-                            [disabled]="first" title="Feljebb">
+                            [disabled]="first" [title]="'masterData.moveUp' | translate">
                             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="18 15 12 9 6 15" />
                             </svg>
                         </button>
                         <button type="button" class="status-order-btn" (click)="moveStatusDown(cfg.key, $event)"
-                            [disabled]="last" title="Lejjebb">
+                            [disabled]="last" [title]="'masterData.moveDown' | translate">
                             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="6 9 12 15 18 9" />
                             </svg>
@@ -186,7 +186,7 @@
                     <button type="button" class="status-kanban-btn"
                         [class.status-kanban-btn--hidden]="cfg.showInKanban === false"
                         (click)="toggleStatusKanban(cfg.key, $event)"
-                        title="{{ cfg.showInKanban === false ? 'Nem látszik a Kanban táblán – kattints a megjelenítéshez' : 'Látszik a Kanban táblán – kattints az elrejtéshez' }}">
+                        [title]="(cfg.showInKanban === false ? 'masterData.hiddenFromKanban' : 'masterData.visibleInKanban') | translate">
                         @if (cfg.showInKanban !== false) {
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
@@ -202,7 +202,7 @@
 
                     <button type="button" class="master-data-tag-del"
                         (click)="$event.stopPropagation(); deleteStatus(cfg.key)"
-                        [disabled]="jobStore.statusConfigs().length <= 1" title="Törlés">
+                        [disabled]="jobStore.statusConfigs().length <= 1" [title]="'masterData.delete' | translate">
                         <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                             stroke-linecap="round">
                             <line x1="18" y1="6" x2="6" y2="18" />
@@ -214,7 +214,7 @@
             </div>
 
             <form class="master-data-add-form master-data-add-form--color" (ngSubmit)="addStatus()">
-                <input class="master-data-input" type="text" placeholder="Új státusz neve…" [(ngModel)]="newStatusLabel"
+                <input class="master-data-input" type="text" [placeholder]="'masterData.statuses.newPlaceholder' | translate" [(ngModel)]="newStatusLabel"
                     name="newStatusLabel" />
                 <div class="master-data-color-picker">
                     @for (preset of STATUS_PRESETS; track preset) {
@@ -224,7 +224,7 @@
                     }
                 </div>
                 @if (selectedStatusKey) {
-                <button type="button" class="master-data-cancel-btn" (click)="cancelStatusEdit()">Mégse</button>
+                <button type="button" class="master-data-cancel-btn" (click)="cancelStatusEdit()">{{ 'masterData.cancel' | translate }}</button>
                 }
                 <button class="master-data-add-btn" type="submit">
                     @if (selectedStatusKey) {
@@ -232,14 +232,14 @@
                         stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    Mentés
+                    {{ 'masterData.save' | translate }}
                     } @else {
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round">
                         <line x1="12" y1="5" x2="12" y2="19" />
                         <line x1="5" y1="12" x2="19" y2="12" />
                     </svg>
-                    Hozzáadás
+                    {{ 'masterData.add' | translate }}
                     }
                 </button>
             </form>
@@ -255,7 +255,7 @@
             <line x1="12" y1="8" x2="12" y2="12" />
             <line x1="12" y1="16" x2="12.01" y2="16" />
         </svg>
-        <span>A törzsadatok jelenleg csak a munkamenet idejére tárolódnak.</span>
+        <span>{{ 'masterData.demoNotice' | translate }}</span>
     </div>
     }
 

@@ -3,25 +3,25 @@
     <div class="stats-grid">
 
         <app-card>
-            <h3 class="card-label">Összes jelentkezés</h3>
+            <h3 class="card-label">{{ 'overview.stats.totalApplications' | translate }}</h3>
             <div class="card-value">{{ stats().totalJobs }}</div>
             <div class="progress-track">
                 <div class="progress-fill" [style.width.%]="progressWidth()"></div>
             </div>
-            <p class="card-footnote">Cél: {{ goal() }} jelentkezés</p>
+            <p class="card-footnote">{{ 'overview.stats.goal' | translate: { goal: goal() } }}</p>
         </app-card>
 
         <app-card>
-            <h3 class="card-label">Aktív folyamatban</h3>
+            <h3 class="card-label">{{ 'overview.stats.activeInProgress' | translate }}</h3>
             <div class="card-value">{{ stats().activeJobs }}</div>
-            <app-badge variant="yellow">{{ planner.upcomingInterviewCount() }} interjú</app-badge>
+            <app-badge variant="yellow">{{ 'overview.stats.interviewCount' | translate: { count: planner.upcomingInterviewCount() } }}</app-badge>
         </app-card>
 
         <app-card>
-            <h3 class="card-label">Sikeres / elutasított arány</h3>
+            <h3 class="card-label">{{ 'overview.stats.successRejectionRatio' | translate }}</h3>
             <div class="card-value-row">
                 <span class="card-value">{{ stats().successRate }}%</span>
-                <span class="card-value-sub">sikeres</span>
+                <span class="card-value-sub">{{ 'overview.stats.successful' | translate }}</span>
             </div>
             <div class="card-metrics">
                 <span class="metric metric--green">
@@ -30,7 +30,7 @@
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                         <polyline points="22 4 12 14.01 9 11.01" />
                     </svg>
-                    {{ stats().offers }} ajánlat
+                    {{ 'overview.stats.offerCount' | translate: { count: stats().offers } }}
                 </span>
                 <span class="metric metric--red">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -39,7 +39,7 @@
                         <line x1="15" y1="9" x2="9" y2="15" />
                         <line x1="9" y1="9" x2="15" y2="15" />
                     </svg>
-                    {{ stats().rejections }} elutasítva
+                    {{ 'overview.stats.rejectedCount' | translate: { count: stats().rejections } }}
                 </span>
             </div>
         </app-card>
@@ -50,11 +50,11 @@
 
         <app-card class="upcoming-card" gap="none">
             <div class="overview-card-header">
-                <h3 class="overview-card-title">Közelgő Interjúk</h3>
-                <button class="card-link" type="button" (click)="navigate('esemenyek')">Összes</button>
+                <h3 class="overview-card-title">{{ 'overview.upcomingEvents.title' | translate }}</h3>
+                <button class="card-link" type="button" (click)="navigate('esemenyek')">{{ 'overview.upcomingEvents.viewAll' | translate }}</button>
             </div>
             @if (upcomingEvents().length === 0) {
-            <app-empty-state message="Nincs közelgő esemény a naptárban."></app-empty-state>
+            <app-empty-state [message]="'overview.upcomingEvents.empty' | translate"></app-empty-state>
             } @else {
             <div class="timeline">
                 @for (ev of upcomingEvents(); track ev.id; let last = $last) {
@@ -87,11 +87,11 @@
 
         <app-card class="quick-tasks-card" gap="none">
             <div class="overview-card-header">
-                <h3 class="overview-card-title">Gyors Teendők</h3>
-                <button class="card-link" type="button" (click)="navigate('esemenyek')">Összes</button>
+                <h3 class="overview-card-title">{{ 'overview.quickTasks.title' | translate }}</h3>
+                <button class="card-link" type="button" (click)="navigate('esemenyek')">{{ 'overview.quickTasks.viewAll' | translate }}</button>
             </div>
             @if (quickTasks().length === 0) {
-            <app-empty-state message="Minden teendőd kész! 🎉"></app-empty-state>
+            <app-empty-state [message]="'overview.quickTasks.empty' | translate"></app-empty-state>
             } @else {
             <div class="quick-tasks-list">
                 @for (task of quickTasks(); track task.id) {
@@ -114,7 +114,7 @@
                     <div class="quick-tasks-bar-fill"
                         [style.width.%]="tasksTotal() > 0 ? (tasksDone() / tasksTotal() * 100) : 0"></div>
                 </div>
-                <span class="quick-tasks-count">{{ tasksDone() }} / {{ tasksTotal() }} kész</span>
+                <span class="quick-tasks-count">{{ 'overview.quickTasks.doneCount' | translate: { done: tasksDone(), total: tasksTotal() } }}</span>
             </div>
         </app-card>
 
@@ -174,8 +174,8 @@
 
     <div class="recent">
         <div class="recent-header">
-            <h2 class="recent-title">Legutóbbi jelentkezések</h2>
-            <button class="recent-link" (click)="navigate('jelentkezesek')">Összes megtekintése</button>
+            <h2 class="recent-title">{{ 'overview.recentApplications.title' | translate }}</h2>
+            <button class="recent-link" (click)="navigate('jelentkezesek')">{{ 'overview.recentApplications.viewAll' | translate }}</button>
         </div>
 
         <div class="recent-list">

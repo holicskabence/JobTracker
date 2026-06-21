@@ -1,23 +1,33 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PlannerService } from '../../services/planner.service';
 import { DOCUMENT_TYPES, OUTREACH_TEMPLATES } from '../../models/planner.model';
 import { SelectDropdownComponent } from '../shared/select-dropdown/select-dropdown.component';
 import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { BreakpointService } from '../../services/breakpoint.service';
+import { PageHeaderComponent } from '../shared/page-header/page-header.component';
+
+const DOC_TYPE_KEYS: Record<string, string> = {
+  'Mind': 'documents.typeAll',
+  'Önéletrajz': 'documents.typeResume',
+  'Kísérőlevél': 'documents.typeCoverLetter',
+  'Egyéb': 'documents.typeOther'
+};
 
 @Component({
   selector: 'app-documents',
   standalone: true,
-  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, CardComponent, EmptyStateComponent],
+  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, CardComponent, EmptyStateComponent, TranslateModule, PageHeaderComponent],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.css'
 })
 export class DocumentsComponent {
   readonly planner = inject(PlannerService);
   readonly breakpoint = inject(BreakpointService);
+  private readonly translate = inject(TranslateService);
 
   readonly docTypes = DOCUMENT_TYPES;
   readonly templates = OUTREACH_TEMPLATES;
@@ -37,6 +47,18 @@ export class DocumentsComponent {
     if (f === 'Mind') return this.planner.documents();
     return this.planner.documents().filter(d => d.type === f);
   });
+
+  readonly noDocumentsMessage = computed(() => {
+    const f = this.docFilter();
+    return f !== 'Mind'
+      ? this.translate.instant('documents.noDocumentsOfType', { type: this.typeLabel(f) })
+      : this.translate.instant('documents.noDocuments');
+  });
+
+  typeLabel(type: string): string {
+    const key = DOC_TYPE_KEYS[type];
+    return key ? this.translate.instant(key) : type;
+  }
 
   private copyTimer: ReturnType<typeof setTimeout> | null = null;
 

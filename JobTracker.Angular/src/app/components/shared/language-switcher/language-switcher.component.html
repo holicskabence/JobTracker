@@ -1,0 +1,10 @@
+<div class="lang-switcher" [class.lang-switcher--dark]="variant === 'dark'">
+  @for (lang of langs; track lang) {
+    <button
+      type="button"
+      class="lang-switcher-btn"
+      [class.lang-switcher-btn--active]="currentLang() === lang"
+      (click)="select(lang)"
+    >{{ lang.toUpperCase() }}</button>
+  }
+</div>

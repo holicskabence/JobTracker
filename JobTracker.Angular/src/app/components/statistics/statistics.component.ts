@@ -1,4 +1,5 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { JobStoreService } from '../../services/job-store.service';
 import { AuthService } from '../../services/auth.service';
 import { PlannerService } from '../../services/planner.service';
@@ -8,17 +9,19 @@ import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { StatsGranularity } from '../../models/job.model';
+import { PageHeaderComponent } from '../shared/page-header/page-header.component';
 
 @Component({
   selector: 'app-statistics',
   standalone: true,
-  imports: [AreaChartComponent, DonutChartComponent, CardComponent, BadgeComponent, EmptyStateComponent],
+  imports: [AreaChartComponent, DonutChartComponent, CardComponent, BadgeComponent, EmptyStateComponent, TranslateModule, PageHeaderComponent],
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.css'
 })
 export class StatisticsComponent {
   private readonly store = inject(JobStoreService);
   private readonly auth = inject(AuthService);
+  private readonly translate = inject(TranslateService);
   readonly planner = inject(PlannerService);
 
   readonly statusConfigs = this.store.statusConfigs;
@@ -84,10 +87,12 @@ export class StatisticsComponent {
       }
       case 'week': {
         const week = period.split('-W')[1];
-        return `${week}. hét`;
+        return `${week}. ${this.translate.instant('statistics.chartAxis.week')}`;
       }
-      default:
-        return new Date(period + '-01').toLocaleDateString('hu-HU', { month: 'short' });
+      default: {
+        const locale = this.translate.currentLang === 'en' ? 'en-US' : 'hu-HU';
+        return new Date(period + '-01').toLocaleDateString(locale, { month: 'short' });
+      }
     }
   }
 

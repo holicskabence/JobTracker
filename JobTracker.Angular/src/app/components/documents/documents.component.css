@@ -7,6 +7,7 @@
 .doc {
   display: flex;
   flex-direction: column;
+  gap: var(--gap-section);
   width: 100%;
   min-width: 0;
 }
@@ -29,18 +30,6 @@
   flex-direction: column;
   gap: var(--gap-section);
   min-width: 0;
-}
-
-.documents-section-title {
-  font-size: 1.1875rem;
-  font-weight: 800;
-  color: var(--clr-dark);
-  margin-bottom: var(--space-1);
-}
-
-.documents-section-sub {
-  font-size: 0.8125rem;
-  color: var(--clr-muted);
 }
 
 .documents-form-card {
@@ -610,10 +599,6 @@
     padding: var(--space-4);
   }
 
-  .documents-section-title {
-    font-size: 1rem;
-  }
-
   .documents-form {
     align-items: stretch;
   }
@@ -649,7 +634,8 @@
     width: 100%;
   }
 
-  .documents-list {
+  .documents-list,
+  .documents-list:has(.documents-item) {
     background-color: transparent;
     border: none;
     border-radius: 0;

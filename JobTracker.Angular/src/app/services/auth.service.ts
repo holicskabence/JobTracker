@@ -20,6 +20,7 @@ interface UserProfileResponse {
   joinDate: string;
   hasAvatar: boolean;
   useAiEvaluation: boolean;
+  preferredLanguage: string;
 }
 
 interface UpdateProfileRequest {
@@ -30,6 +31,7 @@ interface UpdateProfileRequest {
   phone: string;
   goal: number;
   useAiEvaluation: boolean;
+  preferredLanguage: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -51,7 +53,10 @@ export class AuthService {
       try {
         const user: UserProfile = JSON.parse(userJson);
         this.currentUser.set(user);
-        if (user.hasAvatar) this.loadAvatar();
+        // Deferred: issuing the HTTP request synchronously here would make errorInterceptor's
+        // inject(AuthService) run while this constructor is still on the stack, triggering NG0200
+        // (circular DI) and silently dropping the avatar on every fresh page load.
+        if (user.hasAvatar) queueMicrotask(() => this.loadAvatar());
       } catch {
         this.clearStorage();
       }
@@ -114,7 +119,7 @@ export class AuthService {
     );
   }
 
-  register(data: { firstName: string; lastName: string; email: string; password: string }): Observable<void> {
+  register(data: { firstName: string; lastName: string; email: string; password: string; preferredLanguage?: string }): Observable<void> {
     return this.http.post<AuthResponse>('/api/auth/register', data).pipe(
       tap(res => this.persistSession(res)),
       map(() => undefined)
@@ -183,7 +188,8 @@ export class AuthService {
       goal: r.goal,
       joinDate: r.joinDate,
       hasAvatar: r.hasAvatar ?? false,
-      useAiEvaluation: r.useAiEvaluation ?? false
+      useAiEvaluation: r.useAiEvaluation ?? false,
+      preferredLanguage: r.preferredLanguage ?? 'hu'
     };
   }
 

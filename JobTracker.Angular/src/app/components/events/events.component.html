@@ -1,13 +1,11 @@
 <div class="ev">
+
+  <app-page-header [title]="'events.sectionTitle' | translate" [subtitle]="'events.sectionSubtitle' | translate"></app-page-header>
+
   <div class="events-grid">
 
     <!-- ─── LEFT: Events ─── -->
     <div class="events-left">
-
-      <div class="events-section-head">
-        <h2 class="events-section-title">Közelgő Interjúk &amp; Események</h2>
-        <p class="events-section-sub">Kövesd nyomon az interjúid és a visszahívásokat.</p>
-      </div>
 
       <!-- Add / Edit Event Form -->
       <ng-template #eventFormFields>
@@ -15,42 +13,42 @@
 
           <div class="events-form-row">
             <div class="events-field">
-              <label class="events-label">Cég neve</label>
-              <input class="events-input" type="text" placeholder="pl. Stripe" [(ngModel)]="newEventCompany"
+              <label class="events-label">{{ 'events.modal.companyLabel' | translate }}</label>
+              <input class="events-input" type="text" [placeholder]="'events.modal.companyPlaceholder' | translate" [(ngModel)]="newEventCompany"
                 name="evCompany" [class.events-input--error]="submitted && !newEventCompany.trim()" />
               @if (submitted && !newEventCompany.trim()) {
-              <span class="events-error">A cég neve kötelező.</span>
+              <span class="events-error">{{ 'events.modal.companyRequiredError' | translate }}</span>
               }
             </div>
             <div class="events-field">
-              <label class="events-label">Esemény típusa</label>
+              <label class="events-label">{{ 'events.modal.typeLabel' | translate }}</label>
               <app-select-dropdown [options]="planner.eventTypes()" [value]="newEventType"
                 (valueChange)="newEventType = $event" />
             </div>
             <div class="events-field">
-              <label class="events-label">Dátum</label>
+              <label class="events-label">{{ 'events.modal.dateLabel' | translate }}</label>
               <app-date-picker [value]="newEventDate" (valueChange)="newEventDate = $event"
                 [hasError]="submitted && !newEventDate" />
               @if (submitted && !newEventDate) {
-              <span class="events-error">A dátum megadása kötelező.</span>
+              <span class="events-error">{{ 'events.modal.dateRequiredError' | translate }}</span>
               }
             </div>
             <div class="events-field">
-              <label class="events-label">Időpont</label>
+              <label class="events-label">{{ 'events.modal.timeLabel' | translate }}</label>
               <app-time-picker [value]="newEventTime" (valueChange)="newEventTime = $event" />
             </div>
           </div>
 
           <div class="events-form-row events-form-row--notes">
             <div class="events-field events-field--grow">
-              <label class="events-label">Rövid jegyzetek, fókuszpontok</label>
+              <label class="events-label">{{ 'events.modal.notesLabel' | translate }}</label>
               <input class="events-input" type="text"
-                placeholder="pl. React Hooks, Redux vs Zustand, fizetési sáv megbeszélése…" [(ngModel)]="newEventNotes"
+                [placeholder]="'events.modal.notesPlaceholder' | translate" [(ngModel)]="newEventNotes"
                 name="evNotes" />
             </div>
             <div class="events-form-actions">
               @if (editingId() !== null) {
-              <button class="events-cancel-btn" type="button" (click)="cancelEdit()">Mégse</button>
+              <button class="events-cancel-btn" type="button" (click)="cancelEdit()">{{ 'events.modal.cancelBtn' | translate }}</button>
               }
               <button class="events-add-btn" type="submit">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -64,7 +62,7 @@
                   <line x1="5" y1="12" x2="19" y2="12" />
                   }
                 </svg>
-                {{ editingId() !== null ? 'Mentés' : 'Hozzáadás' }}
+                {{ (editingId() !== null ? 'events.modal.saveBtn' : 'events.modal.addBtn') | translate }}
               </button>
             </div>
           </div>
@@ -79,7 +77,7 @@
           <line x1="12" y1="5" x2="12" y2="19" />
           <line x1="5" y1="12" x2="19" y2="12" />
         </svg>
-        Esemény hozzáadása
+        {{ 'events.addEventBtn' | translate }}
       </button>
 
       @if (formOpen()) {
@@ -88,9 +86,9 @@
           (click)="$event.stopPropagation()">
           <div class="modal-header">
             <h2 class="modal-title" id="events-modal-title">
-              {{ editingId() !== null ? 'Esemény szerkesztése' : 'Esemény rögzítése' }}
+              {{ (editingId() !== null ? 'events.modal.editTitle' : 'events.modal.addTitle') | translate }}
             </h2>
-            <button class="modal-close" type="button" (click)="closeForm()" aria-label="Bezárás">
+            <button class="modal-close" type="button" (click)="closeForm()" [attr.aria-label]="'events.modal.closeAriaLabel' | translate">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round">
                 <line x1="18" y1="6" x2="6" y2="18" />
@@ -107,7 +105,7 @@
       } @else {
       <div class="events-form-card" [class.events-form-card--editing]="editingId() !== null">
         <h3 class="events-form-title">
-          {{ editingId() !== null ? 'Esemény szerkesztése' : 'Esemény rögzítése' }}
+          {{ (editingId() !== null ? 'events.modal.editTitle' : 'events.modal.addTitle') | translate }}
         </h3>
         <ng-container [ngTemplateOutlet]="eventFormFields"></ng-container>
       </div>
@@ -118,16 +116,16 @@
         <div class="events-filters">
           <button class="events-filter-btn" [class.events-filter-btn--active]="eventFilter() === 'all'"
             (click)="eventFilter.set('all')">
-            Mind
+            {{ 'events.filters.all' | translate }}
             <span class="events-filter-count">{{ planner.events().length }}</span>
           </button>
           <button class="events-filter-btn" [class.events-filter-btn--active]="eventFilter() === 'upcoming'"
             (click)="eventFilter.set('upcoming')">
-            Közelgő
+            {{ 'events.filters.upcoming' | translate }}
           </button>
           <button class="events-filter-btn" [class.events-filter-btn--active]="eventFilter() === 'past'"
             (click)="eventFilter.set('past')">
-            Elmúlt
+            {{ 'events.filters.past' | translate }}
           </button>
         </div>
       </div>
@@ -159,10 +157,10 @@
                   <circle cx="12" cy="12" r="10" />
                   <polyline points="12 6 12 12 16 14" />
                 </svg>
-                {{ ev.date }}{{ ev.time ? ' – ' + ev.time : ' – Egész nap' }}
+                {{ ev.date }}{{ eventTimeLabel(ev) }}
               </div>
               <div class="events-card-btns">
-                <button class="events-card-btn events-card-btn--edit" (click)="startEdit(ev)" title="Szerkesztés">
+                <button class="events-card-btn events-card-btn--edit" (click)="startEdit(ev)" [title]="'events.list.editTitle' | translate">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
@@ -170,7 +168,7 @@
                   </svg>
                 </button>
                 <button class="events-card-btn events-card-btn--del" (click)="planner.deleteEvent(ev.id)"
-                  title="Törlés">
+                  [title]="'events.list.deleteTitle' | translate">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="3 6 5 6 21 6" />
@@ -191,7 +189,7 @@
 
         @if (filteredEvents().length === 0) {
         <app-empty-state class="events-empty"
-          [message]="eventFilter() === 'upcoming' ? 'Nincsenek közelgő események.' : eventFilter() === 'past' ? 'Nincsenek elmúlt események.' : 'Nincsenek rögzített közelgő interjúk.'"></app-empty-state>
+          [message]="emptyEventsMessage()"></app-empty-state>
         }
       </div>
     </div>
@@ -206,12 +204,12 @@
             <polyline points="9 11 12 14 22 4" />
             <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
           </svg>
-          Felkészülési Teendők
+          {{ 'events.tasks.title' | translate }}
         </div>
         <div class="events-tasks-right">
           <span class="events-tasks-count">{{ completedCount() }}/{{ planner.tasks().length }}</span>
           <button class="events-tasks-toggle" [class.events-tasks-toggle--active]="hideCompleted()"
-            (click)="hideCompleted.set(!hideCompleted())" title="Kész feladatok elrejtése">
+            (click)="hideCompleted.set(!hideCompleted())" [title]="'events.tasks.hideCompletedTitle' | translate">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
               @if (hideCompleted()) {
@@ -229,7 +227,7 @@
 
       <!-- Add task form -->
       <form class="events-task-form" (ngSubmit)="submitTask()">
-        <input class="events-task-input" type="text" placeholder="Új feladat hozzáadása…" [(ngModel)]="newTaskText"
+        <input class="events-task-input" type="text" [placeholder]="'events.tasks.addPlaceholder' | translate" [(ngModel)]="newTaskText"
           name="taskText" required />
         <button class="events-task-add" type="submit">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -254,7 +252,7 @@
             }
           </div>
           <span class="events-task-text" (click)="planner.toggleTask(task.id)">{{ task.text }}</span>
-          <button class="events-task-del" (click)="planner.deleteTask(task.id)" title="Törlés">
+          <button class="events-task-del" (click)="planner.deleteTask(task.id)" [title]="'events.tasks.deleteTitle' | translate">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
               stroke-linecap="round">
               <line x1="18" y1="6" x2="6" y2="18" />
@@ -265,10 +263,10 @@
         }
 
         @if (visibleTasks().length === 0 && planner.tasks().length > 0) {
-        <app-empty-state class="events-task-empty" message="Minden kész! 🎉"></app-empty-state>
+        <app-empty-state class="events-task-empty" [message]="'events.tasks.allDoneMessage' | translate"></app-empty-state>
         }
         @if (planner.tasks().length === 0) {
-        <app-empty-state class="events-task-empty" message="Nincsenek teendők. Adj hozzá feladatot!"></app-empty-state>
+        <app-empty-state class="events-task-empty" [message]="'events.tasks.emptyMessage' | translate"></app-empty-state>
         }
       </div>
 

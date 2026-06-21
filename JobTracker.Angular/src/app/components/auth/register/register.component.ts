@@ -2,19 +2,24 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../services/auth.service';
+import { LanguageService } from '../../../services/language.service';
 import { AuthCardComponent } from '../../shared/auth-card/auth-card.component';
+import { LanguageSwitcherComponent } from '../../shared/language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, RouterLink, AuthCardComponent],
+  imports: [FormsModule, RouterLink, AuthCardComponent, TranslateModule, LanguageSwitcherComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly languageService = inject(LanguageService);
+  private readonly translate = inject(TranslateService);
 
   firstName = '';
   lastName = '';
@@ -28,12 +33,12 @@ export class RegisterComponent {
   submit(): void {
     this.errors = {};
 
-    if (!this.firstName.trim()) this.errors['firstName'] = 'Keresztnév megadása kötelező.';
-    if (!this.lastName.trim()) this.errors['lastName'] = 'Vezetéknév megadása kötelező.';
-    if (!this.email.trim()) this.errors['email'] = 'E-mail cím megadása kötelező.';
-    if (!this.password) this.errors['password'] = 'Jelszó megadása kötelező.';
-    else if (this.password.length < 6) this.errors['password'] = 'Legalább 6 karakter szükséges.';
-    if (this.password && this.password !== this.confirm) this.errors['confirm'] = 'A két jelszó nem egyezik.';
+    if (!this.firstName.trim()) this.errors['firstName'] = this.translate.instant('auth.register.firstNameRequiredError');
+    if (!this.lastName.trim()) this.errors['lastName'] = this.translate.instant('auth.register.lastNameRequiredError');
+    if (!this.email.trim()) this.errors['email'] = this.translate.instant('auth.register.emailRequiredError');
+    if (!this.password) this.errors['password'] = this.translate.instant('auth.register.passwordRequiredError');
+    else if (this.password.length < 6) this.errors['password'] = this.translate.instant('auth.register.passwordTooShortError');
+    if (this.password && this.password !== this.confirm) this.errors['confirm'] = this.translate.instant('auth.register.passwordMismatchError');
 
     if (Object.keys(this.errors).length > 0) return;
 
@@ -42,14 +47,15 @@ export class RegisterComponent {
       firstName: this.firstName.trim(),
       lastName: this.lastName.trim(),
       email: this.email.trim(),
-      password: this.password
+      password: this.password,
+      preferredLanguage: this.languageService.currentLang()
     }).subscribe({
       complete: () => {
         this.loading.set(false);
         this.router.navigate(['/login']);
       },
       error: (err: HttpErrorResponse) => {
-        this.errors['general'] = err.error?.message ?? 'Regisztráció sikertelen. Próbáld meg újra.';
+        this.errors['general'] = err.error?.message ?? this.translate.instant('auth.register.registrationFailedError');
         this.loading.set(false);
       }
     });

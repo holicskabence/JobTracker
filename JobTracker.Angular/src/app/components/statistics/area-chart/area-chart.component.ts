@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnChanges } from '@angular/core';
 import { gsap } from 'gsap';
+import { TranslateModule } from '@ngx-translate/core';
 import { EmptyStateComponent } from '../../shared/empty-state/empty-state.component';
 
 interface ChartPoint { x: number; y: number }
@@ -34,7 +35,7 @@ export interface HoveredCol {
 @Component({
   selector: 'app-area-chart',
   standalone: true,
-  imports: [EmptyStateComponent],
+  imports: [EmptyStateComponent, TranslateModule],
   templateUrl: './area-chart.component.html',
   styleUrl: './area-chart.component.css'
 })

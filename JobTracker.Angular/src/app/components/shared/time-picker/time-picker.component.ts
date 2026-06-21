@@ -2,17 +2,18 @@ import {
   AfterViewInit, Component, ElementRef, HostListener,
   Input, Output, EventEmitter, ViewChild
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-time-picker',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './time-picker.component.html',
   styleUrl: './time-picker.component.css'
 })
 export class TimePickerComponent implements AfterViewInit {
   @Input() value = '';
-  @Input() placeholder = 'Egész nap';
+  @Input() placeholder = 'shared.dateTimePicker.allDay';
   @Output() valueChange = new EventEmitter<string>();
 
   @ViewChild('hourList') hourListRef?: ElementRef<HTMLElement>;

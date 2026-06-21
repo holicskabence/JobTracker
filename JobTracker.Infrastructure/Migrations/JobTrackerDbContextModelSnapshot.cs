@@ -79,6 +79,13 @@ namespace JobTracker.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("PreferredLanguage")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasDefaultValue("hu");
+
                     b.Property<bool>("UseAiEvaluation")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")

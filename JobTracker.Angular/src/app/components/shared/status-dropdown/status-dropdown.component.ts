@@ -1,10 +1,12 @@
 import { Component, computed, HostListener, inject, Input, Output, EventEmitter } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { JobStatus } from '../../../models/job.model';
 import { JobStoreService } from '../../../services/job-store.service';
 
 @Component({
   selector: 'app-status-dropdown',
   standalone: true,
+  imports: [TranslateModule],
   templateUrl: './status-dropdown.component.html',
   styleUrl: './status-dropdown.component.css'
 })

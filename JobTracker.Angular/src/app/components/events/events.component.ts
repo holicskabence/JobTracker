@@ -1,6 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PlannerService } from '../../services/planner.service';
 import { CalendarEvent } from '../../models/planner.model';
 import { SelectDropdownComponent } from '../shared/select-dropdown/select-dropdown.component';
@@ -9,19 +10,21 @@ import { TimePickerComponent } from '../shared/time-picker/time-picker.component
 import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { BreakpointService } from '../../services/breakpoint.service';
+import { PageHeaderComponent } from '../shared/page-header/page-header.component';
 
 type EventFilter = 'all' | 'upcoming' | 'past';
 
 @Component({
   selector: 'app-events',
   standalone: true,
-  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, DatePickerComponent, TimePickerComponent, CardComponent, EmptyStateComponent],
+  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, DatePickerComponent, TimePickerComponent, CardComponent, EmptyStateComponent, TranslateModule, PageHeaderComponent],
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'
 })
 export class EventsComponent implements OnInit {
   readonly planner = inject(PlannerService);
   readonly breakpoint = inject(BreakpointService);
+  private readonly translate = inject(TranslateService);
 
   readonly eventFilter   = signal<EventFilter>('all');
   readonly hideCompleted = signal(false);
@@ -41,6 +44,13 @@ export class EventsComponent implements OnInit {
   readonly visibleTasks = computed(() => {
     const tasks = this.planner.tasks();
     return this.hideCompleted() ? tasks.filter(t => !t.completed) : tasks;
+  });
+
+  readonly emptyEventsMessage = computed(() => {
+    const filter = this.eventFilter();
+    if (filter === 'upcoming') return this.translate.instant('events.list.emptyUpcoming');
+    if (filter === 'past') return this.translate.instant('events.list.emptyPast');
+    return this.translate.instant('events.list.emptyAll');
   });
 
   newEventType    = '';
@@ -121,5 +131,9 @@ export class EventsComponent implements OnInit {
     if (!this.newTaskText.trim()) return;
     this.planner.addTask(this.newTaskText.trim());
     this.newTaskText = '';
+  }
+
+  eventTimeLabel(ev: CalendarEvent): string {
+    return ev.time ? ' – ' + ev.time : ' – ' + this.translate.instant('events.list.allDay');
   }
 }

@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
+import { langGuard } from './guards/lang.guard';
+import { langRedirectGuard } from './guards/lang-redirect.guard';
+import { langMatcher } from './utils/lang-route-matcher';
 import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
@@ -15,8 +18,15 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { PracticeComponent } from './components/practice/practice.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  {
+    matcher: langMatcher,
+    canActivate: [langGuard],
+    children: [
+      { path: '', component: LandingComponent, pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+    ]
+  },
   {
     path: 'dashboard',
     component: DashboardComponent,
@@ -34,6 +44,9 @@ export const routes: Routes = [
       { path: 'gyakorlas', component: PracticeComponent },
     ]
   },
-  { path: '', component: LandingComponent, pathMatch: 'full' },
+  // Legacy unprefixed public routes: redirect to the equivalent /:lang URL.
+  { path: 'login', canActivate: [langRedirectGuard], pathMatch: 'full', component: LoginComponent },
+  { path: 'register', canActivate: [langRedirectGuard], pathMatch: 'full', component: RegisterComponent },
+  { path: '', canActivate: [langRedirectGuard], pathMatch: 'full', component: LandingComponent },
   { path: '**', redirectTo: 'dashboard' }
 ];

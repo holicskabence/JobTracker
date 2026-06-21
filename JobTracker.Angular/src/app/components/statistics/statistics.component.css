@@ -17,12 +17,6 @@
   }
 }
 
-.stats-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--clr-dark);
-}
-
 .stats-grid {
   display: grid;
   grid-template-columns: 1fr;

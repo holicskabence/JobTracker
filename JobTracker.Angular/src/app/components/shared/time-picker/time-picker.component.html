@@ -7,7 +7,7 @@
             <circle cx="12" cy="12" r="10" />
             <polyline points="12 6 12 12 16 14" />
         </svg>
-        <span class="time-picker-label">{{ value ? formatted : placeholder }}</span>
+        <span class="time-picker-label">{{ value ? formatted : (placeholder | translate) }}</span>
         <svg class="time-picker-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2.5" stroke-linecap="round" [style.transform]="isOpen ? 'rotate(180deg)' : ''">
             <polyline points="6 9 12 15 18 9" />
@@ -22,7 +22,7 @@
         <div class="time-picker-cols">
 
             <div class="time-picker-col">
-                <div class="time-picker-col-head">Óra</div>
+                <div class="time-picker-col-head">{{ 'shared.dateTimePicker.hourColumnHeader' | translate }}</div>
                 <div class="time-picker-scroll" #hourList>
                     @for (h of hours; track h) {
                     <button type="button" class="time-picker-item" [class.time-picker-item--sel]="h === selectedHour"
@@ -34,7 +34,7 @@
             <div class="time-picker-sep"></div>
 
             <div class="time-picker-col">
-                <div class="time-picker-col-head">Perc</div>
+                <div class="time-picker-col-head">{{ 'shared.dateTimePicker.minuteColumnHeader' | translate }}</div>
                 <div class="time-picker-mins">
                     @for (m of minutes; track m) {
                     <button type="button" class="time-picker-item" [class.time-picker-item--sel]="m === selectedMinute"
@@ -52,7 +52,7 @@
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
-                Egész nap
+                {{ 'shared.dateTimePicker.allDay' | translate }}
             </button>
         </div>
 

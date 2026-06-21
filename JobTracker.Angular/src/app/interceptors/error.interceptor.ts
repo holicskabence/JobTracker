@@ -1,21 +1,23 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 import { NotificationService } from '../services/notification.service';
 import { AuthService } from '../services/auth.service';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const notifications = inject(NotificationService);
   const auth = inject(AuthService);
+  const translate = inject(TranslateService);
 
   return next(req).pipe(
     catchError((err: unknown) => {
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401 && !req.url.includes('/api/auth/') && auth.isLoggedIn()) {
-          notifications.error('A munkamenet lejárt. Jelentkezz be újra.');
+          notifications.error(translate.instant('shared.toast.sessionExpired'));
           auth.logout();
         } else {
-          notifications.error(extractErrorMessage(err));
+          notifications.error(extractErrorMessage(err, translate));
         }
       }
       return throwError(() => err);
@@ -23,9 +25,9 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   );
 };
 
-function extractErrorMessage(err: HttpErrorResponse): string {
+function extractErrorMessage(err: HttpErrorResponse, translate: TranslateService): string {
   if (err.status === 0) {
-    return 'Nem sikerült kapcsolódni a szerverhez. Ellenőrizd az internetkapcsolatot.';
+    return translate.instant('shared.toast.errorNetwork');
   }
 
   const body = err.error;
@@ -42,11 +44,11 @@ function extractErrorMessage(err: HttpErrorResponse): string {
   }
 
   switch (err.status) {
-    case 400: return 'Hibás vagy hiányos adatok érkeztek.';
-    case 401: return 'A művelethez bejelentkezés szükséges.';
-    case 403: return 'Nincs jogosultságod a művelet végrehajtásához.';
-    case 404: return 'A keresett erőforrás nem található.';
-    case 409: return 'A művelet ütközik egy meglévő elemmel.';
-    default: return 'Hiba történt a kérés feldolgozása közben.';
+    case 400: return translate.instant('shared.toast.errorBadRequest');
+    case 401: return translate.instant('shared.toast.errorUnauthorized');
+    case 403: return translate.instant('shared.toast.errorForbidden');
+    case 404: return translate.instant('shared.toast.errorNotFound');
+    case 409: return translate.instant('shared.toast.errorConflict');
+    default: return translate.instant('shared.toast.errorGeneric');
   }
 }

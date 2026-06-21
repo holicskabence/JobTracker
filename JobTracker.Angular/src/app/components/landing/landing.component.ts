@@ -1,20 +1,23 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AuthService } from '../../services/auth.service';
+import { LanguageSwitcherComponent } from '../shared/language-switcher/language-switcher.component';
 
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslateModule, LanguageSwitcherComponent],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css'
 })
 export class LandingComponent implements AfterViewInit, OnDestroy {
   readonly auth = inject(AuthService);
+  readonly currentYear = new Date().getFullYear();
 
   private readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly triggers: ScrollTrigger[] = [];

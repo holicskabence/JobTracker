@@ -7,6 +7,7 @@
 .ev {
   display: flex;
   flex-direction: column;
+  gap: var(--gap-section);
   width: 100%;
   min-width: 0;
 }
@@ -29,18 +30,6 @@
   flex-direction: column;
   gap: var(--gap-section);
   min-width: 0;
-}
-
-.events-section-title {
-  font-size: 1.1875rem;
-  font-weight: 800;
-  color: var(--clr-dark);
-  margin-bottom: var(--space-1);
-}
-
-.events-section-sub {
-  font-size: 0.8125rem;
-  color: var(--clr-muted);
 }
 
 .events-form-card {
@@ -693,10 +682,6 @@
 
   .events-form-card {
     padding: var(--space-4);
-  }
-
-  .events-section-title {
-    font-size: 1rem;
   }
 
   .events-filters {

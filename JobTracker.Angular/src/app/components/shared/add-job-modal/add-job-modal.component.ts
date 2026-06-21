@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { Job, JobStatus } from '../../../models/job.model';
 import { JobStoreService } from '../../../services/job-store.service';
 import { StatusDropdownComponent } from '../status-dropdown/status-dropdown.component';
@@ -7,7 +8,7 @@ import { StatusDropdownComponent } from '../status-dropdown/status-dropdown.comp
 @Component({
   selector: 'app-add-job-modal',
   standalone: true,
-  imports: [FormsModule, StatusDropdownComponent],
+  imports: [FormsModule, StatusDropdownComponent, TranslateModule],
   templateUrl: './add-job-modal.component.html',
   styleUrl: './add-job-modal.component.css'
 })

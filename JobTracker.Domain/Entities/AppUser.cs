@@ -15,4 +15,5 @@ public class AppUser
     public bool UseAiEvaluation { get; set; } = false;
     public string? GoogleId { get; set; }
     public string? FacebookId { get; set; }
+    public string PreferredLanguage { get; set; } = "hu";
 }

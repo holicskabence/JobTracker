@@ -2,14 +2,16 @@ import { AfterViewInit, Component, ElementRef, inject, signal, ViewChild } from 
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../services/auth.service';
 import { SocialAuthService } from '../../../services/social-auth.service';
 import { AuthCardComponent } from '../../shared/auth-card/auth-card.component';
+import { LanguageSwitcherComponent } from '../../shared/language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink, AuthCardComponent],
+  imports: [FormsModule, RouterLink, AuthCardComponent, TranslateModule, LanguageSwitcherComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -17,6 +19,7 @@ export class LoginComponent implements AfterViewInit {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
   private readonly social = inject(SocialAuthService);
+  private readonly translate = inject(TranslateService);
 
   @ViewChild('googleBtn') googleBtn?: ElementRef<HTMLDivElement>;
 
@@ -37,7 +40,7 @@ export class LoginComponent implements AfterViewInit {
   submit(): void {
     this.error = '';
     if (!this.email.trim() || !this.password.trim()) {
-      this.error = 'Add meg az e-mail címed és a jelszavadat.';
+      this.error = this.translate.instant('auth.login.missingFieldsError');
       return;
     }
     this.loading.set(true);
@@ -46,8 +49,8 @@ export class LoginComponent implements AfterViewInit {
       next: () => this.router.navigate(['/dashboard']),
       error: (err: HttpErrorResponse) => {
         this.error = err.status === 401
-          ? (err.error?.message ?? 'Hibás e-mail cím vagy jelszó.')
-          : 'Nem sikerült csatlakozni a szerverhez.';
+          ? (err.error?.message ?? this.translate.instant('auth.login.invalidCredentialsError'))
+          : this.translate.instant('auth.login.serverConnectionError');
         this.loading.set(false);
         this.loadingAction.set(null);
       }
@@ -80,14 +83,14 @@ export class LoginComponent implements AfterViewInit {
         this.auth.facebookLogin(accessToken).subscribe({
           next: () => this.router.navigate(['/dashboard']),
           error: () => {
-            this.error = 'Sikertelen Facebook bejelentkezés.';
+            this.error = this.translate.instant('auth.login.facebookLoginError');
             this.loading.set(false);
             this.loadingAction.set(null);
           }
         });
       })
       .catch((err: Error) => {
-        this.error = err.message || 'Sikertelen Facebook bejelentkezés.';
+        this.error = err.message || this.translate.instant('auth.login.facebookLoginError');
         this.loading.set(false);
         this.loadingAction.set(null);
       });
@@ -100,7 +103,7 @@ export class LoginComponent implements AfterViewInit {
     this.auth.googleLogin(idToken).subscribe({
       next: () => this.router.navigate(['/dashboard']),
       error: () => {
-        this.error = 'Sikertelen Google bejelentkezés.';
+        this.error = this.translate.instant('auth.login.googleLoginError');
         this.loading.set(false);
         this.loadingAction.set(null);
       }

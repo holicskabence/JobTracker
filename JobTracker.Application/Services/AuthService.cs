@@ -41,7 +41,8 @@ public sealed class AuthService(
             Phone = string.Empty,
             Position = string.Empty,
             Goal = 30,
-            JoinDate = DateTime.Now.ToString("yyyy. MMMM", new System.Globalization.CultureInfo("hu-HU"))
+            JoinDate = DateTime.Now.ToString("yyyy. MMMM", new System.Globalization.CultureInfo("hu-HU")),
+            PreferredLanguage = request.PreferredLanguage is "en" or "hu" ? request.PreferredLanguage : "hu"
         };
         await repo.AddAsync(user);
         await SeedDefaultsAsync(user.Id);
@@ -184,5 +185,5 @@ public sealed class AuthService(
     }
 
     private static UserProfileResponse MapProfile(AppUser u) =>
-        new(u.Id, u.FirstName, u.LastName, u.Position, u.Email, u.Phone, u.Goal, u.JoinDate, u.AvatarBlobName is not null, u.UseAiEvaluation);
+        new(u.Id, u.FirstName, u.LastName, u.Position, u.Email, u.Phone, u.Goal, u.JoinDate, u.AvatarBlobName is not null, u.UseAiEvaluation, u.PreferredLanguage);
 }

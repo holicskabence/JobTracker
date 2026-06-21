@@ -17,7 +17,7 @@
 
         @if (jobs.length === 0) {
         <div class="kanban-column-empty" [class.kanban-column-empty--over]="isDragOver">
-            Húzz ide egy kártyát
+            {{ 'shared.kanbanColumn.dropHint' | translate }}
         </div>
         }
     </div>

@@ -1,9 +1,11 @@
 import { Component, inject } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-toast',
   standalone: true,
+  imports: [TranslateModule],
   templateUrl: './toast.component.html',
   styleUrl: './toast.component.css'
 })

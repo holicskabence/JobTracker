@@ -280,15 +280,22 @@
 .table-view-card-meta {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: var(--space-2);
   flex-wrap: wrap;
+}
+
+.table-view-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
 }
 
 .table-view-card-date {
   font-size: 0.8125rem;
   color: var(--clr-muted);
   white-space: nowrap;
+  margin-left: auto;
 }
 
 .table-view-card-link {

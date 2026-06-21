@@ -2,8 +2,8 @@
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
 
         <div class="modal-header">
-            <h2 class="modal-title" id="modal-title">{{ isEdit ? 'Jelentkezés szerkesztése' : 'Új jelentkezés' }}</h2>
-            <button class="modal-close" (click)="close.emit()" aria-label="Bezárás">
+            <h2 class="modal-title" id="modal-title">{{ (isEdit ? 'shared.addJobModal.editTitle' : 'shared.addJobModal.newTitle') | translate }}</h2>
+            <button class="modal-close" (click)="close.emit()" [attr.aria-label]="'shared.addJobModal.closeAriaLabel' | translate">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                     stroke-linecap="round">
                     <line x1="18" y1="6" x2="6" y2="18" />
@@ -15,48 +15,47 @@
         <form class="modal-form" (ngSubmit)="submit()" #f="ngForm">
 
             <div class="field">
-                <label class="field-label" for="company">Cég neve</label>
-                <input id="company" class="field-input" type="text" placeholder="pl. Acme Corp" autocomplete="off"
+                <label class="field-label" for="company">{{ 'shared.addJobModal.companyLabel' | translate }}</label>
+                <input id="company" class="field-input" type="text" [placeholder]="'shared.addJobModal.companyPlaceholder' | translate" autocomplete="off"
                     required [(ngModel)]="company" name="company" (ngModelChange)="duplicate = false"
                     [class.field-input--error]="(submitted && !company.trim()) || duplicate" />
                 @if (submitted && !company.trim()) {
-                <span class="field-error">A cég neve kötelező.</span>
+                <span class="field-error">{{ 'shared.addJobModal.companyRequiredError' | translate }}</span>
                 }
             </div>
 
             <div class="field">
-                <label class="field-label" for="position">Pozíció</label>
-                <input id="position" class="field-input" type="text" placeholder="pl. Frontend Engineer"
+                <label class="field-label" for="position">{{ 'shared.addJobModal.positionLabel' | translate }}</label>
+                <input id="position" class="field-input" type="text" [placeholder]="'shared.addJobModal.positionPlaceholder' | translate"
                     autocomplete="off" required [(ngModel)]="position" name="position"
                     (ngModelChange)="duplicate = false"
                     [class.field-input--error]="(submitted && !position.trim()) || duplicate" />
                 @if (submitted && !position.trim()) {
-                <span class="field-error">A pozíció megnevezése kötelező.</span>
+                <span class="field-error">{{ 'shared.addJobModal.positionRequiredError' | translate }}</span>
                 }
                 @if (duplicate) {
-                <span class="field-error">Ezzel a céggel és pozícióval már szerepel jelentkezés a feltöltött adatok
-                    között.</span>
+                <span class="field-error">{{ 'shared.addJobModal.duplicateError' | translate }}</span>
                 }
             </div>
 
             <div class="field">
                 <label class="field-label" for="link">
-                    Link
-                    <span class="field-optional">(opcionális)</span>
+                    {{ 'shared.addJobModal.linkLabel' | translate }}
+                    <span class="field-optional">({{ 'shared.addJobModal.optionalLabel' | translate }})</span>
                 </label>
-                <input id="link" class="field-input" type="text" placeholder="pl. careers.acme.com" autocomplete="off"
+                <input id="link" class="field-input" type="text" [placeholder]="'shared.addJobModal.linkPlaceholder' | translate" autocomplete="off"
                     [(ngModel)]="link" name="link" />
             </div>
 
             <div class="field">
-                <label class="field-label">Kezdeti státusz</label>
+                <label class="field-label">{{ 'shared.addJobModal.initialStatusLabel' | translate }}</label>
                 <app-status-dropdown variant="form" [value]="status" (valueChange)="status = $event" />
             </div>
 
             <div class="modal-actions">
-                <button type="button" class="btn btn--ghost" (click)="close.emit()">Mégse</button>
+                <button type="button" class="btn btn--ghost" (click)="close.emit()">{{ 'shared.addJobModal.cancelBtn' | translate }}</button>
                 <button type="submit" class="btn btn--primary">
-                    {{ isEdit ? 'Mentés' : 'Hozzáadás' }}
+                    {{ (isEdit ? 'shared.addJobModal.saveBtn' : 'shared.addJobModal.addBtn') | translate }}
                 </button>
             </div>
 

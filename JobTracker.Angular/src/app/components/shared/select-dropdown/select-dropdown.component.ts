@@ -1,16 +1,17 @@
 import { Component, HostListener, Input, Output, EventEmitter } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-select-dropdown',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './select-dropdown.component.html',
   styleUrl: './select-dropdown.component.css'
 })
 export class SelectDropdownComponent {
   @Input({ required: true }) options: readonly string[] = [];
   @Input() value = '';
-  @Input() placeholder = 'Válassz…';
+  @Input() placeholder = 'shared.selectDropdown.defaultPlaceholder';
   @Output() valueChange = new EventEmitter<string>();
 
   isOpen = false;

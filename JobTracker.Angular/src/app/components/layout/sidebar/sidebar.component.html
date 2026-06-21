@@ -5,7 +5,7 @@
 <nav class="sidebar" [class.sidebar--expanded]="!collapsed" [class.sidebar--open]="mobileOpen">
 
     <button class="sidebar-border-toggle" (click)="toggleCollapsed.emit()"
-        [title]="collapsed ? 'Kibontás' : 'Összecsukás'">
+        [title]="collapsed ? ('sidebar.expand' | translate) : ('sidebar.collapse' | translate)">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
             stroke-linecap="round" stroke-linejoin="round">
             <polyline points="9 18 15 12 9 6" />
@@ -23,7 +23,7 @@
         </div>
         <span class="sidebar-name">JobTracker</span>
 
-        <button class="sidebar-brand-close" (click)="closeMobile.emit()" title="Bezárás">
+        <button class="sidebar-brand-close" (click)="closeMobile.emit()" [title]="'sidebar.close' | translate">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="15 18 9 12 15 6" />
@@ -34,7 +34,7 @@
     <div class="sidebar-nav">
 
         <a class="sidebar-btn" routerLink="/dashboard/attekintes" routerLinkActive="sidebar-btn--active"
-            (click)="closeMobile.emit()" title="Áttekintés">
+            (click)="closeMobile.emit()" [title]="'nav.overview' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -44,11 +44,11 @@
                     <rect x="14" y="14" width="7" height="7" rx="1" />
                 </svg>
             </span>
-            <span class="sidebar-label">Áttekintés</span>
+            <span class="sidebar-label">{{ 'nav.overview' | translate }}</span>
         </a>
 
         <a class="sidebar-btn" routerLink="/dashboard/tablazat" routerLinkActive="sidebar-btn--active"
-            (click)="closeMobile.emit()" title="Táblázat">
+            (click)="closeMobile.emit()" [title]="'nav.table' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -58,11 +58,11 @@
                     <line x1="9" y1="9" x2="9" y2="21" />
                 </svg>
             </span>
-            <span class="sidebar-label">Táblázat</span>
+            <span class="sidebar-label">{{ 'nav.table' | translate }}</span>
         </a>
 
         <a class="sidebar-btn" routerLink="/dashboard/jelentkezesek" routerLinkActive="sidebar-btn--active"
-            (click)="closeMobile.emit()" title="Jelentkezések">
+            (click)="closeMobile.emit()" [title]="'nav.applications' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -71,11 +71,11 @@
                     <line x1="8" y1="12" x2="16" y2="12" />
                 </svg>
             </span>
-            <span class="sidebar-label">Jelentkezések</span>
+            <span class="sidebar-label">{{ 'nav.applications' | translate }}</span>
         </a>
 
         <a class="sidebar-btn" routerLink="/dashboard/gyakorlas" routerLinkActive="sidebar-btn--active"
-            (click)="closeMobile.emit()" title="Gyakorlás">
+            (click)="closeMobile.emit()" [title]="'nav.practice' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -85,11 +85,11 @@
                         d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.7-4.27 2.5 2.5 0 0 0 1.7-3.27 3 3 0 0 0-.25-5.5A2.5 2.5 0 0 0 14.5 2Z" />
                 </svg>
             </span>
-            <span class="sidebar-label">Gyakorlás</span>
+            <span class="sidebar-label">{{ 'nav.practice' | translate }}</span>
         </a>
 
         <a class="sidebar-btn" routerLink="/dashboard/esemenyek" routerLinkActive="sidebar-btn--active"
-            (click)="closeMobile.emit()" title="Események & Teendők">
+            (click)="closeMobile.emit()" [title]="'nav.events' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -99,11 +99,11 @@
                     <line x1="3" y1="10" x2="21" y2="10" />
                 </svg>
             </span>
-            <span class="sidebar-label">Események & Teendők</span>
+            <span class="sidebar-label">{{ 'nav.events' | translate }}</span>
         </a>
 
         <a class="sidebar-btn" routerLink="/dashboard/dokumentumok" routerLinkActive="sidebar-btn--active"
-            (click)="closeMobile.emit()" title="Dokumentumok & Sablonok">
+            (click)="closeMobile.emit()" [title]="'nav.documents' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -113,11 +113,11 @@
                     <line x1="16" y1="17" x2="8" y2="17" />
                 </svg>
             </span>
-            <span class="sidebar-label">Dokumentumok</span>
+            <span class="sidebar-label">{{ 'nav.documents' | translate }}</span>
         </a>
 
         <a class="sidebar-btn" routerLink="/dashboard/statisztika" routerLinkActive="sidebar-btn--active"
-            (click)="closeMobile.emit()" title="Statisztika">
+            (click)="closeMobile.emit()" [title]="'nav.statistics' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -126,11 +126,11 @@
                     <line x1="6" y1="20" x2="6" y2="14" />
                 </svg>
             </span>
-            <span class="sidebar-label">Statisztika</span>
+            <span class="sidebar-label">{{ 'nav.statistics' | translate }}</span>
         </a>
 
         <a class="sidebar-btn" routerLink="/dashboard/torzsadatok" routerLinkActive="sidebar-btn--active"
-            (click)="closeMobile.emit()" title="Törzsadatok">
+            (click)="closeMobile.emit()" [title]="'nav.masterData' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -139,15 +139,14 @@
                     <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
                 </svg>
             </span>
-            <span class="sidebar-label">Törzsadatok</span>
+            <span class="sidebar-label">{{ 'nav.masterData' | translate }}</span>
         </a>
 
     </div>
 
     <div class="sidebar-footer">
-
         <div class="sidebar-user" routerLink="/dashboard/profil" routerLinkActive="sidebar-user--active"
-            (click)="closeMobile.emit()" title="Profil">
+            (click)="closeMobile.emit()" [title]="'nav.profile' | translate">
             <div class="sidebar-user-avatar">
                 @if (avatarUrl) {
                 <img class="sidebar-user-avatar-img" [src]="avatarUrl" alt="" />
@@ -163,7 +162,7 @@
 
         <div class="sidebar-divider"></div>
 
-        <button class="sidebar-btn sidebar-btn--logout" (click)="logout.emit()" title="Kijelentkezés">
+        <button class="sidebar-btn sidebar-btn--logout" (click)="logout.emit()" [title]="'nav.logout' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -172,7 +171,7 @@
                     <line x1="21" y1="12" x2="9" y2="12" />
                 </svg>
             </span>
-            <span class="sidebar-label">Kijelentkezés</span>
+            <span class="sidebar-label">{{ 'nav.logout' | translate }}</span>
         </button>
 
     </div>

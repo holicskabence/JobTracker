@@ -1,0 +1,592 @@
+{
+  "common": {},
+  "nav": {
+    "overview": "Overview",
+    "applications": "Applications",
+    "table": "Table",
+    "events": "Events & Tasks",
+    "documents": "Documents",
+    "statistics": "Statistics",
+    "masterData": "Master Data",
+    "profile": "Profile",
+    "practice": "Practice",
+    "logout": "Log out"
+  },
+  "landing": {
+    "nav": {
+      "features": "Features",
+      "statistics": "Statistics",
+      "howItWorks": "How It Works",
+      "dashboard": "Dashboard",
+      "login": "Log In",
+      "register": "Sign Up"
+    },
+    "hero": {
+      "titleLine1": "Your job search,",
+      "titleLine2": "finally under control.",
+      "subtitle": "No credit card required — just create your account and start tracking your applications.",
+      "goToDashboard": "Go to Dashboard",
+      "startFree": "Start for Free"
+    },
+    "heroMockup": {
+      "path": "jobtracker.app/dashboard/applications",
+      "applicationsTitle": "Applications",
+      "newApplication": "New Application",
+      "statusSaved": "Saved",
+      "statusApplied": "Applied",
+      "statusInterview": "Interview",
+      "statusOffer": "Offer",
+      "statusRejected": "Rejected",
+      "positionFrontendDeveloper": "Frontend Developer",
+      "positionFrontendFejleszto": "Frontend Developer",
+      "positionSeniorFejleszto": "Senior Developer",
+      "positionFullStackFejleszto": "Full-Stack Developer",
+      "positionSoftwareEngineer": "Software Engineer",
+      "positionUiFejleszto": "UI Developer",
+      "positionAngularFejleszto": "Angular Developer"
+    },
+    "features": {
+      "title": "Every tool, in one place",
+      "subtitle": "Not a generic project manager — built specifically for the steps of a job search.",
+      "kanban": { "title": "Kanban Board", "desc": "Drag and drop your applications through the process — from saved, through applied and interview, to offer." },
+      "table": { "title": "Table View", "desc": "If you think in lists: a filterable, sortable table of all your applications." },
+      "events": { "title": "Events & To-Dos", "desc": "Interviews, deadlines, and small to-dos in one calendar, so nothing slips through the cracks." },
+      "documents": { "title": "Documents & Templates", "desc": "Your resumes, cover letters, and templates are always at hand, organized by company." },
+      "stats": { "title": "Statistics", "desc": "Success rate, weekly activity, and progress trends in charts — see what's actually working." },
+      "interviewPractice": { "title": "Interview Practice", "desc": "Practice common interview questions and get instant AI feedback on your answers — so you know exactly what to polish before your next interview." }
+    },
+    "stats": {
+      "title": "See exactly where you stand",
+      "subtitle": "There's a story behind the numbers: how many applications turn into interviews, and which week you made the most progress.",
+      "applicationsStatus": "Application Status",
+      "total": "total",
+      "weeklyActivity": "Weekly Activity",
+      "weeklyNote": "5 applications this week — your weekly goal is 5.",
+      "weekday": {
+        "mondayFull": "Monday", "mondayShort": "M",
+        "tuesdayFull": "Tuesday", "tuesdayShort": "T",
+        "wednesdayFull": "Wednesday", "wednesdayShort": "W",
+        "thursdayFull": "Thursday", "thursdayShort": "T",
+        "fridayFull": "Friday", "fridayShort": "F",
+        "saturdayFull": "Saturday", "saturdayShort": "S",
+        "sundayFull": "Sunday", "sundayShort": "S"
+      }
+    },
+    "howItWorks": {
+      "title": "In Three Steps",
+      "subtitle": "No complicated setup — you'll be up and running in a few minutes.",
+      "step1": { "title": "Add your applications", "desc": "Log the company, the position, and the listing link — in just a few seconds." },
+      "step2": { "title": "Track the process", "desc": "Move the cards along the kanban board as your interview process progresses." },
+      "step3": { "title": "See what's working", "desc": "Refine your strategy based on your statistics and readiness level." }
+    },
+    "cta": {
+      "title": "Ready to bring order to your job search?",
+      "subtitle": "Create an account and start tracking your applications right away.",
+      "goToDashboard": "Go to Dashboard",
+      "registerFree": "Sign Up for Free"
+    },
+    "footer": {
+      "copyright": "© {{year}} JobTracker. All rights reserved."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back!",
+      "subtitle": "Sign in to your job search assistant.",
+      "googleBtn": "Continue with Google",
+      "facebookBtn": "Continue with Facebook",
+      "orEmailDivider": "OR WITH EMAIL",
+      "emailLabel": "EMAIL ADDRESS",
+      "emailPlaceholder": "bence@saas.io",
+      "passwordLabel": "PASSWORD",
+      "hidePassword": "Hide",
+      "showPassword": "Show",
+      "submitBtn": "Log in",
+      "orTryNowDivider": "OR TRY IT RIGHT NOW",
+      "demoBtn": "Sign in with demo account",
+      "noAccountText": "Don't have an account yet?",
+      "registerLink": "Register here",
+      "missingFieldsError": "Please enter your email address and password.",
+      "invalidCredentialsError": "Incorrect email address or password.",
+      "serverConnectionError": "Could not connect to the server.",
+      "facebookLoginError": "Facebook login failed.",
+      "googleLoginError": "Google login failed."
+    },
+    "register": {
+      "title": "Create an account",
+      "subtitle": "Join and track your job search.",
+      "firstNameLabel": "FIRST NAME",
+      "lastNameLabel": "LAST NAME",
+      "emailLabel": "EMAIL ADDRESS",
+      "passwordLabel": "PASSWORD",
+      "passwordPlaceholder": "Min. 6 characters",
+      "confirmPasswordLabel": "CONFIRM PASSWORD",
+      "submitBtn": "Create account",
+      "hasAccountText": "Already have an account?",
+      "loginLink": "Log in here",
+      "firstNameRequiredError": "First name is required.",
+      "lastNameRequiredError": "Last name is required.",
+      "emailRequiredError": "Email address is required.",
+      "passwordRequiredError": "Password is required.",
+      "passwordTooShortError": "At least 6 characters are required.",
+      "passwordMismatchError": "The two passwords do not match.",
+      "registrationFailedError": "Registration failed. Please try again."
+    }
+  },
+  "sidebar": {
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "close": "Close"
+  },
+  "header": {
+    "openMenu": "Open menu",
+    "addJob": "New application",
+    "titles": {
+      "overview": "Overview",
+      "applications": "Applications",
+      "table": "Table",
+      "events": "Events & Tasks",
+      "documents": "Documents & Templates",
+      "statistics": "Statistics",
+      "profile": "Profile settings",
+      "masterData": "Master data management",
+      "practice": "Interview Preparation"
+    }
+  },
+  "profile": {
+    "title": "Profile Settings",
+    "subtitle": "Edit your personal data and goals.",
+    "summary": {
+      "avatarAlt": "Profile picture",
+      "deleteAvatarTitle": "Delete profile picture",
+      "editAvatarTitle": "Edit profile picture",
+      "emailLabel": "EMAIL",
+      "phoneLabel": "PHONE NUMBER",
+      "goalLabel": "GOAL",
+      "goalUnit": "applications submitted",
+      "joinedLabel": "JOINED",
+      "logout": "Log out",
+      "avatarUploadError": "Upload failed.",
+      "avatarDeleteError": "Delete failed."
+    },
+    "personalData": {
+      "title": "Edit personal data",
+      "firstNameLabel": "First name",
+      "firstNamePlaceholder": "e.g. Bence",
+      "lastNameLabel": "Last name",
+      "lastNamePlaceholder": "e.g. Smith",
+      "positionLabel": "Position / Title",
+      "positionPlaceholder": "e.g. Senior Frontend Developer",
+      "phoneLabel": "Phone number",
+      "emailLabel": "Email address",
+      "goalLabel": "Application goal (count)",
+      "goalHint": "This metric is used to calculate the goal progress bar on the Overview page.",
+      "savedBtn": "Saved!",
+      "saveBtn": "Save changes",
+      "saveError": "Save failed. Please try again."
+    },
+    "language": {
+      "title": "Language & Localization",
+      "description": "Choose the language of the user interface. The change takes effect immediately and is saved automatically to your account."
+    },
+    "aiSettings": {
+      "title": "AI Settings",
+      "description": "Enable AI-based answer evaluation in the Practice module. The AI analyzes your answer and gives personalized feedback.",
+      "toggleLabel": "AI evaluation enabled",
+      "toggleSub": "Powered by Azure OpenAI GPT-4o analysis",
+      "savedBtn": "Saved!",
+      "saveBtn": "Save AI setting"
+    },
+    "password": {
+      "title": "Change password",
+      "description": "For security reasons, enter your current password to make changes.",
+      "currentPwdLabel": "Current password",
+      "newPwdLabel": "New password",
+      "newPwdPlaceholder": "Min. 6 characters",
+      "confirmPwdLabel": "Confirm password",
+      "confirmPwdPlaceholder": "Repeat the new password",
+      "hide": "Hide",
+      "show": "Show",
+      "changeSuccess": "Password changed successfully!",
+      "changeBtn": "Change password",
+      "currentPwdRequired": "Please enter your current password.",
+      "newPwdRequired": "The new password cannot be empty.",
+      "newPwdMinLength": "The new password must be at least 6 characters long.",
+      "mismatch": "The two passwords do not match.",
+      "changeError": "Password change failed."
+    }
+  },
+  "overview": {
+    "stats": {
+      "totalApplications": "Total applications",
+      "goal": "Goal: {{goal}} applications",
+      "activeInProgress": "Active in progress",
+      "interviewCount": "{{count}} interviews",
+      "successRejectionRatio": "Success / rejection ratio",
+      "successful": "successful",
+      "offerCount": "{{count}} offers",
+      "rejectedCount": "{{count}} rejected"
+    },
+    "upcomingEvents": {
+      "title": "Upcoming Interviews",
+      "viewAll": "View all",
+      "empty": "No upcoming events on the calendar."
+    },
+    "quickTasks": {
+      "title": "Quick Tasks",
+      "viewAll": "View all",
+      "empty": "All your tasks are done! 🎉",
+      "doneCount": "{{done}} / {{total}} done"
+    },
+    "recentApplications": {
+      "title": "Recent applications",
+      "viewAll": "View all"
+    },
+    "coachTip": {
+      "prepTime": { "title": "Time to prepare!", "text": "{{company}} – {{type}} is approaching ({{date}}). Review your notes and prepare your questions.", "cta": "Go to events" },
+      "callback": { "title": "You have a callback!", "text": "{{count}} active callback(s) are waiting for you. Responding quickly matters a lot in the selection process.", "cta": "View it" },
+      "startSearch": { "title": "Kick off your search!", "text": "You still have few applications. 2-3 targeted applications a day is the most effective strategy – start today!", "cta": "Applications" },
+      "patience": { "title": "Patience – the process is moving!", "text": "You have {{count}} applications in progress. Update your LinkedIn profile and follow up with companies a week after the interview.", "cta": "View all" },
+      "goodProgress": { "title": "You're making good progress!", "text": "With {{count}} applications and a {{rate}}% success rate, your search is going well. Keep up the momentum!", "cta": "View all" }
+    },
+    "streak": {
+      "none": "No applications yet today",
+      "firstDay": "First day – do it again tomorrow!",
+      "short": "{{count}}-day streak – keep going!",
+      "medium": "{{count}}-day streak! 🔥",
+      "long": "{{count}}-day streak! 🔥🔥"
+    },
+    "relativeDate": {
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "inDays": "In {{count}} days"
+    },
+    "practiceStreak": {
+      "never": "You haven't practiced yet",
+      "today": "You practiced today! 🔥",
+      "yesterday": "Yesterday – continue today!",
+      "few": "No practice for {{count}} days",
+      "many": "You haven't practiced for {{count}} days – time to come back!"
+    },
+    "readiness": {
+      "excellent": "Excellent",
+      "good": "Good",
+      "improvable": "Could improve",
+      "beginner": "Beginner"
+    }
+  },
+  "kanban": {
+    "selectedCount": "selected — Move to:",
+    "cancel": "Cancel"
+  },
+  "tableView": {
+    "columns": {
+      "companyPosition": "Company / Position",
+      "status": "Status",
+      "date": "Date",
+      "link": "Link",
+      "actions": "Actions"
+    },
+    "searchPlaceholder": "Search…",
+    "clear": "Clear",
+    "resultsCount": "{{count}} results",
+    "openLink": "Open",
+    "edit": "Edit",
+    "noResultsFor": "No results found for “{{term}}”",
+    "noApplicationsYet": "No applications yet"
+  },
+  "events": {
+    "sectionTitle": "Upcoming Interviews & Events",
+    "sectionSubtitle": "Track your interviews and callbacks.",
+    "addEventBtn": "Add event",
+    "modal": {
+      "companyLabel": "Company name",
+      "companyPlaceholder": "e.g. Stripe",
+      "companyRequiredError": "Company name is required.",
+      "typeLabel": "Event type",
+      "dateLabel": "Date",
+      "dateRequiredError": "Date is required.",
+      "timeLabel": "Time",
+      "notesLabel": "Short notes, focus points",
+      "notesPlaceholder": "e.g. React Hooks, Redux vs Zustand, discussing salary range…",
+      "cancelBtn": "Cancel",
+      "saveBtn": "Save",
+      "addBtn": "Add",
+      "editTitle": "Edit event",
+      "addTitle": "Record event",
+      "closeAriaLabel": "Close"
+    },
+    "filters": {
+      "all": "All",
+      "upcoming": "Upcoming",
+      "past": "Past"
+    },
+    "list": {
+      "editTitle": "Edit",
+      "deleteTitle": "Delete",
+      "allDay": "All day",
+      "emptyUpcoming": "There are no upcoming events.",
+      "emptyPast": "There are no past events.",
+      "emptyAll": "There are no recorded upcoming interviews."
+    },
+    "tasks": {
+      "title": "Preparation tasks",
+      "hideCompletedTitle": "Hide completed tasks",
+      "addPlaceholder": "Add a new task…",
+      "deleteTitle": "Delete",
+      "allDoneMessage": "All done! 🎉",
+      "emptyMessage": "No tasks yet. Add one!"
+    }
+  },
+  "documents": {
+    "sectionTitle": "Resumes & Cover Letters",
+    "sectionSubtitle": "Track and manage your resume versions in one place.",
+    "fileOrLinkNameLabel": "File or Link Name",
+    "fileNamePlaceholder": "e.g. Smith_John_React_CV_2026.pdf",
+    "fileNameRequiredError": "The file name is required.",
+    "typeLabel": "Type",
+    "versionLabel": "Version",
+    "attachFileOptional": "Attach file (optional)",
+    "submitBtn": "Save",
+    "recordFileOrLink": "Add file / link",
+    "newFileOrLinkTitle": "Add new file / link",
+    "closeBtn": "Close",
+    "typeAll": "All",
+    "typeResume": "Resume",
+    "typeCoverLetter": "Cover Letter",
+    "typeOther": "Other",
+    "uploadedBadge": "Uploaded",
+    "downloadTitle": "Download",
+    "uploadOrReplaceTitle": "Upload / replace file",
+    "deleteTitle": "Delete",
+    "noDocuments": "No documents recorded.",
+    "noDocumentsOfType": "No documents of type {{type}}.",
+    "outreachTemplatesTitle": "Outreach Templates",
+    "outreachTemplatesSubtitle": "Simplify your outreach process! Copy and customize the professional templates below.",
+    "copiedBtn": "Copied!",
+    "copyBtn": "Copy"
+  },
+  "statistics": {
+    "title": "Application activity (This year)",
+    "kpi": {
+      "totalApplications": "Total applications",
+      "goal": "goal",
+      "activeInProgress": "Active in progress",
+      "interview": "interview",
+      "pendingResponse": "Pending response",
+      "pendingResponseSub": "submitted, awaiting response",
+      "offersCount": "Number of offers",
+      "offersCountSub": "accepted / offered"
+    },
+    "applicationsTrend": { "title": "Application activity" },
+    "timeRange": { "day": "Day", "week": "Week", "month": "Month" },
+    "statusDistribution": { "title": "Status distribution", "total": "Total" },
+    "statusFunnel": { "title": "Status funnel" },
+    "topCompanies": { "title": "Top 5 companies" },
+    "emptyState": {
+      "noApplications": "No applications recorded yet.",
+      "selectMetric": "Select at least one metric to display."
+    },
+    "chartAxis": { "week": "week" }
+  },
+  "masterData": {
+    "pageHeader": {
+      "title": "Master Data Management",
+      "subtitle": "Manage the dropdown lists used in the application. Changes take effect immediately."
+    },
+    "eventTypes": {
+      "title": "Event Types",
+      "subtitle": "Interview, callback, and other event categories",
+      "newPlaceholder": "New type name…"
+    },
+    "categories": {
+      "title": "Preparation Categories",
+      "subtitle": "Topics and filters for practice questions",
+      "newPlaceholder": "New category name…"
+    },
+    "statuses": {
+      "title": "Application Statuses",
+      "subtitle": "Statuses used by the Kanban board and filters",
+      "newPlaceholder": "New status name…"
+    },
+    "badge": { "count": "{{count}}" },
+    "selectToEdit": "Select to edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "add": "Add",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "hiddenFromKanban": "Hidden from the Kanban board – click to show",
+    "visibleInKanban": "Visible on the Kanban board – click to hide",
+    "demoNotice": "Master data is currently stored only for the duration of the session."
+  },
+  "practice": {
+    "pageHeader": { "title": "Practice", "subtitle": "Interview preparation with flashcards" },
+    "tabs": { "practice": "Practice", "questions": "Questions", "results": "Results" },
+    "filters": {
+      "all": "All",
+      "failed": "Failed",
+      "unanswered": "Unanswered",
+      "randomOrder": "Random order",
+      "randomOrderTitle": "Questions in random order",
+      "reshuffleTitle": "New random order"
+    },
+    "jump": {
+      "searchPlaceholder": "Jump to a question…",
+      "clearTitle": "Clear",
+      "noResults": "No results."
+    },
+    "card": {
+      "correctBadge": "✓ Correct",
+      "incorrectBadge": "Incorrect",
+      "jumpToIndexTitle": "Jump to question number",
+      "yourAnswerLabel": "YOUR ANSWER",
+      "answerPlaceholder": "Type a draft of your answer or keywords…",
+      "aiEvaluationBtn": "AI evaluation",
+      "viewAnswerBtn": "View answer",
+      "sampleAnswerLabel": "SAMPLE ANSWER",
+      "didItSucceed": "Did it succeed?",
+      "incorrectBtn": "Incorrect",
+      "correctBtn": "Correct"
+    },
+    "ai": {
+      "badge": "AI Coach",
+      "thinking": "analyzing…",
+      "feedbackBadge": "AI Coach feedback",
+      "verdictLabel": "AI verdict:",
+      "continueBtn": "Continue",
+      "overrideLabel": "override:"
+    },
+    "empty": {
+      "noFailed": "No failed questions. Great work! 🎉",
+      "noUnanswered": "No unanswered questions.",
+      "noCategory": "No questions in this category."
+    },
+    "stats": { "readinessLabel": "READINESS", "answeredSuffix": "answered" },
+    "tip": { "title": "💡 Tip", "text": "Re-rate the failed questions as your knowledge improves." },
+    "questionsTab": {
+      "title": "Questions",
+      "importing": "Importing…",
+      "importBtn": "Import JSON",
+      "addBtn": "+ New question",
+      "searchPlaceholder": "Search questions…",
+      "resultsSuffix": "results",
+      "selectedSuffix": "selected",
+      "clearSelectionBtn": "Clear selection",
+      "deleteSelectedBtn": "Delete selected",
+      "selectAllTitle": "Select all",
+      "colCategory": "Category",
+      "colQuestion": "Question",
+      "colStatus": "Status",
+      "colActions": "Actions",
+      "answerLabel": "Sample answer",
+      "editTitle": "Edit",
+      "deleteTitle": "Delete",
+      "noSearchResultsPrefix": "No results for “",
+      "noSearchResultsSuffix": "”.",
+      "noQuestions": "No questions yet. Add one with the button above!"
+    },
+    "results": {
+      "notEvaluated": "Not evaluated",
+      "overall": "Overall",
+      "logTitle": "Log",
+      "noRecordedAnswer": "No recorded answer.",
+      "noLogEntries": "No log entries yet. Answer a question on the Practice tab!"
+    },
+    "modal": {
+      "editTitle": "Edit question",
+      "addTitle": "Add new question",
+      "closeAriaLabel": "Close",
+      "categoryLabel": "Category",
+      "categoryPlaceholder": "Choose a category…",
+      "questionLabel": "Question",
+      "questionPlaceholder": "The interview question text…",
+      "hintLabel": "Hint / Key points",
+      "hintPlaceholder": "Short hint or keywords…",
+      "sampleAnswerLabel": "Sample answer",
+      "sampleAnswerPlaceholder": "The expected/ideal answer…",
+      "cancelBtn": "Cancel",
+      "saveBtn": "Save",
+      "addQuestionBtn": "Add"
+    },
+    "bulkDeleteModal": {
+      "title": "Delete questions",
+      "confirmPrefix": "Are you sure you want to delete the selected",
+      "confirmSuffix": "question(s)? This action cannot be undone.",
+      "deleteBtn": "Delete"
+    },
+    "errors": {
+      "aiEvaluationFailed": "AI evaluation failed. Please try again.",
+      "categoryRequired": "Choose a category.",
+      "questionRequired": "The question text is required.",
+      "sampleAnswerRequired": "The sample answer is required.",
+      "invalidJsonFile": "Invalid JSON file.",
+      "fileNotValidJson": "The file is not valid JSON.",
+      "jsonMustBeNonEmptyArray": "The JSON file must be a non-empty list (array) of questions.",
+      "importItemMissingFieldsPrefix": "Question",
+      "importItemMissingFieldsSuffix": "is missing the category, the question text, or the sample answer."
+    },
+    "import": { "successSuffix": "question(s) imported successfully." },
+    "feedbackLabel": { "correct": "CORRECT", "incorrect": "INCORRECT" },
+    "readinessLabel": { "excellent": "Excellent", "good": "Good", "improvable": "Improvable", "beginner": "Beginner" },
+    "dateLabel": { "today": "Today", "yesterday": "Yesterday" }
+  },
+  "shared": {
+    "addJobModal": {
+      "editTitle": "Edit application",
+      "newTitle": "New application",
+      "closeAriaLabel": "Close",
+      "companyLabel": "Company name",
+      "companyPlaceholder": "e.g. Acme Corp",
+      "companyRequiredError": "Company name is required.",
+      "positionLabel": "Position",
+      "positionPlaceholder": "e.g. Frontend Engineer",
+      "positionRequiredError": "Position title is required.",
+      "duplicateError": "An application with this company and position already exists among the uploaded data.",
+      "linkLabel": "Link",
+      "optionalLabel": "optional",
+      "linkPlaceholder": "e.g. careers.acme.com",
+      "initialStatusLabel": "Initial status",
+      "cancelBtn": "Cancel",
+      "saveBtn": "Save",
+      "addBtn": "Add"
+    },
+    "statusDropdown": {
+      "changeStatusTitle": "Change status"
+    },
+    "selectDropdown": {
+      "defaultPlaceholder": "Select…"
+    },
+    "dateTimePicker": {
+      "selectDatePlaceholder": "Select a date…",
+      "month": {
+        "january": "January", "february": "February", "march": "March", "april": "April",
+        "may": "May", "june": "June", "july": "July", "august": "August",
+        "september": "September", "october": "October", "november": "November", "december": "December"
+      },
+      "weekday": { "mon": "Mo", "tue": "Tu", "wed": "We", "thu": "Th", "fri": "Fr", "sat": "Sa", "sun": "Su" },
+      "allDay": "All day",
+      "hourColumnHeader": "Hour",
+      "minuteColumnHeader": "Minute"
+    },
+    "toast": {
+      "close": "Close",
+      "sessionExpired": "Your session has expired. Please log in again.",
+      "errorNetwork": "Could not connect to the server. Check your internet connection.",
+      "errorBadRequest": "Invalid or incomplete data was received.",
+      "errorUnauthorized": "You need to be logged in to perform this action.",
+      "errorForbidden": "You don't have permission to perform this action.",
+      "errorNotFound": "The requested resource could not be found.",
+      "errorConflict": "This action conflicts with an existing item.",
+      "errorGeneric": "An error occurred while processing the request."
+    },
+    "kanbanColumn": {
+      "dropHint": "Drag a card here"
+    },
+    "jobCard": {
+      "edit": "Edit",
+      "open": "Open"
+    }
+  }
+}

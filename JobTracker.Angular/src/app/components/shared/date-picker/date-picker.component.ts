@@ -1,18 +1,21 @@
 import {
   Component, computed, ElementRef, HostListener,
-  Input, Output, EventEmitter, signal
+  Input, Output, EventEmitter, signal, inject
 } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-date-picker',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './date-picker.component.html',
   styleUrl: './date-picker.component.css'
 })
 export class DatePickerComponent {
+  private readonly translate = inject(TranslateService);
+
   @Input() value = '';
-  @Input() placeholder = 'Válassz dátumot…';
+  @Input() placeholder = 'shared.dateTimePicker.selectDatePlaceholder';
   @Input() hasError = false;
   @Output() valueChange = new EventEmitter<string>();
 
@@ -25,9 +28,21 @@ export class DatePickerComponent {
   readonly viewYear = signal(new Date().getFullYear());
   readonly viewMonth = signal(new Date().getMonth());
 
-  readonly MONTHS = ['Január', 'Február', 'Március', 'Április', 'Május', 'Június',
-    'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'];
-  readonly WEEKDAYS = ['H', 'K', 'Sze', 'Cs', 'P', 'Szo', 'V'];
+  readonly MONTH_KEYS = [
+    'shared.dateTimePicker.month.january', 'shared.dateTimePicker.month.february', 'shared.dateTimePicker.month.march',
+    'shared.dateTimePicker.month.april', 'shared.dateTimePicker.month.may', 'shared.dateTimePicker.month.june',
+    'shared.dateTimePicker.month.july', 'shared.dateTimePicker.month.august', 'shared.dateTimePicker.month.september',
+    'shared.dateTimePicker.month.october', 'shared.dateTimePicker.month.november', 'shared.dateTimePicker.month.december'
+  ];
+  readonly WEEKDAY_KEYS = [
+    'shared.dateTimePicker.weekday.mon', 'shared.dateTimePicker.weekday.tue', 'shared.dateTimePicker.weekday.wed',
+    'shared.dateTimePicker.weekday.thu', 'shared.dateTimePicker.weekday.fri', 'shared.dateTimePicker.weekday.sat',
+    'shared.dateTimePicker.weekday.sun'
+  ];
+
+  monthLabel(month: number): string {
+    return this.MONTH_KEYS[month];
+  }
 
   readonly calendarDays = computed(() => {
     const y = this.viewYear(), m = this.viewMonth();
@@ -43,7 +58,7 @@ export class DatePickerComponent {
   get formatted(): string {
     if (!this.value) return '';
     const [y, m, d] = this.value.split('-').map(Number);
-    return `${y}. ${this.MONTHS[m - 1]} ${d}.`;
+    return `${y}. ${this.translate.instant(this.MONTH_KEYS[m - 1])} ${d}.`;
   }
 
   toggle(event: MouseEvent): void {

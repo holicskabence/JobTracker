@@ -3,11 +3,12 @@ import { Job, JobStatus } from '../../../models/job.model';
 import { JobStoreService } from '../../../services/job-store.service';
 import { StatusDropdownComponent } from '../../shared/status-dropdown/status-dropdown.component';
 import { CardComponent } from '../../shared/card/card.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-job-card',
   standalone: true,
-  imports: [StatusDropdownComponent, CardComponent],
+  imports: [StatusDropdownComponent, CardComponent, TranslateModule],
   templateUrl: './job-card.component.html',
   styleUrl: './job-card.component.css'
 })

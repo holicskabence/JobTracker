@@ -1,8 +1,8 @@
 <div class="chart-wrap">
   @if (!series.length) {
-  <app-empty-state message="Válassz ki legalább egy mutatót a megjelenítéshez."></app-empty-state>
+  <app-empty-state [message]="'statistics.emptyState.selectMetric' | translate"></app-empty-state>
   } @else if (!categories.length) {
-  <app-empty-state message="Még nincsenek rögzített jelentkezések."></app-empty-state>
+  <app-empty-state [message]="'statistics.emptyState.noApplications' | translate"></app-empty-state>
   } @else {
   <svg class="chart-svg" [attr.viewBox]="'0 0 ' + VW + ' ' + VH" preserveAspectRatio="xMidYMid meet"
     xmlns="http://www.w3.org/2000/svg">

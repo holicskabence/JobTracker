@@ -1,7 +1,7 @@
 <div class="sd" [class.status-dropdown--form]="variant === 'form'">
     @if (variant === 'dots') {
     <button type="button" class="status-dropdown-trigger status-dropdown-trigger--dots"
-        [class.status-dropdown-trigger--open]="isOpen" (click)="toggle($event)" title="Státusz módosítása">
+        [class.status-dropdown-trigger--open]="isOpen" (click)="toggle($event)" [attr.title]="'shared.statusDropdown.changeStatusTitle' | translate">
         <svg width="15" height="15" viewBox="0 0 24 24">
             <circle cx="12" cy="5" r="2" fill="currentColor" />
             <circle cx="12" cy="12" r="2" fill="currentColor" />

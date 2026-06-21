@@ -10,4 +10,5 @@ export interface UserProfile {
   joinDate:         string;
   hasAvatar:        boolean;
   useAiEvaluation:  boolean;
+  preferredLanguage: string;
 }

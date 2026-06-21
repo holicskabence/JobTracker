@@ -1,0 +1,592 @@
+{
+  "common": {},
+  "nav": {
+    "overview": "Áttekintés",
+    "applications": "Jelentkezések",
+    "table": "Táblázat",
+    "events": "Események & Teendők",
+    "documents": "Dokumentumok",
+    "statistics": "Statisztika",
+    "masterData": "Törzsadatok",
+    "profile": "Profil",
+    "practice": "Gyakorlás",
+    "logout": "Kijelentkezés"
+  },
+  "landing": {
+    "nav": {
+      "features": "Funkciók",
+      "statistics": "Statisztika",
+      "howItWorks": "Hogyan működik",
+      "dashboard": "Dashboard",
+      "login": "Bejelentkezés",
+      "register": "Regisztráció"
+    },
+    "hero": {
+      "titleLine1": "Az álláskeresésed,",
+      "titleLine2": "végre rendben.",
+      "subtitle": "Nincs szükség bankkártyára – csak hozd létre a fiókod, és kezdd el rögzíteni a pályázataidat.",
+      "goToDashboard": "Irány a Dashboardra",
+      "startFree": "Kezdés ingyen"
+    },
+    "heroMockup": {
+      "path": "jobtracker.app/dashboard/jelentkezesek",
+      "applicationsTitle": "Jelentkezések",
+      "newApplication": "Új jelentkezés",
+      "statusSaved": "Mentett",
+      "statusApplied": "Beadva",
+      "statusInterview": "Visszahívás",
+      "statusOffer": "Ajánlat",
+      "statusRejected": "Elutasítva",
+      "positionFrontendDeveloper": "Frontend Developer",
+      "positionFrontendFejleszto": "Frontend fejlesztő",
+      "positionSeniorFejleszto": "Senior fejlesztő",
+      "positionFullStackFejleszto": "Full-stack fejlesztő",
+      "positionSoftwareEngineer": "Software Engineer",
+      "positionUiFejleszto": "UI fejlesztő",
+      "positionAngularFejleszto": "Angular fejlesztő"
+    },
+    "features": {
+      "title": "Minden eszköz egy helyen",
+      "subtitle": "Nem egy általános projektmenedzser – kifejezetten az álláskeresés lépéseire szabva.",
+      "kanban": { "title": "Kanban tábla", "desc": "Húzd-vidd a jelentkezéseidet a folyamat lépésein – mentettől a beadáson és visszahíváson át az ajánlatig." },
+      "table": { "title": "Táblázat nézet", "desc": "Ha inkább listában gondolkodsz: szűrhető, rendezhető táblázat az összes pályázatodról." },
+      "events": { "title": "Események & teendők", "desc": "Interjúk, határidők és apró teendők egy naptárban, hogy semmi ne maradjon ki a kezedből." },
+      "documents": { "title": "Dokumentumok & sablonok", "desc": "Az önéletrajzaid, motivációs leveleid és sablonjaid mindig kéznél vannak, cégenként rendszerezve." },
+      "stats": { "title": "Statisztikák", "desc": "Sikerráta, heti aktivitás és a folyamatok alakulása grafikonokon – láthatod, mi működik." },
+      "interviewPractice": { "title": "Interjú gyakorlás", "desc": "Gyakorold a tipikus interjúkérdéseket, és a válaszaidat egy AI azonnal kiértékeli – így pontosan látod, mit érdemes csiszolni a következő interjú előtt." }
+    },
+    "stats": {
+      "title": "Lásd pontosan, hol állsz",
+      "subtitle": "A számok mögött ott a történet: hány jelentkezésből lesz visszahívás, és melyik héten haladtál a legtöbbet.",
+      "applicationsStatus": "Jelentkezések állapota",
+      "total": "összes",
+      "weeklyActivity": "Heti aktivitás",
+      "weeklyNote": "5 jelentkezés ezen a héten – a heti célod 5.",
+      "weekday": {
+        "mondayFull": "Hétfő", "mondayShort": "H",
+        "tuesdayFull": "Kedd", "tuesdayShort": "K",
+        "wednesdayFull": "Szerda", "wednesdayShort": "Sze",
+        "thursdayFull": "Csütörtök", "thursdayShort": "Cs",
+        "fridayFull": "Péntek", "fridayShort": "P",
+        "saturdayFull": "Szombat", "saturdayShort": "Szo",
+        "sundayFull": "Vasárnap", "sundayShort": "V"
+      }
+    },
+    "howItWorks": {
+      "title": "Három lépésben",
+      "subtitle": "Nincs bonyolult beállítás – pár perc alatt használatba veheted.",
+      "step1": { "title": "Add hozzá a jelentkezéseidet", "desc": "Rögzítsd a céget, a pozíciót és a hirdetés linkjét – néhány másodperc alatt." },
+      "step2": { "title": "Kövesd a folyamatot", "desc": "Mozgasd a kártyákat a kanban táblán, ahogy az interjúfolyamat előrébb halad." },
+      "step3": { "title": "Lásd, mi működik", "desc": "A statisztikák és a felkészültségi szint alapján finomítsd a stratégiádat." }
+    },
+    "cta": {
+      "title": "Készen állsz, hogy rendszerbe szedd az álláskeresésed?",
+      "subtitle": "Hozz létre egy fiókot, és máris kezdheted rögzíteni a pályázataidat.",
+      "goToDashboard": "Irány a Dashboardra",
+      "registerFree": "Regisztrálj ingyen"
+    },
+    "footer": {
+      "copyright": "© {{year}} JobTracker. Minden jog fenntartva."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Üdvözlünk újra!",
+      "subtitle": "Lépj be az álláskeresési asszisztensedbe.",
+      "googleBtn": "Folytatás Google-lal",
+      "facebookBtn": "Folytatás Facebook-kal",
+      "orEmailDivider": "VAGY E-MAIL-LAL",
+      "emailLabel": "E-MAIL CÍM",
+      "emailPlaceholder": "bence@saas.io",
+      "passwordLabel": "JELSZÓ",
+      "hidePassword": "Elrejtés",
+      "showPassword": "Megjelenítés",
+      "submitBtn": "Bejelentkezés",
+      "orTryNowDivider": "VAGY PRÓBÁLD KI AZONNAL",
+      "demoBtn": "Belépés démó fiókkal",
+      "noAccountText": "Nincs még fiókod?",
+      "registerLink": "Regisztrálj itt",
+      "missingFieldsError": "Add meg az e-mail címed és a jelszavadat.",
+      "invalidCredentialsError": "Hibás e-mail cím vagy jelszó.",
+      "serverConnectionError": "Nem sikerült csatlakozni a szerverhez.",
+      "facebookLoginError": "Sikertelen Facebook bejelentkezés.",
+      "googleLoginError": "Sikertelen Google bejelentkezés."
+    },
+    "register": {
+      "title": "Fiók létrehozása",
+      "subtitle": "Csatlakozz és kövesd nyomon álláskeresésed.",
+      "firstNameLabel": "KERESZTNÉV",
+      "lastNameLabel": "VEZETÉKNÉV",
+      "emailLabel": "E-MAIL CÍM",
+      "passwordLabel": "JELSZÓ",
+      "passwordPlaceholder": "Min. 6 karakter",
+      "confirmPasswordLabel": "JELSZÓ MEGERŐSÍTÉSE",
+      "submitBtn": "Fiók létrehozása",
+      "hasAccountText": "Már van fiókod?",
+      "loginLink": "Lépj be itt",
+      "firstNameRequiredError": "Keresztnév megadása kötelező.",
+      "lastNameRequiredError": "Vezetéknév megadása kötelező.",
+      "emailRequiredError": "E-mail cím megadása kötelező.",
+      "passwordRequiredError": "Jelszó megadása kötelező.",
+      "passwordTooShortError": "Legalább 6 karakter szükséges.",
+      "passwordMismatchError": "A két jelszó nem egyezik.",
+      "registrationFailedError": "Regisztráció sikertelen. Próbáld meg újra."
+    }
+  },
+  "sidebar": {
+    "expand": "Kibontás",
+    "collapse": "Összecsukás",
+    "close": "Bezárás"
+  },
+  "header": {
+    "openMenu": "Menü megnyitása",
+    "addJob": "Új jelentkezés",
+    "titles": {
+      "overview": "Áttekintés",
+      "applications": "Jelentkezések",
+      "table": "Táblázat",
+      "events": "Események & Teendők",
+      "documents": "Dokumentumok & Sablonok",
+      "statistics": "Statisztika",
+      "profile": "Profil beállítások",
+      "masterData": "Törzsadat-karbantartás",
+      "practice": "Interjú Felkészülés"
+    }
+  },
+  "profile": {
+    "title": "Profil Beállítások",
+    "subtitle": "Szerkeszd a személyes adataidat és a céljaidat.",
+    "summary": {
+      "avatarAlt": "Profilkép",
+      "deleteAvatarTitle": "Profilkép törlése",
+      "editAvatarTitle": "Profilkép szerkesztése",
+      "emailLabel": "E-MAIL",
+      "phoneLabel": "TELEFONSZÁM",
+      "goalLabel": "CÉL KITŰZÉS",
+      "goalUnit": "beadott jelentkezés",
+      "joinedLabel": "CSATLAKOZVA",
+      "logout": "Kijelentkezés",
+      "avatarUploadError": "Feltöltés sikertelen.",
+      "avatarDeleteError": "Törlés sikertelen."
+    },
+    "personalData": {
+      "title": "Személyes adatok módosítása",
+      "firstNameLabel": "Keresztnév",
+      "firstNamePlaceholder": "pl. Bence",
+      "lastNameLabel": "Vezetéknév",
+      "lastNamePlaceholder": "pl. Kovács",
+      "positionLabel": "Pozíció / Titulus",
+      "positionPlaceholder": "pl. Senior Frontend Developer",
+      "phoneLabel": "Telefonszám",
+      "emailLabel": "E-mail cím",
+      "goalLabel": "Jelentkezési Cél (Darabszám)",
+      "goalHint": "Ezt a mérőt használjuk az Áttekintés oldali cél-folyamat sáv kiszámításánál.",
+      "savedBtn": "Mentve!",
+      "saveBtn": "Módosítások mentése",
+      "saveError": "Mentés sikertelen. Próbáld meg újra."
+    },
+    "language": {
+      "title": "Nyelv és lokalizáció",
+      "description": "Válaszd ki a felhasználói felület nyelvét. A módosítás azonnal érvényesül és automatikusan elmentődik a fiókodhoz."
+    },
+    "aiSettings": {
+      "title": "AI Beállítások",
+      "description": "Kapcsold be az AI-alapú válaszkiértékelést a Gyakorlás modulban. Az AI elemzi a válaszodat és személyre szabott visszajelzést ad.",
+      "toggleLabel": "AI értékelés bekapcsolva",
+      "toggleSub": "Azure OpenAI GPT-4o alapú elemzés",
+      "savedBtn": "Mentve!",
+      "saveBtn": "AI beállítás mentése"
+    },
+    "password": {
+      "title": "Jelszó módosítása",
+      "description": "Biztonsági okokból add meg a jelenlegi jelszavadat a módosításhoz.",
+      "currentPwdLabel": "Jelenlegi jelszó",
+      "newPwdLabel": "Új jelszó",
+      "newPwdPlaceholder": "Min. 6 karakter",
+      "confirmPwdLabel": "Jelszó megerősítése",
+      "confirmPwdPlaceholder": "Ismételd meg az új jelszót",
+      "hide": "Elrejtés",
+      "show": "Megjelenítés",
+      "changeSuccess": "Jelszó sikeresen módosítva!",
+      "changeBtn": "Jelszó módosítása",
+      "currentPwdRequired": "Add meg a jelenlegi jelszavadat.",
+      "newPwdRequired": "Az új jelszó nem lehet üres.",
+      "newPwdMinLength": "Az új jelszónak legalább 6 karakter hosszúnak kell lennie.",
+      "mismatch": "A két jelszó nem egyezik.",
+      "changeError": "Jelszócsere sikertelen."
+    }
+  },
+  "overview": {
+    "stats": {
+      "totalApplications": "Összes jelentkezés",
+      "goal": "Cél: {{goal}} jelentkezés",
+      "activeInProgress": "Aktív folyamatban",
+      "interviewCount": "{{count}} interjú",
+      "successRejectionRatio": "Sikeres / elutasított arány",
+      "successful": "sikeres",
+      "offerCount": "{{count}} ajánlat",
+      "rejectedCount": "{{count}} elutasítva"
+    },
+    "upcomingEvents": {
+      "title": "Közelgő Interjúk",
+      "viewAll": "Összes",
+      "empty": "Nincs közelgő esemény a naptárban."
+    },
+    "quickTasks": {
+      "title": "Gyors Teendők",
+      "viewAll": "Összes",
+      "empty": "Minden teendőd kész! 🎉",
+      "doneCount": "{{done}} / {{total}} kész"
+    },
+    "recentApplications": {
+      "title": "Legutóbbi jelentkezések",
+      "viewAll": "Összes megtekintése"
+    },
+    "coachTip": {
+      "prepTime": { "title": "Felkészülési idő!", "text": "{{company}} – {{type}} közeleg ({{date}}). Nézd át a noteszed, készítsd elő a kérdéseidet.", "cta": "Eseményekhez" },
+      "callback": { "title": "Van visszahívásod!", "text": "{{count}} aktív visszahívás vár rád. A gyors reagálás sokat számít a kiválasztásnál.", "cta": "Megnézem" },
+      "startSearch": { "title": "Indítsd be a keresést!", "text": "Még kevés a jelentkezésed. Napi 2–3 célzott pályázat a leghatékonyabb stratégia – kezdd el ma!", "cta": "Jelentkezések" },
+      "patience": { "title": "Türelem – a folyamat halad!", "text": "{{count}} pályázatod van útban. Frissítsd a LinkedIn profilod és kövesd fel a cégeket egy héttel az interjú után.", "cta": "Összes megtekintése" },
+      "goodProgress": { "title": "Jól haladsz!", "text": "{{count}} jelentkezéssel, {{rate}}%-os sikerrátával komoly keresés folyik. Tartsd fenn a lendületet!", "cta": "Összes megtekintése" }
+    },
+    "streak": {
+      "none": "Ma még nem volt jelentkezés",
+      "firstDay": "Első nap – csináld holnap is!",
+      "short": "{{count}} napos streak – hajtás!",
+      "medium": "{{count}} napos streak! 🔥",
+      "long": "{{count}} napos streak! 🔥🔥"
+    },
+    "relativeDate": {
+      "today": "Ma",
+      "tomorrow": "Holnap",
+      "inDays": "{{count}} nap múlva"
+    },
+    "practiceStreak": {
+      "never": "Még nem gyakoroltál",
+      "today": "Ma gyakoroltál! 🔥",
+      "yesterday": "Tegnap – folytasd ma!",
+      "few": "{{count}} napja nem volt gyakorlás",
+      "many": "{{count}} napja nem gyakoroltál – ideje visszatérni!"
+    },
+    "readiness": {
+      "excellent": "Kiváló",
+      "good": "Jó",
+      "improvable": "Fejleszthető",
+      "beginner": "Kezdő"
+    }
+  },
+  "kanban": {
+    "selectedCount": "kijelölve — Áthelyezés ide:",
+    "cancel": "Mégse"
+  },
+  "tableView": {
+    "columns": {
+      "companyPosition": "Cég / Pozíció",
+      "status": "Státusz",
+      "date": "Dátum",
+      "link": "Link",
+      "actions": "Műveletek"
+    },
+    "searchPlaceholder": "Keresés…",
+    "clear": "Törlés",
+    "resultsCount": "{{count}} találat",
+    "openLink": "Megnyitás",
+    "edit": "Szerkesztés",
+    "noResultsFor": "Nincs találat a(z) „{{term}}” keresésre",
+    "noApplicationsYet": "Nincs még jelentkezés"
+  },
+  "events": {
+    "sectionTitle": "Közelgő Interjúk & Események",
+    "sectionSubtitle": "Kövesd nyomon az interjúid és a visszahívásokat.",
+    "addEventBtn": "Esemény hozzáadása",
+    "modal": {
+      "companyLabel": "Cég neve",
+      "companyPlaceholder": "pl. Stripe",
+      "companyRequiredError": "A cég neve kötelező.",
+      "typeLabel": "Esemény típusa",
+      "dateLabel": "Dátum",
+      "dateRequiredError": "A dátum megadása kötelező.",
+      "timeLabel": "Időpont",
+      "notesLabel": "Rövid jegyzetek, fókuszpontok",
+      "notesPlaceholder": "pl. React Hooks, Redux vs Zustand, fizetési sáv megbeszélése…",
+      "cancelBtn": "Mégse",
+      "saveBtn": "Mentés",
+      "addBtn": "Hozzáadás",
+      "editTitle": "Esemény szerkesztése",
+      "addTitle": "Esemény rögzítése",
+      "closeAriaLabel": "Bezárás"
+    },
+    "filters": {
+      "all": "Mind",
+      "upcoming": "Közelgő",
+      "past": "Elmúlt"
+    },
+    "list": {
+      "editTitle": "Szerkesztés",
+      "deleteTitle": "Törlés",
+      "allDay": "Egész nap",
+      "emptyUpcoming": "Nincsenek közelgő események.",
+      "emptyPast": "Nincsenek elmúlt események.",
+      "emptyAll": "Nincsenek rögzített közelgő interjúk."
+    },
+    "tasks": {
+      "title": "Felkészülési Teendők",
+      "hideCompletedTitle": "Kész feladatok elrejtése",
+      "addPlaceholder": "Új feladat hozzáadása…",
+      "deleteTitle": "Törlés",
+      "allDoneMessage": "Minden kész! 🎉",
+      "emptyMessage": "Nincsenek teendők. Adj hozzá feladatot!"
+    }
+  },
+  "documents": {
+    "sectionTitle": "Önéletrajzok & Kísérőlevelek",
+    "sectionSubtitle": "Kövesd nyomon és kezeld az önéletrajz verzióidat egy helyen.",
+    "fileOrLinkNameLabel": "Fájl vagy Link neve",
+    "fileNamePlaceholder": "pl. Kovacs_Bence_React_CV_2026.pdf",
+    "fileNameRequiredError": "A fájl neve kötelező.",
+    "typeLabel": "Típus",
+    "versionLabel": "Verzió",
+    "attachFileOptional": "Fájl csatolása (opcionális)",
+    "submitBtn": "Rögzítés",
+    "recordFileOrLink": "Fájl / link rögzítése",
+    "newFileOrLinkTitle": "Új fájl / link rögzítése",
+    "closeBtn": "Bezárás",
+    "typeAll": "Mind",
+    "typeResume": "Önéletrajz",
+    "typeCoverLetter": "Kísérőlevél",
+    "typeOther": "Egyéb",
+    "uploadedBadge": "Feltöltve",
+    "downloadTitle": "Letöltés",
+    "uploadOrReplaceTitle": "Fájl feltöltése / cserélése",
+    "deleteTitle": "Törlés",
+    "noDocuments": "Nincsenek rögzített dokumentumok.",
+    "noDocumentsOfType": "Nincs {{type}} típusú dokumentum.",
+    "outreachTemplatesTitle": "Kapcsolatfelvételi Sablonok",
+    "outreachTemplatesSubtitle": "Egyszerűsítsd az outreach folyamatokat! Másold és módosítsd az alábbi professzionális sablonokat.",
+    "copiedBtn": "Másolva!",
+    "copyBtn": "Másolás"
+  },
+  "statistics": {
+    "title": "Jelentkezési aktivitás (Idei év)",
+    "kpi": {
+      "totalApplications": "Összes jelentkezés",
+      "goal": "cél",
+      "activeInProgress": "Aktív folyamatban",
+      "interview": "interjú",
+      "pendingResponse": "Függő válasz",
+      "pendingResponseSub": "beadott, választ vár",
+      "offersCount": "Ajánlatok száma",
+      "offersCountSub": "elfogadott / ajánlott"
+    },
+    "applicationsTrend": { "title": "Jelentkezési aktivitás" },
+    "timeRange": { "day": "Nap", "week": "Hét", "month": "Hónap" },
+    "statusDistribution": { "title": "Státusz megoszlás", "total": "Összes" },
+    "statusFunnel": { "title": "Státusz tölcsér" },
+    "topCompanies": { "title": "Top 5 cég" },
+    "emptyState": {
+      "noApplications": "Még nincsenek rögzített jelentkezések.",
+      "selectMetric": "Válassz ki legalább egy mutatót a megjelenítéshez."
+    },
+    "chartAxis": { "week": "hét" }
+  },
+  "masterData": {
+    "pageHeader": {
+      "title": "Törzsadat-karbantartás",
+      "subtitle": "Kezeld az alkalmazásban használt legördülő listákat. A változtatások azonnal érvénybe lépnek."
+    },
+    "eventTypes": {
+      "title": "Esemény típusok",
+      "subtitle": "Interjú, visszahívás és egyéb esemény kategóriák",
+      "newPlaceholder": "Új típus neve…"
+    },
+    "categories": {
+      "title": "Felkészülési kategóriák",
+      "subtitle": "A gyakorló kérdések témakörei és szűrői",
+      "newPlaceholder": "Új kategória neve…"
+    },
+    "statuses": {
+      "title": "Jelentkezés státuszok",
+      "subtitle": "A Kanban tábla és a szűrők által használt státuszok",
+      "newPlaceholder": "Új státusz neve…"
+    },
+    "badge": { "count": "{{count}} db" },
+    "selectToEdit": "Kiválasztás módosításhoz",
+    "delete": "Törlés",
+    "cancel": "Mégse",
+    "save": "Mentés",
+    "add": "Hozzáadás",
+    "moveUp": "Feljebb",
+    "moveDown": "Lejjebb",
+    "hiddenFromKanban": "Nem látszik a Kanban táblán – kattints a megjelenítéshez",
+    "visibleInKanban": "Látszik a Kanban táblán – kattints az elrejtéshez",
+    "demoNotice": "A törzsadatok jelenleg csak a munkamenet idejére tárolódnak."
+  },
+  "practice": {
+    "pageHeader": { "title": "Gyakorlás", "subtitle": "Interjúra való felkészülés kártyákkal" },
+    "tabs": { "practice": "Gyakorlás", "questions": "Kérdések", "results": "Eredmények" },
+    "filters": {
+      "all": "Mind",
+      "failed": "Nem sikerültek",
+      "unanswered": "Megválaszolatlan",
+      "randomOrder": "Véletlen sorrend",
+      "randomOrderTitle": "Kérdések véletlen sorrendben",
+      "reshuffleTitle": "Új véletlen sorrend"
+    },
+    "jump": {
+      "searchPlaceholder": "Ugrás egy kérdéshez…",
+      "clearTitle": "Törlés",
+      "noResults": "Nincs találat."
+    },
+    "card": {
+      "correctBadge": "✓ Helyes",
+      "incorrectBadge": "Helytelen",
+      "jumpToIndexTitle": "Ugrás a sorszámú kérdéshez",
+      "yourAnswerLabel": "A TE VÁLASZOD",
+      "answerPlaceholder": "Gépeld be a válaszod vázlatát vagy kulcsszavait…",
+      "aiEvaluationBtn": "AI értékelés",
+      "viewAnswerBtn": "Válasz megtekintése",
+      "sampleAnswerLabel": "MINTAVÁLASZ",
+      "didItSucceed": "Sikerült?",
+      "incorrectBtn": "Helytelen",
+      "correctBtn": "Helyes"
+    },
+    "ai": {
+      "badge": "AI Coach",
+      "thinking": "elemez…",
+      "feedbackBadge": "AI Coach visszajelzése",
+      "verdictLabel": "AI döntése:",
+      "continueBtn": "Tovább",
+      "overrideLabel": "felülírás:"
+    },
+    "empty": {
+      "noFailed": "Nincs hibás kérdés. Remek munka! 🎉",
+      "noUnanswered": "Nincs megválaszolatlan kérdés.",
+      "noCategory": "Nincs kérdés ebben a kategóriában."
+    },
+    "stats": { "readinessLabel": "FELKÉSZÜLTSÉG", "answeredSuffix": "megválaszolva" },
+    "tip": { "title": "💡 Tipp", "text": "Értékeld újra a hibás kérdéseket, ahogy javul a tudásod." },
+    "questionsTab": {
+      "title": "Kérdések",
+      "importing": "Importálás…",
+      "importBtn": "JSON importálás",
+      "addBtn": "+ Új kérdés",
+      "searchPlaceholder": "Keresés a kérdések között…",
+      "resultsSuffix": "találat",
+      "selectedSuffix": "kiválasztva",
+      "clearSelectionBtn": "Kijelölés törlése",
+      "deleteSelectedBtn": "Kijelöltek törlése",
+      "selectAllTitle": "Mind kijelölése",
+      "colCategory": "Kategória",
+      "colQuestion": "Kérdés",
+      "colStatus": "Állapot",
+      "colActions": "Műveletek",
+      "answerLabel": "Mintaválasz",
+      "editTitle": "Szerkesztés",
+      "deleteTitle": "Törlés",
+      "noSearchResultsPrefix": "Nincs találat a(z) „",
+      "noSearchResultsSuffix": "” keresésre.",
+      "noQuestions": "Még nincs kérdés. Adj hozzá egyet a fenti gombbal!"
+    },
+    "results": {
+      "notEvaluated": "Nem értékelt",
+      "overall": "Összesített",
+      "logTitle": "Napló",
+      "noRecordedAnswer": "Nincs rögzített válasz.",
+      "noLogEntries": "Még nincs naplóbejegyzés. Válaszolj egy kérdésre a Gyakorlás fülön!"
+    },
+    "modal": {
+      "editTitle": "Kérdés szerkesztése",
+      "addTitle": "Új kérdés hozzáadása",
+      "closeAriaLabel": "Bezárás",
+      "categoryLabel": "Kategória",
+      "categoryPlaceholder": "Válassz kategóriát…",
+      "questionLabel": "Kérdés",
+      "questionPlaceholder": "Az interjú kérdés szövege…",
+      "hintLabel": "Tipp / Kulcspontok",
+      "hintPlaceholder": "Rövid tipp vagy kulcsszavak…",
+      "sampleAnswerLabel": "Mintaválasz",
+      "sampleAnswerPlaceholder": "Az elvárt/ideális válasz…",
+      "cancelBtn": "Mégse",
+      "saveBtn": "Mentés",
+      "addQuestionBtn": "Hozzáadás"
+    },
+    "bulkDeleteModal": {
+      "title": "Kérdések törlése",
+      "confirmPrefix": "Biztosan törlöd a kijelölt",
+      "confirmSuffix": "kérdést? Ez a művelet nem vonható vissza.",
+      "deleteBtn": "Törlés"
+    },
+    "errors": {
+      "aiEvaluationFailed": "Az AI értékelés sikertelen volt. Kérlek próbáld újra.",
+      "categoryRequired": "Válassz kategóriát.",
+      "questionRequired": "A kérdés szövege kötelező.",
+      "sampleAnswerRequired": "A mintaválasz kötelező.",
+      "invalidJsonFile": "Érvénytelen JSON fájl.",
+      "fileNotValidJson": "A fájl nem érvényes JSON.",
+      "jsonMustBeNonEmptyArray": "A JSON fájlnak egy nem üres kérdéslistának (tömbnek) kell lennie.",
+      "importItemMissingFieldsPrefix": "A",
+      "importItemMissingFieldsSuffix": ". kérdésnél hiányzik a kategória, a kérdés szövege vagy a mintaválasz."
+    },
+    "import": { "successSuffix": "kérdés sikeresen importálva." },
+    "feedbackLabel": { "correct": "HELYES", "incorrect": "HELYTELEN" },
+    "readinessLabel": { "excellent": "Kiváló", "good": "Jó", "improvable": "Fejleszthető", "beginner": "Kezdő" },
+    "dateLabel": { "today": "Ma", "yesterday": "Tegnap" }
+  },
+  "shared": {
+    "addJobModal": {
+      "editTitle": "Jelentkezés szerkesztése",
+      "newTitle": "Új jelentkezés",
+      "closeAriaLabel": "Bezárás",
+      "companyLabel": "Cég neve",
+      "companyPlaceholder": "pl. Acme Corp",
+      "companyRequiredError": "A cég neve kötelező.",
+      "positionLabel": "Pozíció",
+      "positionPlaceholder": "pl. Frontend Engineer",
+      "positionRequiredError": "A pozíció megnevezése kötelező.",
+      "duplicateError": "Ezzel a céggel és pozícióval már szerepel jelentkezés a feltöltött adatok között.",
+      "linkLabel": "Link",
+      "optionalLabel": "opcionális",
+      "linkPlaceholder": "pl. careers.acme.com",
+      "initialStatusLabel": "Kezdeti státusz",
+      "cancelBtn": "Mégse",
+      "saveBtn": "Mentés",
+      "addBtn": "Hozzáadás"
+    },
+    "statusDropdown": {
+      "changeStatusTitle": "Státusz módosítása"
+    },
+    "selectDropdown": {
+      "defaultPlaceholder": "Válassz…"
+    },
+    "dateTimePicker": {
+      "selectDatePlaceholder": "Válassz dátumot…",
+      "month": {
+        "january": "Január", "february": "Február", "march": "Március", "april": "Április",
+        "may": "Május", "june": "Június", "july": "Július", "august": "Augusztus",
+        "september": "Szeptember", "october": "Október", "november": "November", "december": "December"
+      },
+      "weekday": { "mon": "H", "tue": "K", "wed": "Sze", "thu": "Cs", "fri": "P", "sat": "Szo", "sun": "V" },
+      "allDay": "Egész nap",
+      "hourColumnHeader": "Óra",
+      "minuteColumnHeader": "Perc"
+    },
+    "toast": {
+      "close": "Bezárás",
+      "sessionExpired": "A munkamenet lejárt. Jelentkezz be újra.",
+      "errorNetwork": "Nem sikerült kapcsolódni a szerverhez. Ellenőrizd az internetkapcsolatot.",
+      "errorBadRequest": "Hibás vagy hiányos adatok érkeztek.",
+      "errorUnauthorized": "A művelethez bejelentkezés szükséges.",
+      "errorForbidden": "Nincs jogosultságod a művelet végrehajtásához.",
+      "errorNotFound": "A keresett erőforrás nem található.",
+      "errorConflict": "A művelet ütközik egy meglévő elemmel.",
+      "errorGeneric": "Hiba történt a kérés feldolgozása közben."
+    },
+    "kanbanColumn": {
+      "dropHint": "Húzz ide egy kártyát"
+    },
+    "jobCard": {
+      "edit": "Szerkesztés",
+      "open": "Megnyitás"
+    }
+  }
+}

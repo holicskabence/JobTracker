@@ -1,13 +1,14 @@
 <div class="pr-page">
 
-    <app-page-header class="pr-header" title="Gyakorlás" subtitle="Interjúra való felkészülés kártyákkal">
+    <app-page-header class="pr-header" [title]="'practice.pageHeader.title' | translate"
+        [subtitle]="'practice.pageHeader.subtitle' | translate">
         <div class="pr-tabs">
             <button class="pr-tab" [class.pr-tab--active]="activeTab() === 'practice'"
-                (click)="activeTab.set('practice')">Gyakorlás</button>
+                (click)="activeTab.set('practice')">{{ 'practice.tabs.practice' | translate }}</button>
             <button class="pr-tab" [class.pr-tab--active]="activeTab() === 'questions'"
-                (click)="activeTab.set('questions')">Kérdések</button>
+                (click)="activeTab.set('questions')">{{ 'practice.tabs.questions' | translate }}</button>
             <button class="pr-tab" [class.pr-tab--active]="activeTab() === 'results'"
-                (click)="activeTab.set('results')">Eredmények</button>
+                (click)="activeTab.set('results')">{{ 'practice.tabs.results' | translate }}</button>
         </div>
     </app-page-header>
 
@@ -17,21 +18,21 @@
         <div class="pr-filter-pills">
             @for (cat of categories(); track trackByCategory($index, cat)) {
             <button class="pr-pill" [class.pr-pill--active]="selectedFilter() === cat" (click)="selectFilter(cat)">{{
-                cat }}</button>
+                cat === 'Mind' ? ('practice.filters.all' | translate) : cat }}</button>
             }
             <button class="pr-pill pr-pill--failed" [class.pr-pill--active]="selectedFilter() === 'failed'"
                 (click)="selectFilter('failed')">
-                Nem sikerültek
+                {{ 'practice.filters.failed' | translate }}
             </button>
             <button class="pr-pill pr-pill--unanswered" [class.pr-pill--active]="selectedFilter() === 'unanswered'"
                 (click)="selectFilter('unanswered')">
-                Megválaszolatlan
+                {{ 'practice.filters.unanswered' | translate }}
             </button>
 
             <span class="pr-filter-divider"></span>
 
             <button class="pr-pill" [class.pr-pill--active]="randomOrder()" (click)="toggleRandomOrder()"
-                title="Kérdések véletlen sorrendben">
+                [title]="'practice.filters.randomOrderTitle' | translate">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="16 3 21 3 21 8" />
@@ -40,11 +41,11 @@
                     <line x1="15" y1="15" x2="21" y2="21" />
                     <line x1="4" y1="4" x2="9" y2="9" />
                 </svg>
-                Véletlen sorrend
+                {{ 'practice.filters.randomOrder' | translate }}
             </button>
             @if (randomOrder()) {
             <button class="pr-shuffle-btn" (click)="reshuffle()" [disabled]="filteredQuestions().length < 2"
-                title="Új véletlen sorrend">
+                [title]="'practice.filters.reshuffleTitle' | translate">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="23 4 23 10 17 10" />
@@ -62,10 +63,11 @@
                     <circle cx="11" cy="11" r="8" />
                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
-                <input class="pr-jump-search" type="text" placeholder="Ugrás egy kérdéshez…" [ngModel]="jumpSearch()"
-                    (ngModelChange)="onJumpSearchChange($event)" (focus)="onJumpFocus()" />
+                <input class="pr-jump-search" type="text" [placeholder]="'practice.jump.searchPlaceholder' | translate"
+                    [ngModel]="jumpSearch()" (ngModelChange)="onJumpSearchChange($event)" (focus)="onJumpFocus()" />
                 @if (jumpSearch()) {
-                <button class="pr-jump-search-clear" (click)="clearJumpSearch()" title="Törlés">
+                <button class="pr-jump-search-clear" (click)="clearJumpSearch()"
+                    [title]="'practice.jump.clearTitle' | translate">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                         stroke-linecap="round">
                         <line x1="18" y1="6" x2="6" y2="18" />
@@ -85,7 +87,7 @@
                     <span class="pr-jump-option-idx">#{{ item.idx + 1 }}</span>
                 </button>
                 } @empty {
-                <p class="pr-jump-empty">Nincs találat.</p>
+                <p class="pr-jump-empty">{{ 'practice.jump.noResults' | translate }}</p>
                 }
             </div>
             }
@@ -104,10 +106,16 @@
                         [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
                     @if (getFeedback(q.id); as fb) {
                     <span class="pr-done-badge" [class]="'pr-done-badge--' + fb">
-                        {{ fb === 'correct' ? '✓ Helyes' : 'Helytelen' }}
+                        {{ fb === 'correct' ? ('practice.card.correctBadge' | translate) : ('practice.card.incorrectBadge' | translate) }}
                     </span>
                     }
-                    <span class="pr-idx-badge">{{ currentIdx() + 1 }} / {{ filteredQuestions().length }}</span>
+                    <span class="pr-idx-badge">
+                        <input class="pr-idx-input" type="number" min="1" [max]="filteredQuestions().length"
+                            [ngModel]="idxDisplayValue()" (ngModelChange)="onIdxInputChange($event)"
+                            (keydown.enter)="confirmIdxInput()" (blur)="confirmIdxInput()"
+                            (click)="$event.stopPropagation()" [title]="'practice.card.jumpToIndexTitle' | translate" />
+                        / {{ filteredQuestions().length }}
+                    </span>
                 </div>
 
                 <h2 class="pr-question">{{ q.question }}</h2>
@@ -126,9 +134,9 @@
 
                 @if (!showSample()) {
 
-                <label class="pr-input-label">A TE VÁLASZOD</label>
+                <label class="pr-input-label">{{ 'practice.card.yourAnswerLabel' | translate }}</label>
                 <textarea class="pr-textarea" [ngModel]="userAnswer()" (ngModelChange)="userAnswer.set($event)" rows="4"
-                    placeholder="Gépeld be a válaszod vázlatát vagy kulcsszavait…"></textarea>
+                    [placeholder]="'practice.card.answerPlaceholder' | translate"></textarea>
 
                 <div class="pr-card-footer">
                     <button class="pr-reveal-btn" [class.pr-reveal-btn--ai]="useAiEvaluation()"
@@ -139,9 +147,9 @@
                             <circle cx="12" cy="12" r="10" />
                             <path d="M12 8v4l3 3" />
                         </svg>
-                        AI értékelés
+                        {{ 'practice.card.aiEvaluationBtn' | translate }}
                         } @else {
-                        Válasz megtekintése
+                        {{ 'practice.card.viewAnswerBtn' | translate }}
                         }
                     </button>
                     <div class="pr-nav">
@@ -164,15 +172,15 @@
                 } @else if (useAiEvaluation()) {
 
                 <div class="pr-compare-single">
-                    <p class="pr-compare-label">A TE VÁLASZOD</p>
+                    <p class="pr-compare-label">{{ 'practice.card.yourAnswerLabel' | translate }}</p>
                     <p class="pr-compare-text">{{ userAnswer() }}</p>
                 </div>
 
                 @if (aiLoading()) {
                 <div class="pr-ai-box pr-ai-box--loading">
                     <div class="pr-ai-top">
-                        <span class="pr-ai-badge">AI Coach</span>
-                        <span class="pr-ai-thinking">elemez…</span>
+                        <span class="pr-ai-badge">{{ 'practice.ai.badge' | translate }}</span>
+                        <span class="pr-ai-thinking">{{ 'practice.ai.thinking' | translate }}</span>
                     </div>
                     <div class="pr-ai-dots">
                         <span class="pr-dot"></span>
@@ -193,7 +201,7 @@
                 } @else if (aiFeedback()) {
                 <div class="pr-ai-box">
                     <div class="pr-ai-top">
-                        <span class="pr-ai-badge">AI Coach visszajelzése</span>
+                        <span class="pr-ai-badge">{{ 'practice.ai.feedbackBadge' | translate }}</span>
                     </div>
                     <p class="pr-ai-text">{{ aiTypedText() }}<span class="pr-cursor"
                             [class.pr-cursor--off]="aiDone()">|</span></p>
@@ -201,21 +209,21 @@
                     @if (aiDone()) {
                     <div class="pr-verdict-bar" [class]="'pr-verdict-bar--' + (aiVerdict() ?? 'correct')">
                         <div class="pr-verdict-left">
-                            <span class="pr-verdict-label">AI döntése:</span>
+                            <span class="pr-verdict-label">{{ 'practice.ai.verdictLabel' | translate }}</span>
                             <strong class="pr-verdict-val">
-                                @if (aiVerdict() === 'correct') { ✓ Helyes }
-                                @else { Helytelen }
+                                @if (aiVerdict() === 'correct') { {{ 'practice.card.correctBadge' | translate }} }
+                                @else { {{ 'practice.card.incorrectBadge' | translate }} }
                             </strong>
                         </div>
                         <div class="pr-verdict-right">
                             <button class="pr-proceed-btn" (click)="proceedWithAiVerdict()">
-                                Tovább
+                                {{ 'practice.ai.continueBtn' | translate }}
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="9 18 15 12 9 6" />
                                 </svg>
                             </button>
-                            <span class="pr-override-label">felülírás:</span>
+                            <span class="pr-override-label">{{ 'practice.ai.overrideLabel' | translate }}</span>
                             <button class="pr-rate-sm pr-rate-sm--ok" (click)="rate('correct')">✓</button>
                             <button class="pr-rate-sm pr-rate-sm--no" (click)="rate('incorrect')">✗</button>
                         </div>
@@ -228,26 +236,26 @@
 
                 <div class="pr-compare">
                     <div class="pr-compare-col">
-                        <p class="pr-compare-label">A TE VÁLASZOD</p>
+                        <p class="pr-compare-label">{{ 'practice.card.yourAnswerLabel' | translate }}</p>
                         <p class="pr-compare-text">{{ userAnswer() }}</p>
                     </div>
                     <div class="pr-compare-col pr-compare-col--sample">
-                        <p class="pr-compare-label pr-compare-label--green">MINTAVÁLASZ</p>
+                        <p class="pr-compare-label pr-compare-label--green">{{ 'practice.card.sampleAnswerLabel' | translate }}</p>
                         <p class="pr-compare-text">{{ q.sampleAnswer }}</p>
                     </div>
                 </div>
 
                 <div class="pr-rating-row">
-                    <span class="pr-rating-label">Sikerült?</span>
+                    <span class="pr-rating-label">{{ 'practice.card.didItSucceed' | translate }}</span>
                     <button class="pr-rate-btn pr-rate-btn--no" (click)="rate('incorrect')">
-                        Helytelen
+                        {{ 'practice.card.incorrectBtn' | translate }}
                     </button>
                     <button class="pr-rate-btn pr-rate-btn--ok" (click)="rate('correct')">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12" />
                         </svg>
-                        Helyes
+                        {{ 'practice.card.correctBtn' | translate }}
                     </button>
                 </div>
 
@@ -256,7 +264,7 @@
             } @else {
             <app-card class="pr-card pr-card--empty" radius="xl">
                 <app-empty-state
-                    [message]="selectedFilter() === 'failed' ? 'Nincs hibás kérdés. Remek munka! 🎉' : (selectedFilter() === 'unanswered' ? 'Nincs megválaszolatlan kérdés.' : 'Nincs kérdés ebben a kategóriában.')"></app-empty-state>
+                    [message]="selectedFilter() === 'failed' ? ('practice.empty.noFailed' | translate) : (selectedFilter() === 'unanswered' ? ('practice.empty.noUnanswered' | translate) : ('practice.empty.noCategory' | translate))"></app-empty-state>
             </app-card>
             }
         </div>
@@ -264,7 +272,7 @@
         <!-- Aside: stats -->
         <aside class="pr-aside">
             <app-card class="pr-stat-card">
-                <p class="pr-stat-label">FELKÉSZÜLTSÉG</p>
+                <p class="pr-stat-label">{{ 'practice.stats.readinessLabel' | translate }}</p>
                 <div class="pr-stat-score-row">
                     <span class="pr-stat-pct" [style.color]="getReadinessColor()">{{ readinessScore() }}%</span>
                     <span class="pr-stat-grade" [style.color]="getReadinessColor()">{{ getReadinessLabel() }}</span>
@@ -273,17 +281,18 @@
                     <div class="pr-bar-fill" [style.width.%]="readinessScore()"
                         [style.background]="getReadinessColor()"></div>
                 </div>
-                <p class="pr-stat-note">{{ answeredCount() }} / {{ filteredQuestions().length }} megválaszolva</p>
+                <p class="pr-stat-note">{{ answeredCount() }} / {{ filteredQuestions().length }} {{
+                    'practice.stats.answeredSuffix' | translate }}</p>
                 <div class="pr-stat-sep"></div>
                 <div class="pr-breakdown">
                     <div class="pr-breakdown-row">
                         <span class="pr-breakdown-dot pr-breakdown-dot--ok"></span>
-                        <span class="pr-breakdown-key">Helyes</span>
+                        <span class="pr-breakdown-key">{{ 'practice.card.correctBtn' | translate }}</span>
                         <span class="pr-breakdown-val">{{ ratingBreakdown().correct }}</span>
                     </div>
                     <div class="pr-breakdown-row">
                         <span class="pr-breakdown-dot pr-breakdown-dot--no"></span>
-                        <span class="pr-breakdown-key">Helytelen</span>
+                        <span class="pr-breakdown-key">{{ 'practice.card.incorrectBtn' | translate }}</span>
                         <span class="pr-breakdown-val">{{ ratingBreakdown().incorrect }}</span>
                     </div>
                 </div>
@@ -291,8 +300,8 @@
 
             @if (selectedFilter() === 'failed') {
             <div class="pr-tip-card">
-                <p class="pr-tip-title">💡 Tipp</p>
-                <p class="pr-tip-text">Értékeld újra a hibás kérdéseket, ahogy javul a tudásod.</p>
+                <p class="pr-tip-title">{{ 'practice.tip.title' | translate }}</p>
+                <p class="pr-tip-text">{{ 'practice.tip.text' | translate }}</p>
             </div>
             }
         </aside>
@@ -304,7 +313,7 @@
     <div class="pr-mgmt">
                     <div class="pr-section-head">
                 <h3 class="pr-section-title">
-                    Kérdések
+                    {{ 'practice.questionsTab.title' | translate }}
                     <span class="pr-section-count">({{ practice.questions().length }})</span>
                 </h3>
                 <div class="pr-section-actions">
@@ -312,9 +321,11 @@
                         (change)="onImportFileSelected($event)" />
                     <button class="pr-import-btn" [disabled]="importing()"
                         (click)="triggerImportFile(importFileInput)">
-                        @if (importing()) { Importálás… } @else { JSON importálás }
+                        @if (importing()) { {{ 'practice.questionsTab.importing' | translate }} } @else { {{
+                        'practice.questionsTab.importBtn' | translate }} }
                     </button>
-                    <button class="pr-add-btn" (click)="openAddQuestionModal()">+ Új kérdés</button>
+                    <button class="pr-add-btn" (click)="openAddQuestionModal()">{{ 'practice.questionsTab.addBtn' |
+                        translate }}</button>
                 </div>
             </div>
 
@@ -332,10 +343,10 @@
                         <circle cx="11" cy="11" r="8" />
                         <line x1="21" y1="21" x2="16.65" y2="16.65" />
                     </svg>
-                    <input class="pr-q-search" type="text" placeholder="Keresés a kérdések között…"
+                    <input class="pr-q-search" type="text" [placeholder]="'practice.questionsTab.searchPlaceholder' | translate"
                         [ngModel]="qSearch()" (ngModelChange)="qSearch.set($event)" />
                     @if (qSearch()) {
-                    <button class="pr-q-search-clear" (click)="qSearch.set('')" title="Törlés">
+                    <button class="pr-q-search-clear" (click)="qSearch.set('')" [title]="'practice.jump.clearTitle' | translate">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="3" stroke-linecap="round">
                             <line x1="18" y1="6" x2="6" y2="18" />
@@ -344,15 +355,15 @@
                     </button>
                     }
                 </div>
-                <span class="pr-q-count">{{ sortedQuestions().length }} találat</span>
+                <span class="pr-q-count">{{ sortedQuestions().length }} {{ 'practice.questionsTab.resultsSuffix' | translate }}</span>
             </div>
 
             @if (selectedQuestionCount() > 0) {
             <div class="pr-q-bulk-bar">
-                <span class="pr-q-bulk-count">{{ selectedQuestionCount() }} kiválasztva</span>
+                <span class="pr-q-bulk-count">{{ selectedQuestionCount() }} {{ 'practice.questionsTab.selectedSuffix' | translate }}</span>
                 <div class="pr-q-bulk-actions">
-                    <button class="pr-q-bulk-clear" (click)="clearQuestionSelection()">Kijelölés törlése</button>
-                    <button class="pr-q-bulk-delete" (click)="openBulkDeleteConfirm()">Kijelöltek törlése</button>
+                    <button class="pr-q-bulk-clear" (click)="clearQuestionSelection()">{{ 'practice.questionsTab.clearSelectionBtn' | translate }}</button>
+                    <button class="pr-q-bulk-delete" (click)="openBulkDeleteConfirm()">{{ 'practice.questionsTab.deleteSelectedBtn' | translate }}</button>
                 </div>
             </div>
             }
@@ -363,35 +374,36 @@
                         <tr>
                             <th class="pr-q-th pr-q-th--check">
                                 <input type="checkbox" class="pr-q-checkbox" [checked]="isAllQuestionsSelected()"
-                                    (change)="toggleSelectAllQuestions()" title="Mind kijelölése" />
+                                    (change)="toggleSelectAllQuestions()" [title]="'practice.questionsTab.selectAllTitle' | translate" />
                             </th>
                             <th class="pr-q-th pr-q-th--sortable" (click)="qSort('category')">
-                                Kategória
+                                {{ 'practice.questionsTab.colCategory' | translate }}
                                 <span class="pr-q-sort-icon"
                                     [class.pr-q-sort-icon--active]="qSortKey() === 'category'">{{
                                     qSortIcon('category') }}</span>
                             </th>
                             <th class="pr-q-th pr-q-th--sortable" (click)="qSort('question')">
-                                Kérdés
+                                {{ 'practice.questionsTab.colQuestion' | translate }}
                                 <span class="pr-q-sort-icon"
                                     [class.pr-q-sort-icon--active]="qSortKey() === 'question'">{{
                                     qSortIcon('question') }}</span>
                             </th>
                             <th class="pr-q-th pr-q-th--sortable" (click)="qSort('feedback')">
-                                Állapot
+                                {{ 'practice.questionsTab.colStatus' | translate }}
                                 <span class="pr-q-sort-icon"
                                     [class.pr-q-sort-icon--active]="qSortKey() === 'feedback'">{{
                                     qSortIcon('feedback') }}</span>
                             </th>
-                            <th class="pr-q-th pr-q-th--actions">Műveletek</th>
+                            <th class="pr-q-th pr-q-th--actions">{{ 'practice.questionsTab.colActions' | translate }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @for (q of sortedQuestions(); track q.id) {
-                        <tr class="pr-q-tr" [class.pr-q-tr--selected]="isQuestionSelected(q.id)">
+                        <tr class="pr-q-tr" [class.pr-q-tr--selected]="isQuestionSelected(q.id)"
+                            (click)="toggleQuestionSelection(q.id)">
                             <td class="pr-q-td pr-q-td--check">
                                 <input type="checkbox" class="pr-q-checkbox" [checked]="isQuestionSelected(q.id)"
-                                    (change)="toggleQuestionSelection(q.id)" />
+                                    (click)="$event.stopPropagation()" (change)="toggleQuestionSelection(q.id)" />
                             </td>
                             <td class="pr-q-td">
                                 <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(q.category)"
@@ -410,8 +422,8 @@
                                 <span class="pr-fb-badge pr-fb-badge--none">—</span>
                                 }
                             </td>
-                            <td class="pr-q-td pr-q-td--actions">
-                                <button class="pr-icon-btn" (click)="openEditQuestionModal(q)" title="Szerkesztés">
+                            <td class="pr-q-td pr-q-td--actions" (click)="$event.stopPropagation()">
+                                <button class="pr-icon-btn" (click)="openEditQuestionModal(q)" [title]="'practice.questionsTab.editTitle' | translate">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
@@ -419,7 +431,7 @@
                                     </svg>
                                 </button>
                                 <button class="pr-icon-btn pr-icon-btn--danger" (click)="deleteQuestion(q.id)"
-                                    title="Törlés">
+                                    [title]="'practice.questionsTab.deleteTitle' | translate">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="3 6 5 6 21 6" />
@@ -434,7 +446,7 @@
                         <tr>
                             <td colspan="5">
                                 <app-empty-state
-                                    [message]="qSearch() ? 'Nincs találat a(z) „' + qSearch() + '&quot; keresésre.' : 'Még nincs kérdés. Adj hozzá egyet a fenti gombbal!'"></app-empty-state>
+                                    [message]="qSearch() ? (('practice.questionsTab.noSearchResultsPrefix' | translate) + qSearch() + ('practice.questionsTab.noSearchResultsSuffix' | translate)) : ('practice.questionsTab.noQuestions' | translate)"></app-empty-state>
                             </td>
                         </tr>
                         }
@@ -444,11 +456,12 @@
 
             <div class="pr-q-cards">
                 @for (q of sortedQuestions(); track q.id) {
-                <app-card class="pr-q-card" [class.pr-q-card--selected]="isQuestionSelected(q.id)">
+                <app-card class="pr-q-card" [class.pr-q-card--selected]="isQuestionSelected(q.id)"
+                    (click)="toggleQuestionSelection(q.id)">
                     <div class="pr-q-card-head">
                         <div class="pr-q-card-head-left">
                             <input type="checkbox" class="pr-q-checkbox" [checked]="isQuestionSelected(q.id)"
-                                (change)="toggleQuestionSelection(q.id)" />
+                                (click)="$event.stopPropagation()" (change)="toggleQuestionSelection(q.id)" />
                             <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(q.category)"
                                 [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
                         </div>
@@ -462,15 +475,19 @@
                     @if (q.hint) {
                     <p class="pr-q-card-hint">{{ q.hint }}</p>
                     }
-                    <div class="pr-q-card-actions">
-                        <button class="pr-icon-btn" (click)="openEditQuestionModal(q)" title="Szerkesztés">
+                    <p class="pr-q-card-answer">
+                        <span class="pr-q-card-answer-label">{{ 'practice.questionsTab.answerLabel' | translate }}:</span>
+                        {{ q.sampleAnswer }}
+                    </p>
+                    <div class="pr-q-card-actions" (click)="$event.stopPropagation()">
+                        <button class="pr-icon-btn" (click)="openEditQuestionModal(q)" [title]="'practice.questionsTab.editTitle' | translate">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                                 <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                             </svg>
                         </button>
-                        <button class="pr-icon-btn pr-icon-btn--danger" (click)="deleteQuestion(q.id)" title="Törlés">
+                        <button class="pr-icon-btn pr-icon-btn--danger" (click)="deleteQuestion(q.id)" [title]="'practice.questionsTab.deleteTitle' | translate">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="3 6 5 6 21 6" />
@@ -483,7 +500,7 @@
                 </app-card>
                 } @empty {
                 <app-empty-state
-                    [message]="qSearch() ? 'Nincs találat a(z) „' + qSearch() + '&quot; keresésre.' : 'Még nincs kérdés. Adj hozzá egyet a fenti gombbal!'"></app-empty-state>
+                    [message]="qSearch() ? (('practice.questionsTab.noSearchResultsPrefix' | translate) + qSearch() + ('practice.questionsTab.noSearchResultsSuffix' | translate)) : ('practice.questionsTab.noQuestions' | translate)"></app-empty-state>
                 }
             </div>
 
@@ -495,28 +512,28 @@
         <div class="pr-kpi-row">
             <app-card class="pr-kpi pr-kpi--ok">
                 <span class="pr-kpi-num">{{ resultsSummary().correct }}</span>
-                <span class="pr-kpi-lbl">Helyes</span>
+                <span class="pr-kpi-lbl">{{ 'practice.card.correctBtn' | translate }}</span>
             </app-card>
             <app-card class="pr-kpi pr-kpi--no">
                 <span class="pr-kpi-num">{{ resultsSummary().incorrect }}</span>
-                <span class="pr-kpi-lbl">Helytelen</span>
+                <span class="pr-kpi-lbl">{{ 'practice.card.incorrectBtn' | translate }}</span>
             </app-card>
             <app-card class="pr-kpi pr-kpi--na">
                 <span class="pr-kpi-num">{{ resultsSummary().unanswered }}</span>
-                <span class="pr-kpi-lbl">Nem értékelt</span>
+                <span class="pr-kpi-lbl">{{ 'practice.results.notEvaluated' | translate }}</span>
             </app-card>
             <app-card class="pr-kpi pr-kpi--score">
                 <span class="pr-kpi-num">{{ resultsSummary().score }}%</span>
-                <span class="pr-kpi-lbl">Összesített</span>
+                <span class="pr-kpi-lbl">{{ 'practice.results.overall' | translate }}</span>
             </app-card>
         </div>
 
-       
+
 
         <app-card class="pr-section" gap="none">
             <div class="pr-section-head">
                 <h3 class="pr-section-title">
-                    Napló
+                    {{ 'practice.results.logTitle' | translate }}
                     <span class="pr-section-count">({{ practice.attempts().length }})</span>
                 </h3>
             </div>
@@ -531,21 +548,21 @@
                                 [style.background]="categoryColor(a.category) + '18'">{{ a.category }}</span>
                             <span class="pr-log-time">{{ formatAttemptTime(a.createdAt) }}</span>
                             <span class="pr-res-badge" [class]="'pr-res-badge--' + a.feedback">
-                                @if (a.feedback === 'correct') { ✓ Helyes }
-                                @else { Helytelen }
+                                @if (a.feedback === 'correct') { {{ 'practice.card.correctBadge' | translate }} }
+                                @else { {{ 'practice.card.incorrectBadge' | translate }} }
                             </span>
                         </div>
                         <p class="pr-log-question">{{ a.question }}</p>
                         @if (a.userAnswer) {
                         <p class="pr-log-answer">{{ a.userAnswer }}</p>
                         } @else {
-                        <p class="pr-log-answer pr-log-answer--empty">Nincs rögzített válasz.</p>
+                        <p class="pr-log-answer pr-log-answer--empty">{{ 'practice.results.noRecordedAnswer' | translate }}</p>
                         }
                     </div>
                     }
                 </div>
                 } @empty {
-                <app-empty-state message="Még nincs naplóbejegyzés. Válaszolj egy kérdésre a Gyakorlás fülön!">
+                <app-empty-state [message]="'practice.results.noLogEntries' | translate">
                 </app-empty-state>
                 }
             </div>
@@ -558,9 +575,9 @@
     <div class="modal-backdrop" (click)="closeQuestionModal()">
         <div class="modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
             <div class="modal-header">
-                <h2 class="modal-title">{{ editingQuestionId() !== null ? 'Kérdés szerkesztése' : 'Új kérdés hozzáadása'
-                    }}</h2>
-                <button class="modal-close" (click)="closeQuestionModal()" aria-label="Bezárás">
+                <h2 class="modal-title">{{ editingQuestionId() !== null ? ('practice.modal.editTitle' | translate) :
+                    ('practice.modal.addTitle' | translate) }}</h2>
+                <button class="modal-close" (click)="closeQuestionModal()" [attr.aria-label]="'practice.modal.closeAriaLabel' | translate">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round">
                         <line x1="18" y1="6" x2="6" y2="18" />
@@ -570,11 +587,11 @@
             </div>
             <div class="modal-form">
                 <div class="pr-field">
-                    <label class="pr-field-label">Kategória</label>
+                    <label class="pr-field-label">{{ 'practice.modal.categoryLabel' | translate }}</label>
                     <div class="cat-drop" [class.cat-drop--open]="catDropOpen">
                         <button type="button" class="cat-drop-trigger" (click)="toggleCatDrop($event)">
                             <span class="cat-drop-dot" [style.background-color]="categoryColor(formCat())"></span>
-                            <span class="cat-drop-label">{{ formCat() || 'Válassz kategóriát…' }}</span>
+                            <span class="cat-drop-label">{{ formCat() || ('practice.modal.categoryPlaceholder' | translate) }}</span>
                             <svg class="cat-drop-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
                                 [style.transform]="catDropOpen ? 'rotate(180deg)' : 'none'">
@@ -604,28 +621,28 @@
                     </div>
                 </div>
                 <div class="pr-field">
-                    <label class="pr-field-label">Kérdés <span class="pr-req">*</span></label>
+                    <label class="pr-field-label">{{ 'practice.modal.questionLabel' | translate }} <span class="pr-req">*</span></label>
                     <textarea class="pr-textarea" rows="2" [ngModel]="formQuestion()"
-                        (ngModelChange)="formQuestion.set($event)" placeholder="Az interjú kérdés szövege…"></textarea>
+                        (ngModelChange)="formQuestion.set($event)" [placeholder]="'practice.modal.questionPlaceholder' | translate"></textarea>
                 </div>
                 <div class="pr-field">
-                    <label class="pr-field-label">Tipp / Kulcspontok</label>
+                    <label class="pr-field-label">{{ 'practice.modal.hintLabel' | translate }}</label>
                     <input class="pr-input" type="text" [ngModel]="formHint()" (ngModelChange)="formHint.set($event)"
-                        placeholder="Rövid tipp vagy kulcsszavak…" />
+                        [placeholder]="'practice.modal.hintPlaceholder' | translate" />
                 </div>
                 <div class="pr-field">
-                    <label class="pr-field-label">Mintaválasz <span class="pr-req">*</span></label>
+                    <label class="pr-field-label">{{ 'practice.modal.sampleAnswerLabel' | translate }} <span class="pr-req">*</span></label>
                     <textarea class="pr-textarea" rows="3" [ngModel]="formSampleAnswer()"
                         (ngModelChange)="formSampleAnswer.set($event)"
-                        placeholder="Az elvárt/ideális válasz…"></textarea>
+                        [placeholder]="'practice.modal.sampleAnswerPlaceholder' | translate"></textarea>
                 </div>
                 @if (formError()) {
                 <p class="pr-form-error">{{ formError() }}</p>
                 }
                 <div class="modal-actions">
-                    <button type="button" class="btn btn--ghost" (click)="closeQuestionModal()">Mégse</button>
+                    <button type="button" class="btn btn--ghost" (click)="closeQuestionModal()">{{ 'practice.modal.cancelBtn' | translate }}</button>
                     <button type="button" class="btn btn--primary" (click)="submitQuestion()">
-                        {{ editingQuestionId() !== null ? 'Mentés' : 'Hozzáadás' }}
+                        {{ editingQuestionId() !== null ? ('practice.modal.saveBtn' | translate) : ('practice.modal.addQuestionBtn' | translate) }}
                     </button>
                 </div>
             </div>
@@ -637,8 +654,8 @@
     <div class="modal-backdrop" (click)="closeBulkDeleteConfirm()">
         <div class="modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
             <div class="modal-header">
-                <h2 class="modal-title">Kérdések törlése</h2>
-                <button class="modal-close" (click)="closeBulkDeleteConfirm()" aria-label="Bezárás">
+                <h2 class="modal-title">{{ 'practice.bulkDeleteModal.title' | translate }}</h2>
+                <button class="modal-close" (click)="closeBulkDeleteConfirm()" [attr.aria-label]="'practice.modal.closeAriaLabel' | translate">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round">
                         <line x1="18" y1="6" x2="6" y2="18" />
@@ -647,12 +664,12 @@
                 </button>
             </div>
             <div class="modal-form">
-                <p class="pr-confirm-text">Biztosan törlöd a kijelölt {{ selectedQuestionCount() }} kérdést? Ez a
-                    művelet nem vonható vissza.</p>
+                <p class="pr-confirm-text">{{ 'practice.bulkDeleteModal.confirmPrefix' | translate }} {{ selectedQuestionCount() }} {{
+                    'practice.bulkDeleteModal.confirmSuffix' | translate }}</p>
                 <div class="modal-actions">
-                    <button type="button" class="btn btn--ghost" (click)="closeBulkDeleteConfirm()">Mégse</button>
+                    <button type="button" class="btn btn--ghost" (click)="closeBulkDeleteConfirm()">{{ 'practice.modal.cancelBtn' | translate }}</button>
                     <button type="button" class="btn btn--danger"
-                        (click)="confirmBulkDeleteQuestions()">Törlés</button>
+                        (click)="confirmBulkDeleteQuestions()">{{ 'practice.bulkDeleteModal.deleteBtn' | translate }}</button>
                 </div>
             </div>
         </div>

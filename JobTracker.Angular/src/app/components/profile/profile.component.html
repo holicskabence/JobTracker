@@ -1,6 +1,6 @@
 <div class="pf">
 
-    <app-page-header title="Profil Beállítások" subtitle="Szerkeszd a személyes adataidat és a céljaidat."></app-page-header>
+    <app-page-header [title]="'profile.title' | translate" [subtitle]="'profile.subtitle' | translate"></app-page-header>
 
     <div class="profile-body">
 
@@ -9,7 +9,7 @@
             <div class="profile-avatar-wrap">
                 <div class="profile-avatar">
                     @if (auth.avatarObjectUrl()) {
-                    <img class="profile-avatar-img" [src]="auth.avatarObjectUrl()!" alt="Profilkép" />
+                    <img class="profile-avatar-img" [src]="auth.avatarObjectUrl()!" [alt]="'profile.summary.avatarAlt' | translate" />
                     } @else {
                     <span class="profile-avatar-initials">{{ initials }}</span>
                     }
@@ -23,7 +23,7 @@
                     }
                     @if (auth.avatarObjectUrl()) {
                     <button class="profile-avatar-delete-btn" type="button" (click)="deleteAvatar()"
-                        title="Profilkép törlése">
+                        [title]="'profile.summary.deleteAvatarTitle' | translate">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="18" y1="6" x2="6" y2="18" />
@@ -32,7 +32,7 @@
                     </button>
                     }
                     <label class="profile-avatar-edit" [class.profile-avatar-edit--loading]="avatarUploading"
-                        title="Profilkép szerkesztése">
+                        [title]="'profile.summary.editAvatarTitle' | translate">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
@@ -52,21 +52,21 @@
 
             <div class="profile-meta">
                 <div class="profile-meta-item">
-                    <span class="profile-meta-label">E-MAIL</span>
+                    <span class="profile-meta-label">{{ 'profile.summary.emailLabel' | translate }}</span>
                     <span class="profile-meta-val">{{ user?.email }}</span>
                 </div>
                 @if (user?.phone) {
                 <div class="profile-meta-item">
-                    <span class="profile-meta-label">TELEFONSZÁM</span>
+                    <span class="profile-meta-label">{{ 'profile.summary.phoneLabel' | translate }}</span>
                     <span class="profile-meta-val">{{ user!.phone }}</span>
                 </div>
                 }
                 <div class="profile-meta-item">
-                    <span class="profile-meta-label">CÉL KITŰZÉS</span>
-                    <span class="profile-meta-val">{{ user?.goal }} beadott jelentkezés</span>
+                    <span class="profile-meta-label">{{ 'profile.summary.goalLabel' | translate }}</span>
+                    <span class="profile-meta-val">{{ user?.goal }} {{ 'profile.summary.goalUnit' | translate }}</span>
                 </div>
                 <div class="profile-meta-item">
-                    <span class="profile-meta-label">CSATLAKOZVA</span>
+                    <span class="profile-meta-label">{{ 'profile.summary.joinedLabel' | translate }}</span>
                     <span class="profile-meta-val">{{ user?.joinDate }}</span>
                 </div>
             </div>
@@ -78,54 +78,65 @@
                     <polyline points="16 17 21 12 16 7" />
                     <line x1="21" y1="12" x2="9" y2="12" />
                 </svg>
-                Kijelentkezés
+                {{ 'profile.summary.logout' | translate }}
             </button>
 
         </app-card>
 
         <app-card class="profile-card--form" radius="xl" padding="lg" gap="none">
 
-            <h3 class="profile-form-title">Személyes adatok módosítása</h3>
+            <h3 class="profile-form-title">{{ 'profile.personalData.title' | translate }}</h3>
 
             <form class="profile-form" (ngSubmit)="save()">
 
                 <div class="profile-row">
                     <div class="profile-field">
-                        <label class="profile-label">Keresztnév</label>
+                        <label class="profile-label">{{ 'profile.personalData.firstNameLabel' | translate }}</label>
                         <input class="profile-input" type="text" [(ngModel)]="firstName" name="firstName"
-                            placeholder="pl. Bence" />
+                            [placeholder]="'profile.personalData.firstNamePlaceholder' | translate" />
                     </div>
                     <div class="profile-field">
-                        <label class="profile-label">Vezetéknév</label>
+                        <label class="profile-label">{{ 'profile.personalData.lastNameLabel' | translate }}</label>
                         <input class="profile-input" type="text" [(ngModel)]="lastName" name="lastName"
-                            placeholder="pl. Kovács" />
+                            [placeholder]="'profile.personalData.lastNamePlaceholder' | translate" />
                     </div>
                 </div>
 
                 <div class="profile-row">
                     <div class="profile-field">
-                        <label class="profile-label">Pozíció / Titulus</label>
+                        <label class="profile-label">{{ 'profile.personalData.positionLabel' | translate }}</label>
                         <input class="profile-input" type="text" [(ngModel)]="position" name="position"
-                            placeholder="pl. Senior Frontend Developer" />
+                            [placeholder]="'profile.personalData.positionPlaceholder' | translate" />
                     </div>
                     <div class="profile-field">
-                        <label class="profile-label">Telefonszám</label>
+                        <label class="profile-label">{{ 'profile.personalData.phoneLabel' | translate }}</label>
                         <input class="profile-input" type="tel" [(ngModel)]="phone" name="phone"
                             placeholder="+36 30 000 0000" />
                     </div>
                 </div>
 
                 <div class="profile-field">
-                    <label class="profile-label">E-mail cím</label>
+                    <label class="profile-label">{{ 'profile.personalData.emailLabel' | translate }}</label>
                     <input class="profile-input" type="email" [(ngModel)]="email" name="email" required />
                 </div>
 
                 <div class="profile-field">
-                    <label class="profile-label">Jelentkezési Cél (Darabszám)</label>
+                    <label class="profile-label">{{ 'profile.personalData.goalLabel' | translate }}</label>
                     <input class="profile-input" type="number" min="1" [(ngModel)]="goal" name="goal" required />
-                    <span class="profile-hint">Ezt a mérőt használjuk az Áttekintés oldali cél-folyamat sáv
-                        kiszámításánál.</span>
+                    <span class="profile-hint">{{ 'profile.personalData.goalHint' | translate }}</span>
                 </div>
+
+                @if (saveError) {
+                <div class="profile-pwd-feedback profile-pwd-feedback--error">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                    {{ saveError }}
+                </div>
+                }
 
                 <div class="profile-actions">
                     <button class="profile-save-btn" type="submit" [class.profile-save-btn--saved]="saved">
@@ -135,7 +146,7 @@
                             <polyline points="20 6 9 17 4 12" />
                         </svg>
                         }
-                        {{ saved ? 'Mentve!' : 'Módosítások mentése' }}
+                        {{ saved ? ('profile.personalData.savedBtn' | translate) : ('profile.personalData.saveBtn' | translate) }}
                     </button>
                 </div>
 
@@ -147,16 +158,30 @@
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--clr-muted)" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                <h4 class="profile-section-heading">{{ 'profile.language.title' | translate }}</h4>
+            </div>
+            <p class="profile-section-desc">{{ 'profile.language.description' | translate }}</p>
+
+            <app-language-switcher></app-language-switcher>
+
+            <div class="profile-section-divider"></div>
+
+            <div class="profile-section-head">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--clr-muted)" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
                     <path d="M12 8v4l3 3" />
                 </svg>
-                <h4 class="profile-section-heading">AI Beállítások</h4>
+                <h4 class="profile-section-heading">{{ 'profile.aiSettings.title' | translate }}</h4>
             </div>
-            <p class="profile-section-desc">Kapcsold be az AI-alapú válaszkiértékelést a Gyakorlás modulban. Az AI elemzi a válaszodat és személyre szabott visszajelzést ad.</p>
+            <p class="profile-section-desc">{{ 'profile.aiSettings.description' | translate }}</p>
 
             <div class="profile-ai-toggle-row">
                 <div class="profile-ai-toggle-info">
-                    <span class="profile-ai-toggle-label">AI értékelés bekapcsolva</span>
-                    <span class="profile-ai-toggle-sub">Azure OpenAI GPT-4o alapú elemzés</span>
+                    <span class="profile-ai-toggle-label">{{ 'profile.aiSettings.toggleLabel' | translate }}</span>
+                    <span class="profile-ai-toggle-sub">{{ 'profile.aiSettings.toggleSub' | translate }}</span>
                 </div>
                 <button type="button" class="profile-toggle" [class.profile-toggle--on]="useAiEvaluation"
                     (click)="useAiEvaluation = !useAiEvaluation" [attr.aria-checked]="useAiEvaluation" role="switch">
@@ -172,7 +197,7 @@
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
                     }
-                    {{ saved ? 'Mentve!' : 'AI beállítás mentése' }}
+                    {{ saved ? ('profile.aiSettings.savedBtn' | translate) : ('profile.aiSettings.saveBtn' | translate) }}
                 </button>
             </div>
 
@@ -184,20 +209,20 @@
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
-                <h4 class="profile-section-heading">Jelszó módosítása</h4>
+                <h4 class="profile-section-heading">{{ 'profile.password.title' | translate }}</h4>
             </div>
-            <p class="profile-section-desc">Biztonsági okokból add meg a jelenlegi jelszavadat a módosításhoz.</p>
+            <p class="profile-section-desc">{{ 'profile.password.description' | translate }}</p>
 
             <form class="profile-form profile-form--pwd" (ngSubmit)="changePassword()">
 
                 <div class="profile-field">
-                    <label class="profile-label">Jelenlegi jelszó</label>
+                    <label class="profile-label">{{ 'profile.password.currentPwdLabel' | translate }}</label>
                     <div class="profile-pwd-wrap">
                         <input class="profile-input" [type]="showCurrentPwd ? 'text' : 'password'"
                             [(ngModel)]="currentPwd" name="currentPwd" autocomplete="current-password"
                             placeholder="••••••••" />
                         <button type="button" class="profile-eye-btn" (click)="showCurrentPwd = !showCurrentPwd"
-                            [title]="showCurrentPwd ? 'Elrejtés' : 'Megjelenítés'">
+                            [title]="(showCurrentPwd ? 'profile.password.hide' : 'profile.password.show') | translate">
                             @if (showCurrentPwd) {
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -219,12 +244,12 @@
 
                 <div class="profile-row">
                     <div class="profile-field">
-                        <label class="profile-label">Új jelszó</label>
+                        <label class="profile-label">{{ 'profile.password.newPwdLabel' | translate }}</label>
                         <div class="profile-pwd-wrap">
                             <input class="profile-input" [type]="showNewPwd ? 'text' : 'password'" [(ngModel)]="newPwd"
-                                name="newPwd" autocomplete="new-password" placeholder="Min. 6 karakter" />
+                                name="newPwd" autocomplete="new-password" [placeholder]="'profile.password.newPwdPlaceholder' | translate" />
                             <button type="button" class="profile-eye-btn" (click)="showNewPwd = !showNewPwd"
-                                [title]="showNewPwd ? 'Elrejtés' : 'Megjelenítés'">
+                                [title]="(showNewPwd ? 'profile.password.hide' : 'profile.password.show') | translate">
                                 @if (showNewPwd) {
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -244,13 +269,13 @@
                         </div>
                     </div>
                     <div class="profile-field">
-                        <label class="profile-label">Jelszó megerősítése</label>
+                        <label class="profile-label">{{ 'profile.password.confirmPwdLabel' | translate }}</label>
                         <div class="profile-pwd-wrap">
                             <input class="profile-input" [type]="showConfirmPwd ? 'text' : 'password'"
                                 [(ngModel)]="confirmPwd" name="confirmPwd" autocomplete="new-password"
-                                placeholder="Ismételd meg az új jelszót" />
+                                [placeholder]="'profile.password.confirmPwdPlaceholder' | translate" />
                             <button type="button" class="profile-eye-btn" (click)="showConfirmPwd = !showConfirmPwd"
-                                [title]="showConfirmPwd ? 'Elrejtés' : 'Megjelenítés'">
+                                [title]="(showConfirmPwd ? 'profile.password.hide' : 'profile.password.show') | translate">
                                 @if (showConfirmPwd) {
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -288,12 +313,12 @@
                         stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    Jelszó sikeresen módosítva!
+                    {{ 'profile.password.changeSuccess' | translate }}
                 </div>
                 }
 
                 <div class="profile-actions">
-                    <button class="profile-change-pwd-btn" type="submit">Jelszó módosítása</button>
+                    <button class="profile-change-pwd-btn" type="submit">{{ 'profile.password.changeBtn' | translate }}</button>
                 </div>
 
             </form>

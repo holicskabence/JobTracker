@@ -1,3 +1,14 @@
+.register-page-wrap {
+  position: relative;
+}
+
+.register-lang-switcher {
+  position: absolute;
+  top: var(--space-5);
+  right: var(--space-5);
+  z-index: 1;
+}
+
 .oauth-btns {
   display: flex;
   flex-direction: column;

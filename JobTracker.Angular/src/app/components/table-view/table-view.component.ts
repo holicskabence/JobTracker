@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { Job } from '../../models/job.model';
 import { JobStoreService } from '../../services/job-store.service';
 import { CardComponent } from '../shared/card/card.component';
@@ -11,7 +12,7 @@ type SortDir = 'asc' | 'desc';
 @Component({
   selector: 'app-table-view',
   standalone: true,
-  imports: [NgClass, FormsModule, CardComponent],
+  imports: [NgClass, FormsModule, TranslateModule, CardComponent],
   templateUrl: './table-view.component.html',
   styleUrl: './table-view.component.css'
 })

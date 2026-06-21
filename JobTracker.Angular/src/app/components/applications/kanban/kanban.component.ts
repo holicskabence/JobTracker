@@ -1,4 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Job, JobStatus } from '../../../models/job.model';
 import { JobStoreService } from '../../../services/job-store.service';
 import { KanbanColumnComponent } from '../kanban-column/kanban-column.component';
@@ -6,7 +7,7 @@ import { KanbanColumnComponent } from '../kanban-column/kanban-column.component'
 @Component({
   selector: 'app-kanban',
   standalone: true,
-  imports: [KanbanColumnComponent],
+  imports: [KanbanColumnComponent, TranslateModule],
   templateUrl: './kanban.component.html',
   styleUrl: './kanban.component.css'
 })
