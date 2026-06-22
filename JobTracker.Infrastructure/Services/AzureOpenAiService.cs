@@ -48,16 +48,29 @@ public sealed class AzureOpenAiService : IAzureOpenAiService
      "3. Communication quality\n" +
      "4. English grammar and wording\n\n" +
 
-     "If the candidate made grammar, vocabulary, or phrasing mistakes, briefly point them out and suggest a better way to express the idea.\n" +
-     "If important technical details are missing, briefly explain what should have been mentioned.\n" +
-     "Be honest and interview-focused, not overly positive.\n\n" +
+     "Important language evaluation rules:\n" +
+     "- Do NOT treat minor typos, spelling slips, or accidental missing letters as mistakes if the meaning is still clear.\n" +
+     "- Focus only on grammar, unnatural phrasing, incorrect terminology, or unclear professional wording.\n" +
+     "- If the candidate wrote something in grammatically incorrect or unnatural English, explicitly quote the problematic part and suggest a more natural interview-quality version.\n" +
+     "- Prefer corrections in this style: 'Instead of X, a better way to say it would be Y.'\n" +
+     "- If the answer is understandable but sounds unnatural, explain briefly how to phrase it more naturally in spoken technical English.\n" +
+     "- Only mention 1-3 of the most important language improvements, not every tiny issue.\n\n" +
+
+     "Technical evaluation rules:\n" +
+     "- If important technical details are missing, briefly explain what should have been mentioned.\n" +
+     "- Be honest and interview-focused, not overly positive.\n" +
+     "- If the answer is technically mostly correct but phrased weakly, keep the verdict 'correct' and focus the feedback on improvement.\n\n" +
 
      "Return ONLY valid JSON in this format:\n" +
      "{\"feedback\":\"<short evaluation>\",\"verdict\":\"<correct | incorrect>\"}\n\n" +
 
      "Verdict rules:\n" +
      "- 'correct' if the answer is mostly technically accurate and covers the key points.\n" +
-     "- 'incorrect' if the answer contains significant mistakes, missing core concepts, or major inaccuracies."
+     "- 'incorrect' if the answer contains significant mistakes, missing core concepts, or major inaccuracies.\n" +
+     "Write the feedback as 2 short parts:\n" +
+    "1. Technical feedback\n" +
+    "2. English improvement\n\n" +
+    "In the English improvement part, if there is any unnatural or incorrect phrasing, show 1-3 concrete improved example sentences.\n\n"
      + extraInstruction;
 
         var userContent =
