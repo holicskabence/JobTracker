@@ -133,10 +133,10 @@ public static class DbSeeder
     private static JobStatusConfig[] BuildStatusConfigs(int userId) =>
     [
         new JobStatusConfig { UserId = userId, Key = "Mentett", Label = "Mentett", Color = "#9b9b99", SortOrder = 0, ShowInKanban = true },
-        new JobStatusConfig { UserId = userId, Key = "Beadva", Label = "Beadva", Color = "#5fb9fa", SortOrder = 1, ShowInKanban = true },
-        new JobStatusConfig { UserId = userId, Key = "Visszahivas", Label = "Visszahívás", Color = "#f59e0b", SortOrder = 2, ShowInKanban = true },
-        new JobStatusConfig { UserId = userId, Key = "Ajanlat", Label = "Ajánlat", Color = "#26ac00", SortOrder = 3, ShowInKanban = true },
-        new JobStatusConfig { UserId = userId, Key = "Elutasitva", Label = "Elutasítva", Color = "#ef4444", SortOrder = 4, ShowInKanban = true }
+        new JobStatusConfig { UserId = userId, Key = "Beadva", Label = "Beadva", Color = "#5fb9fa", SortOrder = 1, ShowInKanban = true, IsActive = true },
+        new JobStatusConfig { UserId = userId, Key = "Visszahivas", Label = "Visszahívás", Color = "#f59e0b", SortOrder = 2, ShowInKanban = true, IsActive = true, IsInterview = true },
+        new JobStatusConfig { UserId = userId, Key = "Ajanlat", Label = "Ajánlat", Color = "#26ac00", SortOrder = 3, ShowInKanban = true, StatsCategory = "Success" },
+        new JobStatusConfig { UserId = userId, Key = "Elutasitva", Label = "Elutasítva", Color = "#ef4444", SortOrder = 4, ShowInKanban = true, StatsCategory = "Rejected" }
     ];
 
     private static EventType[] BuildEventTypes(int userId) =>

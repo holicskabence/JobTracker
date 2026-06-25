@@ -1,12 +1,17 @@
 export type JobStatus = string;
 
+export type StatsCategory = 'None' | 'Success' | 'Rejected';
+
 export interface JobStatusConfig {
-  id?:           number;
-  key:           string;
-  label:         string;
-  color:         string;
-  sortOrder?:    number;
-  showInKanban?: boolean;
+  id?:            number;
+  key:            string;
+  label:          string;
+  color:          string;
+  sortOrder?:     number;
+  showInKanban?:  boolean;
+  isActive?:      boolean;
+  isInterview?:   boolean;
+  statsCategory?: StatsCategory;
 }
 
 export type DashboardTab = 'attekintes' | 'jelentkezesek' | 'tablazat' | 'esemenyek' | 'dokumentumok' | 'statisztika' | 'profil' | 'torzsadatok' | 'gyakorlas';
@@ -31,6 +36,7 @@ export interface JobStats {
   totalJobs: number;
   activeJobs: number;
   callbacks: number;
+  interviewCount: number;
   offers: number;
   rejections: number;
   successRate: number;

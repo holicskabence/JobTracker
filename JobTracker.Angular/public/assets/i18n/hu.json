@@ -406,8 +406,19 @@
     },
     "statuses": {
       "title": "Jelentkezés státuszok",
-      "subtitle": "A Kanban tábla és a szűrők által használt státuszok",
-      "newPlaceholder": "Új státusz neve…"
+      "subtitle": "A Kanban tábla, a szűrők és az Áttekintés statisztikáinak (Aktív, Interjú, sikeres/elutasított) forrása",
+      "newPlaceholder": "Új státusz neve…",
+      "statsControlsLabel": "Statisztika:",
+      "activeFlagLabel": "Aktív",
+      "activeFlagTitle": "Beleszámít az Áttekintés \"Active in progress\" számába – kattints a be/kikapcsolásához",
+      "interviewFlagLabel": "Interjú",
+      "interviewFlagTitle": "Beleszámít az Áttekintés \"közelgő interjúk\" jelvényébe – kattints a be/kikapcsolásához",
+      "statsCategoryTitle": "Sikeres / elutasított / semleges – melyik kategóriába tartozzon ez a státusz",
+      "statsCategoryOptions": {
+        "None": "Nincs",
+        "Success": "Sikeres",
+        "Rejected": "Elutasítva"
+      }
     },
     "badge": { "count": "{{count}} db" },
     "selectToEdit": "Kiválasztás módosításhoz",

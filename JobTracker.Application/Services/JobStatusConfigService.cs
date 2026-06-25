@@ -26,7 +26,8 @@ public sealed class JobStatusConfigService(IJobStatusConfigRepository repo) : IJ
             Label = request.Label.Trim(),
             Color = request.Color,
             SortOrder = all.Count > 0 ? all.Max(c => c.SortOrder) + 1 : 0,
-            ShowInKanban = true
+            ShowInKanban = true,
+            StatsCategory = "None"
         };
         await repo.AddAsync(config);
         return Map(config);
@@ -41,6 +42,9 @@ public sealed class JobStatusConfigService(IJobStatusConfigRepository repo) : IJ
         config.Color = request.Color;
         config.SortOrder = request.SortOrder;
         config.ShowInKanban = request.ShowInKanban;
+        config.IsActive = request.IsActive;
+        config.IsInterview = request.IsInterview;
+        config.StatsCategory = request.StatsCategory;
 
         await repo.UpdateAsync(config);
         return Map(config);
@@ -63,5 +67,5 @@ public sealed class JobStatusConfigService(IJobStatusConfigRepository repo) : IJ
     }
 
     private static JobStatusConfigResponse Map(JobStatusConfig c) =>
-        new(c.Id, c.Key, c.Label, c.Color, c.SortOrder, c.ShowInKanban);
+        new(c.Id, c.Key, c.Label, c.Color, c.SortOrder, c.ShowInKanban, c.IsActive, c.IsInterview, c.StatsCategory);
 }

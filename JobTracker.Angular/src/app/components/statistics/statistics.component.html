@@ -19,7 +19,7 @@
       <p class="kpi-card-label">{{ 'statistics.kpi.activeInProgress' | translate }}</p>
       <p class="kpi-card-value">{{ stats().activeJobs }}</p>
       <div class="kpi-card-sub">
-        <app-badge variant="yellow">{{ planner.upcomingInterviewCount() }} {{ 'statistics.kpi.interview' | translate }}</app-badge>
+        <app-badge variant="yellow">{{ stats().interviewCount }} {{ 'statistics.kpi.interview' | translate }}</app-badge>
       </div>
     </app-card>
 

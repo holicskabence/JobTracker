@@ -406,8 +406,19 @@
     },
     "statuses": {
       "title": "Application Statuses",
-      "subtitle": "Statuses used by the Kanban board and filters",
-      "newPlaceholder": "New status name…"
+      "subtitle": "Source of the Kanban board, filters, and the Overview stats (Active, Interview, success/rejection ratio)",
+      "newPlaceholder": "New status name…",
+      "statsControlsLabel": "Stats:",
+      "activeFlagLabel": "Active",
+      "activeFlagTitle": "Counts towards the Overview \"Active in progress\" figure – click to toggle",
+      "interviewFlagLabel": "Interview",
+      "interviewFlagTitle": "Counts towards the Overview \"upcoming interviews\" badge – click to toggle",
+      "statsCategoryTitle": "Successful / rejected / neither - which category this status belongs to",
+      "statsCategoryOptions": {
+        "None": "None",
+        "Success": "Success",
+        "Rejected": "Rejected"
+      }
     },
     "badge": { "count": "{{count}}" },
     "selectToEdit": "Select to edit",

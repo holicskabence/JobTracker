@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Job, JobStatus, JobStatusConfig, StatsGranularity, StatsSeriesPoint } from '../models/job.model';
+import { Job, JobStatus, JobStatusConfig, StatsCategory, StatsGranularity, StatsSeriesPoint } from '../models/job.model';
 
 @Injectable({ providedIn: 'root' })
 export class JobApiService {
@@ -43,7 +43,7 @@ export class JobApiService {
     return this.http.post<JobStatusConfig>('/api/status-configs', data);
   }
 
-  updateStatusConfig(id: number, data: { label: string; color: string; sortOrder: number; showInKanban: boolean }): Observable<JobStatusConfig> {
+  updateStatusConfig(id: number, data: { label: string; color: string; sortOrder: number; showInKanban: boolean; isActive: boolean; isInterview: boolean; statsCategory: StatsCategory }): Observable<JobStatusConfig> {
     return this.http.put<JobStatusConfig>(`/api/status-configs/${id}`, data);
   }
 

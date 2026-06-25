@@ -6,6 +6,7 @@ import {
   JobStats,
   JobStatus,
   JobStatusConfig,
+  StatsCategory,
   StatsGranularity,
   StatsSeriesPoint
 } from '../models/job.model';
@@ -29,13 +30,16 @@ export class JobStoreService {
 
   readonly stats = computed<JobStats>(() => {
     const jobs = this.jobs();
-    const offers = jobs.filter(j => j.status === 'Ajanlat').length;
-    const rejects = jobs.filter(j => j.status === 'Elutasitva').length;
+    const configOf = (status: string) => this.statusConfigs().find(c => c.key === status);
+
+    const offers = jobs.filter(j => configOf(j.status)?.statsCategory === 'Success').length;
+    const rejects = jobs.filter(j => configOf(j.status)?.statsCategory === 'Rejected').length;
     const decided = offers + rejects;
     return {
       totalJobs: jobs.length,
-      activeJobs: jobs.filter(j => j.status === 'Beadva' || j.status === 'Visszahivas').length,
+      activeJobs: jobs.filter(j => configOf(j.status)?.isActive).length,
       callbacks: jobs.filter(j => j.status === 'Visszahivas').length,
+      interviewCount: jobs.filter(j => configOf(j.status)?.isInterview).length,
       offers,
       rejections: rejects,
       successRate: decided > 0 ? Math.round((offers / decided) * 100) : 0
@@ -82,7 +86,10 @@ export class JobStoreService {
       label: trimmedLabel,
       color,
       sortOrder: cfg.sortOrder ?? 0,
-      showInKanban: cfg.showInKanban ?? true
+      showInKanban: cfg.showInKanban ?? true,
+      isActive: cfg.isActive ?? false,
+      isInterview: cfg.isInterview ?? false,
+      statsCategory: cfg.statsCategory ?? 'None'
     }).subscribe({
       next: updated => this.statusConfigs.update(prev => prev.map(c => c.key === key ? updated : c)),
       error: (err: HttpErrorResponse) =>
@@ -98,7 +105,67 @@ export class JobStoreService {
       label: cfg.label,
       color: cfg.color,
       sortOrder: cfg.sortOrder ?? 0,
-      showInKanban: !(cfg.showInKanban ?? true)
+      showInKanban: !(cfg.showInKanban ?? true),
+      isActive: cfg.isActive ?? false,
+      isInterview: cfg.isInterview ?? false,
+      statsCategory: cfg.statsCategory ?? 'None'
+    }).subscribe({
+      next: updated => this.statusConfigs.update(prev => prev.map(c => c.key === key ? updated : c)),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a státuszt.')
+    });
+  }
+
+  setStatusCategory(key: string, statsCategory: StatsCategory): void {
+    const cfg = this.statusConfigs().find(c => c.key === key);
+    if (!cfg?.id) return;
+    this.error.set('');
+    this.api.updateStatusConfig(cfg.id, {
+      label: cfg.label,
+      color: cfg.color,
+      sortOrder: cfg.sortOrder ?? 0,
+      showInKanban: cfg.showInKanban ?? true,
+      isActive: cfg.isActive ?? false,
+      isInterview: cfg.isInterview ?? false,
+      statsCategory
+    }).subscribe({
+      next: updated => this.statusConfigs.update(prev => prev.map(c => c.key === key ? updated : c)),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a státuszt.')
+    });
+  }
+
+  toggleStatusActive(key: string): void {
+    const cfg = this.statusConfigs().find(c => c.key === key);
+    if (!cfg?.id) return;
+    this.error.set('');
+    this.api.updateStatusConfig(cfg.id, {
+      label: cfg.label,
+      color: cfg.color,
+      sortOrder: cfg.sortOrder ?? 0,
+      showInKanban: cfg.showInKanban ?? true,
+      isActive: !(cfg.isActive ?? false),
+      isInterview: cfg.isInterview ?? false,
+      statsCategory: cfg.statsCategory ?? 'None'
+    }).subscribe({
+      next: updated => this.statusConfigs.update(prev => prev.map(c => c.key === key ? updated : c)),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a státuszt.')
+    });
+  }
+
+  toggleStatusInterview(key: string): void {
+    const cfg = this.statusConfigs().find(c => c.key === key);
+    if (!cfg?.id) return;
+    this.error.set('');
+    this.api.updateStatusConfig(cfg.id, {
+      label: cfg.label,
+      color: cfg.color,
+      sortOrder: cfg.sortOrder ?? 0,
+      showInKanban: cfg.showInKanban ?? true,
+      isActive: cfg.isActive ?? false,
+      isInterview: !(cfg.isInterview ?? false),
+      statsCategory: cfg.statsCategory ?? 'None'
     }).subscribe({
       next: updated => this.statusConfigs.update(prev => prev.map(c => c.key === key ? updated : c)),
       error: (err: HttpErrorResponse) =>

@@ -14,7 +14,7 @@
         <app-card>
             <h3 class="card-label">{{ 'overview.stats.activeInProgress' | translate }}</h3>
             <div class="card-value">{{ stats().activeJobs }}</div>
-            <app-badge variant="yellow">{{ 'overview.stats.interviewCount' | translate: { count: planner.upcomingInterviewCount() } }}</app-badge>
+            <app-badge variant="yellow">{{ 'overview.stats.interviewCount' | translate: { count: stats().interviewCount } }}</app-badge>
         </app-card>
 
         <app-card>

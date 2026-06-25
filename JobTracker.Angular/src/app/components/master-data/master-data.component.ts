@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
 import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
 import { PageHeaderComponent } from '../shared/page-header/page-header.component';
-import { JobStatusConfig } from '../../models/job.model';
+import { JobStatusConfig, StatsCategory } from '../../models/job.model';
 import { PracticeCategory } from '../../models/practice.model';
 
 @Component({
@@ -153,6 +153,23 @@ export class MasterDataComponent {
     this.jobStore.toggleStatusKanban(key);
   }
 
+  readonly STATS_CATEGORIES: StatsCategory[] = ['None', 'Success', 'Rejected'];
+
+  setStatusCategory(key: string, category: string, event: Event): void {
+    event.stopPropagation();
+    this.jobStore.setStatusCategory(key, category as StatsCategory);
+  }
+
+  toggleStatusActive(key: string, event: MouseEvent): void {
+    event.stopPropagation();
+    this.jobStore.toggleStatusActive(key);
+  }
+
+  toggleStatusInterview(key: string, event: MouseEvent): void {
+    event.stopPropagation();
+    this.jobStore.toggleStatusInterview(key);
+  }
+
   catDropOpen = false;
   catDropTop = 0;
   catDropLeft = 0;
@@ -182,8 +199,42 @@ export class MasterDataComponent {
     this.catDropOpen = false;
   }
 
+  statusCatDropOpen: string | null = null;
+  statusCatDropTop = 0;
+  statusCatDropLeft = 0;
+  statusCatDropWidth = 0;
+
+  toggleStatusCatDrop(cfg: JobStatusConfig, event: MouseEvent): void {
+    event.stopPropagation();
+    if (this.statusCatDropOpen === cfg.key) {
+      this.statusCatDropOpen = null;
+      return;
+    }
+    const btn = event.currentTarget as HTMLElement;
+    const r = btn.getBoundingClientRect();
+    const estimatedH = this.STATS_CATEGORIES.length * 40 + 10;
+    this.statusCatDropLeft = r.left;
+    this.statusCatDropWidth = Math.max(r.width, 140);
+    if (this.statusCatDropLeft + this.statusCatDropWidth > window.innerWidth - 8) {
+      this.statusCatDropLeft = window.innerWidth - this.statusCatDropWidth - 8;
+    }
+    this.statusCatDropTop = (window.innerHeight - r.bottom - 8 >= estimatedH || r.top < estimatedH)
+      ? r.bottom + 4
+      : r.top - estimatedH - 4;
+    this.statusCatDropOpen = cfg.key;
+  }
+
+  pickStatusCategory(key: string, category: string, event: MouseEvent): void {
+    event.stopPropagation();
+    this.jobStore.setStatusCategory(key, category as StatsCategory);
+    this.statusCatDropOpen = null;
+  }
+
   @HostListener('document:click')
-  closeCatDrop(): void { this.catDropOpen = false; }
+  closeCatDrop(): void {
+    this.catDropOpen = false;
+    this.statusCatDropOpen = null;
+  }
 
   categoryColor(name: string): string {
     return this.practice.categories().find(c => c.name === name)?.color ?? '#9b9b99';

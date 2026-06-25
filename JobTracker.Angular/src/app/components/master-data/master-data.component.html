@@ -136,35 +136,38 @@
             </form>
         </app-card>
 
-        <app-card class="master-data-card" radius="xl">
-            <div class="master-data-card-head">
-                <div class="master-data-card-icon master-data-card-icon--blue">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <polyline points="12 6 12 12 16 14" />
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="master-data-card-title">{{ 'masterData.statuses.title' | translate }}</h3>
-                    <p class="master-data-card-sub">{{ 'masterData.statuses.subtitle' | translate }}</p>
-                </div>
-                <app-badge variant="green" class="master-data-badge">{{ 'masterData.badge.count' | translate:{ count: jobStore.statusConfigs().length } }}</app-badge>
+    </div>
+
+    <app-card class="master-data-card master-data-card--wide" radius="xl">
+        <div class="master-data-card-head">
+            <div class="master-data-card-icon master-data-card-icon--yellow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 3v18h18" />
+                    <path d="M18.7 8l-5.1 5.1-3-3L7 13.6" />
+                </svg>
             </div>
+            <div>
+                <h3 class="master-data-card-title">{{ 'masterData.statuses.title' | translate }}</h3>
+                <p class="master-data-card-sub">{{ 'masterData.statuses.subtitle' | translate }}</p>
+            </div>
+            <app-badge variant="green" class="master-data-badge">{{ 'masterData.badge.count' | translate:{ count: jobStore.statusConfigs().length } }}</app-badge>
+        </div>
 
-            <div class="status-list">
-                @for (cfg of jobStore.statusConfigs(); track cfg.key; let first = $first; let last = $last; let i = $index) {
-                <div class="status-row"
-                    draggable="true"
-                    [class.status-row--selected]="selectedStatusKey === cfg.key"
-                    [class.status-row--drag-over]="dragOverStatusIndex === i"
-                    [class.status-row--dragging]="draggedStatusIndex === i"
-                    (dragstart)="onStatusDragStart(i)"
-                    (dragover)="onStatusDragOver($event, i)"
-                    (drop)="onStatusDrop($event, i)"
-                    (dragend)="onStatusDragEnd()"
-                    (click)="selectStatus(cfg)" [title]="'masterData.selectToEdit' | translate">
+        <div class="status-list">
+            @for (cfg of jobStore.statusConfigs(); track cfg.key; let first = $first; let last = $last; let i = $index) {
+            <div class="status-row"
+                draggable="true"
+                [class.status-row--selected]="selectedStatusKey === cfg.key"
+                [class.status-row--drag-over]="dragOverStatusIndex === i"
+                [class.status-row--dragging]="draggedStatusIndex === i"
+                (dragstart)="onStatusDragStart(i)"
+                (dragover)="onStatusDragOver($event, i)"
+                (drop)="onStatusDrop($event, i)"
+                (dragend)="onStatusDragEnd()"
+                (click)="selectStatus(cfg)" [title]="'masterData.selectToEdit' | translate">
 
+                <div class="status-row-main">
                     <div class="status-row-order">
                         <button type="button" class="status-order-btn" (click)="moveStatusUp(cfg.key, $event)"
                             [disabled]="first" [title]="'masterData.moveUp' | translate">
@@ -210,42 +213,85 @@
                         </svg>
                     </button>
                 </div>
-                }
-            </div>
 
-            <form class="master-data-add-form master-data-add-form--color" (ngSubmit)="addStatus()">
-                <input class="master-data-input" type="text" [placeholder]="'masterData.statuses.newPlaceholder' | translate" [(ngModel)]="newStatusLabel"
-                    name="newStatusLabel" />
-                <div class="master-data-color-picker">
-                    @for (preset of STATUS_PRESETS; track preset) {
-                    <button type="button" class="master-data-color-dot" [style.background-color]="preset"
-                        [class.master-data-color-dot--active]="newStatusColor === preset"
-                        (click)="newStatusColor = preset" [title]="preset"></button>
+                <div class="status-row-controls">
+                    <span class="status-row-controls-label">{{ 'masterData.statuses.statsControlsLabel' | translate }}</span>
+                    <button type="button" class="stat-flag-btn" [class.stat-flag-btn--on]="cfg.isActive"
+                        (click)="toggleStatusActive(cfg.key, $event)"
+                        [title]="'masterData.statuses.activeFlagTitle' | translate">
+                        {{ 'masterData.statuses.activeFlagLabel' | translate }}
+                    </button>
+
+                    <button type="button" class="stat-flag-btn" [class.stat-flag-btn--on]="cfg.isInterview"
+                        (click)="toggleStatusInterview(cfg.key, $event)"
+                        [title]="'masterData.statuses.interviewFlagTitle' | translate">
+                        {{ 'masterData.statuses.interviewFlagLabel' | translate }}
+                    </button>
+
+                    <button type="button" class="status-cat-trigger"
+                        [class.status-cat-trigger--open]="statusCatDropOpen === cfg.key"
+                        (click)="toggleStatusCatDrop(cfg, $event)"
+                        [title]="'masterData.statuses.statsCategoryTitle' | translate">
+                        <span class="status-cat-trigger-label">{{ 'masterData.statuses.statsCategoryOptions.' + (cfg.statsCategory ?? 'None') | translate }}</span>
+                        <svg class="status-cat-trigger-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    @if (statusCatDropOpen === cfg.key) {
+                    <div class="cat-drop-panel" [style.top.px]="statusCatDropTop" [style.left.px]="statusCatDropLeft"
+                        [style.width.px]="statusCatDropWidth" (click)="$event.stopPropagation()">
+                        @for (cat of STATS_CATEGORIES; track cat) {
+                        <button type="button" class="cat-drop-option"
+                            [class.cat-drop-option--current]="(cfg.statsCategory ?? 'None') === cat"
+                            (click)="pickStatusCategory(cfg.key, cat, $event)">
+                            <span class="cat-drop-name">{{ 'masterData.statuses.statsCategoryOptions.' + cat | translate }}</span>
+                            @if ((cfg.statsCategory ?? 'None') === cat) {
+                            <svg class="cat-drop-check" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            }
+                        </button>
+                        }
+                    </div>
                     }
                 </div>
-                @if (selectedStatusKey) {
-                <button type="button" class="master-data-cancel-btn" (click)="cancelStatusEdit()">{{ 'masterData.cancel' | translate }}</button>
-                }
-                <button class="master-data-add-btn" type="submit">
-                    @if (selectedStatusKey) {
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    {{ 'masterData.save' | translate }}
-                    } @else {
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round">
-                        <line x1="12" y1="5" x2="12" y2="19" />
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                    </svg>
-                    {{ 'masterData.add' | translate }}
-                    }
-                </button>
-            </form>
-        </app-card>
+            </div>
+            }
+        </div>
 
-    </div>
+        <form class="master-data-add-form master-data-add-form--color" (ngSubmit)="addStatus()">
+            <input class="master-data-input" type="text" [placeholder]="'masterData.statuses.newPlaceholder' | translate" [(ngModel)]="newStatusLabel"
+                name="newStatusLabel" />
+            <div class="master-data-color-picker">
+                @for (preset of STATUS_PRESETS; track preset) {
+                <button type="button" class="master-data-color-dot" [style.background-color]="preset"
+                    [class.master-data-color-dot--active]="newStatusColor === preset"
+                    (click)="newStatusColor = preset" [title]="preset"></button>
+                }
+            </div>
+            @if (selectedStatusKey) {
+            <button type="button" class="master-data-cancel-btn" (click)="cancelStatusEdit()">{{ 'masterData.cancel' | translate }}</button>
+            }
+            <button class="master-data-add-btn" type="submit">
+                @if (selectedStatusKey) {
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                </svg>
+                {{ 'masterData.save' | translate }}
+                } @else {
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                {{ 'masterData.add' | translate }}
+                }
+            </button>
+        </form>
+    </app-card>
 
     @if (isDemoUser()) {
     <div class="master-data-info">

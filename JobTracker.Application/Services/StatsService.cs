@@ -1,7 +1,6 @@
 using System.Globalization;
 using JobTracker.Application.DTOs;
 using JobTracker.Application.Interfaces;
-using JobTracker.Domain.Entities;
 using JobTracker.Domain.Interfaces;
 
 namespace JobTracker.Application.Services;
@@ -13,9 +12,15 @@ public sealed class StatsService(IJobStatusHistoryRepository historyRepo) : ISta
         var history = await historyRepo.GetAllByUserAsync(userId);
         if (history.Count == 0) return [];
 
-        var historyByJob = history
-            .GroupBy(h => h.JobId)
-            .ToDictionary(g => g.Key, g => g.OrderBy(h => h.ChangedAt).ToList());
+        var keyFn = PeriodKeyFn(granularity);
+
+        // Each status change is attributed to the period it happened in, so a job that
+        // moves through several statuses on the same day shows up under all of them.
+        var countsByPeriod = history
+            .GroupBy(h => keyFn(DateOnly.FromDateTime(h.ChangedAt)))
+            .ToDictionary(
+                g => g.Key,
+                g => g.GroupBy(h => h.Status).ToDictionary(sg => sg.Key, sg => sg.Count()));
 
         var earliest = DateOnly.FromDateTime(history.Min(h => h.ChangedAt));
         var today = DateOnly.FromDateTime(DateTime.UtcNow);
@@ -23,7 +28,9 @@ public sealed class StatsService(IJobStatusHistoryRepository historyRepo) : ISta
         var periods = BuildPeriods(earliest, today, granularity);
 
         var points = periods
-            .Select(p => new StatsSeriesPoint(p.Key, CountByStatus(historyByJob, p.AsOf)))
+            .Select(key => new StatsSeriesPoint(
+                key,
+                countsByPeriod.TryGetValue(key, out var counts) ? counts : []))
             .ToList();
 
         var limit = granularity switch
@@ -36,44 +43,16 @@ public sealed class StatsService(IJobStatusHistoryRepository historyRepo) : ISta
         return points.Count > limit ? points.Skip(points.Count - limit).ToList() : points;
     }
 
-    // For each job, finds the status it held as of the given day (its most recent
-    // transition on or before that day), then tallies how many jobs were in each status.
-    private static Dictionary<string, int> CountByStatus(
-        Dictionary<int, List<JobStatusHistory>> historyByJob, DateOnly asOf)
-    {
-        var counts = new Dictionary<string, int>();
-        foreach (var entries in historyByJob.Values)
-        {
-            var status = StatusAsOf(entries, asOf);
-            if (status is null) continue;
-            counts[status] = counts.GetValueOrDefault(status) + 1;
-        }
-        return counts;
-    }
-
-    private static string? StatusAsOf(List<JobStatusHistory> entries, DateOnly asOf)
-    {
-        string? status = null;
-        foreach (var entry in entries)
-        {
-            if (DateOnly.FromDateTime(entry.ChangedAt) > asOf) break;
-            status = entry.Status;
-        }
-        return status;
-    }
-
-    private static List<(string Key, DateOnly AsOf)> BuildPeriods(DateOnly start, DateOnly end, string granularity)
+    private static List<string> BuildPeriods(DateOnly start, DateOnly end, string granularity)
     {
         var keyFn = PeriodKeyFn(granularity);
-        var periods = new List<(string Key, DateOnly AsOf)>();
+        var periods = new List<string>();
 
         for (var date = start; date <= end; date = date.AddDays(1))
         {
             var key = keyFn(date);
-            if (periods.Count > 0 && periods[^1].Key == key)
-                periods[^1] = (key, date);
-            else
-                periods.Add((key, date));
+            if (periods.Count == 0 || periods[^1] != key)
+                periods.Add(key);
         }
 
         return periods;
