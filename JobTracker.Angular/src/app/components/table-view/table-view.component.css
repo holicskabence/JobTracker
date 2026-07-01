@@ -323,7 +323,7 @@
   .table-view-container {
     overflow-y: auto;
     overflow-x: hidden;
-    border: 1px solid red;
+    padding: var(--space-4) var(--space-4) calc(var(--space-12) + env(safe-area-inset-bottom));
   }
 
   .table-view-table-wrap {
