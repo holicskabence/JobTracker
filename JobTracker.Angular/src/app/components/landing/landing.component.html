@@ -16,18 +16,21 @@
             </div>
 
             <div class="landing-nav-links">
-                <a href="#funkciok">{{ 'landing.nav.features' | translate }}</a>
-                <a href="#statisztika">{{ 'landing.nav.statistics' | translate }}</a>
-                <a href="#hogyan">{{ 'landing.nav.howItWorks' | translate }}</a>
+                <a href="#features">{{ 'landing.nav.features' | translate }}</a>
+                <a href="#statistics">{{ 'landing.nav.statistics' | translate }}</a>
+                <a href="#how-it-works">{{ 'landing.nav.howItWorks' | translate }}</a>
             </div>
 
             <div class="landing-nav-actions">
                 <app-language-switcher />
                 @if (auth.isLoggedIn()) {
-                <a routerLink="/dashboard" class="landing-btn landing-btn--primary">{{ 'landing.nav.dashboard' | translate }}</a>
+                <a routerLink="/dashboard" class="landing-button landing-button--primary">{{ 'landing.nav.dashboard' |
+                    translate }}</a>
                 } @else {
-                <a routerLink="/login" class="landing-btn landing-btn--ghost">{{ 'landing.nav.login' | translate }}</a>
-                <a routerLink="/register" class="landing-btn landing-btn--primary">{{ 'landing.nav.register' | translate }}</a>
+                <a routerLink="/login" class="landing-button landing-button--ghost">{{ 'landing.nav.login' | translate
+                    }}</a>
+                <a routerLink="/register" class="landing-button landing-button--primary">{{ 'landing.nav.register' |
+                    translate }}</a>
                 }
             </div>
         </nav>
@@ -37,7 +40,8 @@
 
         <section class="hero">
             <div class="hero-content">
-                <h1 class="hero-title">{{ 'landing.hero.titleLine1' | translate }}<br>{{ 'landing.hero.titleLine2' | translate }}</h1>
+                <h1 class="hero-title">{{ 'landing.hero.titleLine1' | translate }}<br>{{ 'landing.hero.titleLine2' |
+                    translate }}</h1>
 
                 <p class="hero-subtitle">
                     {{ 'landing.hero.subtitle' | translate }}
@@ -45,15 +49,16 @@
 
                 <div class="hero-actions">
                     @if (auth.isLoggedIn()) {
-                    <a routerLink="/dashboard" class="landing-btn landing-btn--primary landing-btn--lg">
+                    <a routerLink="/dashboard" class="landing-button landing-button--primary landing-button--lg">
                         {{ 'landing.hero.goToDashboard' | translate }}
-                        <svg class="landing-btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="landing-button-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="9 18 15 12 9 6" />
                         </svg>
                     </a>
                     } @else {
-                    <a routerLink="/register" class="landing-btn landing-btn--primary landing-btn--lg">{{ 'landing.hero.startFree' | translate }}</a>
+                    <a routerLink="/register" class="landing-button landing-button--primary landing-button--lg">{{
+                        'landing.hero.startFree' | translate }}</a>
                     }
                 </div>
             </div>
@@ -143,8 +148,9 @@
 
                         <div class="app-frame-main">
                             <div class="mock-frame-header">
-                                <span class="mock-frame-title">{{ 'landing.heroMockup.applicationsTitle' | translate }}</span>
-                                <span class="mock-frame-btn">
+                                <span class="mock-frame-title">{{ 'landing.heroMockup.applicationsTitle' | translate
+                                    }}</span>
+                                <span class="mock-frame-button">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                         <line x1="12" y1="5" x2="12" y2="19" />
@@ -161,7 +167,8 @@
                                             <div class="kanban-column-title-row">
                                                 <span class="kanban-column-dot"
                                                     style="background-color: #9b9b99"></span>
-                                                <h4 class="kanban-column-title">{{ 'landing.heroMockup.statusSaved' | translate }}</h4>
+                                                <h4 class="kanban-column-title">{{ 'landing.heroMockup.statusSaved' |
+                                                    translate }}</h4>
                                             </div>
                                             <span class="kanban-column-count">1</span>
                                         </div>
@@ -177,7 +184,8 @@
                                                     </span>
                                                 </div>
                                                 <h5 class="card-company">Stripe</h5>
-                                                <p class="card-position">{{ 'landing.heroMockup.positionFrontendDeveloper' | translate }}</p>
+                                                <p class="card-position">{{
+                                                    'landing.heroMockup.positionFrontendDeveloper' | translate }}</p>
                                                 <div class="card-footer">
                                                     <div class="card-date">
                                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
@@ -189,7 +197,7 @@
                                                         2026-06-04
                                                     </div>
                                                     <div class="card-actions">
-                                                        <span class="card-action-btn">
+                                                        <span class="card-action-button">
                                                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                                                                 stroke="currentColor" stroke-width="2.5"
                                                                 stroke-linecap="round" stroke-linejoin="round">
@@ -210,7 +218,8 @@
                                             <div class="kanban-column-title-row">
                                                 <span class="kanban-column-dot"
                                                     style="background-color: var(--clr-blue)"></span>
-                                                <h4 class="kanban-column-title">{{ 'landing.heroMockup.statusApplied' | translate }}</h4>
+                                                <h4 class="kanban-column-title">{{ 'landing.heroMockup.statusApplied' |
+                                                    translate }}</h4>
                                             </div>
                                             <span class="kanban-column-count">2</span>
                                         </div>
@@ -226,7 +235,8 @@
                                                     </span>
                                                 </div>
                                                 <h5 class="card-company">Tech Corp</h5>
-                                                <p class="card-position">{{ 'landing.heroMockup.positionFrontendFejleszto' | translate }}</p>
+                                                <p class="card-position">{{
+                                                    'landing.heroMockup.positionFrontendFejleszto' | translate }}</p>
                                                 <div class="card-footer">
                                                     <div class="card-date">
                                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
@@ -238,7 +248,7 @@
                                                         2026-05-10
                                                     </div>
                                                     <div class="card-actions">
-                                                        <span class="card-action-btn">
+                                                        <span class="card-action-button">
                                                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                                                                 stroke="currentColor" stroke-width="2.5"
                                                                 stroke-linecap="round" stroke-linejoin="round">
@@ -262,7 +272,8 @@
                                                     </span>
                                                 </div>
                                                 <h5 class="card-company">DigitalHub</h5>
-                                                <p class="card-position">{{ 'landing.heroMockup.positionSeniorFejleszto' | translate }}</p>
+                                                <p class="card-position">{{ 'landing.heroMockup.positionSeniorFejleszto'
+                                                    | translate }}</p>
                                                 <div class="card-footer">
                                                     <div class="card-date">
                                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
@@ -274,7 +285,7 @@
                                                         2026-05-28
                                                     </div>
                                                     <div class="card-actions">
-                                                        <span class="card-action-btn">
+                                                        <span class="card-action-button">
                                                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                                                                 stroke="currentColor" stroke-width="2.5"
                                                                 stroke-linecap="round" stroke-linejoin="round">
@@ -295,7 +306,8 @@
                                             <div class="kanban-column-title-row">
                                                 <span class="kanban-column-dot"
                                                     style="background-color: var(--clr-yellow)"></span>
-                                                <h4 class="kanban-column-title">{{ 'landing.heroMockup.statusInterview' | translate }}</h4>
+                                                <h4 class="kanban-column-title">{{ 'landing.heroMockup.statusInterview'
+                                                    | translate }}</h4>
                                             </div>
                                             <span class="kanban-column-count">2</span>
                                         </div>
@@ -311,7 +323,8 @@
                                                     </span>
                                                 </div>
                                                 <h5 class="card-company">StartupXY</h5>
-                                                <p class="card-position">{{ 'landing.heroMockup.positionFullStackFejleszto' | translate }}</p>
+                                                <p class="card-position">{{
+                                                    'landing.heroMockup.positionFullStackFejleszto' | translate }}</p>
                                                 <div class="card-footer">
                                                     <div class="card-date">
                                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
@@ -323,7 +336,7 @@
                                                         2026-05-15
                                                     </div>
                                                     <div class="card-actions">
-                                                        <span class="card-action-btn">
+                                                        <span class="card-action-button">
                                                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                                                                 stroke="currentColor" stroke-width="2.5"
                                                                 stroke-linecap="round" stroke-linejoin="round">
@@ -347,7 +360,8 @@
                                                     </span>
                                                 </div>
                                                 <h5 class="card-company">Google</h5>
-                                                <p class="card-position">{{ 'landing.heroMockup.positionSoftwareEngineer' | translate }}</p>
+                                                <p class="card-position">{{
+                                                    'landing.heroMockup.positionSoftwareEngineer' | translate }}</p>
                                                 <div class="card-footer">
                                                     <div class="card-date">
                                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
@@ -359,7 +373,7 @@
                                                         2026-06-03
                                                     </div>
                                                     <div class="card-actions">
-                                                        <span class="card-action-btn">
+                                                        <span class="card-action-button">
                                                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                                                                 stroke="currentColor" stroke-width="2.5"
                                                                 stroke-linecap="round" stroke-linejoin="round">
@@ -380,7 +394,8 @@
                                             <div class="kanban-column-title-row">
                                                 <span class="kanban-column-dot"
                                                     style="background-color: var(--clr-green)"></span>
-                                                <h4 class="kanban-column-title">{{ 'landing.heroMockup.statusOffer' | translate }}</h4>
+                                                <h4 class="kanban-column-title">{{ 'landing.heroMockup.statusOffer' |
+                                                    translate }}</h4>
                                             </div>
                                             <span class="kanban-column-count">1</span>
                                         </div>
@@ -396,7 +411,8 @@
                                                     </span>
                                                 </div>
                                                 <h5 class="card-company">InnoSoft</h5>
-                                                <p class="card-position">{{ 'landing.heroMockup.positionUiFejleszto' | translate }}</p>
+                                                <p class="card-position">{{ 'landing.heroMockup.positionUiFejleszto' |
+                                                    translate }}</p>
                                                 <div class="card-footer">
                                                     <div class="card-date">
                                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
@@ -408,7 +424,7 @@
                                                         2026-06-01
                                                     </div>
                                                     <div class="card-actions">
-                                                        <span class="card-action-btn">
+                                                        <span class="card-action-button">
                                                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                                                                 stroke="currentColor" stroke-width="2.5"
                                                                 stroke-linecap="round" stroke-linejoin="round">
@@ -429,7 +445,8 @@
                                             <div class="kanban-column-title-row">
                                                 <span class="kanban-column-dot"
                                                     style="background-color: var(--clr-red)"></span>
-                                                <h4 class="kanban-column-title">{{ 'landing.heroMockup.statusRejected' | translate }}</h4>
+                                                <h4 class="kanban-column-title">{{ 'landing.heroMockup.statusRejected' |
+                                                    translate }}</h4>
                                             </div>
                                             <span class="kanban-column-count">1</span>
                                         </div>
@@ -445,7 +462,8 @@
                                                     </span>
                                                 </div>
                                                 <h5 class="card-company">BigBank Zrt.</h5>
-                                                <p class="card-position">{{ 'landing.heroMockup.positionAngularFejleszto' | translate }}</p>
+                                                <p class="card-position">{{
+                                                    'landing.heroMockup.positionAngularFejleszto' | translate }}</p>
                                                 <div class="card-footer">
                                                     <div class="card-date">
                                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
@@ -457,7 +475,7 @@
                                                         2026-05-20
                                                     </div>
                                                     <div class="card-actions">
-                                                        <span class="card-action-btn">
+                                                        <span class="card-action-button">
                                                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                                                                 stroke="currentColor" stroke-width="2.5"
                                                                 stroke-linecap="round" stroke-linejoin="round">
@@ -481,7 +499,7 @@
             </div>
         </section>
 
-        <section class="panel-section" id="funkciok">
+        <section class="panel-section" id="features">
             <h2 class="section-title">{{ 'landing.features.title' | translate }}</h2>
             <p class="section-subtitle">{{ 'landing.features.subtitle' | translate }}</p>
 
@@ -496,7 +514,7 @@
                         </svg>
                     </div>
                     <h3 class="panel-cell-title">{{ 'landing.features.kanban.title' | translate }}</h3>
-                    <p class="panel-cell-desc">{{ 'landing.features.kanban.desc' | translate }}</p>
+                    <p class="panel-cell-description">{{ 'landing.features.kanban.description' | translate }}</p>
                 </div>
 
                 <div class="panel-cell">
@@ -510,7 +528,7 @@
                         </svg>
                     </div>
                     <h3 class="panel-cell-title">{{ 'landing.features.table.title' | translate }}</h3>
-                    <p class="panel-cell-desc">{{ 'landing.features.table.desc' | translate }}</p>
+                    <p class="panel-cell-description">{{ 'landing.features.table.description' | translate }}</p>
                 </div>
 
                 <div class="panel-cell">
@@ -524,7 +542,7 @@
                         </svg>
                     </div>
                     <h3 class="panel-cell-title">{{ 'landing.features.events.title' | translate }}</h3>
-                    <p class="panel-cell-desc">{{ 'landing.features.events.desc' | translate }}</p>
+                    <p class="panel-cell-description">{{ 'landing.features.events.description' | translate }}</p>
                 </div>
 
                 <div class="panel-cell">
@@ -538,7 +556,7 @@
                         </svg>
                     </div>
                     <h3 class="panel-cell-title">{{ 'landing.features.documents.title' | translate }}</h3>
-                    <p class="panel-cell-desc">{{ 'landing.features.documents.desc' | translate }}</p>
+                    <p class="panel-cell-description">{{ 'landing.features.documents.description' | translate }}</p>
                 </div>
 
                 <div class="panel-cell">
@@ -551,7 +569,7 @@
                         </svg>
                     </div>
                     <h3 class="panel-cell-title">{{ 'landing.features.stats.title' | translate }}</h3>
-                    <p class="panel-cell-desc">{{ 'landing.features.stats.desc' | translate }}</p>
+                    <p class="panel-cell-description">{{ 'landing.features.stats.description' | translate }}</p>
                 </div>
 
                 <div class="panel-cell">
@@ -565,17 +583,18 @@
                         </svg>
                     </div>
                     <h3 class="panel-cell-title">{{ 'landing.features.interviewPractice.title' | translate }}</h3>
-                    <p class="panel-cell-desc">{{ 'landing.features.interviewPractice.desc' | translate }}</p>
+                    <p class="panel-cell-description">{{ 'landing.features.interviewPractice.description' | translate }}
+                    </p>
                 </div>
             </div>
         </section>
 
-        <section class="panel-section" id="statisztika">
+        <section class="panel-section" id="statistics">
             <h2 class="section-title">{{ 'landing.stats.title' | translate }}</h2>
             <p class="section-subtitle">{{ 'landing.stats.subtitle' | translate }}</p>
 
             <div class="stats-panel">
-                <div class="stats-panel-col">
+                <div class="stats-panel-column">
                     <h4 class="stats-panel-title">{{ 'landing.stats.applicationsStatus' | translate }}</h4>
                     <div class="stat-donut-row">
                         <div class="stat-donut">
@@ -586,67 +605,93 @@
                             </div>
                         </div>
                         <ul class="stat-legend">
-                            <li><span class="mock-dot mock-dot--blue"></span>{{ 'landing.heroMockup.statusApplied' | translate }} <strong>12</strong></li>
-                            <li><span class="mock-dot mock-dot--gray"></span>{{ 'landing.heroMockup.statusSaved' | translate }} <strong>6</strong></li>
-                            <li><span class="mock-dot mock-dot--yellow"></span>{{ 'landing.heroMockup.statusInterview' | translate }} <strong>4</strong></li>
-                            <li><span class="mock-dot mock-dot--green"></span>{{ 'landing.heroMockup.statusOffer' | translate }} <strong>3</strong></li>
-                            <li><span class="mock-dot mock-dot--red"></span>{{ 'landing.heroMockup.statusRejected' | translate }} <strong>2</strong></li>
+                            <li><span class="mock-dot mock-dot--blue"></span>{{ 'landing.heroMockup.statusApplied' |
+                                translate }} <strong>12</strong></li>
+                            <li><span class="mock-dot mock-dot--gray"></span>{{ 'landing.heroMockup.statusSaved' |
+                                translate }} <strong>6</strong></li>
+                            <li><span class="mock-dot mock-dot--yellow"></span>{{ 'landing.heroMockup.statusInterview' |
+                                translate }} <strong>4</strong></li>
+                            <li><span class="mock-dot mock-dot--green"></span>{{ 'landing.heroMockup.statusOffer' |
+                                translate }} <strong>3</strong></li>
+                            <li><span class="mock-dot mock-dot--red"></span>{{ 'landing.heroMockup.statusRejected' |
+                                translate }} <strong>2</strong></li>
                         </ul>
                     </div>
                 </div>
                 <div class="stats-panel-divider"></div>
-                <div class="stats-panel-col">
+                <div class="stats-panel-column">
                     <h4 class="stats-panel-title">{{ 'landing.stats.weeklyActivity' | translate }}</h4>
                     <div class="weekday-body">
                         <div class="weekday-bars">
-                            <div class="weekday-col">
+                            <div class="weekday-column">
                                 <span class="weekday-count">2</span>
                                 <div class="weekday-track">
                                     <div class="weekday-fill" style="height: 40%"></div>
                                 </div>
-                                <span class="weekday-name"><span class="weekday-name-full">{{ 'landing.stats.weekday.mondayFull' | translate }}</span><span class="weekday-name-short">{{ 'landing.stats.weekday.mondayShort' | translate }}</span></span>
+                                <span class="weekday-name"><span class="weekday-name-full">{{
+                                        'landing.stats.weekday.mondayFull' | translate }}</span><span
+                                        class="weekday-name-short">{{ 'landing.stats.weekday.mondayShort' | translate
+                                        }}</span></span>
                             </div>
-                            <div class="weekday-col">
+                            <div class="weekday-column">
                                 <span class="weekday-count">3</span>
                                 <div class="weekday-track">
                                     <div class="weekday-fill" style="height: 60%"></div>
                                 </div>
-                                <span class="weekday-name"><span class="weekday-name-full">{{ 'landing.stats.weekday.tuesdayFull' | translate }}</span><span class="weekday-name-short">{{ 'landing.stats.weekday.tuesdayShort' | translate }}</span></span>
+                                <span class="weekday-name"><span class="weekday-name-full">{{
+                                        'landing.stats.weekday.tuesdayFull' | translate }}</span><span
+                                        class="weekday-name-short">{{ 'landing.stats.weekday.tuesdayShort' | translate
+                                        }}</span></span>
                             </div>
-                            <div class="weekday-col">
+                            <div class="weekday-column">
                                 <span class="weekday-count">2</span>
                                 <div class="weekday-track">
                                     <div class="weekday-fill" style="height: 40%"></div>
                                 </div>
-                                <span class="weekday-name"><span class="weekday-name-full">{{ 'landing.stats.weekday.wednesdayFull' | translate }}</span><span class="weekday-name-short">{{ 'landing.stats.weekday.wednesdayShort' | translate }}</span></span>
+                                <span class="weekday-name"><span class="weekday-name-full">{{
+                                        'landing.stats.weekday.wednesdayFull' | translate }}</span><span
+                                        class="weekday-name-short">{{ 'landing.stats.weekday.wednesdayShort' | translate
+                                        }}</span></span>
                             </div>
-                            <div class="weekday-col">
+                            <div class="weekday-column">
                                 <span class="weekday-count">4</span>
                                 <div class="weekday-track">
                                     <div class="weekday-fill" style="height: 80%"></div>
                                 </div>
-                                <span class="weekday-name"><span class="weekday-name-full">{{ 'landing.stats.weekday.thursdayFull' | translate }}</span><span class="weekday-name-short">{{ 'landing.stats.weekday.thursdayShort' | translate }}</span></span>
+                                <span class="weekday-name"><span class="weekday-name-full">{{
+                                        'landing.stats.weekday.thursdayFull' | translate }}</span><span
+                                        class="weekday-name-short">{{ 'landing.stats.weekday.thursdayShort' | translate
+                                        }}</span></span>
                             </div>
-                            <div class="weekday-col">
+                            <div class="weekday-column">
                                 <span class="weekday-count">5</span>
                                 <div class="weekday-track">
                                     <div class="weekday-fill" style="height: 100%"></div>
                                 </div>
-                                <span class="weekday-name"><span class="weekday-name-full">{{ 'landing.stats.weekday.fridayFull' | translate }}</span><span class="weekday-name-short">{{ 'landing.stats.weekday.fridayShort' | translate }}</span></span>
+                                <span class="weekday-name"><span class="weekday-name-full">{{
+                                        'landing.stats.weekday.fridayFull' | translate }}</span><span
+                                        class="weekday-name-short">{{ 'landing.stats.weekday.fridayShort' | translate
+                                        }}</span></span>
                             </div>
-                            <div class="weekday-col">
+                            <div class="weekday-column">
                                 <span class="weekday-count">1</span>
                                 <div class="weekday-track">
                                     <div class="weekday-fill" style="height: 20%"></div>
                                 </div>
-                                <span class="weekday-name"><span class="weekday-name-full">{{ 'landing.stats.weekday.saturdayFull' | translate }}</span><span class="weekday-name-short">{{ 'landing.stats.weekday.saturdayShort' | translate }}</span></span>
+                                <span class="weekday-name"><span class="weekday-name-full">{{
+                                        'landing.stats.weekday.saturdayFull' | translate }}</span><span
+                                        class="weekday-name-short">{{ 'landing.stats.weekday.saturdayShort' | translate
+                                        }}</span></span>
                             </div>
-                            <div class="weekday-col">
+                            <div class="weekday-column">
                                 <span class="weekday-count">1</span>
                                 <div class="weekday-track">
                                     <div class="weekday-fill" style="height: 20%"></div>
                                 </div>
-                                <span class="weekday-name"><span class="weekday-name-full">{{ 'landing.stats.weekday.sundayFull' | translate }}</span><span class="weekday-name-short">{{ 'landing.stats.weekday.sundayShort' | translate }}</span></span>
+                                <span class="weekday-name"><span class="weekday-name-full">{{
+                                        'landing.stats.weekday.sundayFull' | translate }}</span><span
+                                        class="weekday-name-short">{{ 'landing.stats.weekday.sundayShort' | translate
+                                        }}</span></span>
                             </div>
                         </div>
                     </div>
@@ -655,25 +700,25 @@
             </div>
         </section>
 
-        <section class="panel-section" id="hogyan">
+        <section class="panel-section" id="how-it-works">
             <h2 class="section-title">{{ 'landing.howItWorks.title' | translate }}</h2>
             <p class="section-subtitle">{{ 'landing.howItWorks.subtitle' | translate }}</p>
 
             <div class="panel-grid panel-grid--3 panel-grid--steps">
                 <div class="panel-cell">
-                    <span class="step-num">01</span>
+                    <span class="step-number">01</span>
                     <h3 class="panel-cell-title">{{ 'landing.howItWorks.step1.title' | translate }}</h3>
-                    <p class="panel-cell-desc">{{ 'landing.howItWorks.step1.desc' | translate }}</p>
+                    <p class="panel-cell-description">{{ 'landing.howItWorks.step1.description' | translate }}</p>
                 </div>
                 <div class="panel-cell">
-                    <span class="step-num">02</span>
+                    <span class="step-number">02</span>
                     <h3 class="panel-cell-title">{{ 'landing.howItWorks.step2.title' | translate }}</h3>
-                    <p class="panel-cell-desc">{{ 'landing.howItWorks.step2.desc' | translate }}</p>
+                    <p class="panel-cell-description">{{ 'landing.howItWorks.step2.description' | translate }}</p>
                 </div>
                 <div class="panel-cell">
-                    <span class="step-num">03</span>
+                    <span class="step-number">03</span>
                     <h3 class="panel-cell-title">{{ 'landing.howItWorks.step3.title' | translate }}</h3>
-                    <p class="panel-cell-desc">{{ 'landing.howItWorks.step3.desc' | translate }}</p>
+                    <p class="panel-cell-description">{{ 'landing.howItWorks.step3.description' | translate }}</p>
                 </div>
             </div>
         </section>
@@ -683,31 +728,15 @@
                 <h2 class="cta-title">{{ 'landing.cta.title' | translate }}</h2>
                 <p class="cta-subtitle">{{ 'landing.cta.subtitle' | translate }}</p>
                 @if (auth.isLoggedIn()) {
-                <a routerLink="/dashboard" class="landing-btn landing-btn--cta landing-btn--lg">{{ 'landing.cta.goToDashboard' | translate }}</a>
+                <a routerLink="/dashboard" class="landing-button landing-button--cta landing-button--lg">{{
+                    'landing.cta.goToDashboard' | translate }}</a>
                 } @else {
-                <a routerLink="/register" class="landing-btn landing-btn--cta landing-btn--lg">{{ 'landing.cta.registerFree' | translate }}</a>
+                <a routerLink="/register" class="landing-button landing-button--cta landing-button--lg">{{
+                    'landing.cta.registerFree' | translate }}</a>
                 }
             </div>
         </section>
 
     </main>
-
-    <footer class="landing-footer">
-        <div class="landing-footer-inner">
-            <div class="landing-brand">
-                <div class="landing-logo">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--clr-green)"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <rect x="2" y="2" width="9" height="9" rx="2" opacity="0.85" />
-                        <rect x="13" y="2" width="9" height="9" rx="2" opacity="0.45" />
-                        <rect x="2" y="13" width="9" height="9" rx="2" opacity="0.45" />
-                        <rect x="13" y="13" width="9" height="9" rx="2" opacity="0.85" />
-                    </svg>
-                </div>
-                <span class="landing-brand-name">JobTracker</span>
-            </div>
-            <span class="landing-footer-copy">{{ 'landing.footer.copyright' | translate: { year: currentYear } }}</span>
-        </div>
-    </footer>
 
 </div>

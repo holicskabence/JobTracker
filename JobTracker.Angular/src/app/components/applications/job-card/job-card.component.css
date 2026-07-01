@@ -68,7 +68,7 @@
   gap: var(--space-1);
 }
 
-.card-action-btn {
+.card-action-button {
   width: var(--space-7);
   height: var(--space-7);
   border-radius: var(--radius-full);
@@ -83,7 +83,7 @@
   transition: background-color 0.2s, color 0.2s;
 }
 
-.card-action-btn:hover {
+.card-action-button:hover {
   background-color: var(--clr-green);
   color: var(--clr-white);
 }

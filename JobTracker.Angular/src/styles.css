@@ -23,6 +23,7 @@
     --clr-red: #ef4444;
     --clr-shadow: rgba(0, 0, 0, 0.06);
     --clr-shadow-md: rgba(0, 0, 0, 0.1);
+    --shadow-card: 0 1px 3px var(--clr-shadow);
 
     --radius-sm: 10px;
     --radius-md: 14px;
@@ -45,7 +46,7 @@
     --space-10: 2.5rem;
     --space-12: 3rem;
 
-    --gap-section: 1rem;
+    --gap-section: 0.7rem;
     --gap-card: 0.75rem;
     --gap-form: 0.875rem;
 

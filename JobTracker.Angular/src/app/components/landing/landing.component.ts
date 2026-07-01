@@ -17,7 +17,6 @@ gsap.registerPlugin(ScrollTrigger);
 })
 export class LandingComponent implements AfterViewInit, OnDestroy {
   readonly auth = inject(AuthService);
-  readonly currentYear = new Date().getFullYear();
 
   private readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly triggers: ScrollTrigger[] = [];
@@ -80,7 +79,7 @@ export class LandingComponent implements AfterViewInit, OnDestroy {
   }
 
   private animateStats(statsPanel: HTMLElement): void {
-    this.scrollFrom(statsPanel.querySelectorAll('.stats-panel-col'), { y: 30, opacity: 0, stagger: 0.09 }, statsPanel);
+    this.scrollFrom(statsPanel.querySelectorAll('.stats-panel-column'), { y: 30, opacity: 0, stagger: 0.09 }, statsPanel);
     this.scrollFrom(statsPanel.querySelectorAll('.stat-legend li'), { x: -16, opacity: 0, stagger: 0.04, delay: 0.1 }, statsPanel);
 
     const donut = statsPanel.querySelector<HTMLElement>('.stat-donut');

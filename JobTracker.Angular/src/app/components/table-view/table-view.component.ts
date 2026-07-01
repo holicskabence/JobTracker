@@ -7,7 +7,7 @@ import { JobStoreService } from '../../services/job-store.service';
 import { CardComponent } from '../shared/card/card.component';
 
 type SortKey = 'company' | 'status' | 'date';
-type SortDir = 'asc' | 'desc';
+type SortDir = 'asc' | 'description';
 
 @Component({
   selector: 'app-table-view',
@@ -22,7 +22,7 @@ export class TableViewComponent {
   openEdit(job: Job): void { this.store.openModal(job); }
 
   readonly sortKey = signal<SortKey>('date');
-  readonly sortDir = signal<SortDir>('desc');
+  readonly sortDir = signal<SortDir>('description');
   readonly searchRaw = signal('');
 
   readonly sortedJobs = computed(() => {
@@ -49,10 +49,10 @@ export class TableViewComponent {
 
   sort(key: SortKey): void {
     if (this.sortKey() === key) {
-      this.sortDir.update(d => d === 'asc' ? 'desc' : 'asc');
+      this.sortDir.update(d => d === 'asc' ? 'description' : 'asc');
     } else {
       this.sortKey.set(key);
-      this.sortDir.set(key === 'date' ? 'desc' : 'asc');
+      this.sortDir.set(key === 'date' ? 'description' : 'asc');
     }
   }
 

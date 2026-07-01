@@ -3,7 +3,7 @@
   "nav": {
     "overview": "Overview",
     "applications": "Applications",
-    "table": "Table",
+    "applicationChanges": "Application Changes",
     "events": "Events & Tasks",
     "documents": "Documents",
     "statistics": "Statistics",
@@ -84,9 +84,6 @@
       "subtitle": "Create an account and start tracking your applications right away.",
       "goToDashboard": "Go to Dashboard",
       "registerFree": "Sign Up for Free"
-    },
-    "footer": {
-      "copyright": "© {{year}} JobTracker. All rights reserved."
     }
   },
   "auth": {
@@ -144,7 +141,7 @@
     "titles": {
       "overview": "Overview",
       "applications": "Applications",
-      "table": "Table",
+      "applicationChanges": "Application Changes",
       "events": "Events & Tasks",
       "documents": "Documents & Templates",
       "statistics": "Statistics",
@@ -228,9 +225,9 @@
       "rejectedCount": "{{count}} rejected"
     },
     "upcomingEvents": {
-      "title": "Upcoming Interviews",
+      "title": "Interviews",
       "viewAll": "View all",
-      "empty": "No upcoming events on the calendar."
+      "empty": "No events on the calendar."
     },
     "quickTasks": {
       "title": "Quick Tasks",
@@ -259,7 +256,9 @@
     "relativeDate": {
       "today": "Today",
       "tomorrow": "Tomorrow",
-      "inDays": "In {{count}} days"
+      "yesterday": "Yesterday",
+      "inDays": "In {{count}} days",
+      "daysAgo": "{{count}} days ago"
     },
     "practiceStreak": {
       "never": "You haven't practiced yet",
@@ -279,6 +278,10 @@
     "selectedCount": "selected — Move to:",
     "cancel": "Cancel"
   },
+  "applicationsView": {
+    "switchToTable": "Switch to table view",
+    "switchToKanban": "Switch to Kanban view"
+  },
   "tableView": {
     "columns": {
       "companyPosition": "Company / Position",
@@ -294,6 +297,16 @@
     "edit": "Edit",
     "noResultsFor": "No results found for “{{term}}”",
     "noApplicationsYet": "No applications yet"
+  },
+  "applicationChanges": {
+    "sectionTitle": "Application Changes",
+    "sectionSubtitle": "Track when your application statuses changed.",
+    "columns": {
+      "change": "Change",
+      "changedAt": "Changed at"
+    },
+    "created": "Created",
+    "noEntriesYet": "No status changes yet"
   },
   "events": {
     "sectionTitle": "Upcoming Interviews & Events",
@@ -359,6 +372,7 @@
     "downloadTitle": "Download",
     "uploadOrReplaceTitle": "Upload / replace file",
     "deleteTitle": "Delete",
+    "actionsTitle": "Actions",
     "noDocuments": "No documents recorded.",
     "noDocumentsOfType": "No documents of type {{type}}.",
     "outreachTemplatesTitle": "Outreach Templates",
@@ -380,6 +394,7 @@
     },
     "applicationsTrend": { "title": "Application activity" },
     "timeRange": { "day": "Day", "week": "Week", "month": "Month" },
+    "viewMode": { "count": "Per period", "cumulative": "Cumulative" },
     "statusDistribution": { "title": "Status distribution", "total": "Total" },
     "statusFunnel": { "title": "Status funnel" },
     "topCompanies": { "title": "Top 5 companies" },

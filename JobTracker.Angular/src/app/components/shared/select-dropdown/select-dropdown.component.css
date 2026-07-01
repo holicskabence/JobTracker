@@ -75,7 +75,7 @@
     }
 }
 
-.select-dropdown-opt {
+.select-dropdown-option {
     width: 100%;
     display: flex;
     align-items: center;
@@ -93,16 +93,16 @@
     transition: background-color 0.1s;
 }
 
-.select-dropdown-opt:hover {
+.select-dropdown-option:hover {
     background-color: var(--clr-bg);
 }
 
-.select-dropdown-opt--active {
+.select-dropdown-option--active {
     color: var(--clr-green);
     font-weight: 600;
 }
 
-.select-dropdown-opt--active svg {
+.select-dropdown-option--active svg {
     flex-shrink: 0;
     color: var(--clr-green);
 }

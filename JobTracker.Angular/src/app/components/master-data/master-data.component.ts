@@ -178,8 +178,8 @@ export class MasterDataComponent {
   toggleCatDrop(event: MouseEvent): void {
     event.stopPropagation();
     if (!this.catDropOpen) {
-      const btn = event.currentTarget as HTMLElement;
-      const r = btn.getBoundingClientRect();
+      const button = event.currentTarget as HTMLElement;
+      const r = button.getBoundingClientRect();
       const estimatedH = this.practice.categories().length * 40 + 10;
       this.catDropLeft = r.left;
       this.catDropWidth = Math.max(r.width, 192);
@@ -210,8 +210,8 @@ export class MasterDataComponent {
       this.statusCatDropOpen = null;
       return;
     }
-    const btn = event.currentTarget as HTMLElement;
-    const r = btn.getBoundingClientRect();
+    const button = event.currentTarget as HTMLElement;
+    const r = button.getBoundingClientRect();
     const estimatedH = this.STATS_CATEGORIES.length * 40 + 10;
     this.statusCatDropLeft = r.left;
     this.statusCatDropWidth = Math.max(r.width, 140);
@@ -285,14 +285,14 @@ export class MasterDataComponent {
     this.categoryFormOpen = false;
   }
 
-  selectCategory(cat: PracticeCategory): void {
-    if (this.selectedCategoryId === cat.id) {
+  selectCategory(category: PracticeCategory): void {
+    if (this.selectedCategoryId === category.id) {
       this.cancelCategoryEdit();
       return;
     }
-    this.selectedCategoryId = cat.id;
-    this.newCategoryName = cat.name;
-    this.newCategoryColor = cat.color;
+    this.selectedCategoryId = category.id;
+    this.newCategoryName = category.name;
+    this.newCategoryColor = category.color;
   }
 
   cancelCategoryEdit(): void {

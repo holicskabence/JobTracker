@@ -3,7 +3,7 @@
   "nav": {
     "overview": "Áttekintés",
     "applications": "Jelentkezések",
-    "table": "Táblázat",
+    "applicationChanges": "Jelentkezés változások",
     "events": "Események & Teendők",
     "documents": "Dokumentumok",
     "statistics": "Statisztika",
@@ -84,9 +84,6 @@
       "subtitle": "Hozz létre egy fiókot, és máris kezdheted rögzíteni a pályázataidat.",
       "goToDashboard": "Irány a Dashboardra",
       "registerFree": "Regisztrálj ingyen"
-    },
-    "footer": {
-      "copyright": "© {{year}} JobTracker. Minden jog fenntartva."
     }
   },
   "auth": {
@@ -144,7 +141,7 @@
     "titles": {
       "overview": "Áttekintés",
       "applications": "Jelentkezések",
-      "table": "Táblázat",
+      "applicationChanges": "Jelentkezés változások",
       "events": "Események & Teendők",
       "documents": "Dokumentumok & Sablonok",
       "statistics": "Statisztika",
@@ -228,9 +225,9 @@
       "rejectedCount": "{{count}} elutasítva"
     },
     "upcomingEvents": {
-      "title": "Közelgő Interjúk",
+      "title": "Interjúk",
       "viewAll": "Összes",
-      "empty": "Nincs közelgő esemény a naptárban."
+      "empty": "Nincs esemény a naptárban."
     },
     "quickTasks": {
       "title": "Gyors Teendők",
@@ -259,7 +256,9 @@
     "relativeDate": {
       "today": "Ma",
       "tomorrow": "Holnap",
-      "inDays": "{{count}} nap múlva"
+      "yesterday": "Tegnap",
+      "inDays": "{{count}} nap múlva",
+      "daysAgo": "{{count}} napja"
     },
     "practiceStreak": {
       "never": "Még nem gyakoroltál",
@@ -279,6 +278,10 @@
     "selectedCount": "kijelölve — Áthelyezés ide:",
     "cancel": "Mégse"
   },
+  "applicationsView": {
+    "switchToTable": "Váltás táblázat nézetre",
+    "switchToKanban": "Váltás Kanban nézetre"
+  },
   "tableView": {
     "columns": {
       "companyPosition": "Cég / Pozíció",
@@ -294,6 +297,16 @@
     "edit": "Szerkesztés",
     "noResultsFor": "Nincs találat a(z) „{{term}}” keresésre",
     "noApplicationsYet": "Nincs még jelentkezés"
+  },
+  "applicationChanges": {
+    "sectionTitle": "Jelentkezés változások",
+    "sectionSubtitle": "Kövesd nyomon, mikor milyen státuszváltozás történt a jelentkezéseidnél.",
+    "columns": {
+      "change": "Változás",
+      "changedAt": "Módosítva"
+    },
+    "created": "Létrehozva",
+    "noEntriesYet": "Nincs még státusz változás"
   },
   "events": {
     "sectionTitle": "Közelgő Interjúk & Események",
@@ -359,6 +372,7 @@
     "downloadTitle": "Letöltés",
     "uploadOrReplaceTitle": "Fájl feltöltése / cserélése",
     "deleteTitle": "Törlés",
+    "actionsTitle": "Műveletek",
     "noDocuments": "Nincsenek rögzített dokumentumok.",
     "noDocumentsOfType": "Nincs {{type}} típusú dokumentum.",
     "outreachTemplatesTitle": "Kapcsolatfelvételi Sablonok",
@@ -380,6 +394,7 @@
     },
     "applicationsTrend": { "title": "Jelentkezési aktivitás" },
     "timeRange": { "day": "Nap", "week": "Hét", "month": "Hónap" },
+    "viewMode": { "count": "Időszakonként", "cumulative": "Összesítve" },
     "statusDistribution": { "title": "Státusz megoszlás", "total": "Összes" },
     "statusFunnel": { "title": "Státusz tölcsér" },
     "topCompanies": { "title": "Top 5 cég" },

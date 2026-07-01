@@ -6,12 +6,11 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../services/auth.service';
 import { LanguageService } from '../../../services/language.service';
 import { AuthCardComponent } from '../../shared/auth-card/auth-card.component';
-import { LanguageSwitcherComponent } from '../../shared/language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, RouterLink, AuthCardComponent, TranslateModule, LanguageSwitcherComponent],
+  imports: [FormsModule, RouterLink, AuthCardComponent, TranslateModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })

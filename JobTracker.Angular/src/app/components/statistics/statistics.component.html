@@ -7,7 +7,7 @@
     <app-card class="kpi-card kpi-card--1">
       <p class="kpi-card-label">{{ 'statistics.kpi.totalApplications' | translate }}</p>
       <p class="kpi-card-value">{{ total() }}</p>
-      <div class="kpi-card-sub">
+      <div class="kpi-card-subtitle">
         <div class="kpi-card-bar-track">
           <div class="kpi-card-bar-fill" [style.width.%]="goalProgress()"></div>
         </div>
@@ -18,7 +18,7 @@
     <app-card class="kpi-card kpi-card--2">
       <p class="kpi-card-label">{{ 'statistics.kpi.activeInProgress' | translate }}</p>
       <p class="kpi-card-value">{{ stats().activeJobs }}</p>
-      <div class="kpi-card-sub">
+      <div class="kpi-card-subtitle">
         <app-badge variant="yellow">{{ stats().interviewCount }} {{ 'statistics.kpi.interview' | translate }}</app-badge>
       </div>
     </app-card>
@@ -26,13 +26,13 @@
     <app-card class="kpi-card kpi-card--5">
       <p class="kpi-card-label">{{ 'statistics.kpi.pendingResponse' | translate }}</p>
       <p class="kpi-card-value kpi-card-value--blue">{{ pendingCount() }}</p>
-      <div class="kpi-card-sub">{{ 'statistics.kpi.pendingResponseSub' | translate }}</div>
+      <div class="kpi-card-subtitle">{{ 'statistics.kpi.pendingResponseSub' | translate }}</div>
     </app-card>
 
     <app-card class="kpi-card kpi-card--6">
       <p class="kpi-card-label">{{ 'statistics.kpi.offersCount' | translate }}</p>
       <p class="kpi-card-value kpi-card-value--green">{{ stats().offers }}</p>
-      <div class="kpi-card-sub">{{ 'statistics.kpi.offersCountSub' | translate }}</div>
+      <div class="kpi-card-subtitle">{{ 'statistics.kpi.offersCountSub' | translate }}</div>
     </app-card>
 
   </div>
@@ -44,12 +44,10 @@
         <h3 class="chart-card-label">{{ 'statistics.applicationsTrend.title' | translate }}</h3>
         <div class="chart-toolbar">
           <div class="granularity-switch">
-            <button type="button" class="granularity-btn" [class.granularity-btn--active]="granularity() === 'day'"
-              (click)="setGranularity('day')">{{ 'statistics.timeRange.day' | translate }}</button>
-            <button type="button" class="granularity-btn" [class.granularity-btn--active]="granularity() === 'week'"
-              (click)="setGranularity('week')">{{ 'statistics.timeRange.week' | translate }}</button>
-            <button type="button" class="granularity-btn" [class.granularity-btn--active]="granularity() === 'month'"
-              (click)="setGranularity('month')">{{ 'statistics.timeRange.month' | translate }}</button>
+            <button type="button" class="granularity-button" [class.granularity-button--active]="viewMode() === 'count'"
+              (click)="setViewMode('count')">{{ 'statistics.viewMode.count' | translate }}</button>
+            <button type="button" class="granularity-button" [class.granularity-button--active]="viewMode() === 'cumulative'"
+              (click)="setViewMode('cumulative')">{{ 'statistics.viewMode.cumulative' | translate }}</button>
           </div>
           <div class="metric-switch">
             @for (cfg of statusConfigs(); track cfg.key) {
@@ -58,6 +56,14 @@
               <span class="metric-chip-dot"></span>{{ cfg.label }}
             </button>
             }
+          </div>
+          <div class="granularity-switch">
+            <button type="button" class="granularity-button" [class.granularity-button--active]="granularity() === 'day'"
+              (click)="setGranularity('day')">{{ 'statistics.timeRange.day' | translate }}</button>
+            <button type="button" class="granularity-button" [class.granularity-button--active]="granularity() === 'week'"
+              (click)="setGranularity('week')">{{ 'statistics.timeRange.week' | translate }}</button>
+            <button type="button" class="granularity-button" [class.granularity-button--active]="granularity() === 'month'"
+              (click)="setGranularity('month')">{{ 'statistics.timeRange.month' | translate }}</button>
           </div>
         </div>
       </div>
@@ -96,7 +102,7 @@
             </div>
             <div class="funnel-right">
               <span class="funnel-count">{{ item.count }}</span>
-              <span class="funnel-pct">{{ item.percent }}%</span>
+              <span class="funnel-percent">{{ item.percent }}%</span>
             </div>
           </div>
           }

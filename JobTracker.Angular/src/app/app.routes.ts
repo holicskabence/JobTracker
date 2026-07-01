@@ -8,8 +8,8 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { DashboardComponent } from './components/layout/dashboard/dashboard.component';
 import { OverviewComponent } from './components/overview/overview.component';
-import { KanbanComponent } from './components/applications/kanban/kanban.component';
-import { TableViewComponent } from './components/table-view/table-view.component';
+import { ApplicationsViewComponent } from './components/applications/applications-view/applications-view.component';
+import { ApplicationChangesComponent } from './components/application-changes/application-changes.component';
 import { EventsComponent } from './components/events/events.component';
 import { DocumentsComponent } from './components/documents/documents.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
@@ -34,8 +34,9 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'attekintes', pathMatch: 'full' },
       { path: 'attekintes', component: OverviewComponent },
-      { path: 'jelentkezesek', component: KanbanComponent },
-      { path: 'tablazat', component: TableViewComponent },
+      { path: 'jelentkezesek', component: ApplicationsViewComponent },
+      { path: 'tablazat', redirectTo: 'jelentkezesek' },
+      { path: 'valtozasok', component: ApplicationChangesComponent },
       { path: 'esemenyek', component: EventsComponent },
       { path: 'dokumentumok', component: DocumentsComponent },
       { path: 'statisztika', component: StatisticsComponent },

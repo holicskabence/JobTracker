@@ -19,25 +19,25 @@
         [style.bottom]="openUpward ? panelBottom + 'px' : null" [style.left.px]="panelLeft"
         (click)="$event.stopPropagation()">
 
-        <div class="time-picker-cols">
+        <div class="time-picker-columns">
 
-            <div class="time-picker-col">
-                <div class="time-picker-col-head">{{ 'shared.dateTimePicker.hourColumnHeader' | translate }}</div>
+            <div class="time-picker-column">
+                <div class="time-picker-column-header">{{ 'shared.dateTimePicker.hourColumnHeader' | translate }}</div>
                 <div class="time-picker-scroll" #hourList>
                     @for (h of hours; track h) {
-                    <button type="button" class="time-picker-item" [class.time-picker-item--sel]="h === selectedHour"
+                    <button type="button" class="time-picker-item" [class.time-picker-item--selected]="h === selectedHour"
                         (click)="pickHour(h, $event)">{{ h }}</button>
                     }
                 </div>
             </div>
 
-            <div class="time-picker-sep"></div>
+            <div class="time-picker-separator"></div>
 
-            <div class="time-picker-col">
-                <div class="time-picker-col-head">{{ 'shared.dateTimePicker.minuteColumnHeader' | translate }}</div>
-                <div class="time-picker-mins">
+            <div class="time-picker-column">
+                <div class="time-picker-column-header">{{ 'shared.dateTimePicker.minuteColumnHeader' | translate }}</div>
+                <div class="time-picker-minutes">
                     @for (m of minutes; track m) {
-                    <button type="button" class="time-picker-item" [class.time-picker-item--sel]="m === selectedMinute"
+                    <button type="button" class="time-picker-item" [class.time-picker-item--selected]="m === selectedMinute"
                         (click)="pickMinute(m, $event)">{{ m }}</button>
                     }
                 </div>

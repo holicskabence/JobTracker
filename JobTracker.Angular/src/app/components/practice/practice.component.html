@@ -1,37 +1,37 @@
-<div class="pr-page">
+<div class="practice-page">
 
-    <app-page-header class="pr-header" [title]="'practice.pageHeader.title' | translate"
+    <app-page-header class="practice-header" [title]="'practice.pageHeader.title' | translate"
         [subtitle]="'practice.pageHeader.subtitle' | translate">
-        <div class="pr-tabs">
-            <button class="pr-tab" [class.pr-tab--active]="activeTab() === 'practice'"
+        <div class="practice-tabs">
+            <button class="practice-tab" [class.practice-tab--active]="activeTab() === 'practice'"
                 (click)="activeTab.set('practice')">{{ 'practice.tabs.practice' | translate }}</button>
-            <button class="pr-tab" [class.pr-tab--active]="activeTab() === 'questions'"
+            <button class="practice-tab" [class.practice-tab--active]="activeTab() === 'questions'"
                 (click)="activeTab.set('questions')">{{ 'practice.tabs.questions' | translate }}</button>
-            <button class="pr-tab" [class.pr-tab--active]="activeTab() === 'results'"
+            <button class="practice-tab" [class.practice-tab--active]="activeTab() === 'results'"
                 (click)="activeTab.set('results')">{{ 'practice.tabs.results' | translate }}</button>
         </div>
     </app-page-header>
 
     @if (activeTab() === 'practice') {
 
-    <div class="pr-filter-row">
-        <div class="pr-filter-pills">
-            @for (cat of categories(); track trackByCategory($index, cat)) {
-            <button class="pr-pill" [class.pr-pill--active]="selectedFilter() === cat" (click)="selectFilter(cat)">{{
-                cat === 'Mind' ? ('practice.filters.all' | translate) : cat }}</button>
+    <div class="practice-filter-row">
+        <div class="practice-filter-pills">
+            @for (category of categories(); track trackByCategory($index, category)) {
+            <button class="practice-pill" [class.practice-pill--active]="selectedFilter() === category" (click)="selectFilter(category)">{{
+                category === 'Mind' ? ('practice.filters.all' | translate) : category }}</button>
             }
-            <button class="pr-pill pr-pill--failed" [class.pr-pill--active]="selectedFilter() === 'failed'"
+            <button class="practice-pill practice-pill--failed" [class.practice-pill--active]="selectedFilter() === 'failed'"
                 (click)="selectFilter('failed')">
                 {{ 'practice.filters.failed' | translate }}
             </button>
-            <button class="pr-pill pr-pill--unanswered" [class.pr-pill--active]="selectedFilter() === 'unanswered'"
+            <button class="practice-pill practice-pill--unanswered" [class.practice-pill--active]="selectedFilter() === 'unanswered'"
                 (click)="selectFilter('unanswered')">
                 {{ 'practice.filters.unanswered' | translate }}
             </button>
 
-            <span class="pr-filter-divider"></span>
+            <span class="practice-filter-divider"></span>
 
-            <button class="pr-pill" [class.pr-pill--active]="randomOrder()" (click)="toggleRandomOrder()"
+            <button class="practice-pill" [class.practice-pill--active]="randomOrder()" (click)="toggleRandomOrder()"
                 [title]="'practice.filters.randomOrderTitle' | translate">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -44,7 +44,7 @@
                 {{ 'practice.filters.randomOrder' | translate }}
             </button>
             @if (randomOrder()) {
-            <button class="pr-shuffle-btn" (click)="reshuffle()" [disabled]="filteredQuestions().length < 2"
+            <button class="practice-shuffle-button" (click)="reshuffle()" [disabled]="filteredQuestions().length < 2"
                 [title]="'practice.filters.reshuffleTitle' | translate">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -56,17 +56,17 @@
             }
         </div>
 
-        <div class="pr-jump-wrap" (click)="$event.stopPropagation()">
-            <div class="pr-jump-search-wrap">
-                <svg class="pr-jump-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+        <div class="practice-jump-wrap" (click)="$event.stopPropagation()">
+            <div class="practice-jump-search-wrap">
+                <svg class="practice-jump-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8" />
                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
-                <input class="pr-jump-search" type="text" [placeholder]="'practice.jump.searchPlaceholder' | translate"
+                <input class="practice-jump-search" type="text" [placeholder]="'practice.jump.searchPlaceholder' | translate"
                     [ngModel]="jumpSearch()" (ngModelChange)="onJumpSearchChange($event)" (focus)="onJumpFocus()" />
                 @if (jumpSearch()) {
-                <button class="pr-jump-search-clear" (click)="clearJumpSearch()"
+                <button class="practice-jump-search-clear" (click)="clearJumpSearch()"
                     [title]="'practice.jump.clearTitle' | translate">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                         stroke-linecap="round">
@@ -77,40 +77,40 @@
                 }
             </div>
             @if (jumpDropOpen() && jumpSearch().trim()) {
-            <div class="pr-jump-panel">
+            <div class="practice-jump-panel">
                 @for (item of jumpResults(); track item.q.id) {
-                <button type="button" class="pr-jump-option" [class.pr-jump-option--current]="item.idx === currentIdx()"
-                    (click)="jumpToQuestion(item.idx)">
-                    <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(item.q.category)"
+                <button type="button" class="practice-jump-option" [class.practice-jump-option--current]="item.index === currentIdx()"
+                    (click)="jumpToQuestion(item.index)">
+                    <span class="practice-category-badge practice-category-badge--sm" [style.color]="categoryColor(item.q.category)"
                         [style.background]="categoryColor(item.q.category) + '18'">{{ item.q.category }}</span>
-                    <span class="pr-jump-option-text">{{ item.q.question }}</span>
-                    <span class="pr-jump-option-idx">#{{ item.idx + 1 }}</span>
+                    <span class="practice-jump-option-text">{{ item.q.question }}</span>
+                    <span class="practice-jump-option-index">#{{ item.index + 1 }}</span>
                 </button>
                 } @empty {
-                <p class="pr-jump-empty">{{ 'practice.jump.noResults' | translate }}</p>
+                <p class="practice-jump-empty">{{ 'practice.jump.noResults' | translate }}</p>
                 }
             </div>
             }
         </div>
     </div>
 
-    <div class="pr-body">
+    <div class="practice-body">
 
-        <div class="pr-deck">
+        <div class="practice-deck">
 
             @if (currentQuestion(); as q) {
-            <app-card class="pr-card" radius="xl">
+            <app-card class="practice-card" radius="xl">
 
-                <div class="pr-card-head">
-                    <span class="pr-cat-badge" [style.color]="categoryColor(q.category)"
+                <div class="practice-card-header">
+                    <span class="practice-category-badge" [style.color]="categoryColor(q.category)"
                         [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
-                    @if (getFeedback(q.id); as fb) {
-                    <span class="pr-done-badge" [class]="'pr-done-badge--' + fb">
-                        {{ fb === 'correct' ? ('practice.card.correctBadge' | translate) : ('practice.card.incorrectBadge' | translate) }}
+                    @if (getFeedback(q.id); as feedback) {
+                    <span class="practice-done-badge" [class]="'practice-done-badge--' + feedback">
+                        {{ feedback === 'correct' ? ('practice.card.correctBadge' | translate) : ('practice.card.incorrectBadge' | translate) }}
                     </span>
                     }
-                    <span class="pr-idx-badge">
-                        <input class="pr-idx-input" type="number" min="1" [max]="filteredQuestions().length"
+                    <span class="practice-index-badge">
+                        <input class="practice-index-input" type="number" min="1" [max]="filteredQuestions().length"
                             [ngModel]="idxDisplayValue()" (ngModelChange)="onIdxInputChange($event)"
                             (keydown.enter)="confirmIdxInput()" (blur)="confirmIdxInput()"
                             (click)="$event.stopPropagation()" [title]="'practice.card.jumpToIndexTitle' | translate" />
@@ -118,28 +118,28 @@
                     </span>
                 </div>
 
-                <h2 class="pr-question">{{ q.question }}</h2>
+                <h2 class="practice-question">{{ q.question }}</h2>
 
-                <div class="pr-hint-row">
-                    <svg class="pr-hint-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                <div class="practice-hint-row">
+                    <svg class="practice-hint-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10" />
                         <line x1="12" y1="8" x2="12" y2="12" />
                         <line x1="12" y1="16" x2="12.01" y2="16" />
                     </svg>
-                    <span class="pr-hint-text">{{ q.hint }}</span>
+                    <span class="practice-hint-text">{{ q.hint }}</span>
                 </div>
 
-                <div class="pr-divider"></div>
+                <div class="practice-divider"></div>
 
                 @if (!showSample()) {
 
-                <label class="pr-input-label">{{ 'practice.card.yourAnswerLabel' | translate }}</label>
-                <textarea class="pr-textarea" [ngModel]="userAnswer()" (ngModelChange)="userAnswer.set($event)" rows="4"
+                <label class="practice-input-label">{{ 'practice.card.yourAnswerLabel' | translate }}</label>
+                <textarea class="practice-textarea" [ngModel]="userAnswer()" (ngModelChange)="userAnswer.set($event)" rows="4"
                     [placeholder]="'practice.card.answerPlaceholder' | translate"></textarea>
 
-                <div class="pr-card-footer">
-                    <button class="pr-reveal-btn" [class.pr-reveal-btn--ai]="useAiEvaluation()"
+                <div class="practice-card-footer">
+                    <button class="practice-reveal-button" [class.practice-reveal-button--ai]="useAiEvaluation()"
                         [disabled]="!userAnswer().trim()" (click)="revealSample()">
                         @if (useAiEvaluation()) {
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -152,14 +152,14 @@
                         {{ 'practice.card.viewAnswerBtn' | translate }}
                         }
                     </button>
-                    <div class="pr-nav">
-                        <button class="pr-nav-btn" (click)="prev()" [disabled]="currentIdx() === 0">
+                    <div class="practice-nav">
+                        <button class="practice-nav-button" (click)="prev()" [disabled]="currentIdx() === 0">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="15 18 9 12 15 6" />
                             </svg>
                         </button>
-                        <button class="pr-nav-btn" (click)="next()"
+                        <button class="practice-nav-button" (click)="next()"
                             [disabled]="currentIdx() === filteredQuestions().length - 1">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -171,25 +171,25 @@
 
                 } @else if (useAiEvaluation()) {
 
-                <div class="pr-compare-single">
-                    <p class="pr-compare-label">{{ 'practice.card.yourAnswerLabel' | translate }}</p>
-                    <p class="pr-compare-text">{{ userAnswer() }}</p>
+                <div class="practice-compare-single">
+                    <p class="practice-compare-label">{{ 'practice.card.yourAnswerLabel' | translate }}</p>
+                    <p class="practice-compare-text">{{ userAnswer() }}</p>
                 </div>
 
                 @if (aiLoading()) {
-                <div class="pr-ai-box pr-ai-box--loading">
-                    <div class="pr-ai-top">
-                        <span class="pr-ai-badge">{{ 'practice.ai.badge' | translate }}</span>
-                        <span class="pr-ai-thinking">{{ 'practice.ai.thinking' | translate }}</span>
+                <div class="practice-ai-box practice-ai-box--loading">
+                    <div class="practice-ai-top">
+                        <span class="practice-ai-badge">{{ 'practice.ai.badge' | translate }}</span>
+                        <span class="practice-ai-thinking">{{ 'practice.ai.thinking' | translate }}</span>
                     </div>
-                    <div class="pr-ai-dots">
-                        <span class="pr-dot"></span>
-                        <span class="pr-dot"></span>
-                        <span class="pr-dot"></span>
+                    <div class="practice-ai-dots">
+                        <span class="practice-dot"></span>
+                        <span class="practice-dot"></span>
+                        <span class="practice-dot"></span>
                     </div>
                 </div>
                 } @else if (aiError()) {
-                <div class="pr-ai-box pr-ai-box--error">
+                <div class="practice-ai-box practice-ai-box--error">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10" />
@@ -199,33 +199,33 @@
                     {{ aiError() }}
                 </div>
                 } @else if (aiFeedback()) {
-                <div class="pr-ai-box">
-                    <div class="pr-ai-top">
-                        <span class="pr-ai-badge">{{ 'practice.ai.feedbackBadge' | translate }}</span>
+                <div class="practice-ai-box">
+                    <div class="practice-ai-top">
+                        <span class="practice-ai-badge">{{ 'practice.ai.feedbackBadge' | translate }}</span>
                     </div>
-                    <p class="pr-ai-text">{{ aiTypedText() }}<span class="pr-cursor"
-                            [class.pr-cursor--off]="aiDone()">|</span></p>
+                    <p class="practice-ai-text">{{ aiTypedText() }}<span class="practice-cursor"
+                            [class.practice-cursor--off]="aiDone()">|</span></p>
 
                     @if (aiDone()) {
-                    <div class="pr-verdict-bar" [class]="'pr-verdict-bar--' + (aiVerdict() ?? 'correct')">
-                        <div class="pr-verdict-left">
-                            <span class="pr-verdict-label">{{ 'practice.ai.verdictLabel' | translate }}</span>
-                            <strong class="pr-verdict-val">
+                    <div class="practice-verdict-bar" [class]="'practice-verdict-bar--' + (aiVerdict() ?? 'correct')">
+                        <div class="practice-verdict-left">
+                            <span class="practice-verdict-label">{{ 'practice.ai.verdictLabel' | translate }}</span>
+                            <strong class="practice-verdict-value">
                                 @if (aiVerdict() === 'correct') { {{ 'practice.card.correctBadge' | translate }} }
                                 @else { {{ 'practice.card.incorrectBadge' | translate }} }
                             </strong>
                         </div>
-                        <div class="pr-verdict-right">
-                            <button class="pr-proceed-btn" (click)="proceedWithAiVerdict()">
+                        <div class="practice-verdict-right">
+                            <button class="practice-proceed-button" (click)="proceedWithAiVerdict()">
                                 {{ 'practice.ai.continueBtn' | translate }}
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="9 18 15 12 9 6" />
                                 </svg>
                             </button>
-                            <span class="pr-override-label">{{ 'practice.ai.overrideLabel' | translate }}</span>
-                            <button class="pr-rate-sm pr-rate-sm--ok" (click)="rate('correct')">✓</button>
-                            <button class="pr-rate-sm pr-rate-sm--no" (click)="rate('incorrect')">✗</button>
+                            <span class="practice-override-label">{{ 'practice.ai.overrideLabel' | translate }}</span>
+                            <button class="practice-rate-sm practice-rate-sm--ok" (click)="rate('correct')">✓</button>
+                            <button class="practice-rate-sm practice-rate-sm--no" (click)="rate('incorrect')">✗</button>
                         </div>
                     </div>
                     }
@@ -234,23 +234,23 @@
 
                 } @else {
 
-                <div class="pr-compare">
-                    <div class="pr-compare-col">
-                        <p class="pr-compare-label">{{ 'practice.card.yourAnswerLabel' | translate }}</p>
-                        <p class="pr-compare-text">{{ userAnswer() }}</p>
+                <div class="practice-compare">
+                    <div class="practice-compare-column">
+                        <p class="practice-compare-label">{{ 'practice.card.yourAnswerLabel' | translate }}</p>
+                        <p class="practice-compare-text">{{ userAnswer() }}</p>
                     </div>
-                    <div class="pr-compare-col pr-compare-col--sample">
-                        <p class="pr-compare-label pr-compare-label--green">{{ 'practice.card.sampleAnswerLabel' | translate }}</p>
-                        <p class="pr-compare-text">{{ q.sampleAnswer }}</p>
+                    <div class="practice-compare-column practice-compare-column--sample">
+                        <p class="practice-compare-label practice-compare-label--green">{{ 'practice.card.sampleAnswerLabel' | translate }}</p>
+                        <p class="practice-compare-text">{{ q.sampleAnswer }}</p>
                     </div>
                 </div>
 
-                <div class="pr-rating-row">
-                    <span class="pr-rating-label">{{ 'practice.card.didItSucceed' | translate }}</span>
-                    <button class="pr-rate-btn pr-rate-btn--no" (click)="rate('incorrect')">
+                <div class="practice-rating-row">
+                    <span class="practice-rating-label">{{ 'practice.card.didItSucceed' | translate }}</span>
+                    <button class="practice-rate-button practice-rate-button--no" (click)="rate('incorrect')">
                         {{ 'practice.card.incorrectBtn' | translate }}
                     </button>
-                    <button class="pr-rate-btn pr-rate-btn--ok" (click)="rate('correct')">
+                    <button class="practice-rate-button practice-rate-button--ok" (click)="rate('correct')">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12" />
@@ -262,7 +262,7 @@
                 }
             </app-card>
             } @else {
-            <app-card class="pr-card pr-card--empty" radius="xl">
+            <app-card class="practice-card practice-card--empty" radius="xl">
                 <app-empty-state
                     [message]="selectedFilter() === 'failed' ? ('practice.empty.noFailed' | translate) : (selectedFilter() === 'unanswered' ? ('practice.empty.noUnanswered' | translate) : ('practice.empty.noCategory' | translate))"></app-empty-state>
             </app-card>
@@ -270,38 +270,38 @@
         </div>
 
         <!-- Aside: stats -->
-        <aside class="pr-aside">
-            <app-card class="pr-stat-card">
-                <p class="pr-stat-label">{{ 'practice.stats.readinessLabel' | translate }}</p>
-                <div class="pr-stat-score-row">
-                    <span class="pr-stat-pct" [style.color]="getReadinessColor()">{{ readinessScore() }}%</span>
-                    <span class="pr-stat-grade" [style.color]="getReadinessColor()">{{ getReadinessLabel() }}</span>
+        <aside class="practice-aside">
+            <app-card class="practice-stat-card">
+                <p class="practice-stat-label">{{ 'practice.stats.readinessLabel' | translate }}</p>
+                <div class="practice-stat-score-row">
+                    <span class="practice-stat-percent" [style.color]="getReadinessColor()">{{ readinessScore() }}%</span>
+                    <span class="practice-stat-grade" [style.color]="getReadinessColor()">{{ getReadinessLabel() }}</span>
                 </div>
-                <div class="pr-bar-track">
-                    <div class="pr-bar-fill" [style.width.%]="readinessScore()"
+                <div class="practice-bar-track">
+                    <div class="practice-bar-fill" [style.width.%]="readinessScore()"
                         [style.background]="getReadinessColor()"></div>
                 </div>
-                <p class="pr-stat-note">{{ answeredCount() }} / {{ filteredQuestions().length }} {{
+                <p class="practice-stat-note">{{ answeredCount() }} / {{ filteredQuestions().length }} {{
                     'practice.stats.answeredSuffix' | translate }}</p>
-                <div class="pr-stat-sep"></div>
-                <div class="pr-breakdown">
-                    <div class="pr-breakdown-row">
-                        <span class="pr-breakdown-dot pr-breakdown-dot--ok"></span>
-                        <span class="pr-breakdown-key">{{ 'practice.card.correctBtn' | translate }}</span>
-                        <span class="pr-breakdown-val">{{ ratingBreakdown().correct }}</span>
+                <div class="practice-stat-separator"></div>
+                <div class="practice-breakdown">
+                    <div class="practice-breakdown-row">
+                        <span class="practice-breakdown-dot practice-breakdown-dot--ok"></span>
+                        <span class="practice-breakdown-key">{{ 'practice.card.correctBtn' | translate }}</span>
+                        <span class="practice-breakdown-value">{{ ratingBreakdown().correct }}</span>
                     </div>
-                    <div class="pr-breakdown-row">
-                        <span class="pr-breakdown-dot pr-breakdown-dot--no"></span>
-                        <span class="pr-breakdown-key">{{ 'practice.card.incorrectBtn' | translate }}</span>
-                        <span class="pr-breakdown-val">{{ ratingBreakdown().incorrect }}</span>
+                    <div class="practice-breakdown-row">
+                        <span class="practice-breakdown-dot practice-breakdown-dot--no"></span>
+                        <span class="practice-breakdown-key">{{ 'practice.card.incorrectBtn' | translate }}</span>
+                        <span class="practice-breakdown-value">{{ ratingBreakdown().incorrect }}</span>
                     </div>
                 </div>
             </app-card>
 
             @if (selectedFilter() === 'failed') {
-            <div class="pr-tip-card">
-                <p class="pr-tip-title">{{ 'practice.tip.title' | translate }}</p>
-                <p class="pr-tip-text">{{ 'practice.tip.text' | translate }}</p>
+            <div class="practice-tip-card">
+                <p class="practice-tip-title">{{ 'practice.tip.title' | translate }}</p>
+                <p class="practice-tip-text">{{ 'practice.tip.text' | translate }}</p>
             </div>
             }
         </aside>
@@ -310,43 +310,43 @@
     }
 
     @if (activeTab() === 'questions') {
-    <div class="pr-mgmt">
-                    <div class="pr-section-head">
-                <h3 class="pr-section-title">
+    <div class="practice-management">
+                    <div class="practice-section-header">
+                <h3 class="practice-section-title">
                     {{ 'practice.questionsTab.title' | translate }}
-                    <span class="pr-section-count">({{ practice.questions().length }})</span>
+                    <span class="practice-section-count">({{ practice.questions().length }})</span>
                 </h3>
-                <div class="pr-section-actions">
+                <div class="practice-section-actions">
                     <input #importFileInput type="file" accept="application/json,.json" hidden
                         (change)="onImportFileSelected($event)" />
-                    <button class="pr-import-btn" [disabled]="importing()"
+                    <button class="practice-import-button" [disabled]="importing()"
                         (click)="triggerImportFile(importFileInput)">
                         @if (importing()) { {{ 'practice.questionsTab.importing' | translate }} } @else { {{
                         'practice.questionsTab.importBtn' | translate }} }
                     </button>
-                    <button class="pr-add-btn" (click)="openAddQuestionModal()">{{ 'practice.questionsTab.addBtn' |
+                    <button class="practice-add-button" (click)="openAddQuestionModal()">{{ 'practice.questionsTab.addBtn' |
                         translate }}</button>
                 </div>
             </div>
 
             @if (importError()) {
-            <p class="pr-import-msg pr-import-msg--error">{{ importError() }}</p>
+            <p class="practice-import-message practice-import-message--error">{{ importError() }}</p>
             }
             @if (importSuccess()) {
-            <p class="pr-import-msg pr-import-msg--success">{{ importSuccess() }}</p>
+            <p class="practice-import-message practice-import-message--success">{{ importSuccess() }}</p>
             }
 
-            <div class="pr-q-toolbar">
-                <div class="pr-q-search-wrap">
-                    <svg class="pr-q-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+            <div class="practice-q-toolbar">
+                <div class="practice-q-search-wrap">
+                    <svg class="practice-q-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8" />
                         <line x1="21" y1="21" x2="16.65" y2="16.65" />
                     </svg>
-                    <input class="pr-q-search" type="text" [placeholder]="'practice.questionsTab.searchPlaceholder' | translate"
+                    <input class="practice-q-search" type="text" [placeholder]="'practice.questionsTab.searchPlaceholder' | translate"
                         [ngModel]="qSearch()" (ngModelChange)="qSearch.set($event)" />
                     @if (qSearch()) {
-                    <button class="pr-q-search-clear" (click)="qSearch.set('')" [title]="'practice.jump.clearTitle' | translate">
+                    <button class="practice-q-search-clear" (click)="qSearch.set('')" [title]="'practice.jump.clearTitle' | translate">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="3" stroke-linecap="round">
                             <line x1="18" y1="6" x2="6" y2="18" />
@@ -355,82 +355,82 @@
                     </button>
                     }
                 </div>
-                <span class="pr-q-count">{{ sortedQuestions().length }} {{ 'practice.questionsTab.resultsSuffix' | translate }}</span>
+                <span class="practice-q-count">{{ sortedQuestions().length }} {{ 'practice.questionsTab.resultsSuffix' | translate }}</span>
             </div>
 
             @if (selectedQuestionCount() > 0) {
-            <div class="pr-q-bulk-bar">
-                <span class="pr-q-bulk-count">{{ selectedQuestionCount() }} {{ 'practice.questionsTab.selectedSuffix' | translate }}</span>
-                <div class="pr-q-bulk-actions">
-                    <button class="pr-q-bulk-clear" (click)="clearQuestionSelection()">{{ 'practice.questionsTab.clearSelectionBtn' | translate }}</button>
-                    <button class="pr-q-bulk-delete" (click)="openBulkDeleteConfirm()">{{ 'practice.questionsTab.deleteSelectedBtn' | translate }}</button>
+            <div class="practice-q-bulk-bar">
+                <span class="practice-q-bulk-count">{{ selectedQuestionCount() }} {{ 'practice.questionsTab.selectedSuffix' | translate }}</span>
+                <div class="practice-q-bulk-actions">
+                    <button class="practice-q-bulk-clear" (click)="clearQuestionSelection()">{{ 'practice.questionsTab.clearSelectionBtn' | translate }}</button>
+                    <button class="practice-q-bulk-delete" (click)="openBulkDeleteConfirm()">{{ 'practice.questionsTab.deleteSelectedBtn' | translate }}</button>
                 </div>
             </div>
             }
 
-            <div class="pr-q-table-wrap">
-                <table class="pr-q-table">
+            <div class="practice-q-table-wrap">
+                <table class="practice-q-table">
                     <thead>
                         <tr>
-                            <th class="pr-q-th pr-q-th--check">
-                                <input type="checkbox" class="pr-q-checkbox" [checked]="isAllQuestionsSelected()"
+                            <th class="practice-q-header-cell practice-q-header-cell--check">
+                                <input type="checkbox" class="practice-q-checkbox" [checked]="isAllQuestionsSelected()"
                                     (change)="toggleSelectAllQuestions()" [title]="'practice.questionsTab.selectAllTitle' | translate" />
                             </th>
-                            <th class="pr-q-th pr-q-th--sortable" (click)="qSort('category')">
+                            <th class="practice-q-header-cell practice-q-header-cell--sortable" (click)="qSort('category')">
                                 {{ 'practice.questionsTab.colCategory' | translate }}
-                                <span class="pr-q-sort-icon"
-                                    [class.pr-q-sort-icon--active]="qSortKey() === 'category'">{{
+                                <span class="practice-q-sort-icon"
+                                    [class.practice-q-sort-icon--active]="qSortKey() === 'category'">{{
                                     qSortIcon('category') }}</span>
                             </th>
-                            <th class="pr-q-th pr-q-th--sortable" (click)="qSort('question')">
+                            <th class="practice-q-header-cell practice-q-header-cell--sortable" (click)="qSort('question')">
                                 {{ 'practice.questionsTab.colQuestion' | translate }}
-                                <span class="pr-q-sort-icon"
-                                    [class.pr-q-sort-icon--active]="qSortKey() === 'question'">{{
+                                <span class="practice-q-sort-icon"
+                                    [class.practice-q-sort-icon--active]="qSortKey() === 'question'">{{
                                     qSortIcon('question') }}</span>
                             </th>
-                            <th class="pr-q-th pr-q-th--sortable" (click)="qSort('feedback')">
+                            <th class="practice-q-header-cell practice-q-header-cell--sortable" (click)="qSort('feedback')">
                                 {{ 'practice.questionsTab.colStatus' | translate }}
-                                <span class="pr-q-sort-icon"
-                                    [class.pr-q-sort-icon--active]="qSortKey() === 'feedback'">{{
+                                <span class="practice-q-sort-icon"
+                                    [class.practice-q-sort-icon--active]="qSortKey() === 'feedback'">{{
                                     qSortIcon('feedback') }}</span>
                             </th>
-                            <th class="pr-q-th pr-q-th--actions">{{ 'practice.questionsTab.colActions' | translate }}</th>
+                            <th class="practice-q-header-cell practice-q-header-cell--actions">{{ 'practice.questionsTab.colActions' | translate }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @for (q of sortedQuestions(); track q.id) {
-                        <tr class="pr-q-tr" [class.pr-q-tr--selected]="isQuestionSelected(q.id)"
+                        <tr class="practice-q-tr" [class.practice-q-tr--selected]="isQuestionSelected(q.id)"
                             (click)="toggleQuestionSelection(q.id)">
-                            <td class="pr-q-td pr-q-td--check">
-                                <input type="checkbox" class="pr-q-checkbox" [checked]="isQuestionSelected(q.id)"
+                            <td class="practice-q-cell practice-q-cell--check">
+                                <input type="checkbox" class="practice-q-checkbox" [checked]="isQuestionSelected(q.id)"
                                     (click)="$event.stopPropagation()" (change)="toggleQuestionSelection(q.id)" />
                             </td>
-                            <td class="pr-q-td">
-                                <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(q.category)"
+                            <td class="practice-q-cell">
+                                <span class="practice-category-badge practice-category-badge--sm" [style.color]="categoryColor(q.category)"
                                     [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
                             </td>
-                            <td class="pr-q-td pr-q-td--main">
-                                <p class="pr-q-text">{{ q.question }}</p>
+                            <td class="practice-q-cell practice-q-cell--main">
+                                <p class="practice-q-text">{{ q.question }}</p>
                                 @if (q.hint) {
-                                <p class="pr-q-hint">{{ q.hint }}</p>
+                                <p class="practice-q-hint">{{ q.hint }}</p>
                                 }
                             </td>
-                            <td class="pr-q-td">
-                                @if (q.feedback; as fb) {
-                                <span class="pr-fb-badge" [class]="'pr-fb-badge--' + fb">{{ feedbackLabel(fb) }}</span>
+                            <td class="practice-q-cell">
+                                @if (q.feedback; as feedback) {
+                                <span class="practice-feedback-badge" [class]="'practice-feedback-badge--' + feedback">{{ feedbackLabel(feedback) }}</span>
                                 } @else {
-                                <span class="pr-fb-badge pr-fb-badge--none">—</span>
+                                <span class="practice-feedback-badge practice-feedback-badge--none">—</span>
                                 }
                             </td>
-                            <td class="pr-q-td pr-q-td--actions" (click)="$event.stopPropagation()">
-                                <button class="pr-icon-btn" (click)="openEditQuestionModal(q)" [title]="'practice.questionsTab.editTitle' | translate">
+                            <td class="practice-q-cell practice-q-cell--actions" (click)="$event.stopPropagation()">
+                                <button class="practice-icon-button" (click)="openEditQuestionModal(q)" [title]="'practice.questionsTab.editTitle' | translate">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                                         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                                     </svg>
                                 </button>
-                                <button class="pr-icon-btn pr-icon-btn--danger" (click)="deleteQuestion(q.id)"
+                                <button class="practice-icon-button practice-icon-button--danger" (click)="deleteQuestion(q.id)"
                                     [title]="'practice.questionsTab.deleteTitle' | translate">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -454,40 +454,40 @@
                 </table>
             </div>
 
-            <div class="pr-q-cards">
+            <div class="practice-q-cards">
                 @for (q of sortedQuestions(); track q.id) {
-                <app-card class="pr-q-card" [class.pr-q-card--selected]="isQuestionSelected(q.id)"
+                <app-card class="practice-q-card" [class.practice-q-card--selected]="isQuestionSelected(q.id)"
                     (click)="toggleQuestionSelection(q.id)">
-                    <div class="pr-q-card-head">
-                        <div class="pr-q-card-head-left">
-                            <input type="checkbox" class="pr-q-checkbox" [checked]="isQuestionSelected(q.id)"
+                    <div class="practice-q-card-header">
+                        <div class="practice-q-card-header-left">
+                            <input type="checkbox" class="practice-q-checkbox" [checked]="isQuestionSelected(q.id)"
                                 (click)="$event.stopPropagation()" (change)="toggleQuestionSelection(q.id)" />
-                            <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(q.category)"
+                            <span class="practice-category-badge practice-category-badge--sm" [style.color]="categoryColor(q.category)"
                                 [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
                         </div>
-                        @if (q.feedback; as fb) {
-                        <span class="pr-fb-badge" [class]="'pr-fb-badge--' + fb">{{ feedbackLabel(fb) }}</span>
+                        @if (q.feedback; as feedback) {
+                        <span class="practice-feedback-badge" [class]="'practice-feedback-badge--' + feedback">{{ feedbackLabel(feedback) }}</span>
                         } @else {
-                        <span class="pr-fb-badge pr-fb-badge--none">—</span>
+                        <span class="practice-feedback-badge practice-feedback-badge--none">—</span>
                         }
                     </div>
-                    <p class="pr-q-card-text">{{ q.question }}</p>
+                    <p class="practice-q-card-text">{{ q.question }}</p>
                     @if (q.hint) {
-                    <p class="pr-q-card-hint">{{ q.hint }}</p>
+                    <p class="practice-q-card-hint">{{ q.hint }}</p>
                     }
-                    <p class="pr-q-card-answer">
-                        <span class="pr-q-card-answer-label">{{ 'practice.questionsTab.answerLabel' | translate }}:</span>
+                    <p class="practice-q-card-answer">
+                        <span class="practice-q-card-answer-label">{{ 'practice.questionsTab.answerLabel' | translate }}:</span>
                         {{ q.sampleAnswer }}
                     </p>
-                    <div class="pr-q-card-actions" (click)="$event.stopPropagation()">
-                        <button class="pr-icon-btn" (click)="openEditQuestionModal(q)" [title]="'practice.questionsTab.editTitle' | translate">
+                    <div class="practice-q-card-actions" (click)="$event.stopPropagation()">
+                        <button class="practice-icon-button" (click)="openEditQuestionModal(q)" [title]="'practice.questionsTab.editTitle' | translate">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                                 <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                             </svg>
                         </button>
-                        <button class="pr-icon-btn pr-icon-btn--danger" (click)="deleteQuestion(q.id)" [title]="'practice.questionsTab.deleteTitle' | translate">
+                        <button class="practice-icon-button practice-icon-button--danger" (click)="deleteQuestion(q.id)" [title]="'practice.questionsTab.deleteTitle' | translate">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="3 6 5 6 21 6" />
@@ -507,56 +507,56 @@
     </div>
     }
     @if (activeTab() === 'results') {
-    <div class="pr-results">
+    <div class="practice-results">
 
-        <div class="pr-kpi-row">
-            <app-card class="pr-kpi pr-kpi--ok">
-                <span class="pr-kpi-num">{{ resultsSummary().correct }}</span>
-                <span class="pr-kpi-lbl">{{ 'practice.card.correctBtn' | translate }}</span>
+        <div class="practice-kpi-row">
+            <app-card class="practice-kpi practice-kpi--ok">
+                <span class="practice-kpi-number">{{ resultsSummary().correct }}</span>
+                <span class="practice-kpi-label">{{ 'practice.card.correctBtn' | translate }}</span>
             </app-card>
-            <app-card class="pr-kpi pr-kpi--no">
-                <span class="pr-kpi-num">{{ resultsSummary().incorrect }}</span>
-                <span class="pr-kpi-lbl">{{ 'practice.card.incorrectBtn' | translate }}</span>
+            <app-card class="practice-kpi practice-kpi--no">
+                <span class="practice-kpi-number">{{ resultsSummary().incorrect }}</span>
+                <span class="practice-kpi-label">{{ 'practice.card.incorrectBtn' | translate }}</span>
             </app-card>
-            <app-card class="pr-kpi pr-kpi--na">
-                <span class="pr-kpi-num">{{ resultsSummary().unanswered }}</span>
-                <span class="pr-kpi-lbl">{{ 'practice.results.notEvaluated' | translate }}</span>
+            <app-card class="practice-kpi practice-kpi--na">
+                <span class="practice-kpi-number">{{ resultsSummary().unanswered }}</span>
+                <span class="practice-kpi-label">{{ 'practice.results.notEvaluated' | translate }}</span>
             </app-card>
-            <app-card class="pr-kpi pr-kpi--score">
-                <span class="pr-kpi-num">{{ resultsSummary().score }}%</span>
-                <span class="pr-kpi-lbl">{{ 'practice.results.overall' | translate }}</span>
+            <app-card class="practice-kpi practice-kpi--score">
+                <span class="practice-kpi-number">{{ resultsSummary().score }}%</span>
+                <span class="practice-kpi-label">{{ 'practice.results.overall' | translate }}</span>
             </app-card>
         </div>
 
 
 
-        <app-card class="pr-section" gap="none">
-            <div class="pr-section-head">
-                <h3 class="pr-section-title">
+        <app-card class="practice-section" gap="none">
+            <div class="practice-section-header">
+                <h3 class="practice-section-title">
                     {{ 'practice.results.logTitle' | translate }}
-                    <span class="pr-section-count">({{ practice.attempts().length }})</span>
+                    <span class="practice-section-count">({{ practice.attempts().length }})</span>
                 </h3>
             </div>
-            <div class="pr-log-list">
+            <div class="practice-log-list">
                 @for (group of attemptGroups(); track group.date) {
-                <div class="pr-log-group">
-                    <p class="pr-log-date">{{ group.label }}</p>
+                <div class="practice-log-group">
+                    <p class="practice-log-date">{{ group.label }}</p>
                     @for (a of group.attempts; track a.id) {
-                    <div class="pr-log-item">
-                        <div class="pr-log-item-head">
-                            <span class="pr-cat-badge pr-cat-badge--sm" [style.color]="categoryColor(a.category)"
+                    <div class="practice-log-item">
+                        <div class="practice-log-item-header">
+                            <span class="practice-category-badge practice-category-badge--sm" [style.color]="categoryColor(a.category)"
                                 [style.background]="categoryColor(a.category) + '18'">{{ a.category }}</span>
-                            <span class="pr-log-time">{{ formatAttemptTime(a.createdAt) }}</span>
-                            <span class="pr-res-badge" [class]="'pr-res-badge--' + a.feedback">
+                            <span class="practice-log-time">{{ formatAttemptTime(a.createdAt) }}</span>
+                            <span class="practice-result-badge" [class]="'practice-result-badge--' + a.feedback">
                                 @if (a.feedback === 'correct') { {{ 'practice.card.correctBadge' | translate }} }
                                 @else { {{ 'practice.card.incorrectBadge' | translate }} }
                             </span>
                         </div>
-                        <p class="pr-log-question">{{ a.question }}</p>
+                        <p class="practice-log-question">{{ a.question }}</p>
                         @if (a.userAnswer) {
-                        <p class="pr-log-answer">{{ a.userAnswer }}</p>
+                        <p class="practice-log-answer">{{ a.userAnswer }}</p>
                         } @else {
-                        <p class="pr-log-answer pr-log-answer--empty">{{ 'practice.results.noRecordedAnswer' | translate }}</p>
+                        <p class="practice-log-answer practice-log-answer--empty">{{ 'practice.results.noRecordedAnswer' | translate }}</p>
                         }
                     </div>
                     }
@@ -586,29 +586,29 @@
                 </button>
             </div>
             <div class="modal-form">
-                <div class="pr-field">
-                    <label class="pr-field-label">{{ 'practice.modal.categoryLabel' | translate }}</label>
-                    <div class="cat-drop" [class.cat-drop--open]="catDropOpen">
-                        <button type="button" class="cat-drop-trigger" (click)="toggleCatDrop($event)">
-                            <span class="cat-drop-dot" [style.background-color]="categoryColor(formCat())"></span>
-                            <span class="cat-drop-label">{{ formCat() || ('practice.modal.categoryPlaceholder' | translate) }}</span>
-                            <svg class="cat-drop-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                <div class="practice-field">
+                    <label class="practice-field-label">{{ 'practice.modal.categoryLabel' | translate }}</label>
+                    <div class="category-dropdown" [class.category-dropdown--open]="catDropOpen">
+                        <button type="button" class="category-dropdown-trigger" (click)="toggleCatDrop($event)">
+                            <span class="category-dropdown-dot" [style.background-color]="categoryColor(formCat())"></span>
+                            <span class="category-dropdown-label">{{ formCat() || ('practice.modal.categoryPlaceholder' | translate) }}</span>
+                            <svg class="category-dropdown-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
                                 [style.transform]="catDropOpen ? 'rotate(180deg)' : 'none'">
                                 <polyline points="6 9 12 15 18 9" />
                             </svg>
                         </button>
                         @if (catDropOpen) {
-                        <div class="cat-drop-panel" [style.top.px]="catDropTop" [style.left.px]="catDropLeft"
+                        <div class="category-dropdown-panel" [style.top.px]="catDropTop" [style.left.px]="catDropLeft"
                             [style.width.px]="catDropWidth" (click)="$event.stopPropagation()">
-                            @for (cat of practice.categories(); track cat.id) {
-                            <button type="button" class="cat-drop-option"
-                                [class.cat-drop-option--current]="cat.name === formCat()"
-                                (click)="pickCategory(cat.name, $event)">
-                                <span class="cat-drop-dot" [style.background-color]="cat.color"></span>
-                                <span class="cat-drop-name">{{ cat.name }}</span>
-                                @if (cat.name === formCat()) {
-                                <svg class="cat-drop-check" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                            @for (category of practice.categories(); track category.id) {
+                            <button type="button" class="category-dropdown-option"
+                                [class.category-dropdown-option--current]="category.name === formCat()"
+                                (click)="pickCategory(category.name, $event)">
+                                <span class="category-dropdown-dot" [style.background-color]="category.color"></span>
+                                <span class="category-dropdown-name">{{ category.name }}</span>
+                                @if (category.name === formCat()) {
+                                <svg class="category-dropdown-check" width="13" height="13" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="3" stroke-linecap="round"
                                     stroke-linejoin="round">
                                     <polyline points="20 6 9 17 4 12" />
@@ -620,28 +620,28 @@
                         }
                     </div>
                 </div>
-                <div class="pr-field">
-                    <label class="pr-field-label">{{ 'practice.modal.questionLabel' | translate }} <span class="pr-req">*</span></label>
-                    <textarea class="pr-textarea" rows="2" [ngModel]="formQuestion()"
+                <div class="practice-field">
+                    <label class="practice-field-label">{{ 'practice.modal.questionLabel' | translate }} <span class="practice-required">*</span></label>
+                    <textarea class="practice-textarea" rows="2" [ngModel]="formQuestion()"
                         (ngModelChange)="formQuestion.set($event)" [placeholder]="'practice.modal.questionPlaceholder' | translate"></textarea>
                 </div>
-                <div class="pr-field">
-                    <label class="pr-field-label">{{ 'practice.modal.hintLabel' | translate }}</label>
-                    <input class="pr-input" type="text" [ngModel]="formHint()" (ngModelChange)="formHint.set($event)"
+                <div class="practice-field">
+                    <label class="practice-field-label">{{ 'practice.modal.hintLabel' | translate }}</label>
+                    <input class="practice-input" type="text" [ngModel]="formHint()" (ngModelChange)="formHint.set($event)"
                         [placeholder]="'practice.modal.hintPlaceholder' | translate" />
                 </div>
-                <div class="pr-field">
-                    <label class="pr-field-label">{{ 'practice.modal.sampleAnswerLabel' | translate }} <span class="pr-req">*</span></label>
-                    <textarea class="pr-textarea" rows="3" [ngModel]="formSampleAnswer()"
+                <div class="practice-field">
+                    <label class="practice-field-label">{{ 'practice.modal.sampleAnswerLabel' | translate }} <span class="practice-required">*</span></label>
+                    <textarea class="practice-textarea" rows="3" [ngModel]="formSampleAnswer()"
                         (ngModelChange)="formSampleAnswer.set($event)"
                         [placeholder]="'practice.modal.sampleAnswerPlaceholder' | translate"></textarea>
                 </div>
                 @if (formError()) {
-                <p class="pr-form-error">{{ formError() }}</p>
+                <p class="practice-form-error">{{ formError() }}</p>
                 }
                 <div class="modal-actions">
-                    <button type="button" class="btn btn--ghost" (click)="closeQuestionModal()">{{ 'practice.modal.cancelBtn' | translate }}</button>
-                    <button type="button" class="btn btn--primary" (click)="submitQuestion()">
+                    <button type="button" class="button button--ghost" (click)="closeQuestionModal()">{{ 'practice.modal.cancelBtn' | translate }}</button>
+                    <button type="button" class="button button--primary" (click)="submitQuestion()">
                         {{ editingQuestionId() !== null ? ('practice.modal.saveBtn' | translate) : ('practice.modal.addQuestionBtn' | translate) }}
                     </button>
                 </div>
@@ -664,11 +664,11 @@
                 </button>
             </div>
             <div class="modal-form">
-                <p class="pr-confirm-text">{{ 'practice.bulkDeleteModal.confirmPrefix' | translate }} {{ selectedQuestionCount() }} {{
+                <p class="practice-confirm-text">{{ 'practice.bulkDeleteModal.confirmPrefix' | translate }} {{ selectedQuestionCount() }} {{
                     'practice.bulkDeleteModal.confirmSuffix' | translate }}</p>
                 <div class="modal-actions">
-                    <button type="button" class="btn btn--ghost" (click)="closeBulkDeleteConfirm()">{{ 'practice.modal.cancelBtn' | translate }}</button>
-                    <button type="button" class="btn btn--danger"
+                    <button type="button" class="button button--ghost" (click)="closeBulkDeleteConfirm()">{{ 'practice.modal.cancelBtn' | translate }}</button>
+                    <button type="button" class="button button--danger"
                         (click)="confirmBulkDeleteQuestions()">{{ 'practice.bulkDeleteModal.deleteBtn' | translate }}</button>
                 </div>
             </div>

@@ -11,11 +11,11 @@
 @if (isOpen) {
 <div class="select-dropdown-panel" [style.top.px]="panelTop" [style.left.px]="panelLeft"
     [style.min-width.px]="panelWidth" (click)="$event.stopPropagation()">
-    @for (opt of options; track opt) {
-    <button type="button" class="select-dropdown-opt" [class.select-dropdown-opt--active]="opt === value"
-        (click)="pick(opt, $event)">
-        <span>{{ opt }}</span>
-        @if (opt === value) {
+    @for (option of options; track option) {
+    <button type="button" class="select-dropdown-option" [class.select-dropdown-option--active]="option === value"
+        (click)="pick(option, $event)">
+        <span>{{ option }}</span>
+        @if (option === value) {
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
             stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12" />

@@ -1,7 +1,7 @@
 <div class="kanban">
     <div class="kanban-scroll">
-        @for (col of columns(); track col.key) {
-        <app-kanban-column [status]="col.key" [label]="col.label" [color]="col.color" [jobs]="jobsFor(col.key)"
+        @for (column of columns(); track column.key) {
+        <app-kanban-column [status]="column.key" [label]="column.label" [color]="column.color" [jobs]="jobsFor(column.key)"
             [selectedIds]="selectedIds()" (toggleSelect)="toggle($event)" (dropped)="onDrop($event)" />
         }
     </div>
@@ -12,10 +12,10 @@
         </span>
 
         <div class="bulk-bar-targets">
-            @for (col of columns(); track col.key) {
-            <button class="bulk-bar-target" (click)="moveTo(col.key)">
-                <span class="bulk-bar-dot" [style.background-color]="col.color"></span>
-                {{ col.label }}
+            @for (column of columns(); track column.key) {
+            <button class="bulk-bar-target" (click)="moveTo(column.key)">
+                <span class="bulk-bar-dot" [style.background-color]="column.color"></span>
+                {{ column.label }}
             </button>
             }
         </div>

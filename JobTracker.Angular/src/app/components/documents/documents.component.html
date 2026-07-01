@@ -1,4 +1,4 @@
-<div class="doc">
+<div class="documents-container">
 
   <app-page-header [title]="'documents.sectionTitle' | translate" [subtitle]="'documents.sectionSubtitle' | translate"></app-page-header>
 
@@ -38,7 +38,7 @@
 
           <div class="documents-form-actions">
             <label class="documents-file-label">
-              <input type="file" class="documents-file-input" (change)="onFileSelected($event)" accept=".pdf,.doc,.docx" />
+              <input type="file" class="documents-file-input" (change)="onFileSelected($event)" accept=".pdf,.documents-container,.docx" />
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -52,7 +52,7 @@
               }
             </label>
 
-            <button class="documents-add-btn" type="submit">
+            <button class="documents-add-button" type="submit">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
                 <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
@@ -65,7 +65,7 @@
       </ng-template>
 
       @if (breakpoint.isMobile()) {
-        <button type="button" class="documents-mobile-add-btn" (click)="openAddForm()">
+        <button type="button" class="documents-mobile-add-button" (click)="openAddForm()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
             <line x1="12" y1="5" x2="12" y2="19"/>
@@ -103,8 +103,8 @@
         <div class="documents-filters">
           @for (f of filterOptions; track f) {
             <button
-              class="documents-filter-btn"
-              [class.documents-filter-btn--active]="docFilter() === f"
+              class="documents-filter-button"
+              [class.documents-filter-button--active]="docFilter() === f"
               (click)="docFilter.set(f)"
             >{{ typeLabel(f) }}</button>
           }
@@ -112,10 +112,10 @@
       </div>
 
       <div class="documents-list">
-        @for (doc of filteredDocuments(); track doc.id; let i = $index) {
+        @for (documents of filteredDocuments(); track documents.id; let i = $index) {
           <div class="documents-item" [class.documents-item--first]="i === 0">
-            <div class="documents-item-icon" [class.documents-item-icon--has-file]="doc.hasFile">
-              @if (doc.hasFile) {
+            <div class="documents-item-icon" [class.documents-item-icon--has-file]="documents.hasFile">
+              @if (documents.hasFile) {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -132,58 +132,74 @@
               }
             </div>
             <div class="documents-item-body">
-              <span class="documents-item-name">{{ doc.name }}</span>
+              <span class="documents-item-name">{{ documents.name }}</span>
               <div class="documents-item-meta">
-                <span class="documents-item-badge">{{ typeLabel(doc.type) }}</span>
-                <span class="documents-item-sep">·</span>
-                <span>{{ doc.version }}</span>
-                <span class="documents-item-sep">·</span>
-                <span>{{ doc.updated }}</span>
-                @if (doc.hasFile) {
-                  <span class="documents-item-sep">·</span>
+                <span class="documents-item-badge">{{ typeLabel(documents.type) }}</span>
+                <span class="documents-item-separator">·</span>
+                <span>{{ documents.version }}</span>
+                <span class="documents-item-separator">·</span>
+                <span>{{ documents.updated }}</span>
+                @if (documents.hasFile) {
+                  <span class="documents-item-separator">·</span>
                   <span class="documents-item-file-badge">{{ 'documents.uploadedBadge' | translate }}</span>
                 }
               </div>
             </div>
 
             <div class="documents-item-actions">
-              @if (doc.hasFile) {
-                <button class="documents-item-dl" (click)="downloadFile(doc.id, doc.fileName!)" [title]="'documents.downloadTitle' | translate">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                       stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="7 10 12 15 17 10"/>
-                    <line x1="12" y1="15" x2="12" y2="3"/>
-                  </svg>
-                </button>
-              }
-
-              <label class="documents-item-upload" [class.documents-item-upload--loading]="uploadingId() === doc.id" [title]="'documents.uploadOrReplaceTitle' | translate">
-                <input type="file" class="documents-file-input" (change)="onUploadFile(doc.id, $event)" accept=".pdf,.doc,.docx" [disabled]="uploadingId() === doc.id" />
-                @if (uploadingId() === doc.id) {
-                  <svg class="documents-spin" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                       stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                    <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
-                  </svg>
-                } @else {
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                       stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="17 8 12 3 7 8"/>
-                    <line x1="12" y1="3" x2="12" y2="15"/>
-                  </svg>
-                }
-              </label>
-
-              <button class="documents-item-del" (click)="planner.deleteDocument(doc.id)" [title]="'documents.deleteTitle' | translate">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="3 6 5 6 21 6"/>
-                  <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
-                  <path d="M10 11v6M14 11v6"/>
-                  <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+              <button class="documents-item-menu-trigger" [class.documents-item-menu-trigger--open]="openMenuId() === documents.id"
+                      (click)="toggleMenu(documents.id, $event)" [title]="'documents.actionsTitle' | translate">
+                <svg width="15" height="15" viewBox="0 0 24 24">
+                  <circle cx="12" cy="5" r="2" fill="currentColor" />
+                  <circle cx="12" cy="12" r="2" fill="currentColor" />
+                  <circle cx="12" cy="19" r="2" fill="currentColor" />
                 </svg>
               </button>
+
+              @if (openMenuId() === documents.id) {
+                <div class="documents-item-menu-panel" [style.top.px]="menuTop" [style.left.px]="menuLeft" (click)="$event.stopPropagation()">
+                  @if (documents.hasFile) {
+                    <button class="documents-item-menu-option" (click)="downloadFile(documents.id, documents.fileName!); closeMenu()">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                           stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                      </svg>
+                      {{ 'documents.downloadTitle' | translate }}
+                    </button>
+                  }
+
+                  <label class="documents-item-menu-option">
+                    <input type="file" class="documents-file-input" (change)="onUploadFile(documents.id, $event); closeMenu()" accept=".pdf,.documents-container,.docx" [disabled]="uploadingId() === documents.id" />
+                    @if (uploadingId() === documents.id) {
+                      <svg class="documents-spinner" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                           stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                        <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                      </svg>
+                    } @else {
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                           stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                      </svg>
+                    }
+                    {{ 'documents.uploadOrReplaceTitle' | translate }}
+                  </label>
+
+                  <button class="documents-item-menu-option documents-item-menu-option--danger" (click)="planner.deleteDocument(documents.id); closeMenu()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="3 6 5 6 21 6"/>
+                      <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+                      <path d="M10 11v6M14 11v6"/>
+                      <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+                    </svg>
+                    {{ 'documents.deleteTitle' | translate }}
+                  </button>
+                </div>
+              }
             </div>
           </div>
         }
@@ -198,50 +214,50 @@
 
     <app-card class="documents-templates" radius="xl" padding="none" gap="none">
 
-      <button class="documents-tmpl-toggle" (click)="toggleTemplates()">
-        <div class="documents-tmpl-toggle-left">
+      <button class="documents-template-toggle" (click)="toggleTemplates()">
+        <div class="documents-template-toggle-left">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                stroke="var(--clr-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
             <line x1="12" y1="8" x2="12" y2="12"/>
             <line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
-          <span class="documents-tmpl-title">{{ 'documents.outreachTemplatesTitle' | translate }}</span>
+          <span class="documents-template-title">{{ 'documents.outreachTemplatesTitle' | translate }}</span>
         </div>
-        <svg class="documents-tmpl-chevron" [class.documents-tmpl-chevron--open]="templatesOpen()"
+        <svg class="documents-template-chevron" [class.documents-template-chevron--open]="templatesOpen()"
              width="16" height="16" viewBox="0 0 24 24" fill="none"
              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="6 9 12 15 18 9"/>
         </svg>
       </button>
 
-      <div class="documents-tmpl-body" [class.documents-tmpl-body--open]="templatesOpen()">
+      <div class="documents-template-body" [class.documents-template-body--open]="templatesOpen()">
 
-        <div class="documents-tmpl-head-inner">
+        <div class="documents-template-header-inner">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                stroke="var(--clr-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
             <line x1="12" y1="8" x2="12" y2="12"/>
             <line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
-          <h3 class="documents-tmpl-title">{{ 'documents.outreachTemplatesTitle' | translate }}</h3>
+          <h3 class="documents-template-title">{{ 'documents.outreachTemplatesTitle' | translate }}</h3>
         </div>
 
-        <p class="documents-tmpl-sub">
+        <p class="documents-template-subtitle">
           {{ 'documents.outreachTemplatesSubtitle' | translate }}
         </p>
 
-        @for (tmpl of templates; track tmpl.id) {
-          <app-card class="documents-tmpl-card" radius="md">
-            <h4 class="documents-tmpl-name">{{ tmpl.title }}</h4>
-            <p class="documents-tmpl-desc">{{ tmpl.desc }}</p>
-            <pre class="documents-tmpl-text">{{ tmpl.text }}</pre>
+        @for (template of templates; track template.id) {
+          <app-card class="documents-template-card" radius="md">
+            <h4 class="documents-template-name">{{ template.title }}</h4>
+            <p class="documents-template-description">{{ template.desc }}</p>
+            <pre class="documents-template-text">{{ template.text }}</pre>
             <button
-              class="documents-tmpl-copy"
-              [class.documents-tmpl-copy--done]="copiedId() === tmpl.id"
-              (click)="copyTemplate(tmpl.text, tmpl.id)"
+              class="documents-template-copy"
+              [class.documents-template-copy--done]="copiedId() === template.id"
+              (click)="copyTemplate(template.text, template.id)"
             >
-              @if (copiedId() === tmpl.id) {
+              @if (copiedId() === template.id) {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="20 6 9 17 4 12"/>

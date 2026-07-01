@@ -84,7 +84,7 @@ export class PracticeComponent {
     const term = this.jumpSearch().trim().toLowerCase();
     if (!term) return [];
     return this.filteredQuestions()
-      .map((q, idx) => ({ q, idx }))
+      .map((q, index) => ({ q, index }))
       .filter(({ q }) => q.question.toLowerCase().includes(term) || q.category.toLowerCase().includes(term))
       .slice(0, 8);
   });
@@ -143,7 +143,7 @@ export class PracticeComponent {
   // ── Questions tab: search & sort ────────────────────────────────────────────
   readonly qSearch = signal('');
   readonly qSortKey = signal<QSortKey>('category');
-  readonly qSortDir = signal<'asc' | 'desc'>('asc');
+  readonly qSortDir = signal<'asc' | 'description'>('asc');
 
   // ── Questions tab: multi-select & bulk delete ───────────────────────────────
   readonly selectedQuestionIds = signal<Set<number>>(new Set());
@@ -258,11 +258,11 @@ export class PracticeComponent {
     this.showSample.set(true);
 
     this.api.evaluateAnswer(q.id, this.userAnswer()).subscribe({
-      next: res => {
+      next: result => {
         this.aiLoading.set(false);
-        this.aiFeedback.set(res.feedback);
-        this.aiVerdict.set(res.verdict as 'correct' | 'incorrect');
-        this.startTypewriter(res.feedback);
+        this.aiFeedback.set(result.feedback);
+        this.aiVerdict.set(result.verdict as 'correct' | 'incorrect');
+        this.startTypewriter(result.feedback);
       },
       error: () => {
         this.aiLoading.set(false);
@@ -317,9 +317,9 @@ export class PracticeComponent {
     this.resetAi();
   }
 
-  goToIndex(idx: number): void {
-    if (idx < 0 || idx >= this.filteredQuestions().length || idx === this.currentIdx()) return;
-    this.currentIdx.set(idx);
+  goToIndex(index: number): void {
+    if (index < 0 || index >= this.filteredQuestions().length || index === this.currentIdx()) return;
+    this.currentIdx.set(index);
     this.userAnswer.set('');
     this.showSample.set(false);
     this.resetAi();
@@ -355,8 +355,8 @@ export class PracticeComponent {
     this.jumpDropOpen.set(false);
   }
 
-  jumpToQuestion(idx: number): void {
-    this.goToIndex(idx);
+  jumpToQuestion(index: number): void {
+    this.goToIndex(index);
     this.jumpSearch.set('');
     this.jumpDropOpen.set(false);
   }
@@ -384,20 +384,20 @@ export class PracticeComponent {
   closeQuestionModal(): void { this.showQuestionModal.set(false); }
 
   submitQuestion(): void {
-    const cat = this.formCat().trim();
+    const category = this.formCat().trim();
     const q = this.formQuestion().trim();
     const h = this.formHint().trim();
     const sa = this.formSampleAnswer().trim();
-    if (!cat) { this.formError.set(this.translate.instant('practice.errors.categoryRequired')); return; }
+    if (!category) { this.formError.set(this.translate.instant('practice.errors.categoryRequired')); return; }
     if (!q) { this.formError.set(this.translate.instant('practice.errors.questionRequired')); return; }
     if (!sa) { this.formError.set(this.translate.instant('practice.errors.sampleAnswerRequired')); return; }
     this.formError.set('');
 
     const editingId = this.editingQuestionId();
     if (editingId !== null) {
-      this.practice.updateQuestion(editingId, { category: cat, question: q, hint: h, sampleAnswer: sa });
+      this.practice.updateQuestion(editingId, { category: category, question: q, hint: h, sampleAnswer: sa });
     } else {
-      this.practice.addQuestion({ category: cat, question: q, hint: h, sampleAnswer: sa });
+      this.practice.addQuestion({ category: category, question: q, hint: h, sampleAnswer: sa });
     }
     this.showQuestionModal.set(false);
   }
@@ -451,14 +451,14 @@ export class PracticeComponent {
       throw new Error(this.translate.instant('practice.errors.jsonMustBeNonEmptyArray'));
     }
 
-    return raw.map((item, idx) => {
+    return raw.map((item, index) => {
       const o = item as Record<string, unknown>;
       const category = String(o?.['category'] ?? '').trim();
       const question = String(o?.['question'] ?? '').trim();
       const hint = String(o?.['hint'] ?? '').trim();
       const sampleAnswer = String(o?.['sampleAnswer'] ?? '').trim();
       if (!category || !question || !sampleAnswer) {
-        throw new Error(`${this.translate.instant('practice.errors.importItemMissingFieldsPrefix')} ${idx + 1}${this.translate.instant('practice.errors.importItemMissingFieldsSuffix')}`);
+        throw new Error(`${this.translate.instant('practice.errors.importItemMissingFieldsPrefix')} ${index + 1}${this.translate.instant('practice.errors.importItemMissingFieldsSuffix')}`);
       }
       return { category, question, hint, sampleAnswer };
     });
@@ -527,8 +527,8 @@ export class PracticeComponent {
   toggleCatDrop(event: MouseEvent): void {
     event.stopPropagation();
     if (!this.catDropOpen) {
-      const btn = event.currentTarget as HTMLElement;
-      const r = btn.getBoundingClientRect();
+      const button = event.currentTarget as HTMLElement;
+      const r = button.getBoundingClientRect();
       const estimatedH = this.practice.categories().length * 40 + 10;
       this.catDropLeft = r.left;
       this.catDropWidth = Math.max(r.width, 192);
@@ -556,7 +556,7 @@ export class PracticeComponent {
 
   qSort(key: QSortKey): void {
     if (this.qSortKey() === key) {
-      this.qSortDir.update(d => d === 'asc' ? 'desc' : 'asc');
+      this.qSortDir.update(d => d === 'asc' ? 'description' : 'asc');
     } else {
       this.qSortKey.set(key);
       this.qSortDir.set('asc');
@@ -576,9 +576,9 @@ export class PracticeComponent {
     return this.practice.questions().find(q => q.id === id)?.feedback ?? null;
   }
 
-  feedbackLabel(fb: FeedbackType | null): string {
-    if (fb === 'correct') return this.translate.instant('practice.feedbackLabel.correct');
-    if (fb === 'incorrect') return this.translate.instant('practice.feedbackLabel.incorrect');
+  feedbackLabel(feedback: FeedbackType | null): string {
+    if (feedback === 'correct') return this.translate.instant('practice.feedbackLabel.correct');
+    if (feedback === 'incorrect') return this.translate.instant('practice.feedbackLabel.incorrect');
     return '';
   }
 
@@ -598,11 +598,11 @@ export class PracticeComponent {
     return this.translate.instant('practice.readinessLabel.beginner');
   }
 
-  categoryColor(cat: QuestionCategory): string {
-    return this.practice.categories().find(c => c.name === cat)?.color ?? '#9b9b99';
+  categoryColor(category: QuestionCategory): string {
+    return this.practice.categories().find(c => c.name === category)?.color ?? '#9b9b99';
   }
 
-  trackByCategory(_: number, cat: FilterCategory): string { return cat; }
+  trackByCategory(_: number, category: FilterCategory): string { return category; }
   trackByQuestion(_: number, q: PrepQuestion): number { return q.id; }
 
   private dateKey(iso: string): string {

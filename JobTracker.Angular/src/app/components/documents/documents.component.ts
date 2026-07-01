@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, HostListener, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -32,7 +32,7 @@ export class DocumentsComponent {
   readonly docTypes = DOCUMENT_TYPES;
   readonly templates = OUTREACH_TEMPLATES;
   readonly copiedId = signal<number | null>(null);
-  readonly templatesOpen = signal(false);
+  readonly templatesOpen = signal(true);
   readonly formOpen = signal(false);
 
   toggleTemplates(): void {
@@ -68,6 +68,36 @@ export class DocumentsComponent {
   selectedFile: File | null = null;
   submitted = false;
   uploadingId = signal<number | null>(null);
+
+  openMenuId = signal<number | null>(null);
+  menuTop = 0;
+  menuLeft = 0;
+
+  toggleMenu(id: number, event: MouseEvent): void {
+    event.stopPropagation();
+    if (this.openMenuId() === id) {
+      this.openMenuId.set(null);
+      return;
+    }
+    const btn = event.currentTarget as HTMLElement;
+    const r = btn.getBoundingClientRect();
+    const panelWidth = 200;
+    let left = r.right - panelWidth;
+    if (left < 8) left = 8;
+    if (left + panelWidth > window.innerWidth - 8) left = window.innerWidth - panelWidth - 8;
+    this.menuLeft = left;
+    this.menuTop = r.bottom + 4;
+    this.openMenuId.set(id);
+  }
+
+  closeMenu(): void {
+    this.openMenuId.set(null);
+  }
+
+  @HostListener('document:click')
+  onDocClick(): void {
+    this.openMenuId.set(null);
+  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;

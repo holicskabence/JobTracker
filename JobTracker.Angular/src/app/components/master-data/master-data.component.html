@@ -1,4 +1,4 @@
-<div class="md">
+<div class="master-data-container">
 
     <app-page-header [title]="'masterData.pageHeader.title' | translate"
         [subtitle]="'masterData.pageHeader.subtitle' | translate"></app-page-header>
@@ -6,7 +6,7 @@
     <div class="master-data-grid">
 
         <app-card class="master-data-card" radius="xl">
-            <div class="master-data-card-head">
+            <div class="master-data-card-header">
                 <div class="master-data-card-icon master-data-card-icon--green">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -18,7 +18,7 @@
                 </div>
                 <div>
                     <h3 class="master-data-card-title">{{ 'masterData.eventTypes.title' | translate }}</h3>
-                    <p class="master-data-card-sub">{{ 'masterData.eventTypes.subtitle' | translate }}</p>
+                    <p class="master-data-card-subtitle">{{ 'masterData.eventTypes.subtitle' | translate }}</p>
                 </div>
                 <app-badge variant="green" class="master-data-badge">{{ 'masterData.badge.count' | translate:{ count: planner.eventTypes().length } }}</app-badge>
             </div>
@@ -46,9 +46,9 @@
                 <input class="master-data-input" type="text" [placeholder]="'masterData.eventTypes.newPlaceholder' | translate" [(ngModel)]="newEventTypeName"
                     name="newEventType" />
                 @if (selectedEventType) {
-                <button type="button" class="master-data-cancel-btn" (click)="cancelEventTypeEdit()">{{ 'masterData.cancel' | translate }}</button>
+                <button type="button" class="master-data-cancel-button" (click)="cancelEventTypeEdit()">{{ 'masterData.cancel' | translate }}</button>
                 }
-                <button class="master-data-add-btn" type="submit">
+                <button class="master-data-add-button" type="submit">
                     @if (selectedEventType) {
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -68,7 +68,7 @@
         </app-card>
 
         <app-card class="master-data-card" radius="xl">
-            <div class="master-data-card-head">
+            <div class="master-data-card-header">
                 <div class="master-data-card-icon master-data-card-icon--purple">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -80,19 +80,19 @@
                 </div>
                 <div>
                     <h3 class="master-data-card-title">{{ 'masterData.categories.title' | translate }}</h3>
-                    <p class="master-data-card-sub">{{ 'masterData.categories.subtitle' | translate }}</p>
+                    <p class="master-data-card-subtitle">{{ 'masterData.categories.subtitle' | translate }}</p>
                 </div>
                 <app-badge variant="green" class="master-data-badge">{{ 'masterData.badge.count' | translate:{ count: practice.categories().length } }}</app-badge>
             </div>
 
             <div class="master-data-tags">
-                @for (cat of practice.categories(); track cat.id) {
-                <div class="master-data-tag" [class.master-data-tag--selected]="selectedCategoryId === cat.id"
-                    (click)="selectCategory(cat)" [title]="'masterData.selectToEdit' | translate">
-                    <span class="master-data-tag-dot" [style.background-color]="cat.color"></span>
-                    <span class="master-data-tag-text">{{ cat.name }}</span>
+                @for (category of practice.categories(); track category.id) {
+                <div class="master-data-tag" [class.master-data-tag--selected]="selectedCategoryId === category.id"
+                    (click)="selectCategory(category)" [title]="'masterData.selectToEdit' | translate">
+                    <span class="master-data-tag-dot" [style.background-color]="category.color"></span>
+                    <span class="master-data-tag-text">{{ category.name }}</span>
                     <button type="button" class="master-data-tag-del"
-                        (click)="$event.stopPropagation(); deleteCategory(cat.id)"
+                        (click)="$event.stopPropagation(); deleteCategory(category.id)"
                         [disabled]="practice.categories().length <= 1" [title]="'masterData.delete' | translate">
                         <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                             stroke-linecap="round">
@@ -115,9 +115,9 @@
                     }
                 </div>
                 @if (selectedCategoryId !== null) {
-                <button type="button" class="master-data-cancel-btn" (click)="cancelCategoryEdit()">{{ 'masterData.cancel' | translate }}</button>
+                <button type="button" class="master-data-cancel-button" (click)="cancelCategoryEdit()">{{ 'masterData.cancel' | translate }}</button>
                 }
-                <button class="master-data-add-btn" type="submit">
+                <button class="master-data-add-button" type="submit">
                     @if (selectedCategoryId !== null) {
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -139,7 +139,7 @@
     </div>
 
     <app-card class="master-data-card master-data-card--wide" radius="xl">
-        <div class="master-data-card-head">
+        <div class="master-data-card-header">
             <div class="master-data-card-icon master-data-card-icon--yellow">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -149,7 +149,7 @@
             </div>
             <div>
                 <h3 class="master-data-card-title">{{ 'masterData.statuses.title' | translate }}</h3>
-                <p class="master-data-card-sub">{{ 'masterData.statuses.subtitle' | translate }}</p>
+                <p class="master-data-card-subtitle">{{ 'masterData.statuses.subtitle' | translate }}</p>
             </div>
             <app-badge variant="green" class="master-data-badge">{{ 'masterData.badge.count' | translate:{ count: jobStore.statusConfigs().length } }}</app-badge>
         </div>
@@ -169,13 +169,13 @@
 
                 <div class="status-row-main">
                     <div class="status-row-order">
-                        <button type="button" class="status-order-btn" (click)="moveStatusUp(cfg.key, $event)"
+                        <button type="button" class="status-order-button" (click)="moveStatusUp(cfg.key, $event)"
                             [disabled]="first" [title]="'masterData.moveUp' | translate">
                             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="18 15 12 9 6 15" />
                             </svg>
                         </button>
-                        <button type="button" class="status-order-btn" (click)="moveStatusDown(cfg.key, $event)"
+                        <button type="button" class="status-order-button" (click)="moveStatusDown(cfg.key, $event)"
                             [disabled]="last" [title]="'masterData.moveDown' | translate">
                             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="6 9 12 15 18 9" />
@@ -186,8 +186,8 @@
                     <span class="status-row-dot" [style.background-color]="cfg.color"></span>
                     <span class="status-row-label">{{ cfg.label }}</span>
 
-                    <button type="button" class="status-kanban-btn"
-                        [class.status-kanban-btn--hidden]="cfg.showInKanban === false"
+                    <button type="button" class="status-kanban-button"
+                        [class.status-kanban-button--hidden]="cfg.showInKanban === false"
                         (click)="toggleStatusKanban(cfg.key, $event)"
                         [title]="(cfg.showInKanban === false ? 'masterData.hiddenFromKanban' : 'masterData.visibleInKanban') | translate">
                         @if (cfg.showInKanban !== false) {
@@ -216,38 +216,38 @@
 
                 <div class="status-row-controls">
                     <span class="status-row-controls-label">{{ 'masterData.statuses.statsControlsLabel' | translate }}</span>
-                    <button type="button" class="stat-flag-btn" [class.stat-flag-btn--on]="cfg.isActive"
+                    <button type="button" class="stat-flag-button" [class.stat-flag-button--on]="cfg.isActive"
                         (click)="toggleStatusActive(cfg.key, $event)"
                         [title]="'masterData.statuses.activeFlagTitle' | translate">
                         {{ 'masterData.statuses.activeFlagLabel' | translate }}
                     </button>
 
-                    <button type="button" class="stat-flag-btn" [class.stat-flag-btn--on]="cfg.isInterview"
+                    <button type="button" class="stat-flag-button" [class.stat-flag-button--on]="cfg.isInterview"
                         (click)="toggleStatusInterview(cfg.key, $event)"
                         [title]="'masterData.statuses.interviewFlagTitle' | translate">
                         {{ 'masterData.statuses.interviewFlagLabel' | translate }}
                     </button>
 
-                    <button type="button" class="status-cat-trigger"
-                        [class.status-cat-trigger--open]="statusCatDropOpen === cfg.key"
+                    <button type="button" class="status-category-trigger"
+                        [class.status-category-trigger--open]="statusCatDropOpen === cfg.key"
                         (click)="toggleStatusCatDrop(cfg, $event)"
                         [title]="'masterData.statuses.statsCategoryTitle' | translate">
-                        <span class="status-cat-trigger-label">{{ 'masterData.statuses.statsCategoryOptions.' + (cfg.statsCategory ?? 'None') | translate }}</span>
-                        <svg class="status-cat-trigger-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none"
+                        <span class="status-category-trigger-label">{{ 'masterData.statuses.statsCategoryOptions.' + (cfg.statsCategory ?? 'None') | translate }}</span>
+                        <svg class="status-category-trigger-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9" />
                         </svg>
                     </button>
                     @if (statusCatDropOpen === cfg.key) {
-                    <div class="cat-drop-panel" [style.top.px]="statusCatDropTop" [style.left.px]="statusCatDropLeft"
+                    <div class="category-dropdown-panel" [style.top.px]="statusCatDropTop" [style.left.px]="statusCatDropLeft"
                         [style.width.px]="statusCatDropWidth" (click)="$event.stopPropagation()">
-                        @for (cat of STATS_CATEGORIES; track cat) {
-                        <button type="button" class="cat-drop-option"
-                            [class.cat-drop-option--current]="(cfg.statsCategory ?? 'None') === cat"
-                            (click)="pickStatusCategory(cfg.key, cat, $event)">
-                            <span class="cat-drop-name">{{ 'masterData.statuses.statsCategoryOptions.' + cat | translate }}</span>
-                            @if ((cfg.statsCategory ?? 'None') === cat) {
-                            <svg class="cat-drop-check" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        @for (category of STATS_CATEGORIES; track category) {
+                        <button type="button" class="category-dropdown-option"
+                            [class.category-dropdown-option--current]="(cfg.statsCategory ?? 'None') === category"
+                            (click)="pickStatusCategory(cfg.key, category, $event)">
+                            <span class="category-dropdown-name">{{ 'masterData.statuses.statsCategoryOptions.' + category | translate }}</span>
+                            @if ((cfg.statsCategory ?? 'None') === category) {
+                            <svg class="category-dropdown-check" width="14" height="14" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="20 6 9 17 4 12" />
                             </svg>
@@ -272,9 +272,9 @@
                 }
             </div>
             @if (selectedStatusKey) {
-            <button type="button" class="master-data-cancel-btn" (click)="cancelStatusEdit()">{{ 'masterData.cancel' | translate }}</button>
+            <button type="button" class="master-data-cancel-button" (click)="cancelStatusEdit()">{{ 'masterData.cancel' | translate }}</button>
             }
-            <button class="master-data-add-btn" type="submit">
+            <button class="master-data-add-button" type="submit">
                 @if (selectedStatusKey) {
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">

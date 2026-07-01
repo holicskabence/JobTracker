@@ -8,6 +8,7 @@ import { JobStoreService } from '../../../services/job-store.service';
 import { PlannerService } from '../../../services/planner.service';
 import { PracticeService } from '../../../services/practice.service';
 import { AuthService } from '../../../services/auth.service';
+import { ApplicationsViewService } from '../../../services/applications-view.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { DashboardHeaderComponent } from '../dashboard-header/dashboard-header.component';
 import { AddJobModalComponent } from '../../shared/add-job-modal/add-job-modal.component';
@@ -29,6 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   readonly planner = inject(PlannerService);
   readonly practice = inject(PracticeService);
   readonly auth = inject(AuthService);
+  readonly viewService = inject(ApplicationsViewService);
   private router = inject(Router);
   private el: ElementRef<HTMLElement> = inject(ElementRef);
 
@@ -58,7 +60,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private syncTab(url: string): void {
     const seg = url.split('/').filter(Boolean).pop() as DashboardTab;
     const valid: DashboardTab[] = [
-      'attekintes', 'jelentkezesek', 'tablazat', 'esemenyek',
+      'attekintes', 'jelentkezesek', 'valtozasok', 'esemenyek',
       'dokumentumok', 'statisztika', 'torzsadatok', 'profil', 'gyakorlas'
     ];
     this.activeTab.set(valid.includes(seg) ? seg : 'attekintes');

@@ -26,7 +26,7 @@ export interface ChartSeriesInput {
 }
 
 export interface HoveredCol {
-  idx: number;
+  index: number;
   x: number;
   label: string;
   rows: { key: string; label: string; color: string; value: number }[];
@@ -106,7 +106,7 @@ export class AreaChartComponent implements OnChanges {
     const labelStep = Math.max(1, Math.ceil(n / 10));
     this.xLabels = this.categories
       .map((text, i) => ({ x: px(i), text, i }))
-      .filter(lbl => lbl.i % labelStep === 0)
+      .filter(label => label.i % labelStep === 0)
       .map(({ x, text }) => ({ x, text }));
   }
 
@@ -120,11 +120,11 @@ export class AreaChartComponent implements OnChanges {
 
   onColEnter(i: number): void {
     const svg = this.el.nativeElement.querySelector('.chart-svg')!;
-    const dots = svg.querySelectorAll<SVGCircleElement>(`.dot[data-col="${i}"]`);
+    const dots = svg.querySelectorAll<SVGCircleElement>(`.dot[data-column="${i}"]`);
     gsap.to(dots, { attr: { r: 6 }, duration: 0.2, ease: 'back.out(2)' });
 
     this.hovered = {
-      idx: i,
+      index: i,
       x: this.colPositions[i].x,
       label: this.categories[i],
       rows: this.seriesLines.map(line => ({

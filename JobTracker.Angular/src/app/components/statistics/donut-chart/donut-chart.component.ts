@@ -31,14 +31,24 @@ export class DonutChartComponent {
   readonly IR = 54;
   readonly GAP_DEG = 4;
 
-  readonly total = computed(() => this.store.jobs().length);
+  private readonly eligibleKeys = computed(() => {
+    const configs = this.store.statusConfigs();
+    return new Set(configs.filter(c => c.isActive || c.isInterview).map(c => c.key));
+  });
+
+  readonly total = computed(() => {
+    const keys = this.eligibleKeys();
+    return this.store.jobs().filter(j => keys.has(j.status)).length;
+  });
 
   readonly slices = computed(() => {
     const jobs = this.store.jobs();
     const configs = this.store.statusConfigs();
+    const keys = this.eligibleKeys();
 
     const distMap: Record<string, number> = {};
     for (const job of jobs) {
+      if (!keys.has(job.status)) continue;
       distMap[job.status] = (distMap[job.status] ?? 0) + 1;
     }
 
@@ -81,20 +91,20 @@ export class DonutChartComponent {
   hoverSlice(status: string): void {
     if (this.hoveredSlice()?.status === status) return;
 
-    const idx = this.slices().findIndex(s => s.status === status);
+    const index = this.slices().findIndex(s => s.status === status);
     const paths = this.el.nativeElement.querySelectorAll<SVGPathElement>('.slice');
 
     gsap.to(paths, { scale: 1, duration: 0.15 });
 
-    if (idx >= 0 && paths[idx]) {
-      gsap.to(paths[idx], { scale: 1.1, duration: 0.22, ease: 'back.out(1.5)' });
+    if (index >= 0 && paths[index]) {
+      gsap.to(paths[index], { scale: 1.1, duration: 0.22, ease: 'back.out(1.5)' });
     }
 
-    this.hoveredSlice.set(this.slices()[idx] ?? null);
+    this.hoveredSlice.set(this.slices()[index] ?? null);
 
-    const val = this.el.nativeElement.querySelector('.donut-center-value')!;
-    const lbl = this.el.nativeElement.querySelector('.donut-center-label')!;
-    gsap.fromTo([val, lbl],
+    const value = this.el.nativeElement.querySelector('.donut-center-value')!;
+    const label = this.el.nativeElement.querySelector('.donut-center-label')!;
+    gsap.fromTo([value, label],
       { opacity: 0, scale: 0.8 },
       { opacity: 1, scale: 1, duration: 0.2, ease: 'back.out(1.4)', stagger: 0.04 }
     );
@@ -108,9 +118,9 @@ export class DonutChartComponent {
 
     this.hoveredSlice.set(null);
 
-    const val = this.el.nativeElement.querySelector('.donut-center-value')!;
-    const lbl = this.el.nativeElement.querySelector('.donut-center-label')!;
-    gsap.fromTo([val, lbl],
+    const value = this.el.nativeElement.querySelector('.donut-center-value')!;
+    const label = this.el.nativeElement.querySelector('.donut-center-label')!;
+    gsap.fromTo([value, label],
       { opacity: 0.7, scale: 0.92 },
       { opacity: 1, scale: 1, duration: 0.18, ease: 'power2.out', stagger: 0.03 }
     );

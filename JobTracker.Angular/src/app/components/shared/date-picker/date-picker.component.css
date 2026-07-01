@@ -74,7 +74,7 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.date-picker-head {
+.date-picker-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -112,7 +112,7 @@
   margin-bottom: var(--space-1);
 }
 
-.date-picker-wd {
+.date-picker-weekday {
   text-align: center;
   font-size: 0.6875rem;
   font-weight: 700;

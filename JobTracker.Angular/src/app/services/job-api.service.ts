@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Job, JobStatus, JobStatusConfig, StatsCategory, StatsGranularity, StatsSeriesPoint } from '../models/job.model';
+import { Job, JobStatus, JobStatusConfig, JobStatusHistoryEntry, StatsCategory, StatsGranularity, StatsSeriesPoint } from '../models/job.model';
 
 @Injectable({ providedIn: 'root' })
 export class JobApiService {
@@ -27,6 +27,11 @@ export class JobApiService {
 
   deleteJob(id: number): Observable<void> {
     return this.http.delete<void>(`/api/jobs/${id}`);
+  }
+
+  // ── Status history ───────────────────────────────────────
+  getJobStatusHistory(): Observable<JobStatusHistoryEntry[]> {
+    return this.http.get<JobStatusHistoryEntry[]>('/api/job-status-history');
   }
 
   // ── Stats series ─────────────────────────────────────────

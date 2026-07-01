@@ -1,21 +1,19 @@
-<div class="ev">
+<div class="events-container">
 
-  <app-page-header [title]="'events.sectionTitle' | translate" [subtitle]="'events.sectionSubtitle' | translate"></app-page-header>
+  <app-page-header [title]="'events.sectionTitle' | translate"
+    [subtitle]="'events.sectionSubtitle' | translate"></app-page-header>
 
   <div class="events-grid">
-
-    <!-- ─── LEFT: Events ─── -->
     <div class="events-left">
-
-      <!-- Add / Edit Event Form -->
       <ng-template #eventFormFields>
         <form class="events-form" (ngSubmit)="submitEvent()">
 
           <div class="events-form-row">
             <div class="events-field">
               <label class="events-label">{{ 'events.modal.companyLabel' | translate }}</label>
-              <input class="events-input" type="text" [placeholder]="'events.modal.companyPlaceholder' | translate" [(ngModel)]="newEventCompany"
-                name="evCompany" [class.events-input--error]="submitted && !newEventCompany.trim()" />
+              <input class="events-input" type="text" [placeholder]="'events.modal.companyPlaceholder' | translate"
+                [(ngModel)]="newEventCompany" name="evCompany"
+                [class.events-input--error]="submitted && !newEventCompany.trim()" />
               @if (submitted && !newEventCompany.trim()) {
               <span class="events-error">{{ 'events.modal.companyRequiredError' | translate }}</span>
               }
@@ -42,15 +40,15 @@
           <div class="events-form-row events-form-row--notes">
             <div class="events-field events-field--grow">
               <label class="events-label">{{ 'events.modal.notesLabel' | translate }}</label>
-              <input class="events-input" type="text"
-                [placeholder]="'events.modal.notesPlaceholder' | translate" [(ngModel)]="newEventNotes"
-                name="evNotes" />
+              <input class="events-input" type="text" [placeholder]="'events.modal.notesPlaceholder' | translate"
+                [(ngModel)]="newEventNotes" name="evNotes" />
             </div>
             <div class="events-form-actions">
               @if (editingId() !== null) {
-              <button class="events-cancel-btn" type="button" (click)="cancelEdit()">{{ 'events.modal.cancelBtn' | translate }}</button>
+              <button class="events-cancel-button" type="button" (click)="cancelEdit()">{{ 'events.modal.cancelBtn' |
+                translate }}</button>
               }
-              <button class="events-add-btn" type="submit">
+              <button class="events-add-button" type="submit">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                   stroke-linecap="round">
                   @if (editingId() !== null) {
@@ -71,7 +69,7 @@
       </ng-template>
 
       @if (breakpoint.isMobile()) {
-      <button type="button" class="events-mobile-add-btn" (click)="openAddForm()">
+      <button type="button" class="events-mobile-add-button" (click)="openAddForm()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
           stroke-linecap="round">
           <line x1="12" y1="5" x2="12" y2="19" />
@@ -88,7 +86,8 @@
             <h2 class="modal-title" id="events-modal-title">
               {{ (editingId() !== null ? 'events.modal.editTitle' : 'events.modal.addTitle') | translate }}
             </h2>
-            <button class="modal-close" type="button" (click)="closeForm()" [attr.aria-label]="'events.modal.closeAriaLabel' | translate">
+            <button class="modal-close" type="button" (click)="closeForm()"
+              [attr.aria-label]="'events.modal.closeAriaLabel' | translate">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round">
                 <line x1="18" y1="6" x2="6" y2="18" />
@@ -114,16 +113,16 @@
       <!-- Filter tabs -->
       <div class="events-filter-row">
         <div class="events-filters">
-          <button class="events-filter-btn" [class.events-filter-btn--active]="eventFilter() === 'all'"
+          <button class="events-filter-button" [class.events-filter-button--active]="eventFilter() === 'all'"
             (click)="eventFilter.set('all')">
             {{ 'events.filters.all' | translate }}
             <span class="events-filter-count">{{ planner.events().length }}</span>
           </button>
-          <button class="events-filter-btn" [class.events-filter-btn--active]="eventFilter() === 'upcoming'"
+          <button class="events-filter-button" [class.events-filter-button--active]="eventFilter() === 'upcoming'"
             (click)="eventFilter.set('upcoming')">
             {{ 'events.filters.upcoming' | translate }}
           </button>
-          <button class="events-filter-btn" [class.events-filter-btn--active]="eventFilter() === 'past'"
+          <button class="events-filter-button" [class.events-filter-button--active]="eventFilter() === 'past'"
             (click)="eventFilter.set('past')">
             {{ 'events.filters.past' | translate }}
           </button>
@@ -132,9 +131,9 @@
 
       <!-- Event Cards -->
       <div class="events-list">
-        @for (ev of filteredEvents(); track ev.id) {
-        <app-card class="events-card" (click)="startEdit(ev)" radius="xl" gap="none"
-          [class.events-card--editing]="editingId() === ev.id">
+        @for (event of filteredEvents(); track event.id) {
+        <app-card class="events-card" (click)="startEdit(event)" radius="xl" gap="none"
+          [class.events-card--editing]="editingId() === event.id">
 
           <div class="events-card-top">
             <div class="events-card-icon">
@@ -147,8 +146,8 @@
               </svg>
             </div>
             <div class="events-card-meta">
-              <span class="events-card-type">{{ ev.type }}</span>
-              <h4 class="events-card-company">{{ ev.company }}</h4>
+              <span class="events-card-type">{{ event.type }}</span>
+              <h4 class="events-card-company">{{ event.company }}</h4>
             </div>
             <div class="events-card-right">
               <div class="events-card-time">
@@ -157,18 +156,19 @@
                   <circle cx="12" cy="12" r="10" />
                   <polyline points="12 6 12 12 16 14" />
                 </svg>
-                {{ ev.date }}{{ eventTimeLabel(ev) }}
+                {{ event.date }}{{ eventTimeLabel(event) }}
               </div>
-              <div class="events-card-btns">
-                <button class="events-card-btn events-card-btn--edit" (click)="startEdit(ev)" [title]="'events.list.editTitle' | translate">
+              <div class="events-card-buttons">
+                <button class="events-card-button events-card-button--edit" (click)="startEdit(event)"
+                  [title]="'events.list.editTitle' | translate">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                   </svg>
                 </button>
-                <button class="events-card-btn events-card-btn--del" (click)="planner.deleteEvent(ev.id)"
-                  [title]="'events.list.deleteTitle' | translate">
+                <button class="events-card-button events-card-button--del"
+                  (click)="planner.deleteEvent(event.id)" [title]="'events.list.deleteTitle' | translate">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="3 6 5 6 21 6" />
@@ -181,15 +181,14 @@
             </div>
           </div>
 
-          @if (ev.notes) {
-          <p class="events-card-notes">{{ ev.notes }}</p>
+          @if (event.notes) {
+          <p class="events-card-notes">{{ event.notes }}</p>
           }
         </app-card>
         }
 
         @if (filteredEvents().length === 0) {
-        <app-empty-state class="events-empty"
-          [message]="emptyEventsMessage()"></app-empty-state>
+        <app-empty-state class="events-empty" [message]="emptyEventsMessage()"></app-empty-state>
         }
       </div>
     </div>
@@ -197,7 +196,7 @@
     <!-- ─── RIGHT: Tasks ─── -->
     <app-card class="events-tasks-card" radius="xl" gap="none">
 
-      <div class="events-tasks-head">
+      <div class="events-tasks-header">
         <div class="events-tasks-title">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--clr-green)" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
@@ -227,8 +226,8 @@
 
       <!-- Add task form -->
       <form class="events-task-form" (ngSubmit)="submitTask()">
-        <input class="events-task-input" type="text" [placeholder]="'events.tasks.addPlaceholder' | translate" [(ngModel)]="newTaskText"
-          name="taskText" required />
+        <input class="events-task-input" type="text" [placeholder]="'events.tasks.addPlaceholder' | translate"
+          [(ngModel)]="newTaskText" name="taskText" required />
         <button class="events-task-add" type="submit">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
             stroke-linecap="round">
@@ -252,7 +251,8 @@
             }
           </div>
           <span class="events-task-text" (click)="planner.toggleTask(task.id)">{{ task.text }}</span>
-          <button class="events-task-del" (click)="planner.deleteTask(task.id)" [title]="'events.tasks.deleteTitle' | translate">
+          <button class="events-task-del" (click)="planner.deleteTask(task.id)"
+            [title]="'events.tasks.deleteTitle' | translate">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
               stroke-linecap="round">
               <line x1="18" y1="6" x2="6" y2="18" />
@@ -263,10 +263,12 @@
         }
 
         @if (visibleTasks().length === 0 && planner.tasks().length > 0) {
-        <app-empty-state class="events-task-empty" [message]="'events.tasks.allDoneMessage' | translate"></app-empty-state>
+        <app-empty-state class="events-task-empty"
+          [message]="'events.tasks.allDoneMessage' | translate"></app-empty-state>
         }
         @if (planner.tasks().length === 0) {
-        <app-empty-state class="events-task-empty" [message]="'events.tasks.emptyMessage' | translate"></app-empty-state>
+        <app-empty-state class="events-task-empty"
+          [message]="'events.tasks.emptyMessage' | translate"></app-empty-state>
         }
       </div>
 

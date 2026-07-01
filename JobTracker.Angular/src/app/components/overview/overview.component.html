@@ -21,7 +21,7 @@
             <h3 class="card-label">{{ 'overview.stats.successRejectionRatio' | translate }}</h3>
             <div class="card-value-row">
                 <span class="card-value">{{ stats().successRate }}%</span>
-                <span class="card-value-sub">{{ 'overview.stats.successful' | translate }}</span>
+                <span class="card-value-subtitle">{{ 'overview.stats.successful' | translate }}</span>
             </div>
             <div class="card-metrics">
                 <span class="metric metric--green">
@@ -119,59 +119,6 @@
         </app-card>
 
     </div>
-<!-- 
-    <div class="practice-row">
-
-        <app-card class="pov-streak-card" (click)="navigate('gyakorlas')">
-            <div class="pov-card-head">
-                <div class="pov-icon pov-icon--blue">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.7-4.27 2.5 2.5 0 0 1-1.7-3.27 3 3 0 0 1 .25-5.5A2.5 2.5 0 0 1 9.5 2Z"/>
-                        <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.7-4.27 2.5 2.5 0 0 0 1.7-3.27 3 3 0 0 0-.25-5.5A2.5 2.5 0 0 0 14.5 2Z"/>
-                    </svg>
-                </div>
-                <span class="pov-card-title">Gyakorlási Streak</span>
-            </div>
-            <div class="pov-streak-row">
-                <span class="pov-streak-num">{{ practice.practiceStreak() }}</span>
-                <span class="pov-streak-fire">{{ practice.practiceStreak() >= 3 ? '🔥' : '💪' }}</span>
-            </div>
-            <p class="pov-streak-unit">egymást követő nap</p>
-            <div class="pov-divider"></div>
-            <p class="pov-streak-msg">{{ practiceStreakLabel() }}</p>
-        </app-card>
-
-        <app-card class="pov-readiness-card" (click)="navigate('gyakorlas')">
-            <div class="pov-card-head">
-                <div class="pov-icon pov-icon--green">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="8" r="6"/>
-                        <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
-                    </svg>
-                </div>
-                <span class="pov-card-title">Felkészültségi Szint</span>
-            </div>
-            <div class="pov-readiness-row">
-                <span class="pov-readiness-pct" [style.color]="readinessColor()">{{ practice.readinessScore() }}%</span>
-                <span class="pov-readiness-label" [style.color]="readinessColor()">{{ readinessLabel() }}</span>
-            </div>
-            <div class="pov-bar-bg">
-                <div class="pov-bar-fill" [style.width.%]="practice.readinessScore()" [style.background]="readinessColor()"></div>
-            </div>
-            <p class="pov-readiness-note">{{ practice.answeredCount() }} / {{ practice.questions().length }} kérdés megválaszolva</p>
-            <div class="pov-goto">
-                Gyakorolj most
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="9 18 15 12 9 6"/>
-                </svg>
-            </div>
-        </app-card>
-
-    </div> -->
-
     <div class="recent">
         <div class="recent-header">
             <h2 class="recent-title">{{ 'overview.recentApplications.title' | translate }}</h2>
@@ -180,7 +127,7 @@
 
         <div class="recent-list">
             @for (job of recentJobs(); track job.id; let first = $first) {
-            <div class="recent-item" [class.recent-item--sep]="!first">
+            <div class="recent-item" [class.recent-item--separator]="!first">
                 <div class="recent-item-left">
                     <div class="recent-avatar" [style.color]="colorFor(job.status)"
                         [style.background-color]="colorAlpha(job.status, 0.12)">

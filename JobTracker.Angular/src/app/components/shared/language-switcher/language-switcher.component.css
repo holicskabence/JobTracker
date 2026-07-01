@@ -11,7 +11,7 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-.lang-switcher-btn {
+.lang-switcher-button {
   border: none;
   background: transparent;
   cursor: pointer;
@@ -25,17 +25,17 @@
   transition: all 0.15s ease;
 }
 
-.lang-switcher-btn:hover {
+.lang-switcher-button:hover {
   opacity: 1;
 }
 
-.lang-switcher-btn--active {
+.lang-switcher-button--active {
   opacity: 1;
   background: #fff;
   color: #111;
 }
 
-.lang-switcher--dark .lang-switcher-btn--active {
+.lang-switcher--dark .lang-switcher-button--active {
   background: rgba(255, 255, 255, 0.18);
   color: inherit;
 }

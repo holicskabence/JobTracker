@@ -9,6 +9,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IJobService, JobService>();
+        services.AddScoped<IJobStatusHistoryService, JobStatusHistoryService>();
         services.AddScoped<ICalendarEventService, CalendarEventService>();
         services.AddScoped<IPlannerTaskService, PlannerTaskService>();
         services.AddScoped<IUserDocumentService, UserDocumentService>();

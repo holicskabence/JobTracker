@@ -1,15 +1,4 @@
-.register-page-wrap {
-  position: relative;
-}
-
-.register-lang-switcher {
-  position: absolute;
-  top: var(--space-5);
-  right: var(--space-5);
-  z-index: 1;
-}
-
-.oauth-btns {
+.oauth-buttons {
   display: flex;
   flex-direction: column;
   gap: var(--space-2-5);
@@ -17,7 +6,7 @@
   margin-bottom: var(--space-1);
 }
 
-.oauth-btn {
+.oauth-button {
   width: 100%;
   display: flex;
   align-items: center;
@@ -35,7 +24,7 @@
   color: var(--clr-dark);
 }
 
-.oauth-btn:hover {
+.oauth-button:hover {
   background-color: var(--clr-bg);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
@@ -75,7 +64,7 @@
   margin-bottom: var(--space-5);
 }
 
-.reg-row {
+.register-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-2-5);
@@ -163,7 +152,7 @@
   color: var(--clr-dark);
 }
 
-.login-card-btn {
+.login-card-button {
   width: 100%;
   padding: var(--space-3-5) var(--space-4);
   border-radius: var(--radius-md);
@@ -176,12 +165,12 @@
   margin-top: var(--space-1);
 }
 
-.login-card-btn--primary {
+.login-card-button--primary {
   background-color: var(--clr-dark);
   color: var(--clr-white);
 }
 
-.login-card-btn--primary:hover {
+.login-card-button--primary:hover {
   background-color: #000;
 }
 

@@ -22,7 +22,7 @@
         [style.bottom]="openUpward ? panelBottom + 'px' : null" [style.left.px]="panelLeft"
         (click)="$event.stopPropagation()">
 
-        <div class="date-picker-head">
+        <div class="date-picker-header">
             <button type="button" class="date-picker-nav" (click)="prevMonth()">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                     stroke-linecap="round">
@@ -39,8 +39,8 @@
         </div>
 
         <div class="date-picker-weekdays">
-            @for (wd of WEEKDAY_KEYS; track wd) {
-            <span class="date-picker-wd">{{ wd | translate }}</span>
+            @for (weekday of WEEKDAY_KEYS; track weekday) {
+            <span class="date-picker-weekday">{{ weekday | translate }}</span>
             }
         </div>
 

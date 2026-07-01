@@ -1,4 +1,4 @@
-﻿<div class="tv">
+﻿<div class="table-view-container">
 
   <div class="table-view-toolbar">
     <div class="table-view-search-wrap">
@@ -7,8 +7,8 @@
         <circle cx="11" cy="11" r="8" />
         <line x1="21" y1="21" x2="16.65" y2="16.65" />
       </svg>
-      <input class="table-view-search" type="text" [placeholder]="'tableView.searchPlaceholder' | translate" [ngModel]="searchRaw()"
-        (ngModelChange)="searchRaw.set($event)" name="search" />
+      <input class="table-view-search" type="text" [placeholder]="'tableView.searchPlaceholder' | translate"
+        [ngModel]="searchRaw()" (ngModelChange)="searchRaw.set($event)" name="search" />
       @if (searchRaw()) {
       <button class="table-view-search-clear" (click)="searchRaw.set('')" [title]="'tableView.clear' | translate">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
@@ -23,88 +23,90 @@
   </div>
 
   <div class="table-view-table-wrap">
-  <table class="table-view-table">
-    <thead class="table-view-head">
-      <tr>
-        <th class="table-view-th table-view-th--sortable" (click)="sort('company')">
-          {{ 'tableView.columns.companyPosition' | translate }}
-          <span class="table-view-sort-icon" [class.table-view-sort-icon--active]="sortKey() === 'company'">{{
-            sortIcon('company') }}</span>
-        </th>
-        <th class="table-view-th table-view-th--sortable" (click)="sort('status')">
-          {{ 'tableView.columns.status' | translate }}
-          <span class="table-view-sort-icon" [class.table-view-sort-icon--active]="sortKey() === 'status'">{{
-            sortIcon('status') }}</span>
-        </th>
-        <th class="table-view-th table-view-th--sortable" (click)="sort('date')">
-          {{ 'tableView.columns.date' | translate }}
-          <span class="table-view-sort-icon" [class.table-view-sort-icon--active]="sortKey() === 'date'">{{
-            sortIcon('date') }}</span>
-        </th>
-        <th class="table-view-th">{{ 'tableView.columns.link' | translate }}</th>
-        <th class="table-view-th table-view-th--actions">{{ 'tableView.columns.actions' | translate }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (job of sortedJobs(); track job.id) {
-      <tr class="table-view-row">
+    <table class="table-view-table">
+      <thead class="table-view-header">
+        <tr>
+          <th class="table-view-header-cell table-view-header-cell--sortable" (click)="sort('company')">
+            {{ 'tableView.columns.companyPosition' | translate }}
+            <span class="table-view-sort-icon" [class.table-view-sort-icon--active]="sortKey() === 'company'">{{
+              sortIcon('company') }}</span>
+          </th>
+          <th class="table-view-header-cell table-view-header-cell--sortable" (click)="sort('status')">
+            {{ 'tableView.columns.status' | translate }}
+            <span class="table-view-sort-icon" [class.table-view-sort-icon--active]="sortKey() === 'status'">{{
+              sortIcon('status') }}</span>
+          </th>
+          <th class="table-view-header-cell table-view-header-cell--sortable" (click)="sort('date')">
+            {{ 'tableView.columns.date' | translate }}
+            <span class="table-view-sort-icon" [class.table-view-sort-icon--active]="sortKey() === 'date'">{{
+              sortIcon('date') }}</span>
+          </th>
+          <th class="table-view-header-cell">{{ 'tableView.columns.link' | translate }}</th>
+          <th class="table-view-header-cell table-view-header-cell--actions">{{ 'tableView.columns.actions' | translate
+            }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (job of sortedJobs(); track job.id) {
+        <tr class="table-view-row" [style.--row-status-color]="colorFor(job.status)" (click)="openEdit(job)">
 
-        <td class="table-view-td">
-          <span class="table-view-company">{{ job.company }}</span>
-          <span class="table-view-position">{{ job.position }}</span>
-        </td>
+          <td class="table-view-cell">
+            <span class="table-view-company">{{ job.company }}</span>
+            <span class="table-view-position">{{ job.position }}</span>
+          </td>
 
-        <td class="table-view-td">
-          <span class="table-view-status-badge" [style.color]="colorFor(job.status)"
-            [style.background-color]="colorAlpha(job.status, 0.1)">
-            <span class="table-view-status-dot" [style.background-color]="colorFor(job.status)"></span>
-            {{ statusLabel(job.status) }}
-          </span>
-        </td>
+          <td class="table-view-cell">
+            <span class="table-view-status-badge" [style.color]="colorFor(job.status)"
+              [style.background-color]="colorAlpha(job.status, 0.1)">
+              <span class="table-view-status-dot" [style.background-color]="colorFor(job.status)"></span>
+              {{ statusLabel(job.status) }}
+            </span>
+          </td>
 
-        <td class="table-view-td table-view-td--date">{{ job.date }}</td>
+          <td class="table-view-cell table-view-cell--date">{{ job.date }}</td>
 
-        <td class="table-view-td table-view-td--link">
-          @if (job.link) {
-          <a class="table-view-link-btn" [href]="safeLink(job.link)" target="_blank" rel="noreferrer">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-            </svg>
-            {{ 'tableView.openLink' | translate }}
-          </a>
-          } @else {
-          <span class="table-view-no-link">—</span>
-          }
-        </td>
+          <td class="table-view-cell table-view-cell--link">
+            @if (job.link) {
+            <a class="table-view-link-button" [href]="safeLink(job.link)" target="_blank" rel="noreferrer"
+              (click)="$event.stopPropagation()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+              </svg>
+              {{ 'tableView.openLink' | translate }}
+            </a>
+            } @else {
+            <span class="table-view-no-link">—</span>
+            }
+          </td>
 
-        <td class="table-view-td table-view-td--actions">
-          <button class="table-view-action-btn" [title]="'tableView.edit' | translate" (click)="openEdit(job)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-            </svg>
-          </button>
-        </td>
+          <td class="table-view-cell table-view-cell--actions">
+            <button class="table-view-action-button" [title]="'tableView.edit' | translate" (click)="openEdit(job)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+              </svg>
+            </button>
+          </td>
 
-      </tr>
-      }
+        </tr>
+        }
 
-      @if (sortedJobs().length === 0) {
-      <tr>
-        <td colspan="5" class="table-view-empty">
-          @if (searchRaw()) {
-          {{ 'tableView.noResultsFor' | translate:{ term: searchRaw() } }}
-          } @else {
-          {{ 'tableView.noApplicationsYet' | translate }}
-          }
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
+        @if (sortedJobs().length === 0) {
+        <tr>
+          <td colspan="5" class="table-view-empty">
+            @if (searchRaw()) {
+            {{ 'tableView.noResultsFor' | translate:{ term: searchRaw() } }}
+            } @else {
+            {{ 'tableView.noApplicationsYet' | translate }}
+            }
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
   </div>
 
   <div class="table-view-cards">
@@ -112,12 +114,12 @@
     @for (job of sortedJobs(); track job.id) {
     <app-card class="table-view-card">
 
-      <div class="table-view-card-head">
+      <div class="table-view-card-header">
         <div>
           <div class="table-view-card-company">{{ job.company }}</div>
-          <div class="table-view-card-pos">{{ job.position }}</div>
+          <div class="table-view-card-position">{{ job.position }}</div>
         </div>
-        <button class="table-view-action-btn" [title]="'tableView.edit' | translate" (click)="openEdit(job)">
+        <button class="table-view-action-button" [title]="'tableView.edit' | translate" (click)="openEdit(job)">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
             stroke-linecap="round" stroke-linejoin="round">
             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />

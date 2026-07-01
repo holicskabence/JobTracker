@@ -1,12 +1,7 @@
-<div class="register-page-wrap">
-    <div class="register-lang-switcher">
-        <app-language-switcher variant="light" />
-    </div>
-
-    <app-auth-card [title]="'auth.register.title' | translate" [subtitle]="'auth.register.subtitle' | translate" maxWidth="460px">
+<app-auth-card [title]="'auth.register.title' | translate" [subtitle]="'auth.register.subtitle' | translate" maxWidth="460px">
         <form class="login-card-form" (ngSubmit)="submit()">
 
-            <div class="reg-row">
+            <div class="register-row">
                 <div class="lf">
                     <label class="auth-form-label">{{ 'auth.register.firstNameLabel' | translate }}</label>
                     <input class="auth-form-input" [class.auth-form-input--error]="errors['firstName']" type="text"
@@ -90,7 +85,7 @@
                 }
             </div>
 
-            <button class="login-card-btn login-card-btn--primary" type="submit">
+            <button class="login-card-button login-card-button--primary" type="submit">
                 {{ 'auth.register.submitBtn' | translate }}
             </button>
 
@@ -101,4 +96,3 @@
         </p>
 
     </app-auth-card>
-</div>

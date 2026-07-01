@@ -30,22 +30,22 @@
 
     @for (s of seriesLines; track s.key) {
     @for (pt of s.points; track $index; let i = $index) {
-    <circle [attr.cx]="pt.x" [attr.cy]="pt.y" r="4" class="dot" [attr.data-col]="i" [style.fill]="s.color" />
+    <circle [attr.cx]="pt.x" [attr.cy]="pt.y" r="4" class="dot" [attr.data-column]="i" [style.fill]="s.color" />
     }
     }
 
-    @for (lbl of xLabels; track lbl.x) {
-    <text [attr.x]="lbl.x" [attr.y]="yBottom + 20" class="axis-label axis-label--x">{{ lbl.text }}</text>
+    @for (label of xLabels; track label.x) {
+    <text [attr.x]="label.x" [attr.y]="yBottom + 20" class="axis-label axis-label--x">{{ label.text }}</text>
     }
 
-    @for (pos of colPositions; track pos.x; let i = $index) {
-    <rect class="hit-col" [attr.x]="pos.x - colHalfWidth" [attr.y]="y0" [attr.width]="colHalfWidth * 2"
+    @for (position of colPositions; track position.x; let i = $index) {
+    <rect class="hit-column" [attr.x]="position.x - colHalfWidth" [attr.y]="y0" [attr.width]="colHalfWidth * 2"
       [attr.height]="ch + 10" (mouseenter)="onColEnter(i)" (mouseleave)="onColLeave()" />
     }
 
     @if (hovered) {
     <g class="chart-tooltip">
-      <line class="tooltip-vline" [attr.x1]="hovered.x" [attr.y1]="y0" [attr.x2]="hovered.x" [attr.y2]="yBottom" />
+      <line class="tooltip-vertical-line" [attr.x1]="hovered.x" [attr.y1]="y0" [attr.x2]="hovered.x" [attr.y2]="yBottom" />
       <rect class="tooltip-rect" [attr.x]="tooltipX(hovered.x)" [attr.y]="y0 + 4" [attr.width]="tooltipW"
         [attr.height]="tooltipHeight()" rx="7" />
       <text class="tooltip-title" [attr.x]="tooltipCenterX(hovered.x)" [attr.y]="y0 + 19">{{ hovered.label }}</text>

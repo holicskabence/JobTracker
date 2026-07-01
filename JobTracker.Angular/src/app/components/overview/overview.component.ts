@@ -38,10 +38,14 @@ export class OverviewComponent {
 
   readonly upcomingEvents = computed(() => {
     const today = new Date(); today.setHours(0, 0, 0, 0);
-    return this.planner.events()
+    const events = this.planner.events();
+    const future = events
       .filter(e => new Date(e.date) >= today)
-      .sort((a, b) => a.date.localeCompare(b.date))
-      .slice(0, 3);
+      .sort((a, b) => a.date.localeCompare(b.date));
+    const past = events
+      .filter(e => new Date(e.date) < today)
+      .sort((a, b) => b.date.localeCompare(a.date));
+    return [...future, ...past].slice(0, 3);
   });
 
   readonly quickTasks = computed(() => {
@@ -58,7 +62,7 @@ export class OverviewComponent {
     const s = this.store.stats();
     const soon = this.upcomingEvents().filter(e => {
       const diff = (new Date(e.date).getTime() - Date.now()) / 86_400_000;
-      return diff <= 7;
+      return diff >= 0 && diff <= 7;
     });
 
     if (soon.length) {
@@ -176,7 +180,9 @@ export class OverviewComponent {
     const diff = Math.round((target.getTime() - today.getTime()) / 86_400_000);
     if (diff === 0) return this.translate.instant('overview.relativeDate.today');
     if (diff === 1) return this.translate.instant('overview.relativeDate.tomorrow');
-    if (diff <= 7) return this.translate.instant('overview.relativeDate.inDays', { count: diff });
+    if (diff === -1) return this.translate.instant('overview.relativeDate.yesterday');
+    if (diff > 1 && diff <= 7) return this.translate.instant('overview.relativeDate.inDays', { count: diff });
+    if (diff < -1 && diff >= -7) return this.translate.instant('overview.relativeDate.daysAgo', { count: -diff });
     return new Date(d).toLocaleDateString('hu-HU', { month: 'long', day: 'numeric' });
   }
 

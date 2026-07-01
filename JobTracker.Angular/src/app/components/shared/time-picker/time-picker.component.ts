@@ -68,7 +68,7 @@ export class TimePickerComponent implements AfterViewInit {
   private scrollToSelected(): void {
     if (!this.hourListRef) return;
     const el = this.hourListRef.nativeElement;
-    const selected = el.querySelector('.time-picker-item--sel') as HTMLElement | null;
+    const selected = el.querySelector('.time-picker-item--selected') as HTMLElement | null;
     if (selected) {
       el.scrollTop = selected.offsetTop - el.clientHeight / 2 + selected.offsetHeight / 2;
     } else {

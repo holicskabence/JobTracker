@@ -22,8 +22,8 @@ export class SelectDropdownComponent {
   toggle(event: MouseEvent): void {
     event.stopPropagation();
     if (!this.isOpen) {
-      const btn = event.currentTarget as HTMLElement;
-      const r = btn.getBoundingClientRect();
+      const button = event.currentTarget as HTMLElement;
+      const r = button.getBoundingClientRect();
       this.panelTop = r.bottom + 4;
       this.panelLeft = r.left;
       this.panelWidth = r.width;

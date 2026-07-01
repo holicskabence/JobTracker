@@ -1,4 +1,6 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { merge } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { JobStoreService } from '../../services/job-store.service';
 import { AuthService } from '../../services/auth.service';
@@ -7,7 +9,7 @@ import { DonutChartComponent } from './donut-chart/donut-chart.component';
 import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
-import { StatsGranularity } from '../../models/job.model';
+import { StatsGranularity, StatsViewMode } from '../../models/job.model';
 import { PageHeaderComponent } from '../shared/page-header/page-header.component';
 
 @Component({
@@ -22,11 +24,17 @@ export class StatisticsComponent {
   private readonly auth = inject(AuthService);
   private readonly translate = inject(TranslateService);
 
-  readonly statusConfigs = this.store.statusConfigs;
+  readonly statusConfigs = computed(() =>
+    this.store.statusConfigs().filter(c => c.isActive || c.isInterview)
+  );
   readonly granularity = signal<StatsGranularity>('day');
+  readonly viewMode = signal<StatsViewMode>('count');
   readonly selectedMetrics = signal<string[]>([]);
 
+  private readonly i18nTick = signal(0);
+
   readonly chartCategories = computed(() => {
+    this.i18nTick();
     const g = this.granularity();
     return this.store.statsSeries().map(p => this.formatPeriod(p.period, g));
   });
@@ -34,21 +42,26 @@ export class StatisticsComponent {
   readonly chartSeries = computed<ChartSeriesInput[]>(() => {
     const data = this.store.statsSeries();
     const configs = this.statusConfigs();
+    const cumulative = this.viewMode() === 'cumulative';
     return this.selectedMetrics()
       .map(key => {
         const cfg = configs.find(c => c.key === key);
         if (!cfg) return null;
-        return {
-          key,
-          label: cfg.label,
-          color: cfg.color,
-          values: data.map(p => p.counts[key] ?? 0)
-        };
+        let running = 0;
+        const values = data.map(p => {
+          const v = p.counts[key] ?? 0;
+          return cumulative ? (running += v) : v;
+        });
+        return { key, label: cfg.label, color: cfg.color, values };
       })
       .filter((s): s is ChartSeriesInput => s !== null);
   });
 
   constructor() {
+    merge(this.translate.onTranslationChange, this.translate.onLangChange)
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => this.i18nTick.update(v => v + 1));
+
     effect(() => {
       const configs = this.statusConfigs();
       if (configs.length && this.selectedMetrics().length === 0) {
@@ -62,6 +75,10 @@ export class StatisticsComponent {
     if (this.granularity() === g) return;
     this.granularity.set(g);
     this.store.loadStatsSeries(g);
+  }
+
+  setViewMode(m: StatsViewMode): void {
+    this.viewMode.set(m);
   }
 
   toggleMetric(key: string): void {
@@ -85,7 +102,8 @@ export class StatisticsComponent {
       }
       case 'week': {
         const week = period.split('-W')[1];
-        return `${week}. ${this.translate.instant('statistics.chartAxis.week')}`;
+        const weekLabel = this.translate.instant('statistics.chartAxis.week');
+        return `${week}. ${typeof weekLabel === 'string' && weekLabel ? weekLabel : 'W'}`;
       }
       default: {
         const locale = this.translate.currentLang === 'en' ? 'en-US' : 'hu-HU';
@@ -120,13 +138,13 @@ export class StatisticsComponent {
       counts[dow]++;
     }
     const max = Math.max(1, ...counts);
-    return labels.map((name, i) => ({ name, count: counts[i], pct: Math.round((counts[i] / max) * 100) }));
+    return labels.map((name, i) => ({ name, count: counts[i], percent: Math.round((counts[i] / max) * 100) }));
   });
 
   readonly funnel = computed(() => {
     const jobs = this.store.jobs();
     const total = jobs.length;
-    return this.store.statusConfigs().map(cfg => ({
+    return this.statusConfigs().map(cfg => ({
       key: cfg.key,
       label: cfg.label,
       color: cfg.color,

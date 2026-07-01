@@ -24,12 +24,12 @@
     @if (isOpen) {
     <div class="status-dropdown-panel" [style.top.px]="panelTop" [style.left.px]="panelLeft"
         [style.width.px]="panelWidth" (click)="$event.stopPropagation()">
-        @for (opt of options(); track opt.key) {
-        <button type="button" class="status-dropdown-option" [class.status-dropdown-option--current]="opt.key === value"
-            (click)="pick(opt.key, $event)">
-            <span class="status-dropdown-dot" [style.background-color]="opt.color"></span>
-            <span class="status-dropdown-name">{{ opt.label }}</span>
-            @if (opt.key === value) {
+        @for (option of options(); track option.key) {
+        <button type="button" class="status-dropdown-option" [class.status-dropdown-option--current]="option.key === value"
+            (click)="pick(option.key, $event)">
+            <span class="status-dropdown-dot" [style.background-color]="option.color"></span>
+            <span class="status-dropdown-name">{{ option.label }}</span>
+            @if (option.key === value) {
             <svg class="status-dropdown-check" width="13" height="13" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12" />

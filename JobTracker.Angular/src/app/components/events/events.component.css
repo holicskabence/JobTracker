@@ -4,7 +4,7 @@
   min-width: 0;
 }
 
-.ev {
+.events-container {
   display: flex;
   flex-direction: column;
   gap: var(--gap-section);
@@ -39,6 +39,7 @@
   padding: var(--padding-card);
   transition: border-color 0.2s;
   min-width: 0;
+  box-shadow: var(--shadow-card);
 }
 
 .events-form-card--editing {
@@ -146,7 +147,7 @@
   align-self: flex-end;
 }
 
-.events-add-btn {
+.events-add-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -164,11 +165,11 @@
   transition: background-color 0.2s;
 }
 
-.events-add-btn:hover {
+.events-add-button:hover {
   background-color: var(--clr-green-dk);
 }
 
-.events-cancel-btn {
+.events-cancel-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -185,7 +186,7 @@
   transition: border-color 0.2s, color 0.2s;
 }
 
-.events-cancel-btn:hover {
+.events-cancel-button:hover {
   border-color: var(--clr-dark);
   color: var(--clr-dark);
 }
@@ -206,7 +207,7 @@
   padding: var(--space-1);
 }
 
-.events-filter-btn {
+.events-filter-button {
   display: flex;
   align-items: center;
   gap: var(--space-1-5);
@@ -222,15 +223,15 @@
   transition: background-color 0.15s, color 0.15s, box-shadow 0.15s;
 }
 
-.events-filter-btn:hover {
+.events-filter-button:hover {
   color: var(--clr-dark);
 }
 
-.events-filter-btn--active {
+.events-filter-button--active {
   background-color: var(--clr-white);
   color: var(--clr-dark);
   font-weight: 600;
-  box-shadow: 0 1px 3px var(--clr-shadow);
+  box-shadow: var(--shadow-card);
 }
 
 .events-filter-count {
@@ -242,7 +243,7 @@
   color: var(--clr-muted);
 }
 
-.events-filter-btn--active .events-filter-count {
+.events-filter-button--active .events-filter-count {
   background-color: rgba(38, 172, 0, 0.1);
   color: var(--clr-green);
 }
@@ -365,12 +366,12 @@
   white-space: nowrap;
 }
 
-.events-card-btns {
+.events-card-buttons {
   display: flex;
   gap: var(--space-1);
 }
 
-.events-card-btn {
+.events-card-button {
   width: 1.875rem;
   height: 1.875rem;
   border: none;
@@ -384,12 +385,12 @@
   color: var(--clr-muted);
 }
 
-.events-card-btn--edit:hover {
+.events-card-button--edit:hover {
   background-color: rgba(38, 172, 0, 0.1);
   color: var(--clr-green);
 }
 
-.events-card-btn--del:hover {
+.events-card-button--del:hover {
   background-color: #fff0f0;
   color: #ef4444;
 }
@@ -413,7 +414,7 @@
   border-radius: var(--radius-xl);
 }
 
-.events-mobile-add-btn {
+.events-mobile-add-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -431,7 +432,7 @@
   transition: border-color 0.15s, background-color 0.15s;
 }
 
-.events-mobile-add-btn:hover {
+.events-mobile-add-button:hover {
   border-color: var(--clr-green);
   background-color: rgba(38, 172, 0, 0.04);
 }
@@ -516,7 +517,7 @@
   min-width: 0;
 }
 
-.events-tasks-head {
+.events-tasks-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -689,7 +690,7 @@
     flex: 1;
   }
 
-  .events-filter-btn {
+  .events-filter-button {
     flex: 1;
     justify-content: center;
     padding: var(--space-2);
@@ -722,7 +723,7 @@
     padding: var(--space-1) var(--space-2);
   }
 
-  .events-card-btn {
+  .events-card-button {
     width: 2.25rem;
     height: 2.25rem;
   }
@@ -743,8 +744,8 @@
     flex-direction: column;
   }
 
-  .events-add-btn,
-  .events-cancel-btn {
+  .events-add-button,
+  .events-cancel-button {
     width: 100%;
     padding: var(--space-2-5) var(--space-4);
   }

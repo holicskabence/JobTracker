@@ -1,0 +1,139 @@
+<div class="table-view-container">
+
+  <app-page-header [title]="'applicationChanges.sectionTitle' | translate" [subtitle]="'applicationChanges.sectionSubtitle' | translate"></app-page-header>
+
+  <div class="table-view-toolbar">
+    <div class="table-view-search-wrap">
+      <svg class="table-view-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+      <input class="table-view-search" type="text" [placeholder]="'tableView.searchPlaceholder' | translate" [ngModel]="searchRaw()"
+        (ngModelChange)="searchRaw.set($event)" name="search" />
+      @if (searchRaw()) {
+      <button class="table-view-search-clear" (click)="searchRaw.set('')" [title]="'tableView.clear' | translate">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+          stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+      }
+    </div>
+    <span class="table-view-count">{{ 'tableView.resultsCount' | translate:{ count: sortedEntries().length } }}</span>
+  </div>
+
+  <div class="table-view-table-wrap">
+  <table class="table-view-table">
+    <thead class="table-view-header">
+      <tr>
+        <th class="table-view-header-cell table-view-header-cell--sortable" (click)="sort('company')">
+          {{ 'tableView.columns.companyPosition' | translate }}
+          <span class="table-view-sort-icon" [class.table-view-sort-icon--active]="sortKey() === 'company'">{{
+            sortIcon('company') }}</span>
+        </th>
+        <th class="table-view-header-cell">{{ 'applicationChanges.columns.change' | translate }}</th>
+        <th class="table-view-header-cell table-view-header-cell--sortable" (click)="sort('changedAt')">
+          {{ 'applicationChanges.columns.changedAt' | translate }}
+          <span class="table-view-sort-icon" [class.table-view-sort-icon--active]="sortKey() === 'changedAt'">{{
+            sortIcon('changedAt') }}</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (entry of sortedEntries(); track entry.id) {
+      <tr class="table-view-row" [style.--row-status-color]="colorFor(entry.newStatus)">
+
+        <td class="table-view-cell">
+          <span class="table-view-company">{{ entry.company }}</span>
+          <span class="table-view-position">{{ entry.position }}</span>
+        </td>
+
+        <td class="table-view-cell">
+          <span class="table-view-change">
+            @if (entry.previousStatus) {
+            <span class="table-view-status-badge" [style.color]="colorFor(entry.previousStatus)"
+              [style.background-color]="colorAlpha(entry.previousStatus, 0.1)">
+              <span class="table-view-status-dot" [style.background-color]="colorFor(entry.previousStatus)"></span>
+              {{ statusLabel(entry.previousStatus) }}
+            </span>
+            <span class="table-view-change-arrow">→</span>
+            } @else {
+            <span class="table-view-change-created">{{ 'applicationChanges.created' | translate }}</span>
+            }
+            <span class="table-view-status-badge" [style.color]="colorFor(entry.newStatus)"
+              [style.background-color]="colorAlpha(entry.newStatus, 0.1)">
+              <span class="table-view-status-dot" [style.background-color]="colorFor(entry.newStatus)"></span>
+              {{ statusLabel(entry.newStatus) }}
+            </span>
+          </span>
+        </td>
+
+        <td class="table-view-cell table-view-cell--date">{{ fmtDateTime(entry.changedAt) }}</td>
+
+      </tr>
+      }
+
+      @if (sortedEntries().length === 0) {
+      <tr>
+        <td colspan="3" class="table-view-empty">
+          @if (searchRaw()) {
+          {{ 'tableView.noResultsFor' | translate:{ term: searchRaw() } }}
+          } @else {
+          {{ 'applicationChanges.noEntriesYet' | translate }}
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  </div>
+
+  <div class="table-view-cards">
+
+    @for (entry of sortedEntries(); track entry.id) {
+    <app-card class="table-view-card">
+
+      <div class="table-view-card-header">
+        <div>
+          <div class="table-view-card-company">{{ entry.company }}</div>
+          <div class="table-view-card-position">{{ entry.position }}</div>
+        </div>
+        <span class="table-view-card-date">{{ fmtDateTime(entry.changedAt) }}</span>
+      </div>
+
+      <div class="table-view-card-meta">
+        @if (entry.previousStatus) {
+        <span class="table-view-status-badge" [style.color]="colorFor(entry.previousStatus)"
+          [style.background-color]="colorAlpha(entry.previousStatus, 0.1)">
+          <span class="table-view-status-dot" [style.background-color]="colorFor(entry.previousStatus)"></span>
+          {{ statusLabel(entry.previousStatus) }}
+        </span>
+        <span class="table-view-change-arrow">→</span>
+        } @else {
+        <span class="table-view-change-created">{{ 'applicationChanges.created' | translate }}</span>
+        }
+        <span class="table-view-status-badge" [style.color]="colorFor(entry.newStatus)"
+          [style.background-color]="colorAlpha(entry.newStatus, 0.1)">
+          <span class="table-view-status-dot" [style.background-color]="colorFor(entry.newStatus)"></span>
+          {{ statusLabel(entry.newStatus) }}
+        </span>
+      </div>
+
+    </app-card>
+    }
+
+    @if (sortedEntries().length === 0) {
+    <div class="table-view-empty">
+      @if (searchRaw()) {
+      {{ 'tableView.noResultsFor' | translate:{ term: searchRaw() } }}
+      } @else {
+      {{ 'applicationChanges.noEntriesYet' | translate }}
+      }
+    </div>
+    }
+
+  </div>
+
+</div>

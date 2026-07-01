@@ -1,17 +1,36 @@
 .auth-page {
     position: relative;
+    isolation: isolate;
     min-height: 100vh;
     background-color: var(--clr-bg);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--padding-card);
+    overflow: hidden;
+}
+
+.auth-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(46% 20% at 16% 3%, rgba(38, 172, 0, 0.30), transparent 100%),
+        radial-gradient(42% 18% at 86% 2%, rgba(95, 185, 250, 0.32), transparent 100%),
+        radial-gradient(40% 16% at 4% 38%, rgba(95, 185, 250, 0.22), transparent 100%),
+        radial-gradient(38% 16% at 80% 50%, rgba(38, 172, 0, 0.22), transparent 100%),
+        radial-gradient(40% 16% at 18% 64%, rgba(245, 158, 11, 0.18), transparent 100%),
+        radial-gradient(38% 16% at 90% 76%, rgba(95, 185, 250, 0.20), transparent 100%),
+        radial-gradient(42% 18% at 28% 90%, rgba(38, 172, 0, 0.20), transparent 100%);
+    filter: blur(70px);
 }
 
 .auth-card {
     background-color: var(--clr-white);
     border-radius: var(--radius-xl);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-card);
     width: 100%;
     max-width: var(--auth-max-width, 420px);
     padding: var(--space-10) var(--space-8);

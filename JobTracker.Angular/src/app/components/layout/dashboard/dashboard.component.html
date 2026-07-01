@@ -4,16 +4,16 @@
 
         <app-sidebar [activeTab]="activeTab()" [collapsed]="sidebarCollapsed()" [mobileOpen]="sidebarMobileOpen()"
             [userName]="auth.currentUser()?.name ?? ''" [userEmail]="auth.currentUser()?.email ?? ''"
-            [avatarUrl]="auth.avatarObjectUrl()"
-            (toggleCollapsed)="sidebarCollapsed.set(!sidebarCollapsed())" (closeMobile)="sidebarMobileOpen.set(false)"
-            (logout)="logout()" />
+            [avatarUrl]="auth.avatarObjectUrl()" (toggleCollapsed)="sidebarCollapsed.set(!sidebarCollapsed())"
+            (closeMobile)="sidebarMobileOpen.set(false)" (logout)="logout()" />
 
         <div class="content">
             <app-dashboard-header [activeTab]="activeTab()" [userName]="auth.currentUser()?.name ?? ''"
                 (addJob)="openAddModal()" (openMobileMenu)="sidebarMobileOpen.set(true)" />
 
-            <main class="content-body" [class.content-body--kanban]="activeTab() === 'jelentkezesek'"
-                [class.content-body--table]="activeTab() === 'tablazat'">
+            <main class="content-body"
+                [class.content-body--kanban]="activeTab() === 'jelentkezesek' && viewService.view() === 'kanban'"
+                [class.content-body--table]="activeTab() === 'jelentkezesek' && viewService.view() === 'table'">
                 <router-outlet (activate)="onRouteActivate()" />
             </main>
         </div>

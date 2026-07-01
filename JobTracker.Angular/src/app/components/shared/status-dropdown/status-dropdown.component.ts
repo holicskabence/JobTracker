@@ -27,8 +27,8 @@ export class StatusDropdownComponent {
   toggle(event: MouseEvent): void {
     event.stopPropagation();
     if (!this.isOpen) {
-      const btn = event.currentTarget as HTMLElement;
-      const r = btn.getBoundingClientRect();
+      const button = event.currentTarget as HTMLElement;
+      const r = button.getBoundingClientRect();
       const estimatedH = this.options().length * 40 + 10;
 
       if (this.variant === 'form') {

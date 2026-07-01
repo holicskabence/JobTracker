@@ -54,7 +54,7 @@
 }
 
 /* Hit areas */
-.hit-col {
+.hit-column {
   fill: transparent;
   cursor: crosshair;
 }
@@ -64,7 +64,7 @@
   pointer-events: none;
 }
 
-.tooltip-vline {
+.tooltip-vertical-line {
   stroke: var(--clr-border);
   stroke-width: 1.5;
   stroke-dasharray: 4 3;

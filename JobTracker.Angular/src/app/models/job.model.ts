@@ -14,7 +14,7 @@ export interface JobStatusConfig {
   statsCategory?: StatsCategory;
 }
 
-export type DashboardTab = 'attekintes' | 'jelentkezesek' | 'tablazat' | 'esemenyek' | 'dokumentumok' | 'statisztika' | 'profil' | 'torzsadatok' | 'gyakorlas';
+export type DashboardTab = 'attekintes' | 'jelentkezesek' | 'valtozasok' | 'esemenyek' | 'dokumentumok' | 'statisztika' | 'profil' | 'torzsadatok' | 'gyakorlas';
 
 export interface Job {
   id: number;
@@ -25,7 +25,18 @@ export interface Job {
   status: JobStatus;
 }
 
+export interface JobStatusHistoryEntry {
+  id: number;
+  jobId: number;
+  company: string;
+  position: string;
+  previousStatus: JobStatus | null;
+  newStatus: JobStatus;
+  changedAt: string;
+}
+
 export type StatsGranularity = 'day' | 'week' | 'month';
+export type StatsViewMode = 'count' | 'cumulative';
 
 export interface StatsSeriesPoint {
   period: string;
