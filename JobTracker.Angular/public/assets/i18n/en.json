@@ -48,12 +48,12 @@
     "features": {
       "title": "Every tool, in one place",
       "subtitle": "Not a generic project manager — built specifically for the steps of a job search.",
-      "kanban": { "title": "Kanban Board", "desc": "Drag and drop your applications through the process — from saved, through applied and interview, to offer." },
-      "table": { "title": "Table View", "desc": "If you think in lists: a filterable, sortable table of all your applications." },
-      "events": { "title": "Events & To-Dos", "desc": "Interviews, deadlines, and small to-dos in one calendar, so nothing slips through the cracks." },
-      "documents": { "title": "Documents & Templates", "desc": "Your resumes, cover letters, and templates are always at hand, organized by company." },
-      "stats": { "title": "Statistics", "desc": "Success rate, weekly activity, and progress trends in charts — see what's actually working." },
-      "interviewPractice": { "title": "Interview Practice", "desc": "Practice common interview questions and get instant AI feedback on your answers — so you know exactly what to polish before your next interview." }
+      "kanban": { "title": "Kanban Board", "description": "Drag and drop your applications through the process — from saved, through applied and interview, to offer." },
+      "table": { "title": "Table View", "description": "If you think in lists: a filterable, sortable table of all your applications." },
+      "events": { "title": "Events & To-Dos", "description": "Interviews, deadlines, and small to-dos in one calendar, so nothing slips through the cracks." },
+      "documents": { "title": "Documents & Templates", "description": "Your resumes, cover letters, and templates are always at hand, organized by company." },
+      "stats": { "title": "Statistics", "description": "Success rate, weekly activity, and progress trends in charts — see what's actually working." },
+      "interviewPractice": { "title": "Interview Practice", "description": "Practice common interview questions and get instant AI feedback on your answers — so you know exactly what to polish before your next interview." }
     },
     "stats": {
       "title": "See exactly where you stand",
@@ -75,9 +75,9 @@
     "howItWorks": {
       "title": "In Three Steps",
       "subtitle": "No complicated setup — you'll be up and running in a few minutes.",
-      "step1": { "title": "Add your applications", "desc": "Log the company, the position, and the listing link — in just a few seconds." },
-      "step2": { "title": "Track the process", "desc": "Move the cards along the kanban board as your interview process progresses." },
-      "step3": { "title": "See what's working", "desc": "Refine your strategy based on your statistics and readiness level." }
+      "step1": { "title": "Add your applications", "description": "Log the company, the position, and the listing link — in just a few seconds." },
+      "step2": { "title": "Track the process", "description": "Move the cards along the kanban board as your interview process progresses." },
+      "step3": { "title": "See what's working", "description": "Refine your strategy based on your statistics and readiness level." }
     },
     "cta": {
       "title": "Ready to bring order to your job search?",

@@ -48,12 +48,12 @@
     "features": {
       "title": "Minden eszköz egy helyen",
       "subtitle": "Nem egy általános projektmenedzser – kifejezetten az álláskeresés lépéseire szabva.",
-      "kanban": { "title": "Kanban tábla", "desc": "Húzd-vidd a jelentkezéseidet a folyamat lépésein – mentettől a beadáson és visszahíváson át az ajánlatig." },
-      "table": { "title": "Táblázat nézet", "desc": "Ha inkább listában gondolkodsz: szűrhető, rendezhető táblázat az összes pályázatodról." },
-      "events": { "title": "Események & teendők", "desc": "Interjúk, határidők és apró teendők egy naptárban, hogy semmi ne maradjon ki a kezedből." },
-      "documents": { "title": "Dokumentumok & sablonok", "desc": "Az önéletrajzaid, motivációs leveleid és sablonjaid mindig kéznél vannak, cégenként rendszerezve." },
-      "stats": { "title": "Statisztikák", "desc": "Sikerráta, heti aktivitás és a folyamatok alakulása grafikonokon – láthatod, mi működik." },
-      "interviewPractice": { "title": "Interjú gyakorlás", "desc": "Gyakorold a tipikus interjúkérdéseket, és a válaszaidat egy AI azonnal kiértékeli – így pontosan látod, mit érdemes csiszolni a következő interjú előtt." }
+      "kanban": { "title": "Kanban tábla", "description": "Húzd-vidd a jelentkezéseidet a folyamat lépésein – mentettől a beadáson és visszahíváson át az ajánlatig." },
+      "table": { "title": "Táblázat nézet", "description": "Ha inkább listában gondolkodsz: szűrhető, rendezhető táblázat az összes pályázatodról." },
+      "events": { "title": "Események & teendők", "description": "Interjúk, határidők és apró teendők egy naptárban, hogy semmi ne maradjon ki a kezedből." },
+      "documents": { "title": "Dokumentumok & sablonok", "description": "Az önéletrajzaid, motivációs leveleid és sablonjaid mindig kéznél vannak, cégenként rendszerezve." },
+      "stats": { "title": "Statisztikák", "description": "Sikerráta, heti aktivitás és a folyamatok alakulása grafikonokon – láthatod, mi működik." },
+      "interviewPractice": { "title": "Interjú gyakorlás", "description": "Gyakorold a tipikus interjúkérdéseket, és a válaszaidat egy AI azonnal kiértékeli – így pontosan látod, mit érdemes csiszolni a következő interjú előtt." }
     },
     "stats": {
       "title": "Lásd pontosan, hol állsz",
@@ -75,9 +75,9 @@
     "howItWorks": {
       "title": "Három lépésben",
       "subtitle": "Nincs bonyolult beállítás – pár perc alatt használatba veheted.",
-      "step1": { "title": "Add hozzá a jelentkezéseidet", "desc": "Rögzítsd a céget, a pozíciót és a hirdetés linkjét – néhány másodperc alatt." },
-      "step2": { "title": "Kövesd a folyamatot", "desc": "Mozgasd a kártyákat a kanban táblán, ahogy az interjúfolyamat előrébb halad." },
-      "step3": { "title": "Lásd, mi működik", "desc": "A statisztikák és a felkészültségi szint alapján finomítsd a stratégiádat." }
+      "step1": { "title": "Add hozzá a jelentkezéseidet", "description": "Rögzítsd a céget, a pozíciót és a hirdetés linkjét – néhány másodperc alatt." },
+      "step2": { "title": "Kövesd a folyamatot", "description": "Mozgasd a kártyákat a kanban táblán, ahogy az interjúfolyamat előrébb halad." },
+      "step3": { "title": "Lásd, mi működik", "description": "A statisztikák és a felkészültségi szint alapján finomítsd a stratégiádat." }
     },
     "cta": {
       "title": "Készen állsz, hogy rendszerbe szedd az álláskeresésed?",

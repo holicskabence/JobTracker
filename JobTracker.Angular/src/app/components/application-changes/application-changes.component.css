@@ -266,7 +266,6 @@
 
 @media (max-width: 767px) {
   .table-view-container {
-    padding: var(--space-4) var(--space-4) var(--space-12);
     overflow-y: auto;
     overflow-x: hidden;
   }
