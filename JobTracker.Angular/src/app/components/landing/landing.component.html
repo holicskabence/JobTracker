@@ -67,11 +67,33 @@
                 <div class="app-frame">
                     <div class="app-frame-top">
                         <div class="app-frame-dots">
-                            <span></span>
-                            <span></span>
-                            <span></span>
+                            <span class="app-frame-dot app-frame-dot--red"></span>
+                            <span class="app-frame-dot app-frame-dot--yellow"></span>
+                            <span class="app-frame-dot app-frame-dot--green"></span>
                         </div>
-                        <div class="app-frame-path">{{ 'landing.heroMockup.path' | translate }}</div>
+                        <div class="app-frame-nav">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="15 18 9 12 15 6" />
+                            </svg>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6" />
+                            </svg>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="23 4 23 10 17 10" />
+                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+                            </svg>
+                        </div>
+                        <div class="app-frame-path">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="5" y="11" width="14" height="10" rx="2" />
+                                <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                            </svg>
+                            <span>{{ 'landing.heroMockup.path' | translate }}</span>
+                        </div>
                     </div>
                     <div class="app-frame-body">
                         <aside class="app-frame-side">

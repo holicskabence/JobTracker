@@ -35,6 +35,10 @@ export class OverviewComponent {
   readonly progressWidth = computed(() =>
     Math.min((this.store.stats().totalJobs / this.goal()) * 100, 100)
   );
+  readonly callbackRate = computed(() => {
+    const s = this.stats();
+    return s.totalJobs > 0 ? Math.round((s.callbacks / s.totalJobs) * 100) : 0;
+  });
 
   readonly upcomingEvents = computed(() => {
     const today = new Date(); today.setHours(0, 0, 0, 0);

@@ -222,7 +222,9 @@
       "successRejectionRatio": "Sikeres / elutasított arány",
       "successful": "sikeres",
       "offerCount": "{{count}} ajánlat",
-      "rejectedCount": "{{count}} elutasítva"
+      "rejectedCount": "{{count}} elutasítva",
+      "callbacks": "Visszahívások",
+      "callbackRate": "{{rate}}% az összesből"
     },
     "upcomingEvents": {
       "title": "Interjúk",

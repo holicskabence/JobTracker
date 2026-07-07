@@ -222,7 +222,9 @@
       "successRejectionRatio": "Success / rejection ratio",
       "successful": "successful",
       "offerCount": "{{count}} offers",
-      "rejectedCount": "{{count}} rejected"
+      "rejectedCount": "{{count}} rejected",
+      "callbacks": "Callbacks",
+      "callbackRate": "{{rate}}% of total"
     },
     "upcomingEvents": {
       "title": "Interviews",

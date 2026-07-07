@@ -4,6 +4,7 @@
     min-height: 100%;
     background-color: var(--clr-bg);
     overflow-x: hidden;
+    --panel-box-min-height: 28rem;
 }
 
 .landing::before {
@@ -206,25 +207,53 @@
 .app-frame-top {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-2-5) var(--space-4);
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
     background-color: var(--clr-bg-2);
     border-bottom: 1px solid var(--clr-border);
 }
 
 .app-frame-dots {
     display: flex;
-    gap: 6px;
+    gap: 7px;
+    flex-shrink: 0;
 }
 
-.app-frame-dots span {
-    width: 8px;
-    height: 8px;
+.app-frame-dot {
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
-    background-color: var(--clr-border);
+}
+
+.app-frame-dot--red {
+    background-color: var(--clr-red);
+}
+
+.app-frame-dot--yellow {
+    background-color: var(--clr-yellow);
+}
+
+.app-frame-dot--green {
+    background-color: var(--clr-green);
+}
+
+.app-frame-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2-5);
+    color: var(--clr-muted);
+    flex-shrink: 0;
+}
+
+.app-frame-nav svg:first-child {
+    opacity: 0.45;
 }
 
 .app-frame-path {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
     margin: 0 auto;
     font-size: 0.75rem;
     color: var(--clr-muted);
@@ -233,6 +262,15 @@
     border-radius: var(--radius-full);
     padding: var(--space-1) var(--space-4);
     max-width: 100%;
+    overflow: hidden;
+}
+
+.app-frame-path svg {
+    flex-shrink: 0;
+    color: var(--clr-green);
+}
+
+.app-frame-path span {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -500,8 +538,6 @@
     max-width: 36rem;
 }
 
-/* ---------- bordered grid panel ---------- */
-
 .panel-grid {
     background-color: var(--clr-white);
     border: 1px solid var(--clr-border);
@@ -514,6 +550,7 @@
 .panel-grid--3 {
     display: grid;
     grid-template-columns: 1fr;
+    align-content: center;
 }
 
 .panel-cell {
@@ -614,6 +651,7 @@
 .stats-panel {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: var(--space-8);
     background-color: var(--clr-white);
     border: 1px solid var(--clr-border);
@@ -621,10 +659,11 @@
     padding: var(--space-8);
     text-align: left;
     box-shadow: var(--shadow-card);
+    min-height: var(--panel-box-min-height);
 }
 
 .stats-panel-column {
-    flex: 1;
+    flex: initial;
     min-width: 0;
 }
 
@@ -772,11 +811,16 @@
 @media (min-width: 800px) {
     .stats-panel {
         flex-direction: row;
-        align-items: stretch;
+        align-items: center;
+    }
+
+    .stats-panel-column {
+        flex: 1;
     }
 
     .stats-panel-divider {
         display: block;
+        align-self: stretch;
         width: 1px;
         background-color: var(--clr-border);
     }
@@ -833,6 +877,10 @@
     }
 
     .mock-frame-button {
+        display: none;
+    }
+
+    .app-frame-nav {
         display: none;
     }
 }

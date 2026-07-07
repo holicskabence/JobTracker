@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { gsap } from 'gsap';
@@ -19,14 +19,15 @@ export class LandingComponent implements AfterViewInit, OnDestroy {
   readonly auth = inject(AuthService);
 
   private readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly zone = inject(NgZone);
   private readonly triggers: ScrollTrigger[] = [];
   private floatTween?: gsap.core.Tween;
 
   ngAfterViewInit(): void {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    this.animateHero();
-    this.animateSections();
+    this.zone.runOutsideAngular(() => {
+      this.animateHero();
+      this.animateSections();
+    });
   }
 
   ngOnDestroy(): void {

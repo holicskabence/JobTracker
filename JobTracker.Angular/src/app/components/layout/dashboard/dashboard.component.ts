@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, signal, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, inject, signal, NgZone, OnInit, OnDestroy } from '@angular/core';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   readonly viewService = inject(ApplicationsViewService);
   private router = inject(Router);
   private el: ElementRef<HTMLElement> = inject(ElementRef);
+  private ngZone = inject(NgZone);
 
   readonly activeTab = signal<DashboardTab>('attekintes');
   readonly sidebarCollapsed = signal(false);
@@ -74,7 +75,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   onRouteActivate(): void {
     const main = this.el.nativeElement.querySelector<HTMLElement>('.content-body');
     if (main) {
-      gsap.fromTo(main, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.38, ease: 'power3.out', clearProps: 'transform' });
+      // Runs outside Angular so GSAP's rAF ticker doesn't trigger a full
+      // change-detection pass on every animation frame while dashboard data is still loading.
+      this.ngZone.runOutsideAngular(() => {
+        gsap.fromTo(main, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.38, ease: 'power3.out', clearProps: 'transform' });
+      });
     }
   }
 

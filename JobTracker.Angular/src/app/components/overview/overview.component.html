@@ -44,6 +44,12 @@
             </div>
         </app-card>
 
+        <app-card>
+            <h3 class="card-label">{{ 'overview.stats.callbacks' | translate }}</h3>
+            <div class="card-value">{{ stats().callbacks }}</div>
+            <app-badge variant="blue">{{ 'overview.stats.callbackRate' | translate: { rate: callbackRate() } }}</app-badge>
+        </app-card>
+
     </div>
 
     <div class="overview-row">

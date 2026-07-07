@@ -6,7 +6,7 @@
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--gap-section);
 }
 
@@ -19,6 +19,10 @@
 
     .stats-grid app-card:nth-child(3) {
         grid-column: 1 / -1;
+    }
+
+    .stats-grid app-card:nth-child(4) {
+        display: none;
     }
 }
 
