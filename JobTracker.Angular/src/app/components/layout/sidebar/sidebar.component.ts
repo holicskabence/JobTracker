@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../shared/language-switcher/language-switcher.component';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,6 +12,8 @@ import { LanguageSwitcherComponent } from '../../shared/language-switcher/langua
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  readonly showStatistics = !environment.production;
+
   @Input() activeTab = '';
   @Input() collapsed = false;
   @Input() mobileOpen = false;

@@ -392,7 +392,11 @@
       "pendingResponse": "Függő válasz",
       "pendingResponseSub": "beadott, választ vár",
       "offersCount": "Ajánlatok száma",
-      "offersCountSub": "elfogadott / ajánlott"
+      "offersCountSub": "elfogadott / ajánlott",
+      "callbackRate": "Visszahívási arány",
+      "callbackRateSub": "az összes jelentkezésből",
+      "rejectionRate": "Elutasítási arány",
+      "rejectionRateSub": "az összes jelentkezésből"
     },
     "applicationsTrend": { "title": "Jelentkezési aktivitás" },
     "timeRange": { "day": "Nap", "week": "Hét", "month": "Hónap" },
@@ -400,6 +404,18 @@
     "statusDistribution": { "title": "Státusz megoszlás", "total": "Összes" },
     "statusFunnel": { "title": "Státusz tölcsér" },
     "topCompanies": { "title": "Top 5 cég" },
+    "weekdayActivity": {
+      "title": "Heti aktivitás",
+      "days": {
+        "mondayShort": "H",
+        "tuesdayShort": "K",
+        "wednesdayShort": "Sze",
+        "thursdayShort": "Cs",
+        "fridayShort": "P",
+        "saturdayShort": "Szo",
+        "sundayShort": "V"
+      }
+    },
     "emptyState": {
       "noApplications": "Még nincsenek rögzített jelentkezések.",
       "selectMetric": "Válassz ki legalább egy mutatót a megjelenítéshez."
@@ -452,6 +468,11 @@
   "practice": {
     "pageHeader": { "title": "Gyakorlás", "subtitle": "Interjúra való felkészülés kártyákkal" },
     "tabs": { "practice": "Gyakorlás", "questions": "Kérdések", "results": "Eredmények" },
+    "categories": {
+      "title": "Kategóriák",
+      "searchPlaceholder": "Kategória keresése…",
+      "noMatch": "Nincs ilyen kategória."
+    },
     "filters": {
       "all": "Mind",
       "failed": "Nem sikerültek",
@@ -473,6 +494,9 @@
       "answerPlaceholder": "Gépeld be a válaszod vázlatát vagy kulcsszavait…",
       "aiEvaluationBtn": "AI értékelés",
       "viewAnswerBtn": "Válasz megtekintése",
+      "dontKnowBtn": "Nem tudom",
+      "dontKnowTitle": "Mintaválasz megjelenítése értékelés nélkül",
+      "backBtn": "Vissza",
       "sampleAnswerLabel": "MINTAVÁLASZ",
       "didItSucceed": "Sikerült?",
       "incorrectBtn": "Helytelen",
@@ -491,7 +515,14 @@
       "noUnanswered": "Nincs megválaszolatlan kérdés.",
       "noCategory": "Nincs kérdés ebben a kategóriában."
     },
-    "stats": { "readinessLabel": "FELKÉSZÜLTSÉG", "answeredSuffix": "megválaszolva" },
+    "stats": {
+      "streakLabel": "SOROZAT",
+      "streakActive": "{{count}} napos sorozat",
+      "streakStart": "Kezdd el a sorozatod ma!",
+      "recentLabel": "LEGUTÓBBI VÁLASZOK",
+      "viewAllLink": "Összes",
+      "noHistoryYet": "Még nincs megválaszolt kérdés."
+    },
     "tip": { "title": "💡 Tipp", "text": "Értékeld újra a hibás kérdéseket, ahogy javul a tudásod." },
     "questionsTab": {
       "title": "Kérdések",
@@ -557,7 +588,6 @@
     },
     "import": { "successSuffix": "kérdés sikeresen importálva." },
     "feedbackLabel": { "correct": "HELYES", "incorrect": "HELYTELEN" },
-    "readinessLabel": { "excellent": "Kiváló", "good": "Jó", "improvable": "Fejleszthető", "beginner": "Kezdő" },
     "dateLabel": { "today": "Ma", "yesterday": "Tegnap" }
   },
   "shared": {

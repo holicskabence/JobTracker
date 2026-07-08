@@ -14,85 +14,70 @@
 
     @if (activeTab() === 'practice') {
 
-    <div class="practice-filter-row">
-        <div class="practice-filter-pills">
-            @for (category of categories(); track trackByCategory($index, category)) {
-            <button class="practice-pill" [class.practice-pill--active]="selectedFilter() === category" (click)="selectFilter(category)">{{
-                category === 'Mind' ? ('practice.filters.all' | translate) : category }}</button>
-            }
-            <button class="practice-pill practice-pill--failed" [class.practice-pill--active]="selectedFilter() === 'failed'"
-                (click)="selectFilter('failed')">
-                {{ 'practice.filters.failed' | translate }}
-            </button>
-            <button class="practice-pill practice-pill--unanswered" [class.practice-pill--active]="selectedFilter() === 'unanswered'"
-                (click)="selectFilter('unanswered')">
-                {{ 'practice.filters.unanswered' | translate }}
-            </button>
+            <div class="practice-toolbar">
+                <div class="practice-toolbar-actions">
+                    <button class="practice-pill" [class.practice-pill--active]="randomOrder()" (click)="toggleRandomOrder()"
+                        [title]="'practice.filters.randomOrderTitle' | translate">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="16 3 21 3 21 8" />
+                            <line x1="4" y1="20" x2="21" y2="3" />
+                            <polyline points="21 16 21 21 16 21" />
+                            <line x1="15" y1="15" x2="21" y2="21" />
+                            <line x1="4" y1="4" x2="9" y2="9" />
+                        </svg>
+                        {{ 'practice.filters.randomOrder' | translate }}
+                    </button>
+                    @if (randomOrder()) {
+                    <button class="practice-shuffle-button" (click)="reshuffle()" [disabled]="filteredQuestions().length < 2"
+                        [title]="'practice.filters.reshuffleTitle' | translate">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 4 23 10 17 10" />
+                            <polyline points="1 20 1 14 7 14" />
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                        </svg>
+                    </button>
+                    }
+                </div>
 
-            <span class="practice-filter-divider"></span>
-
-            <button class="practice-pill" [class.practice-pill--active]="randomOrder()" (click)="toggleRandomOrder()"
-                [title]="'practice.filters.randomOrderTitle' | translate">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="16 3 21 3 21 8" />
-                    <line x1="4" y1="20" x2="21" y2="3" />
-                    <polyline points="21 16 21 21 16 21" />
-                    <line x1="15" y1="15" x2="21" y2="21" />
-                    <line x1="4" y1="4" x2="9" y2="9" />
-                </svg>
-                {{ 'practice.filters.randomOrder' | translate }}
-            </button>
-            @if (randomOrder()) {
-            <button class="practice-shuffle-button" (click)="reshuffle()" [disabled]="filteredQuestions().length < 2"
-                [title]="'practice.filters.reshuffleTitle' | translate">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="23 4 23 10 17 10" />
-                    <polyline points="1 20 1 14 7 14" />
-                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
-                </svg>
-            </button>
-            }
-        </div>
-
-        <div class="practice-jump-wrap" (click)="$event.stopPropagation()">
-            <div class="practice-jump-search-wrap">
-                <svg class="practice-jump-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
-                <input class="practice-jump-search" type="text" [placeholder]="'practice.jump.searchPlaceholder' | translate"
-                    [ngModel]="jumpSearch()" (ngModelChange)="onJumpSearchChange($event)" (focus)="onJumpFocus()" />
-                @if (jumpSearch()) {
-                <button class="practice-jump-search-clear" (click)="clearJumpSearch()"
-                    [title]="'practice.jump.clearTitle' | translate">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                        stroke-linecap="round">
-                        <line x1="18" y1="6" x2="6" y2="18" />
-                        <line x1="6" y1="6" x2="18" y2="18" />
-                    </svg>
-                </button>
-                }
+                <div class="practice-jump-wrap" (click)="$event.stopPropagation()">
+                    <div class="practice-jump-search-wrap">
+                        <svg class="practice-jump-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                        <input class="practice-jump-search" type="text" [placeholder]="'practice.jump.searchPlaceholder' | translate"
+                            [ngModel]="jumpSearch()" (ngModelChange)="onJumpSearchChange($event)" (focus)="onJumpFocus()" />
+                        @if (jumpSearch()) {
+                        <button class="practice-jump-search-clear" (click)="clearJumpSearch()"
+                            [title]="'practice.jump.clearTitle' | translate">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                        }
+                    </div>
+                    @if (jumpDropOpen() && jumpSearch().trim()) {
+                    <div class="practice-jump-panel">
+                        @for (item of jumpResults(); track item.q.id) {
+                        <button type="button" class="practice-jump-option" [class.practice-jump-option--current]="item.index === currentIdx()"
+                            (click)="jumpToQuestion(item.index)">
+                            <span class="practice-category-badge practice-category-badge--sm" [style.color]="categoryColor(item.q.category)"
+                                [style.background]="categoryColor(item.q.category) + '18'">{{ item.q.category }}</span>
+                            <span class="practice-jump-option-text">{{ item.q.question }}</span>
+                            <span class="practice-jump-option-index">#{{ item.index + 1 }}</span>
+                        </button>
+                        } @empty {
+                        <p class="practice-jump-empty">{{ 'practice.jump.noResults' | translate }}</p>
+                        }
+                    </div>
+                    }
+                </div>
             </div>
-            @if (jumpDropOpen() && jumpSearch().trim()) {
-            <div class="practice-jump-panel">
-                @for (item of jumpResults(); track item.q.id) {
-                <button type="button" class="practice-jump-option" [class.practice-jump-option--current]="item.index === currentIdx()"
-                    (click)="jumpToQuestion(item.index)">
-                    <span class="practice-category-badge practice-category-badge--sm" [style.color]="categoryColor(item.q.category)"
-                        [style.background]="categoryColor(item.q.category) + '18'">{{ item.q.category }}</span>
-                    <span class="practice-jump-option-text">{{ item.q.question }}</span>
-                    <span class="practice-jump-option-index">#{{ item.index + 1 }}</span>
-                </button>
-                } @empty {
-                <p class="practice-jump-empty">{{ 'practice.jump.noResults' | translate }}</p>
-                }
-            </div>
-            }
-        </div>
-    </div>
 
     <div class="practice-body">
 
@@ -139,19 +124,31 @@
                     [placeholder]="'practice.card.answerPlaceholder' | translate"></textarea>
 
                 <div class="practice-card-footer">
-                    <button class="practice-reveal-button" [class.practice-reveal-button--ai]="useAiEvaluation()"
-                        [disabled]="!userAnswer().trim()" (click)="revealSample()">
-                        @if (useAiEvaluation()) {
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M12 8v4l3 3" />
-                        </svg>
-                        {{ 'practice.card.aiEvaluationBtn' | translate }}
-                        } @else {
-                        {{ 'practice.card.viewAnswerBtn' | translate }}
-                        }
-                    </button>
+                    <div class="practice-footer-actions">
+                        <button class="practice-reveal-button" [class.practice-reveal-button--ai]="useAiEvaluation()"
+                            [disabled]="!userAnswer().trim()" (click)="revealSample()">
+                            @if (useAiEvaluation()) {
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 8v4l3 3" />
+                            </svg>
+                            {{ 'practice.card.aiEvaluationBtn' | translate }}
+                            } @else {
+                            {{ 'practice.card.viewAnswerBtn' | translate }}
+                            }
+                        </button>
+                        <button class="practice-dontknow-button" (click)="revealAnswerDirectly()"
+                            [title]="'practice.card.dontKnowTitle' | translate">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
+                            {{ 'practice.card.dontKnowBtn' | translate }}
+                        </button>
+                    </div>
                     <div class="practice-nav">
                         <button class="practice-nav-button" (click)="prev()" [disabled]="currentIdx() === 0">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -165,6 +162,35 @@
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="9 18 15 12 9 6" />
                             </svg>
+                        </button>
+                    </div>
+                </div>
+
+                } @else if (dontKnowMode()) {
+
+                <div class="practice-compare-single">
+                    <p class="practice-compare-label practice-compare-label--green">{{ 'practice.card.sampleAnswerLabel' | translate }}</p>
+                    <p class="practice-compare-text">{{ q.sampleAnswer }}</p>
+                </div>
+
+                <div class="practice-card-footer">
+                    <button class="practice-back-button" (click)="hideAnswer()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6" />
+                        </svg>
+                        {{ 'practice.card.backBtn' | translate }}
+                    </button>
+                    <div class="practice-rating-row practice-rating-row--compact">
+                        <button class="practice-rate-button practice-rate-button--no" (click)="rate('incorrect')">
+                            {{ 'practice.card.incorrectBtn' | translate }}
+                        </button>
+                        <button class="practice-rate-button practice-rate-button--ok" (click)="rate('correct')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            {{ 'practice.card.correctBtn' | translate }}
                         </button>
                     </div>
                 </div>
@@ -269,32 +295,103 @@
             }
         </div>
 
-        <!-- Aside: stats -->
+        <!-- Aside: categories -->
         <aside class="practice-aside">
-            <app-card class="practice-stat-card">
-                <p class="practice-stat-label">{{ 'practice.stats.readinessLabel' | translate }}</p>
-                <div class="practice-stat-score-row">
-                    <span class="practice-stat-percent" [style.color]="getReadinessColor()">{{ readinessScore() }}%</span>
-                    <span class="practice-stat-grade" [style.color]="getReadinessColor()">{{ getReadinessLabel() }}</span>
+            <app-card class="practice-categories-card" gap="none">
+                <div class="practice-categories-header">
+                    <h3 class="practice-categories-title">{{ 'practice.categories.title' | translate }}</h3>
+                    <span class="practice-categories-count">{{ practice.categories().length }}</span>
                 </div>
-                <div class="practice-bar-track">
-                    <div class="practice-bar-fill" [style.width.%]="readinessScore()"
-                        [style.background]="getReadinessColor()"></div>
+
+                @if (showCategorySearch()) {
+                <div class="practice-cat-search-wrap">
+                    <svg class="practice-cat-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input class="practice-cat-search" type="text" [ngModel]="categorySearch()"
+                        (ngModelChange)="categorySearch.set($event)" [placeholder]="'practice.categories.searchPlaceholder' | translate" />
                 </div>
-                <p class="practice-stat-note">{{ answeredCount() }} / {{ filteredQuestions().length }} {{
-                    'practice.stats.answeredSuffix' | translate }}</p>
-                <div class="practice-stat-separator"></div>
-                <div class="practice-breakdown">
-                    <div class="practice-breakdown-row">
-                        <span class="practice-breakdown-dot practice-breakdown-dot--ok"></span>
-                        <span class="practice-breakdown-key">{{ 'practice.card.correctBtn' | translate }}</span>
-                        <span class="practice-breakdown-value">{{ ratingBreakdown().correct }}</span>
+                }
+
+                <div class="practice-cat-list">
+                    <button class="practice-cat-row practice-cat-row--all" [class.practice-cat-row--active]="selectedFilter() === 'Mind'"
+                        (click)="selectFilter('Mind')">
+                        <span class="practice-cat-row-icon practice-cat-row-icon--all">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                                <polyline points="2 17 12 22 22 17" />
+                                <polyline points="2 12 12 17 22 12" />
+                            </svg>
+                        </span>
+                        <span class="practice-cat-row-name">{{ 'practice.filters.all' | translate }}</span>
+                        <span class="practice-cat-row-count">{{ practice.questions().length }}</span>
+                    </button>
+
+                    <button class="practice-cat-row practice-cat-row--failed" [class.practice-cat-row--active]="selectedFilter() === 'failed'"
+                        (click)="selectFilter('failed')">
+                        <span class="practice-cat-row-icon practice-cat-row-icon--failed">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="15" y1="9" x2="9" y2="15" />
+                                <line x1="9" y1="9" x2="15" y2="15" />
+                            </svg>
+                        </span>
+                        <span class="practice-cat-row-name">{{ 'practice.filters.failed' | translate }}</span>
+                        <span class="practice-cat-row-count">{{ failedCount() }}</span>
+                    </button>
+
+                    <button class="practice-cat-row practice-cat-row--unanswered" [class.practice-cat-row--active]="selectedFilter() === 'unanswered'"
+                        (click)="selectFilter('unanswered')">
+                        <span class="practice-cat-row-icon practice-cat-row-icon--unanswered">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
+                        </span>
+                        <span class="practice-cat-row-name">{{ 'practice.filters.unanswered' | translate }}</span>
+                        <span class="practice-cat-row-count">{{ unansweredCount() }}</span>
+                    </button>
+
+                    <span class="practice-cat-divider"></span>
+
+                    @for (category of visibleCategories(); track category.id) {
+                    <button class="practice-cat-row" [class.practice-cat-row--active]="selectedFilter() === category.name"
+                        (click)="selectFilter(category.name)">
+                        <span class="practice-cat-row-dot" [style.background-color]="category.color"></span>
+                        <span class="practice-cat-row-name">{{ category.name }}</span>
+                        <span class="practice-cat-row-count">{{ categoryCount(category.name) }}</span>
+                    </button>
+                    } @empty {
+                    <p class="practice-cat-empty">{{ 'practice.categories.noMatch' | translate }}</p>
+                    }
+                </div>
+            </app-card>
+
+            <app-card class="practice-history-card" gap="none">
+                <div class="practice-history-header">
+                    <p class="practice-stat-label">{{ 'practice.stats.recentLabel' | translate }}</p>
+                    @if (practice.attempts().length > 0) {
+                    <button type="button" class="practice-history-link" (click)="activeTab.set('results')">{{ 'practice.stats.viewAllLink' | translate }}</button>
+                    }
+                </div>
+                <div class="practice-history-list">
+                    @for (a of recentAttempts(); track a.id) {
+                    <div class="practice-history-item">
+                        <span class="practice-history-dot" [class]="'practice-history-dot--' + a.feedback"></span>
+                        <div class="practice-history-body">
+                            <p class="practice-history-question">{{ a.question }}</p>
+                            <p class="practice-history-meta">{{ a.category }} · {{ formatAttemptTime(a.createdAt) }}</p>
+                        </div>
                     </div>
-                    <div class="practice-breakdown-row">
-                        <span class="practice-breakdown-dot practice-breakdown-dot--no"></span>
-                        <span class="practice-breakdown-key">{{ 'practice.card.incorrectBtn' | translate }}</span>
-                        <span class="practice-breakdown-value">{{ ratingBreakdown().incorrect }}</span>
-                    </div>
+                    } @empty {
+                    <p class="practice-history-empty">{{ 'practice.stats.noHistoryYet' | translate }}</p>
+                    }
                 </div>
             </app-card>
 

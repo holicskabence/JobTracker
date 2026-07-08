@@ -32,13 +32,32 @@ export class PracticeComponent {
   readonly activeTab = signal<Tab>('practice');
 
   // ── Practice tab: filters ───────────────────────────────────────────────────
-  readonly categories = computed<FilterCategory[]>(() =>
-    ['Mind', ...this.practice.categories().map(c => c.name)]
-  );
   readonly selectedFilter = signal<ActiveFilter>('Mind');
+  readonly categorySearch = signal('');
+
+  readonly showCategorySearch = computed(() => this.practice.categories().length > 6);
+
+  readonly visibleCategories = computed(() => {
+    const term = this.categorySearch().trim().toLowerCase();
+    const cats = this.practice.categories();
+    if (!term) return cats;
+    return cats.filter(c => c.name.toLowerCase().includes(term));
+  });
+
+  private readonly categoryCounts = computed(() => {
+    const map = new Map<string, number>();
+    for (const q of this.practice.questions()) {
+      map.set(q.category, (map.get(q.category) ?? 0) + 1);
+    }
+    return map;
+  });
+
+  readonly failedCount = computed(() => this.practice.questions().filter(q => q.feedback === 'incorrect').length);
+  readonly unansweredCount = computed(() => this.practice.questions().filter(q => q.feedback === null).length);
   readonly currentIdx = signal(0);
   readonly userAnswer = signal('');
   readonly showSample = signal(false);
+  readonly dontKnowMode = signal(false);
   readonly randomOrder = signal(false);
   private readonly randomOrderIds = signal<number[]>([]);
   private readonly idxDraft = signal<string | null>(null);
@@ -87,33 +106,6 @@ export class PracticeComponent {
       .map((q, index) => ({ q, index }))
       .filter(({ q }) => q.question.toLowerCase().includes(term) || q.category.toLowerCase().includes(term))
       .slice(0, 8);
-  });
-
-  readonly answeredCount = computed(() =>
-    this.filteredQuestions().filter(q => q.feedback !== null).length
-  );
-
-  readonly ratingBreakdown = computed(() => {
-    const list = this.filteredQuestions();
-    return {
-      correct: list.filter(q => q.feedback === 'correct').length,
-      incorrect: list.filter(q => q.feedback === 'incorrect').length,
-      total: list.length
-    };
-  });
-
-  readonly readinessScore = computed(() => {
-    const { correct, total } = this.ratingBreakdown();
-    if (total === 0) return 0;
-    return Math.round((correct / total) * 100);
-  });
-
-  readonly answerRatio = computed(() => {
-    const { correct, incorrect } = this.ratingBreakdown();
-    const answered = correct + incorrect;
-    if (answered === 0) return { correctPct: 0, incorrectPct: 0, answered: 0 };
-    const correctPct = Math.round((correct / answered) * 100);
-    return { correctPct, incorrectPct: 100 - correctPct, answered };
   });
 
   readonly useAiEvaluation = computed(() => this.auth.currentUser()?.useAiEvaluation ?? false);
@@ -189,6 +181,8 @@ export class PracticeComponent {
     };
   });
 
+  readonly recentAttempts = computed(() => this.practice.attempts().slice(0, 5));
+
   readonly attemptGroups = computed(() => {
     const groups = new Map<string, PracticeAttempt[]>();
     for (const a of this.practice.attempts()) {
@@ -208,6 +202,7 @@ export class PracticeComponent {
     this.currentIdx.set(0);
     this.userAnswer.set('');
     this.showSample.set(false);
+    this.dontKnowMode.set(false);
     this.resetAi();
     if (this.randomOrder()) this.reshuffle();
   }
@@ -220,6 +215,7 @@ export class PracticeComponent {
       this.currentIdx.set(0);
       this.userAnswer.set('');
       this.showSample.set(false);
+      this.dontKnowMode.set(false);
       this.resetAi();
     }
   }
@@ -234,6 +230,7 @@ export class PracticeComponent {
     this.currentIdx.set(0);
     this.userAnswer.set('');
     this.showSample.set(false);
+    this.dontKnowMode.set(false);
     this.resetAi();
   }
 
@@ -244,6 +241,16 @@ export class PracticeComponent {
     } else {
       this.showSample.set(true);
     }
+  }
+
+  revealAnswerDirectly(): void {
+    this.dontKnowMode.set(true);
+    this.showSample.set(true);
+  }
+
+  hideAnswer(): void {
+    this.showSample.set(false);
+    this.dontKnowMode.set(false);
   }
 
   private requestAiEvaluation(): void {
@@ -306,6 +313,7 @@ export class PracticeComponent {
     this.currentIdx.update(i => i + 1);
     this.userAnswer.set('');
     this.showSample.set(false);
+    this.dontKnowMode.set(false);
     this.resetAi();
   }
 
@@ -314,6 +322,7 @@ export class PracticeComponent {
     this.currentIdx.update(i => i - 1);
     this.userAnswer.set('');
     this.showSample.set(false);
+    this.dontKnowMode.set(false);
     this.resetAi();
   }
 
@@ -322,6 +331,7 @@ export class PracticeComponent {
     this.currentIdx.set(index);
     this.userAnswer.set('');
     this.showSample.set(false);
+    this.dontKnowMode.set(false);
     this.resetAi();
   }
 
@@ -515,6 +525,7 @@ export class PracticeComponent {
     this.currentIdx.set(0);
     this.userAnswer.set('');
     this.showSample.set(false);
+    this.dontKnowMode.set(false);
     this.resetAi();
   }
 
@@ -582,27 +593,14 @@ export class PracticeComponent {
     return '';
   }
 
-  getReadinessColor(): string {
-    const score = this.readinessScore();
-    if (score >= 80) return '#26ac00';
-    if (score >= 60) return '#5fb9fa';
-    if (score >= 40) return '#f59e0b';
-    return '#ef4444';
-  }
-
-  getReadinessLabel(): string {
-    const score = this.readinessScore();
-    if (score >= 80) return this.translate.instant('practice.readinessLabel.excellent');
-    if (score >= 60) return this.translate.instant('practice.readinessLabel.good');
-    if (score >= 40) return this.translate.instant('practice.readinessLabel.improvable');
-    return this.translate.instant('practice.readinessLabel.beginner');
-  }
-
   categoryColor(category: QuestionCategory): string {
     return this.practice.categories().find(c => c.name === category)?.color ?? '#9b9b99';
   }
 
-  trackByCategory(_: number, category: FilterCategory): string { return category; }
+  categoryCount(name: string): number {
+    return this.categoryCounts().get(name) ?? 0;
+  }
+
   trackByQuestion(_: number, q: PrepQuestion): number { return q.id; }
 
   private dateKey(iso: string): string {

@@ -115,6 +115,7 @@
             <span class="sidebar-label">{{ 'nav.documents' | translate }}</span>
         </a>
 
+        @if (showStatistics) {
         <a class="sidebar-button" routerLink="/dashboard/statisztika" routerLinkActive="sidebar-button--active"
             (click)="closeMobile.emit()" [title]="'nav.statistics' | translate">
             <span class="sidebar-icon">
@@ -127,6 +128,7 @@
             </span>
             <span class="sidebar-label">{{ 'nav.statistics' | translate }}</span>
         </a>
+        }
 
         <a class="sidebar-button" routerLink="/dashboard/torzsadatok" routerLinkActive="sidebar-button--active"
             (click)="closeMobile.emit()" [title]="'nav.masterData' | translate">

@@ -40,10 +40,26 @@
   animation-delay: 0.08s;
   width: 100%;
   margin-inline: auto;
+  min-height: 420px;
 }
 
 .chart-card:not(.chart-card--wide) {
   animation-delay: 0.2s;
+}
+
+.chart-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-section);
+  min-width: 0;
+}
+
+.options-card {
+  padding: var(--space-4) var(--space-5);
+  gap: 0;
+  min-height: 0;
+  animation: card-in 0.5s ease-out both;
+  animation-delay: 0.04s;
 }
 
 @keyframes card-in {
@@ -62,12 +78,6 @@
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--clr-muted);
-}
-
-.chart-card-header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
 }
 
 .chart-toolbar {
@@ -167,9 +177,15 @@
   gap: var(--gap-section);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .stats-kpi {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .stats-kpi {
+    grid-template-columns: repeat(6, 1fr);
   }
 }
 
@@ -240,10 +256,6 @@
 .kpi-card-separator {
   color: var(--clr-border);
   font-size: 1rem;
-}
-
-.stats-kpi--extra {
-  margin-top: -0.25rem;
 }
 
 .kpi-card--5 {

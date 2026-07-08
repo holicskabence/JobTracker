@@ -6,11 +6,12 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
 }
 
 :root {
     --clr-bg: #f4f2f0;
-    --clr-bg-2: #fcfbfa;
+    --clr-bg-2: #fcfbfaa6;
     --clr-white: #ffffff;
     --clr-dark: #0a0a0a;
     --clr-dark-2: #101010;

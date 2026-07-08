@@ -447,7 +447,6 @@
 .quick-task-text--done {
     color: var(--clr-muted);
     text-decoration: line-through;
-    text-decoration-color: var(--clr-border);
 }
 
 .quick-tasks-footer {

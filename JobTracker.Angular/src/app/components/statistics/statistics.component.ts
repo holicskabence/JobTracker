@@ -131,14 +131,19 @@ export class StatisticsComponent {
   });
 
   readonly weekdayDistribution = computed(() => {
-    const labels = ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat', 'Vasárnap'];
+    this.i18nTick();
+    const dayKeys = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     const counts = new Array(7).fill(0);
     for (const job of this.store.jobs()) {
       const dow = (new Date(job.date).getDay() + 6) % 7;
       counts[dow]++;
     }
     const max = Math.max(1, ...counts);
-    return labels.map((name, i) => ({ name, count: counts[i], percent: Math.round((counts[i] / max) * 100) }));
+    return dayKeys.map((key, i) => ({
+      name: this.translate.instant(`statistics.weekdayActivity.days.${key}Short`),
+      count: counts[i],
+      percent: Math.round((counts[i] / max) * 100)
+    }));
   });
 
   readonly funnel = computed(() => {

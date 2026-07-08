@@ -392,7 +392,11 @@
       "pendingResponse": "Pending response",
       "pendingResponseSub": "submitted, awaiting response",
       "offersCount": "Number of offers",
-      "offersCountSub": "accepted / offered"
+      "offersCountSub": "accepted / offered",
+      "callbackRate": "Callback rate",
+      "callbackRateSub": "of all applications",
+      "rejectionRate": "Rejection rate",
+      "rejectionRateSub": "of all applications"
     },
     "applicationsTrend": { "title": "Application activity" },
     "timeRange": { "day": "Day", "week": "Week", "month": "Month" },
@@ -400,6 +404,18 @@
     "statusDistribution": { "title": "Status distribution", "total": "Total" },
     "statusFunnel": { "title": "Status funnel" },
     "topCompanies": { "title": "Top 5 companies" },
+    "weekdayActivity": {
+      "title": "Weekly activity",
+      "days": {
+        "mondayShort": "M",
+        "tuesdayShort": "T",
+        "wednesdayShort": "W",
+        "thursdayShort": "T",
+        "fridayShort": "F",
+        "saturdayShort": "S",
+        "sundayShort": "S"
+      }
+    },
     "emptyState": {
       "noApplications": "No applications recorded yet.",
       "selectMetric": "Select at least one metric to display."
@@ -452,6 +468,11 @@
   "practice": {
     "pageHeader": { "title": "Practice", "subtitle": "Interview preparation with flashcards" },
     "tabs": { "practice": "Practice", "questions": "Questions", "results": "Results" },
+    "categories": {
+      "title": "Categories",
+      "searchPlaceholder": "Search categories…",
+      "noMatch": "No matching category."
+    },
     "filters": {
       "all": "All",
       "failed": "Failed",
@@ -473,6 +494,9 @@
       "answerPlaceholder": "Type a draft of your answer or keywords…",
       "aiEvaluationBtn": "AI evaluation",
       "viewAnswerBtn": "View answer",
+      "dontKnowBtn": "I don't know",
+      "dontKnowTitle": "Show the sample answer without evaluating my answer",
+      "backBtn": "Back",
       "sampleAnswerLabel": "SAMPLE ANSWER",
       "didItSucceed": "Did it succeed?",
       "incorrectBtn": "Incorrect",
@@ -491,7 +515,14 @@
       "noUnanswered": "No unanswered questions.",
       "noCategory": "No questions in this category."
     },
-    "stats": { "readinessLabel": "READINESS", "answeredSuffix": "answered" },
+    "stats": {
+      "streakLabel": "STREAK",
+      "streakActive": "{{count}}-day streak",
+      "streakStart": "Start your streak today!",
+      "recentLabel": "RECENT ANSWERS",
+      "viewAllLink": "View all",
+      "noHistoryYet": "No answered questions yet."
+    },
     "tip": { "title": "💡 Tip", "text": "Re-rate the failed questions as your knowledge improves." },
     "questionsTab": {
       "title": "Questions",
@@ -557,7 +588,6 @@
     },
     "import": { "successSuffix": "question(s) imported successfully." },
     "feedbackLabel": { "correct": "CORRECT", "incorrect": "INCORRECT" },
-    "readinessLabel": { "excellent": "Excellent", "good": "Good", "improvable": "Improvable", "beginner": "Beginner" },
     "dateLabel": { "today": "Today", "yesterday": "Yesterday" }
   },
   "shared": {

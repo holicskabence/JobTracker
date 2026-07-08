@@ -35,13 +35,25 @@
       <div class="kpi-card-subtitle">{{ 'statistics.kpi.offersCountSub' | translate }}</div>
     </app-card>
 
+    <app-card class="kpi-card kpi-card--7">
+      <p class="kpi-card-label">{{ 'statistics.kpi.callbackRate' | translate }}</p>
+      <p class="kpi-card-value kpi-card-value--blue">{{ callbackRate() }}%</p>
+      <div class="kpi-card-subtitle">{{ 'statistics.kpi.callbackRateSub' | translate }}</div>
+    </app-card>
+
+    <app-card class="kpi-card kpi-card--8">
+      <p class="kpi-card-label">{{ 'statistics.kpi.rejectionRate' | translate }}</p>
+      <p class="kpi-card-value kpi-card-value--red">{{ rejectionRate() }}%</p>
+      <div class="kpi-card-subtitle">{{ 'statistics.kpi.rejectionRateSub' | translate }}</div>
+    </app-card>
+
   </div>
 
   <div class="stats-grid">
 
-    <app-card class="chart-card chart-card--wide">
-      <div class="chart-card-header">
-        <h3 class="chart-card-label">{{ 'statistics.applicationsTrend.title' | translate }}</h3>
+    <div class="chart-column">
+
+      <app-card class="options-card">
         <div class="chart-toolbar">
           <div class="granularity-switch">
             <button type="button" class="granularity-button" [class.granularity-button--active]="viewMode() === 'count'"
@@ -66,11 +78,16 @@
               (click)="setGranularity('month')">{{ 'statistics.timeRange.month' | translate }}</button>
           </div>
         </div>
-      </div>
-      <div class="chart-card-body">
-        <app-area-chart [categories]="chartCategories()" [series]="chartSeries()" />
-      </div>
-    </app-card>
+      </app-card>
+
+      <app-card class="chart-card chart-card--wide">
+        <h3 class="chart-card-label">{{ 'statistics.applicationsTrend.title' | translate }}</h3>
+        <div class="chart-card-body">
+          <app-area-chart [categories]="chartCategories()" [series]="chartSeries()" />
+        </div>
+      </app-card>
+
+    </div>
 
     <app-card class="chart-card">
       <h3 class="chart-card-label">{{ 'statistics.statusDistribution.title' | translate }}</h3>
@@ -80,6 +97,27 @@
     </app-card>
 
   </div>
+
+  <app-card class="chart-card chart-card--weekday">
+    <h3 class="chart-card-label">{{ 'statistics.weekdayActivity.title' | translate }}</h3>
+    <div class="chart-card-body weekday-body">
+      @if (total() === 0) {
+      <app-empty-state [message]="'statistics.emptyState.noApplications' | translate"></app-empty-state>
+      } @else {
+      <div class="weekday-bars">
+        @for (day of weekdayDistribution(); track day.name) {
+        <div class="weekday-column">
+          <span class="weekday-count">{{ day.count }}</span>
+          <div class="weekday-track">
+            <div class="weekday-fill" [style.height.%]="day.percent"></div>
+          </div>
+          <span class="weekday-name">{{ day.name }}</span>
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </app-card>
 
   <div class="stats-grid stats-grid--bottom">
 
