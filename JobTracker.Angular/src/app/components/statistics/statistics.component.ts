@@ -10,12 +10,12 @@ import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { StatsGranularity, StatsViewMode } from '../../models/job.model';
-import { PageHeaderComponent } from '../shared/page-header/page-header.component';
+import { PageSectionComponent } from '../shared/page-section/page-section.component';
 
 @Component({
   selector: 'app-statistics',
   standalone: true,
-  imports: [AreaChartComponent, DonutChartComponent, CardComponent, BadgeComponent, EmptyStateComponent, TranslateModule, PageHeaderComponent],
+  imports: [AreaChartComponent, DonutChartComponent, CardComponent, BadgeComponent, EmptyStateComponent, TranslateModule, PageSectionComponent],
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.css'
 })

@@ -8,7 +8,7 @@ import { SelectDropdownComponent } from '../shared/select-dropdown/select-dropdo
 import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { BreakpointService } from '../../services/breakpoint.service';
-import { PageHeaderComponent } from '../shared/page-header/page-header.component';
+import { PageSectionComponent } from '../shared/page-section/page-section.component';
 
 const DOC_TYPE_KEYS: Record<string, string> = {
   'Mind': 'documents.typeAll',
@@ -20,7 +20,7 @@ const DOC_TYPE_KEYS: Record<string, string> = {
 @Component({
   selector: 'app-documents',
   standalone: true,
-  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, CardComponent, EmptyStateComponent, TranslateModule, PageHeaderComponent],
+  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, CardComponent, EmptyStateComponent, TranslateModule, PageSectionComponent],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.css'
 })

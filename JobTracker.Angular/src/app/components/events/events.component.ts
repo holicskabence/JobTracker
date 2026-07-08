@@ -10,14 +10,14 @@ import { TimePickerComponent } from '../shared/time-picker/time-picker.component
 import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { BreakpointService } from '../../services/breakpoint.service';
-import { PageHeaderComponent } from '../shared/page-header/page-header.component';
+import { PageSectionComponent } from '../shared/page-section/page-section.component';
 
 type EventFilter = 'all' | 'upcoming' | 'past';
 
 @Component({
   selector: 'app-events',
   standalone: true,
-  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, DatePickerComponent, TimePickerComponent, CardComponent, EmptyStateComponent, TranslateModule, PageHeaderComponent],
+  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, DatePickerComponent, TimePickerComponent, CardComponent, EmptyStateComponent, TranslateModule, PageSectionComponent],
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'
 })

@@ -1,7 +1,5 @@
-<div class="master-data-container">
-
-    <app-page-header [title]="'masterData.pageHeader.title' | translate"
-        [subtitle]="'masterData.pageHeader.subtitle' | translate"></app-page-header>
+<app-page-section [title]="'masterData.pageHeader.title' | translate"
+    [subtitle]="'masterData.pageHeader.subtitle' | translate">
 
     <div class="master-data-grid">
 
@@ -137,6 +135,48 @@
         </app-card>
 
     </div>
+
+    <app-card class="master-data-card master-data-card--wide" radius="xl">
+        <div class="master-data-card-header">
+            <div class="master-data-card-icon master-data-card-icon--blue">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="17 8 12 3 7 8" />
+                    <line x1="12" y1="3" x2="12" y2="15" />
+                </svg>
+            </div>
+            <div>
+                <h3 class="master-data-card-title">{{ 'masterData.outreachTemplates.title' | translate }}</h3>
+                <p class="master-data-card-subtitle">{{ 'masterData.outreachTemplates.subtitle' | translate }}</p>
+            </div>
+            <app-badge variant="green" class="master-data-badge">{{ 'masterData.badge.count' | translate:{ count: outreachTemplates.length } }}</app-badge>
+        </div>
+
+        <div class="master-data-outreach-template-list">
+            @for (template of outreachTemplates; track template.id) {
+            <div class="master-data-outreach-template-row">
+                <span class="master-data-outreach-template-name">{{ template.title }}</span>
+                <label class="master-data-outreach-template-upload-label">
+                    <input type="file" class="master-data-outreach-template-upload-input"
+                        (change)="onOutreachTemplateFileSelected(template.id, $event)"
+                        accept=".pdf,.doc,.docx,.txt" />
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    @if (outreachTemplateFileNames[template.id]) {
+                    <span class="master-data-outreach-template-file-name">{{ outreachTemplateFileNames[template.id] }}</span>
+                    } @else {
+                    <span>{{ 'masterData.outreachTemplates.uploadLabel' | translate }}</span>
+                    }
+                </label>
+            </div>
+            }
+        </div>
+    </app-card>
 
     <app-card class="master-data-card master-data-card--wide" radius="xl">
         <div class="master-data-card-header">
@@ -305,4 +345,4 @@
     </div>
     }
 
-</div>
+</app-page-section>

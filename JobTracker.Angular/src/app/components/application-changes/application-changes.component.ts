@@ -5,7 +5,7 @@ import { JobStatusHistoryEntry } from '../../models/job.model';
 import { JobApiService } from '../../services/job-api.service';
 import { JobStoreService } from '../../services/job-store.service';
 import { CardComponent } from '../shared/card/card.component';
-import { PageHeaderComponent } from '../shared/page-header/page-header.component';
+import { PageSectionComponent } from '../shared/page-section/page-section.component';
 
 type SortKey = 'company' | 'changedAt';
 type SortDir = 'asc' | 'description';
@@ -13,7 +13,7 @@ type SortDir = 'asc' | 'description';
 @Component({
   selector: 'app-application-changes',
   standalone: true,
-  imports: [FormsModule, TranslateModule, CardComponent, PageHeaderComponent],
+  imports: [FormsModule, TranslateModule, CardComponent, PageSectionComponent],
   templateUrl: './application-changes.component.html',
   styleUrl: './application-changes.component.css'
 })

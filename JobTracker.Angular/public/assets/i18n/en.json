@@ -453,6 +453,11 @@
         "Rejected": "Rejected"
       }
     },
+    "outreachTemplates": {
+      "title": "Outreach Templates",
+      "subtitle": "Upload a file for each outreach template to override the built-in text",
+      "uploadLabel": "Upload file"
+    },
     "badge": { "count": "{{count}}" },
     "selectToEdit": "Select to edit",
     "delete": "Delete",

@@ -91,13 +91,29 @@
     color: var(--clr-muted);
     z-index: 10;
     box-shadow: 2px 0 6px var(--clr-shadow);
-    transition: color 0.15s, background-color 0.15s;
+    transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s, opacity 0.15s;
     justify-content: center;
 }
 
 .sidebar-border-toggle:hover {
     color: var(--clr-dark);
     background-color: var(--clr-border);
+}
+
+.sidebar--expanded .sidebar-border-toggle {
+    top: 32px;
+    right: var(--space-4);
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    opacity: 0.5;
+}
+
+.sidebar--expanded .sidebar-border-toggle:hover {
+    background-color: var(--clr-bg-2);
+    border-color: var(--clr-border);
+    box-shadow: 2px 0 6px var(--clr-shadow);
+    opacity: 1;
 }
 
 .sidebar-border-toggle svg {

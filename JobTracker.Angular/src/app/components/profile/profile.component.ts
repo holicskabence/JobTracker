@@ -5,13 +5,13 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../services/auth.service';
 import { UserProfile } from '../../models/user.model';
 import { CardComponent } from '../shared/card/card.component';
-import { PageHeaderComponent } from '../shared/page-header/page-header.component';
+import { PageSectionComponent } from '../shared/page-section/page-section.component';
 import { LanguageSwitcherComponent } from '../shared/language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule, TranslateModule, CardComponent, PageHeaderComponent, LanguageSwitcherComponent],
+  imports: [FormsModule, TranslateModule, CardComponent, PageSectionComponent, LanguageSwitcherComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

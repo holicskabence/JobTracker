@@ -7,14 +7,15 @@ import { PracticeService } from '../../services/practice.service';
 import { AuthService } from '../../services/auth.service';
 import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
-import { PageHeaderComponent } from '../shared/page-header/page-header.component';
+import { PageSectionComponent } from '../shared/page-section/page-section.component';
 import { JobStatusConfig, StatsCategory } from '../../models/job.model';
 import { PracticeCategory } from '../../models/practice.model';
+import { OUTREACH_TEMPLATES } from '../../models/planner.model';
 
 @Component({
   selector: 'app-master-data',
   standalone: true,
-  imports: [FormsModule, TranslateModule, CardComponent, BadgeComponent, PageHeaderComponent],
+  imports: [FormsModule, TranslateModule, CardComponent, BadgeComponent, PageSectionComponent],
   templateUrl: './master-data.component.html',
   styleUrl: './master-data.component.css'
 })
@@ -41,6 +42,16 @@ export class MasterDataComponent {
   categoryFormOpen = false;
 
   readonly STATUS_PRESETS = ['#9b9b99', '#5fb9fa', '#f59e0b', '#26ac00', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4'];
+
+  readonly outreachTemplates = OUTREACH_TEMPLATES;
+  outreachTemplateFileNames: Record<number, string> = {};
+
+  onOutreachTemplateFileSelected(id: number, event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+    this.outreachTemplateFileNames[id] = file.name;
+  }
 
   selectedEventType: string | null = null;
 

@@ -1,17 +1,3 @@
-:host {
-  display: block;
-  width: 100%;
-  min-width: 0;
-}
-
-.documents-container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-section);
-  width: 100%;
-  min-width: 0;
-}
-
 .documents-grid {
   display: grid;
   grid-template-columns: 1fr;

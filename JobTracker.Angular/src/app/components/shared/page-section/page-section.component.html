@@ -1,0 +1,14 @@
+<div class="page-section">
+    @if (title) {
+    <div class="page-section-header">
+        <div class="page-section-header-text">
+            <h1 class="page-section-title">{{ title }}</h1>
+            @if (subtitle) {
+            <p class="page-section-subtitle">{{ subtitle }}</p>
+            }
+        </div>
+        <ng-content select="[pageActions]"></ng-content>
+    </div>
+    }
+    <ng-content></ng-content>
+</div>

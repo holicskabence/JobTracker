@@ -1,16 +1,13 @@
-<div class="practice-page">
-
-    <app-page-header class="practice-header" [title]="'practice.pageHeader.title' | translate"
-        [subtitle]="'practice.pageHeader.subtitle' | translate">
-        <div class="practice-tabs">
-            <button class="practice-tab" [class.practice-tab--active]="activeTab() === 'practice'"
-                (click)="activeTab.set('practice')">{{ 'practice.tabs.practice' | translate }}</button>
-            <button class="practice-tab" [class.practice-tab--active]="activeTab() === 'questions'"
-                (click)="activeTab.set('questions')">{{ 'practice.tabs.questions' | translate }}</button>
-            <button class="practice-tab" [class.practice-tab--active]="activeTab() === 'results'"
-                (click)="activeTab.set('results')">{{ 'practice.tabs.results' | translate }}</button>
-        </div>
-    </app-page-header>
+<app-page-section [title]="'practice.pageHeader.title' | translate"
+    [subtitle]="'practice.pageHeader.subtitle' | translate">
+    <div pageActions class="practice-tabs">
+        <button class="practice-tab" [class.practice-tab--active]="activeTab() === 'practice'"
+            (click)="activeTab.set('practice')">{{ 'practice.tabs.practice' | translate }}</button>
+        <button class="practice-tab" [class.practice-tab--active]="activeTab() === 'questions'"
+            (click)="activeTab.set('questions')">{{ 'practice.tabs.questions' | translate }}</button>
+        <button class="practice-tab" [class.practice-tab--active]="activeTab() === 'results'"
+            (click)="activeTab.set('results')">{{ 'practice.tabs.results' | translate }}</button>
+    </div>
 
     @if (activeTab() === 'practice') {
 
@@ -773,4 +770,4 @@
     </div>
     }
 
-</div>
+</app-page-section>

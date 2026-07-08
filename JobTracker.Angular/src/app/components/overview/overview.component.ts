@@ -9,11 +9,12 @@ import { DashboardTab } from '../../models/job.model';
 import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
+import { PageSectionComponent } from '../shared/page-section/page-section.component';
 
 @Component({
   selector: 'app-overview',
   standalone: true,
-  imports: [CardComponent, BadgeComponent, EmptyStateComponent, TranslateModule],
+  imports: [CardComponent, BadgeComponent, EmptyStateComponent, PageSectionComponent, TranslateModule],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.css'
 })

@@ -1,13 +1,3 @@
-.practice-page {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-section);
-}
-
-.practice-header {
-    flex-wrap: wrap;
-}
-
 .practice-tabs {
     display: flex;
     gap: var(--space-1);

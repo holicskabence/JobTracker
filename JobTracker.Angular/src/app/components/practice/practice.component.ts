@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { FeedbackType, PracticeAttempt, PrepQuestion, QuestionCategory } from '../../models/practice.model';
 import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
-import { PageHeaderComponent } from '../shared/page-header/page-header.component';
+import { PageSectionComponent } from '../shared/page-section/page-section.component';
 
 type Tab = 'practice' | 'questions' | 'results';
 type FilterCategory = 'Mind' | QuestionCategory;
@@ -18,7 +18,7 @@ type QSortKey = 'category' | 'question' | 'feedback';
 @Component({
   selector: 'app-practice',
   standalone: true,
-  imports: [FormsModule, CardComponent, EmptyStateComponent, PageHeaderComponent, TranslateModule],
+  imports: [FormsModule, CardComponent, EmptyStateComponent, PageSectionComponent, TranslateModule],
   templateUrl: './practice.component.html',
   styleUrl: './practice.component.css'
 })

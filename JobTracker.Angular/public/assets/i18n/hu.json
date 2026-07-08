@@ -453,6 +453,11 @@
         "Rejected": "Elutasítva"
       }
     },
+    "outreachTemplates": {
+      "title": "Kapcsolatfelvételi Sablonok",
+      "subtitle": "Tölts fel egy fájlt az egyes sablonokhoz, hogy felülírd a beépített szöveget",
+      "uploadLabel": "Fájl feltöltése"
+    },
     "badge": { "count": "{{count}} db" },
     "selectToEdit": "Kiválasztás módosításhoz",
     "delete": "Törlés",

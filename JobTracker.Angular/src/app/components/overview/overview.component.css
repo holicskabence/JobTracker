@@ -1,9 +1,3 @@
-.overview {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-section);
-}
-
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
