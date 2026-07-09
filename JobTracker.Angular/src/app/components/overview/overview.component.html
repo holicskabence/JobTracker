@@ -1,4 +1,4 @@
-<app-page-section>
+<app-page-section [title]="'overview.sectionTitle' | translate" [subtitle]="'overview.sectionSubtitle' | translate">
 
     <div class="stats-grid">
 
@@ -14,7 +14,8 @@
         <app-card>
             <h3 class="card-label">{{ 'overview.stats.activeInProgress' | translate }}</h3>
             <div class="card-value">{{ stats().activeJobs }}</div>
-            <app-badge variant="yellow">{{ 'overview.stats.interviewCount' | translate: { count: stats().interviewCount } }}</app-badge>
+            <app-badge variant="yellow">{{ 'overview.stats.interviewCount' | translate: { count: stats().interviewCount
+                } }}</app-badge>
         </app-card>
 
         <app-card>
@@ -47,7 +48,8 @@
         <app-card>
             <h3 class="card-label">{{ 'overview.stats.callbacks' | translate }}</h3>
             <div class="card-value">{{ stats().callbacks }}</div>
-            <app-badge variant="blue">{{ 'overview.stats.callbackRate' | translate: { rate: callbackRate() } }}</app-badge>
+            <app-badge variant="blue">{{ 'overview.stats.callbackRate' | translate: { rate: callbackRate() }
+                }}</app-badge>
         </app-card>
 
     </div>
@@ -57,7 +59,8 @@
         <app-card class="upcoming-card" gap="none">
             <div class="overview-card-header">
                 <h3 class="overview-card-title">{{ 'overview.upcomingEvents.title' | translate }}</h3>
-                <button class="card-link" type="button" (click)="navigate('esemenyek')">{{ 'overview.upcomingEvents.viewAll' | translate }}</button>
+                <button class="card-link" type="button" (click)="navigate('esemenyek')">{{
+                    'overview.upcomingEvents.viewAll' | translate }}</button>
             </div>
             @if (upcomingEvents().length === 0) {
             <app-empty-state [message]="'overview.upcomingEvents.empty' | translate"></app-empty-state>
@@ -94,7 +97,8 @@
         <app-card class="quick-tasks-card" gap="none">
             <div class="overview-card-header">
                 <h3 class="overview-card-title">{{ 'overview.quickTasks.title' | translate }}</h3>
-                <button class="card-link" type="button" (click)="navigate('esemenyek')">{{ 'overview.quickTasks.viewAll' | translate }}</button>
+                <button class="card-link" type="button" (click)="navigate('esemenyek')">{{ 'overview.quickTasks.viewAll'
+                    | translate }}</button>
             </div>
             @if (quickTasks().length === 0) {
             <app-empty-state [message]="'overview.quickTasks.empty' | translate"></app-empty-state>
@@ -120,7 +124,8 @@
                     <div class="quick-tasks-bar-fill"
                         [style.width.%]="tasksTotal() > 0 ? (tasksDone() / tasksTotal() * 100) : 0"></div>
                 </div>
-                <span class="quick-tasks-count">{{ 'overview.quickTasks.doneCount' | translate: { done: tasksDone(), total: tasksTotal() } }}</span>
+                <span class="quick-tasks-count">{{ 'overview.quickTasks.doneCount' | translate: { done: tasksDone(),
+                    total: tasksTotal() } }}</span>
             </div>
         </app-card>
 
@@ -128,7 +133,8 @@
     <div class="recent">
         <div class="recent-header">
             <h2 class="recent-title">{{ 'overview.recentApplications.title' | translate }}</h2>
-            <button class="recent-link" (click)="navigate('jelentkezesek')">{{ 'overview.recentApplications.viewAll' | translate }}</button>
+            <button class="recent-link" (click)="navigate('jelentkezesek')">{{ 'overview.recentApplications.viewAll' |
+                translate }}</button>
         </div>
 
         <div class="recent-list">

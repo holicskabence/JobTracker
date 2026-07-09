@@ -84,7 +84,7 @@ export class PracticeService {
   addCategory(name: string, color: string): void {
     const trimmed = name.trim();
     if (!trimmed) return;
-    if (this.categories().some(c => c.name === trimmed)) return;
+    if (this.categories().some(c => c.name.toLowerCase() === trimmed.toLowerCase())) return;
     this.error.set('');
     this.api.createCategory({ name: trimmed, color }).subscribe({
       next: created => this.categories.update(prev => [...prev, created]),

@@ -39,3 +39,9 @@ x86/
 **/dist/
 **/.angular/
 npm-debug.log*
+
+# Claude Code skills (local tooling, not part of the app)
+JobTracker.Angular/agent-skills/
+JobTracker.Angular/bencium-claude-code-design-skill/
+JobTracker.Angular/skills/
+JobTracker.Angular/ui-ux-pro-max-skill/

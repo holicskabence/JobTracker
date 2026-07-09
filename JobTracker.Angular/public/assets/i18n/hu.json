@@ -214,6 +214,8 @@
     }
   },
   "overview": {
+    "sectionTitle": "Áttekintés",
+    "sectionSubtitle": "Kövesd nyomon a jelentkezéseid alakulását és a következő teendőidet.",
     "stats": {
       "totalApplications": "Összes jelentkezés",
       "goal": "Cél: {{goal}} jelentkezés",
@@ -281,6 +283,8 @@
     "cancel": "Mégse"
   },
   "applicationsView": {
+    "sectionTitle": "Jelentkezések",
+    "sectionSubtitle": "Kezeld és kövesd nyomon az összes jelentkezésedet egy helyen.",
     "switchToTable": "Váltás táblázat nézetre",
     "switchToKanban": "Váltás Kanban nézetre"
   },

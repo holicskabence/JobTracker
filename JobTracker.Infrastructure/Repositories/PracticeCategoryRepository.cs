@@ -12,7 +12,7 @@ public sealed class PracticeCategoryRepository(JobTrackerDbContext ctx)
         await Ctx.PracticeCategories.Where(c => c.UserId == userId).ToListAsync();
 
     public async Task<PracticeCategory?> GetByNameAsync(string name, int userId) =>
-        await Ctx.PracticeCategories.FirstOrDefaultAsync(c => c.Name == name && c.UserId == userId);
+        await Ctx.PracticeCategories.FirstOrDefaultAsync(c => c.Name.ToLower() == name.ToLower() && c.UserId == userId);
 
     public async Task<PracticeCategory?> GetByIdAsync(int id, int userId) =>
         await Ctx.PracticeCategories.FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);

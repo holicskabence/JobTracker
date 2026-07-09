@@ -431,12 +431,16 @@ export class PracticeComponent {
     this.importing.set(true);
 
     try {
-      const items = this.parseImportJson(await file.text());
-      const existingNames = new Set(this.practice.categories().map(c => c.name));
-      const newCategoryNames = [...new Set(items.map(i => i.category))].filter(name => !existingNames.has(name));
-      for (const name of newCategoryNames) {
-        this.practice.addCategory(name, this.randomCategoryColor());
-      }
+      const rawItems = this.parseImportJson(await file.text());
+      const canonicalNameByLower = new Map(this.practice.categories().map(c => [c.name.toLowerCase(), c.name]));
+      const items = rawItems.map(item => {
+        const lower = item.category.toLowerCase();
+        const canonical = canonicalNameByLower.get(lower);
+        if (canonical) return { ...item, category: canonical };
+        canonicalNameByLower.set(lower, item.category);
+        this.practice.addCategory(item.category, this.randomCategoryColor());
+        return item;
+      });
 
       this.practice.addQuestions(items, createdCount => {
         this.importing.set(false);

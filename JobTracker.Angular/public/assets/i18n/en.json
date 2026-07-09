@@ -214,6 +214,8 @@
     }
   },
   "overview": {
+    "sectionTitle": "Overview",
+    "sectionSubtitle": "Track how your applications are progressing and what's coming up next.",
     "stats": {
       "totalApplications": "Total applications",
       "goal": "Goal: {{goal}} applications",
@@ -281,6 +283,8 @@
     "cancel": "Cancel"
   },
   "applicationsView": {
+    "sectionTitle": "Applications",
+    "sectionSubtitle": "Manage and track all your applications in one place.",
     "switchToTable": "Switch to table view",
     "switchToKanban": "Switch to Kanban view"
   },

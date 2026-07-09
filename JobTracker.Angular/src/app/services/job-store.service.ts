@@ -259,7 +259,7 @@ export class JobStoreService {
 
   updateJob(id: number, data: Omit<Job, 'id'>): void {
     this.api.updateJob(id, data).subscribe(updated =>
-      this.jobs.update(current => current.map(j => j.id === id ? updated : j))
+      this.jobs.update(current => [updated, ...current.filter(j => j.id !== id)])
     );
   }
 
@@ -271,9 +271,11 @@ export class JobStoreService {
 
   changeStatus(jobId: number, status: JobStatus): void {
     this.api.updateJobStatus(jobId, status).subscribe(() =>
-      this.jobs.update(current =>
-        current.map(j => j.id === jobId ? { ...j, status } : j)
-      )
+      this.jobs.update(current => {
+        const job = current.find(j => j.id === jobId);
+        if (!job) return current;
+        return [{ ...job, status }, ...current.filter(j => j.id !== jobId)];
+      })
     );
   }
 
