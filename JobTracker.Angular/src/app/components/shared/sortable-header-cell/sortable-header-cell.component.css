@@ -1,0 +1,9 @@
+.sortable-header-cell-icon {
+  margin-left: var(--space-1);
+  opacity: 0.3;
+}
+
+.sortable-header-cell-icon--active {
+  opacity: 1;
+  color: var(--clr-green);
+}

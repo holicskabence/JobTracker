@@ -8,17 +8,18 @@ import { FeedbackType, PracticeAttempt, PrepQuestion, QuestionCategory } from '.
 import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
+import { SearchToolbarComponent } from '../shared/search-toolbar/search-toolbar.component';
+import { SortableHeaderCellComponent } from '../shared/sortable-header-cell/sortable-header-cell.component';
+import { DataTableComponent } from '../shared/data-table/data-table.component';
 
 type Tab = 'practice' | 'questions' | 'results';
-type FilterCategory = 'Mind' | QuestionCategory;
 type FeedbackFilter = 'failed' | 'unanswered';
-type ActiveFilter = FilterCategory | FeedbackFilter;
 type QSortKey = 'category' | 'question' | 'feedback';
 
 @Component({
   selector: 'app-practice',
   standalone: true,
-  imports: [FormsModule, CardComponent, EmptyStateComponent, PageSectionComponent, TranslateModule],
+  imports: [FormsModule, CardComponent, EmptyStateComponent, PageSectionComponent, TranslateModule, SearchToolbarComponent, SortableHeaderCellComponent, DataTableComponent],
   templateUrl: './practice.component.html',
   styleUrl: './practice.component.css'
 })
@@ -32,7 +33,11 @@ export class PracticeComponent {
   readonly activeTab = signal<Tab>('practice');
 
   // ── Practice tab: filters ───────────────────────────────────────────────────
-  readonly selectedFilter = signal<ActiveFilter>('Mind');
+  // At most one built-in status filter (Mind/Failed/Unanswered) and at most one
+  // master-data category can be active at the same time; they combine with AND.
+  readonly selectedCategory = signal<string | null>(null);
+  readonly selectedStatus = signal<FeedbackFilter | null>(null);
+  readonly hasActiveFilters = computed(() => this.selectedCategory() !== null || this.selectedStatus() !== null);
   readonly categorySearch = signal('');
 
   readonly showCategorySearch = computed(() => this.practice.categories().length > 6);
@@ -44,16 +49,27 @@ export class PracticeComponent {
     return cats.filter(c => c.name.toLowerCase().includes(term));
   });
 
-  private readonly categoryCounts = computed(() => {
-    const map = new Map<string, number>();
-    for (const q of this.practice.questions()) {
-      map.set(q.category, (map.get(q.category) ?? 0) + 1);
-    }
-    return map;
+  readonly failedCount = computed(() => {
+    const category = this.selectedCategory();
+    let list = this.practice.questions().filter(q => q.feedback === 'incorrect');
+    if (category !== null) list = list.filter(q => q.category === category);
+    return list.length;
   });
 
-  readonly failedCount = computed(() => this.practice.questions().filter(q => q.feedback === 'incorrect').length);
-  readonly unansweredCount = computed(() => this.practice.questions().filter(q => q.feedback === null).length);
+  readonly unansweredCount = computed(() => {
+    const category = this.selectedCategory();
+    let list = this.practice.questions().filter(q => q.feedback === null);
+    if (category !== null) list = list.filter(q => q.category === category);
+    return list.length;
+  });
+
+  readonly emptyStateMessage = computed(() => {
+    const status = this.selectedStatus();
+    if (status === 'failed') return this.translate.instant('practice.empty.noFailed');
+    if (status === 'unanswered') return this.translate.instant('practice.empty.noUnanswered');
+    return this.translate.instant('practice.empty.noCategory');
+  });
+
   readonly currentIdx = signal(0);
   readonly userAnswer = signal('');
   readonly showSample = signal(false);
@@ -63,14 +79,16 @@ export class PracticeComponent {
   private readonly idxDraft = signal<string | null>(null);
 
   private readonly naturalFilteredQuestions = computed<PrepQuestion[]>(() => {
-    const filter = this.selectedFilter();
+    const status = this.selectedStatus();
+    const category = this.selectedCategory();
     let list = this.practice.questions();
-    if (filter === 'failed') {
+    if (status === 'failed') {
       list = list.filter(q => q.feedback === 'incorrect');
-    } else if (filter === 'unanswered') {
+    } else if (status === 'unanswered') {
       list = list.filter(q => q.feedback === null);
-    } else if (filter !== 'Mind') {
-      list = list.filter(q => q.category === filter);
+    }
+    if (category !== null) {
+      list = list.filter(q => q.category === category);
     }
     return list;
   });
@@ -181,7 +199,7 @@ export class PracticeComponent {
     };
   });
 
-  readonly recentAttempts = computed(() => this.practice.attempts().slice(0, 5));
+  readonly recentAttempts = computed(() => this.practice.attempts().slice(0, 10));
 
   readonly attemptGroups = computed(() => {
     const groups = new Map<string, PracticeAttempt[]>();
@@ -197,8 +215,23 @@ export class PracticeComponent {
     }));
   });
 
-  selectFilter(filter: ActiveFilter): void {
-    this.selectedFilter.set(filter);
+  toggleStatusFilter(status: FeedbackFilter): void {
+    this.selectedStatus.update(prev => prev === status ? null : status);
+    this.onFilterChanged();
+  }
+
+  toggleCategoryFilter(name: string): void {
+    this.selectedCategory.update(prev => prev === name ? null : name);
+    this.onFilterChanged();
+  }
+
+  clearFilters(): void {
+    this.selectedCategory.set(null);
+    this.selectedStatus.set(null);
+    this.onFilterChanged();
+  }
+
+  private onFilterChanged(): void {
     this.currentIdx.set(0);
     this.userAnswer.set('');
     this.showSample.set(false);
@@ -578,11 +611,6 @@ export class PracticeComponent {
     }
   }
 
-  qSortIcon(key: QSortKey): string {
-    if (this.qSortKey() !== key) return '↕';
-    return this.qSortDir() === 'asc' ? '↑' : '↓';
-  }
-
   toggleResultExpand(id: number): void {
     this.expandedResultId.update(cur => cur === id ? null : id);
   }
@@ -602,7 +630,20 @@ export class PracticeComponent {
   }
 
   categoryCount(name: string): number {
-    return this.categoryCounts().get(name) ?? 0;
+    const status = this.selectedStatus();
+    let list = this.practice.questions().filter(q => q.category === name);
+    if (status === 'failed') {
+      list = list.filter(q => q.feedback === 'incorrect');
+    } else if (status === 'unanswered') {
+      list = list.filter(q => q.feedback === null);
+    }
+    return list.length;
+  }
+
+  categoryMastery(name: string): number {
+    const qs = this.practice.questions().filter(q => q.category === name);
+    if (!qs.length) return 0;
+    return Math.round((qs.filter(q => q.feedback === 'correct').length / qs.length) * 100);
   }
 
   trackByQuestion(_: number, q: PrepQuestion): number { return q.id; }

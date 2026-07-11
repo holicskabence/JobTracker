@@ -11,45 +11,6 @@
 
     @if (activeTab() === 'practice') {
 
-            <div class="practice-toolbar">
-                <div class="practice-jump-wrap" (click)="$event.stopPropagation()">
-                    <div class="practice-jump-search-wrap">
-                        <svg class="practice-jump-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8" />
-                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                        </svg>
-                        <input class="practice-jump-search" type="text" [placeholder]="'practice.jump.searchPlaceholder' | translate"
-                            [ngModel]="jumpSearch()" (ngModelChange)="onJumpSearchChange($event)" (focus)="onJumpFocus()" />
-                        @if (jumpSearch()) {
-                        <button class="practice-jump-search-clear" (click)="clearJumpSearch()"
-                            [title]="'practice.jump.clearTitle' | translate">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                                stroke-linecap="round">
-                                <line x1="18" y1="6" x2="6" y2="18" />
-                                <line x1="6" y1="6" x2="18" y2="18" />
-                            </svg>
-                        </button>
-                        }
-                    </div>
-                    @if (jumpDropOpen() && jumpSearch().trim()) {
-                    <div class="practice-jump-panel">
-                        @for (item of jumpResults(); track item.q.id) {
-                        <button type="button" class="practice-jump-option" [class.practice-jump-option--current]="item.index === currentIdx()"
-                            (click)="jumpToQuestion(item.index)">
-                            <span class="practice-category-badge practice-category-badge--sm" [style.color]="categoryColor(item.q.category)"
-                                [style.background]="categoryColor(item.q.category) + '18'">{{ item.q.category }}</span>
-                            <span class="practice-jump-option-text">{{ item.q.question }}</span>
-                            <span class="practice-jump-option-index">#{{ item.index + 1 }}</span>
-                        </button>
-                        } @empty {
-                        <p class="practice-jump-empty">{{ 'practice.jump.noResults' | translate }}</p>
-                        }
-                    </div>
-                    }
-                </div>
-            </div>
-
     <div class="practice-body">
 
         <div class="practice-deck">
@@ -260,45 +221,54 @@
             </app-card>
             } @else {
             <app-card class="practice-card practice-card--empty" radius="xl">
-                <app-empty-state
-                    [message]="selectedFilter() === 'failed' ? ('practice.empty.noFailed' | translate) : (selectedFilter() === 'unanswered' ? ('practice.empty.noUnanswered' | translate) : ('practice.empty.noCategory' | translate))"></app-empty-state>
+                <app-empty-state [message]="emptyStateMessage()"></app-empty-state>
             </app-card>
             }
         </div>
 
         <!-- Aside: categories -->
         <aside class="practice-aside">
+            <div class="practice-aside-row">
             <app-card class="practice-categories-card" gap="none">
                 <div class="practice-categories-header">
                     <h3 class="practice-categories-title">{{ 'practice.categories.title' | translate }}</h3>
                     <span class="practice-categories-count">{{ practice.categories().length }}</span>
                 </div>
 
-                <div class="practice-categories-actions">
-                    <button type="button" class="practice-shuffle-toggle" [class.practice-shuffle-toggle--active]="randomOrder()"
-                        (click)="toggleRandomOrder()" [title]="'practice.filters.randomOrderTitle' | translate">
-                        <span class="practice-shuffle-toggle-icon">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="16 3 21 3 21 8" />
-                                <line x1="4" y1="20" x2="21" y2="3" />
-                                <polyline points="21 16 21 21 16 21" />
-                                <line x1="15" y1="15" x2="21" y2="21" />
-                                <line x1="4" y1="4" x2="9" y2="9" />
-                            </svg>
-                        </span>
-                        <span class="practice-shuffle-toggle-label">{{ 'practice.filters.randomOrder' | translate }}</span>
-                    </button>
-                    @if (randomOrder()) {
-                    <button class="practice-shuffle-button" (click)="reshuffle()" [disabled]="filteredQuestions().length < 2"
-                        [title]="'practice.filters.reshuffleTitle' | translate">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="23 4 23 10 17 10" />
-                            <polyline points="1 20 1 14 7 14" />
-                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                <div class="practice-jump-wrap" (click)="$event.stopPropagation()">
+                    <div class="practice-jump-search-wrap">
+                        <svg class="practice-jump-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
                         </svg>
-                    </button>
+                        <input class="practice-jump-search" type="text" [placeholder]="'practice.jump.searchPlaceholder' | translate"
+                            [ngModel]="jumpSearch()" (ngModelChange)="onJumpSearchChange($event)" (focus)="onJumpFocus()" />
+                        @if (jumpSearch()) {
+                        <button class="practice-jump-search-clear" (click)="clearJumpSearch()"
+                            [title]="'practice.jump.clearTitle' | translate">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                        }
+                    </div>
+                    @if (jumpDropOpen() && jumpSearch().trim()) {
+                    <div class="practice-jump-panel">
+                        @for (item of jumpResults(); track item.q.id) {
+                        <button type="button" class="practice-jump-option" [class.practice-jump-option--current]="item.index === currentIdx()"
+                            (click)="jumpToQuestion(item.index)">
+                            <span class="practice-category-badge practice-category-badge--sm" [style.color]="categoryColor(item.q.category)"
+                                [style.background]="categoryColor(item.q.category) + '18'">{{ item.q.category }}</span>
+                            <span class="practice-jump-option-text">{{ item.q.question }}</span>
+                            <span class="practice-jump-option-index">#{{ item.index + 1 }}</span>
+                        </button>
+                        } @empty {
+                        <p class="practice-jump-empty">{{ 'practice.jump.noResults' | translate }}</p>
+                        }
+                    </div>
                     }
                 </div>
 
@@ -315,22 +285,27 @@
                 }
 
                 <div class="practice-cat-list">
-                    <button class="practice-cat-row practice-cat-row--all" [class.practice-cat-row--active]="selectedFilter() === 'Mind'"
-                        (click)="selectFilter('Mind')">
-                        <span class="practice-cat-row-icon practice-cat-row-icon--all">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="12 2 2 7 12 12 22 7 12 2" />
-                                <polyline points="2 17 12 22 22 17" />
-                                <polyline points="2 12 12 17 22 12" />
-                            </svg>
+                    <button class="practice-cat-row practice-cat-row--all practice-cat-row--with-progress" [class.practice-cat-row--active]="!hasActiveFilters()"
+                        (click)="clearFilters()">
+                        <span class="practice-cat-row-main">
+                            <span class="practice-cat-row-icon practice-cat-row-icon--all">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                                    <polyline points="2 17 12 22 22 17" />
+                                    <polyline points="2 12 12 17 22 12" />
+                                </svg>
+                            </span>
+                            <span class="practice-cat-row-name">{{ 'practice.filters.all' | translate }}</span>
+                            <span class="practice-cat-row-count">{{ practice.questions().length }}</span>
                         </span>
-                        <span class="practice-cat-row-name">{{ 'practice.filters.all' | translate }}</span>
-                        <span class="practice-cat-row-count">{{ practice.questions().length }}</span>
+                        <span class="practice-cat-row-progress-track">
+                            <span class="practice-cat-row-progress-fill" [style.width.%]="practice.readinessScore()"></span>
+                        </span>
                     </button>
 
-                    <button class="practice-cat-row practice-cat-row--failed" [class.practice-cat-row--active]="selectedFilter() === 'failed'"
-                        (click)="selectFilter('failed')">
+                    <button class="practice-cat-row practice-cat-row--failed" [class.practice-cat-row--active]="selectedStatus() === 'failed'"
+                        (click)="toggleStatusFilter('failed')">
                         <span class="practice-cat-row-icon practice-cat-row-icon--failed">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -343,8 +318,8 @@
                         <span class="practice-cat-row-count">{{ failedCount() }}</span>
                     </button>
 
-                    <button class="practice-cat-row practice-cat-row--unanswered" [class.practice-cat-row--active]="selectedFilter() === 'unanswered'"
-                        (click)="selectFilter('unanswered')">
+                    <button class="practice-cat-row practice-cat-row--unanswered" [class.practice-cat-row--active]="selectedStatus() === 'unanswered'"
+                        (click)="toggleStatusFilter('unanswered')">
                         <span class="practice-cat-row-icon practice-cat-row-icon--unanswered">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -357,14 +332,35 @@
                         <span class="practice-cat-row-count">{{ unansweredCount() }}</span>
                     </button>
 
+                    <button type="button" class="practice-cat-row practice-cat-row--shuffle" [class.practice-cat-row--active]="randomOrder()"
+                        (click)="toggleRandomOrder()" [title]="'practice.filters.randomOrderTitle' | translate">
+                        <span class="practice-cat-row-icon practice-cat-row-icon--shuffle">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="16 3 21 3 21 8" />
+                                <line x1="4" y1="20" x2="21" y2="3" />
+                                <polyline points="21 16 21 21 16 21" />
+                                <line x1="15" y1="15" x2="21" y2="21" />
+                                <line x1="4" y1="4" x2="9" y2="9" />
+                            </svg>
+                        </span>
+                        <span class="practice-cat-row-name">{{ 'practice.filters.randomOrder' | translate }}</span>
+                    </button>
+
                     <span class="practice-cat-divider"></span>
 
                     @for (category of visibleCategories(); track category.id) {
-                    <button class="practice-cat-row" [class.practice-cat-row--active]="selectedFilter() === category.name"
-                        (click)="selectFilter(category.name)">
-                        <span class="practice-cat-row-dot" [style.background-color]="category.color"></span>
-                        <span class="practice-cat-row-name">{{ category.name }}</span>
-                        <span class="practice-cat-row-count">{{ categoryCount(category.name) }}</span>
+                    <button class="practice-cat-row practice-cat-row--with-progress" [class.practice-cat-row--active]="selectedCategory() === category.name"
+                        (click)="toggleCategoryFilter(category.name)">
+                        <span class="practice-cat-row-main">
+                            <span class="practice-cat-row-dot" [style.background-color]="category.color"></span>
+                            <span class="practice-cat-row-name">{{ category.name }}</span>
+                            <span class="practice-cat-row-count">{{ categoryCount(category.name) }}</span>
+                        </span>
+                        <span class="practice-cat-row-progress-track">
+                            <span class="practice-cat-row-progress-fill" [style.width.%]="categoryMastery(category.name)"
+                                [style.background-color]="category.color"></span>
+                        </span>
                     </button>
                     } @empty {
                     <p class="practice-cat-empty">{{ 'practice.categories.noMatch' | translate }}</p>
@@ -393,8 +389,9 @@
                     }
                 </div>
             </app-card>
+            </div>
 
-            @if (selectedFilter() === 'failed') {
+            @if (selectedStatus() === 'failed') {
             <div class="practice-tip-card">
                 <p class="practice-tip-title">{{ 'practice.tip.title' | translate }}</p>
                 <p class="practice-tip-text">{{ 'practice.tip.text' | translate }}</p>
@@ -432,27 +429,11 @@
             <p class="practice-import-message practice-import-message--success">{{ importSuccess() }}</p>
             }
 
-            <div class="practice-q-toolbar">
-                <div class="practice-q-search-wrap">
-                    <svg class="practice-q-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8" />
-                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                    </svg>
-                    <input class="practice-q-search" type="text" [placeholder]="'practice.questionsTab.searchPlaceholder' | translate"
-                        [ngModel]="qSearch()" (ngModelChange)="qSearch.set($event)" />
-                    @if (qSearch()) {
-                    <button class="practice-q-search-clear" (click)="qSearch.set('')" [title]="'practice.jump.clearTitle' | translate">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3" stroke-linecap="round">
-                            <line x1="18" y1="6" x2="6" y2="18" />
-                            <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
-                    </button>
-                    }
-                </div>
-                <span class="practice-q-count">{{ sortedQuestions().length }} {{ 'practice.questionsTab.resultsSuffix' | translate }}</span>
-            </div>
+            <app-search-toolbar [value]="qSearch()" (valueChange)="qSearch.set($event)"
+                [placeholder]="'practice.questionsTab.searchPlaceholder' | translate"
+                [clearTitle]="'practice.jump.clearTitle' | translate"
+                [countLabel]="sortedQuestions().length + ' ' + ('practice.questionsTab.resultsSuffix' | translate)"
+                [size]="'compact'" />
 
             @if (selectedQuestionCount() > 0) {
             <div class="practice-q-bulk-bar">
@@ -464,141 +445,132 @@
             </div>
             }
 
-            <div class="practice-q-table-wrap">
-                <table class="practice-q-table">
-                    <thead>
-                        <tr>
-                            <th class="practice-q-header-cell practice-q-header-cell--check">
-                                <input type="checkbox" class="practice-q-checkbox" [checked]="isAllQuestionsSelected()"
-                                    (change)="toggleSelectAllQuestions()" [title]="'practice.questionsTab.selectAllTitle' | translate" />
-                            </th>
-                            <th class="practice-q-header-cell practice-q-header-cell--sortable" (click)="qSort('category')">
-                                {{ 'practice.questionsTab.colCategory' | translate }}
-                                <span class="practice-q-sort-icon"
-                                    [class.practice-q-sort-icon--active]="qSortKey() === 'category'">{{
-                                    qSortIcon('category') }}</span>
-                            </th>
-                            <th class="practice-q-header-cell practice-q-header-cell--sortable" (click)="qSort('question')">
-                                {{ 'practice.questionsTab.colQuestion' | translate }}
-                                <span class="practice-q-sort-icon"
-                                    [class.practice-q-sort-icon--active]="qSortKey() === 'question'">{{
-                                    qSortIcon('question') }}</span>
-                            </th>
-                            <th class="practice-q-header-cell practice-q-header-cell--sortable" (click)="qSort('feedback')">
-                                {{ 'practice.questionsTab.colStatus' | translate }}
-                                <span class="practice-q-sort-icon"
-                                    [class.practice-q-sort-icon--active]="qSortKey() === 'feedback'">{{
-                                    qSortIcon('feedback') }}</span>
-                            </th>
-                            <th class="practice-q-header-cell practice-q-header-cell--actions">{{ 'practice.questionsTab.colActions' | translate }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (q of sortedQuestions(); track q.id) {
-                        <tr class="practice-q-tr" [class.practice-q-tr--selected]="isQuestionSelected(q.id)"
-                            (click)="toggleQuestionSelection(q.id)">
-                            <td class="practice-q-cell practice-q-cell--check">
-                                <input type="checkbox" class="practice-q-checkbox" [checked]="isQuestionSelected(q.id)"
-                                    (click)="$event.stopPropagation()" (change)="toggleQuestionSelection(q.id)" />
-                            </td>
-                            <td class="practice-q-cell">
-                                <span class="practice-category-badge practice-category-badge--sm" [style.color]="categoryColor(q.category)"
-                                    [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
-                            </td>
-                            <td class="practice-q-cell practice-q-cell--main">
-                                <p class="practice-q-text">{{ q.question }}</p>
-                                @if (q.hint) {
-                                <p class="practice-q-hint">{{ q.hint }}</p>
-                                }
-                            </td>
-                            <td class="practice-q-cell">
-                                @if (q.feedback; as feedback) {
-                                <span class="practice-feedback-badge" [class]="'practice-feedback-badge--' + feedback">{{ feedbackLabel(feedback) }}</span>
-                                } @else {
-                                <span class="practice-feedback-badge practice-feedback-badge--none">—</span>
-                                }
-                            </td>
-                            <td class="practice-q-cell practice-q-cell--actions" (click)="$event.stopPropagation()">
-                                <button class="practice-icon-button" (click)="openEditQuestionModal(q)" [title]="'practice.questionsTab.editTitle' | translate">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                                    </svg>
-                                </button>
-                                <button class="practice-icon-button practice-icon-button--danger" (click)="deleteQuestion(q.id)"
-                                    [title]="'practice.questionsTab.deleteTitle' | translate">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="3 6 5 6 21 6" />
-                                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-                                        <path d="M10 11v6M14 11v6" />
-                                        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        } @empty {
-                        <tr>
-                            <td colspan="5">
-                                <app-empty-state
-                                    [message]="qSearch() ? (('practice.questionsTab.noSearchResultsPrefix' | translate) + qSearch() + ('practice.questionsTab.noSearchResultsSuffix' | translate)) : ('practice.questionsTab.noQuestions' | translate)"></app-empty-state>
-                            </td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+            <app-data-table [stickyHeader]="false" [mobileBreakpoint]="'compact'">
 
-            <div class="practice-q-cards">
-                @for (q of sortedQuestions(); track q.id) {
-                <app-card class="practice-q-card" [class.practice-q-card--selected]="isQuestionSelected(q.id)"
-                    (click)="toggleQuestionSelection(q.id)">
-                    <div class="practice-q-card-header">
-                        <div class="practice-q-card-header-left">
+                <th tableHeaderCells class="practice-q-header-cell practice-q-header-cell--check">
+                    <input type="checkbox" class="practice-q-checkbox" [checked]="isAllQuestionsSelected()"
+                        (change)="toggleSelectAllQuestions()" [title]="'practice.questionsTab.selectAllTitle' | translate" />
+                </th>
+                <th tableHeaderCells appSortableHeaderCell class="practice-q-header-cell practice-q-header-cell--sortable"
+                    [active]="qSortKey() === 'category'" [direction]="qSortDir()" (sortClick)="qSort('category')">
+                    {{ 'practice.questionsTab.colCategory' | translate }}
+                </th>
+                <th tableHeaderCells appSortableHeaderCell class="practice-q-header-cell practice-q-header-cell--sortable"
+                    [active]="qSortKey() === 'question'" [direction]="qSortDir()" (sortClick)="qSort('question')">
+                    {{ 'practice.questionsTab.colQuestion' | translate }}
+                </th>
+                <th tableHeaderCells appSortableHeaderCell class="practice-q-header-cell practice-q-header-cell--sortable"
+                    [active]="qSortKey() === 'feedback'" [direction]="qSortDir()" (sortClick)="qSort('feedback')">
+                    {{ 'practice.questionsTab.colStatus' | translate }}
+                </th>
+                <th tableHeaderCells class="practice-q-header-cell practice-q-header-cell--actions">{{ 'practice.questionsTab.colActions' | translate }}</th>
+
+                <ng-container tableRows>
+                    @for (q of sortedQuestions(); track q.id) {
+                    <tr class="practice-q-tr" [class.practice-q-tr--selected]="isQuestionSelected(q.id)"
+                        (click)="toggleQuestionSelection(q.id)">
+                        <td class="practice-q-cell practice-q-cell--check">
                             <input type="checkbox" class="practice-q-checkbox" [checked]="isQuestionSelected(q.id)"
                                 (click)="$event.stopPropagation()" (change)="toggleQuestionSelection(q.id)" />
+                        </td>
+                        <td class="practice-q-cell">
                             <span class="practice-category-badge practice-category-badge--sm" [style.color]="categoryColor(q.category)"
                                 [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
-                        </div>
-                        @if (q.feedback; as feedback) {
-                        <span class="practice-feedback-badge" [class]="'practice-feedback-badge--' + feedback">{{ feedbackLabel(feedback) }}</span>
-                        } @else {
-                        <span class="practice-feedback-badge practice-feedback-badge--none">—</span>
-                        }
-                    </div>
-                    <p class="practice-q-card-text">{{ q.question }}</p>
-                    @if (q.hint) {
-                    <p class="practice-q-card-hint">{{ q.hint }}</p>
+                        </td>
+                        <td class="practice-q-cell practice-q-cell--main">
+                            <p class="practice-q-text">{{ q.question }}</p>
+                            @if (q.hint) {
+                            <p class="practice-q-hint">{{ q.hint }}</p>
+                            }
+                        </td>
+                        <td class="practice-q-cell">
+                            @if (q.feedback; as feedback) {
+                            <span class="practice-feedback-badge" [class]="'practice-feedback-badge--' + feedback">{{ feedbackLabel(feedback) }}</span>
+                            } @else {
+                            <span class="practice-feedback-badge practice-feedback-badge--none">—</span>
+                            }
+                        </td>
+                        <td class="practice-q-cell practice-q-cell--actions" (click)="$event.stopPropagation()">
+                            <button class="practice-icon-button" (click)="openEditQuestionModal(q)" [title]="'practice.questionsTab.editTitle' | translate">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                </svg>
+                            </button>
+                            <button class="practice-icon-button practice-icon-button--danger" (click)="deleteQuestion(q.id)"
+                                [title]="'practice.questionsTab.deleteTitle' | translate">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                                    <path d="M10 11v6M14 11v6" />
+                                    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="5">
+                            <app-empty-state
+                                [message]="qSearch() ? (('practice.questionsTab.noSearchResultsPrefix' | translate) + qSearch() + ('practice.questionsTab.noSearchResultsSuffix' | translate)) : ('practice.questionsTab.noQuestions' | translate)"></app-empty-state>
+                        </td>
+                    </tr>
                     }
-                    <p class="practice-q-card-answer">
-                        <span class="practice-q-card-answer-label">{{ 'practice.questionsTab.answerLabel' | translate }}:</span>
-                        {{ q.sampleAnswer }}
-                    </p>
-                    <div class="practice-q-card-actions" (click)="$event.stopPropagation()">
-                        <button class="practice-icon-button" (click)="openEditQuestionModal(q)" [title]="'practice.questionsTab.editTitle' | translate">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                            </svg>
-                        </button>
-                        <button class="practice-icon-button practice-icon-button--danger" (click)="deleteQuestion(q.id)" [title]="'practice.questionsTab.deleteTitle' | translate">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="3 6 5 6 21 6" />
-                                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-                                <path d="M10 11v6M14 11v6" />
-                                <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
-                            </svg>
-                        </button>
-                    </div>
-                </app-card>
-                } @empty {
-                <app-empty-state
-                    [message]="qSearch() ? (('practice.questionsTab.noSearchResultsPrefix' | translate) + qSearch() + ('practice.questionsTab.noSearchResultsSuffix' | translate)) : ('practice.questionsTab.noQuestions' | translate)"></app-empty-state>
-                }
-            </div>
+                </ng-container>
+
+                <ng-container cardItems>
+                    @for (q of sortedQuestions(); track q.id) {
+                    <app-card class="practice-q-card" [class.practice-q-card--selected]="isQuestionSelected(q.id)"
+                        (click)="toggleQuestionSelection(q.id)">
+                        <div class="practice-q-card-header">
+                            <div class="practice-q-card-header-left">
+                                <input type="checkbox" class="practice-q-checkbox" [checked]="isQuestionSelected(q.id)"
+                                    (click)="$event.stopPropagation()" (change)="toggleQuestionSelection(q.id)" />
+                                <span class="practice-category-badge practice-category-badge--sm" [style.color]="categoryColor(q.category)"
+                                    [style.background]="categoryColor(q.category) + '18'">{{ q.category }}</span>
+                            </div>
+                            @if (q.feedback; as feedback) {
+                            <span class="practice-feedback-badge" [class]="'practice-feedback-badge--' + feedback">{{ feedbackLabel(feedback) }}</span>
+                            } @else {
+                            <span class="practice-feedback-badge practice-feedback-badge--none">—</span>
+                            }
+                        </div>
+                        <p class="practice-q-card-text">{{ q.question }}</p>
+                        @if (q.hint) {
+                        <p class="practice-q-card-hint">{{ q.hint }}</p>
+                        }
+                        <p class="practice-q-card-answer">
+                            <span class="practice-q-card-answer-label">{{ 'practice.questionsTab.answerLabel' | translate }}:</span>
+                            {{ q.sampleAnswer }}
+                        </p>
+                        <div class="practice-q-card-actions" (click)="$event.stopPropagation()">
+                            <button class="practice-icon-button" (click)="openEditQuestionModal(q)" [title]="'practice.questionsTab.editTitle' | translate">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                </svg>
+                            </button>
+                            <button class="practice-icon-button practice-icon-button--danger" (click)="deleteQuestion(q.id)" [title]="'practice.questionsTab.deleteTitle' | translate">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                                    <path d="M10 11v6M14 11v6" />
+                                    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                                </svg>
+                            </button>
+                        </div>
+                    </app-card>
+                    } @empty {
+                    <app-empty-state
+                        [message]="qSearch() ? (('practice.questionsTab.noSearchResultsPrefix' | translate) + qSearch() + ('practice.questionsTab.noSearchResultsSuffix' | translate)) : ('practice.questionsTab.noQuestions' | translate)"></app-empty-state>
+                    }
+                </ng-container>
+
+            </app-data-table>
 
     </div>
     }

@@ -1,10 +1,11 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { NgClass } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { Job } from '../../models/job.model';
 import { JobStoreService } from '../../services/job-store.service';
 import { CardComponent } from '../shared/card/card.component';
+import { SearchToolbarComponent } from '../shared/search-toolbar/search-toolbar.component';
+import { SortableHeaderCellComponent } from '../shared/sortable-header-cell/sortable-header-cell.component';
+import { DataTableComponent } from '../shared/data-table/data-table.component';
 
 type SortKey = 'company' | 'status' | 'date';
 type SortDir = 'asc' | 'description';
@@ -12,7 +13,7 @@ type SortDir = 'asc' | 'description';
 @Component({
   selector: 'app-table-view',
   standalone: true,
-  imports: [NgClass, FormsModule, TranslateModule, CardComponent],
+  imports: [TranslateModule, CardComponent, SearchToolbarComponent, SortableHeaderCellComponent, DataTableComponent],
   templateUrl: './table-view.component.html',
   styleUrl: './table-view.component.css'
 })
@@ -54,11 +55,6 @@ export class TableViewComponent {
       this.sortKey.set(key);
       this.sortDir.set(key === 'date' ? 'description' : 'asc');
     }
-  }
-
-  sortIcon(key: SortKey): string {
-    if (this.sortKey() !== key) return '↕';
-    return this.sortDir() === 'asc' ? '↑' : '↓';
   }
 
   colorFor(status: string): string { return this.store.colorFor(status); }

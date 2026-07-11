@@ -1,6 +1,14 @@
-<app-page-section class="applications-header" [title]="'applicationsView.sectionTitle' | translate" [subtitle]="'applicationsView.sectionSubtitle' | translate"></app-page-section>
+<app-page-section class="applications-header" [title]="'applicationsView.sectionTitle' | translate" [subtitle]="'applicationsView.sectionSubtitle' | translate">
+    @if (viewService.view() === 'kanban') {
+    <div pageActions class="applications-kanban-search">
+        <app-search-toolbar [value]="kanbanSearch()" (valueChange)="kanbanSearch.set($event)"
+            [placeholder]="'kanban.searchPlaceholder' | translate" [clearTitle]="'kanban.clear' | translate"
+            [size]="'compact'" />
+    </div>
+    }
+</app-page-section>
 @if (viewService.view() === 'kanban') {
-<app-kanban />
+<app-kanban [search]="kanbanSearch()" />
 } @else {
 <app-table-view />
 }

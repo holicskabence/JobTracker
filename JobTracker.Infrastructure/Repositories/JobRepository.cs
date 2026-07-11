@@ -9,7 +9,7 @@ public sealed class JobRepository(JobTrackerDbContext ctx)
     : BaseRepository<Job>(ctx), IJobRepository
 {
     public async Task<IReadOnlyList<Job>> GetAllByUserAsync(int userId) =>
-        await Ctx.Jobs.Where(j => j.UserId == userId).OrderByDescending(j => j.Id).ToListAsync();
+        await Ctx.Jobs.Where(j => j.UserId == userId).OrderByDescending(j => j.UpdatedAt).ToListAsync();
 
     public async Task<Job?> GetByIdAsync(int id, int userId) =>
         await Ctx.Jobs.FirstOrDefaultAsync(j => j.Id == id && j.UserId == userId);
@@ -19,6 +19,7 @@ public sealed class JobRepository(JobTrackerDbContext ctx)
         var job = await GetByIdAsync(id, userId);
         if (job is null) return null;
         job.Status = status;
+        job.UpdatedAt = DateTime.UtcNow;
         await Ctx.SaveChangesAsync();
         return job;
     }

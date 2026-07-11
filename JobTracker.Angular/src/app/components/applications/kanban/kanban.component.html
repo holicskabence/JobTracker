@@ -2,7 +2,7 @@
     <div class="kanban-scroll">
         @for (column of columns(); track column.key) {
         <app-kanban-column [status]="column.key" [label]="column.label" [color]="column.color" [jobs]="jobsFor(column.key)"
-            [selectedIds]="selectedIds()" (toggleSelect)="toggle($event)" (dropped)="onDrop($event)" />
+            [selectedIds]="selectedIds()" [isFiltering]="isFiltering()" (toggleSelect)="toggle($event)" (dropped)="onDrop($event)" />
         }
     </div>
     @if (hasSelection()) {

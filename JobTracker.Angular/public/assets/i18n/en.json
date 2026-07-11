@@ -280,7 +280,9 @@
   },
   "kanban": {
     "selectedCount": "selected — Move to:",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "searchPlaceholder": "Search…",
+    "clear": "Clear"
   },
   "applicationsView": {
     "sectionTitle": "Applications",
@@ -487,8 +489,7 @@
       "failed": "Failed",
       "unanswered": "Unanswered",
       "randomOrder": "Random order",
-      "randomOrderTitle": "Questions in random order",
-      "reshuffleTitle": "New random order"
+      "randomOrderTitle": "Questions in random order"
     },
     "jump": {
       "searchPlaceholder": "Jump to a question…",
@@ -649,7 +650,8 @@
       "errorGeneric": "An error occurred while processing the request."
     },
     "kanbanColumn": {
-      "dropHint": "Drag a card here"
+      "dropHint": "Drag a card here",
+      "noMatch": "No matching cards"
     },
     "jobCard": {
       "edit": "Edit",

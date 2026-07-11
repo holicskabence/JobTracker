@@ -280,7 +280,9 @@
   },
   "kanban": {
     "selectedCount": "kijelölve — Áthelyezés ide:",
-    "cancel": "Mégse"
+    "cancel": "Mégse",
+    "searchPlaceholder": "Keresés…",
+    "clear": "Törlés"
   },
   "applicationsView": {
     "sectionTitle": "Jelentkezések",
@@ -487,8 +489,7 @@
       "failed": "Nem sikerültek",
       "unanswered": "Megválaszolatlan",
       "randomOrder": "Véletlen sorrend",
-      "randomOrderTitle": "Kérdések véletlen sorrendben",
-      "reshuffleTitle": "Új véletlen sorrend"
+      "randomOrderTitle": "Kérdések véletlen sorrendben"
     },
     "jump": {
       "searchPlaceholder": "Ugrás egy kérdéshez…",
@@ -649,7 +650,8 @@
       "errorGeneric": "Hiba történt a kérés feldolgozása közben."
     },
     "kanbanColumn": {
-      "dropHint": "Húzz ide egy kártyát"
+      "dropHint": "Húzz ide egy kártyát",
+      "noMatch": "Nincs egyező kártya"
     },
     "jobCard": {
       "edit": "Szerkesztés",

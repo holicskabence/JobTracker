@@ -16,6 +16,7 @@ export class KanbanColumnComponent {
   @Input() color = '#9b9b99';
   @Input() jobs: Job[] = [];
   @Input() selectedIds = new Set<number>();
+  @Input() isFiltering = false;
 
   @Output() toggleSelect = new EventEmitter<number>();
   @Output() dropped = new EventEmitter<{ jobId: number; status: string }>();

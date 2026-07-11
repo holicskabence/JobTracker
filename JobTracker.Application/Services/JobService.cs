@@ -28,7 +28,8 @@ public sealed class JobService(IJobRepository repo, IJobStatusHistoryRepository 
             Position = request.Position,
             Link = request.Link,
             Date = request.Date,
-            Status = request.Status
+            Status = request.Status,
+            UpdatedAt = DateTime.UtcNow
         };
         await repo.AddAsync(job);
         await historyRepo.AddAsync(new JobStatusHistory
@@ -55,6 +56,7 @@ public sealed class JobService(IJobRepository repo, IJobStatusHistoryRepository 
         job.Link = request.Link;
         job.Date = request.Date;
         job.Status = request.Status;
+        job.UpdatedAt = DateTime.UtcNow;
 
         await repo.UpdateAsync(job);
 

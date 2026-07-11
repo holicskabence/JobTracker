@@ -1,11 +1,13 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { JobStatusHistoryEntry } from '../../models/job.model';
 import { JobApiService } from '../../services/job-api.service';
 import { JobStoreService } from '../../services/job-store.service';
 import { CardComponent } from '../shared/card/card.component';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
+import { SearchToolbarComponent } from '../shared/search-toolbar/search-toolbar.component';
+import { SortableHeaderCellComponent } from '../shared/sortable-header-cell/sortable-header-cell.component';
+import { DataTableComponent } from '../shared/data-table/data-table.component';
 
 type SortKey = 'company' | 'changedAt';
 type SortDir = 'asc' | 'description';
@@ -13,7 +15,7 @@ type SortDir = 'asc' | 'description';
 @Component({
   selector: 'app-application-changes',
   standalone: true,
-  imports: [FormsModule, TranslateModule, CardComponent, PageSectionComponent],
+  imports: [TranslateModule, CardComponent, PageSectionComponent, SearchToolbarComponent, SortableHeaderCellComponent, DataTableComponent],
   templateUrl: './application-changes.component.html',
   styleUrl: './application-changes.component.css'
 })
@@ -68,11 +70,6 @@ export class ApplicationChangesComponent implements OnInit {
       this.sortKey.set(key);
       this.sortDir.set(key === 'changedAt' ? 'description' : 'asc');
     }
-  }
-
-  sortIcon(key: SortKey): string {
-    if (this.sortKey() !== key) return '↕';
-    return this.sortDir() === 'asc' ? '↑' : '↓';
   }
 
   colorFor(status: string): string { return this.store.colorFor(status); }
