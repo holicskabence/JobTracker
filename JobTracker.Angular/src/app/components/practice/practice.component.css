@@ -1,3 +1,10 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
 .practice-tabs {
     display: flex;
     gap: var(--space-1);
@@ -101,7 +108,8 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-0-5);
-    max-height: 460px;
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
 }
 
@@ -455,9 +463,6 @@
 .practice-categories-card,
 .practice-history-card {
     justify-content: flex-start;
-}
-
-.practice-history-card {
     position: sticky;
     top: 0;
     max-height: calc(100dvh - 64px - (var(--space-8) * 2));
@@ -465,6 +470,8 @@
 }
 
 @media (max-width: 1023px) {
+
+    .practice-categories-card,
     .practice-history-card {
         max-height: calc(100dvh - 64px - (var(--padding-card) * 2));
     }
@@ -488,6 +495,7 @@
         grid-template-columns: minmax(0, 1fr);
     }
 
+    .practice-categories-card,
     .practice-history-card {
         position: static;
         max-height: none;
@@ -499,6 +507,7 @@
     }
 
     .practice-cat-list {
+        flex: none;
         flex-direction: row;
         max-height: none;
         overflow-x: auto;
@@ -1285,27 +1294,6 @@
     color: var(--clr-muted);
     text-align: center;
     padding: var(--space-3) 0;
-    margin: 0;
-}
-
-.practice-tip-card {
-    background: rgba(245, 158, 11, 0.06);
-    border: 1px solid rgba(245, 158, 11, 0.2);
-    border-radius: var(--radius-lg);
-    padding: var(--space-4) var(--space-5);
-}
-
-.practice-tip-title {
-    font-size: 0.8125rem;
-    font-weight: 700;
-    color: #b45309;
-    margin: 0 0 var(--space-1);
-}
-
-.practice-tip-text {
-    font-size: 0.8125rem;
-    color: var(--clr-muted);
-    line-height: 1.55;
     margin: 0;
 }
 

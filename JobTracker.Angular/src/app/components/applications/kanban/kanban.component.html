@@ -1,9 +1,22 @@
 <div class="kanban">
     <div class="kanban-scroll">
-        @for (column of columns(); track column.key) {
-        <app-kanban-column [status]="column.key" [label]="column.label" [color]="column.color" [jobs]="jobsFor(column.key)"
-            [selectedIds]="selectedIds()" [isFiltering]="isFiltering()" (toggleSelect)="toggle($event)" (dropped)="onDrop($event)" />
-        }
+        <div class="kanban-header-row">
+            @for (column of columns(); track column.key) {
+            <div class="kanban-column-header">
+                <div class="kanban-column-title-row">
+                    <span class="kanban-column-dot" [style.background-color]="column.color"></span>
+                    <h4 class="kanban-column-title">{{ column.label }}</h4>
+                </div>
+                <span class="kanban-column-count">{{ jobsFor(column.key).length }}</span>
+            </div>
+            }
+        </div>
+        <div class="kanban-body-row">
+            @for (column of columns(); track column.key) {
+            <app-kanban-column [status]="column.key" [jobs]="jobsFor(column.key)"
+                [selectedIds]="selectedIds()" [isFiltering]="isFiltering()" (toggleSelect)="toggle($event)" (dropped)="onDrop($event)" />
+            }
+        </div>
     </div>
     @if (hasSelection()) {
     <div class="bulk-bar">

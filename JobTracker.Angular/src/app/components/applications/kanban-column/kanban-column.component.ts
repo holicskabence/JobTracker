@@ -12,8 +12,6 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class KanbanColumnComponent {
   @Input({ required: true }) status!: JobStatus;
-  @Input({ required: true }) label!: string;
-  @Input() color = '#9b9b99';
   @Input() jobs: Job[] = [];
   @Input() selectedIds = new Set<number>();
   @Input() isFiltering = false;

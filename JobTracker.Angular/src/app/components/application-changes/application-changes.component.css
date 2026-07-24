@@ -1,3 +1,10 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
 .table-view-header-cell {
   padding: var(--space-3) var(--space-4);
   text-align: left;
@@ -113,17 +120,27 @@
   gap: var(--gap-card);
 }
 
+.table-view-card-info {
+  min-width: 0;
+}
+
 .table-view-card-company {
   font-size: 0.9375rem;
   font-weight: 700;
   color: var(--clr-dark);
   line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .table-view-card-position {
   font-size: 0.8125rem;
   color: var(--clr-muted);
   margin-top: var(--space-0-5);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .table-view-card-meta {
@@ -137,4 +154,5 @@
   font-size: 0.8125rem;
   color: var(--clr-muted);
   white-space: nowrap;
+  flex-shrink: 0;
 }

@@ -35,8 +35,17 @@ export class DashboardHeaderComponent {
     gyakorlas: 'header.titles.practice',
   };
 
+  private readonly ADD_BUTTON_LABEL_KEYS: Partial<Record<DashboardTab, string>> = {
+    esemenyek: 'events.addEventBtn',
+    dokumentumok: 'documents.recordFileOrLink',
+  };
+
   get pageTitle(): string {
     const key = this.PAGE_TITLE_KEYS[this.activeTab];
     return key ? this.translate.instant(key) : '';
+  }
+
+  get addButtonLabelKey(): string {
+    return this.ADD_BUTTON_LABEL_KEYS[this.activeTab] ?? 'header.addJob';
   }
 }

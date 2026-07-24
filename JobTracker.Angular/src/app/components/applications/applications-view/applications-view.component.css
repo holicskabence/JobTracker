@@ -1,16 +1,24 @@
-.applications-header {
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+app-page-section.applications-header {
     display: block;
+    flex: none;
     padding: var(--space-4) var(--space-4) 0;
 }
 
 @media (min-width: 768px) {
-    .applications-header {
+    app-page-section.applications-header {
         padding: var(--padding-card) var(--padding-card) 0;
     }
 }
 
 @media (min-width: 1024px) {
-    .applications-header {
+    app-page-section.applications-header {
         padding: var(--space-8) var(--space-8) 0;
     }
 }

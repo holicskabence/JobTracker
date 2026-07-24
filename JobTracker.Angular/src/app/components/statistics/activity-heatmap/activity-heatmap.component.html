@@ -1,0 +1,75 @@
+<div class="activity-heatmap">
+
+  <div class="activity-heatmap-scroll-area">
+    <div class="activity-heatmap-content" [style.width.px]="gridWidth() + 30">
+
+      <div class="activity-heatmap-months-row">
+        @for (m of monthLabels(); track m.left) {
+        <span class="activity-heatmap-month-label" [style.left.px]="m.left">{{ m.label }}</span>
+        }
+      </div>
+
+      <div class="activity-heatmap-main-row">
+        <div class="activity-heatmap-weekday-col">
+          <span class="activity-heatmap-weekday-cell"></span>
+          <span class="activity-heatmap-weekday-cell">{{ 'statistics.weekdayActivity.days.tuesdayShort' | translate }}</span>
+          <span class="activity-heatmap-weekday-cell"></span>
+          <span class="activity-heatmap-weekday-cell">{{ 'statistics.weekdayActivity.days.thursdayShort' | translate }}</span>
+          <span class="activity-heatmap-weekday-cell"></span>
+          <span class="activity-heatmap-weekday-cell">{{ 'statistics.weekdayActivity.days.saturdayShort' | translate }}</span>
+          <span class="activity-heatmap-weekday-cell"></span>
+        </div>
+
+        <div class="activity-heatmap-weeks-row">
+          @for (week of weeks(); track $index) {
+          <div class="activity-heatmap-week-col">
+            @for (day of week.days; track day.date) {
+            <button type="button" class="activity-heatmap-cell"
+              [class.activity-heatmap-cell--0]="day.level === 0 && !day.isFuture"
+              [class.activity-heatmap-cell--1]="day.level === 1"
+              [class.activity-heatmap-cell--2]="day.level === 2"
+              [class.activity-heatmap-cell--3]="day.level === 3"
+              [class.activity-heatmap-cell--4]="day.level === 4"
+              [class.activity-heatmap-cell--future]="day.isFuture"
+              [disabled]="day.isFuture"
+              [attr.tabindex]="day.isFuture ? -1 : 0"
+              [attr.aria-label]="day.date + ': ' + day.count"
+              (mouseenter)="onCellEnter(day, $event)" (focus)="onCellEnter(day, $event)"
+              (mouseleave)="onCellLeave()" (blur)="onCellLeave()">
+            </button>
+            }
+          </div>
+          }
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  @if (hovered(); as day) {
+  <div class="activity-heatmap-tooltip" [style.left.px]="tooltipLeft()" [style.top.px]="tooltipTop()">
+    <p class="activity-heatmap-tooltip-date">{{ hoveredDateLabel }}</p>
+    <p class="activity-heatmap-tooltip-count">
+      @if (day.count > 0) {
+      {{ 'statistics.activityHeatmap.tooltipCount' | translate: { count: day.count } }}
+      } @else {
+      {{ 'statistics.activityHeatmap.tooltipEmpty' | translate }}
+      }
+    </p>
+  </div>
+  }
+
+  <div class="activity-heatmap-footer">
+    <p class="activity-heatmap-summary">{{ 'statistics.activityHeatmap.subtitle' | translate: { count: activeDaysCount() } }}</p>
+    <div class="activity-heatmap-legend">
+      <span class="activity-heatmap-legend-label">{{ 'statistics.activityHeatmap.legendLess' | translate }}</span>
+      <span class="activity-heatmap-cell activity-heatmap-cell--0 activity-heatmap-legend-swatch"></span>
+      <span class="activity-heatmap-cell activity-heatmap-cell--1 activity-heatmap-legend-swatch"></span>
+      <span class="activity-heatmap-cell activity-heatmap-cell--2 activity-heatmap-legend-swatch"></span>
+      <span class="activity-heatmap-cell activity-heatmap-cell--3 activity-heatmap-legend-swatch"></span>
+      <span class="activity-heatmap-cell activity-heatmap-cell--4 activity-heatmap-legend-swatch"></span>
+      <span class="activity-heatmap-legend-label">{{ 'statistics.activityHeatmap.legendMore' | translate }}</span>
+    </div>
+  </div>
+
+</div>

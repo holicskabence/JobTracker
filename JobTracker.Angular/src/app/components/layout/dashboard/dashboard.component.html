@@ -9,12 +9,12 @@
 
         <div class="content">
             <app-dashboard-header [activeTab]="activeTab()" [userName]="auth.currentUser()?.name ?? ''"
-                (addJob)="openAddModal()" (openMobileMenu)="sidebarMobileOpen.set(true)" />
+                (addJob)="handleHeaderAdd()" (openMobileMenu)="sidebarMobileOpen.set(true)" />
 
             <main class="content-body"
                 [class.content-body--kanban]="activeTab() === 'jelentkezesek' && viewService.view() === 'kanban'"
                 [class.content-body--table]="activeTab() === 'jelentkezesek' && viewService.view() === 'table'">
-                <router-outlet (activate)="onRouteActivate()" />
+                <router-outlet (activate)="onRouteActivate($event)" />
             </main>
         </div>
 

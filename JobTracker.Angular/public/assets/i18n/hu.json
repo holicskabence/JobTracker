@@ -390,6 +390,7 @@
   },
   "statistics": {
     "title": "Jelentkezési aktivitás (Idei év)",
+    "subtitle": "Kövesd nyomon a jelentkezéseid alakulását, és lásd, mi hozza a legtöbb eredményt.",
     "kpi": {
       "totalApplications": "Összes jelentkezés",
       "goal": "cél",
@@ -397,6 +398,7 @@
       "interview": "interjú",
       "pendingResponse": "Függő válasz",
       "pendingResponseSub": "beadott, választ vár",
+      "last14Days": "utolsó 14 nap",
       "offersCount": "Ajánlatok száma",
       "offersCountSub": "elfogadott / ajánlott",
       "callbackRate": "Visszahívási arány",
@@ -410,6 +412,14 @@
     "statusDistribution": { "title": "Státusz megoszlás", "total": "Összes" },
     "statusFunnel": { "title": "Státusz tölcsér" },
     "topCompanies": { "title": "Top 5 cég" },
+    "activityHeatmap": {
+      "title": "Aktivitási naptár",
+      "subtitle": "{{count}} aktív nap az elmúlt 12 hónapban",
+      "tooltipCount": "{{count}} jelentkezés",
+      "tooltipEmpty": "Nincs jelentkezés ezen a napon",
+      "legendLess": "Kevesebb",
+      "legendMore": "Több"
+    },
     "weekdayActivity": {
       "title": "Heti aktivitás",
       "days": {
@@ -533,7 +543,6 @@
       "viewAllLink": "Összes",
       "noHistoryYet": "Még nincs megválaszolt kérdés."
     },
-    "tip": { "title": "💡 Tipp", "text": "Értékeld újra a hibás kérdéseket, ahogy javul a tudásod." },
     "questionsTab": {
       "title": "Kérdések",
       "importing": "Importálás…",

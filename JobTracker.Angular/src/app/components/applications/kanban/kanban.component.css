@@ -1,3 +1,10 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
 .kanban {
   display: flex;
   flex-direction: column;
@@ -8,26 +15,99 @@
 .kanban-scroll {
   flex: 1;
   display: flex;
-  gap: var(--gap-section);
-  align-items: stretch;
+  flex-direction: column;
   overflow-x: auto;
   overflow-y: auto;
-  padding: var(--space-4);
+  padding: 0 var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom));
   min-height: 0;
+  background-color: #fcfbfa;
 
   scrollbar-width: thin;
   scrollbar-color: var(--clr-border) transparent;
 }
 
+.kanban-header-row {
+  display: flex;
+  gap: var(--gap-section);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #fcfbfa;
+  padding: var(--space-4) 0 var(--space-3);
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.kanban-body-row {
+  display: flex;
+  gap: var(--gap-section);
+  align-items: flex-start;
+  flex: 1;
+}
+
+.kanban-column-header {
+  width: 280px;
+  min-width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 calc(var(--space-1) + 5px);
+}
+
+.kanban-column-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.kanban-column-dot {
+  width: var(--space-2-5);
+  height: var(--space-2-5);
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.kanban-column-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--clr-dark);
+}
+
+.kanban-column-count {
+  background-color: var(--clr-bg);
+  color: var(--clr-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: var(--space-0-5) var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+@media (max-width: 767px) {
+  .kanban-column-header {
+    width: calc(100vw - 2rem);
+    min-width: calc(100vw - 2rem);
+  }
+}
+
 @media (min-width: 768px) {
   .kanban-scroll {
-    padding: var(--padding-card);
+    padding: 0 var(--padding-card) var(--padding-card);
+  }
+
+  .kanban-header-row {
+    padding-top: var(--padding-card);
   }
 }
 
 @media (min-width: 1024px) {
   .kanban-scroll {
-    padding: var(--space-8);
+    padding: 0 var(--space-8) var(--space-8);
+  }
+
+  .kanban-header-row {
+    padding-top: var(--space-8);
   }
 }
 

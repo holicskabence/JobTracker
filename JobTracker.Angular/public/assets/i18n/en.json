@@ -390,6 +390,7 @@
   },
   "statistics": {
     "title": "Application activity (This year)",
+    "subtitle": "Track how your applications are progressing and see what's driving results.",
     "kpi": {
       "totalApplications": "Total applications",
       "goal": "goal",
@@ -397,6 +398,7 @@
       "interview": "interview",
       "pendingResponse": "Pending response",
       "pendingResponseSub": "submitted, awaiting response",
+      "last14Days": "last 14 days",
       "offersCount": "Number of offers",
       "offersCountSub": "accepted / offered",
       "callbackRate": "Callback rate",
@@ -410,6 +412,14 @@
     "statusDistribution": { "title": "Status distribution", "total": "Total" },
     "statusFunnel": { "title": "Status funnel" },
     "topCompanies": { "title": "Top 5 companies" },
+    "activityHeatmap": {
+      "title": "Activity calendar",
+      "subtitle": "{{count}} active days in the last 12 months",
+      "tooltipCount": "{{count}} applications",
+      "tooltipEmpty": "No applications on this day",
+      "legendLess": "Less",
+      "legendMore": "More"
+    },
     "weekdayActivity": {
       "title": "Weekly activity",
       "days": {
@@ -533,7 +543,6 @@
       "viewAllLink": "View all",
       "noHistoryYet": "No answered questions yet."
     },
-    "tip": { "title": "💡 Tip", "text": "Re-rate the failed questions as your knowledge improves." },
     "questionsTab": {
       "title": "Questions",
       "importing": "Importing…",

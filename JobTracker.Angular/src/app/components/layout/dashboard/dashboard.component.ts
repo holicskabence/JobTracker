@@ -13,6 +13,14 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { DashboardHeaderComponent } from '../dashboard-header/dashboard-header.component';
 import { AddJobModalComponent } from '../../shared/add-job-modal/add-job-modal.component';
 
+interface AddFormOpenable {
+  openAddForm(): void;
+}
+
+function isAddFormOpenable(value: unknown): value is AddFormOpenable {
+  return !!value && typeof (value as AddFormOpenable).openAddForm === 'function';
+}
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -43,6 +51,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   readonly editingJob = this.store.editingJob;
 
   private routerSub?: Subscription;
+  private activeRouteComponent: unknown;
 
   ngOnInit(): void {
     this.store.loadInitialData();
@@ -72,7 +81,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.sidebarMobileOpen.set(false);
   }
 
-  onRouteActivate(): void {
+  onRouteActivate(component: unknown): void {
+    this.activeRouteComponent = component;
     const main = this.el.nativeElement.querySelector<HTMLElement>('.content-body');
     if (main) {
       // Runs outside Angular so GSAP's rAF ticker doesn't trigger a full
@@ -84,6 +94,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   logout(): void { this.auth.logout(); }
+
+  handleHeaderAdd(): void {
+    const tab = this.activeTab();
+    if ((tab === 'esemenyek' || tab === 'dokumentumok') && isAddFormOpenable(this.activeRouteComponent)) {
+      this.activeRouteComponent.openAddForm();
+      return;
+    }
+    this.openAddModal();
+  }
+
   openAddModal(): void { this.store.openModal(null); }
   closeModal(): void { this.store.closeModal(); }
 }

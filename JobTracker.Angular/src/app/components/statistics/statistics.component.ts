@@ -6,6 +6,7 @@ import { JobStoreService } from '../../services/job-store.service';
 import { AuthService } from '../../services/auth.service';
 import { AreaChartComponent, ChartSeriesInput } from './area-chart/area-chart.component';
 import { DonutChartComponent } from './donut-chart/donut-chart.component';
+import { ActivityHeatmapComponent } from './activity-heatmap/activity-heatmap.component';
 import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
@@ -15,7 +16,7 @@ import { PageSectionComponent } from '../shared/page-section/page-section.compon
 @Component({
   selector: 'app-statistics',
   standalone: true,
-  imports: [AreaChartComponent, DonutChartComponent, CardComponent, BadgeComponent, EmptyStateComponent, TranslateModule, PageSectionComponent],
+  imports: [AreaChartComponent, DonutChartComponent, ActivityHeatmapComponent, CardComponent, BadgeComponent, EmptyStateComponent, TranslateModule, PageSectionComponent],
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.css'
 })
@@ -178,4 +179,43 @@ export class StatisticsComponent {
   readonly pendingCount = computed(() =>
     this.store.jobs().filter(j => j.status === 'Beadva').length
   );
+
+  readonly recentDailyCounts = computed(() => {
+    const days = 14;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const byDate = new Map<string, number>();
+    for (const job of this.store.jobs()) {
+      byDate.set(job.date, (byDate.get(job.date) ?? 0) + 1);
+    }
+    const counts: number[] = [];
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      counts.push(byDate.get(this.toDateKey(d)) ?? 0);
+    }
+    return counts;
+  });
+
+  readonly sparklinePath = computed(() => {
+    const values = this.recentDailyCounts();
+    const w = 100;
+    const h = 28;
+    const max = Math.max(1, ...values);
+    const step = values.length > 1 ? w / (values.length - 1) : 0;
+    return values
+      .map((v, i) => {
+        const x = i * step;
+        const y = h - 2 - (v / max) * (h - 6);
+        return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`;
+      })
+      .join(' ');
+  });
+
+  private toDateKey(d: Date): string {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
 }
