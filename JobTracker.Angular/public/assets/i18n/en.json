@@ -389,29 +389,49 @@
     "copyBtn": "Copy"
   },
   "statistics": {
-    "title": "Application activity (This year)",
-    "subtitle": "Track how your applications are progressing and see what's driving results.",
-    "kpi": {
-      "totalApplications": "Total applications",
-      "goal": "goal",
-      "activeInProgress": "Active in progress",
-      "interview": "interview",
-      "pendingResponse": "Pending response",
-      "pendingResponseSub": "submitted, awaiting response",
-      "last14Days": "last 14 days",
-      "offersCount": "Number of offers",
-      "offersCountSub": "accepted / offered",
-      "callbackRate": "Callback rate",
-      "callbackRateSub": "of all applications",
-      "rejectionRate": "Rejection rate",
-      "rejectionRateSub": "of all applications"
+    "title": "Statistics Dashboard",
+    "subtitle": "A complete picture of your job search — activity, conversion, and where the momentum is coming from.",
+    "sampleBadge": "Sample data",
+    "filters": {
+      "dateRangeLabel": "Date range",
+      "dateRange": { "all": "All time", "last30": "Last 30 days", "last90": "Last 90 days", "thisYear": "This year", "custom": "Custom" },
+      "companyLabel": "Company",
+      "allCompanies": "All companies",
+      "statusLabel": "Status",
+      "clear": "Clear filters"
     },
-    "applicationsTrend": { "title": "Application activity" },
-    "timeRange": { "day": "Day", "week": "Week", "month": "Month" },
-    "viewMode": { "count": "Per period", "cumulative": "Cumulative" },
+    "kpi": {
+      "total": { "label": "Total applications", "sub": "vs previous 30 days" },
+      "active": { "label": "Active applications", "sub": "currently in progress" },
+      "interviews": { "label": "Interviews", "sub": "{{count}} currently in interview stage" },
+      "offers": { "label": "Offers", "sub": "vs previous 30 days" },
+      "rejections": { "label": "Rejections", "sub": "vs previous 30 days" },
+      "successRate": { "label": "Success rate", "sub": "offers vs. decided applications" },
+      "responseRate": { "label": "Response rate", "sub": "applications that got any reply" },
+      "avgResponseTime": { "label": "Avg. response time", "sub": "days from applied to first reply" },
+      "avgInterviewDays": { "label": "Avg. days until interview", "sub": "days from applied to interview" },
+      "pipeline": { "label": "Current interview pipeline", "sub": "applications at interview stage now" }
+    },
+    "charts": {
+      "sectionTitle": "Charts & Trends",
+      "sectionSubtitle": "The same data, sliced a dozen different ways.",
+      "monthly": { "title": "Applications per month", "subtitle": "Last 12 months", "applications": "Applications", "interviews": "Interviews" },
+      "weekly": { "title": "Applications by week", "subtitle": "Last 12 weeks" },
+      "statusDistribution": { "subtitle": "Where every application stands right now" },
+      "weekday": { "title": "Weekly activity", "subtitle": "Which day of the week you apply most" },
+      "responseTime": {
+        "title": "Response time distribution", "subtitle": "Days between applying and first reply",
+        "b1": "0-2d", "b2": "3-5d", "b3": "6-10d", "b4": "11-20d", "b5": "21d+"
+      },
+      "source": { "title": "Applications by source", "subtitle": "Estimated channel breakdown" },
+      "salary": { "title": "Salary expectations vs. response speed", "subtitle": "Estimated salary (k) vs. real response time in days" },
+      "heatmap": { "subtitle": "Every day of the last 12 months, at a glance" }
+    },
+    "funnel": {
+      "title": "Success funnel", "subtitle": "How applications move from applied to offer",
+      "applied": "Applied", "interview": "Interview", "offer": "Offer", "converted": "converted"
+    },
     "statusDistribution": { "title": "Status distribution", "total": "Total" },
-    "statusFunnel": { "title": "Status funnel" },
-    "topCompanies": { "title": "Top 5 companies" },
     "activityHeatmap": {
       "title": "Activity calendar",
       "subtitle": "{{count}} active days in the last 12 months",
@@ -419,6 +439,74 @@
       "tooltipEmpty": "No applications on this day",
       "legendLess": "Less",
       "legendMore": "More"
+    },
+    "interviewTimeline": {
+      "title": "Interview timeline", "subtitle": "Your most recent interview stages",
+      "empty": "No interviews recorded yet."
+    },
+    "insights": {
+      "title": "Smart Insights",
+      "subtitle": "Automatically generated from your own application history.",
+      "rateUp": "Your success rate increased by {{pct}} percentage points recently.",
+      "rateDown": "Your success rate dropped by {{pct}} percentage points recently.",
+      "bestDay": "{{day}} is your most active application day.",
+      "avgResponse": "Average response time is {{days}} days.",
+      "rateAboveAvg": "Your {{rate}}% success rate is solid — keep the momentum going.",
+      "rateBuilding": "Your success rate is {{rate}}% so far — it takes volume to build momentum.",
+      "companiesReached": "You've reached out to {{count}} different companies.",
+      "responseRate": "{{rate}}% of your applications get some kind of response."
+    },
+    "goals": {
+      "title": "Goals",
+      "subtitle": "Track your progress toward the targets that matter.",
+      "applications": { "label": "Applications goal" },
+      "interview": { "label": "Interview goal" },
+      "offers": { "label": "Offers goal" },
+      "editTitle": "Target"
+    },
+    "activity": {
+      "title": "Recent activity",
+      "subtitle": "The latest changes across all your applications",
+      "empty": "No activity recorded yet.",
+      "applied": "Applied at {{company}}",
+      "offer": "Offer received from {{company}}",
+      "rejected": "Rejected by {{company}}",
+      "interview": "Interview stage reached at {{company}}",
+      "statusChange": "{{company}} moved to \"{{status}}\"",
+      "minutesAgo": "{{count}}m ago",
+      "hoursAgo": "{{count}}h ago",
+      "daysAgo": "{{count}}d ago"
+    },
+    "companyAnalytics": {
+      "title": "Top companies",
+      "empty": "No companies to rank yet.",
+      "rowMeta": "{{apps}} applications · {{interviews}} interviews · {{offers}} offers",
+      "metric": { "interviews": "Interviews", "offers": "Offers", "response": "Response speed", "salary": "Salary" }
+    },
+    "skills": {
+      "title": "Skills in your applications",
+      "subtitle": "How often each keyword appears in the positions you applied to"
+    },
+    "successScore": {
+      "title": "Interview success score",
+      "subtitle": "Composite score from your success, response, and interview rates"
+    },
+    "jobMarket": {
+      "title": "Job Market Analytics",
+      "subtitle": "Estimated breakdown of the companies you've applied to.",
+      "workMode": "Remote / Hybrid / On-site",
+      "country": "Country",
+      "industry": "Industry",
+      "companySize": "Company size"
+    },
+    "pipeline": {
+      "title": "Application pipeline",
+      "subtitle": "Where your applications sit today, and how long they've been there",
+      "avgDays": "avg. {{days}}d"
+    },
+    "weekday": {
+      "short": { "mon": "Mon", "tue": "Tue", "wed": "Wed", "thu": "Thu", "fri": "Fri", "sat": "Sat", "sun": "Sun" },
+      "full": { "mon": "Monday", "tue": "Tuesday", "wed": "Wednesday", "thu": "Thursday", "fri": "Friday", "sat": "Saturday", "sun": "Sunday" }
     },
     "weekdayActivity": {
       "title": "Weekly activity",
@@ -435,8 +523,7 @@
     "emptyState": {
       "noApplications": "No applications recorded yet.",
       "selectMetric": "Select at least one metric to display."
-    },
-    "chartAxis": { "week": "week" }
+    }
   },
   "masterData": {
     "pageHeader": {

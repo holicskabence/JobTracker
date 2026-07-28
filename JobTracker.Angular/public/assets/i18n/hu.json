@@ -389,29 +389,49 @@
     "copyBtn": "Másolás"
   },
   "statistics": {
-    "title": "Jelentkezési aktivitás (Idei év)",
-    "subtitle": "Kövesd nyomon a jelentkezéseid alakulását, és lásd, mi hozza a legtöbb eredményt.",
-    "kpi": {
-      "totalApplications": "Összes jelentkezés",
-      "goal": "cél",
-      "activeInProgress": "Aktív folyamatban",
-      "interview": "interjú",
-      "pendingResponse": "Függő válasz",
-      "pendingResponseSub": "beadott, választ vár",
-      "last14Days": "utolsó 14 nap",
-      "offersCount": "Ajánlatok száma",
-      "offersCountSub": "elfogadott / ajánlott",
-      "callbackRate": "Visszahívási arány",
-      "callbackRateSub": "az összes jelentkezésből",
-      "rejectionRate": "Elutasítási arány",
-      "rejectionRateSub": "az összes jelentkezésből"
+    "title": "Statisztikai Dashboard",
+    "subtitle": "Teljes kép az álláskeresésedről – aktivitás, konverzió, és hogy honnan jön a lendület.",
+    "sampleBadge": "Minta adat",
+    "filters": {
+      "dateRangeLabel": "Időszak",
+      "dateRange": { "all": "Teljes időszak", "last30": "Utolsó 30 nap", "last90": "Utolsó 90 nap", "thisYear": "Idei év", "custom": "Egyéni" },
+      "companyLabel": "Cég",
+      "allCompanies": "Összes cég",
+      "statusLabel": "Státusz",
+      "clear": "Szűrők törlése"
     },
-    "applicationsTrend": { "title": "Jelentkezési aktivitás" },
-    "timeRange": { "day": "Nap", "week": "Hét", "month": "Hónap" },
-    "viewMode": { "count": "Időszakonként", "cumulative": "Összesítve" },
+    "kpi": {
+      "total": { "label": "Összes jelentkezés", "sub": "az előző 30 naphoz képest" },
+      "active": { "label": "Aktív jelentkezések", "sub": "jelenleg folyamatban" },
+      "interviews": { "label": "Interjúk", "sub": "{{count}} jelenleg interjú szakaszban" },
+      "offers": { "label": "Ajánlatok", "sub": "az előző 30 naphoz képest" },
+      "rejections": { "label": "Elutasítások", "sub": "az előző 30 naphoz képest" },
+      "successRate": { "label": "Sikerráta", "sub": "ajánlat az eldöntött jelentkezésekből" },
+      "responseRate": { "label": "Válaszadási arány", "sub": "jelentkezés, amire érkezett bármilyen válasz" },
+      "avgResponseTime": { "label": "Átlagos válaszidő", "sub": "nap a jelentkezéstől az első válaszig" },
+      "avgInterviewDays": { "label": "Átlagos idő az interjúig", "sub": "nap a jelentkezéstől az interjúig" },
+      "pipeline": { "label": "Jelenlegi interjú pipeline", "sub": "jelentkezés jelenleg interjú szakaszban" }
+    },
+    "charts": {
+      "sectionTitle": "Grafikonok & Trendek",
+      "sectionSubtitle": "Ugyanaz az adat, egy tucat különböző nézetben.",
+      "monthly": { "title": "Jelentkezések havi bontásban", "subtitle": "Elmúlt 12 hónap", "applications": "Jelentkezések", "interviews": "Interjúk" },
+      "weekly": { "title": "Jelentkezések heti bontásban", "subtitle": "Elmúlt 12 hét" },
+      "statusDistribution": { "subtitle": "Hol tart most minden jelentkezésed" },
+      "weekday": { "title": "Heti aktivitás", "subtitle": "Melyik napon jelentkezel a legtöbbet" },
+      "responseTime": {
+        "title": "Válaszidő eloszlása", "subtitle": "Nap a jelentkezés és az első válasz között",
+        "b1": "0-2 nap", "b2": "3-5 nap", "b3": "6-10 nap", "b4": "11-20 nap", "b5": "21+ nap"
+      },
+      "source": { "title": "Jelentkezések forrás szerint", "subtitle": "Becsült csatorna megoszlás" },
+      "salary": { "title": "Fizetési elvárás vs. válaszsebesség", "subtitle": "Becsült fizetés (ezer) vs. valós válaszidő napokban" },
+      "heatmap": { "subtitle": "Az elmúlt 12 hónap minden napja, egy pillantásra" }
+    },
+    "funnel": {
+      "title": "Sikertölcsér", "subtitle": "Hogyan halad a jelentkezés a beadástól az ajánlatig",
+      "applied": "Beadva", "interview": "Interjú", "offer": "Ajánlat", "converted": "konvertált"
+    },
     "statusDistribution": { "title": "Státusz megoszlás", "total": "Összes" },
-    "statusFunnel": { "title": "Státusz tölcsér" },
-    "topCompanies": { "title": "Top 5 cég" },
     "activityHeatmap": {
       "title": "Aktivitási naptár",
       "subtitle": "{{count}} aktív nap az elmúlt 12 hónapban",
@@ -419,6 +439,74 @@
       "tooltipEmpty": "Nincs jelentkezés ezen a napon",
       "legendLess": "Kevesebb",
       "legendMore": "Több"
+    },
+    "interviewTimeline": {
+      "title": "Interjú idővonal", "subtitle": "A legutóbbi interjú szakaszaid",
+      "empty": "Még nincs rögzített interjú."
+    },
+    "insights": {
+      "title": "Okos meglátások",
+      "subtitle": "Automatikusan generálva a saját jelentkezési előzményeidből.",
+      "rateUp": "A sikerrátád {{pct}} százalékponttal nőtt mostanában.",
+      "rateDown": "A sikerrátád {{pct}} százalékponttal csökkent mostanában.",
+      "bestDay": "{{day}} a legaktívabb jelentkezési napod.",
+      "avgResponse": "Az átlagos válaszidő {{days}} nap.",
+      "rateAboveAvg": "A {{rate}}%-os sikerrátád szilárd – tartsd meg a lendületet.",
+      "rateBuilding": "A sikerrátád eddig {{rate}}% – a lendülethez mennyiség kell.",
+      "companiesReached": "{{count}} különböző céghez jelentkeztél eddig.",
+      "responseRate": "A jelentkezéseid {{rate}}%-ára érkezik valamilyen válasz."
+    },
+    "goals": {
+      "title": "Célok",
+      "subtitle": "Kövesd nyomon a haladásod a számodra fontos célok felé.",
+      "applications": { "label": "Jelentkezési cél" },
+      "interview": { "label": "Interjú cél" },
+      "offers": { "label": "Ajánlat cél" },
+      "editTitle": "Cél"
+    },
+    "activity": {
+      "title": "Legutóbbi aktivitás",
+      "subtitle": "A legfrissebb változások az összes jelentkezésedben",
+      "empty": "Még nincs rögzített aktivitás.",
+      "applied": "Jelentkezés beadva – {{company}}",
+      "offer": "Ajánlat érkezett – {{company}}",
+      "rejected": "Elutasítás – {{company}}",
+      "interview": "Interjú szakasz elérve – {{company}}",
+      "statusChange": "{{company}} új státusza: „{{status}}”",
+      "minutesAgo": "{{count}} perce",
+      "hoursAgo": "{{count}} órája",
+      "daysAgo": "{{count}} napja"
+    },
+    "companyAnalytics": {
+      "title": "Top cégek",
+      "empty": "Még nincs rangsorolható cég.",
+      "rowMeta": "{{apps}} jelentkezés · {{interviews}} interjú · {{offers}} ajánlat",
+      "metric": { "interviews": "Interjúk", "offers": "Ajánlatok", "response": "Válaszsebesség", "salary": "Fizetés" }
+    },
+    "skills": {
+      "title": "Készségek a jelentkezéseidben",
+      "subtitle": "Milyen gyakran szerepel az adott kulcsszó a megpályázott pozíciókban"
+    },
+    "successScore": {
+      "title": "Interjú sikerességi pontszám",
+      "subtitle": "Összetett pontszám a sikerráta, válaszadási arány és interjúráta alapján"
+    },
+    "jobMarket": {
+      "title": "Munkaerőpiaci elemzés",
+      "subtitle": "A megpályázott cégek becsült megoszlása.",
+      "workMode": "Remote / Hibrid / Helyszíni",
+      "country": "Ország",
+      "industry": "Iparág",
+      "companySize": "Cégméret"
+    },
+    "pipeline": {
+      "title": "Jelentkezési pipeline",
+      "subtitle": "Hol tartanak most a jelentkezéseid, és mióta",
+      "avgDays": "átl. {{days}} nap"
+    },
+    "weekday": {
+      "short": { "mon": "H", "tue": "K", "wed": "Sze", "thu": "Cs", "fri": "P", "sat": "Szo", "sun": "V" },
+      "full": { "mon": "Hétfő", "tue": "Kedd", "wed": "Szerda", "thu": "Csütörtök", "fri": "Péntek", "sat": "Szombat", "sun": "Vasárnap" }
     },
     "weekdayActivity": {
       "title": "Heti aktivitás",
@@ -435,8 +523,7 @@
     "emptyState": {
       "noApplications": "Még nincsenek rögzített jelentkezések.",
       "selectMetric": "Válassz ki legalább egy mutatót a megjelenítéshez."
-    },
-    "chartAxis": { "week": "hét" }
+    }
   },
   "masterData": {
     "pageHeader": {

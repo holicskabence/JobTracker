@@ -1,0 +1,15 @@
+<div class="hbar-wrap">
+  @if (!sorted.length) {
+  <app-empty-state [message]="'statistics.emptyState.noApplications' | translate"></app-empty-state>
+  } @else {
+  @for (item of sorted; track item.label; let i = $index) {
+  <div class="hbar-row" [style.animation-delay.ms]="i * 60">
+    <span class="hbar-label">{{ item.label }}</span>
+    <div class="hbar-track">
+      <div class="hbar-fill" [style.width.%]="widthPct(item.value)" [style.background-color]="item.color"></div>
+    </div>
+    <span class="hbar-value">{{ item.value }}{{ valueSuffix }}</span>
+  </div>
+  }
+  }
+</div>

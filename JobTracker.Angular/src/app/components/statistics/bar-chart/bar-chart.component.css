@@ -1,0 +1,84 @@
+.chart-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chart-svg {
+  flex: 1;
+  width: 100%;
+  overflow: visible;
+}
+
+.grid-line {
+  stroke: var(--clr-border);
+  stroke-width: 1;
+}
+
+.axis-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  fill: var(--clr-muted);
+}
+
+.axis-label--y {
+  text-anchor: end;
+}
+
+.axis-label--x {
+  text-anchor: middle;
+}
+
+.bar {
+  cursor: pointer;
+  transform-origin: bottom center;
+  transform-box: fill-box;
+  animation: bar-grow 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: filter 0.15s, opacity 0.15s;
+}
+
+.bar--hovered {
+  filter: brightness(1.1);
+}
+
+@keyframes bar-grow {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.chart-tooltip {
+  pointer-events: none;
+  animation: tooltip-in 0.15s ease-out both;
+}
+
+@keyframes tooltip-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tooltip-rect {
+  fill: var(--clr-dark, #1a1a2e);
+  opacity: 0.92;
+}
+
+.tooltip-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  fill: #ffffff;
+  text-anchor: middle;
+}

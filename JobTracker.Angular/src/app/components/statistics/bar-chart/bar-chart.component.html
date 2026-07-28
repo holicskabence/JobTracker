@@ -1,0 +1,31 @@
+<div class="chart-wrap">
+  @if (!bars.length) {
+  <app-empty-state [message]="'statistics.emptyState.noApplications' | translate"></app-empty-state>
+  } @else {
+  <svg class="chart-svg" [attr.viewBox]="'0 0 ' + VW + ' ' + VH" preserveAspectRatio="xMidYMid meet"
+    xmlns="http://www.w3.org/2000/svg">
+
+    @for (g of gridLines; track g.y) {
+    <line [attr.x1]="PAD.left" [attr.y1]="g.y" [attr.x2]="VW - PAD.right" [attr.y2]="g.y" class="grid-line" />
+    <text [attr.x]="PAD.left - 8" [attr.y]="g.y + 4" class="axis-label axis-label--y">{{ g.label }}</text>
+    }
+
+    @for (bar of renderedBars; track bar.label; let i = $index) {
+    <rect class="bar" [class.bar--hovered]="hoveredIndex === i" [attr.x]="bar.x" [attr.y]="bar.y"
+      [attr.width]="bar.width" [attr.height]="bar.height" [attr.rx]="4" [style.fill]="bar.color"
+      [style.animation-delay.ms]="i * 45" (mouseenter)="onEnter(i)" (mouseleave)="onLeave()" />
+    <text [attr.x]="bar.x + bar.width / 2" [attr.y]="yBottom + 18" class="axis-label axis-label--x">{{ bar.label
+      }}</text>
+    }
+
+    @if (hoveredIndex !== null) {
+    <g class="chart-tooltip">
+      <rect class="tooltip-rect" [attr.x]="tooltipX(renderedBars[hoveredIndex])"
+        [attr.y]="renderedBars[hoveredIndex].y - 34" width="88" height="26" rx="7" />
+      <text class="tooltip-text" [attr.x]="tooltipX(renderedBars[hoveredIndex]) + 44"
+        [attr.y]="renderedBars[hoveredIndex].y - 17">{{ renderedBars[hoveredIndex].value }}{{ valueSuffix }}</text>
+    </g>
+    }
+  </svg>
+  }
+</div>

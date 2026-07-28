@@ -1,0 +1,34 @@
+<div class="radar-wrap">
+  @if (!axes.length) {
+  <app-empty-state [message]="'statistics.emptyState.noApplications' | translate"></app-empty-state>
+  } @else {
+  <svg viewBox="0 0 280 260" xmlns="http://www.w3.org/2000/svg" class="radar-svg">
+    <defs>
+      <linearGradient id="radarFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" [attr.stop-color]="color" stop-opacity="0.35" />
+        <stop offset="100%" [attr.stop-color]="color" stop-opacity="0.06" />
+      </linearGradient>
+    </defs>
+
+    @for (ring of ringPaths; track $index) {
+    <path [attr.d]="ring" class="radar-ring" />
+    }
+
+    @for (line of axisLines; track $index) {
+    <line [attr.x1]="CX" [attr.y1]="CY" [attr.x2]="line.x2" [attr.y2]="line.y2" class="radar-axis-line" />
+    }
+
+    <path [attr.d]="areaPath" fill="url(#radarFill)" [style.stroke]="color" class="radar-area" />
+
+    @for (p of points; track $index; let i = $index) {
+    <circle [attr.cx]="p.x" [attr.cy]="p.y" r="3.5" [style.fill]="color" class="radar-dot"
+      [style.animation-delay.ms]="i * 40" />
+    }
+
+    @for (a of axisPoints; track a.label) {
+    <text [attr.x]="a.labelX" [attr.y]="a.labelY" [attr.text-anchor]="a.anchor" class="radar-axis-label">{{ a.label
+      }}</text>
+    }
+  </svg>
+  }
+</div>

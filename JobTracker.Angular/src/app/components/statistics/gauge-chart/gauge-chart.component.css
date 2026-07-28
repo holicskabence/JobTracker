@@ -1,0 +1,65 @@
+.gauge-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.gauge-svg {
+  width: 100%;
+  max-width: 260px;
+  overflow: visible;
+}
+
+.gauge-track {
+  fill: none;
+  stroke: var(--clr-bg);
+  stroke-width: 16;
+  stroke-linecap: round;
+}
+
+.gauge-value {
+  fill: none;
+  stroke-width: 16;
+  stroke-linecap: round;
+  transition: stroke 0.3s;
+  stroke-dasharray: 264;
+  stroke-dashoffset: 264;
+  animation: gauge-fill 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes gauge-fill {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.gauge-readout {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  margin-top: -2.75rem;
+}
+
+.gauge-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+.gauge-max {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--clr-muted);
+}
+
+.gauge-label {
+  margin-top: var(--space-1);
+  font-size: 0.8125rem;
+  color: var(--clr-muted);
+  text-align: center;
+}

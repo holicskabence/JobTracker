@@ -1,0 +1,13 @@
+<div class="gauge-wrap">
+  <svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg" class="gauge-svg">
+    <path [attr.d]="trackPath" class="gauge-track" />
+    <path [attr.d]="valuePath" [style.stroke]="color" class="gauge-value" />
+  </svg>
+  <div class="gauge-readout">
+    <span class="gauge-number" [style.color]="color">{{ value }}</span>
+    <span class="gauge-max">/ 100</span>
+  </div>
+  @if (label) {
+  <span class="gauge-label">{{ label }}</span>
+  }
+</div>

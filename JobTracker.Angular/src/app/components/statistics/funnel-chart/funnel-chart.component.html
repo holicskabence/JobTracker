@@ -1,0 +1,26 @@
+<div class="funnel-wrap">
+  @if (!rendered.length) {
+  <app-empty-state [message]="'statistics.emptyState.noApplications' | translate"></app-empty-state>
+  } @else {
+  @for (stage of rendered; track stage.label; let i = $index; let last = $last) {
+  <div class="funnel-stage" [style.animation-delay.ms]="i * 90">
+    <div class="funnel-bar-row">
+      <div class="funnel-bar" [style.width.%]="stage.widthPct" [style.background]="stage.color">
+        <span class="funnel-bar-label">{{ stage.label }}</span>
+        <span class="funnel-bar-value">{{ stage.value }}</span>
+      </div>
+    </div>
+    @if (!last) {
+    <div class="funnel-connector">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+      <span class="funnel-conversion">{{ rendered[i + 1].conversionFromPrev }}% {{ 'statistics.funnel.converted' |
+        translate }}</span>
+    </div>
+    }
+  </div>
+  }
+  }
+</div>

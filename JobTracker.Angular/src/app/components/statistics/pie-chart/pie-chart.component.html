@@ -1,0 +1,26 @@
+<div class="pie-wrap">
+  @if (!rendered.length) {
+  <app-empty-state [message]="'statistics.emptyState.noApplications' | translate"></app-empty-state>
+  } @else {
+  <div class="pie-svg-wrap">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="pie-svg">
+      @for (s of rendered; track s.label; let i = $index) {
+      <path [attr.d]="s.path" [attr.fill]="s.color" class="pie-slice"
+        [class.pie-slice--dimmed]="hoveredLabel && hoveredLabel !== s.label" [style.animation-delay.ms]="i * 70"
+        (mouseenter)="hover(s.label)" (mouseleave)="clearHover()" />
+      }
+    </svg>
+  </div>
+
+  <div class="pie-legend">
+    @for (s of rendered; track s.label) {
+    <div class="pie-legend-item" [class.pie-legend-item--active]="hoveredLabel === s.label"
+      (mouseenter)="hover(s.label)" (mouseleave)="clearHover()">
+      <span class="pie-legend-dot" [style.background-color]="s.color"></span>
+      <span class="pie-legend-name">{{ s.label }}</span>
+      <span class="pie-legend-value">{{ s.percent }}%</span>
+    </div>
+    }
+  </div>
+  }
+</div>

@@ -1,0 +1,34 @@
+<div class="chart-wrap">
+  @if (!rendered.length) {
+  <app-empty-state [message]="'statistics.emptyState.noApplications' | translate"></app-empty-state>
+  } @else {
+  <svg class="chart-svg" [attr.viewBox]="'0 0 ' + VW + ' ' + VH" preserveAspectRatio="xMidYMid meet"
+    xmlns="http://www.w3.org/2000/svg">
+
+    @for (g of yGrid; track g.pos) {
+    <line [attr.x1]="PAD.left" [attr.y1]="g.pos" [attr.x2]="VW - PAD.right" [attr.y2]="g.pos" class="grid-line" />
+    <text [attr.x]="PAD.left - 8" [attr.y]="g.pos + 4" class="axis-label axis-label--y">{{ g.label }}</text>
+    }
+    @for (g of xGrid; track g.pos) {
+    <text [attr.x]="g.pos" [attr.y]="yBottom + 20" class="axis-label axis-label--x">{{ g.label }}</text>
+    }
+
+    @for (p of rendered; track p.label; let i = $index) {
+    <circle class="point" [class.point--hovered]="hovered === p" [attr.cx]="p.cx" [attr.cy]="p.cy" r="7"
+      [style.fill]="p.color" [style.animation-delay.ms]="i * 30" (mouseenter)="onEnter(p)"
+      (mouseleave)="onLeave()" />
+    }
+
+    @if (hovered) {
+    <g class="chart-tooltip">
+      <rect class="tooltip-rect" [attr.x]="tooltipX(hovered)" [attr.y]="hovered.cy - 46" width="110" height="34"
+        rx="7" />
+      <text class="tooltip-title" [attr.x]="tooltipX(hovered) + 55" [attr.y]="hovered.cy - 32">{{ hovered.label
+        }}</text>
+      <text class="tooltip-row" [attr.x]="tooltipX(hovered) + 55" [attr.y]="hovered.cy - 18">{{ hovered.x }}{{
+        xSuffix }} · {{ hovered.y }}{{ ySuffix }}</text>
+    </g>
+    }
+  </svg>
+  }
+</div>
