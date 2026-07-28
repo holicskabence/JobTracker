@@ -21,7 +21,7 @@
   padding: 0 var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom));
   min-height: 0;
   background-color: #fcfbfa;
-
+  gap: var(--gap-section);
   scrollbar-width: thin;
   scrollbar-color: var(--clr-border) transparent;
 }
