@@ -46,13 +46,13 @@
 
 @media (min-width: 768px) {
     .content-body {
-        padding: var(--padding-card);
+        padding: var(--padding-card) var(--padding-card) calc(var(--space-12) + env(safe-area-inset-bottom));
     }
 }
 
 @media (min-width: 1024px) {
     .content-body {
-        padding: var(--space-8);
+        padding: var(--space-8) var(--space-8) calc(var(--space-12) + env(safe-area-inset-bottom));
     }
 }
 
