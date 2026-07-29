@@ -221,12 +221,12 @@
       "goal": "Cél: {{goal}} jelentkezés",
       "activeInProgress": "Aktív folyamatban",
       "interviewCount": "{{count}} interjú",
-      "successRejectionRatio": "Sikeres / elutasított arány",
-      "successful": "sikeres",
+      "responseRate": "Válaszadási arány",
+      "responded": "válaszolt",
       "offerCount": "{{count}} ajánlat",
       "rejectedCount": "{{count}} elutasítva",
       "callbacks": "Visszahívások",
-      "callbackRate": "{{rate}}% az összesből"
+      "callbackRate": "{{rate}}% a beadottakból"
     },
     "upcomingEvents": {
       "title": "Interjúk",

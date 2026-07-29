@@ -19,10 +19,10 @@
         </app-card>
 
         <app-card>
-            <h3 class="card-label">{{ 'overview.stats.successRejectionRatio' | translate }}</h3>
+            <h3 class="card-label">{{ 'overview.stats.responseRate' | translate }}</h3>
             <div class="card-value-row">
-                <span class="card-value">{{ stats().successRate }}%</span>
-                <span class="card-value-subtitle">{{ 'overview.stats.successful' | translate }}</span>
+                <span class="card-value">{{ stats().responseRate }}%</span>
+                <span class="card-value-subtitle">{{ 'overview.stats.responded' | translate }}</span>
             </div>
             <div class="card-metrics">
                 <span class="metric metric--green">

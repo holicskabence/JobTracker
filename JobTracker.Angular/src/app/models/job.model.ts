@@ -45,12 +45,14 @@ export interface StatsSeriesPoint {
 
 export interface JobStats {
   totalJobs: number;
+  submitted: number;
   activeJobs: number;
   callbacks: number;
   interviewCount: number;
   offers: number;
   rejections: number;
   successRate: number;
+  responseRate: number;
 }
 
 export const DEFAULT_STATUS_CONFIGS: JobStatusConfig[] = [

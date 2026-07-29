@@ -221,12 +221,12 @@
       "goal": "Goal: {{goal}} applications",
       "activeInProgress": "Active in progress",
       "interviewCount": "{{count}} interviews",
-      "successRejectionRatio": "Success / rejection ratio",
-      "successful": "successful",
+      "responseRate": "Response rate",
+      "responded": "responded",
       "offerCount": "{{count}} offers",
       "rejectedCount": "{{count}} rejected",
       "callbacks": "Callbacks",
-      "callbackRate": "{{rate}}% of total"
+      "callbackRate": "{{rate}}% of submitted"
     },
     "upcomingEvents": {
       "title": "Interviews",

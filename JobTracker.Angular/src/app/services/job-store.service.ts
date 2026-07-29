@@ -35,14 +35,27 @@ export class JobStoreService {
     const offers = jobs.filter(j => configOf(j.status)?.statsCategory === 'Success').length;
     const rejects = jobs.filter(j => configOf(j.status)?.statsCategory === 'Rejected').length;
     const decided = offers + rejects;
+    const responded = jobs.filter(j => {
+      const cfg = configOf(j.status);
+      return cfg?.isInterview || (cfg?.statsCategory && cfg.statsCategory !== 'None');
+    }).length;
+    const submitted = jobs.filter(j => {
+      const cfg = configOf(j.status);
+      return cfg?.isActive || cfg?.isInterview || (cfg?.statsCategory && cfg.statsCategory !== 'None');
+    }).length;
     return {
       totalJobs: jobs.length,
+      submitted,
       activeJobs: jobs.filter(j => configOf(j.status)?.isActive).length,
-      callbacks: jobs.filter(j => j.status === 'Visszahivas').length,
+      callbacks: jobs.filter(j => {
+        const cfg = configOf(j.status);
+        return cfg?.isInterview || cfg?.statsCategory === 'Rejected';
+      }).length,
       interviewCount: jobs.filter(j => configOf(j.status)?.isInterview).length,
       offers,
       rejections: rejects,
-      successRate: decided > 0 ? Math.round((offers / decided) * 100) : 0
+      successRate: decided > 0 ? Math.round((offers / decided) * 100) : 0,
+      responseRate: submitted > 0 ? Math.round((responded / submitted) * 100) : 0
     };
   });
 

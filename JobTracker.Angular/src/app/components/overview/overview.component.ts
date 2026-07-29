@@ -38,7 +38,7 @@ export class OverviewComponent {
   );
   readonly callbackRate = computed(() => {
     const s = this.stats();
-    return s.totalJobs > 0 ? Math.round((s.callbacks / s.totalJobs) * 100) : 0;
+    return s.submitted > 0 ? Math.round((s.callbacks / s.submitted) * 100) : 0;
   });
 
   readonly upcomingEvents = computed(() => {
