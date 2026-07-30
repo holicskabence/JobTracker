@@ -25,7 +25,7 @@
                 @for (type of planner.eventTypes(); track type) {
                 <div class="master-data-tag" [class.master-data-tag--selected]="selectedEventType === type"
                     (click)="selectEventType(type)" [title]="'masterData.selectToEdit' | translate">
-                    <span class="master-data-tag-dot" style="background-color: var(--clr-green)"></span>
+                    <span class="master-data-tag-dot" [style.background-color]="planner.eventTypeColor(type)"></span>
                     <span class="master-data-tag-text">{{ type }}</span>
                     <button type="button" class="master-data-tag-del"
                         (click)="$event.stopPropagation(); deleteEventType(type)"
@@ -40,9 +40,16 @@
                 }
             </div>
 
-            <form class="master-data-add-form" (ngSubmit)="addEventType()">
+            <form class="master-data-add-form master-data-add-form--color" (ngSubmit)="addEventType()">
                 <input class="master-data-input" type="text" [placeholder]="'masterData.eventTypes.newPlaceholder' | translate" [(ngModel)]="newEventTypeName"
                     name="newEventType" />
+                <div class="master-data-color-picker">
+                    @for (preset of STATUS_PRESETS; track preset) {
+                    <button type="button" class="master-data-color-dot" [style.background-color]="preset"
+                        [class.master-data-color-dot--active]="newEventTypeColor === preset"
+                        (click)="newEventTypeColor = preset" [title]="preset"></button>
+                    }
+                </div>
                 @if (selectedEventType) {
                 <button type="button" class="master-data-cancel-button" (click)="cancelEventTypeEdit()">{{ 'masterData.cancel' | translate }}</button>
                 }
@@ -156,23 +163,49 @@
         <div class="master-data-outreach-template-list">
             @for (template of outreachTemplates; track template.id) {
             <div class="master-data-outreach-template-row">
-                <span class="master-data-outreach-template-name">{{ template.title }}</span>
-                <label class="master-data-outreach-template-upload-label">
-                    <input type="file" class="master-data-outreach-template-upload-input"
-                        (change)="onOutreachTemplateFileSelected(template.id, $event)"
-                        accept=".pdf,.doc,.docx,.txt" />
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="17 8 12 3 7 8" />
-                        <line x1="12" y1="3" x2="12" y2="15" />
+                <div class="master-data-outreach-template-icon"
+                    [class.master-data-outreach-template-icon--overridden]="outreachTemplateFileNames[template.id]">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16v16H4z" />
+                        <path d="M22 6l-10 7L2 6" />
                     </svg>
+                </div>
+
+                <div class="master-data-outreach-template-body">
+                    <span class="master-data-outreach-template-name">{{ template.title }}</span>
+                    <p class="master-data-outreach-template-desc">{{ template.desc }}</p>
+                </div>
+
+                <div class="master-data-outreach-template-actions">
                     @if (outreachTemplateFileNames[template.id]) {
-                    <span class="master-data-outreach-template-file-name">{{ outreachTemplateFileNames[template.id] }}</span>
+                    <span class="master-data-outreach-template-status master-data-outreach-template-status--overridden"
+                        [title]="outreachTemplateFileNames[template.id]">{{ 'masterData.outreachTemplates.overridden' | translate }}</span>
+                    <button type="button" class="master-data-tag-del"
+                        (click)="clearOutreachTemplateOverride(template.id)"
+                        [title]="'masterData.outreachTemplates.removeTitle' | translate">
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                            stroke-linecap="round">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
                     } @else {
-                    <span>{{ 'masterData.outreachTemplates.uploadLabel' | translate }}</span>
+                    <span class="master-data-outreach-template-status">{{ 'masterData.outreachTemplates.default' | translate }}</span>
                     }
-                </label>
+                    <label class="master-data-outreach-template-upload-label"
+                        [title]="'masterData.outreachTemplates.uploadTitle' | translate">
+                        <input type="file" class="master-data-outreach-template-upload-input"
+                            (change)="onOutreachTemplateFileSelected(template.id, $event)"
+                            accept=".pdf,.doc,.docx,.txt" />
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="17 8 12 3 7 8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                    </label>
+                </div>
             </div>
             }
         </div>

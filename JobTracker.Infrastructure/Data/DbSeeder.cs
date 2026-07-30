@@ -141,11 +141,11 @@ public static class DbSeeder
 
     private static EventType[] BuildEventTypes(int userId) =>
     [
-        new EventType { Name = "HR Megkeresés", UserId = userId },
-        new EventType { Name = "Technikai Interjú", UserId = userId },
-        new EventType { Name = "Rendszertervezés", UserId = userId },
-        new EventType { Name = "Tesztfeladat", UserId = userId },
-        new EventType { Name = "Ajánlat egyeztetés", UserId = userId }
+        new EventType { Name = "HR Megkeresés", UserId = userId, Color = "#f59e0b" },
+        new EventType { Name = "Technikai Interjú", UserId = userId, Color = "#5fb9fa" },
+        new EventType { Name = "Rendszertervezés", UserId = userId, Color = "#8b5cf6" },
+        new EventType { Name = "Tesztfeladat", UserId = userId, Color = "#f97316" },
+        new EventType { Name = "Ajánlat egyeztetés", UserId = userId, Color = "#26ac00" }
     ];
 
     private static PracticeCategory[] BuildPracticeCategories(int userId) =>

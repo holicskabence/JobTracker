@@ -1,4 +1,4 @@
-<div class="chart-wrap">
+<div class="chart-wrap" #wrapEl>
   @if (!rendered.length) {
   <app-empty-state [message]="'statistics.emptyState.noApplications' | translate"></app-empty-state>
   } @else {

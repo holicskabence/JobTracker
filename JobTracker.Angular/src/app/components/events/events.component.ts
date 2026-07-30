@@ -11,7 +11,6 @@ import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { BreakpointService } from '../../services/breakpoint.service';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
-import { eventColor, eventColorAlpha } from '../../utils/event-color.util';
 
 type EventFilter = 'all' | 'upcoming' | 'past';
 
@@ -144,9 +143,6 @@ export class EventsComponent implements OnInit {
   eventTimeLabel(ev: CalendarEvent): string {
     return ev.time || this.translate.instant('events.list.allDay');
   }
-
-  readonly eventColor = eventColor;
-  readonly eventColorAlpha = eventColorAlpha;
 
   initial(company: string): string {
     return company.charAt(0).toUpperCase();

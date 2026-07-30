@@ -1,4 +1,4 @@
-<div class="chart-wrap">
+<div class="chart-wrap" #wrapEl>
   @if (!bars.length) {
   <app-empty-state [message]="'statistics.emptyState.noApplications' | translate"></app-empty-state>
   } @else {
@@ -14,8 +14,10 @@
     <rect class="bar" [class.bar--hovered]="hoveredIndex === i" [attr.x]="bar.x" [attr.y]="bar.y"
       [attr.width]="bar.width" [attr.height]="bar.height" [attr.rx]="4" [style.fill]="bar.color"
       [style.animation-delay.ms]="i * 45" (mouseenter)="onEnter(i)" (mouseleave)="onLeave()" />
+    @if (bar.showLabel) {
     <text [attr.x]="bar.x + bar.width / 2" [attr.y]="yBottom + 18" class="axis-label axis-label--x">{{ bar.label
       }}</text>
+    }
     }
 
     @if (hoveredIndex !== null) {

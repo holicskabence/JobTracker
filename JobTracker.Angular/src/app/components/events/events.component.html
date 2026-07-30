@@ -123,21 +123,21 @@
         @for (event of filteredEvents(); track event.id) {
         <app-card class="events-card" (click)="startEdit(event)" radius="xl" gap="none"
           [class.events-card--editing]="editingId() === event.id"
-          [style.border-left-color]="eventColor(event.type)">
+          [style.border-left-color]="planner.eventTypeColor(event.type)">
 
           <div class="events-card-top">
-            <div class="events-card-avatar" [style.color]="eventColor(event.type)"
-              [style.background-color]="eventColorAlpha(event.type, 0.14)">
+            <div class="events-card-avatar" [style.color]="planner.eventTypeColor(event.type)"
+              [style.background-color]="planner.eventTypeColorAlpha(event.type, 0.14)">
               {{ initial(event.company) }}
             </div>
             <div class="events-card-meta">
-              <span class="events-card-type" [style.color]="eventColor(event.type)">{{ event.type }}</span>
+              <span class="events-card-type" [style.color]="planner.eventTypeColor(event.type)">{{ event.type }}</span>
               <h4 class="events-card-company">{{ event.company }}</h4>
             </div>
             <div class="events-card-right">
               <div class="events-card-when">
-                <span class="events-card-relative" [style.color]="eventColor(event.type)">{{ fmtRelative(event.date)
-                  }}</span>
+                <span class="events-card-relative" [style.color]="planner.eventTypeColor(event.type)">{{
+                  fmtRelative(event.date) }}</span>
                 <span class="events-card-datetime">{{ eventTimeLabel(event) }}</span>
               </div>
               <div class="events-card-buttons">

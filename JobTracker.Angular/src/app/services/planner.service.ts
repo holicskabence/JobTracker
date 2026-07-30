@@ -100,23 +100,25 @@ export class PlannerService {
     );
   }
 
-  addEventType(type: string): void {
+  addEventType(type: string, color: string): void {
     const trimmed = type.trim();
     if (!trimmed) return;
     if (this._eventTypeObjects().some(t => t.name === trimmed)) return;
-    this.api.createEventType(trimmed).subscribe(created =>
+    this.api.createEventType(trimmed, color).subscribe(created =>
       this._eventTypeObjects.update(prev => [...prev, created])
     );
   }
 
-  updateEventType(oldName: string, newName: string): void {
+  updateEventType(oldName: string, newName: string, color: string): void {
     const trimmed = newName.trim();
     if (!trimmed) return;
     const obj = this._eventTypeObjects().find(t => t.name === oldName);
-    if (!obj || trimmed === obj.name) return;
-    this.api.updateEventType(obj.id, trimmed).subscribe(updated => {
+    if (!obj || (trimmed === obj.name && color === obj.color)) return;
+    this.api.updateEventType(obj.id, trimmed, color).subscribe(updated => {
       this._eventTypeObjects.update(prev => prev.map(t => t.id === obj.id ? updated : t));
-      this.events.update(prev => prev.map(e => e.type === oldName ? { ...e, type: trimmed } : e));
+      if (oldName !== trimmed) {
+        this.events.update(prev => prev.map(e => e.type === oldName ? { ...e, type: trimmed } : e));
+      }
     });
   }
 
@@ -126,5 +128,17 @@ export class PlannerService {
     this.api.deleteEventType(obj.id).subscribe(() =>
       this._eventTypeObjects.update(prev => prev.filter(t => t.id !== obj.id))
     );
+  }
+
+  eventTypeColor(name: string): string {
+    return this._eventTypeObjects().find(t => t.name === name)?.color ?? '#26ac00';
+  }
+
+  eventTypeColorAlpha(name: string, alpha: number): string {
+    const hex = this.eventTypeColor(name).replace('#', '');
+    const r = parseInt(hex.slice(0, 2), 16);
+    const g = parseInt(hex.slice(2, 4), 16);
+    const b = parseInt(hex.slice(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 }

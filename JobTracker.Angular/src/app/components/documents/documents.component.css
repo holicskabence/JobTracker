@@ -488,8 +488,20 @@
 .documents-template-toggle-left {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
   min-width: 0;
+}
+
+.documents-template-icon {
+  width: var(--space-9);
+  height: var(--space-9);
+  border-radius: 50%;
+  background-color: rgba(38, 172, 0, 0.1);
+  color: var(--clr-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .documents-template-chevron {
@@ -512,7 +524,7 @@
 .documents-template-header-inner {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
 }
 
 .documents-template-title {
@@ -556,10 +568,8 @@
   font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;
   color: var(--clr-muted);
-  background-color: var(--clr-white);
-  border: 1px solid var(--clr-border);
-  border-radius: var(--radius-sm);
-  padding: var(--space-3);
+  border-top: 1px solid var(--clr-border);
+  padding-top: var(--space-2-5);
   white-space: pre-wrap;
   word-break: break-word;
   overflow-wrap: break-word;
@@ -582,17 +592,18 @@
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  background-color: var(--clr-dark);
-  color: var(--clr-white);
-  transition: background-color 0.2s;
+  background-color: rgba(38, 172, 0, 0.1);
+  color: var(--clr-green);
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .documents-template-copy:hover {
-  background-color: #000;
+  background-color: rgba(38, 172, 0, 0.18);
 }
 
 .documents-template-copy--done {
-  background-color: #22c55e;
+  background-color: var(--clr-green);
+  color: var(--clr-white);
 }
 
 @media (max-width: 767px) {

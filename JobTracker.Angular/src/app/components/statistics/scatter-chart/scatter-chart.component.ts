@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, AfterViewInit, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { EmptyStateComponent } from '../../shared/empty-state/empty-state.component';
 
@@ -23,14 +23,21 @@ interface GridLine { pos: number; label: string }
   templateUrl: './scatter-chart.component.html',
   styleUrl: './scatter-chart.component.css'
 })
-export class ScatterChartComponent implements OnChanges {
+export class ScatterChartComponent implements OnChanges, AfterViewInit, OnDestroy {
   @Input() points: ScatterPoint[] = [];
   @Input() xSuffix = '';
   @Input() ySuffix = '';
 
-  readonly VW = 600;
-  readonly VH = 280;
+  @ViewChild('wrapEl', { static: true }) wrapRef!: ElementRef<HTMLDivElement>;
+
+  // Matched to the wrapper's real rendered size via ResizeObserver so 1 SVG unit
+  // always equals 1 real pixel — text never scales down into illegibility, and
+  // the chart never has to overflow or scroll to stay at native size.
+  VW = 600;
+  VH = 280;
   readonly PAD = { top: 16, right: 20, bottom: 34, left: 44 };
+
+  private resizeObserver?: ResizeObserver;
 
   get cw(): number { return this.VW - this.PAD.left - this.PAD.right; }
   get ch(): number { return this.VH - this.PAD.top - this.PAD.bottom; }
@@ -41,8 +48,34 @@ export class ScatterChartComponent implements OnChanges {
   rendered: RenderedPoint[] = [];
   hovered: RenderedPoint | null = null;
 
+  constructor(private zone: NgZone) {}
+
+  ngAfterViewInit(): void {
+    this.zone.runOutsideAngular(() => {
+      this.resizeObserver = new ResizeObserver(entries => {
+        const { width, height } = entries[0].contentRect;
+        if (width < 1 || height < 1) return;
+        if (Math.abs(width - this.VW) < 0.5 && Math.abs(height - this.VH) < 0.5) return;
+        this.zone.run(() => {
+          this.VW = width;
+          this.VH = height;
+          this.build();
+        });
+      });
+      this.resizeObserver.observe(this.wrapRef.nativeElement);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
+  }
+
   ngOnChanges(): void {
     this.hovered = null;
+    this.build();
+  }
+
+  private build(): void {
     this.xGrid = [];
     this.yGrid = [];
     this.rendered = [];

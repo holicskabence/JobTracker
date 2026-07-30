@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CalendarEvent, Task, UserDocument } from '../models/planner.model';
 
-export interface EventTypeDto { id: number; name: string; }
+export interface EventTypeDto { id: number; name: string; color: string; }
 
 @Injectable({ providedIn: 'root' })
 export class PlannerApiService {
@@ -67,12 +67,12 @@ export class PlannerApiService {
     return this.http.get<EventTypeDto[]>('/api/event-types');
   }
 
-  createEventType(name: string): Observable<EventTypeDto> {
-    return this.http.post<EventTypeDto>('/api/event-types', { name });
+  createEventType(name: string, color: string): Observable<EventTypeDto> {
+    return this.http.post<EventTypeDto>('/api/event-types', { name, color });
   }
 
-  updateEventType(id: number, name: string): Observable<EventTypeDto> {
-    return this.http.put<EventTypeDto>(`/api/event-types/${id}`, { name });
+  updateEventType(id: number, name: string, color: string): Observable<EventTypeDto> {
+    return this.http.put<EventTypeDto>(`/api/event-types/${id}`, { name, color });
   }
 
   deleteEventType(id: number): Observable<void> {

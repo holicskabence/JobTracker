@@ -205,12 +205,13 @@
 
       <button class="documents-template-toggle" (click)="toggleTemplates()">
         <div class="documents-template-toggle-left">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-               stroke="var(--clr-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
+          <div class="documents-template-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16v16H4z"/>
+              <path d="M22 6l-10 7L2 6"/>
+            </svg>
+          </div>
           <span class="documents-template-title">{{ 'documents.outreachTemplatesTitle' | translate }}</span>
         </div>
         <svg class="documents-template-chevron" [class.documents-template-chevron--open]="templatesOpen()"
@@ -223,12 +224,13 @@
       <div class="documents-template-body" [class.documents-template-body--open]="templatesOpen()">
 
         <div class="documents-template-header-inner">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-               stroke="var(--clr-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
+          <div class="documents-template-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16v16H4z"/>
+              <path d="M22 6l-10 7L2 6"/>
+            </svg>
+          </div>
           <h3 class="documents-template-title">{{ 'documents.outreachTemplatesTitle' | translate }}</h3>
         </div>
 

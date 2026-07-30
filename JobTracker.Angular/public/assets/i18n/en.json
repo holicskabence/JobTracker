@@ -566,7 +566,10 @@
     "outreachTemplates": {
       "title": "Outreach Templates",
       "subtitle": "Upload a file for each outreach template to override the built-in text",
-      "uploadLabel": "Upload file"
+      "default": "Default text",
+      "overridden": "Overridden",
+      "uploadTitle": "Upload override file",
+      "removeTitle": "Remove override — revert to default text"
     },
     "badge": { "count": "{{count}}" },
     "selectToEdit": "Select to edit",

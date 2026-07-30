@@ -28,6 +28,7 @@ export class MasterDataComponent {
   readonly isDemoUser = computed(() => this.auth.currentUser()?.email === 'demo@jobtracker.app');
 
   newEventTypeName = '';
+  newEventTypeColor = '#26ac00';
   newStatusLabel = '';
   newStatusColor = '#5fb9fa';
 
@@ -53,18 +54,23 @@ export class MasterDataComponent {
     this.outreachTemplateFileNames[id] = file.name;
   }
 
+  clearOutreachTemplateOverride(id: number): void {
+    delete this.outreachTemplateFileNames[id];
+  }
+
   selectedEventType: string | null = null;
 
   addEventType(): void {
     const trimmed = this.newEventTypeName.trim();
     if (!trimmed) return;
     if (this.selectedEventType) {
-      this.planner.updateEventType(this.selectedEventType, trimmed);
+      this.planner.updateEventType(this.selectedEventType, trimmed, this.newEventTypeColor);
       this.cancelEventTypeEdit();
       return;
     }
-    this.planner.addEventType(trimmed);
+    this.planner.addEventType(trimmed, this.newEventTypeColor);
     this.newEventTypeName = '';
+    this.newEventTypeColor = '#26ac00';
   }
 
   selectEventType(type: string): void {
@@ -74,11 +80,13 @@ export class MasterDataComponent {
     }
     this.selectedEventType = type;
     this.newEventTypeName = type;
+    this.newEventTypeColor = this.planner.eventTypeColor(type);
   }
 
   cancelEventTypeEdit(): void {
     this.selectedEventType = null;
     this.newEventTypeName = '';
+    this.newEventTypeColor = '#26ac00';
   }
 
   deleteEventType(type: string): void {

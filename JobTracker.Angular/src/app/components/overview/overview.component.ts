@@ -10,7 +10,6 @@ import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
-import { eventColor, eventColorAlpha } from '../../utils/event-color.util';
 
 @Component({
   selector: 'app-overview',
@@ -156,8 +155,13 @@ export class OverviewComponent {
     return this.translate.instant('overview.streak.long', { count: n });
   });
 
-  readonly eventColor = eventColor;
-  readonly eventColorAlpha = eventColorAlpha;
+  eventColor(type: string): string {
+    return this.planner.eventTypeColor(type);
+  }
+
+  eventColorAlpha(type: string, alpha: number): string {
+    return this.planner.eventTypeColorAlpha(type, alpha);
+  }
 
   fmtDate(d: string): string {
     return new Date(d).toLocaleDateString('hu-HU', { month: 'long', day: 'numeric' });

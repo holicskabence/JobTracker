@@ -17,7 +17,7 @@ public sealed class EventTypeService(IEventTypeRepository repo, ICalendarEventRe
     {
         if (await repo.GetByNameAsync(request.Name, userId) is not null) return null;
 
-        var type = new EventType { Name = request.Name, UserId = userId };
+        var type = new EventType { Name = request.Name, UserId = userId, Color = request.Color };
         await repo.AddAsync(type);
         return Map(type);
     }
@@ -30,6 +30,7 @@ public sealed class EventTypeService(IEventTypeRepository repo, ICalendarEventRe
         var oldName = type.Name;
         var newName = request.Name.Trim();
         type.Name = newName;
+        type.Color = request.Color;
         await repo.UpdateAsync(type);
 
         if (oldName != newName)
@@ -40,5 +41,5 @@ public sealed class EventTypeService(IEventTypeRepository repo, ICalendarEventRe
 
     public async Task<bool> DeleteAsync(int id, int userId) => await repo.DeleteAsync(id, userId);
 
-    private static EventTypeResponse Map(EventType t) => new(t.Id, t.Name);
+    private static EventTypeResponse Map(EventType t) => new(t.Id, t.Name, t.Color);
 }
