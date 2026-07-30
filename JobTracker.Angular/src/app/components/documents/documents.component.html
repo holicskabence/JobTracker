@@ -1,6 +1,16 @@
 <app-page-section [title]="'documents.sectionTitle' | translate" [subtitle]="'documents.sectionSubtitle' | translate">
 
+  @if (stacked()) {
+  <div class="documents-tabs">
+    <button class="documents-tab" [class.documents-tab--active]="mobileTab() === 'documents'"
+      (click)="mobileTab.set('documents')">{{ 'documents.mobileTabs.documents' | translate }}</button>
+    <button class="documents-tab" [class.documents-tab--active]="mobileTab() === 'templates'"
+      (click)="mobileTab.set('templates')">{{ 'documents.mobileTabs.templates' | translate }}</button>
+  </div>
+  }
+
   <div class="documents-grid">
+    @if (!stacked() || mobileTab() === 'documents') {
 
     <div class="documents-left">
 
@@ -200,7 +210,9 @@
       </div>
 
     </div>
+    }
 
+    @if (!stacked() || mobileTab() === 'templates') {
     <app-card class="documents-templates" radius="xl" padding="none" gap="none">
 
       <button class="documents-template-toggle" (click)="toggleTemplates()">
@@ -268,6 +280,7 @@
       </div>
 
     </app-card>
+    }
 
   </div>
 </app-page-section>

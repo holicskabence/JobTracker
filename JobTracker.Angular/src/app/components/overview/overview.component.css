@@ -526,11 +526,13 @@
     align-items: center;
     justify-content: space-between;
     padding: var(--space-5);
-    transition: background-color 0.15s;
+    box-shadow: inset 0 0 0 transparent;
+    transition: background-color 0.15s, box-shadow 0.15s;
 }
 
 .recent-item:hover {
     background-color: rgba(244, 242, 240, 0.4);
+    box-shadow: inset 3px 0 0 var(--row-status-color);
 }
 
 .recent-item--separator {

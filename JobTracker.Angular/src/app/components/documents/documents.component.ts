@@ -10,6 +10,8 @@ import { EmptyStateComponent } from '../shared/empty-state/empty-state.component
 import { BreakpointService } from '../../services/breakpoint.service';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
 
+type MobileTab = 'documents' | 'templates';
+
 const DOC_TYPE_KEYS: Record<string, string> = {
   'Mind': 'documents.typeAll',
   'Önéletrajz': 'documents.typeResume',
@@ -34,6 +36,8 @@ export class DocumentsComponent {
   readonly copiedId = signal<number | null>(null);
   readonly templatesOpen = signal(true);
   readonly formOpen = signal(false);
+  readonly mobileTab = signal<MobileTab>('documents');
+  readonly stacked = this.breakpoint.watch('(max-width: 1499px)');
 
   toggleTemplates(): void {
     this.templatesOpen.update(open => !open);

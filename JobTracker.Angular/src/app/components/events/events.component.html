@@ -1,7 +1,17 @@
 <app-page-section [title]="'events.sectionTitle' | translate"
   [subtitle]="'events.sectionSubtitle' | translate">
 
+  @if (stacked()) {
+  <div class="events-tabs">
+    <button class="events-tab" [class.events-tab--active]="mobileTab() === 'events'"
+      (click)="mobileTab.set('events')">{{ 'events.mobileTabs.events' | translate }}</button>
+    <button class="events-tab" [class.events-tab--active]="mobileTab() === 'tasks'"
+      (click)="mobileTab.set('tasks')">{{ 'events.mobileTabs.tasks' | translate }}</button>
+  </div>
+  }
+
   <div class="events-grid">
+    @if (!stacked() || mobileTab() === 'events') {
     <div class="events-left">
       <ng-template #eventFormFields>
         <form class="events-form" (ngSubmit)="submitEvent()">
@@ -176,8 +186,10 @@
         }
       </div>
     </div>
+    }
 
     <!-- ─── RIGHT: Tasks ─── -->
+    @if (!stacked() || mobileTab() === 'tasks') {
     <app-card class="events-tasks-card" radius="xl" gap="none">
 
       <div class="events-tasks-header">
@@ -257,6 +269,7 @@
       </div>
 
     </app-card>
+    }
 
   </div>
 </app-page-section>

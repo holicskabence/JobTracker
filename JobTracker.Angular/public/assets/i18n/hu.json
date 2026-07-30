@@ -342,6 +342,10 @@
       "upcoming": "Közelgő",
       "past": "Elmúlt"
     },
+    "mobileTabs": {
+      "events": "Események",
+      "tasks": "Teendők"
+    },
     "list": {
       "editTitle": "Szerkesztés",
       "deleteTitle": "Törlés",
@@ -393,7 +397,11 @@
     "outreachTemplatesTitle": "Kapcsolatfelvételi Sablonok",
     "outreachTemplatesSubtitle": "Egyszerűsítsd az outreach folyamatokat! Másold és módosítsd az alábbi professzionális sablonokat.",
     "copiedBtn": "Másolva!",
-    "copyBtn": "Másolás"
+    "copyBtn": "Másolás",
+    "mobileTabs": {
+      "documents": "Dokumentumok",
+      "templates": "Sablonok"
+    }
   },
   "statistics": {
     "title": "Statisztikai Dashboard",

@@ -342,6 +342,10 @@
       "upcoming": "Upcoming",
       "past": "Past"
     },
+    "mobileTabs": {
+      "events": "Events",
+      "tasks": "Tasks"
+    },
     "list": {
       "editTitle": "Edit",
       "deleteTitle": "Delete",
@@ -393,7 +397,11 @@
     "outreachTemplatesTitle": "Outreach Templates",
     "outreachTemplatesSubtitle": "Simplify your outreach process! Copy and customize the professional templates below.",
     "copiedBtn": "Copied!",
-    "copyBtn": "Copy"
+    "copyBtn": "Copy",
+    "mobileTabs": {
+      "documents": "Documents",
+      "templates": "Templates"
+    }
   },
   "statistics": {
     "title": "Statistics Dashboard",

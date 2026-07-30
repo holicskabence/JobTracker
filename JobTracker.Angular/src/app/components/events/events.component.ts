@@ -13,6 +13,7 @@ import { BreakpointService } from '../../services/breakpoint.service';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
 
 type EventFilter = 'all' | 'upcoming' | 'past';
+type MobileTab = 'events' | 'tasks';
 
 @Component({
   selector: 'app-events',
@@ -30,6 +31,8 @@ export class EventsComponent implements OnInit {
   readonly hideCompleted = signal(false);
   readonly editingId     = signal<number | null>(null);
   readonly formOpen      = signal(false);
+  readonly mobileTab     = signal<MobileTab>('events');
+  readonly stacked       = this.breakpoint.watch('(max-width: 1399px)');
 
   @ViewChild('eventsFormCard') private eventsFormCard?: ElementRef<HTMLElement>;
 

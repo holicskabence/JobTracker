@@ -139,7 +139,8 @@
 
         <div class="recent-list">
             @for (job of recentJobs(); track job.id; let first = $first) {
-            <div class="recent-item" [class.recent-item--separator]="!first">
+            <div class="recent-item" [class.recent-item--separator]="!first"
+                [style.--row-status-color]="colorFor(job.status)">
                 <div class="recent-item-left">
                     <div class="recent-avatar" [style.color]="colorFor(job.status)"
                         [style.background-color]="colorAlpha(job.status, 0.12)">
