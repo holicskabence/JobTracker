@@ -1,3 +1,8 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
 .activity-heatmap {
   position: relative;
   display: flex;

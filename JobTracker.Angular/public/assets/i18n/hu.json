@@ -348,7 +348,14 @@
       "allDay": "Egész nap",
       "emptyUpcoming": "Nincsenek közelgő események.",
       "emptyPast": "Nincsenek elmúlt események.",
-      "emptyAll": "Nincsenek rögzített közelgő interjúk."
+      "emptyAll": "Nincsenek rögzített közelgő interjúk.",
+      "relativeDate": {
+        "today": "Ma",
+        "tomorrow": "Holnap",
+        "yesterday": "Tegnap",
+        "inDays": "{{count}} nap múlva",
+        "daysAgo": "{{count}} napja"
+      }
     },
     "tasks": {
       "title": "Felkészülési Teendők",

@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -11,6 +11,7 @@ import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { BreakpointService } from '../../services/breakpoint.service';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
+import { eventColor, eventColorAlpha } from '../../utils/event-color.util';
 
 type EventFilter = 'all' | 'upcoming' | 'past';
 
@@ -31,14 +32,17 @@ export class EventsComponent implements OnInit {
   readonly editingId     = signal<number | null>(null);
   readonly formOpen      = signal(false);
 
+  @ViewChild('eventsFormCard') private eventsFormCard?: ElementRef<HTMLElement>;
+
   readonly completedCount = computed(() => this.planner.tasks().filter(t => t.completed).length);
 
   readonly filteredEvents = computed(() => {
     const today = new Date().toISOString().split('T')[0];
     const evs   = this.planner.events();
-    if (this.eventFilter() === 'upcoming') return evs.filter(e => e.date >= today);
-    if (this.eventFilter() === 'past')     return evs.filter(e => e.date < today);
-    return evs;
+    let filtered = evs;
+    if (this.eventFilter() === 'upcoming') filtered = evs.filter(e => e.date >= today);
+    else if (this.eventFilter() === 'past') filtered = evs.filter(e => e.date < today);
+    return [...filtered].sort((a, b) => b.date.localeCompare(a.date) || b.time.localeCompare(a.time));
   });
 
   readonly visibleTasks = computed(() => {
@@ -75,6 +79,10 @@ export class EventsComponent implements OnInit {
     this.newEventNotes   = ev.notes;
     this.submitted       = false;
     this.formOpen.set(true);
+
+    if (!this.breakpoint.isMobile()) {
+      this.eventsFormCard?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   cancelEdit(): void {
@@ -134,6 +142,29 @@ export class EventsComponent implements OnInit {
   }
 
   eventTimeLabel(ev: CalendarEvent): string {
-    return ev.time ? ' – ' + ev.time : ' – ' + this.translate.instant('events.list.allDay');
+    return ev.time || this.translate.instant('events.list.allDay');
+  }
+
+  readonly eventColor = eventColor;
+  readonly eventColorAlpha = eventColorAlpha;
+
+  initial(company: string): string {
+    return company.charAt(0).toUpperCase();
+  }
+
+  fmtDateShort(d: string): string {
+    return new Date(d).toLocaleDateString('hu-HU', { year: 'numeric', month: 'short', day: 'numeric' });
+  }
+
+  fmtRelative(d: string): string {
+    const target = new Date(d); target.setHours(0, 0, 0, 0);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const diff = Math.round((target.getTime() - today.getTime()) / 86_400_000);
+    if (diff === 0) return this.translate.instant('events.list.relativeDate.today');
+    if (diff === 1) return this.translate.instant('events.list.relativeDate.tomorrow');
+    if (diff === -1) return this.translate.instant('events.list.relativeDate.yesterday');
+    if (diff > 1 && diff <= 7) return this.translate.instant('events.list.relativeDate.inDays', { count: diff });
+    if (diff < -1 && diff >= -7) return this.translate.instant('events.list.relativeDate.daysAgo', { count: -diff });
+    return this.fmtDateShort(d);
   }
 }

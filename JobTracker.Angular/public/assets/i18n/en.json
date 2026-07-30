@@ -348,7 +348,14 @@
       "allDay": "All day",
       "emptyUpcoming": "There are no upcoming events.",
       "emptyPast": "There are no past events.",
-      "emptyAll": "There are no recorded upcoming interviews."
+      "emptyAll": "There are no recorded upcoming interviews.",
+      "relativeDate": {
+        "today": "Today",
+        "tomorrow": "Tomorrow",
+        "yesterday": "Yesterday",
+        "inDays": "In {{count}} days",
+        "daysAgo": "{{count}} days ago"
+      }
     },
     "tasks": {
       "title": "Preparation tasks",

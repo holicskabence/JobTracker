@@ -10,6 +10,7 @@ import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
+import { eventColor, eventColorAlpha } from '../../utils/event-color.util';
 
 @Component({
   selector: 'app-overview',
@@ -155,25 +156,8 @@ export class OverviewComponent {
     return this.translate.instant('overview.streak.long', { count: n });
   });
 
-  private readonly EVENT_COLORS: Record<string, string> = {
-    'HR Megkeresés': '#f59e0b',
-    'Technikai Interjú': '#5fb9fa',
-    'Rendszertervezés': '#8b5cf6',
-    'Tesztfeladat': '#f97316',
-    'Ajánlat egyeztetés': '#26ac00'
-  };
-
-  eventColor(type: string): string {
-    return this.EVENT_COLORS[type] ?? '#26ac00';
-  }
-
-  eventColorAlpha(type: string, a: number): string {
-    const hex = this.eventColor(type).replace('#', '');
-    const r = parseInt(hex.slice(0, 2), 16);
-    const g = parseInt(hex.slice(2, 4), 16);
-    const b = parseInt(hex.slice(4, 6), 16);
-    return `rgba(${r}, ${g}, ${b}, ${a})`;
-  }
+  readonly eventColor = eventColor;
+  readonly eventColorAlpha = eventColorAlpha;
 
   fmtDate(d: string): string {
     return new Date(d).toLocaleDateString('hu-HU', { month: 'long', day: 'numeric' });

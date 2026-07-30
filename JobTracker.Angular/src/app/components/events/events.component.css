@@ -279,6 +279,7 @@
 
 .events-card {
   border: 1.5px solid var(--clr-border);
+  border-left-width: 4px;
   padding: var(--space-5);
   transition: box-shadow 0.2s, border-color 0.2s;
   min-width: 0;
@@ -291,6 +292,7 @@
 
 .events-card--editing {
   border-color: var(--clr-green);
+  border-left-color: var(--clr-green) !important;
   box-shadow: 0 0 0 3px rgba(38, 172, 0, 0.1);
 }
 
@@ -301,16 +303,16 @@
   margin-bottom: var(--space-2-5);
 }
 
-.events-card-icon {
+.events-card-avatar {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background-color: rgba(38, 172, 0, 0.1);
-  color: var(--clr-green);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .events-card-meta {
@@ -324,7 +326,6 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--clr-green);
   margin-bottom: var(--space-0-5);
 }
 
@@ -341,20 +342,27 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: var(--space-1-5);
+  gap: var(--space-2);
   flex-shrink: 0;
 }
 
-.events-card-time {
+.events-card-when {
   display: flex;
-  align-items: center;
-  gap: var(--space-1-5);
-  font-size: 0.75rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-0-5);
+}
+
+.events-card-relative {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.events-card-datetime {
+  font-size: 0.6875rem;
   font-weight: 600;
-  color: var(--clr-dark);
-  background-color: var(--clr-bg);
-  padding: var(--space-1-5) var(--space-2-5);
-  border-radius: var(--radius-full);
+  color: var(--clr-muted);
   white-space: nowrap;
 }
 
@@ -673,9 +681,10 @@
     margin-bottom: var(--space-2);
   }
 
-  .events-card-icon {
+  .events-card-avatar {
     width: var(--space-8);
     height: var(--space-8);
+    font-size: 0.8125rem;
   }
 
   .events-card-right {
@@ -687,9 +696,12 @@
     gap: var(--space-2);
   }
 
-  .events-card-time {
-    font-size: 0.6875rem;
-    padding: var(--space-1) var(--space-2);
+  .events-card-when {
+    align-items: flex-start;
+  }
+
+  .events-card-relative {
+    font-size: 0.75rem;
   }
 
   .events-card-button {

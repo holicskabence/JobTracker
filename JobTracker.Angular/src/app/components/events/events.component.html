@@ -91,7 +91,7 @@
       </div>
       }
       } @else {
-      <div class="events-form-card" [class.events-form-card--editing]="editingId() !== null">
+      <div class="events-form-card" #eventsFormCard [class.events-form-card--editing]="editingId() !== null">
         <h3 class="events-form-title">
           {{ (editingId() !== null ? 'events.modal.editTitle' : 'events.modal.addTitle') | translate }}
         </h3>
@@ -122,33 +122,27 @@
       <div class="events-list">
         @for (event of filteredEvents(); track event.id) {
         <app-card class="events-card" (click)="startEdit(event)" radius="xl" gap="none"
-          [class.events-card--editing]="editingId() === event.id">
+          [class.events-card--editing]="editingId() === event.id"
+          [style.border-left-color]="eventColor(event.type)">
 
           <div class="events-card-top">
-            <div class="events-card-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-              </svg>
+            <div class="events-card-avatar" [style.color]="eventColor(event.type)"
+              [style.background-color]="eventColorAlpha(event.type, 0.14)">
+              {{ initial(event.company) }}
             </div>
             <div class="events-card-meta">
-              <span class="events-card-type">{{ event.type }}</span>
+              <span class="events-card-type" [style.color]="eventColor(event.type)">{{ event.type }}</span>
               <h4 class="events-card-company">{{ event.company }}</h4>
             </div>
             <div class="events-card-right">
-              <div class="events-card-time">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
-                </svg>
-                {{ event.date }}{{ eventTimeLabel(event) }}
+              <div class="events-card-when">
+                <span class="events-card-relative" [style.color]="eventColor(event.type)">{{ fmtRelative(event.date)
+                  }}</span>
+                <span class="events-card-datetime">{{ eventTimeLabel(event) }}</span>
               </div>
               <div class="events-card-buttons">
-                <button class="events-card-button events-card-button--edit" (click)="startEdit(event)"
+                <button class="events-card-button events-card-button--edit"
+                  (click)="$event.stopPropagation(); startEdit(event)"
                   [title]="'events.list.editTitle' | translate">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -157,7 +151,8 @@
                   </svg>
                 </button>
                 <button class="events-card-button events-card-button--del"
-                  (click)="planner.deleteEvent(event.id)" [title]="'events.list.deleteTitle' | translate">
+                  (click)="$event.stopPropagation(); planner.deleteEvent(event.id)"
+                  [title]="'events.list.deleteTitle' | translate">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="3 6 5 6 21 6" />
