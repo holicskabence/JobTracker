@@ -349,6 +349,7 @@
     "list": {
       "editTitle": "Edit",
       "deleteTitle": "Delete",
+      "actionsTitle": "Actions",
       "allDay": "All day",
       "emptyUpcoming": "There are no upcoming events.",
       "emptyPast": "There are no past events.",

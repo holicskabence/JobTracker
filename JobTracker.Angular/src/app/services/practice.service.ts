@@ -1,5 +1,7 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { forkJoin, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { FeedbackType, PracticeAttempt, PracticeCategory, PrepQuestion } from '../models/practice.model';
 import { CreatePracticeQuestionPayload, PracticeApiService, UpdatePracticeQuestionPayload } from './practice-api.service';
 
@@ -49,6 +51,8 @@ export class PracticeService {
     this.questions().filter(q => q.feedback !== null).length
   );
 
+  readonly loading = signal<boolean>(true);
+
   constructor(private readonly api: PracticeApiService) { }
 
   private _loadDates(): string[] {
@@ -66,19 +70,32 @@ export class PracticeService {
   }
 
   loadAll(): void {
+    this.loading.set(true);
     this.error.set('');
-    this.api.getQuestions().subscribe({
-      next: data => this.questions.set(data),
-      error: () => this.error.set('Nem sikerült betölteni a gyakorló kérdéseket.')
-    });
-    this.api.getCategories().subscribe({
-      next: data => this.categories.set(data),
-      error: () => this.error.set('Nem sikerült betölteni a kérdés kategóriákat.')
-    });
-    this.api.getAttempts().subscribe({
-      next: data => this.attempts.set(data),
-      error: () => this.error.set('Nem sikerült betölteni a gyakorlási naplót.')
-    });
+
+    const questions$ = this.api.getQuestions().pipe(
+      tap(data => this.questions.set(data)),
+      catchError(() => {
+        this.error.set('Nem sikerült betölteni a gyakorló kérdéseket.');
+        return of(null);
+      })
+    );
+    const categories$ = this.api.getCategories().pipe(
+      tap(data => this.categories.set(data)),
+      catchError(() => {
+        this.error.set('Nem sikerült betölteni a kérdés kategóriákat.');
+        return of(null);
+      })
+    );
+    const attempts$ = this.api.getAttempts().pipe(
+      tap(data => this.attempts.set(data)),
+      catchError(() => {
+        this.error.set('Nem sikerült betölteni a gyakorlási naplót.');
+        return of(null);
+      })
+    );
+
+    forkJoin([questions$, categories$, attempts$]).subscribe(() => this.loading.set(false));
   }
 
   addCategory(name: string, color: string): void {

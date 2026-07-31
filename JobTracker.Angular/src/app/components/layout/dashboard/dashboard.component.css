@@ -66,3 +66,22 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.dashboard-loading {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    color: var(--clr-muted);
+}
+
+.dashboard-loading-spinner {
+    animation: dashboard-loading-spin 0.8s linear infinite;
+}
+
+@keyframes dashboard-loading-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

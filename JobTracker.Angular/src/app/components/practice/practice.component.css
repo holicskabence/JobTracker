@@ -476,7 +476,7 @@
     }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1200px) {
 
     .practice-tabs,
     .practice-tab {
@@ -486,8 +486,8 @@
     .practice-body {
         grid-template-columns: minmax(0, 1fr);
         grid-template-areas:
-            "deck"
-            "aside";
+            "aside"
+            "deck";
     }
 
     .practice-aside-row {
@@ -505,13 +505,17 @@
         padding: var(--space-2-5) var(--space-3);
     }
 
+    .practice-history-card {
+        display: none;
+    }
+
     .practice-cat-list {
         flex: none;
         flex-direction: row;
         max-height: none;
         overflow-x: auto;
         overflow-y: hidden;
-        padding-bottom: var(--space-1);
+        padding-bottom: var(--space-2-5);
     }
 
     .practice-cat-row {
@@ -555,46 +559,12 @@
 
 .practice-deck {
     grid-area: deck;
-    position: relative;
-    isolation: isolate;
     width: 100%;
-    padding-bottom: var(--space-6);
-}
-
-.practice-deck::before,
-.practice-deck::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: var(--radius-xl);
-    background: var(--clr-white);
-    border: 1px solid var(--clr-border);
-}
-
-.practice-deck::before {
-    width: calc(100% - 24px);
-    bottom: 14px;
-    z-index: -1;
-    opacity: 0.9;
-    box-shadow: 0 3px 8px var(--clr-shadow);
-}
-
-.practice-deck::after {
-    width: calc(100% - 56px);
-    bottom: 4px;
-    z-index: -2;
-    opacity: 0.55;
-    box-shadow: 0 2px 6px var(--clr-shadow);
 }
 
 .practice-card {
-    position: relative;
-    z-index: 1;
     width: 100%;
     padding: var(--space-7);
-    box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.16), 0 2px 6px var(--clr-shadow);
     gap: var(--space-4);
 }
 

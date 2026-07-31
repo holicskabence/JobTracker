@@ -1,11 +1,14 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { forkJoin, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { JobApiService } from './job-api.service';
 import {
   Job,
   JobStats,
   JobStatus,
   JobStatusConfig,
+  JobStatusHistoryEntry,
   StatsCategory,
   StatsGranularity,
   StatsSeriesPoint
@@ -15,9 +18,10 @@ import {
 export class JobStoreService {
   readonly jobs = signal<Job[]>([]);
   readonly statsSeries = signal<StatsSeriesPoint[]>([]);
-  readonly loading = signal<boolean>(false);
+  readonly loading = signal<boolean>(true);
   readonly error = signal<string>('');
   readonly statusConfigs = signal<JobStatusConfig[]>([]);
+  readonly statusHistory = signal<JobStatusHistoryEntry[]>([]);
 
   readonly modalOpen = signal(false);
   readonly editingJob = signal<Job | null>(null);
@@ -31,6 +35,16 @@ export class JobStoreService {
   readonly stats = computed<JobStats>(() => {
     const jobs = this.jobs();
     const configOf = (status: string) => this.statusConfigs().find(c => c.key === status);
+
+    // A job counts as a callback once it has ever reached an interview-flagged
+    // status, regardless of where it currently sits (e.g. later offered or rejected).
+    const everInterviewedIds = new Set<number>();
+    for (const j of jobs) {
+      if (configOf(j.status)?.isInterview) everInterviewedIds.add(j.id);
+    }
+    for (const h of this.statusHistory()) {
+      if (configOf(h.newStatus)?.isInterview) everInterviewedIds.add(h.jobId);
+    }
 
     const offers = jobs.filter(j => configOf(j.status)?.statsCategory === 'Success').length;
     const rejects = jobs.filter(j => configOf(j.status)?.statsCategory === 'Rejected').length;
@@ -47,10 +61,7 @@ export class JobStoreService {
       totalJobs: jobs.length,
       submitted,
       activeJobs: jobs.filter(j => configOf(j.status)?.isActive).length,
-      callbacks: jobs.filter(j => {
-        const cfg = configOf(j.status);
-        return cfg?.isInterview || cfg?.statsCategory === 'Rejected';
-      }).length,
+      callbacks: jobs.filter(j => everInterviewedIds.has(j.id)).length,
       interviewCount: jobs.filter(j => configOf(j.status)?.isInterview).length,
       offers,
       rejections: rejects,
@@ -244,20 +255,36 @@ export class JobStoreService {
     this.loading.set(true);
     this.error.set('');
 
-    this.api.getStatusConfigs().subscribe({
-      next: configs => this.statusConfigs.set(configs),
-      error: () => this.error.set('Nem sikerült betölteni a státuszokat.')
-    });
+    const statusConfigs$ = this.api.getStatusConfigs().pipe(
+      tap(configs => this.statusConfigs.set(configs)),
+      catchError(() => {
+        this.error.set('Nem sikerült betölteni a státuszokat.');
+        return of(null);
+      })
+    );
 
-    this.api.getJobs().subscribe({
-      next: jobs => this.jobs.set(jobs),
-      error: () => this.error.set('Nem sikerült betölteni az állásokat.')
-    });
+    const jobs$ = this.api.getJobs().pipe(
+      tap(jobs => this.jobs.set(jobs)),
+      catchError(() => {
+        this.error.set('Nem sikerült betölteni az állásokat.');
+        return of(null);
+      })
+    );
 
-    this.api.getStatsSeries('day').subscribe({
-      next: series => this.statsSeries.set(series),
-      complete: () => this.loading.set(false)
-    });
+    const statusHistory$ = this.api.getJobStatusHistory().pipe(
+      tap(entries => this.statusHistory.set(entries)),
+      catchError(() => {
+        this.error.set('Nem sikerült betölteni a jelentkezés változásokat.');
+        return of(null);
+      })
+    );
+
+    const statsSeries$ = this.api.getStatsSeries('day').pipe(
+      tap(series => this.statsSeries.set(series)),
+      catchError(() => of(null))
+    );
+
+    forkJoin([statusConfigs$, jobs$, statusHistory$, statsSeries$]).subscribe(() => this.loading.set(false));
   }
 
   loadStatsSeries(granularity: StatsGranularity): void {
@@ -283,13 +310,25 @@ export class JobStoreService {
   }
 
   changeStatus(jobId: number, status: JobStatus): void {
-    this.api.updateJobStatus(jobId, status).subscribe(() =>
+    const previous = this.jobs().find(j => j.id === jobId);
+    this.api.updateJobStatus(jobId, status).subscribe(() => {
       this.jobs.update(current => {
         const job = current.find(j => j.id === jobId);
         if (!job) return current;
         return [{ ...job, status }, ...current.filter(j => j.id !== jobId)];
-      })
-    );
+      });
+      if (previous && previous.status !== status) {
+        this.statusHistory.update(current => [...current, {
+          id: -Date.now(),
+          jobId,
+          company: previous.company,
+          position: previous.position,
+          previousStatus: previous.status,
+          newStatus: status,
+          changedAt: new Date().toISOString()
+        }]);
+      }
+    });
   }
 
   openModal(job: Job | null = null): void {

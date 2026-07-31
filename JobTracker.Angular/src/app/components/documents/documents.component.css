@@ -214,8 +214,7 @@
 .documents-filters {
   display: flex;
   gap: var(--space-1);
-  background-color: var(--clr-white);
-  border: 1px solid var(--clr-border);
+  background-color: var(--clr-bg);
   border-radius: var(--radius-full);
   padding: var(--space-1);
   flex-shrink: 0;
@@ -235,8 +234,9 @@
   white-space: nowrap;
 }
 
-.documents-filter-button:hover {
+.documents-filter-button:hover:not(.documents-filter-button--active) {
   color: var(--clr-dark);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .documents-filter-button--active {

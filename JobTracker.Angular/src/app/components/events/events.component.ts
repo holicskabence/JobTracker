@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, HostListener, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -33,6 +33,10 @@ export class EventsComponent implements OnInit {
   readonly formOpen      = signal(false);
   readonly mobileTab     = signal<MobileTab>('events');
   readonly stacked       = this.breakpoint.watch('(max-width: 1399px)');
+
+  readonly openMenuId = signal<number | null>(null);
+  menuTop = 0;
+  menuLeft = 0;
 
   @ViewChild('eventsFormCard') private eventsFormCard?: ElementRef<HTMLElement>;
 
@@ -165,5 +169,31 @@ export class EventsComponent implements OnInit {
     if (diff > 1 && diff <= 7) return this.translate.instant('events.list.relativeDate.inDays', { count: diff });
     if (diff < -1 && diff >= -7) return this.translate.instant('events.list.relativeDate.daysAgo', { count: -diff });
     return this.fmtDateShort(d);
+  }
+
+  toggleMenu(id: number, event: MouseEvent): void {
+    event.stopPropagation();
+    if (this.openMenuId() === id) {
+      this.openMenuId.set(null);
+      return;
+    }
+    const btn = event.currentTarget as HTMLElement;
+    const r = btn.getBoundingClientRect();
+    const panelWidth = 200;
+    let left = r.right - panelWidth;
+    if (left < 8) left = 8;
+    if (left + panelWidth > window.innerWidth - 8) left = window.innerWidth - panelWidth - 8;
+    this.menuLeft = left;
+    this.menuTop = r.bottom + 4;
+    this.openMenuId.set(id);
+  }
+
+  closeMenu(): void {
+    this.openMenuId.set(null);
+  }
+
+  @HostListener('document:click')
+  onDocClick(): void {
+    this.openMenuId.set(null);
   }
 }

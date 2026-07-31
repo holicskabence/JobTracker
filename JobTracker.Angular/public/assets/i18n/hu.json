@@ -349,6 +349,7 @@
     "list": {
       "editTitle": "Szerkesztés",
       "deleteTitle": "Törlés",
+      "actionsTitle": "Műveletek",
       "allDay": "Egész nap",
       "emptyUpcoming": "Nincsenek közelgő események.",
       "emptyPast": "Nincsenek elmúlt események.",

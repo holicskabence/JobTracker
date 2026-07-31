@@ -347,7 +347,6 @@
 }
 
 .chart-card-header {
-  padding: var(--padding-card) var(--padding-card) 0;
   margin-bottom: var(--space-2);
   display: flex;
   flex-direction: column;
@@ -374,7 +373,6 @@
 }
 
 .chart-card-body {
-  padding: 0 var(--padding-card) var(--padding-card);
   height: 280px;
   min-width: 0;
 }
@@ -427,6 +425,10 @@
 
   .chart-card-body {
     height: 240px;
+  }
+
+  .chart-card-body--donut {
+    height: auto;
   }
 }
 
@@ -831,13 +833,5 @@
 @media (max-width: 479px) {
   app-card {
     padding: var(--space-5);
-  }
-
-  .chart-card-header {
-    padding: var(--space-5) var(--space-5) 0;
-  }
-
-  .chart-card-body {
-    padding: 0 var(--space-5) var(--space-5);
   }
 }

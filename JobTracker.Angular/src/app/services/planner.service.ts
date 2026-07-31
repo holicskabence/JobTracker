@@ -1,4 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
+import { forkJoin, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { CalendarEvent, Task, UserDocument } from '../models/planner.model';
 import { PlannerApiService, EventTypeDto } from './planner-api.service';
 
@@ -10,14 +12,19 @@ export class PlannerService {
   readonly tasks = signal<Task[]>([]);
   readonly documents = signal<UserDocument[]>([]);
   readonly eventTypes = computed(() => this._eventTypeObjects().map(t => t.name));
+  readonly loading = signal<boolean>(true);
 
   constructor(private readonly api: PlannerApiService) { }
 
   loadAll(): void {
-    this.api.getEvents().subscribe({ next: data => this.events.set(data) });
-    this.api.getTasks().subscribe({ next: data => this.tasks.set(data) });
-    this.api.getDocuments().subscribe({ next: data => this.documents.set(data) });
-    this.api.getEventTypes().subscribe({ next: data => this._eventTypeObjects.set(data) });
+    this.loading.set(true);
+
+    const events$ = this.api.getEvents().pipe(tap(data => this.events.set(data)), catchError(() => of(null)));
+    const tasks$ = this.api.getTasks().pipe(tap(data => this.tasks.set(data)), catchError(() => of(null)));
+    const documents$ = this.api.getDocuments().pipe(tap(data => this.documents.set(data)), catchError(() => of(null)));
+    const eventTypes$ = this.api.getEventTypes().pipe(tap(data => this._eventTypeObjects.set(data)), catchError(() => of(null)));
+
+    forkJoin([events$, tasks$, documents$, eventTypes$]).subscribe(() => this.loading.set(false));
   }
 
   addEvent(data: Omit<CalendarEvent, 'id'>): void {

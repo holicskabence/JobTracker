@@ -143,8 +143,12 @@
 
 .donut-legend-name {
   flex: 1;
+  min-width: 0;
   font-weight: 500;
   color: var(--clr-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .donut-legend-value {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, signal, NgZone, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, computed, inject, signal, NgZone, OnInit, OnDestroy } from '@angular/core';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -49,6 +49,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   readonly modalOpen = this.store.modalOpen;
   readonly editingJob = this.store.editingJob;
+
+  readonly initialLoading = computed(() =>
+    this.store.loading() || this.planner.loading() || this.practice.loading()
+  );
 
   private routerSub?: Subscription;
   private activeRouteComponent: unknown;
