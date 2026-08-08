@@ -16,8 +16,10 @@ export class DashboardHeaderComponent {
 
   @Input() activeTab: DashboardTab = 'attekintes';
   @Input() userName = '';
+  @Input() sidebarCollapsed = false;
   @Output() addJob = new EventEmitter<void>();
   @Output() openMobileMenu = new EventEmitter<void>();
+  @Output() toggleSidebar = new EventEmitter<void>();
 
   get showViewToggle(): boolean {
     return this.activeTab === 'jelentkezesek' && this.viewService.canToggle();

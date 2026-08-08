@@ -1,16 +1,17 @@
 <div class="page">
 
+    <app-dashboard-header [activeTab]="activeTab()" [userName]="auth.currentUser()?.name ?? ''"
+        [sidebarCollapsed]="sidebarCollapsed()" (toggleSidebar)="sidebarCollapsed.set(!sidebarCollapsed())"
+        (addJob)="handleHeaderAdd()" (openMobileMenu)="sidebarMobileOpen.set(true)" />
+
     <div class="panel">
 
         <app-sidebar [activeTab]="activeTab()" [collapsed]="sidebarCollapsed()" [mobileOpen]="sidebarMobileOpen()"
             [userName]="auth.currentUser()?.name ?? ''" [userEmail]="auth.currentUser()?.email ?? ''"
-            [avatarUrl]="auth.avatarObjectUrl()" (toggleCollapsed)="sidebarCollapsed.set(!sidebarCollapsed())"
+            [avatarUrl]="auth.avatarObjectUrl()"
             (closeMobile)="sidebarMobileOpen.set(false)" (logout)="logout()" />
 
         <div class="content">
-            <app-dashboard-header [activeTab]="activeTab()" [userName]="auth.currentUser()?.name ?? ''"
-                (addJob)="handleHeaderAdd()" (openMobileMenu)="sidebarMobileOpen.set(true)" />
-
             <main class="content-body"
                 [class.content-body--kanban]="activeTab() === 'jelentkezesek' && viewService.view() === 'kanban'"
                 [class.content-body--table]="activeTab() === 'jelentkezesek' && viewService.view() === 'table'">

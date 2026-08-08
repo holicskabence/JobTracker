@@ -4,33 +4,6 @@
 
 <nav class="sidebar" [class.sidebar--expanded]="!collapsed" [class.sidebar--open]="mobileOpen">
 
-    <button class="sidebar-border-toggle" (click)="toggleCollapsed.emit()"
-        [title]="collapsed ? ('sidebar.expand' | translate) : ('sidebar.collapse' | translate)">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6" />
-        </svg>
-    </button>
-
-    <div class="sidebar-brand">
-        <div class="sidebar-logo">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <rect x="2" y="2" width="9" height="9" rx="2" opacity="0.85" />
-                <rect x="13" y="2" width="9" height="9" rx="2" opacity="0.45" />
-                <rect x="2" y="13" width="9" height="9" rx="2" opacity="0.45" />
-                <rect x="13" y="13" width="9" height="9" rx="2" opacity="0.85" />
-            </svg>
-        </div>
-        <span class="sidebar-name">JobTracker</span>
-
-        <button class="sidebar-brand-close" (click)="closeMobile.emit()" [title]="'sidebar.close' | translate">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-            </svg>
-        </button>
-    </div>
-
     <div class="sidebar-nav">
 
         <a class="sidebar-button" routerLink="/dashboard/attekintes" routerLinkActive="sidebar-button--active"
@@ -115,7 +88,6 @@
             <span class="sidebar-label">{{ 'nav.documents' | translate }}</span>
         </a>
 
-        @if (showStatistics) {
         <a class="sidebar-button" routerLink="/dashboard/statisztika" routerLinkActive="sidebar-button--active"
             (click)="closeMobile.emit()" [title]="'nav.statistics' | translate">
             <span class="sidebar-icon">
@@ -128,7 +100,6 @@
             </span>
             <span class="sidebar-label">{{ 'nav.statistics' | translate }}</span>
         </a>
-        }
 
         <a class="sidebar-button" routerLink="/dashboard/torzsadatok" routerLinkActive="sidebar-button--active"
             (click)="closeMobile.emit()" [title]="'nav.masterData' | translate">
