@@ -75,6 +75,64 @@
     }
 }
 
+.sidebar-mobile-brand {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .sidebar-mobile-brand {
+        display: flex;
+        align-items: center;
+        gap: var(--gap-card);
+        padding: 0 var(--space-4);
+        height: 64px;
+        min-height: 64px;
+        border-bottom: 1px solid var(--clr-border);
+        flex-shrink: 0;
+    }
+}
+
+.sidebar-mobile-brand-logo {
+    width: 2.5rem;
+    height: 2.5rem;
+    min-width: 2.5rem;
+    border-radius: var(--radius-sm);
+    background-color: rgba(38, 172, 0, 0.1);
+    color: var(--clr-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-mobile-brand-name {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--clr-dark);
+    white-space: nowrap;
+    font-family: 'Poppins', sans-serif;
+    flex: 1;
+}
+
+.sidebar-mobile-brand-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--clr-muted);
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.sidebar-mobile-brand-close:hover {
+    background-color: rgba(234, 232, 229, 0.6);
+    color: var(--clr-dark);
+}
+
 .sidebar-nav {
     flex: 1;
     display: flex;

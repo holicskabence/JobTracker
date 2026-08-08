@@ -11,6 +11,8 @@
 }
 
 .profile-card--summary {
+    position: sticky;
+    top: 0;
     flex-shrink: 0;
     align-items: center;
     text-align: center;
@@ -603,6 +605,10 @@
 @media (max-width: 1400px) {
     .profile-body {
         flex-direction: column;
+    }
+
+    .profile-card--summary {
+        position: static;
     }
 
     app-card {
