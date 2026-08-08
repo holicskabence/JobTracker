@@ -174,7 +174,7 @@
       </div>
     </app-card>
 
-    <app-card class="chart-card chart-card--wide" gap="none">
+    <!-- <app-card class="chart-card chart-card--wide" gap="none">
       <div class="chart-card-header">
         <h3 class="chart-card-title">{{ 'statistics.activityHeatmap.title' | translate }}</h3>
         <p class="chart-card-subtitle">{{ 'statistics.charts.heatmap.subtitle' | translate }}</p>
@@ -182,9 +182,9 @@
       <div class="chart-card-body chart-card-body--padded">
         <app-activity-heatmap></app-activity-heatmap>
       </div>
-    </app-card>
+    </app-card> -->
 
-    <app-card class="chart-card" gap="none">
+    <!-- <app-card class="chart-card" gap="none">
       <div class="chart-card-header">
         <h3 class="chart-card-title">{{ 'statistics.interviewTimeline.title' | translate }}</h3>
         <p class="chart-card-subtitle">{{ 'statistics.interviewTimeline.subtitle' | translate }}</p>
@@ -207,17 +207,16 @@
         </div>
         }
       </div>
-    </app-card>
+    </app-card> -->
 
   </div>
 
-  <!-- ══════════ INSIGHTS ══════════ -->
-  <div class="section-header">
+  <!-- <div class="section-header">
     <h2 class="section-title">{{ 'statistics.insights.title' | translate }}</h2>
     <p class="section-subtitle">{{ 'statistics.insights.subtitle' | translate }}</p>
-  </div>
+  </div> -->
 
-  <div class="insights-grid">
+  <!-- <div class="insights-grid">
     @for (insight of insights(); track $index) {
     <div class="insight-card" [style.--insight-accent]="insight.accent">
       <div class="insight-icon">
@@ -228,15 +227,15 @@
       <p class="insight-text">{{ insight.text }}</p>
     </div>
     }
-  </div>
+  </div> -->
 
   <!-- ══════════ GOALS ══════════ -->
-  <div class="section-header">
+  <!-- <div class="section-header">
     <h2 class="section-title">{{ 'statistics.goals.title' | translate }}</h2>
     <p class="section-subtitle">{{ 'statistics.goals.subtitle' | translate }}</p>
-  </div>
+  </div> -->
 
-  <div class="goals-grid">
+  <!-- <div class="goals-grid">
     <app-card class="goal-card">
       <h3 class="goal-title">{{ 'statistics.goals.applications.label' | translate }}</h3>
       <div class="goal-progress-track">
@@ -279,10 +278,10 @@
           (change)="updateGoal('offers', asNumber($any($event.target).value))" />
       </div>
     </app-card>
-  </div>
+  </div> -->
 
   <!-- ══════════ ACTIVITY + COMPANY ANALYTICS ══════════ -->
-  <div class="two-col-grid">
+  <!-- <div class="two-col-grid">
 
     <app-card gap="none" class="activity-card">
       <div class="chart-card-header">
@@ -356,10 +355,10 @@
       </div>
     </app-card>
 
-  </div>
+  </div> -->
 
   <!-- ══════════ SKILLS + SUCCESS SCORE ══════════ -->
-  <div class="two-col-grid">
+  <!-- <div class="two-col-grid">
 
     <app-card gap="none" class="skills-card">
       <div class="chart-card-header">
@@ -381,18 +380,18 @@
       </div>
     </app-card>
 
-  </div>
+  </div> -->
 
   <!-- ══════════ JOB MARKET ANALYTICS ══════════ -->
-  <div class="section-header">
+  <!-- <div class="section-header">
     <div class="section-header-row">
       <h2 class="section-title">{{ 'statistics.jobMarket.title' | translate }}</h2>
       <span class="sample-badge">{{ 'statistics.sampleBadge' | translate }}</span>
     </div>
     <p class="section-subtitle">{{ 'statistics.jobMarket.subtitle' | translate }}</p>
-  </div>
+  </div> -->
 
-  <div class="charts-grid charts-grid--quad">
+  <!-- <div class="charts-grid charts-grid--quad">
     <app-card class="chart-card" gap="none">
       <div class="chart-card-header">
         <h3 class="chart-card-title">{{ 'statistics.jobMarket.workMode' | translate }}</h3>
@@ -428,15 +427,15 @@
         <app-pie-chart [slices]="companySizeSlices()"></app-pie-chart>
       </div>
     </app-card>
-  </div>
+  </div> -->
 
   <!-- ══════════ APPLICATION PIPELINE ══════════ -->
-  <div class="section-header">
+  <!-- <div class="section-header">
     <h2 class="section-title">{{ 'statistics.pipeline.title' | translate }}</h2>
     <p class="section-subtitle">{{ 'statistics.pipeline.subtitle' | translate }}</p>
-  </div>
+  </div> -->
 
-  <div class="pipeline-scroll">
+  <!-- <div class="pipeline-scroll">
     <div class="pipeline-row">
       @for (stage of pipelineStages(); track stage.key; let last = $last) {
       <div class="pipeline-stage-card" [style.--stage-color]="stage.color">
@@ -461,6 +460,6 @@
       }
       }
     </div>
-  </div>
+  </div> -->
 
 </app-page-section>

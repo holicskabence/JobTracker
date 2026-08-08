@@ -887,11 +887,7 @@
 
 @media (max-width: 640px) {
     .hero {
-        padding: var(--space-10) var(--space-4) var(--space-12);
-    }
-
-    .hero-stage {
-        padding: var(--space-4);
+        padding: calc(var(--space-12) + var(--space-4)) var(--space-4) var(--space-12);
     }
 
     .panel-section {
