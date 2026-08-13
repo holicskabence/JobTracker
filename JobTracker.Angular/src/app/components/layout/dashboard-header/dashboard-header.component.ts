@@ -14,7 +14,7 @@ export class DashboardHeaderComponent {
   private readonly translate = inject(TranslateService);
   readonly viewService = inject(ApplicationsViewService);
 
-  @Input() activeTab: DashboardTab = 'attekintes';
+  @Input() activeTab: DashboardTab = 'overview';
   @Input() userName = '';
   @Input() sidebarCollapsed = false;
   @Output() addJob = new EventEmitter<void>();
@@ -22,24 +22,24 @@ export class DashboardHeaderComponent {
   @Output() toggleSidebar = new EventEmitter<void>();
 
   get showViewToggle(): boolean {
-    return this.activeTab === 'jelentkezesek' && this.viewService.canToggle();
+    return this.activeTab === 'applications' && this.viewService.canToggle();
   }
 
   private readonly PAGE_TITLE_KEYS: Record<DashboardTab, string> = {
-    attekintes: 'header.titles.overview',
-    jelentkezesek: 'header.titles.applications',
-    valtozasok: 'header.titles.applicationChanges',
-    esemenyek: 'header.titles.events',
-    dokumentumok: 'header.titles.documents',
-    statisztika: 'header.titles.statistics',
-    profil: 'header.titles.profile',
-    torzsadatok: 'header.titles.masterData',
-    gyakorlas: 'header.titles.practice',
+    overview: 'header.titles.overview',
+    applications: 'header.titles.applications',
+    changes: 'header.titles.applicationChanges',
+    events: 'header.titles.events',
+    documents: 'header.titles.documents',
+    statistics: 'header.titles.statistics',
+    profile: 'header.titles.profile',
+    'master-data': 'header.titles.masterData',
+    practice: 'header.titles.practice',
   };
 
   private readonly ADD_BUTTON_LABEL_KEYS: Partial<Record<DashboardTab, string>> = {
-    esemenyek: 'events.addEventBtn',
-    dokumentumok: 'documents.recordFileOrLink',
+    events: 'events.addEventBtn',
+    documents: 'documents.recordFileOrLink',
   };
 
   get pageTitle(): string {

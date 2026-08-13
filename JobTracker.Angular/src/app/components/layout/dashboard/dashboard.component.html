@@ -13,8 +13,8 @@
 
         <div class="content">
             <main class="content-body"
-                [class.content-body--kanban]="activeTab() === 'jelentkezesek' && viewService.view() === 'kanban'"
-                [class.content-body--table]="activeTab() === 'jelentkezesek' && viewService.view() === 'table'">
+                [class.content-body--kanban]="activeTab() === 'applications' && viewService.view() === 'kanban'"
+                [class.content-body--table]="activeTab() === 'applications' && viewService.view() === 'table'">
                 @if (initialLoading()) {
                 <div class="dashboard-loading">
                     <svg class="dashboard-loading-spinner" width="32" height="32" viewBox="0 0 24 24" fill="none"
@@ -32,6 +32,10 @@
 
     @if (modalOpen()) {
     <app-add-job-modal [editJob]="editingJob()" (close)="closeModal()" />
+    }
+
+    @if (historyJob(); as job) {
+    <app-job-history-modal [job]="job" (close)="closeHistory()" />
     }
 
 </div>

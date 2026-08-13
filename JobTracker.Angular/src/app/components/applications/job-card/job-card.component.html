@@ -2,7 +2,7 @@
   (dragstart)="onDragStart($event)" (dragend)="onDragEnd()" (click)="onCardClick()">
 
   <div class="card-menu" (click)="$event.stopPropagation()">
-    <app-status-dropdown [value]="job.status" (valueChange)="onStatusChange($event)" />
+    <app-job-card-menu [job]="job" />
   </div>
 
   <h5 class="card-company">{{ job.company }}</h5>

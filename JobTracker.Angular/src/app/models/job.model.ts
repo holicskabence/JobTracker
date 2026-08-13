@@ -14,7 +14,7 @@ export interface JobStatusConfig {
   statsCategory?: StatsCategory;
 }
 
-export type DashboardTab = 'attekintes' | 'jelentkezesek' | 'valtozasok' | 'esemenyek' | 'dokumentumok' | 'statisztika' | 'profil' | 'torzsadatok' | 'gyakorlas';
+export type DashboardTab = 'overview' | 'applications' | 'changes' | 'events' | 'documents' | 'statistics' | 'profile' | 'master-data' | 'practice';
 
 export interface Job {
   id: number;

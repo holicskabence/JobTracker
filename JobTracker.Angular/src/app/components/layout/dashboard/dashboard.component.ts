@@ -12,6 +12,7 @@ import { ApplicationsViewService } from '../../../services/applications-view.ser
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { DashboardHeaderComponent } from '../dashboard-header/dashboard-header.component';
 import { AddJobModalComponent } from '../../shared/add-job-modal/add-job-modal.component';
+import { JobHistoryModalComponent } from '../../shared/job-history-modal/job-history-modal.component';
 
 interface AddFormOpenable {
   openAddForm(): void;
@@ -29,6 +30,7 @@ function isAddFormOpenable(value: unknown): value is AddFormOpenable {
     SidebarComponent,
     DashboardHeaderComponent,
     AddJobModalComponent,
+    JobHistoryModalComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
@@ -43,12 +45,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private el: ElementRef<HTMLElement> = inject(ElementRef);
   private ngZone = inject(NgZone);
 
-  readonly activeTab = signal<DashboardTab>('attekintes');
+  readonly activeTab = signal<DashboardTab>('overview');
   readonly sidebarCollapsed = signal(false);
   readonly sidebarMobileOpen = signal(false);
 
   readonly modalOpen = this.store.modalOpen;
   readonly editingJob = this.store.editingJob;
+  readonly historyJob = this.store.historyJob;
 
   readonly initialLoading = computed(() =>
     this.store.loading() || this.planner.loading() || this.practice.loading()
@@ -74,10 +77,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private syncTab(url: string): void {
     const seg = url.split('/').filter(Boolean).pop() as DashboardTab;
     const valid: DashboardTab[] = [
-      'attekintes', 'jelentkezesek', 'valtozasok', 'esemenyek',
-      'dokumentumok', 'statisztika', 'torzsadatok', 'profil', 'gyakorlas'
+      'overview', 'applications', 'changes', 'events',
+      'documents', 'statistics', 'master-data', 'profile', 'practice'
     ];
-    this.activeTab.set(valid.includes(seg) ? seg : 'attekintes');
+    this.activeTab.set(valid.includes(seg) ? seg : 'overview');
   }
 
   navigateToTab(tab: DashboardTab): void {
@@ -101,7 +104,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   handleHeaderAdd(): void {
     const tab = this.activeTab();
-    if ((tab === 'esemenyek' || tab === 'dokumentumok') && isAddFormOpenable(this.activeRouteComponent)) {
+    if ((tab === 'events' || tab === 'documents') && isAddFormOpenable(this.activeRouteComponent)) {
       this.activeRouteComponent.openAddForm();
       return;
     }
@@ -110,4 +113,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   openAddModal(): void { this.store.openModal(null); }
   closeModal(): void { this.store.closeModal(); }
+  closeHistory(): void { this.store.closeHistory(); }
 }

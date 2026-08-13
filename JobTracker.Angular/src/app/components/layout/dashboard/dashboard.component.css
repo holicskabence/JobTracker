@@ -19,8 +19,6 @@
 
 @media (max-width: 767px) {
     .panel {
-        /* border-radius: 0;
-        border: none; */
         box-shadow: none;
     }
 }

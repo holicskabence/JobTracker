@@ -1,14 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Job, JobStatus } from '../../../models/job.model';
+import { Job } from '../../../models/job.model';
 import { JobStoreService } from '../../../services/job-store.service';
-import { StatusDropdownComponent } from '../../shared/status-dropdown/status-dropdown.component';
+import { JobCardMenuComponent } from '../job-card-menu/job-card-menu.component';
 import { CardComponent } from '../../shared/card/card.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-job-card',
   standalone: true,
-  imports: [StatusDropdownComponent, CardComponent, TranslateModule],
+  imports: [JobCardMenuComponent, CardComponent, TranslateModule],
   templateUrl: './job-card.component.html',
   styleUrl: './job-card.component.css'
 })
@@ -33,10 +33,6 @@ export class JobCardComponent {
 
   onCardClick(): void {
     this.toggleSelect.emit(this.job.id);
-  }
-
-  onStatusChange(status: JobStatus): void {
-    this.store.changeStatus(this.job.id, status);
   }
 
   onEditClick(event: MouseEvent): void {

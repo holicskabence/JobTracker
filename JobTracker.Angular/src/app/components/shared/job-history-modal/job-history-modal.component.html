@@ -1,0 +1,62 @@
+<div class="modal-backdrop" (click)="onBackdropClick($event)">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="history-modal-title">
+
+        <div class="modal-header">
+            <div class="modal-header-text">
+                <h2 class="modal-title" id="history-modal-title">{{ 'shared.jobHistoryModal.title' | translate }}</h2>
+                <p class="modal-subtitle">{{ job().company }} — {{ job().position }}</p>
+            </div>
+            <button class="modal-close" (click)="close.emit()" [attr.aria-label]="'shared.jobHistoryModal.closeAriaLabel' | translate">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            @if (entries().length === 0) {
+            <p class="history-empty">{{ 'shared.jobHistoryModal.noEntriesYet' | translate }}</p>
+            } @else {
+            <div class="history-table-wrap">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>{{ 'applicationChanges.columns.change' | translate }}</th>
+                            <th>{{ 'applicationChanges.columns.changedAt' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (entry of entries(); track entry.id) {
+                        <tr>
+                            <td>
+                                <span class="history-change">
+                                    @if (entry.previousStatus) {
+                                    <span class="history-status-badge" [style.color]="colorFor(entry.previousStatus)"
+                                        [style.background-color]="colorAlpha(entry.previousStatus, 0.1)">
+                                        <span class="history-status-dot" [style.background-color]="colorFor(entry.previousStatus)"></span>
+                                        {{ statusLabel(entry.previousStatus) }}
+                                    </span>
+                                    <span class="history-change-arrow">→</span>
+                                    } @else {
+                                    <span class="history-change-created">{{ 'applicationChanges.created' | translate }}</span>
+                                    }
+                                    <span class="history-status-badge" [style.color]="colorFor(entry.newStatus)"
+                                        [style.background-color]="colorAlpha(entry.newStatus, 0.1)">
+                                        <span class="history-status-dot" [style.background-color]="colorFor(entry.newStatus)"></span>
+                                        {{ statusLabel(entry.newStatus) }}
+                                    </span>
+                                </span>
+                            </td>
+                            <td class="history-cell--date">{{ fmtDateTime(entry.changedAt) }}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            }
+        </div>
+
+    </div>
+</div>

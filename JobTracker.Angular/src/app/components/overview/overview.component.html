@@ -59,7 +59,7 @@
         <app-card class="upcoming-card" gap="none">
             <div class="overview-card-header">
                 <h3 class="overview-card-title">{{ 'overview.upcomingEvents.title' | translate }}</h3>
-                <button class="card-link" type="button" (click)="navigate('esemenyek')">{{
+                <button class="card-link" type="button" (click)="navigate('events')">{{
                     'overview.upcomingEvents.viewAll' | translate }}</button>
             </div>
             @if (upcomingEvents().length === 0) {
@@ -97,7 +97,7 @@
         <app-card class="quick-tasks-card" gap="none">
             <div class="overview-card-header">
                 <h3 class="overview-card-title">{{ 'overview.quickTasks.title' | translate }}</h3>
-                <button class="card-link" type="button" (click)="navigate('esemenyek')">{{ 'overview.quickTasks.viewAll'
+                <button class="card-link" type="button" (click)="navigate('events')">{{ 'overview.quickTasks.viewAll'
                     | translate }}</button>
             </div>
             @if (quickTasks().length === 0) {
@@ -133,7 +133,7 @@
     <div class="recent">
         <div class="recent-header">
             <h2 class="recent-title">{{ 'overview.recentApplications.title' | translate }}</h2>
-            <button class="recent-link" (click)="navigate('jelentkezesek')">{{ 'overview.recentApplications.viewAll' |
+            <button class="recent-link" (click)="navigate('applications')">{{ 'overview.recentApplications.viewAll' |
                 translate }}</button>
         </div>
 

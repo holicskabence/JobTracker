@@ -25,7 +25,7 @@
 
     <div class="sidebar-nav">
 
-        <a class="sidebar-button" routerLink="/dashboard/attekintes" routerLinkActive="sidebar-button--active"
+        <a class="sidebar-button" routerLink="/dashboard/overview" routerLinkActive="sidebar-button--active"
             (click)="closeMobile.emit()" [title]="'nav.overview' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -39,7 +39,7 @@
             <span class="sidebar-label">{{ 'nav.overview' | translate }}</span>
         </a>
 
-        <a class="sidebar-button" routerLink="/dashboard/jelentkezesek" routerLinkActive="sidebar-button--active"
+        <a class="sidebar-button" routerLink="/dashboard/applications" routerLinkActive="sidebar-button--active"
             (click)="closeMobile.emit()" [title]="'nav.applications' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -52,7 +52,7 @@
             <span class="sidebar-label">{{ 'nav.applications' | translate }}</span>
         </a>
 
-        <a class="sidebar-button" routerLink="/dashboard/valtozasok" routerLinkActive="sidebar-button--active"
+        <a class="sidebar-button" routerLink="/dashboard/changes" routerLinkActive="sidebar-button--active"
             (click)="closeMobile.emit()" [title]="'nav.applicationChanges' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -65,7 +65,7 @@
             <span class="sidebar-label">{{ 'nav.applicationChanges' | translate }}</span>
         </a>
 
-        <a class="sidebar-button" routerLink="/dashboard/gyakorlas" routerLinkActive="sidebar-button--active"
+        <a class="sidebar-button" routerLink="/dashboard/practice" routerLinkActive="sidebar-button--active"
             (click)="closeMobile.emit()" [title]="'nav.practice' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -79,7 +79,7 @@
             <span class="sidebar-label">{{ 'nav.practice' | translate }}</span>
         </a>
 
-        <a class="sidebar-button" routerLink="/dashboard/esemenyek" routerLinkActive="sidebar-button--active"
+        <a class="sidebar-button" routerLink="/dashboard/events" routerLinkActive="sidebar-button--active"
             (click)="closeMobile.emit()" [title]="'nav.events' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -93,7 +93,7 @@
             <span class="sidebar-label">{{ 'nav.events' | translate }}</span>
         </a>
 
-        <a class="sidebar-button" routerLink="/dashboard/dokumentumok" routerLinkActive="sidebar-button--active"
+        <a class="sidebar-button" routerLink="/dashboard/documents" routerLinkActive="sidebar-button--active"
             (click)="closeMobile.emit()" [title]="'nav.documents' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -107,7 +107,7 @@
             <span class="sidebar-label">{{ 'nav.documents' | translate }}</span>
         </a>
 
-        <a class="sidebar-button" routerLink="/dashboard/statisztika" routerLinkActive="sidebar-button--active"
+        <a class="sidebar-button" routerLink="/dashboard/statistics" routerLinkActive="sidebar-button--active"
             (click)="closeMobile.emit()" [title]="'nav.statistics' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -120,7 +120,7 @@
             <span class="sidebar-label">{{ 'nav.statistics' | translate }}</span>
         </a>
 
-        <a class="sidebar-button" routerLink="/dashboard/torzsadatok" routerLinkActive="sidebar-button--active"
+        <a class="sidebar-button" routerLink="/dashboard/master-data" routerLinkActive="sidebar-button--active"
             (click)="closeMobile.emit()" [title]="'nav.masterData' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -136,7 +136,7 @@
     </div>
 
     <div class="sidebar-footer">
-        <div class="sidebar-user" routerLink="/dashboard/profil" routerLinkActive="sidebar-user--active"
+        <div class="sidebar-user" routerLink="/dashboard/profile" routerLinkActive="sidebar-user--active"
             (click)="closeMobile.emit()" [title]="'nav.profile' | translate">
             <div class="sidebar-user-avatar">
                 @if (avatarUrl) {

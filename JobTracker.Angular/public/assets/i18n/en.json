@@ -765,6 +765,20 @@
       "dropHint": "Drag a card here",
       "noMatch": "No matching cards"
     },
+    "jobCardMenu": {
+      "triggerTitle": "Actions",
+      "history": "History",
+      "moveToColumn": "Move to column",
+      "delete": "Delete",
+      "deleteConfirmText": "Are you sure you want to delete the {{company}} application?",
+      "deleteConfirmBtn": "Delete",
+      "cancelBtn": "Cancel"
+    },
+    "jobHistoryModal": {
+      "title": "Application history",
+      "closeAriaLabel": "Close",
+      "noEntriesYet": "No status changes yet"
+    },
     "jobCard": {
       "edit": "Edit",
       "open": "Open"

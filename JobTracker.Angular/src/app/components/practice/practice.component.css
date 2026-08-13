@@ -26,6 +26,8 @@
     cursor: pointer;
     transition: background 0.15s, color 0.15s;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .practice-tab:hover:not(.practice-tab--active) {
@@ -466,6 +468,7 @@
     align-items: start;
     flex: 1;
     min-height: 0;
+    padding-bottom: calc(var(--space-12) + env(safe-area-inset-bottom));
 }
 
 .practice-aside {
@@ -487,9 +490,13 @@
 
 @media (max-width: 1200px) {
 
-    .practice-tabs,
-    .practice-tab {
+    .practice-tabs {
         width: 100%;
+    }
+
+    .practice-tab {
+        flex: 1 1 0;
+        min-width: 0;
     }
 
     .practice-body {
@@ -497,10 +504,12 @@
         grid-template-areas:
             "aside"
             "deck";
+        min-height: auto;
     }
 
     .practice-aside {
         align-self: auto;
+        min-height: auto;
     }
 
     .practice-categories-card {
@@ -517,6 +526,8 @@
         overflow-x: auto;
         overflow-y: hidden;
         padding-bottom: var(--space-2-5);
+        mask-image: linear-gradient(to right, black calc(100% - var(--space-7)), transparent);
+        -webkit-mask-image: linear-gradient(to right, black calc(100% - var(--space-7)), transparent);
     }
 
     .practice-cat-row {
@@ -2029,6 +2040,11 @@
 
 /* Mobile: shrink the flashcard's text to something reasonable for a small screen. */
 @media (max-width: 600px) {
+    .practice-tab {
+        padding: var(--space-2) var(--space-2-5);
+        font-size: 0.75rem;
+    }
+
     .practice-card {
         padding: var(--space-4);
     }

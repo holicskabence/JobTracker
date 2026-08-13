@@ -768,6 +768,20 @@
     "jobCard": {
       "edit": "Szerkesztés",
       "open": "Megnyitás"
+    },
+    "jobCardMenu": {
+      "triggerTitle": "Műveletek",
+      "history": "Előzmények",
+      "moveToColumn": "Áthelyezés oszlopba",
+      "delete": "Törlés",
+      "deleteConfirmText": "Biztosan törlöd a(z) {{company}} jelentkezést?",
+      "deleteConfirmBtn": "Törlés",
+      "cancelBtn": "Mégse"
+    },
+    "jobHistoryModal": {
+      "title": "Jelentkezés előzményei",
+      "closeAriaLabel": "Bezárás",
+      "noEntriesYet": "Nincs még státusz változás"
     }
   }
 }

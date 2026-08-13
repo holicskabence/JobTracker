@@ -77,7 +77,7 @@ export class OverviewComponent {
         title: this.translate.instant('overview.coachTip.prepTime.title'),
         text: this.translate.instant('overview.coachTip.prepTime.text', { company: ev.company, type: ev.type, date: this.fmtDate(ev.date) }),
         cta: this.translate.instant('overview.coachTip.prepTime.cta'),
-        tab: 'esemenyek' as DashboardTab
+        tab: 'events' as DashboardTab
       };
     }
     if (s.callbacks > 0) {
@@ -86,7 +86,7 @@ export class OverviewComponent {
         title: this.translate.instant('overview.coachTip.callback.title'),
         text: this.translate.instant('overview.coachTip.callback.text', { count: s.callbacks }),
         cta: this.translate.instant('overview.coachTip.callback.cta'),
-        tab: 'jelentkezesek' as DashboardTab
+        tab: 'applications' as DashboardTab
       };
     }
     if (s.totalJobs < 5) {
@@ -95,7 +95,7 @@ export class OverviewComponent {
         title: this.translate.instant('overview.coachTip.startSearch.title'),
         text: this.translate.instant('overview.coachTip.startSearch.text'),
         cta: this.translate.instant('overview.coachTip.startSearch.cta'),
-        tab: 'jelentkezesek' as DashboardTab
+        tab: 'applications' as DashboardTab
       };
     }
     if (s.successRate === 0 && s.totalJobs >= 5) {
@@ -104,7 +104,7 @@ export class OverviewComponent {
         title: this.translate.instant('overview.coachTip.patience.title'),
         text: this.translate.instant('overview.coachTip.patience.text', { count: s.totalJobs }),
         cta: this.translate.instant('overview.coachTip.patience.cta'),
-        tab: 'jelentkezesek' as DashboardTab
+        tab: 'applications' as DashboardTab
       };
     }
     return {
@@ -112,7 +112,7 @@ export class OverviewComponent {
       title: this.translate.instant('overview.coachTip.goodProgress.title'),
       text: this.translate.instant('overview.coachTip.goodProgress.text', { count: s.totalJobs, rate: s.successRate }),
       cta: this.translate.instant('overview.coachTip.goodProgress.cta'),
-      tab: 'jelentkezesek' as DashboardTab
+      tab: 'applications' as DashboardTab
     };
   });
 

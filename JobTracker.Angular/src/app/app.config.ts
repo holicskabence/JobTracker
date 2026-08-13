@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { firstValueFrom } from 'rxjs';
 import { routes } from './app.routes';
 import { apiUrlInterceptor } from './interceptors/api-url.interceptor';
 import { authInterceptor } from './interceptors/auth.interceptor';
@@ -32,9 +33,8 @@ export const appConfig: ApplicationConfig = {
       provide: APP_INITIALIZER,
       multi: true,
       deps: [AuthService, LanguageService],
-      useFactory: (auth: AuthService, languageService: LanguageService) => () => {
-        languageService.initFromUser(auth.currentUser()?.preferredLanguage);
-      }
+      useFactory: (auth: AuthService, languageService: LanguageService) => () =>
+        firstValueFrom(languageService.initFromUser(auth.currentUser()?.preferredLanguage))
     },
   ]
 };

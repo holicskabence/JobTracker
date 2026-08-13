@@ -1,6 +1,7 @@
 import { Injectable, effect, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { AppLang, SUPPORTED_LANGS } from '../utils/lang-route-matcher';
 
@@ -30,14 +31,19 @@ export class LanguageService {
     return this.isSupported(stored) ? stored : 'en';
   }
 
-  /** Called by langGuard when entering a /:lang prefixed public route. */
-  activatePublicLang(lang: AppLang): void {
-    this.apply(lang);
+  /** Called by langGuard when entering a /:lang prefixed public route.
+   *  Returns an observable that completes once that language's translations
+   *  have loaded, so the guard can hold off activating the route until
+   *  translated text is available. */
+  activatePublicLang(lang: AppLang): Observable<unknown> {
+    return this.apply(lang);
   }
 
-  /** Called once at app bootstrap. */
-  initFromUser(lang: string | null | undefined): void {
-    this.apply(this.isSupported(lang) ? lang : this.resolveDefaultLang());
+  /** Called once at app bootstrap. Returns an observable that completes once
+   *  the translation file has actually loaded, so APP_INITIALIZER can hold
+   *  off rendering the app until translated text is available. */
+  initFromUser(lang: string | null | undefined): Observable<unknown> {
+    return this.apply(this.isSupported(lang) ? lang : this.resolveDefaultLang());
   }
 
   /** Called by the language switcher UI. */
@@ -68,10 +74,10 @@ export class LanguageService {
     }
   }
 
-  private apply(lang: AppLang): void {
+  private apply(lang: AppLang): Observable<unknown> {
     this.currentLang.set(lang);
-    this.translate.use(lang);
     localStorage.setItem(STORAGE_KEY, lang);
+    return this.translate.use(lang);
   }
 
   private isSupported(lang: string | null | undefined): lang is AppLang {

@@ -25,6 +25,7 @@ export class JobStoreService {
 
   readonly modalOpen = signal(false);
   readonly editingJob = signal<Job | null>(null);
+  readonly historyJob = signal<Job | null>(null);
 
   readonly statusColumns = computed(() =>
     this.statusConfigs()
@@ -36,8 +37,6 @@ export class JobStoreService {
     const jobs = this.jobs();
     const configOf = (status: string) => this.statusConfigs().find(c => c.key === status);
 
-    // A job counts as a callback once it has ever reached an interview-flagged
-    // status, regardless of where it currently sits (e.g. later offered or rejected).
     const everInterviewedIds = new Set<number>();
     for (const j of jobs) {
       if (configOf(j.status)?.isInterview) everInterviewedIds.add(j.id);
@@ -339,5 +338,19 @@ export class JobStoreService {
   closeModal(): void {
     this.modalOpen.set(false);
     this.editingJob.set(null);
+  }
+
+  openHistory(job: Job): void {
+    this.historyJob.set(job);
+  }
+
+  closeHistory(): void {
+    this.historyJob.set(null);
+  }
+
+  historyFor(jobId: number): JobStatusHistoryEntry[] {
+    return this.statusHistory()
+      .filter(h => h.jobId === jobId)
+      .sort((a, b) => b.changedAt.localeCompare(a.changedAt));
   }
 }

@@ -1,0 +1,86 @@
+<div class="jcm">
+    <button type="button" class="jcm-trigger" [class.jcm-trigger--open]="isOpen()" (click)="toggle($event)"
+        [attr.title]="'shared.jobCardMenu.triggerTitle' | translate">
+        <svg width="15" height="15" viewBox="0 0 24 24">
+            <circle cx="12" cy="5" r="2" fill="currentColor" />
+            <circle cx="12" cy="12" r="2" fill="currentColor" />
+            <circle cx="12" cy="19" r="2" fill="currentColor" />
+        </svg>
+    </button>
+
+    @if (isOpen()) {
+    <div class="jcm-panel" [style.top.px]="panelTop" [style.left.px]="panelLeft" [style.width.px]="panelWidth"
+        (click)="$event.stopPropagation()">
+
+        @switch (mode()) {
+        @case ('main') {
+        <button type="button" class="jcm-item" (click)="viewHistory($event)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <polyline points="12 7 12 12 16 14" />
+            </svg>
+            {{ 'shared.jobCardMenu.history' | translate }}
+        </button>
+
+        <button type="button" class="jcm-item" [class.jcm-item--active]="moveOpen()" (click)="toggleMove($event)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 3 21 3 21 8" />
+                <line x1="21" y1="3" x2="14" y2="10" />
+                <path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6" />
+            </svg>
+            <span class="jcm-item-label">{{ 'shared.jobCardMenu.moveToColumn' | translate }}</span>
+            <svg class="jcm-item-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+            </svg>
+        </button>
+
+        <div class="jcm-divider"></div>
+
+        <button type="button" class="jcm-item jcm-item--destructive" (click)="askDelete($event)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+            </svg>
+            {{ 'shared.jobCardMenu.delete' | translate }}
+        </button>
+        }
+
+        @case ('delete-confirm') {
+        <p class="jcm-confirm-text">{{ 'shared.jobCardMenu.deleteConfirmText' | translate:{ company: job().company } }}</p>
+        <div class="jcm-confirm-actions">
+            <button type="button" class="jcm-confirm-btn jcm-confirm-btn--ghost" (click)="cancelDelete($event)">
+                {{ 'shared.jobCardMenu.cancelBtn' | translate }}
+            </button>
+            <button type="button" class="jcm-confirm-btn jcm-confirm-btn--danger" (click)="confirmDelete($event)">
+                {{ 'shared.jobCardMenu.deleteConfirmBtn' | translate }}
+            </button>
+        </div>
+        }
+        }
+
+    </div>
+    }
+
+    @if (isOpen() && moveOpen()) {
+    <div class="jcm-panel jcm-submenu" [style.top.px]="moveTop" [style.left.px]="moveLeft" [style.width.px]="panelWidth"
+        (click)="$event.stopPropagation()">
+        @for (column of columns(); track column.key) {
+        <button type="button" class="jcm-column-btn" [class.jcm-column-btn--current]="column.key === job().status"
+            [disabled]="column.key === job().status" (click)="moveTo(column.key, $event)">
+            <span class="jcm-column-dot" [style.background-color]="column.color"></span>
+            <span class="jcm-item-label">{{ column.label }}</span>
+            @if (column.key === job().status) {
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+            }
+        </button>
+        }
+    </div>
+    }
+</div>
