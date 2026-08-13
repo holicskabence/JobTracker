@@ -644,10 +644,7 @@
     "stats": {
       "streakLabel": "STREAK",
       "streakActive": "{{count}}-day streak",
-      "streakStart": "Start your streak today!",
-      "recentLabel": "RECENT ANSWERS",
-      "viewAllLink": "View all",
-      "noHistoryYet": "No answered questions yet."
+      "streakStart": "Start your streak today!"
     },
     "questionsTab": {
       "title": "Questions",

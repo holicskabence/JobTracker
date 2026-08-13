@@ -199,8 +199,6 @@ export class PracticeComponent {
     };
   });
 
-  readonly recentAttempts = computed(() => this.practice.attempts().slice(0, 10));
-
   readonly attemptGroups = computed(() => {
     const groups = new Map<string, PracticeAttempt[]>();
     for (const a of this.practice.attempts()) {

@@ -644,10 +644,7 @@
     "stats": {
       "streakLabel": "SOROZAT",
       "streakActive": "{{count}} napos sorozat",
-      "streakStart": "Kezdd el a sorozatod ma!",
-      "recentLabel": "LEGUTÓBBI VÁLASZOK",
-      "viewAllLink": "Összes",
-      "noHistoryYet": "Még nincs megválaszolt kérdés."
+      "streakStart": "Kezdd el a sorozatod ma!"
     },
     "questionsTab": {
       "title": "Kérdések",

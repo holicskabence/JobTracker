@@ -228,7 +228,6 @@
 
         <!-- Aside: categories -->
         <aside class="practice-aside">
-            <div class="practice-aside-row">
             <app-card class="practice-categories-card" gap="none">
                 <div class="practice-categories-header">
                     <h3 class="practice-categories-title">{{ 'practice.categories.title' | translate }}</h3>
@@ -367,29 +366,6 @@
                     }
                 </div>
             </app-card>
-
-            <app-card class="practice-history-card" gap="none">
-                <div class="practice-history-header">
-                    <p class="practice-stat-label">{{ 'practice.stats.recentLabel' | translate }}</p>
-                    @if (practice.attempts().length > 0) {
-                    <button type="button" class="practice-history-link" (click)="activeTab.set('results')">{{ 'practice.stats.viewAllLink' | translate }}</button>
-                    }
-                </div>
-                <div class="practice-history-list">
-                    @for (a of recentAttempts(); track a.id) {
-                    <div class="practice-history-item">
-                        <span class="practice-history-dot" [class]="'practice-history-dot--' + a.feedback"></span>
-                        <div class="practice-history-body">
-                            <p class="practice-history-question">{{ a.question }}</p>
-                            <p class="practice-history-meta">{{ a.category }} · {{ formatAttemptTime(a.createdAt) }}</p>
-                        </div>
-                    </div>
-                    } @empty {
-                    <p class="practice-history-empty">{{ 'practice.stats.noHistoryYet' | translate }}</p>
-                    }
-                </div>
-            </app-card>
-            </div>
         </aside>
 
     </div>
