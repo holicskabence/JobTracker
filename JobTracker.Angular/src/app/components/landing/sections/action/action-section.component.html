@@ -1,0 +1,16 @@
+<section class="story-section story-section--action" id="action">
+    <div class="action-panel">
+        <p class="story-eyebrow story-eyebrow--on-dark">{{ 'landing.story.action.eyebrow' | translate }}</p>
+        <h2 class="action-headline">{{ 'landing.story.action.headline' | translate }}</h2>
+        <p class="action-subtitle">{{ 'landing.story.action.subtitle' | translate }}</p>
+        @if (auth.isLoggedIn()) {
+        <app-landing-button routerLink="/dashboard" variant="cta" size="lg">
+            {{ 'landing.cta.goToDashboard' | translate }}
+        </app-landing-button>
+        } @else {
+        <app-landing-button routerLink="/register" variant="cta" size="lg">
+            {{ 'landing.cta.registerFree' | translate }}
+        </app-landing-button>
+        }
+    </div>
+</section>

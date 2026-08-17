@@ -1,0 +1,32 @@
+:host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+    background-color: var(--clr-bg-2);
+    border: 1px dashed var(--clr-border);
+    border-radius: var(--radius-lg);
+    box-sizing: border-box;
+}
+
+.hero-fallback-graphic {
+    width: 70%;
+    max-width: 420px;
+    height: auto;
+}
+
+.hero-fallback-path {
+    stroke: var(--clr-green);
+    stroke-width: 2;
+    opacity: 0.45;
+}
+
+.hero-fallback-node {
+    fill: var(--clr-green);
+}
+
+.hero-fallback-node--offer {
+    fill: var(--clr-green-dk);
+}

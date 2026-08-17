@@ -14,76 +14,53 @@
   },
   "landing": {
     "nav": {
-      "features": "Funkciók",
-      "statistics": "Statisztika",
-      "howItWorks": "Hogyan működik",
+      "control": "Pipeline",
+      "insight": "Statisztika",
+      "preparation": "Gyakorlás",
       "dashboard": "Dashboard",
       "login": "Bejelentkezés",
       "register": "Regisztráció"
     },
-    "hero": {
-      "titleLine1": "Az álláskeresésed,",
-      "titleLine2": "végre rendben.",
-      "subtitle": "Nincs szükség bankkártyára – csak hozd létre a fiókod, és kezdd el rögzíteni a pályázataidat.",
-      "goToDashboard": "Irány a Dashboardra",
-      "startFree": "Kezdés ingyen"
-    },
-    "heroMockup": {
-      "path": "jobtracker.app/dashboard/jelentkezesek",
-      "applicationsTitle": "Jelentkezések",
-      "newApplication": "Új jelentkezés",
-      "statusSaved": "Mentett",
-      "statusApplied": "Beadva",
-      "statusInterview": "Visszahívás",
-      "statusOffer": "Ajánlat",
-      "statusRejected": "Elutasítva",
-      "positionFrontendDeveloper": "Frontend Developer",
-      "positionFrontendFejleszto": "Frontend fejlesztő",
-      "positionSeniorFejleszto": "Senior fejlesztő",
-      "positionFullStackFejleszto": "Full-stack fejlesztő",
-      "positionSoftwareEngineer": "Software Engineer",
-      "positionUiFejleszto": "UI fejlesztő",
-      "positionAngularFejleszto": "Angular fejlesztő"
-    },
-    "features": {
-      "title": "Minden eszköz egy helyen",
-      "subtitle": "Nem egy általános projektmenedzser – kifejezetten az álláskeresés lépéseire szabva.",
-      "kanban": { "title": "Kanban tábla", "description": "Húzd-vidd a jelentkezéseidet a folyamat lépésein – mentettől a beadáson és visszahíváson át az ajánlatig." },
-      "table": { "title": "Táblázat nézet", "description": "Ha inkább listában gondolkodsz: szűrhető, rendezhető táblázat az összes pályázatodról." },
-      "events": { "title": "Események & teendők", "description": "Interjúk, határidők és apró teendők egy naptárban, hogy semmi ne maradjon ki a kezedből." },
-      "documents": { "title": "Dokumentumok & sablonok", "description": "Az önéletrajzaid, motivációs leveleid és sablonjaid mindig kéznél vannak, cégenként rendszerezve." },
-      "stats": { "title": "Statisztikák", "description": "Sikerráta, heti aktivitás és a folyamatok alakulása grafikonokon – láthatod, mi működik." },
-      "interviewPractice": { "title": "Interjú gyakorlás", "description": "Gyakorold a tipikus interjúkérdéseket, és a válaszaidat egy AI azonnal kiértékeli – így pontosan látod, mit érdemes csiszolni a következő interjú előtt." }
-    },
-    "stats": {
-      "title": "Lásd pontosan, hol állsz",
-      "subtitle": "A számok mögött ott a történet: hány jelentkezésből lesz visszahívás, és melyik héten haladtál a legtöbbet.",
-      "applicationsStatus": "Jelentkezések állapota",
-      "total": "összes",
-      "weeklyActivity": "Heti aktivitás",
-      "weeklyNote": "5 jelentkezés ezen a héten – a heti célod 5.",
-      "weekday": {
-        "mondayFull": "Hétfő", "mondayShort": "H",
-        "tuesdayFull": "Kedd", "tuesdayShort": "K",
-        "wednesdayFull": "Szerda", "wednesdayShort": "Sze",
-        "thursdayFull": "Csütörtök", "thursdayShort": "Cs",
-        "fridayFull": "Péntek", "fridayShort": "P",
-        "saturdayFull": "Szombat", "saturdayShort": "Szo",
-        "sundayFull": "Vasárnap", "sundayShort": "V"
-      }
-    },
-    "howItWorks": {
-      "title": "Három lépésben",
-      "subtitle": "Nincs bonyolult beállítás – pár perc alatt használatba veheted.",
-      "step1": { "title": "Add hozzá a jelentkezéseidet", "description": "Rögzítsd a céget, a pozíciót és a hirdetés linkjét – néhány másodperc alatt." },
-      "step2": { "title": "Kövesd a folyamatot", "description": "Mozgasd a kártyákat a kanban táblán, ahogy az interjúfolyamat előrébb halad." },
-      "step3": { "title": "Lásd, mi működik", "description": "A statisztikák és a felkészültségi szint alapján finomítsd a stratégiádat." }
-    },
     "cta": {
-      "title": "Készen állsz, hogy rendszerbe szedd az álláskeresésed?",
-      "subtitle": "Hozz létre egy fiókot, és máris kezdheted rögzíteni a pályázataidat.",
+      "startFree": "Kezdés ingyen",
       "goToDashboard": "Irány a Dashboardra",
       "registerFree": "Regisztrálj ingyen"
+    },
+    "story": {
+      "chaos": {
+        "eyebrow": "01 — Káosz",
+        "headline": "Az álláskeresés maga a káosz."
+      },
+      "system": {
+        "eyebrow": "02 — Rendszer",
+        "headline": "Mi rendszerré alakítjuk.",
+        "subtitle": "A JobTracker minden jelentkezésedet, interjúdat és követő lépésedet egyetlen áttekinthető folyamatba rendezi – így mindig tudod, mi a következő lépés."
+      },
+      "control": {
+        "eyebrow": "03 — Kontroll",
+        "headline": "Egy folyamat. Minden jelentkezés.",
+        "subtitle": "Kövesd a jelentkezéseidet egy teljesen testreszabható folyamaton át – a mentettől az ajánlatig –, és sosem veszíted el a fonalat."
+      },
+      "insight": {
+        "eyebrow": "04 — Rálátás",
+        "headline": "Lásd, mi működik valójában.",
+        "subtitle": "Valós számok a válaszadási arányról, az interjú-konverzióról és az ajánlatig eltelt időről – hogy arra tegyél rá, ami tényleg számít."
+      },
+      "preparation": {
+        "eyebrow": "05 — Felkészülés",
+        "headline": "Gyakorolj, amíg tényleg készen nem állsz.",
+        "subtitle": "Válaszolj valódi interjúkérdésekre, majd kapj azonnali AI visszajelzést a felépítésről, az érthetőségről és a hatásról – még mielőtt igazán számítana."
+      },
+      "product": {
+        "eyebrow": "06 — Termék",
+        "headline": "Minden egy helyen.",
+        "subtitle": "Jelentkezések, események, dokumentumok és statisztikák – egyetlen dashboard, amely rendben tartja a teljes álláskeresésedet."
+      },
+      "action": {
+        "eyebrow": "07 — Cselekvés",
+        "headline": "Kezdd el a káoszt haladássá alakítani.",
+        "subtitle": "Ingyenes a kezdés. Nincs szükség bankkártyára. Bármikor lemondható."
+      }
     }
   },
   "auth": {

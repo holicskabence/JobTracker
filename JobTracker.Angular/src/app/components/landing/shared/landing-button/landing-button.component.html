@@ -1,0 +1,5 @@
+<a [routerLink]="routerLink" class="landing-button" [class.landing-button--primary]="variant === 'primary'"
+    [class.landing-button--ghost]="variant === 'ghost'" [class.landing-button--cta]="variant === 'cta'"
+    [class.landing-button--lg]="size === 'lg'">
+    <ng-content />
+</a>

@@ -14,76 +14,53 @@
   },
   "landing": {
     "nav": {
-      "features": "Features",
-      "statistics": "Statistics",
-      "howItWorks": "How It Works",
+      "control": "Pipeline",
+      "insight": "Analytics",
+      "preparation": "Practice",
       "dashboard": "Dashboard",
       "login": "Log In",
       "register": "Sign Up"
     },
-    "hero": {
-      "titleLine1": "Your job search,",
-      "titleLine2": "finally under control.",
-      "subtitle": "No credit card required — just create your account and start tracking your applications.",
-      "goToDashboard": "Go to Dashboard",
-      "startFree": "Start for Free"
-    },
-    "heroMockup": {
-      "path": "jobtracker.app/dashboard/applications",
-      "applicationsTitle": "Applications",
-      "newApplication": "New Application",
-      "statusSaved": "Saved",
-      "statusApplied": "Applied",
-      "statusInterview": "Interview",
-      "statusOffer": "Offer",
-      "statusRejected": "Rejected",
-      "positionFrontendDeveloper": "Frontend Developer",
-      "positionFrontendFejleszto": "Frontend Developer",
-      "positionSeniorFejleszto": "Senior Developer",
-      "positionFullStackFejleszto": "Full-Stack Developer",
-      "positionSoftwareEngineer": "Software Engineer",
-      "positionUiFejleszto": "UI Developer",
-      "positionAngularFejleszto": "Angular Developer"
-    },
-    "features": {
-      "title": "Every tool, in one place",
-      "subtitle": "Not a generic project manager — built specifically for the steps of a job search.",
-      "kanban": { "title": "Kanban Board", "description": "Drag and drop your applications through the process — from saved, through applied and interview, to offer." },
-      "table": { "title": "Table View", "description": "If you think in lists: a filterable, sortable table of all your applications." },
-      "events": { "title": "Events & To-Dos", "description": "Interviews, deadlines, and small to-dos in one calendar, so nothing slips through the cracks." },
-      "documents": { "title": "Documents & Templates", "description": "Your resumes, cover letters, and templates are always at hand, organized by company." },
-      "stats": { "title": "Statistics", "description": "Success rate, weekly activity, and progress trends in charts — see what's actually working." },
-      "interviewPractice": { "title": "Interview Practice", "description": "Practice common interview questions and get instant AI feedback on your answers — so you know exactly what to polish before your next interview." }
-    },
-    "stats": {
-      "title": "See exactly where you stand",
-      "subtitle": "There's a story behind the numbers: how many applications turn into interviews, and which week you made the most progress.",
-      "applicationsStatus": "Application Status",
-      "total": "total",
-      "weeklyActivity": "Weekly Activity",
-      "weeklyNote": "5 applications this week — your weekly goal is 5.",
-      "weekday": {
-        "mondayFull": "Monday", "mondayShort": "M",
-        "tuesdayFull": "Tuesday", "tuesdayShort": "T",
-        "wednesdayFull": "Wednesday", "wednesdayShort": "W",
-        "thursdayFull": "Thursday", "thursdayShort": "T",
-        "fridayFull": "Friday", "fridayShort": "F",
-        "saturdayFull": "Saturday", "saturdayShort": "S",
-        "sundayFull": "Sunday", "sundayShort": "S"
-      }
-    },
-    "howItWorks": {
-      "title": "In Three Steps",
-      "subtitle": "No complicated setup — you'll be up and running in a few minutes.",
-      "step1": { "title": "Add your applications", "description": "Log the company, the position, and the listing link — in just a few seconds." },
-      "step2": { "title": "Track the process", "description": "Move the cards along the kanban board as your interview process progresses." },
-      "step3": { "title": "See what's working", "description": "Refine your strategy based on your statistics and readiness level." }
-    },
     "cta": {
-      "title": "Ready to bring order to your job search?",
-      "subtitle": "Create an account and start tracking your applications right away.",
+      "startFree": "Start for Free",
       "goToDashboard": "Go to Dashboard",
       "registerFree": "Sign Up for Free"
+    },
+    "story": {
+      "chaos": {
+        "eyebrow": "01 — Chaos",
+        "headline": "Job hunting is chaos."
+      },
+      "system": {
+        "eyebrow": "02 — System",
+        "headline": "We turn it into a system.",
+        "subtitle": "JobTracker organizes every application, interview, and follow-up into one clear pipeline — so you always know your next move."
+      },
+      "control": {
+        "eyebrow": "03 — Control",
+        "headline": "One pipeline. Every application.",
+        "subtitle": "Track applications through a fully customizable pipeline — from saved to offer — and never lose track of what's next."
+      },
+      "insight": {
+        "eyebrow": "04 — Insight",
+        "headline": "Know what's actually working.",
+        "subtitle": "Real numbers on response rates, interview conversion, and time-to-offer — so you can double down on what moves the needle."
+      },
+      "preparation": {
+        "eyebrow": "05 — Preparation",
+        "headline": "Practice until you're ready. Really ready.",
+        "subtitle": "Answer real interview questions, then get instant AI feedback on structure, clarity, and impact — before it counts."
+      },
+      "product": {
+        "eyebrow": "06 — Product",
+        "headline": "Everything in one place.",
+        "subtitle": "Applications, events, documents, and stats — one dashboard that keeps your entire search organized."
+      },
+      "action": {
+        "eyebrow": "07 — Action",
+        "headline": "Start turning chaos into progress.",
+        "subtitle": "Free to start. No credit card. Cancel anytime."
+      }
     }
   },
   "auth": {

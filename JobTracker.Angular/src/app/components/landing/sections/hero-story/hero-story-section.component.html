@@ -1,0 +1,32 @@
+<section class="hero-story" aria-label="Hero">
+    <div class="hero-story-copy">
+        <p class="story-eyebrow">{{ 'landing.story.chaos.eyebrow' | translate }}</p>
+        <h1 class="hero-story-headline">{{ 'landing.story.chaos.headline' | translate }}</h1>
+
+        <p class="story-eyebrow story-eyebrow--muted">{{ 'landing.story.system.eyebrow' | translate }}</p>
+        <h2 class="hero-story-subheadline">{{ 'landing.story.system.headline' | translate }}</h2>
+        <p class="story-subtitle">{{ 'landing.story.system.subtitle' | translate }}</p>
+
+        <div class="hero-story-actions">
+            @if (auth.isLoggedIn()) {
+            <app-landing-button routerLink="/dashboard" variant="primary" size="lg">
+                {{ 'landing.cta.goToDashboard' | translate }}
+            </app-landing-button>
+            } @else {
+            <app-landing-button routerLink="/register" variant="primary" size="lg">
+                {{ 'landing.cta.startFree' | translate }}
+            </app-landing-button>
+            }
+        </div>
+    </div>
+
+    <div class="hero-story-stage">
+        @defer (on viewport; prefetch on idle) {
+        <app-hero-scene />
+        } @placeholder {
+        <app-hero-fallback />
+        } @loading (minimum 200ms) {
+        <app-hero-fallback />
+        }
+    </div>
+</section>

@@ -1,0 +1,5 @@
+@if (webglSupported()) {
+<canvas #canvas class="hero-scene-canvas" aria-hidden="true"></canvas>
+} @else {
+<app-hero-fallback />
+}
