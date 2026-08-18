@@ -1,0 +1,93 @@
+.landing-v2-nav-bar {
+    background-color: #fbfaf8;
+    border-bottom: 1px solid #ebe8e8;
+}
+
+.landing-v2-nav-bar-inner {
+    width: var(--landing-container-width);
+    margin-inline: auto;
+    padding-block: max(0.75rem, calc(18 * var(--landing-px)));
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: max(1rem, calc(32 * var(--landing-px)));
+}
+
+.landing-v2-nav-bar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.55em;
+    text-decoration: none;
+    color: #0a0a0a;
+    font-size: max(1.05rem, calc(19 * var(--landing-px)));
+}
+
+.landing-v2-nav-bar-brand-mark {
+    display: flex;
+    color: #26ac00;
+}
+
+.landing-v2-nav-bar-brand-mark svg {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.landing-v2-nav-bar-brand-name {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.landing-v2-nav-bar-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(36 * var(--landing-px));
+}
+
+.landing-v2-nav-bar-link {
+    font-size: max(0.875rem, calc(15 * var(--landing-px)));
+    font-weight: 500;
+    color: #3f3f3d;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.landing-v2-nav-bar-link:hover {
+    color: #0a0a0a;
+}
+
+.landing-v2-nav-bar-actions {
+    display: flex;
+    align-items: center;
+    gap: max(0.875rem, calc(24 * var(--landing-px)));
+}
+
+.landing-v2-nav-bar-login-link {
+    font-size: max(0.875rem, calc(15 * var(--landing-px)));
+    font-weight: 500;
+    color: #0a0a0a;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.landing-v2-nav-bar-register-button {
+    background-color: #26ac00;
+    color: #ffffff;
+    font-size: max(0.85rem, calc(14 * var(--landing-px)));
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.79em 1.57em;
+    border-radius: 9999px;
+    white-space: nowrap;
+    transition: background-color 0.15s ease;
+}
+
+.landing-v2-nav-bar-register-button:hover {
+    background-color: #209400;
+}
+
+@media (max-width: 56.25em) {
+    .landing-v2-nav-bar-links {
+        display: none;
+    }
+}

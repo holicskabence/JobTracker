@@ -1,0 +1,18 @@
+:host {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.landing-v2-hero-illustration-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 566 / 312;
+}
+
+.landing-v2-hero-illustration-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}

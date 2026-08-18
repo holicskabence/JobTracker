@@ -1,50 +1,185 @@
-.story-section {
-    max-width: 1180px;
+.preparation-section {
+    max-width: var(--landing-container-wide);
     margin: 0 auto;
-    padding: calc(var(--space-12) * 1.5) var(--space-6);
-    text-align: center;
+    padding: var(--landing-section-gap) var(--space-6);
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
 }
 
-.story-eyebrow {
+.preparation-copy {
+    flex: 0 0 auto;
+    width: 30%;
+    min-width: 19rem;
+}
+
+.preparation-eyebrow {
     display: inline-block;
     font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--clr-green-dk);
-    margin: 0 0 var(--space-3);
+    margin: 0 0 var(--space-4);
 }
 
-.story-headline {
-    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+.preparation-headline {
+    font-size: clamp(1.875rem, 3.2vw, 2.5rem);
     font-weight: 800;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
     color: var(--clr-dark);
-    margin: 0 0 var(--space-3);
+    margin: 0 0 var(--space-4);
 }
 
-.story-subtitle {
-    font-size: 1rem;
+.preparation-copy-text {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--clr-muted);
+}
+
+/* ---------- interview interface ---------- */
+
+.preparation-interface {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    padding-bottom: var(--space-8);
+    padding-right: var(--space-10);
+}
+
+.interview-panel {
+    background-color: var(--clr-white);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--landing-radius);
+    box-shadow: var(--landing-shadow);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.interview-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.interview-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--clr-muted);
+}
+
+.interview-question-text {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--clr-dark);
+    margin: 0;
+}
+
+.interview-answer-text {
+    font-size: 0.9375rem;
     line-height: 1.6;
     color: var(--clr-muted);
-    max-width: 36rem;
-    margin: 0 auto var(--space-8);
+    margin: 0;
 }
 
-.story-visual-placeholder {
-    min-height: 220px;
+.interview-waveform {
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: var(--clr-white);
-    border: 1px dashed var(--clr-border);
-    border-radius: var(--radius-xl);
-    color: var(--clr-muted);
-    font-size: 0.875rem;
+    gap: 3px;
+    height: 32px;
 }
 
-@media (max-width: 640px) {
-    .story-section {
-        padding: var(--space-12) var(--space-4);
+.interview-waveform-bar {
+    flex: 1;
+    background-color: rgba(38, 172, 0, 0.35);
+    border-radius: var(--radius-full);
+    min-height: 3px;
+}
+
+/* ---------- floating AI evaluation card ---------- */
+
+.evaluation-card {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 13.5rem;
+    background-color: var(--clr-dark);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.35);
+    padding: var(--space-5);
+}
+
+.evaluation-score {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--clr-white);
+    line-height: 1;
+    margin-bottom: var(--space-4);
+}
+
+.evaluation-score span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.evaluation-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2-5);
+    margin: 0;
+    padding: 0;
+}
+
+.evaluation-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.evaluation-item--good svg {
+    color: var(--clr-green);
+    flex-shrink: 0;
+}
+
+.evaluation-item--improve svg {
+    color: var(--clr-yellow);
+    flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+    .preparation-section {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-8);
+        padding: var(--landing-section-gap-mobile) var(--space-4);
+    }
+
+    .preparation-copy {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .preparation-interface {
+        padding-right: var(--space-4);
+    }
+
+    .interview-panel {
+        padding: var(--space-6);
+    }
+
+    .evaluation-card {
+        position: static;
+        margin-top: var(--space-5);
+        width: auto;
     }
 }

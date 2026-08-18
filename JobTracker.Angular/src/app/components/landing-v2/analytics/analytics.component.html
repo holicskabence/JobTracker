@@ -1,0 +1,163 @@
+<section class="landing-v2-analytics" id="analytics">
+    <svg class="landing-v2-analytics-wave-background" viewBox="0 0 1024 300" preserveAspectRatio="none"
+        aria-hidden="true">
+        <path d="M0,220 C160,180 260,260 420,230 C580,200 660,270 820,235 C900,218 960,232 1024,215"
+            fill="none" stroke="#1f4d1a" stroke-width="2" />
+        <path d="M0,260 C180,230 300,290 460,255 C620,220 720,285 880,250 C930,238 980,248 1024,238"
+            fill="none" stroke="#1f4d1a" stroke-width="1.5" />
+        <path d="M0,160 C140,140 240,190 400,165 C560,140 650,195 800,168 C890,152 960,162 1024,150"
+            fill="none" stroke="#1f4d1a" stroke-width="1.5" />
+    </svg>
+
+    <div class="landing-v2-analytics-inner">
+
+        <div class="landing-v2-analytics-copy">
+            <h2 class="landing-v2-analytics-headline">{{ 'landingV2.analytics.headline' | translate }}</h2>
+            <p class="landing-v2-analytics-paragraph">{{ 'landingV2.analytics.paragraph' | translate }}</p>
+
+            <ul class="landing-v2-analytics-checklist">
+                <li class="landing-v2-analytics-checklist-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3fc23f" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {{ 'landingV2.analytics.check1' | translate }}
+                </li>
+                <li class="landing-v2-analytics-checklist-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3fc23f" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {{ 'landingV2.analytics.check2' | translate }}
+                </li>
+                <li class="landing-v2-analytics-checklist-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3fc23f" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {{ 'landingV2.analytics.check3' | translate }}
+                </li>
+                <li class="landing-v2-analytics-checklist-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3fc23f" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {{ 'landingV2.analytics.check4' | translate }}
+                </li>
+            </ul>
+
+            <a class="landing-v2-analytics-cta" routerLink="/register">
+                {{ 'landingV2.analytics.cta' | translate }}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                </svg>
+            </a>
+        </div>
+
+        <div class="landing-v2-analytics-panels">
+
+            <div class="landing-v2-analytics-charts-column">
+
+                <div class="landing-v2-analytics-chart-row">
+                    <div class="landing-v2-analytics-card">
+                        <span class="landing-v2-analytics-card-label">{{ 'landingV2.analytics.responseRateLabel' | translate }}</span>
+                        <div class="landing-v2-analytics-card-value">24%</div>
+                        <svg class="landing-v2-analytics-sparkline" viewBox="0 0 140 46" preserveAspectRatio="none">
+                            <polyline points="0,38 18,34 36,36 54,24 72,26 90,14 108,18 140,4" fill="none"
+                                stroke="#4fd15a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="landing-v2-analytics-card-change landing-v2-analytics-card-change--positive">{{ 'landingV2.analytics.responseRateChange' | translate }}</span>
+                    </div>
+
+                    <div class="landing-v2-analytics-card">
+                        <span class="landing-v2-analytics-card-label">{{ 'landingV2.analytics.avgResponseTimeLabel' | translate }}</span>
+                        <div class="landing-v2-analytics-card-value">{{ 'landingV2.analytics.avgResponseTimeValue' | translate }}</div>
+                        <svg class="landing-v2-analytics-sparkline" viewBox="0 0 140 46" preserveAspectRatio="none">
+                            <polyline points="0,8 18,16 36,14 54,26 72,22 90,32 108,28 140,40" fill="none"
+                                stroke="#8f7cf5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="landing-v2-analytics-card-change landing-v2-analytics-card-change--positive">{{ 'landingV2.analytics.avgResponseTimeChange' | translate }}</span>
+                    </div>
+                </div>
+
+                <div class="landing-v2-analytics-stat-row">
+                    <div class="landing-v2-analytics-card landing-v2-analytics-stat-card">
+                        <span class="landing-v2-analytics-card-label">{{ 'landingV2.analytics.totalApplicationsLabel' | translate }}</span>
+                        <div class="landing-v2-analytics-card-value">86</div>
+                        <span class="landing-v2-analytics-card-change landing-v2-analytics-card-change--positive">{{ 'landingV2.analytics.totalApplicationsChange' | translate }}</span>
+                    </div>
+                    <div class="landing-v2-analytics-card landing-v2-analytics-stat-card">
+                        <span class="landing-v2-analytics-card-label">{{ 'landingV2.analytics.interviewsLabel' | translate }}</span>
+                        <div class="landing-v2-analytics-card-value">9</div>
+                        <span class="landing-v2-analytics-card-change landing-v2-analytics-card-change--positive">{{ 'landingV2.analytics.interviewsChange' | translate }}</span>
+                    </div>
+                    <div class="landing-v2-analytics-card landing-v2-analytics-stat-card">
+                        <span class="landing-v2-analytics-card-label">{{ 'landingV2.analytics.offersLabel' | translate }}</span>
+                        <div class="landing-v2-analytics-card-value">3</div>
+                        <span class="landing-v2-analytics-card-change landing-v2-analytics-card-change--positive">{{ 'landingV2.analytics.offersChange' | translate }}</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="landing-v2-analytics-side-column">
+
+                <div class="landing-v2-analytics-card landing-v2-analytics-funnel-card">
+                    <span class="landing-v2-analytics-card-label">{{ 'landingV2.analytics.funnelLabel' | translate }}</span>
+
+                    <div class="landing-v2-analytics-funnel">
+                        <div class="landing-v2-analytics-funnel-bars">
+                            <div class="landing-v2-analytics-funnel-bar" style="width: 100%"></div>
+                            <div class="landing-v2-analytics-funnel-bar" style="width: 74%"></div>
+                            <div class="landing-v2-analytics-funnel-bar" style="width: 46%"></div>
+                            <div class="landing-v2-analytics-funnel-bar" style="width: 26%"></div>
+                        </div>
+                        <div class="landing-v2-analytics-funnel-rows">
+                            <div class="landing-v2-analytics-funnel-row">
+                                <span class="landing-v2-analytics-funnel-row-label">{{ 'landingV2.analytics.funnelApplied' | translate }}</span>
+                                <span class="landing-v2-analytics-funnel-row-value">86</span>
+                            </div>
+                            <div class="landing-v2-analytics-funnel-row">
+                                <span class="landing-v2-analytics-funnel-row-label">{{ 'landingV2.analytics.funnelScreening' | translate }}</span>
+                                <span class="landing-v2-analytics-funnel-row-value">29</span>
+                            </div>
+                            <div class="landing-v2-analytics-funnel-row">
+                                <span class="landing-v2-analytics-funnel-row-label">{{ 'landingV2.analytics.funnelInterview' | translate }}</span>
+                                <span class="landing-v2-analytics-funnel-row-value">9</span>
+                            </div>
+                            <div class="landing-v2-analytics-funnel-row">
+                                <span class="landing-v2-analytics-funnel-row-label">{{ 'landingV2.analytics.funnelOffer' | translate }}</span>
+                                <span class="landing-v2-analytics-funnel-row-value">3</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span class="landing-v2-analytics-funnel-footnote">
+                        {{ 'landingV2.analytics.funnelConversion' | translate }} <strong>3.5%</strong>
+                    </span>
+                </div>
+
+                <div class="landing-v2-analytics-card landing-v2-analytics-gauge-card">
+                    <span class="landing-v2-analytics-card-label">{{ 'landingV2.analytics.successScoreLabel' | translate }}</span>
+
+                    <div class="landing-v2-analytics-gauge">
+                        <svg viewBox="0 0 120 66" class="landing-v2-analytics-gauge-svg">
+                            <path d="M10,60 A50,50 0 0,1 110,60" fill="none" stroke="#2c2c2c" stroke-width="10"
+                                stroke-linecap="round" />
+                            <path d="M10,60 A50,50 0 0,1 110,60" fill="none" stroke="#4fd15a" stroke-width="10"
+                                stroke-linecap="round" stroke-dasharray="157" stroke-dashoffset="44" />
+                        </svg>
+                        <div class="landing-v2-analytics-gauge-value">72</div>
+                    </div>
+
+                    <span class="landing-v2-analytics-gauge-hint">{{ 'landingV2.analytics.successScoreHint' | translate }}</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>

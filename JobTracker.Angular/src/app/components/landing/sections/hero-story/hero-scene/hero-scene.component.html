@@ -1,5 +1,14 @@
 @if (webglSupported()) {
 <canvas #canvas class="hero-scene-canvas" aria-hidden="true"></canvas>
+@if (showLabels) {
+<div class="hero-scene-labels" #labels aria-hidden="true">
+    <span class="hero-scene-label" data-station="application">{{ 'landing.pipeline.application' | translate }}</span>
+    <span class="hero-scene-label" data-station="screening">{{ 'landing.pipeline.screening' | translate }}</span>
+    <span class="hero-scene-label" data-station="interview">{{ 'landing.pipeline.interview' | translate }}</span>
+    <span class="hero-scene-label hero-scene-label--offer" data-station="offer">{{ 'landing.pipeline.offer' |
+        translate }}</span>
+</div>
+}
 } @else {
 <app-hero-fallback />
 }

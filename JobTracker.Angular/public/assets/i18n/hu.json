@@ -12,6 +12,144 @@
     "practice": "Gyakorlás",
     "logout": "Kijelentkezés"
   },
+  "landingV2": {
+    "nav": {
+      "features": "Funkciók",
+      "pricing": "Árak",
+      "about": "Rólunk",
+      "blog": "Blog",
+      "login": "Bejelentkezés",
+      "register": "Regisztráció"
+    },
+    "hero": {
+      "headlineLine1": "Az álláskeresés",
+      "headlineLine2": "egy rendszerré válik.",
+      "paragraph": "Kövesd a jelentkezéseidet, készülj fel az interjúkra és érj el több visszajelzést – egy helyen.",
+      "ctaPrimary": "Kezdj bele ingyen",
+      "ctaSecondary": "Nézd meg, hogyan működik",
+      "trust1": "Ingyenes próba",
+      "trust2": "Nincs kártya szükséges",
+      "trust3": "Bármikor lemondható",
+      "scrollHint": "Görgess tovább",
+      "stage1": "Jelentkezve",
+      "stage2": "Szűrés",
+      "stage3": "Interjú",
+      "stage4": "Ajánlat"
+    },
+    "features": {
+      "title1": "Jelentkezések követése",
+      "desc1": "Kanban nézet és szűrhető táblázat minden jelentkezésedhez.",
+      "title2": "Interjú felkészülés",
+      "desc2": "Kérdésbank, gyakorlatok és AI visszajelzés a válaszaidra.",
+      "title3": "Statisztikák",
+      "desc3": "Valós idejű analitikák, amik segítenek jobb döntéseket hozni.",
+      "title4": "Naptár & Események",
+      "desc4": "Interjúk, határidők és események egy áttekinthető naptárban.",
+      "title5": "Dokumentumok",
+      "desc5": "Önéletrajzok, motivációs levelek és fájlok biztonságos tárolása.",
+      "title6": "Sablonok & Közösség",
+      "desc6": "Outreach sablonok és ötletek, amikkel kitűnhetsz a többiek közül."
+    },
+    "analytics": {
+      "headline": "Értsd meg, mi történik.",
+      "paragraph": "Részletes statisztikák és mutatók, amik valódi eredményeket mutatnak.",
+      "check1": "Válaszadási arányok",
+      "check2": "Átlagos válaszidő",
+      "check3": "Interjúk és ajánlatok aránya",
+      "check4": "Sikerességi pontszám",
+      "cta": "Nézd meg a statisztikákat",
+      "responseRateLabel": "Válaszadási arány",
+      "responseRateChange": "+8% az előző hónaphoz képest",
+      "avgResponseTimeLabel": "Átlagos válaszidő",
+      "avgResponseTimeValue": "6 nap",
+      "avgResponseTimeChange": "-2 nap az előző hónaphoz képest",
+      "funnelLabel": "Folyamat áttekintés",
+      "funnelApplied": "Jelentkezve",
+      "funnelScreening": "Szűrés",
+      "funnelInterview": "Interjú",
+      "funnelOffer": "Ajánlat",
+      "funnelConversion": "Átalakulási arány",
+      "totalApplicationsLabel": "Összes jelentkezés",
+      "totalApplicationsChange": "+12 az előző hónaphoz képest",
+      "interviewsLabel": "Interjúk",
+      "interviewsChange": "+3 az előző hónaphoz képest",
+      "offersLabel": "Ajánlatok",
+      "offersChange": "+1 az előző hónaphoz képest",
+      "successScoreLabel": "Sikerességi pontszám",
+      "successScoreHint": "Jó úton haladsz!"
+    },
+    "interview": {
+      "headline": "Készülj fel magabiztosan az interjúkra.",
+      "paragraph": "Gyakorolj kérdésekkel, és kapj AI értékelést a válaszaidra valós időben.",
+      "check1": "Saját kérdésbankod",
+      "check2": "AI alapú válaszértékelés",
+      "check3": "Visszajelzés és javaslatok",
+      "check4": "Fejlődj minden interjú előtt",
+      "cta": "Próbáld ki a gyakorlatot",
+      "questionLabel": "Kérdés",
+      "question": "Mesélj egy olyan helyzetről, amikor konfliktust kellett kezelned a csapatban.",
+      "answerLabel": "A te válaszod",
+      "answer": "Egy projekt során két csapattag között nézeteltérés támadt a feladatprioritások miatt. Beszéltem mindkettőjükkel külön-külön, majd közösen is, és segítettem nekik megtalálni a közös megoldást...",
+      "evaluationLabel": "AI értékelés",
+      "evaluationTitle": "Jó válasz!",
+      "score": "8/10",
+      "feedback1": "Jó struktúra és konkrét példa",
+      "feedback2": "Megmutatja a kommunikációs készségeidet",
+      "tip": "Javaslat: Emeld ki, hogy milyen eredményt értél el a beavatkozásoddal."
+    },
+    "dashboard": {
+      "headline": "Minden egy helyen.",
+      "paragraph": "Átlátható irányítópult, ahol gyorsan megtalálod, ami fontos.",
+      "cta": "Nézd meg a dashboardot",
+      "sidebarOverview": "Áttekintés",
+      "sidebarApplications": "Jelentkezések",
+      "sidebarEvents": "Események",
+      "sidebarDocuments": "Dokumentumok",
+      "sidebarStatistics": "Statisztikák",
+      "sidebarSettings": "Beállítások",
+      "headerTitle": "Áttekintés",
+      "newApplicationButton": "Új jelentkezés",
+      "statTotalApplications": "Összes jelentkezés",
+      "statInProgress": "Folyamatban",
+      "statResponseRate": "Válaszadási arány",
+      "statResponseRateHint": "0 ajánlat · 0 elutasítás",
+      "statInterviews": "Interjúk",
+      "upcomingInterviewsTitle": "Közelgő interjúk",
+      "interview1Company": "Morgan Stanley",
+      "interview1Type": "HR interjú",
+      "interview1Date": "Júl. 27.",
+      "interview1Time": "11:00",
+      "interview2Company": "Airmax",
+      "interview2Type": "Tech interjú",
+      "interview2Date": "Júl. 29.",
+      "interview2Time": "13:00",
+      "quickTasksTitle": "Gyors feladatok",
+      "task1": "Küldj utólagos emailt a jelentkezésről",
+      "task2": "Készíts új önéletrajz verziót",
+      "task3": "Gyakorolj 3 technikai kérdést"
+    },
+    "cta": {
+      "headline": "Kezdd el ma, és lépj közelebb az álommelédhez!",
+      "paragraph": "Csatlakozz több ezer sikeres álláskeresőhöz.",
+      "ctaPrimary": "Ingyenes regisztráció",
+      "ctaSecondary": "Bejelentkezés"
+    },
+    "footer": {
+      "productTitle": "Termék",
+      "productLink1": "Funkciók",
+      "productLink2": "Árak",
+      "productLink3": "Frissítések",
+      "companyTitle": "Vállalat",
+      "companyLink1": "Rólunk",
+      "companyLink2": "Kapcsolat",
+      "companyLink3": "Blog",
+      "supportTitle": "Támogatás",
+      "supportLink1": "Segítség",
+      "supportLink2": "Adatvédelem",
+      "supportLink3": "ÁSZF",
+      "followTitle": "Kövess minket"
+    }
+  },
   "landing": {
     "nav": {
       "control": "Pipeline",
@@ -22,34 +160,64 @@
       "register": "Regisztráció"
     },
     "cta": {
-      "startFree": "Kezdés ingyen",
+      "startFree": "Ingyenes nyomon követés",
       "goToDashboard": "Irány a Dashboardra",
       "registerFree": "Regisztrálj ingyen"
     },
+    "pipeline": {
+      "application": "Jelentkezés",
+      "screening": "Szűrés",
+      "interview": "Interjú",
+      "offer": "Ajánlat"
+    },
     "story": {
+      "hero": {
+        "eyebrow": "Tech álláskeresőknek épült",
+        "subtitle": "Kövesd nyomon minden jelentkezésed, készülj fel az interjúkra, és lásd, mi működik valójában – mindezt egy helyen.",
+        "secondaryCta": "Nézd meg, hogyan működik",
+        "trust": {
+          "freeToStart": "Ingyenes kezdés",
+          "noCard": "Nincs szükség bankkártyára",
+          "languages": "Angol és magyar nyelven"
+        }
+      },
       "chaos": {
-        "eyebrow": "01 — Káosz",
         "headline": "Az álláskeresés maga a káosz."
       },
       "system": {
-        "eyebrow": "02 — Rendszer",
-        "headline": "Mi rendszerré alakítjuk.",
-        "subtitle": "A JobTracker minden jelentkezésedet, interjúdat és követő lépésedet egyetlen áttekinthető folyamatba rendezi – így mindig tudod, mi a következő lépés."
+        "headline": "Mi rendszerré alakítjuk."
       },
       "control": {
         "eyebrow": "03 — Kontroll",
         "headline": "Egy folyamat. Minden jelentkezés.",
-        "subtitle": "Kövesd a jelentkezéseidet egy teljesen testreszabható folyamaton át – a mentettől az ajánlatig –, és sosem veszíted el a fonalat."
+        "subtitle": "Kövesd a jelentkezéseidet egy teljesen testreszabható folyamaton át – a mentettől az ajánlatig –, és sosem veszíted el a fonalat.",
+        "metricActive": "aktív jelentkezés",
+        "metricInterviews": "interjú ezen a héten",
+        "board": {
+          "saved": "Mentett",
+          "applied": "Beadva"
+        }
       },
       "insight": {
         "eyebrow": "04 — Rálátás",
         "headline": "Lásd, mi működik valójában.",
-        "subtitle": "Valós számok a válaszadási arányról, az interjú-konverzióról és az ajánlatig eltelt időről – hogy arra tegyél rá, ami tényleg számít."
+        "subtitle": "Valós számok a válaszadási arányról, az interjú-konverzióról és az ajánlatig eltelt időről – hogy arra tegyél rá, ami tényleg számít.",
+        "responseRate": "válaszadási arány",
+        "successScore": "sikerességi pontszám",
+        "funnel": "sikertölcsér",
+        "weeklyActivity": "heti aktivitás"
       },
       "preparation": {
         "eyebrow": "05 — Felkészülés",
         "headline": "Gyakorolj, amíg tényleg készen nem állsz.",
-        "subtitle": "Válaszolj valódi interjúkérdésekre, majd kapj azonnali AI visszajelzést a felépítésről, az érthetőségről és a hatásról – még mielőtt igazán számítana."
+        "subtitle": "Válaszolj valódi interjúkérdésekre, majd kapj azonnali AI visszajelzést a felépítésről, az érthetőségről és a hatásról – még mielőtt igazán számítana.",
+        "questionLabel": "Kérdés",
+        "answerLabel": "A te válaszod",
+        "sampleQuestion": "Mesélj egy olyan helyzetről, amikor konfliktust kellett kezelned a csapatban.",
+        "sampleAnswer": "Egy projekt során két csapattag nem értett egyet a technikai megközelítésben. Rövid megbeszélést tartottam, mindkettőjüket meghallgattam, és olyan tervben egyeztünk meg, amely mindkét ötletet felhasználta.",
+        "evalGood1": "Világos felépítés",
+        "evalGood2": "Erős példa",
+        "evalImprove": "Adj hozzá több technikai részletet"
       },
       "product": {
         "eyebrow": "06 — Termék",
@@ -57,7 +225,6 @@
         "subtitle": "Jelentkezések, események, dokumentumok és statisztikák – egyetlen dashboard, amely rendben tartja a teljes álláskeresésedet."
       },
       "action": {
-        "eyebrow": "07 — Cselekvés",
         "headline": "Kezdd el a káoszt haladássá alakítani.",
         "subtitle": "Ingyenes a kezdés. Nincs szükség bankkártyára. Bármikor lemondható."
       }

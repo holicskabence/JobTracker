@@ -4,6 +4,7 @@ import { langGuard } from './guards/lang.guard';
 import { langRedirectGuard } from './guards/lang-redirect.guard';
 import { langMatcher } from './utils/lang-route-matcher';
 import { LandingComponent } from './components/landing/landing.component';
+import { LandingV2Component } from './components/landing-v2/landing-v2.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { DashboardComponent } from './components/layout/dashboard/dashboard.component';
@@ -23,6 +24,7 @@ export const routes: Routes = [
     canActivate: [langGuard],
     children: [
       { path: '', component: LandingComponent, pathMatch: 'full' },
+      { path: 'landing-v2', component: LandingV2Component },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
     ]

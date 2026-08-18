@@ -12,6 +12,144 @@
     "practice": "Practice",
     "logout": "Log out"
   },
+  "landingV2": {
+    "nav": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "about": "About",
+      "blog": "Blog",
+      "login": "Log in",
+      "register": "Sign up"
+    },
+    "hero": {
+      "headlineLine1": "Job hunting becomes",
+      "headlineLine2": "a system.",
+      "paragraph": "Track your applications, prepare for interviews, and get more responses — all in one place.",
+      "ctaPrimary": "Get started for free",
+      "ctaSecondary": "See how it works",
+      "trust1": "Free trial",
+      "trust2": "No credit card required",
+      "trust3": "Cancel anytime",
+      "scrollHint": "Scroll down",
+      "stage1": "Applied",
+      "stage2": "Screening",
+      "stage3": "Interview",
+      "stage4": "Offer"
+    },
+    "features": {
+      "title1": "Application tracking",
+      "desc1": "Kanban view and a filterable table for every application.",
+      "title2": "Interview preparation",
+      "desc2": "Question bank, practice drills, and AI feedback on your answers.",
+      "title3": "Statistics",
+      "desc3": "Real-time analytics that help you make better decisions.",
+      "title4": "Calendar & Events",
+      "desc4": "Interviews, deadlines, and events in one clear calendar.",
+      "title5": "Documents",
+      "desc5": "Secure storage for resumes, cover letters, and files.",
+      "title6": "Templates & Community",
+      "desc6": "Outreach templates and ideas to help you stand out."
+    },
+    "analytics": {
+      "headline": "Understand what's happening.",
+      "paragraph": "Detailed statistics and metrics that show real results.",
+      "check1": "Response rates",
+      "check2": "Average response time",
+      "check3": "Interview-to-offer ratio",
+      "check4": "Success score",
+      "cta": "View your statistics",
+      "responseRateLabel": "Response rate",
+      "responseRateChange": "+8% vs last month",
+      "avgResponseTimeLabel": "Average response time",
+      "avgResponseTimeValue": "6 days",
+      "avgResponseTimeChange": "-2 days vs last month",
+      "funnelLabel": "Funnel overview",
+      "funnelApplied": "Applied",
+      "funnelScreening": "Screening",
+      "funnelInterview": "Interview",
+      "funnelOffer": "Offer",
+      "funnelConversion": "Conversion rate",
+      "totalApplicationsLabel": "Total applications",
+      "totalApplicationsChange": "+12 vs last month",
+      "interviewsLabel": "Interviews",
+      "interviewsChange": "+3 vs last month",
+      "offersLabel": "Offers",
+      "offersChange": "+1 vs last month",
+      "successScoreLabel": "Success score",
+      "successScoreHint": "You're on the right track!"
+    },
+    "interview": {
+      "headline": "Prepare for interviews with confidence.",
+      "paragraph": "Practice with questions and get AI feedback on your answers in real time.",
+      "check1": "Your own question bank",
+      "check2": "AI-based answer evaluation",
+      "check3": "Feedback and suggestions",
+      "check4": "Improve before every interview",
+      "cta": "Try a practice session",
+      "questionLabel": "Question",
+      "question": "Tell me about a time you had to resolve a conflict within your team.",
+      "answerLabel": "Your answer",
+      "answer": "During a project, two teammates disagreed over task priorities. I talked to each of them individually, then together, and helped them find a shared solution...",
+      "evaluationLabel": "AI evaluation",
+      "evaluationTitle": "Good answer!",
+      "score": "8/10",
+      "feedback1": "Clear structure and a concrete example",
+      "feedback2": "Shows your communication skills",
+      "tip": "Tip: Highlight the outcome you achieved with this intervention."
+    },
+    "dashboard": {
+      "headline": "Everything in one place.",
+      "paragraph": "A clear dashboard where you quickly find what matters.",
+      "cta": "See the dashboard",
+      "sidebarOverview": "Overview",
+      "sidebarApplications": "Applications",
+      "sidebarEvents": "Events",
+      "sidebarDocuments": "Documents",
+      "sidebarStatistics": "Statistics",
+      "sidebarSettings": "Settings",
+      "headerTitle": "Overview",
+      "newApplicationButton": "New application",
+      "statTotalApplications": "Total applications",
+      "statInProgress": "In progress",
+      "statResponseRate": "Response rate",
+      "statResponseRateHint": "0 offers · 0 rejections",
+      "statInterviews": "Interviews",
+      "upcomingInterviewsTitle": "Upcoming interviews",
+      "interview1Company": "Morgan Stanley",
+      "interview1Type": "HR interview",
+      "interview1Date": "Jul 27",
+      "interview1Time": "11:00",
+      "interview2Company": "Airmax",
+      "interview2Type": "Tech interview",
+      "interview2Date": "Jul 29",
+      "interview2Time": "13:00",
+      "quickTasksTitle": "Quick tasks",
+      "task1": "Send a follow-up email about your application",
+      "task2": "Create a new resume version",
+      "task3": "Practice 3 technical questions"
+    },
+    "cta": {
+      "headline": "Start today, and get closer to your dream job!",
+      "paragraph": "Join thousands of successful job seekers.",
+      "ctaPrimary": "Sign up for free",
+      "ctaSecondary": "Log in"
+    },
+    "footer": {
+      "productTitle": "Product",
+      "productLink1": "Features",
+      "productLink2": "Pricing",
+      "productLink3": "Changelog",
+      "companyTitle": "Company",
+      "companyLink1": "About",
+      "companyLink2": "Contact",
+      "companyLink3": "Blog",
+      "supportTitle": "Support",
+      "supportLink1": "Help",
+      "supportLink2": "Privacy",
+      "supportLink3": "Terms",
+      "followTitle": "Follow us"
+    }
+  },
   "landing": {
     "nav": {
       "control": "Pipeline",
@@ -22,34 +160,64 @@
       "register": "Sign Up"
     },
     "cta": {
-      "startFree": "Start for Free",
+      "startFree": "Start tracking for free",
       "goToDashboard": "Go to Dashboard",
       "registerFree": "Sign Up for Free"
     },
+    "pipeline": {
+      "application": "Application",
+      "screening": "Screening",
+      "interview": "Interview",
+      "offer": "Offer"
+    },
     "story": {
+      "hero": {
+        "eyebrow": "Built for tech job seekers",
+        "subtitle": "Track every application, prepare for interviews, and understand what is actually working — all in one place.",
+        "secondaryCta": "See how it works",
+        "trust": {
+          "freeToStart": "Free to start",
+          "noCard": "No credit card required",
+          "languages": "English & Hungarian"
+        }
+      },
       "chaos": {
-        "eyebrow": "01 — Chaos",
         "headline": "Job hunting is chaos."
       },
       "system": {
-        "eyebrow": "02 — System",
-        "headline": "We turn it into a system.",
-        "subtitle": "JobTracker organizes every application, interview, and follow-up into one clear pipeline — so you always know your next move."
+        "headline": "We turn it into a system."
       },
       "control": {
         "eyebrow": "03 — Control",
         "headline": "One pipeline. Every application.",
-        "subtitle": "Track applications through a fully customizable pipeline — from saved to offer — and never lose track of what's next."
+        "subtitle": "Track applications through a fully customizable pipeline — from saved to offer — and never lose track of what's next.",
+        "metricActive": "active applications",
+        "metricInterviews": "interviews this week",
+        "board": {
+          "saved": "Saved",
+          "applied": "Applied"
+        }
       },
       "insight": {
         "eyebrow": "04 — Insight",
         "headline": "Know what's actually working.",
-        "subtitle": "Real numbers on response rates, interview conversion, and time-to-offer — so you can double down on what moves the needle."
+        "subtitle": "Real numbers on response rates, interview conversion, and time-to-offer — so you can double down on what moves the needle.",
+        "responseRate": "response rate",
+        "successScore": "success score",
+        "funnel": "conversion funnel",
+        "weeklyActivity": "weekly activity"
       },
       "preparation": {
         "eyebrow": "05 — Preparation",
         "headline": "Practice until you're ready. Really ready.",
-        "subtitle": "Answer real interview questions, then get instant AI feedback on structure, clarity, and impact — before it counts."
+        "subtitle": "Answer real interview questions, then get instant AI feedback on structure, clarity, and impact — before it counts.",
+        "questionLabel": "Question",
+        "answerLabel": "Your answer",
+        "sampleQuestion": "Tell me about a time you had to resolve a conflict within a team.",
+        "sampleAnswer": "During a project, two teammates disagreed on the technical approach. I set up a short call, let each explain their reasoning, and we agreed on a plan that combined both ideas.",
+        "evalGood1": "Clear structure",
+        "evalGood2": "Strong example",
+        "evalImprove": "Add more technical detail"
       },
       "product": {
         "eyebrow": "06 — Product",
@@ -57,7 +225,6 @@
         "subtitle": "Applications, events, documents, and stats — one dashboard that keeps your entire search organized."
       },
       "action": {
-        "eyebrow": "07 — Action",
         "headline": "Start turning chaos into progress.",
         "subtitle": "Free to start. No credit card. Cancel anytime."
       }

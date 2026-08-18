@@ -1,0 +1,101 @@
+.landing-v2-site-footer {
+    background-color: #ffffff;
+    border-top: 1px solid #ebe8e8;
+    padding-block: max(1rem, calc(16 * var(--landing-px))) max(0.875rem, calc(14 * var(--landing-px)));
+}
+
+.landing-v2-site-footer-inner {
+    width: var(--landing-container-width);
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)) minmax(0, 1fr);
+    gap: max(1.25rem, calc(32 * var(--landing-px)));
+}
+
+.landing-v2-site-footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: max(0.85rem, calc(14 * var(--landing-px)));
+    align-self: start;
+}
+
+.landing-v2-site-footer-brand-mark {
+    color: #26ac00;
+    display: flex;
+}
+
+.landing-v2-site-footer-brand-mark svg {
+    width: 1.3em;
+    height: 1.3em;
+}
+
+.landing-v2-site-footer-brand-name {
+    font-weight: 700;
+    color: #0a0a0a;
+}
+
+.landing-v2-site-footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: max(0.3rem, calc(6 * var(--landing-px)));
+    min-width: 0;
+}
+
+.landing-v2-site-footer-column-title {
+    font-size: max(0.72rem, calc(11 * var(--landing-px)));
+    font-weight: 700;
+    color: #0a0a0a;
+}
+
+.landing-v2-site-footer-link {
+    font-size: max(0.72rem, calc(11 * var(--landing-px)));
+    color: #7a7a76;
+    text-decoration: none;
+}
+
+.landing-v2-site-footer-link:hover {
+    color: #0a0a0a;
+}
+
+.landing-v2-site-footer-social-row {
+    display: flex;
+    gap: max(0.375rem, calc(7 * var(--landing-px)));
+}
+
+.landing-v2-site-footer-social-link {
+    width: max(1.4rem, calc(24 * var(--landing-px)));
+    height: max(1.4rem, calc(24 * var(--landing-px)));
+    border-radius: 50%;
+    background-color: #f4f2f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5b5b58;
+    transition: background-color 0.15s ease;
+}
+
+.landing-v2-site-footer-social-link svg {
+    width: 55%;
+    height: 55%;
+}
+
+.landing-v2-site-footer-social-link:hover {
+    background-color: #e7e4de;
+}
+
+@media (max-width: 56.25em) {
+    .landing-v2-site-footer-inner {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .landing-v2-site-footer-brand {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 26.25em) {
+    .landing-v2-site-footer-inner {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

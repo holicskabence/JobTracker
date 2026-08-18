@@ -1,0 +1,147 @@
+.landing-v2-hero {
+    padding-block-start: calc(20 * var(--landing-px));
+}
+
+.landing-v2-hero-inner {
+    width: var(--landing-container-width);
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.06fr);
+    align-items: center;
+    gap: max(1rem, calc(16 * var(--landing-px)));
+}
+
+.landing-v2-hero-copy {
+    min-width: 0;
+}
+
+.landing-v2-hero-visual {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 0;
+}
+
+/* The reference artwork slightly overhangs the content container on
+   the right, which is what makes it read as the dominant object. */
+.landing-v2-hero-visual app-landing-v2-hero-illustration {
+    width: 112%;
+}
+
+.landing-v2-hero-headline {
+    font-size: max(1.55rem, calc(33 * var(--landing-px)));
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.7em;
+}
+
+.landing-v2-hero-paragraph {
+    font-size: max(0.78rem, calc(13 * var(--landing-px)));
+    line-height: 1.4;
+    color: #5b5b58;
+    max-width: 26.5em;
+    margin-bottom: 1.8em;
+}
+
+.landing-v2-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: max(0.45rem, calc(10 * var(--landing-px)));
+    margin-bottom: max(0.875rem, calc(26 * var(--landing-px)));
+    flex-wrap: wrap;
+}
+
+.landing-v2-hero-cta-primary,
+.landing-v2-hero-cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55em;
+    font-size: max(0.72rem, calc(11 * var(--landing-px)));
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    padding: 0.85em 1.2em;
+    border-radius: 9999px;
+    white-space: nowrap;
+}
+
+.landing-v2-hero-cta-primary {
+    background-color: #26ac00;
+    color: #ffffff;
+    transition: background-color 0.15s ease;
+}
+
+.landing-v2-hero-cta-primary:hover {
+    background-color: #209400;
+}
+
+.landing-v2-hero-cta-secondary {
+    background-color: #ffffff;
+    color: #0a0a0a;
+    border: 1px solid #ded9d5;
+}
+
+.landing-v2-hero-cta-secondary:hover {
+    border-color: #c7c1bb;
+}
+
+.landing-v2-hero-trust-row {
+    display: flex;
+    align-items: center;
+    gap: max(0.5rem, calc(12 * var(--landing-px)));
+    flex-wrap: wrap;
+}
+
+.landing-v2-hero-trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: max(0.6rem, calc(9.5 * var(--landing-px)));
+    font-weight: 500;
+    color: #5b5b58;
+    white-space: nowrap;
+}
+
+.landing-v2-hero-trust-item svg {
+    color: #26ac00;
+    flex-shrink: 0;
+    width: 1.25em;
+    height: 1.25em;
+}
+
+.landing-v2-hero-scroll-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4em;
+    margin: max(0.75rem, calc(14 * var(--landing-px))) auto max(0.75rem, calc(16 * var(--landing-px)));
+    font-size: max(0.7rem, calc(11 * var(--landing-px)));
+    font-weight: 500;
+    color: #9b9b99;
+}
+
+@media (max-width: 56.25em) {
+    .landing-v2-hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+        text-align: center;
+    }
+
+    .landing-v2-hero-visual {
+        justify-content: center;
+    }
+
+    .landing-v2-hero-visual app-landing-v2-hero-illustration {
+        width: 100%;
+    }
+
+    .landing-v2-hero-paragraph {
+        max-width: 100%;
+        margin-inline: auto;
+    }
+
+    .landing-v2-hero-actions,
+    .landing-v2-hero-trust-row {
+        justify-content: center;
+    }
+}

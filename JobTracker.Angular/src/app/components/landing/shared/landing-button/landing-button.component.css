@@ -34,6 +34,16 @@
     border-color: var(--clr-dark);
 }
 
+.landing-button--outline {
+    background-color: var(--clr-white);
+    color: var(--clr-dark);
+    border-color: var(--clr-border);
+}
+
+.landing-button--outline:hover {
+    border-color: var(--clr-dark);
+}
+
 .landing-button--cta {
     background-color: var(--clr-white);
     color: var(--clr-green-dk);
@@ -46,4 +56,14 @@
 .landing-button--lg {
     padding: var(--space-3) var(--space-6);
     font-size: 0.9375rem;
+}
+
+.landing-button:focus-visible {
+    outline: 2px solid var(--clr-green);
+    outline-offset: 2px;
+}
+
+.landing-button--cta:focus-visible {
+    outline-color: var(--clr-white);
+    outline-offset: 3px;
 }

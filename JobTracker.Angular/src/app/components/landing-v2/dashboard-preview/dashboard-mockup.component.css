@@ -1,0 +1,312 @@
+:host {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.landing-v2-dashboard-mockup {
+    /* Sized by its own column via container query, so it can never
+       outgrow the space the grid actually gives it. */
+    font-size: max(0.5rem, 1.75cqi);
+    display: flex;
+    width: 100%;
+    max-inline-size: 56em;
+    background-color: #ffffff;
+    border: 1px solid #ebe8e8;
+    border-radius: 1.6em;
+    box-shadow: 0 2.4em 4.8em rgba(20, 18, 12, 0.14);
+    overflow: hidden;
+}
+
+.landing-v2-dashboard-mockup-sidebar {
+    flex: 0 0 11.8em;
+    background-color: #faf9f7;
+    border-right: 1px solid #ebe8e8;
+    padding: 1em 0.8em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.landing-v2-dashboard-mockup-sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    font-size: 1em;
+    font-weight: 700;
+    color: #0a0a0a;
+    padding: 0 0.3em;
+}
+
+.landing-v2-dashboard-mockup-sidebar-brand svg {
+    color: #26ac00;
+    flex-shrink: 0;
+    width: 1.1em;
+    height: 1.1em;
+}
+
+.landing-v2-dashboard-mockup-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+}
+
+.landing-v2-dashboard-mockup-sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: #6b6b68;
+    padding: 0.5em 0.6em;
+    border-radius: 0.6em;
+}
+
+.landing-v2-dashboard-mockup-sidebar-item svg {
+    flex-shrink: 0;
+    width: 1.1em;
+    height: 1.1em;
+}
+
+.landing-v2-dashboard-mockup-sidebar-item--active {
+    background-color: rgba(38, 172, 0, 0.1);
+    color: #26ac00;
+    font-weight: 600;
+}
+
+.landing-v2-dashboard-mockup-main {
+    flex: 1;
+    padding: 1em 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+    min-width: 0;
+}
+
+.landing-v2-dashboard-mockup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.landing-v2-dashboard-mockup-header-title {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #0a0a0a;
+}
+
+.landing-v2-dashboard-mockup-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+}
+
+.landing-v2-dashboard-mockup-new-button {
+    background-color: #26ac00;
+    color: #ffffff;
+    font-size: 0.9em;
+    font-weight: 600;
+    padding: 0.5em 1em;
+    border-radius: 9999px;
+    white-space: nowrap;
+}
+
+.landing-v2-dashboard-mockup-avatar {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background-color: #e7e4de;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    font-weight: 700;
+    color: #5b5b58;
+    flex-shrink: 0;
+}
+
+.landing-v2-dashboard-mockup-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.7em;
+}
+
+.landing-v2-dashboard-mockup-stat-card {
+    background-color: #faf9f7;
+    border: 1px solid #ebe8e8;
+    border-radius: 0.9em;
+    padding: 0.7em 0.9em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+    min-width: 0;
+}
+
+.landing-v2-dashboard-mockup-stat-label {
+    font-size: 0.8em;
+    color: #8f8f8c;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.landing-v2-dashboard-mockup-stat-value {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #0a0a0a;
+}
+
+.landing-v2-dashboard-mockup-stat-hint {
+    font-size: 0.75em;
+    color: #8f8f8c;
+}
+
+.landing-v2-dashboard-mockup-progress-track {
+    height: 0.3em;
+    background-color: #ebe8e8;
+    border-radius: 0.3em;
+    overflow: hidden;
+}
+
+.landing-v2-dashboard-mockup-progress-fill {
+    height: 100%;
+    background-color: #26ac00;
+    border-radius: 0.3em;
+}
+
+.landing-v2-dashboard-mockup-progress-fill--blue {
+    background-color: #5fb9fa;
+}
+
+.landing-v2-dashboard-mockup-lower {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8em;
+    flex: 1;
+}
+
+.landing-v2-dashboard-mockup-panel {
+    background-color: #faf9f7;
+    border: 1px solid #ebe8e8;
+    border-radius: 0.9em;
+    padding: 0.8em 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+    min-width: 0;
+}
+
+.landing-v2-dashboard-mockup-panel-title {
+    font-size: 0.95em;
+    font-weight: 700;
+    color: #0a0a0a;
+}
+
+.landing-v2-dashboard-mockup-interview-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+}
+
+.landing-v2-dashboard-mockup-interview-avatar {
+    width: 1.9em;
+    height: 1.9em;
+    border-radius: 50%;
+    background-color: rgba(38, 172, 0, 0.12);
+    color: #26ac00;
+    font-size: 0.9em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.landing-v2-dashboard-mockup-interview-avatar--blue {
+    background-color: rgba(95, 185, 250, 0.18);
+    color: #3f92ea;
+}
+
+.landing-v2-dashboard-mockup-interview-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+.landing-v2-dashboard-mockup-interview-company {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #0a0a0a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.landing-v2-dashboard-mockup-interview-type {
+    font-size: 0.8em;
+    color: #8f8f8c;
+}
+
+.landing-v2-dashboard-mockup-interview-when {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+
+.landing-v2-dashboard-mockup-interview-date {
+    font-size: 0.8em;
+    font-weight: 600;
+    color: #0a0a0a;
+}
+
+.landing-v2-dashboard-mockup-interview-time {
+    font-size: 0.75em;
+    color: #8f8f8c;
+}
+
+.landing-v2-dashboard-mockup-task-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.landing-v2-dashboard-mockup-task-checkbox {
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 0.4em;
+    border: 0.15em solid #d3cfc8;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.landing-v2-dashboard-mockup-task-checkbox--done {
+    background-color: #26ac00;
+    border-color: #26ac00;
+}
+
+.landing-v2-dashboard-mockup-task-text {
+    font-size: 0.9em;
+    color: #3d3d3a;
+}
+
+.landing-v2-dashboard-mockup-task-text--done {
+    color: #a8a6a1;
+    text-decoration: line-through;
+}
+
+@media (max-width: 47.5em) {
+    .landing-v2-dashboard-mockup-sidebar {
+        display: none;
+    }
+
+    .landing-v2-dashboard-mockup-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .landing-v2-dashboard-mockup-lower {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobTracker – Az álláskeresés egy rendszerré válik</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- SVG sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-logo" viewBox="0 0 24 24">
+        <rect x="2" y="2" width="9.2" height="9.2" rx="2.6" fill="currentColor"/>
+        <rect x="12.8" y="2" width="9.2" height="9.2" rx="2.6" fill="currentColor" opacity=".55"/>
+        <rect x="2" y="12.8" width="9.2" height="9.2" rx="2.6" fill="currentColor" opacity=".55"/>
+        <rect x="12.8" y="12.8" width="9.2" height="9.2" rx="2.6" fill="currentColor"/>
+      </symbol>
+      <symbol id="i-check-o" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M8 12.4l2.6 2.6 5.4-5.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-check-f" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10.5" fill="currentColor"/>
+        <path d="M7.8 12.4l2.7 2.7 5.7-6" fill="none" stroke="#0B1014" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <path d="M5 12.8l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-arrow-r" viewBox="0 0 24 24">
+        <path d="M4 12h15M13.5 5.5L20 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-arrow-d" viewBox="0 0 24 24">
+        <path d="M12 4v15M5.5 13.5L12 20l6.5-6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-play" viewBox="0 0 24 24">
+        <path d="M7 4.5v15l13-7.5z" fill="currentColor"/>
+      </symbol>
+      <symbol id="i-doc-lines" viewBox="0 0 24 24">
+        <rect x="4.5" y="2.8" width="15" height="18.4" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M8.5 8h7M8.5 12h7M8.5 16h4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="i-bars" viewBox="0 0 24 24">
+        <path d="M5 20V13M12 20V6M19 20v-4.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M3 21h18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24">
+        <rect x="3.5" y="4.8" width="17" height="16" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M3.5 9.6h17M8 2.8v3.4M16 2.8v3.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="i-file" viewBox="0 0 24 24">
+        <path d="M6 2.8h8l4.5 4.5v13.2a1.7 1.7 0 0 1-1.7 1.7H6a1.7 1.7 0 0 1-1.7-1.7V4.5A1.7 1.7 0 0 1 6 2.8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M13.6 3.2V8h4.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-star" viewBox="0 0 24 24">
+        <path d="M12 3.2l2.7 5.6 6.1.8-4.5 4.2 1.1 6-5.4-3-5.4 3 1.1-6-4.5-4.2 6.1-.8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-grid" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="8" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <rect x="13" y="3" width="8" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <rect x="3" y="13" width="8" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <rect x="13" y="13" width="8" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      </symbol>
+      <symbol id="i-gear" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M12 2.8v3M12 18.2v3M4 12H1v0M23 12h-3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="i-x-o" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M9 9l6 6M15 9l-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="i-burger" viewBox="0 0 24 24">
+        <path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="i-github" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 1.8C6.3 1.8 1.7 6.4 1.7 12.1c0 4.6 3 8.4 7.1 9.8.5.1.7-.2.7-.5v-1.8c-2.9.6-3.5-1.2-3.5-1.2-.5-1.2-1.2-1.5-1.2-1.5-1-.6.1-.6.1-.6 1 .1 1.6 1.1 1.6 1.1.9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.7-1.4-2.3-.3-4.7-1.2-4.7-5.1 0-1.1.4-2 1.1-2.8-.1-.2-.5-1.3.1-2.7 0 0 .9-.3 2.8 1.1a9.8 9.8 0 0 1 5.2 0c2-1.4 2.8-1.1 2.8-1.1.6 1.4.2 2.5.1 2.7.7.8 1.1 1.7 1.1 2.8 0 3.9-2.4 4.8-4.7 5.1.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5a10.3 10.3 0 0 0 7.1-9.8C22.3 6.4 17.7 1.8 12 1.8z"/>
+      </symbol>
+      <symbol id="i-linkedin" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M20.4 2H3.6C2.7 2 2 2.7 2 3.6v16.8c0 .9.7 1.6 1.6 1.6h16.8c.9 0 1.6-.7 1.6-1.6V3.6c0-.9-.7-1.6-1.6-1.6zM8 19H5V9.4h3V19zM6.5 8.1a1.75 1.75 0 1 1 0-3.5 1.75 1.75 0 0 1 0 3.5zM19 19h-3v-4.7c0-1.1 0-2.6-1.6-2.6s-1.8 1.2-1.8 2.5V19h-3V9.4h2.9v1.3h.1c.4-.8 1.4-1.6 2.9-1.6 3 0 3.6 2 3.6 4.6V19z"/>
+      </symbol>
+      <symbol id="i-twitter" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M22.5 5.9c-.8.3-1.6.6-2.4.7.9-.5 1.6-1.4 1.9-2.4-.9.5-1.8.9-2.8 1.1a4.3 4.3 0 0 0-7.4 3.9A12.3 12.3 0 0 1 2.9 4.7a4.3 4.3 0 0 0 1.3 5.8c-.7 0-1.4-.2-2-.5v.1c0 2.1 1.5 3.8 3.5 4.2-.6.2-1.3.2-2 .1a4.3 4.3 0 0 0 4 3 8.7 8.7 0 0 1-5.4 1.9H1.5a12.3 12.3 0 0 0 6.6 1.9c7.9 0 12.2-6.5 12.2-12.2v-.6c.9-.5 1.6-1.3 2.2-2.1z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="#">
+        <svg class="logo-mark"><use href="#i-logo"/></svg>
+        <span class="logo-text">JobTracker</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#">Funkciók</a>
+        <a href="#">Árak</a>
+        <a href="#">Rólunk</a>
+        <a href="#">Blog</a>
+      </nav>
+      <div class="nav-right">
+        <a class="nav-login" href="#">Bejelentkezés</a>
+        <a class="btn btn-nav" href="#">Regisztráció</a>
+        <button class="nav-burger" id="navBurger" aria-label="Menü">
+          <svg><use href="#i-burger"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="nav-mobile">
+      <div class="container">
+        <a href="#">Funkciók</a>
+        <a href="#">Árak</a>
+        <a href="#">Rólunk</a>
+        <a href="#">Blog</a>
+        <a href="#">Bejelentkezés</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <h1>Az álláskeresés<br>egy rendszerré válik.</h1>
+        <p>Kövesd a jelentkezéseidet, készülj fel az interjúkra<br>és érj el több visszajelzést – egy helyen.</p>
+        <div class="hero-actions">
+          <a class="btn btn-green" href="#">Kezdj bele ingyen
+            <svg class="arrow-ic"><use href="#i-arrow-r"/></svg>
+          </a>
+          <a class="btn btn-white" href="#">Nézd meg, hogyan működik
+            <svg class="play-ic"><use href="#i-play"/></svg>
+          </a>
+        </div>
+        <ul class="trust-row">
+          <li><svg><use href="#i-check-o"/></svg>Ingyenes próba</li>
+          <li><svg><use href="#i-check-o"/></svg>Nincs kártya szükséges</li>
+          <li><svg><use href="#i-check-o"/></svg>Bármikor lemondható</li>
+        </ul>
+      </div>
+      <div class="hero-visual">
+        <img src="assets/hero-visual.png" alt="Álláskeresési folyamat: Jelentkezve, Szűrés, Interjú, Ajánlat">
+      </div>
+    </div>
+    <div class="scroll-hint">
+      Görgess tovább
+      <svg><use href="#i-arrow-d"/></svg>
+    </div>
+  </section>
+
+  <!-- ================= FEATURE STRIP ================= -->
+  <section class="features">
+    <div class="container features-grid">
+      <div class="feature">
+        <svg class="feature-ic"><use href="#i-grid"/></svg>
+        <h3>Jelentkezések követése</h3>
+        <p>Kanban nézet és szűrhető táblázat minden jelentkezésedhez.</p>
+      </div>
+      <div class="feature">
+        <svg class="feature-ic"><use href="#i-doc-lines"/></svg>
+        <h3>Interjú felkészülés</h3>
+        <p>Kérdésbank, gyakorlatok és AI visszajelzés a válaszaidra.</p>
+      </div>
+      <div class="feature">
+        <svg class="feature-ic"><use href="#i-bars"/></svg>
+        <h3>Statisztikák</h3>
+        <p>Valós idejű analitikák, amik segítenek jobb döntéseket hozni.</p>
+      </div>
+      <div class="feature">
+        <svg class="feature-ic"><use href="#i-calendar"/></svg>
+        <h3>Naptár &amp; Események</h3>
+        <p>Interjúk, határidők és események egy áttekinthető naptárban.</p>
+      </div>
+      <div class="feature">
+        <svg class="feature-ic"><use href="#i-file"/></svg>
+        <h3>Dokumentumok</h3>
+        <p>Önéletrajzok, motivációs levelek és fájlok biztonságos tárolása.</p>
+      </div>
+      <div class="feature">
+        <svg class="feature-ic"><use href="#i-star"/></svg>
+        <h3>Sablonok &amp; Közösség</h3>
+        <p>Outreach sablonok és ötletek, amikkel kitűnhetsz a többiek közül.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DARK ANALYTICS ================= -->
+  <section class="analytics">
+    <svg class="analytics-waves" viewBox="0 0 560 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-40 320 C 80 210, 200 380, 330 260 S 560 200, 620 260" fill="none" stroke="#1E3B26" stroke-width="1.4"/>
+      <path d="M-40 350 C 90 240, 210 400, 340 285 S 570 230, 630 290" fill="none" stroke="#1B3522" stroke-width="1.4"/>
+      <path d="M-40 380 C 100 270, 220 420, 350 310 S 580 260, 640 320" fill="none" stroke="#182F1F" stroke-width="1.4"/>
+      <path d="M-40 290 C 70 185, 190 350, 320 235 S 550 175, 610 235" fill="none" stroke="#16301D" stroke-width="1.2"/>
+    </svg>
+    <div class="container analytics-inner">
+      <div class="analytics-copy">
+        <h2>Értsd meg, mi történik.</h2>
+        <p>Részletes statisztikák és mutatók,<br>amik valódi eredményeket mutatnak.</p>
+        <ul class="check-list">
+          <li><svg style="color:var(--pos)"><use href="#i-check-f"/></svg>Válaszadási arányok</li>
+          <li><svg style="color:var(--pos)"><use href="#i-check-f"/></svg>Átlagos válaszidő</li>
+          <li><svg style="color:var(--pos)"><use href="#i-check-f"/></svg>Interjúk és ajánlatok aránya</li>
+          <li><svg style="color:var(--pos)"><use href="#i-check-f"/></svg>Sikerességi pontszám</li>
+        </ul>
+        <a class="btn btn-green" href="#">Nézd meg a statisztikákat
+          <svg class="arrow-ic"><use href="#i-arrow-r"/></svg>
+        </a>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stats-main">
+          <div class="stats-row-1">
+            <div class="dcard">
+              <div class="dlabel">Válaszadási arány</div>
+              <div class="dvalue">24%</div>
+              <div class="ddelta"><span class="pos">+8%</span> az előző hónaphoz képest</div>
+              <svg class="dchart" viewBox="0 0 210 64" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="gArea" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#6FCB4A" stop-opacity=".28"/>
+                    <stop offset="1" stop-color="#6FCB4A" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M6 52 L22 44 36 48 50 40 64 44 78 35 92 39 106 29 120 33 134 23 148 27 162 17 176 21 190 12 203 8 L203 62 6 62 Z" fill="url(#gArea)"/>
+                <path d="M6 52 L22 44 36 48 50 40 64 44 78 35 92 39 106 29 120 33 134 23 148 27 162 17 176 21 190 12 203 8" fill="none" stroke="#6FCB4A" stroke-width="1.8" stroke-linejoin="round"/>
+                <g fill="#8BDD68">
+                  <circle cx="6" cy="52" r="2"/><circle cx="22" cy="44" r="2"/><circle cx="36" cy="48" r="2"/><circle cx="50" cy="40" r="2"/><circle cx="64" cy="44" r="2"/><circle cx="78" cy="35" r="2"/><circle cx="92" cy="39" r="2"/><circle cx="106" cy="29" r="2"/><circle cx="120" cy="33" r="2"/><circle cx="134" cy="23" r="2"/><circle cx="148" cy="27" r="2"/><circle cx="162" cy="17" r="2"/><circle cx="176" cy="21" r="2"/><circle cx="190" cy="12" r="2"/><circle cx="203" cy="8" r="2"/>
+                </g>
+              </svg>
+            </div>
+            <div class="dcard">
+              <div class="dlabel">Átlagos válaszidő</div>
+              <div class="dvalue">6<span class="dunit">nap</span></div>
+              <div class="ddelta"><span class="pos">-2 nap</span> az előző hónaphoz képest</div>
+              <svg class="dchart" viewBox="0 0 210 64" preserveAspectRatio="none">
+                <path d="M6 50 L20 46 32 50 46 42 58 46 72 38 86 42 100 34 114 38 128 28 142 34 156 24 170 30 184 18 196 22 204 12" fill="none" stroke="#7B7BE8" stroke-width="1.8" stroke-linejoin="round"/>
+                <g fill="#9595F0">
+                  <circle cx="6" cy="50" r="2"/><circle cx="20" cy="46" r="2"/><circle cx="32" cy="50" r="2"/><circle cx="46" cy="42" r="2"/><circle cx="58" cy="46" r="2"/><circle cx="72" cy="38" r="2"/><circle cx="86" cy="42" r="2"/><circle cx="100" cy="34" r="2"/><circle cx="114" cy="38" r="2"/><circle cx="128" cy="28" r="2"/><circle cx="142" cy="34" r="2"/><circle cx="156" cy="24" r="2"/><circle cx="170" cy="30" r="2"/><circle cx="184" cy="18" r="2"/><circle cx="196" cy="22" r="2"/><circle cx="204" cy="12" r="2"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="stats-row-2">
+            <div class="dcard stat-sm">
+              <div class="dlabel">Összes jelentkezés</div>
+              <div class="dvalue">86</div>
+              <svg class="spark" viewBox="0 0 40 12" preserveAspectRatio="none">
+                <path d="M1 9 L8 5 14 8 21 4 28 7 34 3 39 5" fill="none" stroke="#8A6FD8" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <div class="ddelta"><span class="pos">+12</span> az előző hónaphoz képest</div>
+            </div>
+            <div class="dcard stat-sm">
+              <div class="dlabel">Interjúk</div>
+              <div class="dvalue">9</div>
+              <svg class="spark" viewBox="0 0 40 12" preserveAspectRatio="none">
+                <path d="M1 8 L10 6 18 9 27 5 39 6" fill="none" stroke="#6A6AE0" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <div class="ddelta"><span class="pos">+3</span> az előző hónaphoz képest</div>
+            </div>
+            <div class="dcard stat-sm">
+              <div class="dlabel">Ajánlatok</div>
+              <div class="dvalue">3</div>
+              <svg class="spark" viewBox="0 0 40 12" preserveAspectRatio="none">
+                <path d="M1 9 L12 7 22 8 32 5 39 6" fill="none" stroke="#5F8FE0" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <div class="ddelta"><span class="pos">+1</span> az előző hónaphoz képest</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-side">
+          <div class="dcard funnel-card">
+            <div class="dlabel">Folyamat áttekintés</div>
+            <div class="funnel-body">
+              <svg class="funnel-svg" viewBox="0 0 96 128">
+                <defs>
+                  <linearGradient id="fGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#7A55C8"/>
+                    <stop offset="1" stop-color="#4F6BE8"/>
+                  </linearGradient>
+                </defs>
+                <g fill="url(#fGrad)">
+                  <path d="M0 0 H96 L86 44 H10 Z"/>
+                  <path d="M11 48 H85 L78 70 H18 Z"/>
+                  <path d="M19 74 H77 L70 94 H26 Z"/>
+                  <rect x="33" y="100" width="30" height="22"/>
+                </g>
+              </svg>
+              <ul class="funnel-rows">
+                <li>Jelentkezve<b>86</b></li>
+                <li>Szűrés<b>29</b></li>
+                <li>Interjú<b>9</b></li>
+                <li>Ajánlat<b>3</b></li>
+              </ul>
+            </div>
+            <div class="funnel-total">Átalakulási arány <b>3.5%</b></div>
+          </div>
+
+          <div class="dcard gauge-card">
+            <div class="dlabel">Sikerességi pontszám</div>
+            <div class="gauge-wrap">
+              <svg viewBox="0 0 100 56">
+                <defs>
+                  <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#B5E27C"/>
+                    <stop offset="1" stop-color="#4CAF24"/>
+                  </linearGradient>
+                </defs>
+                <path d="M9 51 A41 41 0 0 1 91 51" fill="none" stroke="#242B30" stroke-width="8.5" stroke-linecap="round"/>
+                <path d="M9 51 A41 41 0 0 1 91 51" fill="none" stroke="url(#gaugeGrad)" stroke-width="8.5" stroke-linecap="round" stroke-dasharray="93 129"/>
+              </svg>
+              <div class="gauge-num">72</div>
+              <div class="gauge-caption">Jó úton haladsz!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INTERVIEW ================= -->
+  <section class="interview">
+    <div class="interview-inner">
+      <div class="interview-copy">
+        <h2>Készülj fel magabiztosan az interjúkra.</h2>
+        <p>Gyakorolj kérdésekkel, és kapj AI értékelést<br>a válaszaidra valós időben.</p>
+        <ul class="check-list">
+          <li><svg><use href="#i-check-o"/></svg>Saját kérdésbankod</li>
+          <li><svg><use href="#i-check-o"/></svg>AI alapú válaszértékelés</li>
+          <li><svg><use href="#i-check-o"/></svg>Visszajelzés és javaslatok</li>
+          <li><svg><use href="#i-check-o"/></svg>Fejlődj minden interjú előtt</li>
+        </ul>
+        <a class="btn btn-green" href="#">Próbáld ki a gyakorlatot
+          <svg class="arrow-ic"><use href="#i-arrow-r"/></svg>
+        </a>
+      </div>
+
+      <div class="ai-panel">
+        <div class="panel-label">Kérdés</div>
+        <p class="ai-question">Mesélj egy olyan helyzetről, amikor konfliktust kellett kezelned a csapatban.</p>
+        <div class="ai-answer">
+          <div class="panel-label">A te válaszod</div>
+          <p>Egy projekt során két csapattag között nézeteltérés támadt a feladatprioritások miatt. Beszéltem mindkettőjükkel külön-külön, majd közösen is, és segítettem nekik megtalálni a közös megoldást...</p>
+        </div>
+        <div class="ai-eval">
+          <div class="panel-label">AI értékelés</div>
+          <div class="ai-score-row">
+            <span class="ai-verdict">Jó válasz! 👍</span>
+            <span class="ai-score"><b>8</b>/10</span>
+          </div>
+          <ul class="ai-points">
+            <li><svg><use href="#i-check"/></svg>Jó struktúra és konkrét példa</li>
+            <li><svg><use href="#i-check"/></svg>Megmutatja a kommunikációs készségeidet</li>
+          </ul>
+          <div class="ai-tip">
+            <span>☝️</span>
+            <span><b>Javaslat:</b> Emeld ki, hogy milyen eredményt értél el a beavatkozásoddal.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="robot-visual">
+        <img src="assets/robot.png" alt="AI interjú asszisztens robot">
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DASHBOARD ================= -->
+  <section class="dash-section">
+    <div class="container dash-inner">
+      <div class="dash-copy">
+        <h2>Minden egy helyen.</h2>
+        <p>Átlátható irányítópult, ahol gyorsan<br>megtalálod, ami fontos.</p>
+        <div class="dash-cta-row">
+          <a class="btn btn-green" href="#">Nézd meg a dashboardot
+            <svg class="arrow-ic"><use href="#i-arrow-r"/></svg>
+          </a>
+          <svg class="dash-arrow" viewBox="0 0 70 34" aria-hidden="true">
+            <path d="M4 6 C 20 26, 42 28, 60 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M60 16 l-8 -1 M60 16 l-4.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="dash-window">
+        <aside class="dash-sidebar">
+          <div class="dash-logo">
+            <svg class="logo-mark"><use href="#i-logo"/></svg>
+            <span>JobTracker</span>
+          </div>
+          <ul class="dash-menu">
+            <li class="active"><svg><use href="#i-grid"/></svg>Áttekintés</li>
+            <li><svg><use href="#i-doc-lines"/></svg>Jelentkezések</li>
+            <li><svg><use href="#i-calendar"/></svg>Események</li>
+            <li><svg><use href="#i-file"/></svg>Dokumentumok</li>
+            <li><svg><use href="#i-bars"/></svg>Statisztikák</li>
+            <li><svg><use href="#i-gear"/></svg>Beállítások</li>
+          </ul>
+        </aside>
+        <div class="dash-main">
+          <div class="dash-header">
+            <h3>Áttekintés</h3>
+            <div class="dash-header-right">
+              <span class="btn-dash">+ Új jelentkezés</span>
+              <img class="dash-avatar" src="assets/avatar.png" alt="Felhasználó">
+            </div>
+          </div>
+          <div class="dash-stats">
+            <div class="dash-card">
+              <div class="dc-label">Összes jelentkezés</div>
+              <div class="dc-value">86</div>
+              <div class="dc-bar"><i class="fill-green"></i></div>
+            </div>
+            <div class="dash-card">
+              <div class="dc-label">Folyamatban</div>
+              <div class="dc-value">29</div>
+              <div class="dc-bar"><i class="fill-blue"></i></div>
+            </div>
+            <div class="dash-card">
+              <div class="dc-label">Válaszadási arány</div>
+              <div class="dc-value">15%</div>
+              <div class="dc-badges">
+                <span><svg class="dc-ok"><use href="#i-check-o"/></svg>0 ajánlat</span>
+                <span><svg class="dc-no"><use href="#i-x-o"/></svg>0 elutasítás</span>
+              </div>
+            </div>
+            <div class="dash-card">
+              <div class="dc-label">Interjúk</div>
+              <div class="dc-value">9</div>
+            </div>
+          </div>
+          <div class="dash-bottom">
+            <div class="dash-card">
+              <h4>Közelgő interjúk</h4>
+              <ul class="dash-list">
+                <li>
+                  <span class="di-avatar red">M</span>
+                  <span><span class="di-name">Morgan Stanley</span><br><span class="di-sub">HR interjú</span></span>
+                  <span class="di-right"><span class="di-date">Júl. 27.</span><br><span class="di-time">11:00</span></span>
+                </li>
+                <li>
+                  <span class="di-avatar blue">A</span>
+                  <span><span class="di-name">Airmax</span><br><span class="di-sub">Tech interjú</span></span>
+                  <span class="di-right"><span class="di-date">Júl. 29.</span><br><span class="di-time">13:00</span></span>
+                </li>
+              </ul>
+            </div>
+            <div class="dash-card">
+              <h4>Gyors feladatok</h4>
+              <ul class="task-list">
+                <li><span class="task-box"></span>Küldj utólagos emailt a jelentkezésről</li>
+                <li><span class="task-box"></span>Készíts új önéletrajz verziót</li>
+                <li><span class="task-box"></span>Gyakorolj 3 technikai kérdést</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA BANNER ================= -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-banner">
+        <img class="cta-rocket" src="assets/rocket.png" alt="Rakéta illusztráció">
+        <div class="cta-copy">
+          <h2>Kezdd el ma, és lépj közelebb<br>az álommelédhez!</h2>
+          <p>Csatlakozz több ezer sikeres álláskeresőhöz.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-green" href="#">Ingyenes regisztráció</a>
+          <a class="btn btn-white" href="#">Bejelentkezés</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="#">
+          <svg class="logo-mark"><use href="#i-logo"/></svg>
+          <span class="logo-text">JobTracker</span>
+        </a>
+      </div>
+      <div class="footer-col">
+        <h4>Termék</h4>
+        <a href="#">Funkciók</a>
+        <a href="#">Árak</a>
+        <a href="#">Frissítések</a>
+      </div>
+      <div class="footer-col">
+        <h4>Vállalat</h4>
+        <a href="#">Rólunk</a>
+        <a href="#">Kapcsolat</a>
+        <a href="#">Blog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Támogatás</h4>
+        <a href="#">Segítség</a>
+        <a href="#">Adatvédelem</a>
+        <a href="#">ÁSZF</a>
+      </div>
+      <div class="footer-social">
+        <h4>Kövess minket</h4>
+        <div class="social-row">
+          <a href="#" aria-label="GitHub"><svg><use href="#i-github"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg><use href="#i-linkedin"/></svg></a>
+          <a href="#" aria-label="Twitter"><svg><use href="#i-twitter"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

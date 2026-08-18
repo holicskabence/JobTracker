@@ -1,8 +1,76 @@
-<svg class="hero-fallback-graphic" viewBox="0 0 400 160" aria-hidden="true" focusable="false">
-    <path d="M30 120 C 110 120, 110 40, 170 40 S 260 130, 320 130 S 370 40, 370 40" class="hero-fallback-path"
-        fill="none" />
-    <circle cx="30" cy="120" r="7" class="hero-fallback-node" />
-    <circle cx="170" cy="40" r="7" class="hero-fallback-node" />
-    <circle cx="320" cy="130" r="7" class="hero-fallback-node" />
-    <circle cx="370" cy="40" r="8" class="hero-fallback-node hero-fallback-node--offer" />
-</svg>
+<div class="hero-fallback" aria-hidden="true">
+
+    @for (card of chaosCards; track $index) {
+    <div [class]="'chaos-card chaos-card--' + card.depth" [style.top.%]="card.top"
+        [style.left.%]="card.left"
+        [style.transform]="'translate(-50%, -50%) rotate(' + card.rotate + 'deg) scale(' + card.scale + ')'">
+        <div class="chaos-card-header">
+            <span class="chaos-card-avatar"></span>
+            <span class="chaos-card-status"></span>
+        </div>
+        <span class="chaos-card-line chaos-card-line--wide"></span>
+        <span class="chaos-card-line chaos-card-line--narrow"></span>
+    </div>
+    }
+
+    <svg class="pipeline-graphic pipeline-graphic--desktop" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path class="pipeline-path" d="M10,74 C 20,60 28,50 36,46 S 52,64 64,60 S 80,28 90,18" fill="none" />
+        <path class="pipeline-highlight" d="M10,74 C 20,60 28,50 36,46 S 52,64 64,60 S 80,28 90,18" fill="none" />
+    </svg>
+    <svg class="pipeline-graphic pipeline-graphic--mobile" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path class="pipeline-path" d="M20,8 C 40,14 50,22 62,30 S 30,46 20,56 S 50,78 62,86" fill="none" />
+        <path class="pipeline-highlight" d="M20,8 C 40,14 50,22 62,30 S 30,46 20,56 S 50,78 62,86" fill="none" />
+    </svg>
+
+    <div class="pipeline-node pipeline-node--1 pipeline-node--active">
+        <span class="pipeline-node-dot">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13" />
+                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+            </svg>
+        </span>
+        <span class="pipeline-node-label">{{ 'landing.pipeline.application' | translate }}</span>
+    </div>
+
+    <div class="pipeline-node pipeline-node--2">
+        <span class="pipeline-node-dot">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+        </span>
+        <span class="pipeline-node-label">{{ 'landing.pipeline.screening' | translate }}</span>
+    </div>
+
+    <div class="pipeline-node pipeline-node--3">
+        <span class="pipeline-node-dot">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16v12H9l-5 4V4z" />
+            </svg>
+        </span>
+        <span class="pipeline-node-label">{{ 'landing.pipeline.interview' | translate }}</span>
+    </div>
+
+    <div class="pipeline-node pipeline-node--4 pipeline-node--offer">
+        <span class="pipeline-node-dot">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <polygon
+                    points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9 12 2" />
+            </svg>
+        </span>
+        <span class="pipeline-node-label">{{ 'landing.pipeline.offer' | translate }}</span>
+    </div>
+
+    <div class="hero-app-card">
+        <div class="hero-app-card-header">
+            <span class="hero-app-card-avatar"></span>
+            <span class="hero-app-card-status"></span>
+        </div>
+        <span class="hero-app-card-line hero-app-card-line--wide"></span>
+        <span class="hero-app-card-line hero-app-card-line--narrow"></span>
+    </div>
+
+</div>

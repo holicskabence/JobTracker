@@ -1,0 +1,88 @@
+.landing-v2-cta-banner-section {
+    padding-block: calc(6 * var(--landing-px)) max(1rem, calc(24 * var(--landing-px)));
+}
+
+.landing-v2-cta-banner {
+    width: var(--landing-container-width);
+    margin-inline: auto;
+    background-color: #e7f5df;
+    border-radius: calc(20 * var(--landing-px));
+    padding: max(1rem, calc(20 * var(--landing-px))) max(1.25rem, calc(32 * var(--landing-px)));
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: max(1rem, calc(20 * var(--landing-px)));
+}
+
+.landing-v2-cta-banner-rocket {
+    width: max(3rem, calc(57 * var(--landing-px)));
+    height: auto;
+    aspect-ratio: 6 / 5;
+    object-fit: contain;
+}
+
+.landing-v2-cta-banner-copy {
+    min-width: 0;
+}
+
+.landing-v2-cta-banner-headline {
+    font-size: max(0.95rem, calc(16 * var(--landing-px)));
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.2em;
+}
+
+.landing-v2-cta-banner-paragraph {
+    font-size: max(0.72rem, calc(11.5 * var(--landing-px)));
+    color: #4f6b46;
+}
+
+.landing-v2-cta-banner-actions {
+    display: flex;
+    gap: max(0.5rem, calc(8 * var(--landing-px)));
+}
+
+.landing-v2-cta-banner-primary,
+.landing-v2-cta-banner-secondary {
+    font-size: max(0.72rem, calc(11.5 * var(--landing-px)));
+    font-weight: 600;
+    padding: 0.78em 1.4em;
+    border-radius: 9999px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.landing-v2-cta-banner-primary {
+    background-color: #26ac00;
+    color: #ffffff;
+    transition: background-color 0.15s ease;
+}
+
+.landing-v2-cta-banner-primary:hover {
+    background-color: #209400;
+}
+
+.landing-v2-cta-banner-secondary {
+    background-color: #ffffff;
+    color: #0a0a0a;
+    border: 1px solid rgba(10, 10, 10, 0.08);
+}
+
+@media (max-width: 56.25em) {
+    .landing-v2-cta-banner {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        text-align: center;
+        padding: 1.5rem;
+    }
+
+    .landing-v2-cta-banner-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .landing-v2-cta-banner-primary,
+    .landing-v2-cta-banner-secondary {
+        text-align: center;
+    }
+}

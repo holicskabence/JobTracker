@@ -1,32 +1,294 @@
 :host {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    --node-1-left: 10%;
+    --node-1-top: 74%;
+    --node-2-left: 36%;
+    --node-2-top: 46%;
+    --node-3-left: 64%;
+    --node-3-top: 60%;
+    --node-4-left: 90%;
+    --node-4-top: 18%;
+    --hero-card-left: 4%;
+    --hero-card-top: 54%;
+
+    display: block;
+    position: relative;
     width: 100%;
     height: 100%;
-    min-height: 260px;
-    background-color: var(--clr-bg-2);
-    border: 1px dashed var(--clr-border);
-    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.hero-fallback {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* ---------- chaos cards ---------- */
+
+.chaos-card {
+    position: absolute;
+    width: 64px;
+    height: 46px;
+    background-color: var(--clr-white);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.18);
+    padding: 6px 7px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     box-sizing: border-box;
 }
 
-.hero-fallback-graphic {
-    width: 70%;
-    max-width: 420px;
-    height: auto;
+.chaos-card--back {
+    opacity: 0.5;
+    z-index: 1;
 }
 
-.hero-fallback-path {
+.chaos-card--mid {
+    opacity: 0.78;
+    z-index: 2;
+}
+
+.chaos-card--front {
+    opacity: 1;
+    z-index: 3;
+    box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.22);
+}
+
+.chaos-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chaos-card-avatar {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--clr-border);
+}
+
+.chaos-card-status {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--clr-muted);
+}
+
+.chaos-card-line {
+    display: block;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--clr-border);
+}
+
+.chaos-card-line--wide {
+    width: 80%;
+}
+
+.chaos-card-line--narrow {
+    width: 50%;
+}
+
+/* ---------- pipeline path ---------- */
+
+.pipeline-graphic {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.pipeline-graphic--mobile {
+    display: none;
+}
+
+.pipeline-path {
+    stroke: var(--clr-border);
+    stroke-width: 1.6;
+    vector-effect: non-scaling-stroke;
+}
+
+.pipeline-highlight {
     stroke: var(--clr-green);
-    stroke-width: 2;
-    opacity: 0.45;
+    stroke-width: 1.8;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.85;
+    stroke-linecap: round;
 }
 
-.hero-fallback-node {
-    fill: var(--clr-green);
+/* ---------- pipeline nodes ---------- */
+
+.pipeline-node {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    transform: translate(-50%, -50%);
+    z-index: 4;
 }
 
-.hero-fallback-node--offer {
-    fill: var(--clr-green-dk);
+.pipeline-node--1 {
+    top: var(--node-1-top);
+    left: var(--node-1-left);
+}
+
+.pipeline-node--2 {
+    top: var(--node-2-top);
+    left: var(--node-2-left);
+}
+
+.pipeline-node--3 {
+    top: var(--node-3-top);
+    left: var(--node-3-left);
+}
+
+.pipeline-node--4 {
+    top: var(--node-4-top);
+    left: var(--node-4-left);
+}
+
+.pipeline-node-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--clr-white);
+    border: 1.5px solid var(--clr-border);
+    color: var(--clr-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+}
+
+.pipeline-node--active .pipeline-node-dot {
+    border-color: var(--clr-green);
+    color: var(--clr-green-dk);
+}
+
+.pipeline-node--offer .pipeline-node-dot {
+    background-color: var(--clr-green);
+    border-color: var(--clr-green);
+    color: var(--clr-white);
+}
+
+.pipeline-node-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--clr-dark);
+    background-color: var(--clr-white);
+    padding: 2px 9px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--clr-border);
+    white-space: nowrap;
+}
+
+/* ---------- hero application card ---------- */
+
+.hero-app-card {
+    position: absolute;
+    top: var(--hero-card-top);
+    left: var(--hero-card-left);
+    transform: translate(-50%, -50%);
+    width: 96px;
+    height: 66px;
+    background-color: var(--clr-white);
+    border: 1.5px solid var(--clr-green);
+    border-radius: var(--radius-md);
+    box-shadow: 0 16px 32px -12px rgba(38, 172, 0, 0.28);
+    padding: 9px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-sizing: border-box;
+    z-index: 5;
+}
+
+.hero-app-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hero-app-card-avatar {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--clr-green);
+}
+
+.hero-app-card-status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--clr-green);
+}
+
+.hero-app-card-line {
+    display: block;
+    height: 5px;
+    border-radius: 2px;
+    background-color: var(--clr-bg);
+}
+
+.hero-app-card-line--wide {
+    width: 85%;
+}
+
+.hero-app-card-line--narrow {
+    width: 55%;
+}
+
+/* ---------- mobile / tablet composition ---------- */
+
+@media (max-width: 899px) {
+    :host {
+        --node-1-left: 20%;
+        --node-1-top: 10%;
+        --node-2-left: 62%;
+        --node-2-top: 32%;
+        --node-3-left: 20%;
+        --node-3-top: 58%;
+        --node-4-left: 62%;
+        --node-4-top: 88%;
+        --hero-card-left: 58%;
+        --hero-card-top: 6%;
+    }
+
+    .pipeline-graphic--desktop {
+        display: none;
+    }
+
+    .pipeline-graphic--mobile {
+        display: block;
+    }
+
+    .chaos-card:nth-child(n+8) {
+        display: none;
+    }
+
+    .chaos-card {
+        width: 52px;
+        height: 38px;
+    }
+
+    .pipeline-node-dot {
+        width: 28px;
+        height: 28px;
+    }
+
+    .pipeline-node-label {
+        font-size: 0.625rem;
+        padding: 2px 7px;
+    }
+
+    .hero-app-card {
+        width: 80px;
+        height: 56px;
+    }
 }

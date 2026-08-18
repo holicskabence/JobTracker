@@ -1,8 +1,119 @@
-<section class="story-section story-section--insight" id="insight">
-    <p class="story-eyebrow">{{ 'landing.story.insight.eyebrow' | translate }}</p>
-    <h2 class="story-headline">{{ 'landing.story.insight.headline' | translate }}</h2>
-    <p class="story-subtitle">{{ 'landing.story.insight.subtitle' | translate }}</p>
-    <div class="story-visual-placeholder" aria-hidden="true">
-        <span>Analytics visualization placeholder</span>
+<section class="insight-section" id="insight">
+    <div class="insight-inner">
+        <div class="insight-copy">
+            <h2 class="insight-headline">{{ 'landing.story.insight.headline' | translate }}</h2>
+            <p class="insight-copy-text">{{ 'landing.story.insight.subtitle' | translate }}</p>
+
+            <ul class="insight-checklist">
+                <li>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {{ 'landing.story.insight.checklist.responseRates' | translate }}
+                </li>
+                <li>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {{ 'landing.story.insight.checklist.responseTime' | translate }}
+                </li>
+                <li>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {{ 'landing.story.insight.checklist.conversion' | translate }}
+                </li>
+                <li>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {{ 'landing.story.insight.checklist.successScore' | translate }}
+                </li>
+            </ul>
+
+            <app-landing-button href="#insight" variant="primary" size="lg">
+                {{ 'landing.story.insight.cta' | translate }}
+            </app-landing-button>
+        </div>
+
+        <div class="insight-visuals" aria-hidden="true">
+            <div class="insight-card insight-card--response">
+                <span class="insight-card-label">{{ 'landing.story.insight.responseRate' | translate }}</span>
+                <span class="insight-card-value">24%</span>
+                <span class="insight-card-delta insight-card-delta--up">+8%</span>
+                <svg class="insight-sparkline" viewBox="0 0 120 36" preserveAspectRatio="none">
+                    <polyline points="0,30 20,26 40,28 60,18 80,20 100,8 120,4" fill="none" />
+                </svg>
+            </div>
+
+            <div class="insight-card insight-card--avgtime">
+                <span class="insight-card-label">{{ 'landing.story.insight.avgResponseTime' | translate }}</span>
+                <span class="insight-card-value">6<span class="insight-card-unit">d</span></span>
+                <span class="insight-card-delta insight-card-delta--down">-2d</span>
+                <svg class="insight-sparkline insight-sparkline--blue" viewBox="0 0 120 36" preserveAspectRatio="none">
+                    <polyline points="0,6 20,14 40,10 60,22 80,18 100,28 120,30" fill="none" />
+                </svg>
+            </div>
+
+            <div class="insight-card insight-card--metric insight-card--metric1">
+                <span class="insight-card-value insight-card-value--sm">86</span>
+                <span class="insight-card-label">{{ 'landing.story.control.board.applied' | translate }}</span>
+            </div>
+
+            <div class="insight-card insight-card--metric insight-card--metric2">
+                <span class="insight-card-value insight-card-value--sm">9</span>
+                <span class="insight-card-label">{{ 'landing.pipeline.interview' | translate }}</span>
+            </div>
+
+            <div class="insight-card insight-card--funnel">
+                <span class="insight-card-label">{{ 'landing.story.insight.funnel' | translate }}</span>
+                <div class="funnel-row">
+                    <span class="funnel-name">{{ 'landing.story.control.board.applied' | translate }}</span>
+                    <div class="funnel-track">
+                        <div class="funnel-bar-fill" style="width: 100%"></div>
+                    </div>
+                    <span class="funnel-value">86</span>
+                </div>
+                <div class="funnel-row">
+                    <span class="funnel-name">{{ 'landing.pipeline.screening' | translate }}</span>
+                    <div class="funnel-track">
+                        <div class="funnel-bar-fill" style="width: 55%"></div>
+                    </div>
+                    <span class="funnel-value">29</span>
+                </div>
+                <div class="funnel-row">
+                    <span class="funnel-name">{{ 'landing.pipeline.interview' | translate }}</span>
+                    <div class="funnel-track">
+                        <div class="funnel-bar-fill" style="width: 32%"></div>
+                    </div>
+                    <span class="funnel-value">9</span>
+                </div>
+                <div class="funnel-row">
+                    <span class="funnel-name">{{ 'landing.pipeline.offer' | translate }}</span>
+                    <div class="funnel-track">
+                        <div class="funnel-bar-fill funnel-bar-fill--offer" style="width: 14%"></div>
+                    </div>
+                    <span class="funnel-value">3</span>
+                </div>
+            </div>
+
+            <div class="insight-card insight-card--metric insight-card--metric3">
+                <span class="insight-card-value insight-card-value--sm">3</span>
+                <span class="insight-card-label">{{ 'landing.pipeline.offer' | translate }}</span>
+            </div>
+
+            <div class="insight-card insight-card--gauge">
+                <span class="insight-card-label">{{ 'landing.story.insight.successScore' | translate }}</span>
+                <svg class="gauge-svg" viewBox="0 0 100 60">
+                    <path d="M10,55 A45,45 0 0 1 90,55" fill="none" class="gauge-track" />
+                    <path d="M10,55 A45,45 0 0 1 76,20" fill="none" class="gauge-fill" />
+                </svg>
+                <span class="insight-card-value insight-card-value--gauge">72</span>
+            </div>
+        </div>
     </div>
 </section>

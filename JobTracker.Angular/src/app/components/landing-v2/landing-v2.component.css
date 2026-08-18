@@ -1,0 +1,19 @@
+.landing-v2-page {
+    /* One fluid unit drives the whole composition: 1 "reference pixel"
+       of the 1024px-wide design concept. It scales with the viewport
+       (100vw / 1024) and caps at 1.46x — the point where the content
+       container reaches its 1320px maximum — so the page is always a
+       proportional rendering of the reference layout. */
+    --landing-px: min(0.09765625vw, 0.09125rem);
+    --landing-container-width: calc(904 * var(--landing-px));
+
+    background-color: #fbfaf8;
+    color: #0a0a0a;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+.landing-v2-main {
+    display: flex;
+    flex-direction: column;
+}
