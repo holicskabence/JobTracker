@@ -1,5 +1,5 @@
 .landing-v2-hero {
-    padding-block-start: calc(20 * var(--landing-px));
+    padding-block-start: var(--landing-space-medium);
 }
 
 .landing-v2-hero-inner {
@@ -8,7 +8,7 @@
     display: grid;
     grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.06fr);
     align-items: center;
-    gap: max(1rem, calc(16 * var(--landing-px)));
+    gap: var(--landing-space-medium);
 }
 
 .landing-v2-hero-copy {
@@ -29,7 +29,7 @@
 }
 
 .landing-v2-hero-headline {
-    font-size: max(1.55rem, calc(33 * var(--landing-px)));
+    font-size: var(--landing-font-hero);
     font-weight: 700;
     line-height: 1.16;
     letter-spacing: -0.01em;
@@ -37,7 +37,7 @@
 }
 
 .landing-v2-hero-paragraph {
-    font-size: max(0.78rem, calc(13 * var(--landing-px)));
+    font-size: var(--landing-font-lead);
     line-height: 1.4;
     color: #5b5b58;
     max-width: 26.5em;
@@ -47,8 +47,8 @@
 .landing-v2-hero-actions {
     display: flex;
     align-items: center;
-    gap: max(0.45rem, calc(10 * var(--landing-px)));
-    margin-bottom: max(0.875rem, calc(26 * var(--landing-px)));
+    gap: var(--landing-space-xs);
+    margin-bottom: var(--landing-space-large);
     flex-wrap: wrap;
 }
 
@@ -56,8 +56,9 @@
 .landing-v2-hero-cta-secondary {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.55em;
-    font-size: max(0.72rem, calc(11 * var(--landing-px)));
+    font-size: var(--landing-font-interface);
     font-weight: 600;
     line-height: 1.2;
     text-decoration: none;
@@ -89,7 +90,7 @@
 .landing-v2-hero-trust-row {
     display: flex;
     align-items: center;
-    gap: max(0.5rem, calc(12 * var(--landing-px)));
+    gap: var(--landing-space-small);
     flex-wrap: wrap;
 }
 
@@ -97,7 +98,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5em;
-    font-size: max(0.6rem, calc(9.5 * var(--landing-px)));
+    font-size: var(--landing-font-micro);
     font-weight: 500;
     color: #5b5b58;
     white-space: nowrap;
@@ -115,13 +116,14 @@
     flex-direction: column;
     align-items: center;
     gap: 0.4em;
-    margin: max(0.75rem, calc(14 * var(--landing-px))) auto max(0.75rem, calc(16 * var(--landing-px)));
-    font-size: max(0.7rem, calc(11 * var(--landing-px)));
+    margin: var(--landing-space-small) auto;
+    font-size: var(--landing-font-interface);
     font-weight: 500;
     color: #9b9b99;
 }
 
-@media (max-width: 56.25em) {
+/* Tablet and below: the two hero columns stack. */
+@media (max-width: 63.99rem) {
     .landing-v2-hero-inner {
         grid-template-columns: minmax(0, 1fr);
         text-align: center;
@@ -136,12 +138,20 @@
     }
 
     .landing-v2-hero-paragraph {
-        max-width: 100%;
+        max-width: 40ch;
         margin-inline: auto;
     }
 
     .landing-v2-hero-actions,
     .landing-v2-hero-trust-row {
         justify-content: center;
+    }
+}
+
+/* Genuinely narrow phones only: the two CTAs give up the shared row. */
+@media (max-width: 26rem) {
+    .landing-v2-hero-actions {
+        flex-direction: column;
+        align-items: stretch;
     }
 }

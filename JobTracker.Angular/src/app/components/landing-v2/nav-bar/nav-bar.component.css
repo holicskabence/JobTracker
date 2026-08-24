@@ -6,11 +6,11 @@
 .landing-v2-nav-bar-inner {
     width: var(--landing-container-width);
     margin-inline: auto;
-    padding-block: max(0.75rem, calc(18 * var(--landing-px)));
+    padding-block: var(--landing-space-small);
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: max(1rem, calc(32 * var(--landing-px)));
+    gap: var(--landing-space-xl);
 }
 
 .landing-v2-nav-bar-brand {
@@ -19,7 +19,7 @@
     gap: 0.55em;
     text-decoration: none;
     color: #0a0a0a;
-    font-size: max(1.05rem, calc(19 * var(--landing-px)));
+    font-size: var(--landing-font-brand);
 }
 
 .landing-v2-nav-bar-brand-mark {
@@ -41,11 +41,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: calc(36 * var(--landing-px));
+    gap: clamp(1rem, 0.41rem + 2.88vw, 3.29rem);
+    min-width: 0;
 }
 
 .landing-v2-nav-bar-link {
-    font-size: max(0.875rem, calc(15 * var(--landing-px)));
+    font-size: var(--landing-font-nav);
     font-weight: 500;
     color: #3f3f3d;
     text-decoration: none;
@@ -59,11 +60,11 @@
 .landing-v2-nav-bar-actions {
     display: flex;
     align-items: center;
-    gap: max(0.875rem, calc(24 * var(--landing-px)));
+    gap: var(--landing-space-large);
 }
 
 .landing-v2-nav-bar-login-link {
-    font-size: max(0.875rem, calc(15 * var(--landing-px)));
+    font-size: var(--landing-font-nav);
     font-weight: 500;
     color: #0a0a0a;
     text-decoration: none;
@@ -73,7 +74,7 @@
 .landing-v2-nav-bar-register-button {
     background-color: #26ac00;
     color: #ffffff;
-    font-size: max(0.85rem, calc(14 * var(--landing-px)));
+    font-size: var(--landing-font-nav);
     font-weight: 600;
     text-decoration: none;
     padding: 0.79em 1.57em;
@@ -86,8 +87,39 @@
     background-color: #209400;
 }
 
-@media (max-width: 56.25em) {
+/* Tablet and below: the link row is the first thing to go. */
+@media (max-width: 63.99rem) {
     .landing-v2-nav-bar-links {
         display: none;
+    }
+
+    /* With the middle item gone, a three-column template would drop the
+       actions into the 1fr track and collapse the trailing auto track to
+       zero, stranding the buttons mid-row. Two tracks keep them on the edge. */
+    .landing-v2-nav-bar-inner {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .landing-v2-nav-bar-actions {
+        justify-content: flex-end;
+    }
+}
+
+/* Narrow phones: tighten the row so brand and actions still share one line. */
+@media (max-width: 26rem) {
+    .landing-v2-nav-bar-inner {
+        gap: var(--landing-space-small);
+    }
+
+    .landing-v2-nav-bar-brand {
+        font-size: 1rem;
+    }
+
+    .landing-v2-nav-bar-actions {
+        gap: var(--landing-space-small);
+    }
+
+    .landing-v2-nav-bar-register-button {
+        padding: 0.79em 1.1em;
     }
 }

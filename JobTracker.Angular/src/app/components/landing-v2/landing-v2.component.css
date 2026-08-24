@@ -1,11 +1,52 @@
+/* ---------------------------------------------------------------------------
+   Landing v2 — fluid layout foundation.
+
+   The reference composition defines *ratios*, not a physical canvas, so nothing
+   here is anchored to a fixed desktop width. Two ideas carry the whole page:
+
+   1. One fluid container. Its width is a percentage of the viewport minus a
+      fluid gutter, capped by --landing-content-max so ultra-wide screens stay
+      readable instead of stretching.
+
+   2. Fluid steps built on clamp(). Every step is a straight line through the
+      two sizes the reference actually pins down — the 1024px composition and
+      the full-size desktop composition — with a readable floor below and the
+      desktop value as the ceiling. Between those points the size moves
+      continuously with the viewport, so there is no width the page is "built
+      for" and no width where it stops responding.
+   --------------------------------------------------------------------------- */
+
 .landing-v2-page {
-    /* One fluid unit drives the whole composition: 1 "reference pixel"
-       of the 1024px-wide design concept. It scales with the viewport
-       (100vw / 1024) and caps at 1.46x — the point where the content
-       container reaches its 1320px maximum — so the page is always a
-       proportional rendering of the reference layout. */
-    --landing-px: min(0.09765625vw, 0.09125rem);
-    --landing-container-width: calc(904 * var(--landing-px));
+    /* --- Container ------------------------------------------------------- */
+    --landing-page-gutter: clamp(1.25rem, 4vw, 4.5rem);
+    --landing-content-max: 90rem;
+    --landing-container-width: min(
+        var(--landing-content-max),
+        calc(100% - (2 * var(--landing-page-gutter)))
+    );
+
+    /* --- Type scale ------------------------------------------------------ */
+    --landing-font-hero: clamp(1.875rem, 0.375rem + 2.64vw, 3rem);
+    --landing-font-heading: clamp(1.375rem, 0.26rem + 1.84vw, 2.1rem);
+    --landing-font-heading-small: clamp(1.3125rem, 0.25rem + 1.76vw, 2rem);
+    --landing-font-brand: clamp(1.125rem, 0.216rem + 1.52vw, 1.735rem);
+    --landing-font-title: clamp(1rem, 0.182rem + 1.28vw, 1.46rem);
+    --landing-font-nav: clamp(0.875rem, 0.17rem + 1.2vw, 1.37rem);
+    --landing-font-lead: clamp(0.9375rem, 0.148rem + 1.04vw, 1.19rem);
+    --landing-font-body: clamp(0.9375rem, 0.142rem + 1vw, 1.14rem);
+    --landing-font-interface: clamp(0.875rem, 0.13rem + 0.92vw, 1.05rem);
+    --landing-font-micro: clamp(0.75rem, 0.108rem + 0.76vw, 0.87rem);
+
+    /* --- Spacing scale --------------------------------------------------- */
+    --landing-space-section: clamp(1rem, 0.182rem + 1.28vw, 1.46rem);
+    --landing-space-3xs: clamp(0.25rem, 0.046rem + 0.32vw, 0.365rem);
+    --landing-space-2xs: clamp(0.375rem, 0.08rem + 0.56vw, 0.64rem);
+    --landing-space-xs: clamp(0.5rem, 0.114rem + 0.8vw, 0.915rem);
+    --landing-space-small: clamp(0.75rem, 0.16rem + 1.12vw, 1.28rem);
+    --landing-space-medium: clamp(1rem, 0.228rem + 1.6vw, 1.83rem);
+    --landing-space-large: clamp(1.25rem, 0.319rem + 2.24vw, 2.56rem);
+    --landing-space-xl: clamp(1.25rem, 0.364rem + 2.56vw, 2.92rem);
+    --landing-space-2xl: clamp(1.5rem, 0.455rem + 3.2vw, 3.65rem);
 
     background-color: #fbfaf8;
     color: #0a0a0a;
@@ -16,4 +57,10 @@
 .landing-v2-main {
     display: flex;
     flex-direction: column;
+}
+
+/* Shared container. Every section uses this rather than repeating a width. */
+.landing-v2-container {
+    width: var(--landing-container-width);
+    margin-inline: auto;
 }

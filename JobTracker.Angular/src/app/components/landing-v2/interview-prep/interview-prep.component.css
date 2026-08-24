@@ -1,15 +1,16 @@
 .landing-v2-interview-prep {
-    padding-block: max(1rem, calc(16 * var(--landing-px)));
+    padding-block: var(--landing-space-section);
     background-color: #fbfaf8;
 }
 
 .landing-v2-interview-prep-inner {
     width: var(--landing-container-width);
     margin-inline: auto;
+    container-type: inline-size;
     display: grid;
     grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.2fr) minmax(0, 0.65fr);
     align-items: center;
-    gap: max(1.25rem, calc(28 * var(--landing-px)));
+    gap: var(--landing-space-large);
 }
 
 .landing-v2-interview-prep-copy {
@@ -17,7 +18,7 @@
 }
 
 .landing-v2-interview-prep-headline {
-    font-size: max(1.25rem, calc(22 * var(--landing-px)));
+    font-size: var(--landing-font-heading-small);
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -0.01em;
@@ -25,7 +26,7 @@
 }
 
 .landing-v2-interview-prep-paragraph {
-    font-size: max(0.78rem, calc(12.5 * var(--landing-px)));
+    font-size: var(--landing-font-body);
     line-height: 1.45;
     color: #5b5b58;
     margin-bottom: 1.1em;
@@ -35,15 +36,15 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: max(0.375rem, calc(7 * var(--landing-px)));
-    margin-bottom: max(0.75rem, calc(14 * var(--landing-px)));
+    gap: var(--landing-space-2xs);
+    margin-bottom: var(--landing-space-small);
 }
 
 .landing-v2-interview-prep-checklist-item {
     display: flex;
     align-items: center;
     gap: 0.65em;
-    font-size: max(0.75rem, calc(12 * var(--landing-px)));
+    font-size: var(--landing-font-body);
     font-weight: 500;
     color: #2b2b28;
 }
@@ -59,7 +60,7 @@
     gap: 0.6em;
     background-color: #26ac00;
     color: #ffffff;
-    font-size: max(0.75rem, calc(12 * var(--landing-px)));
+    font-size: var(--landing-font-body);
     font-weight: 600;
     padding: 0.75em 1.33em;
     border-radius: 9999px;
@@ -82,7 +83,7 @@
     padding: 1.2em 1.4em;
     display: flex;
     flex-direction: column;
-    font-size: calc(10 * var(--landing-px));
+    font-size: clamp(0.6875rem, 1.06cqi, 0.92rem);
 }
 
 .landing-v2-interview-prep-panel-label {
@@ -180,13 +181,13 @@
     transform: translateY(-50%);
     display: flex;
     align-items: center;
-    gap: calc(4 * var(--landing-px));
+    gap: clamp(0.125rem, 0.4cqi, 0.375rem);
     height: 28%;
     z-index: 1;
 }
 
 .landing-v2-interview-prep-waveform span {
-    width: calc(3 * var(--landing-px));
+    width: clamp(0.09375rem, 0.3cqi, 0.28rem);
     border-radius: 999px;
     background-color: #bfe6ae;
 }
@@ -229,17 +230,20 @@
     object-fit: contain;
 }
 
-@media (max-width: 60em) {
+@media (max-width: 63.99rem) {
     .landing-v2-interview-prep-inner {
         grid-template-columns: minmax(0, 1fr);
     }
 
     .landing-v2-interview-prep-panel {
-        font-size: clamp(0.625rem, 1.9vw, 0.9375rem);
+        font-size: clamp(0.75rem, 1.7cqi, 1rem);
     }
 
-    .landing-v2-interview-prep-robot-image {
-        max-inline-size: 16rem;
+    /* Cap the visual, not the image: the waveform is positioned against
+       this box, so bounding it here keeps the bars beside the robot instead
+       of stranding them at the edge of a full-width column. */
+    .landing-v2-interview-prep-visual {
+        inline-size: clamp(11rem, 38vw, 20rem);
         margin-inline: auto;
     }
 }

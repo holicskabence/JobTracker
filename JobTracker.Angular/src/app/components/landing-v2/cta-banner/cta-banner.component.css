@@ -1,21 +1,21 @@
 .landing-v2-cta-banner-section {
-    padding-block: calc(6 * var(--landing-px)) max(1rem, calc(24 * var(--landing-px)));
+    padding-block: var(--landing-space-3xs) var(--landing-space-large);
 }
 
 .landing-v2-cta-banner {
     width: var(--landing-container-width);
     margin-inline: auto;
     background-color: #e7f5df;
-    border-radius: calc(20 * var(--landing-px));
-    padding: max(1rem, calc(20 * var(--landing-px))) max(1.25rem, calc(32 * var(--landing-px)));
+    border-radius: var(--landing-space-medium);
+    padding: var(--landing-space-medium) var(--landing-space-xl);
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: max(1rem, calc(20 * var(--landing-px)));
+    gap: var(--landing-space-medium);
 }
 
 .landing-v2-cta-banner-rocket {
-    width: max(3rem, calc(57 * var(--landing-px)));
+    width: clamp(3rem, 0.65rem + 4.55vw, 5.2rem);
     height: auto;
     aspect-ratio: 6 / 5;
     object-fit: contain;
@@ -26,25 +26,25 @@
 }
 
 .landing-v2-cta-banner-headline {
-    font-size: max(0.95rem, calc(16 * var(--landing-px)));
+    font-size: var(--landing-font-title);
     font-weight: 700;
     line-height: 1.25;
     margin-bottom: 0.2em;
 }
 
 .landing-v2-cta-banner-paragraph {
-    font-size: max(0.72rem, calc(11.5 * var(--landing-px)));
+    font-size: var(--landing-font-interface);
     color: #4f6b46;
 }
 
 .landing-v2-cta-banner-actions {
     display: flex;
-    gap: max(0.5rem, calc(8 * var(--landing-px)));
+    gap: var(--landing-space-xs);
 }
 
 .landing-v2-cta-banner-primary,
 .landing-v2-cta-banner-secondary {
-    font-size: max(0.72rem, calc(11.5 * var(--landing-px)));
+    font-size: var(--landing-font-interface);
     font-weight: 600;
     padding: 0.78em 1.4em;
     border-radius: 9999px;
@@ -68,21 +68,27 @@
     border: 1px solid rgba(10, 10, 10, 0.08);
 }
 
-@media (max-width: 56.25em) {
+@media (max-width: 47.99rem) {
     .landing-v2-cta-banner {
         grid-template-columns: minmax(0, 1fr);
         justify-items: center;
         text-align: center;
-        padding: 1.5rem;
     }
 
     .landing-v2-cta-banner-actions {
-        flex-direction: column;
         width: 100%;
+        justify-content: center;
     }
 
     .landing-v2-cta-banner-primary,
     .landing-v2-cta-banner-secondary {
         text-align: center;
+    }
+}
+
+/* Genuinely narrow phones only: the paired CTAs give up the shared row. */
+@media (max-width: 26rem) {
+    .landing-v2-cta-banner-actions {
+        flex-direction: column;
     }
 }

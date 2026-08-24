@@ -1,7 +1,7 @@
 .landing-v2-feature-strip {
     background-color: #fbfaf8;
     border-top: 1px solid #ebe8e8;
-    padding-block: max(1rem, calc(14 * var(--landing-px)));
+    padding-block: var(--landing-space-small);
 }
 
 .landing-v2-feature-strip-inner {
@@ -9,7 +9,7 @@
     margin-inline: auto;
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: max(1rem, calc(20 * var(--landing-px)));
+    gap: var(--landing-space-medium);
 }
 
 .landing-v2-feature-strip-column {
@@ -18,7 +18,7 @@
     align-items: flex-start;
     gap: 0.54em;
     min-width: 0;
-    font-size: max(0.8rem, calc(13 * var(--landing-px)));
+    font-size: var(--landing-font-lead);
 }
 
 .landing-v2-feature-strip-icon {
@@ -40,20 +40,21 @@
     color: #7a7a76;
 }
 
-@media (max-width: 56.25em) {
+/* Tablet: six columns would be too narrow to hold a two-word title. */
+@media (max-width: 63.99rem) {
     .landing-v2-feature-strip-inner {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        row-gap: 1.5rem;
+        row-gap: var(--landing-space-large);
     }
 }
 
-@media (max-width: 40em) {
+@media (max-width: 47.99rem) {
     .landing-v2-feature-strip-inner {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
-@media (max-width: 26.25em) {
+@media (max-width: 26rem) {
     .landing-v2-feature-strip-inner {
         grid-template-columns: minmax(0, 1fr);
     }

@@ -6,8 +6,10 @@
 
 .landing-v2-dashboard-mockup {
     /* Sized by its own column via container query, so it can never
-       outgrow the space the grid actually gives it. */
-    font-size: max(0.5rem, 1.75cqi);
+       outgrow the space the grid actually gives it. The floor keeps the
+       chrome legible once the column narrows to a phone; the ceiling stops
+       it ballooning on ultra-wide screens. */
+    font-size: clamp(0.6875rem, 1.75cqi, 1.125rem);
     display: flex;
     width: 100%;
     max-inline-size: 56em;
@@ -297,7 +299,7 @@
     text-decoration: line-through;
 }
 
-@media (max-width: 47.5em) {
+@media (max-width: 47.99rem) {
     .landing-v2-dashboard-mockup-sidebar {
         display: none;
     }
