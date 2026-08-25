@@ -41,6 +41,8 @@ export class OverviewComponent {
     return s.submitted > 0 ? Math.round((s.callbacks / s.submitted) * 100) : 0;
   });
 
+  readonly interviewCount = computed(() => this.planner.events().length);
+
   readonly upcomingEvents = computed(() => {
     const today = new Date(); today.setHours(0, 0, 0, 0);
     const events = this.planner.events();

@@ -13,12 +13,11 @@ export class ApplicationsViewService {
     localStorage.getItem(STORAGE_KEY) === 'table' ? 'table' : 'kanban'
   );
 
-  readonly canToggle = computed(() => !this.breakpoint.isMobile());
-  readonly view = computed<ApplicationsView>(() => this.canToggle() ? this.selectedView() : 'table');
+  readonly canUseKanban = computed(() => !this.breakpoint.isMobile());
+  readonly view = computed<ApplicationsView>(() => this.canUseKanban() ? this.selectedView() : 'table');
 
-  toggle(): void {
-    const next: ApplicationsView = this.selectedView() === 'kanban' ? 'table' : 'kanban';
-    this.selectedView.set(next);
-    localStorage.setItem(STORAGE_KEY, next);
+  setView(view: ApplicationsView): void {
+    this.selectedView.set(view);
+    localStorage.setItem(STORAGE_KEY, view);
   }
 }

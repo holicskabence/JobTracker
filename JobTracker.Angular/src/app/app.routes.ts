@@ -3,7 +3,6 @@ import { authGuard } from './guards/auth.guard';
 import { langGuard } from './guards/lang.guard';
 import { langRedirectGuard } from './guards/lang-redirect.guard';
 import { langMatcher } from './utils/lang-route-matcher';
-import { LandingComponent } from './components/landing/landing.component';
 import { LandingV2Component } from './components/landing-v2/landing-v2.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
@@ -17,6 +16,7 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { MasterDataComponent } from './components/master-data/master-data.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PracticeComponent } from './components/practice/practice.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 export const routes: Routes = [
   {
@@ -24,7 +24,7 @@ export const routes: Routes = [
     canActivate: [langGuard],
     children: [
       { path: '', component: LandingComponent, pathMatch: 'full' },
-      { path: 'landing-v2', component: LandingV2Component },
+       { path: 'landing-v2', component: LandingV2Component, pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
     ]
@@ -47,9 +47,8 @@ export const routes: Routes = [
       { path: 'practice', component: PracticeComponent },
     ]
   },
-  // Legacy unprefixed public routes: redirect to the equivalent /:lang URL.
   { path: 'login', canActivate: [langRedirectGuard], pathMatch: 'full', component: LoginComponent },
   { path: 'register', canActivate: [langRedirectGuard], pathMatch: 'full', component: RegisterComponent },
-  { path: '', canActivate: [langRedirectGuard], pathMatch: 'full', component: LandingComponent },
+  { path: '', canActivate: [langRedirectGuard], pathMatch: 'full', component: LandingV2Component },
   { path: '**', redirectTo: 'dashboard' }
 ];

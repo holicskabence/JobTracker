@@ -44,14 +44,18 @@ export class JobStoreService {
     for (const h of this.statusHistory()) {
       if (configOf(h.newStatus)?.isInterview) everInterviewedIds.add(h.jobId);
     }
+    const everActiveIds = new Set<number>();
+    for (const j of jobs) {
+      if (configOf(j.status)?.isActive) everActiveIds.add(j.id);
+    }
+    for (const h of this.statusHistory()) {
+      if (configOf(h.newStatus)?.isActive) everActiveIds.add(h.jobId);
+    }
 
     const offers = jobs.filter(j => configOf(j.status)?.statsCategory === 'Success').length;
     const rejects = jobs.filter(j => configOf(j.status)?.statsCategory === 'Rejected').length;
     const decided = offers + rejects;
-    const responded = jobs.filter(j => {
-      const cfg = configOf(j.status);
-      return cfg?.isInterview || (cfg?.statsCategory && cfg.statsCategory !== 'None');
-    }).length;
+    const responded = jobs.filter(j => everActiveIds.has(j.id)).length;
     const submitted = jobs.filter(j => {
       const cfg = configOf(j.status);
       return cfg?.isActive || cfg?.isInterview || (cfg?.statsCategory && cfg.statsCategory !== 'None');
@@ -59,17 +63,29 @@ export class JobStoreService {
     return {
       totalJobs: jobs.length,
       submitted,
-      activeJobs: jobs.filter(j => configOf(j.status)?.isActive).length,
+      activeJobs: jobs.filter(j => { const cfg = configOf(j.status); return cfg?.isActive || cfg?.isInterview; }).length,
       callbacks: jobs.filter(j => everInterviewedIds.has(j.id)).length,
       interviewCount: jobs.filter(j => configOf(j.status)?.isInterview).length,
       offers,
       rejections: rejects,
       successRate: decided > 0 ? Math.round((offers / decided) * 100) : 0,
-      responseRate: submitted > 0 ? Math.round((responded / submitted) * 100) : 0
+      responseRate: jobs.length > 0 ? Math.round((responded / jobs.length) * 100) : 0
     };
   });
 
   constructor(private readonly api: JobApiService) { }
+
+  /** Free-text filter shared by every applications view, so kanban, table and the search count stay in sync. */
+  filterJobs(term: string): Job[] {
+    const needle = term.trim().toLowerCase();
+    const jobs = this.jobs();
+    if (!needle) return jobs;
+    return jobs.filter(j =>
+      j.company.toLowerCase().includes(needle) ||
+      j.position.toLowerCase().includes(needle) ||
+      this.labelFor(j.status).toLowerCase().includes(needle)
+    );
+  }
 
   labelFor(key: string): string {
     return this.statusConfigs().find(c => c.key === key)?.label ?? key;

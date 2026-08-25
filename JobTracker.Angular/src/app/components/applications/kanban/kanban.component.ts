@@ -23,16 +23,7 @@ export class KanbanComponent {
 
   readonly isFiltering = computed(() => this.search().trim().length > 0);
 
-  private readonly filteredJobs = computed(() => {
-    const term = this.search().trim().toLowerCase();
-    const jobs = this.store.jobs();
-    if (!term) return jobs;
-    return jobs.filter(j =>
-      j.company.toLowerCase().includes(term) ||
-      j.position.toLowerCase().includes(term) ||
-      this.store.labelFor(j.status).toLowerCase().includes(term)
-    );
-  });
+  private readonly filteredJobs = computed(() => this.store.filterJobs(this.search()));
 
   readonly jobsByStatus = computed(() => {
     const jobs = this.filteredJobs();

@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { DashboardTab } from '../../../models/job.model';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ApplicationsViewService } from '../../../services/applications-view.service';
 
 @Component({
   selector: 'app-dashboard-header',
@@ -12,7 +11,6 @@ import { ApplicationsViewService } from '../../../services/applications-view.ser
 })
 export class DashboardHeaderComponent {
   private readonly translate = inject(TranslateService);
-  readonly viewService = inject(ApplicationsViewService);
 
   @Input() activeTab: DashboardTab = 'overview';
   @Input() userName = '';
@@ -20,10 +18,6 @@ export class DashboardHeaderComponent {
   @Output() addJob = new EventEmitter<void>();
   @Output() openMobileMenu = new EventEmitter<void>();
   @Output() toggleSidebar = new EventEmitter<void>();
-
-  get showViewToggle(): boolean {
-    return this.activeTab === 'applications' && this.viewService.canToggle();
-  }
 
   private readonly PAGE_TITLE_KEYS: Record<DashboardTab, string> = {
     overview: 'header.titles.overview',

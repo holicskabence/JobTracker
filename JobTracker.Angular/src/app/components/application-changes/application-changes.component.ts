@@ -8,6 +8,7 @@ import { PageSectionComponent } from '../shared/page-section/page-section.compon
 import { SearchToolbarComponent } from '../shared/search-toolbar/search-toolbar.component';
 import { SortableHeaderCellComponent } from '../shared/sortable-header-cell/sortable-header-cell.component';
 import { DataTableComponent } from '../shared/data-table/data-table.component';
+import { ApplicationsViewToggleComponent } from '../applications/view-toggle/view-toggle.component';
 
 type SortKey = 'company' | 'changedAt';
 type SortDir = 'asc' | 'description';
@@ -15,7 +16,7 @@ type SortDir = 'asc' | 'description';
 @Component({
   selector: 'app-application-changes',
   standalone: true,
-  imports: [TranslateModule, CardComponent, PageSectionComponent, SearchToolbarComponent, SortableHeaderCellComponent, DataTableComponent],
+  imports: [TranslateModule, CardComponent, PageSectionComponent, SearchToolbarComponent, SortableHeaderCellComponent, DataTableComponent, ApplicationsViewToggleComponent],
   templateUrl: './application-changes.component.html',
   styleUrl: './application-changes.component.css'
 })

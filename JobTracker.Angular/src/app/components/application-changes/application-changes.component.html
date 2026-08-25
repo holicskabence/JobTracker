@@ -1,8 +1,10 @@
 <app-page-section [title]="'applicationChanges.sectionTitle' | translate" [subtitle]="'applicationChanges.sectionSubtitle' | translate">
 
-  <app-search-toolbar [value]="searchRaw()" (valueChange)="searchRaw.set($event)"
+  <app-search-toolbar pageActions [value]="searchRaw()" (valueChange)="searchRaw.set($event)"
     [placeholder]="'tableView.searchPlaceholder' | translate" [clearTitle]="'tableView.clear' | translate"
-    [countLabel]="'tableView.resultsCount' | translate:{ count: sortedEntries().length }" />
+    [countLabel]="'tableView.resultsCount' | translate:{ count: sortedEntries().length }" [size]="'compact'">
+    <app-applications-view-toggle searchToolbarLeading />
+  </app-search-toolbar>
 
   <app-data-table>
 

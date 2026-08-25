@@ -1,101 +1,164 @@
 .landing-v2-site-footer {
-    background-color: #ffffff;
-    border-top: 1px solid #ebe8e8;
-    padding-block: var(--landing-space-section) var(--landing-space-small);
+    background: #fcfcfd;
+    padding: 1.6875rem 0 0.8125rem;
 }
 
 .landing-v2-site-footer-inner {
-    width: var(--landing-container-width);
+    width: var(--landing-v2-content-width);
     margin-inline: auto;
-    display: grid;
-    grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)) minmax(0, 1fr);
-    gap: var(--landing-space-xl);
+    display: flex;
+    align-items: flex-start;
 }
 
 .landing-v2-site-footer-brand {
-    display: flex;
+    width: 27.4375rem;
+    flex: none;
+    padding-top: 0.875rem;
+}
+
+.landing-v2-site-footer-brand-link {
+    display: inline-flex;
     align-items: center;
-    gap: 0.5em;
-    font-size: var(--landing-font-nav);
-    align-self: start;
+    gap: 0.8125rem;
+    text-decoration: none;
+    color: inherit;
 }
 
 .landing-v2-site-footer-brand-mark {
-    color: #26ac00;
-    display: flex;
-}
-
-.landing-v2-site-footer-brand-mark svg {
-    width: 1.3em;
-    height: 1.3em;
+    display: block;
+    width: 1.6875rem;
+    height: 1.6875rem;
+    color: var(--landing-v2-green);
 }
 
 .landing-v2-site-footer-brand-name {
+    font-family: var(--landing-v2-font-heading);
+    font-size: 1.5rem;
     font-weight: 700;
-    color: #0a0a0a;
+    letter-spacing: -0.01em;
+    color: #12161f;
 }
 
 .landing-v2-site-footer-column {
-    display: flex;
-    flex-direction: column;
-    gap: var(--landing-space-3xs);
-    min-width: 0;
+    width: 14.5625rem;
+    flex: none;
 }
 
 .landing-v2-site-footer-column-title {
-    font-size: var(--landing-font-interface);
+    font-size: 1rem;
     font-weight: 700;
-    color: #0a0a0a;
+    color: #1a202a;
+    margin-bottom: 0.6875rem;
 }
 
 .landing-v2-site-footer-link {
-    font-size: var(--landing-font-interface);
-    color: #7a7a76;
+    display: block;
+    font-size: 0.9375rem;
+    line-height: 1.35;
+    color: #798089;
     text-decoration: none;
+    padding: 0.25rem 0;
 }
 
 .landing-v2-site-footer-link:hover {
-    color: #0a0a0a;
+    color: var(--landing-v2-green-text);
+}
+
+.landing-v2-site-footer-social {
+    margin-left: auto;
+    margin-right: 6.5rem;
+}
+
+.landing-v2-site-footer-social .landing-v2-site-footer-column-title {
+    margin-bottom: 0;
 }
 
 .landing-v2-site-footer-social-row {
     display: flex;
-    gap: var(--landing-space-2xs);
+    gap: 1.375rem;
+    margin-top: 1.0625rem;
 }
 
 .landing-v2-site-footer-social-link {
-    width: clamp(1.4rem, 0.273rem + 1.92vw, 2.19rem);
-    height: clamp(1.4rem, 0.273rem + 1.92vw, 2.19rem);
-    border-radius: 50%;
-    background-color: #f4f2f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #5b5b58;
-    transition: background-color 0.15s ease;
+    color: #2a3138;
+    text-decoration: none;
 }
 
 .landing-v2-site-footer-social-link svg {
-    width: 55%;
-    height: 55%;
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
 }
 
-.landing-v2-site-footer-social-link:hover {
-    background-color: #e7e4de;
-}
-
-@media (max-width: 63.99rem) {
+/* --- Medium screens ------------------------------------------------------ */
+/* Brand block plus the three link columns need roughly 1350px side by side.
+   Below that the brand takes a row of its own and the columns follow. */
+@media (max-width: 1550px) {
     .landing-v2-site-footer-inner {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        flex-wrap: wrap;
+        gap: 1.75rem 2.5rem;
     }
 
     .landing-v2-site-footer-brand {
-        grid-column: 1 / -1;
+        width: 100%;
+        padding-top: 0;
+    }
+
+    .landing-v2-site-footer-social {
+        margin-right: 0;
     }
 }
 
-@media (max-width: 26rem) {
+@media (max-width: 940px) {
+    .landing-v2-site-footer {
+        padding: 1.875rem 0;
+    }
+
     .landing-v2-site-footer-inner {
-        grid-template-columns: minmax(0, 1fr);
+        flex-wrap: wrap;
+        gap: 1.5rem 0;
+    }
+
+    .landing-v2-site-footer-brand {
+        width: 100%;
+        padding-top: 0;
+    }
+
+    .landing-v2-site-footer-brand-name {
+        font-size: 1.125rem;
+    }
+
+    .landing-v2-site-footer-brand-mark {
+        width: 1.375rem;
+        height: 1.375rem;
+    }
+
+    .landing-v2-site-footer-column {
+        width: 33%;
+    }
+
+    .landing-v2-site-footer-column-title {
+        font-size: 0.75rem;
+    }
+
+    .landing-v2-site-footer-link {
+        font-size: 0.6875rem;
+    }
+
+    .landing-v2-site-footer-social {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .landing-v2-site-footer-social-link svg {
+        width: 0.9375rem;
+        height: 0.9375rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .landing-v2-site-footer-column {
+        width: 50%;
     }
 }

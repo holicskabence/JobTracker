@@ -1620,9 +1620,7 @@
 }
 
 .practice-log-item {
-    background: var(--clr-bg);
-    border-radius: var(--radius-md);
-    padding: var(--space-3) var(--space-3-5);
+    padding: var(--space-1-5) 0;
     display: flex;
     flex-direction: column;
     gap: var(--space-1-5);
@@ -1719,14 +1717,9 @@
 .practice-q-checkbox {
     width: 1.05rem;
     height: 1.05rem;
+    vertical-align: middle;
     cursor: pointer;
     accent-color: var(--clr-green);
-}
-
-.practice-q-header-cell--check,
-.practice-q-cell--check {
-    width: 2.5rem;
-    text-align: center;
 }
 
 .practice-q-tr--selected {
@@ -1853,6 +1846,12 @@
 .practice-q-cell--actions {
     text-align: center;
     white-space: nowrap;
+}
+
+.practice-q-header-cell--check,
+.practice-q-cell--check {
+    width: 2.5rem;
+    text-align: center;
 }
 
 .practice-icon-button {

@@ -134,6 +134,11 @@
 }
 
 .table-view-cell--actions {
+  width: 84px;
+  text-align: center;
+}
+
+.table-view-actions {
   display: flex;
   align-items: center;
   justify-content: center;

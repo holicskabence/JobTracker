@@ -1,18 +1,22 @@
 :host {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.landing-v2-hero-illustration-stage {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 566 / 312;
+    display: block;
+    min-width: 0;
 }
 
 .landing-v2-hero-illustration-image {
-    display: block;
-    width: 100%;
-    height: 100%;
+    display: none;
+    height: min(33.375rem, 48vh);
+    width: auto;
+    max-width: 100%;
+    margin-left: auto;
+    aspect-ratio: 588 / 302;
     object-fit: contain;
+}
+
+@media (max-width: 940px) {
+    .landing-v2-hero-illustration-image {
+        height: auto;
+        width: min(100%, 31.875rem);
+        margin-inline: auto;
+    }
 }

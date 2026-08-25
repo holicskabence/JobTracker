@@ -7,30 +7,34 @@
 
             <ul class="landing-v2-interview-prep-checklist">
                 <li class="landing-v2-interview-prep-checklist-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#26ac00" stroke-width="3"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8" />
+                        <path d="M8 12.4l2.6 2.6 5.4-5.8" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     {{ 'landingV2.interview.check1' | translate }}
                 </li>
                 <li class="landing-v2-interview-prep-checklist-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#26ac00" stroke-width="3"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8" />
+                        <path d="M8 12.4l2.6 2.6 5.4-5.8" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     {{ 'landingV2.interview.check2' | translate }}
                 </li>
                 <li class="landing-v2-interview-prep-checklist-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#26ac00" stroke-width="3"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8" />
+                        <path d="M8 12.4l2.6 2.6 5.4-5.8" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     {{ 'landingV2.interview.check3' | translate }}
                 </li>
                 <li class="landing-v2-interview-prep-checklist-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#26ac00" stroke-width="3"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8" />
+                        <path d="M8 12.4l2.6 2.6 5.4-5.8" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     {{ 'landingV2.interview.check4' | translate }}
                 </li>
@@ -38,54 +42,62 @@
 
             <a class="landing-v2-interview-prep-cta" routerLink="/register">
                 {{ 'landingV2.interview.cta' | translate }}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 12h15M13.5 5.5L20 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </a>
         </div>
 
         <div class="landing-v2-interview-prep-panel">
-            <span class="landing-v2-interview-prep-panel-label">{{ 'landingV2.interview.questionLabel' | translate }}</span>
+            <div class="landing-v2-interview-prep-panel-label">{{ 'landingV2.interview.questionLabel' | translate }}</div>
             <p class="landing-v2-interview-prep-panel-question">{{ 'landingV2.interview.question' | translate }}</p>
 
-            <span class="landing-v2-interview-prep-panel-label">{{ 'landingV2.interview.answerLabel' | translate }}</span>
-            <p class="landing-v2-interview-prep-panel-answer">{{ 'landingV2.interview.answer' | translate }}</p>
+            <div class="landing-v2-interview-prep-panel-answer">
+                <div class="landing-v2-interview-prep-panel-label">{{ 'landingV2.interview.answerLabel' | translate }}</div>
+                <p class="landing-v2-interview-prep-panel-answer-text">{{ 'landingV2.interview.answer' | translate }}</p>
+            </div>
 
             <div class="landing-v2-interview-prep-evaluation">
-                <div class="landing-v2-interview-prep-evaluation-header">
-                    <span class="landing-v2-interview-prep-panel-label">{{ 'landingV2.interview.evaluationLabel' | translate }}</span>
+                <div class="landing-v2-interview-prep-panel-label">{{ 'landingV2.interview.evaluationLabel' | translate }}</div>
+
+                <div class="landing-v2-interview-prep-evaluation-score-row">
+                    <span class="landing-v2-interview-prep-evaluation-verdict">{{ 'landingV2.interview.evaluationTitle' | translate }} 👍</span>
+                    <span class="landing-v2-interview-prep-evaluation-score">
+                        <b class="landing-v2-interview-prep-evaluation-score-value">8</b>/10
+                    </span>
                 </div>
-                <div class="landing-v2-interview-prep-evaluation-title-row">
-                    <span class="landing-v2-interview-prep-evaluation-title">{{ 'landingV2.interview.evaluationTitle' | translate }} 👍</span>
-                    <span class="landing-v2-interview-prep-evaluation-score">{{ 'landingV2.interview.score' | translate }}</span>
+
+                <ul class="landing-v2-interview-prep-evaluation-points">
+                    <li class="landing-v2-interview-prep-evaluation-point">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M5 12.8l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.4"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        {{ 'landingV2.interview.feedback1' | translate }}
+                    </li>
+                    <li class="landing-v2-interview-prep-evaluation-point">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M5 12.8l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.4"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        {{ 'landingV2.interview.feedback2' | translate }}
+                    </li>
+                </ul>
+
+                <div class="landing-v2-interview-prep-evaluation-tip">
+                    <span>☝️</span>
+                    <span>
+                        <b class="landing-v2-interview-prep-evaluation-tip-label">{{ 'landingV2.interview.tipLabel' | translate }}</b>
+                        {{ 'landingV2.interview.tipText' | translate }}
+                    </span>
                 </div>
-                <p class="landing-v2-interview-prep-evaluation-feedback">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#26ac00" stroke-width="3"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    {{ 'landingV2.interview.feedback1' | translate }}
-                </p>
-                <p class="landing-v2-interview-prep-evaluation-feedback">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#26ac00" stroke-width="3"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    {{ 'landingV2.interview.feedback2' | translate }}
-                </p>
-                <p class="landing-v2-interview-prep-evaluation-tip">💡 {{ 'landingV2.interview.tip' | translate }}</p>
             </div>
         </div>
 
-        <div class="landing-v2-interview-prep-visual">
-            <div class="landing-v2-interview-prep-waveform">
-                <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-            </div>
-
-            <img class="landing-v2-interview-prep-robot-image" src="/assets/landing-v2/interview-robot.png" alt=""
-                width="215" height="212" />
+        <div class="landing-v2-interview-prep-robot-visual">
+            <img class="landing-v2-interview-prep-robot-image" src="/assets/landing-v2/interview-robot.png"
+                [alt]="'landingV2.interview.robotAlt' | translate" />
         </div>
 
     </div>

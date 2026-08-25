@@ -39,7 +39,8 @@
             <span class="sidebar-label">{{ 'nav.overview' | translate }}</span>
         </a>
 
-        <a class="sidebar-button" routerLink="/dashboard/applications" routerLinkActive="sidebar-button--active"
+        <a class="sidebar-button" routerLink="/dashboard/applications"
+            [class.sidebar-button--active]="activeTab === 'applications' || activeTab === 'changes'"
             (click)="closeMobile.emit()" [title]="'nav.applications' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -50,19 +51,6 @@
                 </svg>
             </span>
             <span class="sidebar-label">{{ 'nav.applications' | translate }}</span>
-        </a>
-
-        <a class="sidebar-button" routerLink="/dashboard/changes" routerLinkActive="sidebar-button--active"
-            (click)="closeMobile.emit()" [title]="'nav.applicationChanges' | translate">
-            <span class="sidebar-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 3v5h5" />
-                    <path d="M3.05 13A9 9 0 1 0 6 5.3L3 8" />
-                    <polyline points="12 7 12 12 16 14" />
-                </svg>
-            </span>
-            <span class="sidebar-label">{{ 'nav.applicationChanges' | translate }}</span>
         </a>
 
         <a class="sidebar-button" routerLink="/dashboard/practice" routerLinkActive="sidebar-button--active"

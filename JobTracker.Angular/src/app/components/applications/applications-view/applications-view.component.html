@@ -1,14 +1,12 @@
 <app-page-section class="applications-header" [title]="'applicationsView.sectionTitle' | translate" [subtitle]="'applicationsView.sectionSubtitle' | translate">
-    @if (viewService.view() === 'kanban') {
-    <div pageActions class="applications-kanban-search">
-        <app-search-toolbar [value]="kanbanSearch()" (valueChange)="kanbanSearch.set($event)"
-            [placeholder]="'kanban.searchPlaceholder' | translate" [clearTitle]="'kanban.clear' | translate"
-            [size]="'compact'" />
-    </div>
-    }
+    <app-search-toolbar pageActions [value]="search()" (valueChange)="search.set($event)"
+        [placeholder]="'tableView.searchPlaceholder' | translate" [clearTitle]="'tableView.clear' | translate"
+        [countLabel]="'tableView.resultsCount' | translate:{ count: resultCount() }" [size]="'compact'">
+        <app-applications-view-toggle searchToolbarLeading />
+    </app-search-toolbar>
 </app-page-section>
 @if (viewService.view() === 'kanban') {
-<app-kanban [search]="kanbanSearch()" />
+<app-kanban [search]="search()" />
 } @else {
-<app-table-view />
+<app-table-view [search]="search()" />
 }
