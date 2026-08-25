@@ -61,7 +61,7 @@
     font-size: 1rem;
     font-weight: 600;
     padding: 0.875rem 1.625rem;
-    border-radius: var(--landing-v2-radius-button);
+    border-radius: 999px;
     white-space: nowrap;
     text-decoration: none;
     transition: filter 0.15s ease;
