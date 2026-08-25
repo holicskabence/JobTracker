@@ -1,25 +1,18 @@
 .landing-v2-interview-prep {
     background: #fafafc;
-    padding: 1.9375rem 0 0.75rem;
+    padding: 4rem 0;
     overflow: hidden;
 }
 
-/* Four tracks: copy, a flexible gap, the AI panel, and the robot on the right
-   edge. The row spans the two bleed edges rather than centring a fixed-width
-   box: on a narrow window the robot runs off the screen, and once the container
-   caps it stops with it, so nothing here outruns the container. */
 .landing-v2-interview-prep-inner {
     display: grid;
-    /* The last three tracks give way in step as the window narrows -- the panel
-       and the robot shrink toward their minimums rather than pushing the robot
-       off the page. */
     grid-template-columns:
         minmax(20rem, 26.8125rem)
         minmax(1.625rem, 1fr)
         minmax(19rem, 31.5rem)
         minmax(8rem, 28.25rem);
     margin-left: var(--landing-v2-bleed-left);
-    margin-right: var(--landing-v2-bleed-right);
+    margin-right: var(--landing-v2-bleed-left);
     align-items: start;
 }
 
@@ -41,7 +34,7 @@
 
 .landing-v2-interview-prep-paragraph {
     margin-top: 1.25rem;
-    font-size: 1.125rem;
+    font-size: 1rem;
     line-height: 1.5;
     color: var(--landing-v2-gray);
 }
@@ -56,7 +49,7 @@
     align-items: center;
     gap: 0.875rem;
     margin-bottom: 0.8125rem;
-    font-size: 1.0625rem;
+    font-size: 1rem;
     line-height: 1.3;
     font-weight: 500;
     color: #3e464f;
@@ -77,10 +70,10 @@
     justify-content: center;
     gap: 0.5em;
     font-family: var(--landing-v2-font-heading);
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
     padding: 1rem 1.6875rem;
-    border-radius: var(--landing-v2-radius-button);
+    border-radius: 999px;
     white-space: nowrap;
     text-decoration: none;
     background: var(--landing-v2-green-gradient);
@@ -110,14 +103,14 @@
 }
 
 .landing-v2-interview-prep-panel-label {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     font-weight: 500;
     color: #99a0a8;
 }
 
 .landing-v2-interview-prep-panel-question {
     margin-top: 0.4375rem;
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
     line-height: 1.45;
     color: #1b212b;
@@ -137,13 +130,11 @@
 
 .landing-v2-interview-prep-panel-answer-text {
     margin-top: 0.4375rem;
-    font-size: 1.0625rem;
+    font-size: 1rem;
     line-height: 1.5;
     color: #3a463d;
 }
 
-/* The evaluation is a separate block inside the same card: it breaks out of
-   the card padding so its divider spans the full card width. */
 .landing-v2-interview-prep-evaluation {
     margin: 1rem -1.125rem 0;
     padding: 0.8125rem 1.125rem 0;
@@ -159,20 +150,19 @@
 
 .landing-v2-interview-prep-evaluation-verdict {
     font-family: var(--landing-v2-font-heading);
-    font-size: 1.25rem;
     line-height: 1.25;
     font-weight: 700;
     color: #3e9b23;
 }
 
 .landing-v2-interview-prep-evaluation-score {
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #212833;
 }
 
 .landing-v2-interview-prep-evaluation-score-value {
-    font-size: 1.4375rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--landing-v2-green);
 }

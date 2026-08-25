@@ -9,7 +9,7 @@
     display: grid;
     grid-template-columns: 25rem minmax(0, 1fr);
     align-items: start;
-    padding-top: 1.4375rem;
+    padding: 4rem 0;
 }
 
 .landing-v2-dashboard-preview-copy {
@@ -28,7 +28,7 @@
 
 .landing-v2-dashboard-preview-paragraph {
     margin-top: 1.25rem;
-    font-size: 1.125rem;
+    font-size: 1rem;
     line-height: 1.5;
     color: var(--landing-v2-gray);
 }
@@ -46,10 +46,10 @@
     justify-content: center;
     gap: 0.5em;
     font-family: var(--landing-v2-font-heading);
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
     padding: 1rem 1.6875rem;
-    border-radius: var(--landing-v2-radius-button);
+    border-radius: 999px;
     white-space: nowrap;
     text-decoration: none;
     background: var(--landing-v2-green-gradient);

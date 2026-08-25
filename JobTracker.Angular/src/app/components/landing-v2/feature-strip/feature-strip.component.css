@@ -3,8 +3,8 @@
     align-items: center;
     background: #fdfdfe;
     border-top: 1px solid #eeeef1;
-    min-height: 25vh;
-    padding: calc(var(--landing-v2-fold-unit) * 1.25) 0 calc(var(--landing-v2-fold-unit) * 0.85);
+    height: clamp(50px, 25vh, 225px);
+    padding: 4rem 0;
 }
 
 .landing-v2-feature-strip-grid {

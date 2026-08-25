@@ -118,6 +118,7 @@
 
 .landing-v2-hero-visual {
     min-width: 0;
+    min-height: 60vh;
 }
 
 .landing-v2-hero-scroll-hint {
