@@ -1,13 +1,13 @@
-.landing-v2-analytics {
+.landing-analytics {
     position: relative;
     background:
         radial-gradient(61.75rem 35.75rem at 12% 18%, rgba(52, 92, 44, 0.14), transparent 65%),
-        linear-gradient(180deg, var(--landing-v2-dark-background-top) 0%, var(--landing-v2-dark-background-bottom) 100%);
+        linear-gradient(180deg, var(--landing-dark-background-top) 0%, var(--landing-dark-background-bottom) 100%);
     padding: 4rem 0rem;
     overflow: hidden;
 }
 
-.landing-v2-analytics-wave-background {
+.landing-analytics-wave-background {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -16,9 +16,9 @@
     pointer-events: none;
 }
 
-.landing-v2-analytics-inner {
-    width: var(--landing-v2-content-width);
-    margin-left: var(--landing-v2-bleed-left);
+.landing-analytics-inner {
+    width: var(--landing-content-width);
+    margin-left: var(--landing-bleed-left);
     position: relative;
     display: grid;
     grid-template-columns: 25rem minmax(0, 1fr);
@@ -26,31 +26,31 @@
 }
 
 /* --- Copy column --------------------------------------------------------- */
-.landing-v2-analytics-copy {
+.landing-analytics-copy {
     padding-top: 0.875rem;
 }
 
-.landing-v2-analytics-headline {
-    font-family: var(--landing-v2-font-heading);
+.landing-analytics-headline {
+    font-family: var(--landing-font-heading);
     font-size: clamp(1.75rem, 2.5vw, 2.125rem);
     font-weight: 700;
     letter-spacing: -0.01em;
-    color: var(--landing-v2-dark-text);
+    color: var(--landing-dark-text);
 }
 
-.landing-v2-analytics-paragraph {
+.landing-analytics-paragraph {
     margin-top: 1.125rem;
     font-size: 1rem;
     line-height: 1.5;
-    color: var(--landing-v2-dark-muted);
+    color: var(--landing-dark-muted);
 }
 
-.landing-v2-analytics-checklist {
+.landing-analytics-checklist {
     margin-top: 1.625rem;
     list-style: none;
 }
 
-.landing-v2-analytics-checklist-item {
+.landing-analytics-checklist-item {
     display: flex;
     align-items: center;
     gap: 0.875rem;
@@ -61,71 +61,71 @@
     color: #c9cdd3;
 }
 
-.landing-v2-analytics-checklist-item svg {
+.landing-analytics-checklist-item svg {
     display: block;
     width: 1.3125rem;
     height: 1.3125rem;
     flex: none;
-    color: var(--landing-v2-positive);
+    color: var(--landing-positive);
 }
 
-.landing-v2-analytics-cta {
+.landing-analytics-cta {
     margin-top: 1.9375rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5em;
-    font-family: var(--landing-v2-font-heading);
+    font-family: var(--landing-font-heading);
     font-size: 1rem;
     font-weight: 600;
     padding: 0.9375rem 1.6875rem;
     border-radius: 999px;
     white-space: nowrap;
     text-decoration: none;
-    background: var(--landing-v2-green-gradient);
+    background: var(--landing-green-gradient);
     color: #ffffff;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
     transition: filter 0.15s ease;
 }
 
-.landing-v2-analytics-cta:hover {
+.landing-analytics-cta:hover {
     filter: brightness(1.05);
 }
 
-.landing-v2-analytics-cta svg {
+.landing-analytics-cta svg {
     display: block;
     width: 1em;
     height: 1em;
 }
 
 /* --- Card grid ----------------------------------------------------------- */
-.landing-v2-analytics-panels {
+.landing-analytics-panels {
     display: grid;
     grid-template-columns: 1.85fr 1fr;
     gap: 1.3125rem;
     align-items: stretch;
 }
 
-.landing-v2-analytics-charts-column {
+.landing-analytics-charts-column {
     display: flex;
     flex-direction: column;
     gap: 1.3125rem;
 }
 
-.landing-v2-analytics-chart-row {
+.landing-analytics-chart-row {
     flex: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.3125rem;
 }
 
-.landing-v2-analytics-stat-row {
+.landing-analytics-stat-row {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.3125rem;
 }
 
-.landing-v2-analytics-side-column {
+.landing-analytics-side-column {
     display: flex;
     flex-direction: column;
     gap: 1.3125rem;
@@ -133,96 +133,96 @@
 
 /* The funnel takes whatever height the gauge leaves, so the two columns end
    flush with each other. */
-.landing-v2-analytics-side-column .landing-v2-analytics-funnel-card {
+.landing-analytics-side-column .landing-analytics-funnel-card {
     flex: 1;
 }
 
-.landing-v2-analytics-card {
-    background: var(--landing-v2-dark-card-background);
-    border: 1px solid var(--landing-v2-dark-card-border);
-    border-radius: var(--landing-v2-radius-card);
+.landing-analytics-card {
+    background: var(--landing-dark-card-background);
+    border: 1px solid var(--landing-dark-card-border);
+    border-radius: var(--landing-radius-card);
     padding: 1.25rem 1.375rem;
     min-width: 0;
 }
 
-.landing-v2-analytics-card-label {
+.landing-analytics-card-label {
     font-size: 1rem;
     font-weight: 500;
-    color: var(--landing-v2-dark-label);
+    color: var(--landing-dark-label);
 }
 
-.landing-v2-analytics-card-value {
+.landing-analytics-card-value {
     margin-top: 0.375rem;
-    font-family: var(--landing-v2-font-heading);
+    font-family: var(--landing-font-heading);
     font-size: 2.125rem;
     font-weight: 700;
     line-height: 1.15;
     color: #ffffff;
 }
 
-.landing-v2-analytics-card-value-unit {
+.landing-analytics-card-value-unit {
     font-size: 1.3125rem;
     font-weight: 600;
     margin-left: 0.3125rem;
 }
 
-.landing-v2-analytics-card-change {
+.landing-analytics-card-change {
     margin-top: 0.1875rem;
     font-size: 0.875rem;
     color: #8b929b;
 }
 
-.landing-v2-analytics-card-change-value {
-    color: var(--landing-v2-positive);
+.landing-analytics-card-change-value {
+    color: var(--landing-positive);
     font-weight: 600;
 }
 
-.landing-v2-analytics-card-chart {
+.landing-analytics-card-chart {
     width: 100%;
     height: 4.5625rem;
     margin-top: 0.8125rem;
 }
 
-.landing-v2-analytics-stat-card {
+.landing-analytics-stat-card {
     padding: 1.125rem 0.875rem 1.0625rem;
 }
 
-.landing-v2-analytics-stat-card .landing-v2-analytics-card-value {
+.landing-analytics-stat-card .landing-analytics-card-value {
     font-size: 1.8125rem;
 }
 
-.landing-v2-analytics-stat-card-sparkline {
+.landing-analytics-stat-card-sparkline {
     width: 2.75rem;
     height: 0.8125rem;
     margin-top: 0.3125rem;
 }
 
-.landing-v2-analytics-stat-card .landing-v2-analytics-card-change {
+.landing-analytics-stat-card .landing-analytics-card-change {
     margin-top: 0.4375rem;
     font-size: 0.75rem;
     white-space: nowrap;
 }
 
 /* --- Funnel -------------------------------------------------------------- */
-.landing-v2-analytics-funnel-body {
+.landing-analytics-funnel-body {
     display: flex;
     gap: 1.375rem;
     margin-top: 0.75rem;
 }
 
-.landing-v2-analytics-funnel-shape {
+.landing-analytics-funnel-shape {
     width: 60%;
     height: auto;
     flex: none;
 }
 
-.landing-v2-analytics-funnel-rows {
+.landing-analytics-funnel-rows {
     flex: 1;
     min-width: 0;
     list-style: none;
 }
 
-.landing-v2-analytics-funnel-row {
+.landing-analytics-funnel-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -231,27 +231,27 @@
     color: #a6acb4;
 }
 
-.landing-v2-analytics-funnel-row-value {
+.landing-analytics-funnel-row-value {
     font-size: 1rem;
     font-weight: 700;
     color: #ffffff;
 }
 
-.landing-v2-analytics-funnel-total {
+.landing-analytics-funnel-total {
     margin-top: 1rem;
     text-align: center;
     font-size: 0.875rem;
     color: #8b929b;
 }
 
-.landing-v2-analytics-funnel-total-value {
+.landing-analytics-funnel-total-value {
     color: #ffffff;
     font-weight: 700;
     font-size: 0.9375rem;
 }
 
 /* --- Gauge --------------------------------------------------------------- */
-.landing-v2-analytics-gauge-card {
+.landing-analytics-gauge-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -259,142 +259,142 @@
     padding: 0.625rem 1.375rem;
 }
 
-.landing-v2-analytics-gauge-card .landing-v2-analytics-card-label {
+.landing-analytics-gauge-card .landing-analytics-card-label {
     font-size: 1rem;
     font-weight: 600;
     color: #d7dadf;
 }
 
-.landing-v2-analytics-gauge {
+.landing-analytics-gauge {
     position: relative;
     width: 7.3125rem;
     flex: none;
 }
 
-.landing-v2-analytics-gauge svg {
+.landing-analytics-gauge svg {
     width: 100%;
     height: auto;
 }
 
-.landing-v2-analytics-gauge-value {
+.landing-analytics-gauge-value {
     position: absolute;
     left: 47px;
     top: 35px;
     text-align: center;
-    font-family: var(--landing-v2-font-heading);
+    font-family: var(--landing-font-heading);
     font-size: 1.5rem;
     font-weight: 700;
     color: #ffffff;
 }
 
-.landing-v2-analytics-gauge-caption {
+.landing-analytics-gauge-caption {
     text-align: center;
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--landing-v2-positive);
+    color: var(--landing-positive);
     margin-top: 0.1875rem;
 }
 
 @media (max-width: 1700px) {
-    .landing-v2-analytics-inner {
+    .landing-analytics-inner {
         grid-template-columns: minmax(0, 1fr);
         gap: 2.25rem;
     }
 
-    .landing-v2-analytics-copy {
+    .landing-analytics-copy {
         padding-top: 0;
         max-width: 46rem;
     }
 }
 
 @media (max-width: 940px) {
-    .landing-v2-analytics {
+    .landing-analytics {
         padding: 2.25rem 0;
     }
 
-    .landing-v2-analytics-inner {
+    .landing-analytics-inner {
         grid-template-columns: 1fr;
         gap: 1.875rem;
     }
 
-    .landing-v2-analytics-headline {
+    .landing-analytics-headline {
         font-size: 1.5rem;
     }
 
-    .landing-v2-analytics-paragraph {
+    .landing-analytics-paragraph {
         font-size: 0.875rem;
     }
 
-    .landing-v2-analytics-checklist-item {
+    .landing-analytics-checklist-item {
         font-size: 0.8125rem;
     }
 
-    .landing-v2-analytics-checklist-item svg {
+    .landing-analytics-checklist-item svg {
         width: 0.9375rem;
         height: 0.9375rem;
     }
 
-    .landing-v2-analytics-cta {
+    .landing-analytics-cta {
         font-size: 0.875rem;
         padding: 0.6875rem 1.125rem;
     }
 
-    .landing-v2-analytics-card-label,
-    .landing-v2-analytics-gauge-card .landing-v2-analytics-card-label {
+    .landing-analytics-card-label,
+    .landing-analytics-gauge-card .landing-analytics-card-label {
         font-size: 0.6875rem;
     }
 
-    .landing-v2-analytics-card-value {
+    .landing-analytics-card-value {
         font-size: 1.5rem;
     }
 
-    .landing-v2-analytics-stat-card .landing-v2-analytics-card-value {
+    .landing-analytics-stat-card .landing-analytics-card-value {
         font-size: 1.25rem;
     }
 
-    .landing-v2-analytics-card-change,
-    .landing-v2-analytics-funnel-total {
+    .landing-analytics-card-change,
+    .landing-analytics-funnel-total {
         font-size: 0.625rem;
     }
 
-    .landing-v2-analytics-funnel-row {
+    .landing-analytics-funnel-row {
         font-size: 0.6875rem;
     }
 
-    .landing-v2-analytics-funnel-row-value {
+    .landing-analytics-funnel-row-value {
         font-size: 0.75rem;
     }
 
-    .landing-v2-analytics-gauge {
+    .landing-analytics-gauge {
         width: 5.625rem;
     }
 
-    .landing-v2-analytics-gauge-value {
+    .landing-analytics-gauge-value {
         font-size: 1.125rem;
         bottom: 1.0625rem;
     }
 
-    .landing-v2-analytics-gauge-caption {
+    .landing-analytics-gauge-caption {
         font-size: 0.5625rem;
     }
 }
 
 @media (max-width: 640px) {
-    .landing-v2-analytics-panels {
+    .landing-analytics-panels {
         grid-template-columns: 1fr;
     }
 
-    .landing-v2-analytics-chart-row {
+    .landing-analytics-chart-row {
         grid-template-columns: 1fr;
     }
 
-    .landing-v2-analytics-stat-row {
+    .landing-analytics-stat-row {
         grid-template-columns: 1fr 1fr;
     }
 }
 
 @media (max-width: 460px) {
-    .landing-v2-analytics-stat-row {
+    .landing-analytics-stat-row {
         grid-template-columns: 1fr;
     }
 }

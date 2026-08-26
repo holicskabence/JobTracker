@@ -1,17 +1,17 @@
-.landing-v2-nav-bar {
+.landing-nav-bar {
     background: #fafafb;
 }
 
-.landing-v2-nav-bar-inner {
-    width: var(--landing-v2-content-width);
+.landing-nav-bar-inner {
+    width: var(--landing-content-width);
     margin-inline: auto;
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    height: calc(var(--landing-v2-fold-unit) * 3.75);
+    height: calc(var(--landing-fold-unit) * 3.75);
 }
 
-.landing-v2-nav-bar-brand {
+.landing-nav-bar-brand {
     display: inline-flex;
     align-items: center;
     gap: 0.8125rem;
@@ -19,92 +19,92 @@
     color: inherit;
 }
 
-.landing-v2-nav-bar-brand-mark {
+.landing-nav-bar-brand-mark {
     display: block;
     width: 2.0625rem;
     height: 2.0625rem;
-    color: var(--landing-v2-green);
+    color: var(--landing-green);
 }
 
-.landing-v2-nav-bar-brand-name {
-    font-family: var(--landing-v2-font-heading);
+.landing-nav-bar-brand-name {
+    font-family: var(--landing-font-heading);
     font-size: 1.625rem;
     font-weight: 700;
     letter-spacing: -0.01em;
     color: #12161f;
 }
 
-.landing-v2-nav-bar-links {
+.landing-nav-bar-links {
     display: flex;
     justify-content: center;
     gap: 4.25rem;
 }
 
-.landing-v2-nav-bar-link {
+.landing-nav-bar-link {
     font-size: 0.9rem;
     font-weight: 500;
     color: #3a4149;
     text-decoration: none;
 }
 
-.landing-v2-nav-bar-link:hover {
-    color: var(--landing-v2-green-text);
+.landing-nav-bar-link:hover {
+    color: var(--landing-green-text);
 }
 
-.landing-v2-nav-bar-actions {
+.landing-nav-bar-actions {
     display: flex;
     align-items: center;
     gap: 2.25rem;
 }
 
-.landing-v2-nav-bar-login-link {
+.landing-nav-bar-login-link {
     font-size: 0.9rem;
     font-weight: 600;
     color: #1a202a;
     text-decoration: none;
 }
 
-.landing-v2-nav-bar-register-button {
+.landing-nav-bar-register-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--landing-v2-font-heading);
+    font-family: var(--landing-font-heading);
     font-size: 0.9rem;
     font-weight: 600;
     padding: 0.6875rem 1.5625rem;
     border-radius: 999px;
     white-space: nowrap;
     text-decoration: none;
-    background: var(--landing-v2-green-gradient);
+    background: var(--landing-green-gradient);
     color: #ffffff;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
     transition: filter 0.15s ease;
 }
 
-.landing-v2-nav-bar-register-button:hover {
+.landing-nav-bar-register-button:hover {
     filter: brightness(1.05);
 }
 
-.landing-v2-nav-bar-menu-button {
+.landing-nav-bar-menu-button {
     display: none;
 }
 
-.landing-v2-nav-bar-mobile-menu {
+.landing-nav-bar-mobile-menu {
     display: none;
 }
 
 @media (max-width: 940px) {
-    .landing-v2-nav-bar-links,
-    .landing-v2-nav-bar-login-link {
+    .landing-nav-bar-links,
+    .landing-nav-bar-login-link {
         display: none;
     }
 
-    .landing-v2-nav-bar-actions {
+    .landing-nav-bar-actions {
         justify-content: flex-end;
         gap: 0.75rem;
     }
 
-    .landing-v2-nav-bar-menu-button {
+    .landing-nav-bar-menu-button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -116,39 +116,39 @@
         cursor: pointer;
     }
 
-    .landing-v2-nav-bar-menu-button svg {
+    .landing-nav-bar-menu-button svg {
         display: block;
         width: 1.25rem;
         height: 1.25rem;
     }
 
-    .landing-v2-nav-bar-brand-name {
+    .landing-nav-bar-brand-name {
         font-size: 1.25rem;
     }
 
-    .landing-v2-nav-bar-brand-mark {
+    .landing-nav-bar-brand-mark {
         width: 1.5rem;
         height: 1.5rem;
     }
 
-    .landing-v2-nav-bar-register-button {
+    .landing-nav-bar-register-button {
         font-size: 0.8125rem;
         padding: 0.5rem 1.0625rem;
     }
 
-    .landing-v2-nav-bar--menu-open .landing-v2-nav-bar-mobile-menu {
+    .landing-nav-bar--menu-open .landing-nav-bar-mobile-menu {
         display: block;
         background: #fafafb;
-        border-top: 1px solid var(--landing-v2-line);
+        border-top: 1px solid var(--landing-line);
         padding: 0.75rem 0 1.0625rem;
     }
 
-    .landing-v2-nav-bar-mobile-menu-inner {
-        width: var(--landing-v2-content-width);
+    .landing-nav-bar-mobile-menu-inner {
+        width: var(--landing-content-width);
         margin-inline: auto;
     }
 
-    .landing-v2-nav-bar-mobile-menu-link {
+    .landing-nav-bar-mobile-menu-link {
         display: block;
         padding: 0.5rem 0;
         font-size: 0.875rem;

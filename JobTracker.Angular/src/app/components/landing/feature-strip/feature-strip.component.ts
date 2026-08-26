@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-landing-v2-feature-strip',
+  selector: 'app-landing-feature-strip',
   standalone: true,
   imports: [TranslateModule],
   templateUrl: './feature-strip.component.html',

@@ -1,6 +1,6 @@
 /* The preview is a complete object: full frame, visible bottom edge, and a
    content-driven height, so nothing in it is clipped. */
-.landing-v2-dashboard-mockup {
+.landing-dashboard-mockup {
     background: #ffffff;
     border: 1px solid #ebedf0;
     border-radius: 1.4375rem;
@@ -10,7 +10,7 @@
 }
 
 /* --- Sidebar ------------------------------------------------------------- */
-.landing-v2-dashboard-mockup-sidebar {
+.landing-dashboard-mockup-sidebar {
     width: 11.6875rem;
     flex: none;
     border-right: 1px solid #eff1f3;
@@ -18,7 +18,7 @@
     padding: 1.25rem 0.875rem;
 }
 
-.landing-v2-dashboard-mockup-sidebar-brand {
+.landing-dashboard-mockup-sidebar-brand {
     display: flex;
     align-items: center;
     gap: 0.625rem;
@@ -26,25 +26,25 @@
     margin-bottom: 1.375rem;
 }
 
-.landing-v2-dashboard-mockup-sidebar-brand-mark {
+.landing-dashboard-mockup-sidebar-brand-mark {
     display: block;
     width: 1.3125rem;
     height: 1.3125rem;
-    color: var(--landing-v2-green);
+    color: var(--landing-green);
 }
 
-.landing-v2-dashboard-mockup-sidebar-brand-name {
-    font-family: var(--landing-v2-font-heading);
+.landing-dashboard-mockup-sidebar-brand-name {
+    font-family: var(--landing-font-heading);
     font-size: 1rem;
     font-weight: 700;
     color: #12161f;
 }
 
-.landing-v2-dashboard-mockup-sidebar-menu {
+.landing-dashboard-mockup-sidebar-menu {
     list-style: none;
 }
 
-.landing-v2-dashboard-mockup-sidebar-menu-item {
+.landing-dashboard-mockup-sidebar-menu-item {
     display: flex;
     align-items: center;
     gap: 0.6875rem;
@@ -56,57 +56,57 @@
     border-radius: 0.6875rem;
 }
 
-.landing-v2-dashboard-mockup-sidebar-menu-item svg {
+.landing-dashboard-mockup-sidebar-menu-item svg {
     display: block;
     width: 1rem;
     height: 1rem;
     flex: none;
 }
 
-.landing-v2-dashboard-mockup-sidebar-menu-item--active {
+.landing-dashboard-mockup-sidebar-menu-item--active {
     background: #e9f4e3;
-    color: var(--landing-v2-green-text);
+    color: var(--landing-green-text);
     font-weight: 600;
 }
 
 /* --- Main panel ---------------------------------------------------------- */
-.landing-v2-dashboard-mockup-main {
+.landing-dashboard-mockup-main {
     flex: 1;
     min-width: 0;
     background: #fbfbfc;
     padding: 0.8125rem 1.25rem;
 }
 
-.landing-v2-dashboard-mockup-header {
+.landing-dashboard-mockup-header {
     display: flex;
     align-items: center;
 }
 
-.landing-v2-dashboard-mockup-header-title {
-    font-family: var(--landing-v2-font-heading);
+.landing-dashboard-mockup-header-title {
+    font-family: var(--landing-font-heading);
     font-size: 1.25rem;
     font-weight: 700;
     color: #161b26;
 }
 
-.landing-v2-dashboard-mockup-header-actions {
+.landing-dashboard-mockup-header-actions {
     margin-left: auto;
     display: flex;
     align-items: center;
     gap: 0.8125rem;
 }
 
-.landing-v2-dashboard-mockup-new-application-button {
+.landing-dashboard-mockup-new-application-button {
     font-size: 0.875rem;
     font-weight: 600;
     color: #ffffff;
-    background: var(--landing-v2-green-gradient);
+    background: var(--landing-green-gradient);
     padding: 0.5625rem 1rem;
     border-radius: 0.6875rem;
     white-space: nowrap;
 }
 
-.landing-v2-dashboard-mockup-avatar {
+.landing-dashboard-mockup-avatar {
     display: block;
     width: 2.125rem;
     height: 2.125rem;
@@ -114,14 +114,14 @@
     object-fit: cover;
 }
 
-.landing-v2-dashboard-mockup-stat-grid {
+.landing-dashboard-mockup-stat-grid {
     margin-top: 0.625rem;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.8125rem;
 }
 
-.landing-v2-dashboard-mockup-card {
+.landing-dashboard-mockup-card {
     background: #ffffff;
     border: 1px solid #eef0f3;
     border-radius: 0.875rem;
@@ -130,19 +130,19 @@
     height: 15rem;
 }
 
-.landing-v2-dashboard-mockup-card-label {
+.landing-dashboard-mockup-card-label {
     font-size: 0.75rem;
     color: #8a919b;
 }
 
-.landing-v2-dashboard-mockup-card-value {
+.landing-dashboard-mockup-card-value {
     margin-top: 0.1875rem;
     font-size: 1.3125rem;
     font-weight: 700;
     color: #171d27;
 }
 
-.landing-v2-dashboard-mockup-card-progress {
+.landing-dashboard-mockup-card-progress {
     margin-top: 0.5625rem;
     height: 0.375rem;
     border-radius: 999px;
@@ -150,30 +150,30 @@
     overflow: hidden;
 }
 
-.landing-v2-dashboard-mockup-card-progress-fill {
+.landing-dashboard-mockup-card-progress-fill {
     display: block;
     height: 100%;
     border-radius: 999px;
 }
 
-.landing-v2-dashboard-mockup-card-progress-fill--green {
+.landing-dashboard-mockup-card-progress-fill--green {
     width: 72%;
     background: linear-gradient(90deg, #6cc244, #3ba608);
 }
 
-.landing-v2-dashboard-mockup-card-progress-fill--blue {
+.landing-dashboard-mockup-card-progress-fill--blue {
     width: 36%;
     background: linear-gradient(90deg, #4e8fe8, #7cb1f2);
 }
 
-.landing-v2-dashboard-mockup-card-badges {
+.landing-dashboard-mockup-card-badges {
     margin-top: 0.5rem;
     display: flex;
     gap: 0.75rem;
     align-items: center;
 }
 
-.landing-v2-dashboard-mockup-card-badge {
+.landing-dashboard-mockup-card-badge {
     display: inline-flex;
     align-items: center;
     gap: 0.3125rem;
@@ -181,46 +181,46 @@
     color: #6b7380;
 }
 
-.landing-v2-dashboard-mockup-card-badge svg {
+.landing-dashboard-mockup-card-badge svg {
     display: block;
     width: 0.75rem;
     height: 0.75rem;
 }
 
-.landing-v2-dashboard-mockup-card-badge-icon--positive {
-    color: var(--landing-v2-green-text);
+.landing-dashboard-mockup-card-badge-icon--positive {
+    color: var(--landing-green-text);
 }
 
-.landing-v2-dashboard-mockup-card-badge-icon--negative {
+.landing-dashboard-mockup-card-badge-icon--negative {
     color: #d65454;
 }
 
-.landing-v2-dashboard-mockup-panel-grid {
+.landing-dashboard-mockup-panel-grid {
     margin-top: 0.5625rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.8125rem;
 }
 
-.landing-v2-dashboard-mockup-panel-title {
+.landing-dashboard-mockup-panel-title {
     font-size: 0.9375rem;
     font-weight: 700;
     color: #171d27;
 }
 
-.landing-v2-dashboard-mockup-interview-list {
+.landing-dashboard-mockup-interview-list {
     margin-top: 0.25rem;
     list-style: none;
 }
 
-.landing-v2-dashboard-mockup-interview-item {
+.landing-dashboard-mockup-interview-item {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     padding: 0.1875rem 0;
 }
 
-.landing-v2-dashboard-mockup-interview-avatar {
+.landing-dashboard-mockup-interview-avatar {
     width: 1.6875rem;
     height: 1.6875rem;
     border-radius: 50%;
@@ -232,50 +232,50 @@
     flex: none;
 }
 
-.landing-v2-dashboard-mockup-interview-avatar--indigo {
+.landing-dashboard-mockup-interview-avatar--indigo {
     background: #d8d6fb;
     color: #5b52d6;
 }
 
-.landing-v2-dashboard-mockup-interview-avatar--blue {
+.landing-dashboard-mockup-interview-avatar--blue {
     background: #c9def6;
     color: #3e6fb3;
 }
 
-.landing-v2-dashboard-mockup-interview-company {
+.landing-dashboard-mockup-interview-company {
     font-size: 0.875rem;
     font-weight: 600;
     color: #1b212b;
     line-height: 1.35;
 }
 
-.landing-v2-dashboard-mockup-interview-type {
+.landing-dashboard-mockup-interview-type {
     font-size: 0.75rem;
     color: #8a919b;
 }
 
-.landing-v2-dashboard-mockup-interview-schedule {
+.landing-dashboard-mockup-interview-schedule {
     margin-left: auto;
     text-align: right;
 }
 
-.landing-v2-dashboard-mockup-interview-date {
+.landing-dashboard-mockup-interview-date {
     font-size: 0.8125rem;
     font-weight: 600;
     color: #1b212b;
 }
 
-.landing-v2-dashboard-mockup-interview-time {
+.landing-dashboard-mockup-interview-time {
     font-size: 0.75rem;
     color: #8a919b;
 }
 
-.landing-v2-dashboard-mockup-task-list {
+.landing-dashboard-mockup-task-list {
     margin-top: 0.3125rem;
     list-style: none;
 }
 
-.landing-v2-dashboard-mockup-task-item {
+.landing-dashboard-mockup-task-item {
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -284,7 +284,7 @@
     color: #4a515b;
 }
 
-.landing-v2-dashboard-mockup-task-checkbox {
+.landing-dashboard-mockup-task-checkbox {
     width: 0.875rem;
     height: 0.875rem;
     border: 1px solid #c6cbd2;
@@ -294,109 +294,109 @@
 
 /* --- Responsive ---------------------------------------------------------- */
 @media (max-width: 940px) {
-    .landing-v2-dashboard-mockup-sidebar {
+    .landing-dashboard-mockup-sidebar {
         width: 8.9375rem;
     }
 
-    .landing-v2-dashboard-mockup-sidebar-brand-mark {
+    .landing-dashboard-mockup-sidebar-brand-mark {
         width: 0.9375rem;
         height: 0.9375rem;
     }
 
-    .landing-v2-dashboard-mockup-sidebar-brand-name {
+    .landing-dashboard-mockup-sidebar-brand-name {
         font-size: 0.75rem;
     }
 
-    .landing-v2-dashboard-mockup-sidebar-menu-item {
+    .landing-dashboard-mockup-sidebar-menu-item {
         font-size: 0.6875rem;
         padding: 0.5rem 0.5625rem;
     }
 
-    .landing-v2-dashboard-mockup-sidebar-menu-item svg {
+    .landing-dashboard-mockup-sidebar-menu-item svg {
         width: 0.8125rem;
         height: 0.8125rem;
     }
 
-    .landing-v2-dashboard-mockup-header-title {
+    .landing-dashboard-mockup-header-title {
         font-size: 0.9375rem;
     }
 
-    .landing-v2-dashboard-mockup-new-application-button {
+    .landing-dashboard-mockup-new-application-button {
         font-size: 0.6875rem;
         padding: 0.4375rem 0.6875rem;
     }
 
-    .landing-v2-dashboard-mockup-avatar {
+    .landing-dashboard-mockup-avatar {
         width: 1.625rem;
         height: 1.625rem;
     }
 
-    .landing-v2-dashboard-mockup-card-label {
+    .landing-dashboard-mockup-card-label {
         font-size: 0.625rem;
     }
 
-    .landing-v2-dashboard-mockup-card-value {
+    .landing-dashboard-mockup-card-value {
         font-size: 1rem;
     }
 
-    .landing-v2-dashboard-mockup-card-badge {
+    .landing-dashboard-mockup-card-badge {
         font-size: 0.5625rem;
     }
 
-    .landing-v2-dashboard-mockup-card-badge svg {
+    .landing-dashboard-mockup-card-badge svg {
         width: 0.625rem;
         height: 0.625rem;
     }
 
-    .landing-v2-dashboard-mockup-panel-title {
+    .landing-dashboard-mockup-panel-title {
         font-size: 0.75rem;
     }
 
-    .landing-v2-dashboard-mockup-interview-avatar {
+    .landing-dashboard-mockup-interview-avatar {
         width: 1.3125rem;
         height: 1.3125rem;
         font-size: 0.5625rem;
     }
 
-    .landing-v2-dashboard-mockup-interview-company {
+    .landing-dashboard-mockup-interview-company {
         font-size: 0.6875rem;
     }
 
-    .landing-v2-dashboard-mockup-interview-type,
-    .landing-v2-dashboard-mockup-interview-time {
+    .landing-dashboard-mockup-interview-type,
+    .landing-dashboard-mockup-interview-time {
         font-size: 0.5625rem;
     }
 
-    .landing-v2-dashboard-mockup-interview-date {
+    .landing-dashboard-mockup-interview-date {
         font-size: 0.625rem;
     }
 
-    .landing-v2-dashboard-mockup-task-item {
+    .landing-dashboard-mockup-task-item {
         font-size: 0.6875rem;
     }
 
-    .landing-v2-dashboard-mockup-task-checkbox {
+    .landing-dashboard-mockup-task-checkbox {
         width: 0.6875rem;
         height: 0.6875rem;
     }
 }
 
 @media (max-width: 640px) {
-    .landing-v2-dashboard-mockup-sidebar {
+    .landing-dashboard-mockup-sidebar {
         display: none;
     }
 
-    .landing-v2-dashboard-mockup-stat-grid {
+    .landing-dashboard-mockup-stat-grid {
         grid-template-columns: 1fr 1fr;
     }
 
-    .landing-v2-dashboard-mockup-panel-grid {
+    .landing-dashboard-mockup-panel-grid {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 460px) {
-    .landing-v2-dashboard-mockup-stat-grid {
+    .landing-dashboard-mockup-stat-grid {
         grid-template-columns: 1fr;
     }
 }

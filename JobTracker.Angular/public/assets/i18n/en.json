@@ -12,7 +12,7 @@
     "practice": "Practice",
     "logout": "Log out"
   },
-  "landingV2": {
+  "landing": {
     "nav": {
       "features": "Features",
       "pricing": "Pricing",
@@ -154,86 +154,6 @@
       "supportLink2": "Privacy",
       "supportLink3": "Terms",
       "followTitle": "Follow us"
-    }
-  },
-  "landing": {
-    "nav": {
-      "control": "Pipeline",
-      "insight": "Analytics",
-      "preparation": "Practice",
-      "dashboard": "Dashboard",
-      "login": "Log In",
-      "register": "Sign Up"
-    },
-    "cta": {
-      "startFree": "Start tracking for free",
-      "goToDashboard": "Go to Dashboard",
-      "registerFree": "Sign Up for Free"
-    },
-    "pipeline": {
-      "application": "Application",
-      "screening": "Screening",
-      "interview": "Interview",
-      "offer": "Offer"
-    },
-    "story": {
-      "hero": {
-        "eyebrow": "Built for tech job seekers",
-        "subtitle": "Track every application, prepare for interviews, and understand what is actually working — all in one place.",
-        "secondaryCta": "See how it works",
-        "trust": {
-          "freeToStart": "Free to start",
-          "noCard": "No credit card required",
-          "languages": "English & Hungarian"
-        }
-      },
-      "chaos": {
-        "headline": "Job hunting is chaos."
-      },
-      "system": {
-        "headline": "We turn it into a system."
-      },
-      "control": {
-        "eyebrow": "03 — Control",
-        "headline": "One pipeline. Every application.",
-        "subtitle": "Track applications through a fully customizable pipeline — from saved to offer — and never lose track of what's next.",
-        "metricActive": "active applications",
-        "metricInterviews": "interviews this week",
-        "board": {
-          "saved": "Saved",
-          "applied": "Applied"
-        }
-      },
-      "insight": {
-        "eyebrow": "04 — Insight",
-        "headline": "Know what's actually working.",
-        "subtitle": "Real numbers on response rates, interview conversion, and time-to-offer — so you can double down on what moves the needle.",
-        "responseRate": "response rate",
-        "successScore": "success score",
-        "funnel": "conversion funnel",
-        "weeklyActivity": "weekly activity"
-      },
-      "preparation": {
-        "eyebrow": "05 — Preparation",
-        "headline": "Practice until you're ready. Really ready.",
-        "subtitle": "Answer real interview questions, then get instant AI feedback on structure, clarity, and impact — before it counts.",
-        "questionLabel": "Question",
-        "answerLabel": "Your answer",
-        "sampleQuestion": "Tell me about a time you had to resolve a conflict within a team.",
-        "sampleAnswer": "During a project, two teammates disagreed on the technical approach. I set up a short call, let each explain their reasoning, and we agreed on a plan that combined both ideas.",
-        "evalGood1": "Clear structure",
-        "evalGood2": "Strong example",
-        "evalImprove": "Add more technical detail"
-      },
-      "product": {
-        "eyebrow": "06 — Product",
-        "headline": "Everything in one place.",
-        "subtitle": "Applications, events, documents, and stats — one dashboard that keeps your entire search organized."
-      },
-      "action": {
-        "headline": "Start turning chaos into progress.",
-        "subtitle": "Free to start. No credit card. Cancel anytime."
-      }
     }
   },
   "auth": {

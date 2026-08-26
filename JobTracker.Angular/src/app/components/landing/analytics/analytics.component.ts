@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-landing-v2-analytics',
+  selector: 'app-landing-analytics',
   standalone: true,
   imports: [RouterLink, TranslateModule],
   templateUrl: './analytics.component.html',

@@ -1,11 +1,11 @@
-.landing-v2-dashboard-preview {
+.landing-dashboard-preview {
     background: #fcfcfd;
     padding-top: 0;
-    border-top: 1px solid var(--landing-v2-line);
+    border-top: 1px solid var(--landing-line);
 }
 
-.landing-v2-dashboard-preview-inner {
-    width: var(--landing-v2-content-width);
+.landing-dashboard-preview-inner {
+    width: var(--landing-content-width);
     margin-inline: auto;
     display: grid;
     grid-template-columns: 25rem minmax(0, 1fr);
@@ -13,13 +13,13 @@
     padding: 4rem 0;
 }
 
-.landing-v2-dashboard-preview-copy {
+.landing-dashboard-preview-copy {
     padding-top: 2.25rem;
     padding-right: 2.4375rem;
 }
 
-.landing-v2-dashboard-preview-headline {
-    font-family: var(--landing-v2-font-heading);
+.landing-dashboard-preview-headline {
+    font-family: var(--landing-font-heading);
     font-size: clamp(1.75rem, 2.5vw, 2.125rem);
     font-weight: 700;
     line-height: 1.32;
@@ -27,50 +27,50 @@
     color: #151a25;
 }
 
-.landing-v2-dashboard-preview-paragraph {
+.landing-dashboard-preview-paragraph {
     margin-top: 1.25rem;
     font-size: 1rem;
     line-height: 1.5;
-    color: var(--landing-v2-gray);
+    color: var(--landing-gray);
 }
 
-.landing-v2-dashboard-preview-cta-row {
+.landing-dashboard-preview-cta-row {
     margin-top: 2.375rem;
     display: flex;
     align-items: flex-start;
     gap: 1.125rem;
 }
 
-.landing-v2-dashboard-preview-cta {
+.landing-dashboard-preview-cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5em;
-    font-family: var(--landing-v2-font-heading);
+    font-family: var(--landing-font-heading);
     font-size: 1rem;
     font-weight: 600;
     padding: 1rem 1.6875rem;
     border-radius: 999px;
     white-space: nowrap;
     text-decoration: none;
-    background: var(--landing-v2-green-gradient);
+    background: var(--landing-green-gradient);
     color: #ffffff;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
     transition: filter 0.15s ease;
 }
 
-.landing-v2-dashboard-preview-cta:hover {
+.landing-dashboard-preview-cta:hover {
     filter: brightness(1.05);
 }
 
-.landing-v2-dashboard-preview-cta svg {
+.landing-dashboard-preview-cta svg {
     display: block;
     width: 1em;
     height: 1em;
 }
 
 /* Hand-drawn arrow pointing from the call to action across to the preview. */
-.landing-v2-dashboard-preview-doodle-arrow {
+.landing-dashboard-preview-doodle-arrow {
     display: block;
     width: 5.375rem;
     height: 2.875rem;
@@ -79,16 +79,16 @@
     flex: none;
 }
 
-.landing-v2-dashboard-preview-visual {
+.landing-dashboard-preview-visual {
     min-width: 0;
 }
 
 @media (max-width: 1700px) {
-    .landing-v2-dashboard-preview-inner {
+    .landing-dashboard-preview-inner {
         grid-template-columns: minmax(0, 1fr);
     }
 
-    .landing-v2-dashboard-preview-copy {
+    .landing-dashboard-preview-copy {
         padding-right: 0;
         padding-bottom: 1.75rem;
         max-width: 46rem;
@@ -96,23 +96,23 @@
 }
 
 @media (max-width: 940px) {
-    .landing-v2-dashboard-preview-inner {
+    .landing-dashboard-preview-inner {
         grid-template-columns: 1fr;
     }
 
-    .landing-v2-dashboard-preview-copy {
+    .landing-dashboard-preview-copy {
         padding-bottom: 1.5rem;
     }
 
-    .landing-v2-dashboard-preview-headline {
+    .landing-dashboard-preview-headline {
         font-size: 1.5rem;
     }
 
-    .landing-v2-dashboard-preview-paragraph {
+    .landing-dashboard-preview-paragraph {
         font-size: 0.875rem;
     }
 
-    .landing-v2-dashboard-preview-cta {
+    .landing-dashboard-preview-cta {
         font-size: 0.875rem;
         padding: 0.6875rem 1.125rem;
     }

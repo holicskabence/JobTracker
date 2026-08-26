@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { scrollToFragment } from '../fragment-link';
 
 @Component({
-  selector: 'app-landing-v2-nav-bar',
+  selector: 'app-landing-nav-bar',
   standalone: true,
   imports: [RouterLink, TranslateModule],
   templateUrl: './nav-bar.component.html',

@@ -12,7 +12,7 @@
     "practice": "Gyakorlás",
     "logout": "Kijelentkezés"
   },
-  "landingV2": {
+  "landing": {
     "nav": {
       "features": "Funkciók",
       "pricing": "Árak",
@@ -154,86 +154,6 @@
       "supportLink2": "Adatvédelem",
       "supportLink3": "ÁSZF",
       "followTitle": "Kövess minket"
-    }
-  },
-  "landing": {
-    "nav": {
-      "control": "Pipeline",
-      "insight": "Statisztika",
-      "preparation": "Gyakorlás",
-      "dashboard": "Dashboard",
-      "login": "Bejelentkezés",
-      "register": "Regisztráció"
-    },
-    "cta": {
-      "startFree": "Ingyenes nyomon követés",
-      "goToDashboard": "Irány a Dashboardra",
-      "registerFree": "Regisztrálj ingyen"
-    },
-    "pipeline": {
-      "application": "Jelentkezés",
-      "screening": "Szűrés",
-      "interview": "Interjú",
-      "offer": "Ajánlat"
-    },
-    "story": {
-      "hero": {
-        "eyebrow": "Tech álláskeresőknek épült",
-        "subtitle": "Kövesd nyomon minden jelentkezésed, készülj fel az interjúkra, és lásd, mi működik valójában – mindezt egy helyen.",
-        "secondaryCta": "Nézd meg, hogyan működik",
-        "trust": {
-          "freeToStart": "Ingyenes kezdés",
-          "noCard": "Nincs szükség bankkártyára",
-          "languages": "Angol és magyar nyelven"
-        }
-      },
-      "chaos": {
-        "headline": "Az álláskeresés maga a káosz."
-      },
-      "system": {
-        "headline": "Mi rendszerré alakítjuk."
-      },
-      "control": {
-        "eyebrow": "03 — Kontroll",
-        "headline": "Egy folyamat. Minden jelentkezés.",
-        "subtitle": "Kövesd a jelentkezéseidet egy teljesen testreszabható folyamaton át – a mentettől az ajánlatig –, és sosem veszíted el a fonalat.",
-        "metricActive": "aktív jelentkezés",
-        "metricInterviews": "interjú ezen a héten",
-        "board": {
-          "saved": "Mentett",
-          "applied": "Beadva"
-        }
-      },
-      "insight": {
-        "eyebrow": "04 — Rálátás",
-        "headline": "Lásd, mi működik valójában.",
-        "subtitle": "Valós számok a válaszadási arányról, az interjú-konverzióról és az ajánlatig eltelt időről – hogy arra tegyél rá, ami tényleg számít.",
-        "responseRate": "válaszadási arány",
-        "successScore": "sikerességi pontszám",
-        "funnel": "sikertölcsér",
-        "weeklyActivity": "heti aktivitás"
-      },
-      "preparation": {
-        "eyebrow": "05 — Felkészülés",
-        "headline": "Gyakorolj, amíg tényleg készen nem állsz.",
-        "subtitle": "Válaszolj valódi interjúkérdésekre, majd kapj azonnali AI visszajelzést a felépítésről, az érthetőségről és a hatásról – még mielőtt igazán számítana.",
-        "questionLabel": "Kérdés",
-        "answerLabel": "A te válaszod",
-        "sampleQuestion": "Mesélj egy olyan helyzetről, amikor konfliktust kellett kezelned a csapatban.",
-        "sampleAnswer": "Egy projekt során két csapattag nem értett egyet a technikai megközelítésben. Rövid megbeszélést tartottam, mindkettőjüket meghallgattam, és olyan tervben egyeztünk meg, amely mindkét ötletet felhasználta.",
-        "evalGood1": "Világos felépítés",
-        "evalGood2": "Erős példa",
-        "evalImprove": "Adj hozzá több technikai részletet"
-      },
-      "product": {
-        "eyebrow": "06 — Termék",
-        "headline": "Minden egy helyen.",
-        "subtitle": "Jelentkezések, események, dokumentumok és statisztikák – egyetlen dashboard, amely rendben tartja a teljes álláskeresésedet."
-      },
-      "action": {
-        "headline": "Kezdd el a káoszt haladássá alakítani.",
-        "subtitle": "Ingyenes a kezdés. Nincs szükség bankkártyára. Bármikor lemondható."
-      }
     }
   },
   "auth": {

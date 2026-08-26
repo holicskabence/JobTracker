@@ -1,15 +1,15 @@
-.landing-v2-cta-banner-section {
+.landing-cta-banner-section {
     position: relative;
     z-index: 2;
     margin-top: -7.5rem;
 }
 
-.landing-v2-cta-banner-container {
-    width: var(--landing-v2-content-width);
+.landing-cta-banner-container {
+    width: var(--landing-content-width);
     margin-inline: auto;
 }
 
-.landing-v2-cta-banner {
+.landing-cta-banner {
     background:
         radial-gradient(75% 165% at 50% 6%,
             rgba(255, 255, 255, 0.94) 0%,
@@ -26,7 +26,7 @@
     min-height: 8.75rem;
 }
 
-.landing-v2-cta-banner-rocket {
+.landing-cta-banner-rocket {
     display: block;
     width: 8.75rem;
     aspect-ratio: 98 / 78;
@@ -35,21 +35,21 @@
     flex: none;
 }
 
-.landing-v2-cta-banner-headline {
-    font-family: var(--landing-v2-font-heading);
+.landing-cta-banner-headline {
+    font-family: var(--landing-font-heading);
     font-size: clamp(1.25rem, 1.8vw, 1.4375rem);
     font-weight: 700;
     line-height: 1.5;
     color: #182029;
 }
 
-.landing-v2-cta-banner-paragraph {
+.landing-cta-banner-paragraph {
     margin-top: 0.3125rem;
     font-size: 1rem;
     color: #7c8590;
 }
 
-.landing-v2-cta-banner-actions {
+.landing-cta-banner-actions {
     margin-left: auto;
     display: flex;
     align-items: center;
@@ -57,13 +57,13 @@
     padding-right: 9.75rem;
 }
 
-.landing-v2-cta-banner-primary-button,
-.landing-v2-cta-banner-secondary-button {
+.landing-cta-banner-primary-button,
+.landing-cta-banner-secondary-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5em;
-    font-family: var(--landing-v2-font-heading);
+    font-family: var(--landing-font-heading);
     font-size: 1rem;
     font-weight: 600;
     padding: 0.875rem 1.625rem;
@@ -73,18 +73,18 @@
     transition: filter 0.15s ease;
 }
 
-.landing-v2-cta-banner-primary-button:hover,
-.landing-v2-cta-banner-secondary-button:hover {
+.landing-cta-banner-primary-button:hover,
+.landing-cta-banner-secondary-button:hover {
     filter: brightness(1.05);
 }
 
-.landing-v2-cta-banner-primary-button {
-    background: var(--landing-v2-green-gradient);
+.landing-cta-banner-primary-button {
+    background: var(--landing-green-gradient);
     color: #ffffff;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
-.landing-v2-cta-banner-secondary-button {
+.landing-cta-banner-secondary-button {
     background: #ffffff;
     color: #1a202a;
     border: 1px solid #e0e5dd;
@@ -92,36 +92,36 @@
 }
 
 @media (max-width: 940px) {
-    .landing-v2-cta-banner-section {
+    .landing-cta-banner-section {
         margin-top: -5.5rem;
     }
 
-    .landing-v2-cta-banner {
+    .landing-cta-banner {
         flex-wrap: wrap;
         padding: 1.3125rem 1.4375rem;
         gap: 1.125rem;
     }
 
-    .landing-v2-cta-banner-rocket {
+    .landing-cta-banner-rocket {
         margin-left: 0;
     }
 
-    .landing-v2-cta-banner-headline {
+    .landing-cta-banner-headline {
         font-size: 1.0625rem;
     }
 
-    .landing-v2-cta-banner-paragraph {
+    .landing-cta-banner-paragraph {
         font-size: 0.75rem;
     }
 
-    .landing-v2-cta-banner-actions {
+    .landing-cta-banner-actions {
         margin-left: 0;
         padding-right: 0;
         width: 100%;
     }
 
-    .landing-v2-cta-banner-primary-button,
-    .landing-v2-cta-banner-secondary-button {
+    .landing-cta-banner-primary-button,
+    .landing-cta-banner-secondary-button {
         font-size: 0.8125rem;
         padding: 0.625rem 1.0625rem;
     }
@@ -130,16 +130,16 @@
 @media (max-width: 640px) {
     /* Down here the banner wraps to a full-height block and the mockup above it
        has stacked into one column, so it stops overlapping and just clears. */
-    .landing-v2-cta-banner-section {
+    .landing-cta-banner-section {
         margin-top: -2.5rem;
     }
 
-    .landing-v2-cta-banner-actions {
+    .landing-cta-banner-actions {
         flex-wrap: wrap;
     }
 
-    .landing-v2-cta-banner-primary-button,
-    .landing-v2-cta-banner-secondary-button {
+    .landing-cta-banner-primary-button,
+    .landing-cta-banner-secondary-button {
         width: 100%;
     }
 }

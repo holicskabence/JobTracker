@@ -3,7 +3,7 @@
     min-width: 0;
 }
 
-.landing-v2-hero-illustration-image {
+.landing-hero-illustration-image {
     height: min(33.375rem, 48vh);
     width: auto;
     max-width: 100%;
@@ -13,7 +13,7 @@
 }
 
 @media (max-width: 940px) {
-    .landing-v2-hero-illustration-image {
+    .landing-hero-illustration-image {
         height: auto;
         width: min(100%, 31.875rem);
         margin-inline: auto;

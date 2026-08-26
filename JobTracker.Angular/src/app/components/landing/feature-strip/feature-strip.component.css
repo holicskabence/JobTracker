@@ -1,4 +1,4 @@
-.landing-v2-feature-strip {
+.landing-feature-strip {
     display: flex;
     align-items: center;
     background: #fdfdfe;
@@ -7,19 +7,19 @@
     padding: 4rem 0;
 }
 
-.landing-v2-feature-strip-grid {
-    width: var(--landing-v2-content-width);
+.landing-feature-strip-grid {
+    width: var(--landing-content-width);
     margin-inline: auto;
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 1.3125rem;
 }
 
-.landing-v2-feature-strip-column {
+.landing-feature-strip-column {
     padding-right: 0.3125rem;
 }
 
-.landing-v2-feature-strip-icon-container {
+.landing-feature-strip-icon-container {
     width: 2.625rem;
     height: 2.625rem;
     border-radius: var(--radius-md);
@@ -29,23 +29,23 @@
     justify-content: center;
 }
 
-.landing-v2-feature-strip-icon {
+.landing-feature-strip-icon {
     display: block;
     width: 1.4375rem;
     height: 1.4375rem;
-    color: var(--landing-v2-green);
+    color: var(--landing-green);
 }
 
-.landing-v2-feature-strip-title {
+.landing-feature-strip-title {
     margin-top: 0.875rem;
-    font-family: var(--landing-v2-font-heading);
+    font-family: var(--landing-font-heading);
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.35;
     color: #171c26;
 }
 
-.landing-v2-feature-strip-description {
+.landing-feature-strip-description {
     margin-top: 0.5rem;
     font-size: 0.9rem;
     line-height: 1.45;
@@ -53,50 +53,50 @@
 }
 
 @media (max-width: 1150px) {
-    .landing-v2-feature-strip-grid {
+    .landing-feature-strip-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 1.75rem 1.5rem;
     }
 }
 
 @media (max-width: 940px) {
-    .landing-v2-feature-strip {
+    .landing-feature-strip {
         padding: 1.6875rem 0;
     }
 
-    .landing-v2-feature-strip-grid {
+    .landing-feature-strip-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 1.6875rem 1.4375rem;
     }
 
-    .landing-v2-feature-strip-icon-container {
+    .landing-feature-strip-icon-container {
         width: 2.125rem;
         height: 2.125rem;
         border-radius: var(--radius-sm);
     }
 
-    .landing-v2-feature-strip-icon {
+    .landing-feature-strip-icon {
         width: 1.125rem;
         height: 1.125rem;
     }
 
-    .landing-v2-feature-strip-title {
+    .landing-feature-strip-title {
         font-size: 0.875rem;
     }
 
-    .landing-v2-feature-strip-description {
+    .landing-feature-strip-description {
         font-size: 0.75rem;
     }
 }
 
 @media (max-width: 640px) {
-    .landing-v2-feature-strip-grid {
+    .landing-feature-strip-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (max-width: 460px) {
-    .landing-v2-feature-strip-grid {
+    .landing-feature-strip-grid {
         grid-template-columns: 1fr;
     }
 }

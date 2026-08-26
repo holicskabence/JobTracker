@@ -5,7 +5,7 @@ import { HeroIllustrationComponent } from './hero-illustration.component';
 import { scrollToFragment } from '../fragment-link';
 
 @Component({
-  selector: 'app-landing-v2-hero',
+  selector: 'app-landing-hero',
   standalone: true,
   imports: [RouterLink, TranslateModule, HeroIllustrationComponent],
   templateUrl: './hero.component.html',

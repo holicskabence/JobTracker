@@ -9,7 +9,7 @@ import { CtaBannerComponent } from './cta-banner/cta-banner.component';
 import { SiteFooterComponent } from './site-footer/site-footer.component';
 
 @Component({
-  selector: 'app-landing-v2',
+  selector: 'app-landing',
   standalone: true,
   imports: [
     NavBarComponent,
@@ -21,7 +21,7 @@ import { SiteFooterComponent } from './site-footer/site-footer.component';
     CtaBannerComponent,
     SiteFooterComponent
   ],
-  templateUrl: './landing-v2.component.html',
-  styleUrl: './landing-v2.component.css'
+  templateUrl: './landing.component.html',
+  styleUrl: './landing.component.css'
 })
-export class LandingV2Component {}
+export class LandingComponent {}

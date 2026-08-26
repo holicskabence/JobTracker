@@ -1,22 +1,22 @@
-.landing-v2-site-footer {
+.landing-site-footer {
     background: #fcfcfd;
     padding: 4rem 0;
 }
 
-.landing-v2-site-footer-inner {
-    width: var(--landing-v2-content-width);
+.landing-site-footer-inner {
+    width: var(--landing-content-width);
     margin-inline: auto;
     display: flex;
     align-items: flex-start;
 }
 
-.landing-v2-site-footer-brand {
+.landing-site-footer-brand {
     width: 27.4375rem;
     flex: none;
     padding-top: 0.875rem;
 }
 
-.landing-v2-site-footer-brand-link {
+.landing-site-footer-brand-link {
     display: inline-flex;
     align-items: center;
     gap: 0.8125rem;
@@ -24,34 +24,34 @@
     color: inherit;
 }
 
-.landing-v2-site-footer-brand-mark {
+.landing-site-footer-brand-mark {
     display: block;
     width: 1.6875rem;
     height: 1.6875rem;
-    color: var(--landing-v2-green);
+    color: var(--landing-green);
 }
 
-.landing-v2-site-footer-brand-name {
-    font-family: var(--landing-v2-font-heading);
+.landing-site-footer-brand-name {
+    font-family: var(--landing-font-heading);
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.01em;
     color: #12161f;
 }
 
-.landing-v2-site-footer-column {
+.landing-site-footer-column {
     width: 14.5625rem;
     flex: none;
 }
 
-.landing-v2-site-footer-column-title {
+.landing-site-footer-column-title {
     font-size: 1rem;
     font-weight: 700;
     color: #1a202a;
     margin-bottom: 0.6875rem;
 }
 
-.landing-v2-site-footer-link {
+.landing-site-footer-link {
     display: block;
     font-size: 0.9375rem;
     line-height: 1.35;
@@ -60,31 +60,31 @@
     padding: 0.25rem 0;
 }
 
-.landing-v2-site-footer-link:hover {
-    color: var(--landing-v2-green-text);
+.landing-site-footer-link:hover {
+    color: var(--landing-green-text);
 }
 
-.landing-v2-site-footer-social {
+.landing-site-footer-social {
     margin-left: auto;
     margin-right: 6.5rem;
 }
 
-.landing-v2-site-footer-social .landing-v2-site-footer-column-title {
+.landing-site-footer-social .landing-site-footer-column-title {
     margin-bottom: 0;
 }
 
-.landing-v2-site-footer-social-row {
+.landing-site-footer-social-row {
     display: flex;
     gap: 1.375rem;
     margin-top: 1.0625rem;
 }
 
-.landing-v2-site-footer-social-link {
+.landing-site-footer-social-link {
     color: #2a3138;
     text-decoration: none;
 }
 
-.landing-v2-site-footer-social-link svg {
+.landing-site-footer-social-link svg {
     display: block;
     width: 1.25rem;
     height: 1.25rem;
@@ -94,71 +94,71 @@
 /* Brand block plus the three link columns need roughly 1350px side by side.
    Below that the brand takes a row of its own and the columns follow. */
 @media (max-width: 1550px) {
-    .landing-v2-site-footer-inner {
+    .landing-site-footer-inner {
         flex-wrap: wrap;
         gap: 1.75rem 2.5rem;
     }
 
-    .landing-v2-site-footer-brand {
+    .landing-site-footer-brand {
         width: 100%;
         padding-top: 0;
     }
 
-    .landing-v2-site-footer-social {
+    .landing-site-footer-social {
         margin-right: 0;
     }
 }
 
 @media (max-width: 940px) {
-    .landing-v2-site-footer {
+    .landing-site-footer {
         padding: 1.875rem 0;
     }
 
-    .landing-v2-site-footer-inner {
+    .landing-site-footer-inner {
         flex-wrap: wrap;
         gap: 1.5rem 0;
     }
 
-    .landing-v2-site-footer-brand {
+    .landing-site-footer-brand {
         width: 100%;
         padding-top: 0;
     }
 
-    .landing-v2-site-footer-brand-name {
+    .landing-site-footer-brand-name {
         font-size: 1.125rem;
     }
 
-    .landing-v2-site-footer-brand-mark {
+    .landing-site-footer-brand-mark {
         width: 1.375rem;
         height: 1.375rem;
     }
 
-    .landing-v2-site-footer-column {
+    .landing-site-footer-column {
         width: 33%;
     }
 
-    .landing-v2-site-footer-column-title {
+    .landing-site-footer-column-title {
         font-size: 0.75rem;
     }
 
-    .landing-v2-site-footer-link {
+    .landing-site-footer-link {
         font-size: 0.6875rem;
     }
 
-    .landing-v2-site-footer-social {
+    .landing-site-footer-social {
         margin-left: 0;
         margin-right: 0;
         width: 100%;
     }
 
-    .landing-v2-site-footer-social-link svg {
+    .landing-site-footer-social-link svg {
         width: 0.9375rem;
         height: 0.9375rem;
     }
 }
 
 @media (max-width: 640px) {
-    .landing-v2-site-footer-column {
+    .landing-site-footer-column {
         width: 50%;
     }
 }

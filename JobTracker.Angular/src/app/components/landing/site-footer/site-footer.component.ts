@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { scrollToFragment } from '../fragment-link';
 
 @Component({
-  selector: 'app-landing-v2-site-footer',
+  selector: 'app-landing-site-footer',
   standalone: true,
   imports: [RouterLink, TranslateModule],
   templateUrl: './site-footer.component.html',
