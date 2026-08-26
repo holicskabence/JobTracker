@@ -2,12 +2,13 @@
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  flex-shrink: 0;
+  min-width: 0;
 }
 
 .search-toolbar-search-wrap {
   position: relative;
   flex: 1;
+  min-width: 0;
   max-width: 420px;
 }
 
@@ -78,4 +79,10 @@
   color: var(--clr-muted);
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+  .search-toolbar-count {
+    display: none;
+  }
 }

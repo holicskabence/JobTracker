@@ -5,12 +5,7 @@
     min-height: 0;
 }
 
-/* Sits at the right edge of the title row; the search toolbar wraps below it on narrow screens. */
-app-applications-view-toggle {
-    align-self: center;
-    margin-left: auto;
-}
-
+/* Carries the view toggle as its leading content, so the two stay on one row and wrap together. */
 app-search-toolbar {
     padding-bottom: var(--space-4);
 }

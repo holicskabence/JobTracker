@@ -784,8 +784,8 @@
     width: 100%;
     flex: 1;
     min-height: 9rem;
-    background: var(--clr-bg);
-    border: none;
+    background: transparent;
+    border: 1px solid var(--clr-green);
     border-radius: var(--radius-md);
     padding: var(--space-4) var(--space-5);
     font-family: 'Poppins', sans-serif;
@@ -793,12 +793,13 @@
     line-height: 1.55;
     resize: vertical;
     outline: none;
-    transition: box-shadow 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
 }
 
 .practice-textarea:focus {
-    box-shadow: 0 0 0 2px var(--clr-green);
+    border-color: var(--clr-green-dk);
+    box-shadow: 0 0 0 1px var(--clr-green-dk);
 }
 
 .practice-card-footer {
