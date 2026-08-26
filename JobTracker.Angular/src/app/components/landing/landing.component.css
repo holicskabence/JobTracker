@@ -1,109 +1,91 @@
-.landing {
-    /* Landing-only design tokens. Scoped to this root so they never reach the
-       dashboard, which never renders inside an .landing ancestor. */
-    --landing-bg: #f7f7f5;
-    --landing-container: 1180px;
-    --landing-container-wide: 1400px;
-    --landing-section-gap: calc(var(--space-12) * 1.5);
-    --landing-section-gap-mobile: var(--space-12);
-    --landing-radius: var(--radius-xl);
-    --landing-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.18);
+/* ---------------------------------------------------------------------------
+   Landing v2 — page shell.
 
-    position: relative;
-    isolation: isolate;
-    min-height: 100%;
-    background-color: var(--landing-bg);
+   The page is a port of the static reference in JobTracker.Mock, which sized
+   the whole composition off a scaled root font-size. That model made the page
+   read as zoomed in on a large screen, so the type now sits on the browser's
+   own 16px root like the rest of the app: sizes are fixed, and a wider window
+   is spent on the container, its gaps and its margins rather than on growing
+   the text.
+
+   Everything below is the design's shared vocabulary: colours, fonts and the
+   container geometry. Custom properties inherit through Angular's style
+   encapsulation, so the section components pick these up without each of them
+   restating the palette.
+   --------------------------------------------------------------------------- */
+
+.landing-v2-page {
+    /* --- Palette --------------------------------------------------------- */
+    --landing-v2-green: #43a614;
+    --landing-v2-green-gradient: linear-gradient(180deg, #5cb637 0%, #3ba608 100%);
+    --landing-v2-green-text: #3f9e1b;
+    --landing-v2-green-pale: #e7f3e3;
+
+    --landing-v2-ink: #161b26;
+    --landing-v2-gray: #767c86;
+    --landing-v2-line: #ecedf0;
+
+    --landing-v2-dark-background-top: #101619;
+    --landing-v2-dark-background-bottom: #070c10;
+    --landing-v2-dark-card-background: #14181d;
+    --landing-v2-dark-card-border: rgba(255, 255, 255, 0.055);
+    --landing-v2-dark-text: #f1f3f5;
+    --landing-v2-dark-muted: #9ba1aa;
+    --landing-v2-dark-label: #99a0a9;
+    --landing-v2-positive: #7ed45b;
+
+    /* --- Typography ------------------------------------------------------ */
+    --landing-v2-font-heading: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+    --landing-v2-font-body: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+
+    /* --- Layout ---------------------------------------------------------- */
+    --landing-v2-page-gutter: clamp(1.25rem, 6.25vw, 6.5rem);
+
+    /* The container tracks the window, minus its gutters, and stops at 1900px.
+       That is the widest anything on the page gets: the sections that bleed off
+       the right edge stop here too, and past this width the page centres rather
+       than stretching further. */
+    --landing-v2-content-max: 1900px;
+
+    /* The shared container width. Sections apply this rather than repeating
+       the min() expression; the 100% resolves against the section that uses
+       it, exactly as it would if the rule were written inline. */
+    --landing-v2-content-width: min(var(--landing-v2-content-max), 100% - 2 * var(--landing-v2-page-gutter));
+
+    /* Sections whose visual bleeds off the right edge align their copy to the
+       container's left edge instead of centring a fixed-width box. */
+    --landing-v2-bleed-left: max(
+        var(--landing-v2-page-gutter),
+        calc((100% - var(--landing-v2-content-max)) / 2)
+    );
+
+    /* ...and the edge they stop at on the right. While the window is narrower
+       than the cap there is nothing to give back and the visual runs off the
+       screen as designed; once the container caps, this pulls the visual back
+       to its edge so no part of the page is wider than the container. */
+    --landing-v2-bleed-right: max(0px, calc((100% - var(--landing-v2-content-max)) / 2));
+
+    /* The opening screen -- nav, hero, feature strip -- has to end inside the
+       window, and on a short one the only give is in the spacing: the type is
+       fixed. Everything stacked above the fold measures its vertical rhythm in
+       this unit rather than in rem. It holds the design value of 1.625rem down
+       to roughly a 1000px-tall window, then falls off with the window -- the
+       ramp is what a 768px laptop needs to still end the strip on screen -- and
+       floors at 0.75rem so the rhythm never collapses entirely. */
+    --landing-v2-fold-unit: clamp(0.75rem, calc(3.92vh - 0.825rem), 1.625rem);
+
+    --landing-v2-radius-card: 1.25rem;
+    --landing-v2-radius-button: 0.8125rem;
+
+    background-color: #fcfcfd;
+    color: var(--landing-v2-ink);
+    font-family: var(--landing-v2-font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     overflow-x: hidden;
 }
 
-.landing-brand {
+.landing-v2-main {
     display: flex;
-    align-items: center;
-    gap: var(--space-2-5);
-}
-
-.landing-logo {
-    width: 32px;
-    height: 32px;
-    border-radius: var(--radius-md);
-    background-color: rgba(38, 172, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.landing-brand-name {
-    font-size: 1.0625rem;
-    font-weight: 800;
-    color: var(--clr-dark);
-    letter-spacing: -0.01em;
-}
-
-.landing-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background-color: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--clr-border);
-}
-
-.landing-nav {
-    max-width: var(--landing-container-wide);
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-8);
-    padding: var(--space-4) var(--space-6);
-}
-
-.landing-nav-links {
-    display: flex;
-    align-items: center;
-    gap: var(--space-7);
-    margin-right: auto;
-    margin-left: var(--space-10);
-}
-
-.landing-nav-links a {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--clr-muted);
-    text-decoration: none;
-    border-radius: var(--radius-xs);
-    transition: color 0.2s;
-}
-
-.landing-nav-links a:hover {
-    color: var(--clr-dark);
-}
-
-.landing-nav-links a:focus-visible,
-.landing-brand:focus-visible {
-    outline: 2px solid var(--clr-green);
-    outline-offset: 3px;
-}
-
-.landing-nav-actions {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2-5);
-}
-
-@media (max-width: 860px) {
-    .landing-nav-links {
-        display: none;
-    }
-
-    .landing-nav-actions {
-        display: none;
-    }
-}
-
-@media (max-width: 640px) {
-    .landing-nav {
-        padding: var(--space-3) var(--space-4);
-    }
+    flex-direction: column;
 }

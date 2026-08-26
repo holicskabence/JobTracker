@@ -1,51 +1,14 @@
-<div class="landing">
+<div class="landing-v2-page">
+    <app-landing-v2-nav-bar></app-landing-v2-nav-bar>
 
-    <header class="landing-header">
-        <nav class="landing-nav">
-            <div class="landing-brand">
-                <div class="landing-logo">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--clr-green)"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <rect x="2" y="2" width="9" height="9" rx="2" opacity="0.85" />
-                        <rect x="13" y="2" width="9" height="9" rx="2" opacity="0.45" />
-                        <rect x="2" y="13" width="9" height="9" rx="2" opacity="0.45" />
-                        <rect x="13" y="13" width="9" height="9" rx="2" opacity="0.85" />
-                    </svg>
-                </div>
-                <span class="landing-brand-name">JobTracker</span>
-            </div>
-
-            <div class="landing-nav-links">
-                <a href="#control">{{ 'landing.nav.control' | translate }}</a>
-                <a href="#insight">{{ 'landing.nav.insight' | translate }}</a>
-                <a href="#preparation">{{ 'landing.nav.preparation' | translate }}</a>
-            </div>
-
-            <div class="landing-nav-actions">
-                <app-language-switcher />
-                @if (auth.isLoggedIn()) {
-                <app-landing-button routerLink="/dashboard" variant="primary">
-                    {{ 'landing.nav.dashboard' | translate }}
-                </app-landing-button>
-                } @else {
-                <app-landing-button routerLink="/login" variant="ghost">
-                    {{ 'landing.nav.login' | translate }}
-                </app-landing-button>
-                <app-landing-button routerLink="/register" variant="primary">
-                    {{ 'landing.nav.register' | translate }}
-                </app-landing-button>
-                }
-            </div>
-        </nav>
-    </header>
-
-    <main>
-        <app-hero-story-section />
-        <app-control-section />
-        <app-insight-section />
-        <app-preparation-section />
-        <app-product-section />
-        <app-action-section />
+    <main class="landing-v2-main">
+        <app-landing-v2-hero></app-landing-v2-hero>
+        <app-landing-v2-feature-strip></app-landing-v2-feature-strip>
+        <app-landing-v2-analytics></app-landing-v2-analytics>
+        <app-landing-v2-interview-prep></app-landing-v2-interview-prep>
+        <app-landing-v2-dashboard-preview></app-landing-v2-dashboard-preview>
+        <app-landing-v2-cta-banner></app-landing-v2-cta-banner>
     </main>
 
+    <app-landing-v2-site-footer></app-landing-v2-site-footer>
 </div>
