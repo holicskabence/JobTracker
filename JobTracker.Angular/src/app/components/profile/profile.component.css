@@ -376,7 +376,7 @@
 }
 
 .profile-change-pwd-button {
-    background-color: var(--clr-dark);
+    background-color: var(--clr-green);
     color: var(--clr-white);
     border: none;
     border-radius: var(--radius-full);
@@ -388,7 +388,7 @@
 }
 
 .profile-change-pwd-button:hover {
-    background-color: #000;
+    background-color: var(--clr-green-dk);
 }
 
 .profile-save-button {
@@ -557,7 +557,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-1-5);
-    background-color: var(--clr-dark);
+    background-color: var(--clr-green);
     color: var(--clr-white);
     border: none;
     border-radius: var(--radius-md);
@@ -572,7 +572,7 @@
 }
 
 .profile-data-add-button:hover {
-    background-color: #000;
+    background-color: var(--clr-green-dk);
 }
 
 .profile-color-picker {

@@ -127,7 +127,7 @@
     border-radius: 0.875rem;
     padding: 0.625rem 0.875rem;
     min-width: 0;
-    height: 19rem;
+    height: 15rem;
 }
 
 .landing-v2-dashboard-mockup-card-label {
@@ -232,9 +232,9 @@
     flex: none;
 }
 
-.landing-v2-dashboard-mockup-interview-avatar--red {
-    background: #f6cfd3;
-    color: #c4485a;
+.landing-v2-dashboard-mockup-interview-avatar--indigo {
+    background: #d8d6fb;
+    color: #5b52d6;
 }
 
 .landing-v2-dashboard-mockup-interview-avatar--blue {

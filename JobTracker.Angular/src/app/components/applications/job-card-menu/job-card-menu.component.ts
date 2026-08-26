@@ -29,12 +29,18 @@ export class JobCardMenuComponent {
 
   readonly columns = computed(() => this.store.statusConfigs().filter(c => c.showInKanban !== false));
 
+  readonly jobLink = computed(() => {
+    const link = this.job().link;
+    if (!link) return null;
+    return link.startsWith('http') ? link : `https://${link}`;
+  });
+
   toggle(event: MouseEvent): void {
     event.stopPropagation();
     if (!this.isOpen()) {
       const button = event.currentTarget as HTMLElement;
       const r = button.getBoundingClientRect();
-      const estimatedH = 160;
+      const estimatedH = 194 + (this.jobLink() ? 34 : 0);
 
       this.panelLeft = r.right - this.panelWidth;
       if (this.panelLeft + this.panelWidth > window.innerWidth - 8) {
@@ -52,6 +58,16 @@ export class JobCardMenuComponent {
     }
     this.isOpen.update(v => !v);
     this.moveOpen.set(false);
+  }
+
+  editJob(event: MouseEvent): void {
+    event.stopPropagation();
+    this.store.openModal(this.job());
+    this.closePanel();
+  }
+
+  openLink(): void {
+    this.closePanel();
   }
 
   viewHistory(event: MouseEvent): void {

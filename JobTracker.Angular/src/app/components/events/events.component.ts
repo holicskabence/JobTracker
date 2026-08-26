@@ -156,19 +156,8 @@ export class EventsComponent implements OnInit {
   }
 
   fmtDateShort(d: string): string {
-    return new Date(d).toLocaleDateString('hu-HU', { year: 'numeric', month: 'short', day: 'numeric' });
-  }
-
-  fmtRelative(d: string): string {
-    const target = new Date(d); target.setHours(0, 0, 0, 0);
-    const today = new Date(); today.setHours(0, 0, 0, 0);
-    const diff = Math.round((target.getTime() - today.getTime()) / 86_400_000);
-    if (diff === 0) return this.translate.instant('events.list.relativeDate.today');
-    if (diff === 1) return this.translate.instant('events.list.relativeDate.tomorrow');
-    if (diff === -1) return this.translate.instant('events.list.relativeDate.yesterday');
-    if (diff > 1 && diff <= 7) return this.translate.instant('events.list.relativeDate.inDays', { count: diff });
-    if (diff < -1 && diff >= -7) return this.translate.instant('events.list.relativeDate.daysAgo', { count: -diff });
-    return this.fmtDateShort(d);
+    const locale = this.translate.currentLang === 'en' ? 'en-US' : 'hu-HU';
+    return new Date(d).toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' });
   }
 
   toggleMenu(id: number, event: MouseEvent): void {

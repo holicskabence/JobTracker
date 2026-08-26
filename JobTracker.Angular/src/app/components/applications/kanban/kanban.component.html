@@ -26,8 +26,8 @@
 
         <div class="bulk-bar-targets">
             @for (column of columns(); track column.key) {
-            <button class="bulk-bar-target" (click)="moveTo(column.key)">
-                <span class="bulk-bar-dot" [style.background-color]="column.color"></span>
+            <button class="bulk-bar-target" [style.--bulk-bar-target-color]="column.color"
+                (click)="moveTo(column.key)">
                 {{ column.label }}
             </button>
             }

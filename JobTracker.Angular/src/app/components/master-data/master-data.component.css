@@ -18,6 +18,7 @@
 
 .master-data-card {
     gap: var(--space-5);
+    justify-content: flex-start;
 }
 
 .master-data-card-header {
@@ -313,21 +314,20 @@
 }
 
 .master-data-cancel-button {
-    background: none;
-    border: 1.5px solid var(--clr-border);
+    background-color: var(--clr-bg);
+    border: none;
     border-radius: var(--radius-md);
     padding: var(--padding-button);
     font-family: 'Poppins', sans-serif;
     font-size: 0.8125rem;
     font-weight: 600;
-    color: var(--clr-muted);
+    color: var(--clr-dark);
     cursor: pointer;
-    transition: border-color 0.2s, color 0.2s;
+    transition: background-color 0.2s;
 }
 
 .master-data-cancel-button:hover {
-    border-color: var(--clr-dark);
-    color: var(--clr-dark);
+    background-color: var(--clr-border);
 }
 
 .master-data-tag {
@@ -390,6 +390,7 @@
 }
 
 .master-data-add-form {
+    margin-top: auto;
     display: flex;
     gap: var(--space-4);
     align-items: center;
@@ -536,7 +537,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--space-1-5);
-    background-color: var(--clr-dark);
+    background-color: var(--clr-green);
     color: var(--clr-white);
     border: none;
     border-radius: var(--radius-md);
@@ -551,7 +552,7 @@
 }
 
 .master-data-add-button:hover {
-    background-color: #000;
+    background-color: var(--clr-green-dk);
 }
 
 @media (max-width: 767px) {

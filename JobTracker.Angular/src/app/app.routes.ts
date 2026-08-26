@@ -23,8 +23,8 @@ export const routes: Routes = [
     matcher: langMatcher,
     canActivate: [langGuard],
     children: [
-      { path: '', component: LandingComponent, pathMatch: 'full' },
-       { path: 'landing-v2', component: LandingV2Component, pathMatch: 'full' },
+      { path: '', component: LandingV2Component, pathMatch: 'full' },
+      { path: 'landing-v1', component: LandingComponent, pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
     ]

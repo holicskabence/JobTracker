@@ -5,6 +5,16 @@
     min-height: 0;
 }
 
+/* Sits at the right edge of the title row; the search toolbar wraps below it on narrow screens. */
+app-applications-view-toggle {
+    align-self: center;
+    margin-left: auto;
+}
+
+app-search-toolbar {
+    padding-bottom: var(--space-4);
+}
+
 app-page-section.applications-header {
     display: block;
     flex: none;

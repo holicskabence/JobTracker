@@ -4,7 +4,6 @@
 }
 
 .landing-v2-hero-illustration-image {
-    display: none;
     height: min(33.375rem, 48vh);
     width: auto;
     max-width: 100%;

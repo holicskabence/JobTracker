@@ -121,11 +121,11 @@
       "statRejectionsBadge": "0 rejections",
       "statInterviews": "Interviews",
       "upcomingInterviewsTitle": "Upcoming interviews",
-      "interview1Company": "Morgan Stanley",
+      "interview1Company": "Stripe",
       "interview1Type": "HR interview",
       "interview1Date": "Jul 27",
       "interview1Time": "11:00",
-      "interview2Company": "Airmax",
+      "interview2Company": "Google",
       "interview2Type": "Tech interview",
       "interview2Date": "Jul 29",
       "interview2Time": "13:00",
@@ -748,7 +748,6 @@
     "tabs": { "practice": "Practice", "questions": "Questions", "results": "Results" },
     "categories": {
       "title": "Categories",
-      "searchPlaceholder": "Search categories…",
       "noMatch": "No matching category."
     },
     "filters": {
@@ -759,7 +758,9 @@
       "randomOrderTitle": "Questions in random order"
     },
     "jump": {
-      "searchPlaceholder": "Jump to a question…",
+      "searchPlaceholder": "Search categories or questions…",
+      "categoriesGroup": "Categories",
+      "questionsGroup": "Questions",
       "clearTitle": "Clear",
       "noResults": "No results."
     },
@@ -767,6 +768,11 @@
       "correctBadge": "✓ Correct",
       "incorrectBadge": "Incorrect",
       "jumpToIndexTitle": "Jump to question number",
+      "questionLabel": "Question",
+      "ofLabel": "of",
+      "showHintTitle": "Show hint",
+      "hideHintTitle": "Hide hint",
+      "showHintSubtitle": "Reveal a hint to help you think through the answer.",
       "yourAnswerLabel": "YOUR ANSWER",
       "answerPlaceholder": "Type a draft of your answer or keywords…",
       "aiEvaluationBtn": "AI evaluation",
@@ -918,6 +924,8 @@
     },
     "jobCardMenu": {
       "triggerTitle": "Actions",
+      "edit": "Edit",
+      "openLink": "Open listing",
       "history": "History",
       "moveToColumn": "Move to column",
       "delete": "Delete",

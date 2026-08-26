@@ -180,8 +180,8 @@
 }
 
 .pill-btn--sm.pill-btn--active {
-  background-color: var(--clr-dark);
-  color: #fff;
+  background-color: var(--clr-green);
+  color: var(--clr-white);
 }
 
 .status-pill {

@@ -121,11 +121,11 @@
       "statRejectionsBadge": "0 elutasítás",
       "statInterviews": "Interjúk",
       "upcomingInterviewsTitle": "Közelgő interjúk",
-      "interview1Company": "Morgan Stanley",
+      "interview1Company": "Stripe",
       "interview1Type": "HR interjú",
       "interview1Date": "Júl. 27.",
       "interview1Time": "11:00",
-      "interview2Company": "Airmax",
+      "interview2Company": "Google",
       "interview2Type": "Tech interjú",
       "interview2Date": "Júl. 29.",
       "interview2Time": "13:00",
@@ -748,7 +748,6 @@
     "tabs": { "practice": "Gyakorlás", "questions": "Kérdések", "results": "Eredmények" },
     "categories": {
       "title": "Kategóriák",
-      "searchPlaceholder": "Kategória keresése…",
       "noMatch": "Nincs ilyen kategória."
     },
     "filters": {
@@ -759,7 +758,9 @@
       "randomOrderTitle": "Kérdések véletlen sorrendben"
     },
     "jump": {
-      "searchPlaceholder": "Ugrás egy kérdéshez…",
+      "searchPlaceholder": "Kategória vagy kérdés keresése…",
+      "categoriesGroup": "Kategóriák",
+      "questionsGroup": "Kérdések",
       "clearTitle": "Törlés",
       "noResults": "Nincs találat."
     },
@@ -767,6 +768,11 @@
       "correctBadge": "✓ Helyes",
       "incorrectBadge": "Helytelen",
       "jumpToIndexTitle": "Ugrás a sorszámú kérdéshez",
+      "questionLabel": "Kérdés",
+      "ofLabel": "/",
+      "showHintTitle": "Tipp megjelenítése",
+      "hideHintTitle": "Tipp elrejtése",
+      "showHintSubtitle": "Mutass egy tippet, ami segít végiggondolni a választ.",
       "yourAnswerLabel": "A TE VÁLASZOD",
       "answerPlaceholder": "Gépeld be a válaszod vázlatát vagy kulcsszavait…",
       "aiEvaluationBtn": "AI értékelés",
@@ -922,6 +928,8 @@
     },
     "jobCardMenu": {
       "triggerTitle": "Műveletek",
+      "edit": "Szerkesztés",
+      "openLink": "Hirdetés megnyitása",
       "history": "Előzmények",
       "moveToColumn": "Áthelyezés oszlopba",
       "delete": "Törlés",

@@ -1,8 +1,7 @@
-/* Sits above the dashboard preview so the banner can overlap the section seam. */
 .landing-v2-cta-banner-section {
     position: relative;
     z-index: 2;
-    margin-top: 1.8125rem;
+    margin-top: -7.5rem;
 }
 
 .landing-v2-cta-banner-container {
@@ -11,7 +10,14 @@
 }
 
 .landing-v2-cta-banner {
-    background: linear-gradient(100deg, #e6f2d9 0%, #eff6e7 48%, #e9f3de 100%);
+    background:
+        radial-gradient(75% 165% at 50% 6%,
+            rgba(255, 255, 255, 0.94) 0%,
+            rgba(255, 255, 255, 0.52) 40%,
+            rgba(255, 255, 255, 0) 76%),
+        linear-gradient(100deg, #e6f2d9 0%, #eff6e7 48%, #e9f3de 100%);
+    border: 1px solid rgba(94, 179, 55, 0.34);
+    
     border-radius: 1.625rem;
     display: flex;
     align-items: center;
@@ -87,7 +93,7 @@
 
 @media (max-width: 940px) {
     .landing-v2-cta-banner-section {
-        margin-top: 1.5rem;
+        margin-top: -5.5rem;
     }
 
     .landing-v2-cta-banner {
@@ -122,6 +128,12 @@
 }
 
 @media (max-width: 640px) {
+    /* Down here the banner wraps to a full-height block and the mockup above it
+       has stacked into one column, so it stops overlapping and just clears. */
+    .landing-v2-cta-banner-section {
+        margin-top: -2.5rem;
+    }
+
     .landing-v2-cta-banner-actions {
         flex-wrap: wrap;
     }

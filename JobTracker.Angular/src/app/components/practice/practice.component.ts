@@ -38,15 +38,13 @@ export class PracticeComponent {
   readonly selectedCategory = signal<string | null>(null);
   readonly selectedStatus = signal<FeedbackFilter | null>(null);
   readonly hasActiveFilters = computed(() => this.selectedCategory() !== null || this.selectedStatus() !== null);
-  readonly categorySearch = signal('');
-
-  readonly showCategorySearch = computed(() => this.practice.categories().length > 6);
-
-  readonly visibleCategories = computed(() => {
-    const term = this.categorySearch().trim().toLowerCase();
-    const cats = this.practice.categories();
-    if (!term) return cats;
-    return cats.filter(c => c.name.toLowerCase().includes(term));
+  // The aside has a single search box; it feeds both halves of the result panel.
+  readonly categoryResults = computed(() => {
+    const term = this.jumpSearch().trim().toLowerCase();
+    if (!term) return [];
+    return this.practice.categories()
+      .filter(c => c.name.toLowerCase().includes(term))
+      .slice(0, 5);
   });
 
   readonly failedCount = computed(() => {
@@ -72,6 +70,7 @@ export class PracticeComponent {
 
   readonly currentIdx = signal(0);
   readonly userAnswer = signal('');
+  readonly hintOpen = signal(false);
   readonly showSample = signal(false);
   readonly dontKnowMode = signal(false);
   readonly randomOrder = signal(false);
@@ -112,6 +111,12 @@ export class PracticeComponent {
   );
 
   readonly idxDisplayValue = computed(() => this.idxDraft() ?? String(this.currentIdx() + 1));
+
+  readonly deckProgress = computed(() => {
+    const total = this.filteredQuestions().length;
+    if (total === 0) return 0;
+    return ((this.currentIdx() + 1) / total) * 100;
+  });
 
   // ── Practice tab: jump-to-question search ───────────────────────────────────
   readonly jumpSearch = signal('');
@@ -232,6 +237,7 @@ export class PracticeComponent {
   private onFilterChanged(): void {
     this.currentIdx.set(0);
     this.userAnswer.set('');
+    this.hintOpen.set(false);
     this.showSample.set(false);
     this.dontKnowMode.set(false);
     this.resetAi();
@@ -245,6 +251,7 @@ export class PracticeComponent {
     } else {
       this.currentIdx.set(0);
       this.userAnswer.set('');
+      this.hintOpen.set(false);
       this.showSample.set(false);
       this.dontKnowMode.set(false);
       this.resetAi();
@@ -260,9 +267,14 @@ export class PracticeComponent {
     this.randomOrderIds.set(ids);
     this.currentIdx.set(0);
     this.userAnswer.set('');
+    this.hintOpen.set(false);
     this.showSample.set(false);
     this.dontKnowMode.set(false);
     this.resetAi();
+  }
+
+  toggleHint(): void {
+    this.hintOpen.update(open => !open);
   }
 
   revealSample(): void {
@@ -343,6 +355,7 @@ export class PracticeComponent {
     if (this.currentIdx() >= this.filteredQuestions().length - 1) return;
     this.currentIdx.update(i => i + 1);
     this.userAnswer.set('');
+    this.hintOpen.set(false);
     this.showSample.set(false);
     this.dontKnowMode.set(false);
     this.resetAi();
@@ -352,6 +365,7 @@ export class PracticeComponent {
     if (this.currentIdx() <= 0) return;
     this.currentIdx.update(i => i - 1);
     this.userAnswer.set('');
+    this.hintOpen.set(false);
     this.showSample.set(false);
     this.dontKnowMode.set(false);
     this.resetAi();
@@ -361,6 +375,7 @@ export class PracticeComponent {
     if (index < 0 || index >= this.filteredQuestions().length || index === this.currentIdx()) return;
     this.currentIdx.set(index);
     this.userAnswer.set('');
+    this.hintOpen.set(false);
     this.showSample.set(false);
     this.dontKnowMode.set(false);
     this.resetAi();
@@ -394,6 +409,12 @@ export class PracticeComponent {
   clearJumpSearch(): void {
     this.jumpSearch.set('');
     this.jumpDropOpen.set(false);
+  }
+
+  selectCategoryFromSearch(name: string): void {
+    this.selectedCategory.set(name);
+    this.onFilterChanged();
+    this.clearJumpSearch();
   }
 
   jumpToQuestion(index: number): void {
@@ -559,6 +580,7 @@ export class PracticeComponent {
     this.showResetConfirm.set(false);
     this.currentIdx.set(0);
     this.userAnswer.set('');
+    this.hintOpen.set(false);
     this.showSample.set(false);
     this.dontKnowMode.set(false);
     this.resetAi();

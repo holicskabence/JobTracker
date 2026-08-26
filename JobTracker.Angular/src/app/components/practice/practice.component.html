@@ -26,44 +26,62 @@
                         {{ feedback === 'correct' ? ('practice.card.correctBadge' | translate) : ('practice.card.incorrectBadge' | translate) }}
                     </span>
                     }
-                    <span class="practice-index-badge">
-                        <input class="practice-index-input" type="number" min="1" [max]="filteredQuestions().length"
-                            [ngModel]="idxDisplayValue()" (ngModelChange)="onIdxInputChange($event)"
-                            (keydown.enter)="confirmIdxInput()" (blur)="confirmIdxInput()"
-                            (click)="$event.stopPropagation()" [title]="'practice.card.jumpToIndexTitle' | translate" />
-                        / {{ filteredQuestions().length }}
-                    </span>
+                    <div class="practice-question-counter">
+                        <span class="practice-index-badge">
+                            {{ 'practice.card.questionLabel' | translate }}
+                            <input class="practice-index-input" type="number" min="1" [max]="filteredQuestions().length"
+                                [ngModel]="idxDisplayValue()" (ngModelChange)="onIdxInputChange($event)"
+                                (keydown.enter)="confirmIdxInput()" (blur)="confirmIdxInput()"
+                                (click)="$event.stopPropagation()" [title]="'practice.card.jumpToIndexTitle' | translate" />
+                            {{ 'practice.card.ofLabel' | translate }} {{ filteredQuestions().length }}
+                        </span>
+                        <span class="practice-deck-progress-track">
+                            <span class="practice-deck-progress-fill" [style.width.%]="deckProgress()"></span>
+                        </span>
+                    </div>
                 </div>
 
                 <h2 class="practice-question">{{ q.question }}</h2>
 
-                <div class="practice-hint-row">
-                    <svg class="practice-hint-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="12" y1="8" x2="12" y2="12" />
-                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                @if (q.hint) {
+                <button type="button" class="practice-hint-toggle" [class.practice-hint-toggle--open]="hintOpen()"
+                    [attr.aria-expanded]="hintOpen()" (click)="toggleHint()">
+                    <span class="practice-hint-icon-circle">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18h6" />
+                            <path d="M10 22h4" />
+                            <path d="M15.1 14c.2-1 .7-1.8 1.4-2.5A4.6 4.6 0 0 0 18 8a6 6 0 0 0-12 0c0 1 .2 2.2 1.5 3.5.7.7 1.2 1.5 1.4 2.5" />
+                        </svg>
+                    </span>
+                    <span class="practice-hint-labels">
+                        <span class="practice-hint-title">{{ (hintOpen() ? 'practice.card.hideHintTitle' : 'practice.card.showHintTitle') | translate }}</span>
+                        <span class="practice-hint-text">{{ hintOpen() ? q.hint : ('practice.card.showHintSubtitle' | translate) }}</span>
+                    </span>
+                    <svg class="practice-hint-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
                     </svg>
-                    <span class="practice-hint-text">{{ q.hint }}</span>
-                </div>
-
-                <div class="practice-divider"></div>
+                </button>
+                }
 
                 @if (!showSample()) {
 
-                <label class="practice-input-label">{{ 'practice.card.yourAnswerLabel' | translate }}</label>
-                <textarea class="practice-textarea" [ngModel]="userAnswer()" (ngModelChange)="userAnswer.set($event)" rows="4"
-                    [placeholder]="'practice.card.answerPlaceholder' | translate"></textarea>
+                <div class="practice-answer-block">
+                    <label class="practice-input-label">{{ 'practice.card.yourAnswerLabel' | translate }}</label>
+                    <textarea class="practice-textarea" [ngModel]="userAnswer()" (ngModelChange)="userAnswer.set($event)"
+                        rows="4" [placeholder]="'practice.card.answerPlaceholder' | translate"></textarea>
+                </div>
 
                 <div class="practice-card-footer">
                     <div class="practice-footer-actions">
-                        <button class="practice-reveal-button" [class.practice-reveal-button--ai]="useAiEvaluation()"
-                            [disabled]="!userAnswer().trim()" (click)="revealSample()">
+                        <button class="practice-reveal-button" [disabled]="!userAnswer().trim()"
+                            (click)="revealSample()">
                             @if (useAiEvaluation()) {
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10" />
-                                <path d="M12 8v4l3 3" />
+                                <path d="M12 3l1.9 4.6 4.6 1.9-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z" />
+                                <path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z" />
                             </svg>
                             {{ 'practice.card.aiEvaluationBtn' | translate }}
                             } @else {
@@ -100,9 +118,11 @@
 
                 } @else if (dontKnowMode()) {
 
-                <div class="practice-compare-single">
-                    <p class="practice-compare-label practice-compare-label--green">{{ 'practice.card.sampleAnswerLabel' | translate }}</p>
-                    <p class="practice-compare-text">{{ q.sampleAnswer }}</p>
+                <div class="practice-reveal-area">
+                    <div class="practice-compare-single">
+                        <p class="practice-compare-label practice-compare-label--green">{{ 'practice.card.sampleAnswerLabel' | translate }}</p>
+                        <p class="practice-compare-text">{{ q.sampleAnswer }}</p>
+                    </div>
                 </div>
 
                 <div class="practice-card-footer">
@@ -129,77 +149,81 @@
 
                 } @else if (useAiEvaluation()) {
 
-                <div class="practice-compare-single">
-                    <p class="practice-compare-label">{{ 'practice.card.yourAnswerLabel' | translate }}</p>
-                    <p class="practice-compare-text">{{ userAnswer() }}</p>
-                </div>
-
-                @if (aiLoading()) {
-                <div class="practice-ai-box practice-ai-box--loading">
-                    <div class="practice-ai-top">
-                        <span class="practice-ai-badge">{{ 'practice.ai.badge' | translate }}</span>
-                        <span class="practice-ai-thinking">{{ 'practice.ai.thinking' | translate }}</span>
-                    </div>
-                    <div class="practice-ai-dots">
-                        <span class="practice-dot"></span>
-                        <span class="practice-dot"></span>
-                        <span class="practice-dot"></span>
-                    </div>
-                </div>
-                } @else if (aiError()) {
-                <div class="practice-ai-box practice-ai-box--error">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="12" y1="8" x2="12" y2="12" />
-                        <line x1="12" y1="16" x2="12.01" y2="16" />
-                    </svg>
-                    {{ aiError() }}
-                </div>
-                } @else if (aiFeedback()) {
-                <div class="practice-ai-box">
-                    <div class="practice-ai-top">
-                        <span class="practice-ai-badge">{{ 'practice.ai.feedbackBadge' | translate }}</span>
-                    </div>
-                    <p class="practice-ai-text">{{ aiTypedText() }}<span class="practice-cursor"
-                            [class.practice-cursor--off]="aiDone()">|</span></p>
-
-                    @if (aiDone()) {
-                    <div class="practice-verdict-bar" [class]="'practice-verdict-bar--' + (aiVerdict() ?? 'correct')">
-                        <div class="practice-verdict-left">
-                            <span class="practice-verdict-label">{{ 'practice.ai.verdictLabel' | translate }}</span>
-                            <strong class="practice-verdict-value">
-                                @if (aiVerdict() === 'correct') { {{ 'practice.card.correctBadge' | translate }} }
-                                @else { {{ 'practice.card.incorrectBadge' | translate }} }
-                            </strong>
-                        </div>
-                        <div class="practice-verdict-right">
-                            <button class="practice-proceed-button" (click)="proceedWithAiVerdict()">
-                                {{ 'practice.ai.continueBtn' | translate }}
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="9 18 15 12 9 6" />
-                                </svg>
-                            </button>
-                            <span class="practice-override-label">{{ 'practice.ai.overrideLabel' | translate }}</span>
-                            <button class="practice-rate-sm practice-rate-sm--ok" (click)="rate('correct')">✓</button>
-                            <button class="practice-rate-sm practice-rate-sm--no" (click)="rate('incorrect')">✗</button>
-                        </div>
-                    </div>
-                    }
-                </div>
-                }
-
-                } @else {
-
-                <div class="practice-compare">
-                    <div class="practice-compare-column">
+                <div class="practice-reveal-area">
+                    <div class="practice-compare-single">
                         <p class="practice-compare-label">{{ 'practice.card.yourAnswerLabel' | translate }}</p>
                         <p class="practice-compare-text">{{ userAnswer() }}</p>
                     </div>
-                    <div class="practice-compare-column practice-compare-column--sample">
-                        <p class="practice-compare-label practice-compare-label--green">{{ 'practice.card.sampleAnswerLabel' | translate }}</p>
-                        <p class="practice-compare-text">{{ q.sampleAnswer }}</p>
+
+                    @if (aiLoading()) {
+                    <div class="practice-ai-box practice-ai-box--loading">
+                        <div class="practice-ai-top">
+                            <span class="practice-ai-badge">{{ 'practice.ai.badge' | translate }}</span>
+                            <span class="practice-ai-thinking">{{ 'practice.ai.thinking' | translate }}</span>
+                        </div>
+                        <div class="practice-ai-dots">
+                            <span class="practice-dot"></span>
+                            <span class="practice-dot"></span>
+                            <span class="practice-dot"></span>
+                        </div>
+                    </div>
+                    } @else if (aiError()) {
+                    <div class="practice-ai-box practice-ai-box--error">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg>
+                        {{ aiError() }}
+                    </div>
+                    } @else if (aiFeedback()) {
+                    <div class="practice-ai-box">
+                        <div class="practice-ai-top">
+                            <span class="practice-ai-badge">{{ 'practice.ai.feedbackBadge' | translate }}</span>
+                        </div>
+                        <p class="practice-ai-text">{{ aiTypedText() }}<span class="practice-cursor"
+                                [class.practice-cursor--off]="aiDone()">|</span></p>
+
+                        @if (aiDone()) {
+                        <div class="practice-verdict-bar" [class]="'practice-verdict-bar--' + (aiVerdict() ?? 'correct')">
+                            <div class="practice-verdict-left">
+                                <span class="practice-verdict-label">{{ 'practice.ai.verdictLabel' | translate }}</span>
+                                <strong class="practice-verdict-value">
+                                    @if (aiVerdict() === 'correct') { {{ 'practice.card.correctBadge' | translate }} }
+                                    @else { {{ 'practice.card.incorrectBadge' | translate }} }
+                                </strong>
+                            </div>
+                            <div class="practice-verdict-right">
+                                <button class="practice-proceed-button" (click)="proceedWithAiVerdict()">
+                                    {{ 'practice.ai.continueBtn' | translate }}
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="9 18 15 12 9 6" />
+                                    </svg>
+                                </button>
+                                <span class="practice-override-label">{{ 'practice.ai.overrideLabel' | translate }}</span>
+                                <button class="practice-rate-sm practice-rate-sm--ok" (click)="rate('correct')">✓</button>
+                                <button class="practice-rate-sm practice-rate-sm--no" (click)="rate('incorrect')">✗</button>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+
+                } @else {
+
+                <div class="practice-reveal-area">
+                    <div class="practice-compare">
+                        <div class="practice-compare-column">
+                            <p class="practice-compare-label">{{ 'practice.card.yourAnswerLabel' | translate }}</p>
+                            <p class="practice-compare-text">{{ userAnswer() }}</p>
+                        </div>
+                        <div class="practice-compare-column practice-compare-column--sample">
+                            <p class="practice-compare-label practice-compare-label--green">{{ 'practice.card.sampleAnswerLabel' | translate }}</p>
+                            <p class="practice-compare-text">{{ q.sampleAnswer }}</p>
+                        </div>
                     </div>
                 </div>
 
@@ -256,6 +280,21 @@
                     </div>
                     @if (jumpDropOpen() && jumpSearch().trim()) {
                     <div class="practice-jump-panel">
+                        @if (categoryResults().length) {
+                        <p class="practice-jump-group">{{ 'practice.jump.categoriesGroup' | translate }}</p>
+                        @for (category of categoryResults(); track category.id) {
+                        <button type="button" class="practice-jump-option"
+                            [class.practice-jump-option--current]="selectedCategory() === category.name"
+                            (click)="selectCategoryFromSearch(category.name)">
+                            <span class="practice-jump-option-dot" [style.background-color]="category.color"></span>
+                            <span class="practice-jump-option-text">{{ category.name }}</span>
+                            <span class="practice-jump-option-index">{{ categoryCount(category.name) }}</span>
+                        </button>
+                        }
+                        }
+
+                        @if (jumpResults().length) {
+                        <p class="practice-jump-group">{{ 'practice.jump.questionsGroup' | translate }}</p>
                         @for (item of jumpResults(); track item.q.id) {
                         <button type="button" class="practice-jump-option" [class.practice-jump-option--current]="item.index === currentIdx()"
                             (click)="jumpToQuestion(item.index)">
@@ -264,24 +303,15 @@
                             <span class="practice-jump-option-text">{{ item.q.question }}</span>
                             <span class="practice-jump-option-index">#{{ item.index + 1 }}</span>
                         </button>
-                        } @empty {
+                        }
+                        }
+
+                        @if (!categoryResults().length && !jumpResults().length) {
                         <p class="practice-jump-empty">{{ 'practice.jump.noResults' | translate }}</p>
                         }
                     </div>
                     }
                 </div>
-
-                @if (showCategorySearch()) {
-                <div class="practice-cat-search-wrap">
-                    <svg class="practice-cat-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8" />
-                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                    </svg>
-                    <input class="practice-cat-search" type="text" [ngModel]="categorySearch()"
-                        (ngModelChange)="categorySearch.set($event)" [placeholder]="'practice.categories.searchPlaceholder' | translate" />
-                </div>
-                }
 
                 <div class="practice-cat-list">
                     <button class="practice-cat-row practice-cat-row--all practice-cat-row--with-progress" [class.practice-cat-row--active]="!hasActiveFilters()"
@@ -348,7 +378,7 @@
 
                     <span class="practice-cat-divider"></span>
 
-                    @for (category of visibleCategories(); track category.id) {
+                    @for (category of practice.categories(); track category.id) {
                     <button class="practice-cat-row practice-cat-row--with-progress" [class.practice-cat-row--active]="selectedCategory() === category.name"
                         (click)="toggleCategoryFilter(category.name)">
                         <span class="practice-cat-row-main">

@@ -139,8 +139,9 @@
   align-items: center;
   gap: var(--gap-card);
   padding: var(--space-3-5) var(--space-6);
-  background-color: var(--clr-dark-2);
-  color: var(--clr-white);
+  background-color: var(--clr-white);
+  border-top: 1px solid var(--clr-border);
+  color: var(--clr-dark);
   flex-wrap: wrap;
   animation: bar-in 0.18s ease-out;
 }
@@ -160,13 +161,13 @@
 .bulk-bar-count {
   font-size: 0.8125rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--clr-muted);
   white-space: nowrap;
   margin-right: var(--space-1);
 }
 
 .bulk-bar-count strong {
-  color: var(--clr-white);
+  color: var(--clr-dark);
   font-weight: 700;
 }
 
@@ -177,15 +178,18 @@
   flex: 1;
 }
 
+/* The pill carries the status colour itself: picking a status is the bar's
+   whole job, so the colour belongs on the target rather than on a dot next to
+   it. The component binds --bulk-bar-target-color per column. */
 .bulk-bar-target {
+  --bulk-bar-target-color: var(--clr-muted);
   display: flex;
   align-items: center;
-  gap: var(--space-1-5);
   padding: var(--space-1-5) var(--space-3-5);
   border-radius: var(--radius-full);
-  border: 1.5px solid rgba(255, 255, 255, 0.15);
-  background: transparent;
-  color: rgba(255, 255, 255, 0.85);
+  border: 1.5px solid color-mix(in srgb, var(--bulk-bar-target-color) 38%, transparent);
+  background-color: color-mix(in srgb, var(--bulk-bar-target-color) 12%, var(--clr-white));
+  color: var(--bulk-bar-target-color);
   font-family: 'Poppins', sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
@@ -195,25 +199,18 @@
 }
 
 .bulk-bar-target:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.4);
+  background-color: var(--bulk-bar-target-color);
+  border-color: var(--bulk-bar-target-color);
   color: var(--clr-white);
-}
-
-.bulk-bar-dot {
-  width: var(--space-2);
-  height: var(--space-2);
-  border-radius: var(--radius-full);
-  flex-shrink: 0;
 }
 
 .bulk-bar-cancel {
   width: var(--space-8);
   height: var(--space-8);
   border-radius: var(--radius-full);
-  border: 1.5px solid rgba(255, 255, 255, 0.15);
-  background: transparent;
-  color: rgba(255, 255, 255, 0.6);
+  border: none;
+  background-color: var(--clr-bg);
+  color: var(--clr-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -224,8 +221,8 @@
 }
 
 .bulk-bar-cancel:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--clr-white);
+  background-color: var(--clr-border);
+  color: var(--clr-dark);
 }
 
 @media (max-width: 767px) {

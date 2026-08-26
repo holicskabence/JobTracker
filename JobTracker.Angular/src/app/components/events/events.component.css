@@ -221,22 +221,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: 1.5px solid var(--clr-border);
+  background-color: var(--clr-bg);
+  border: none;
   border-radius: var(--radius-md);
   padding: var(--padding-button);
   font-family: 'Poppins', sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--clr-muted);
+  color: var(--clr-dark);
   cursor: pointer;
   white-space: nowrap;
-  transition: border-color 0.2s, color 0.2s;
+  transition: background-color 0.2s;
 }
 
 .events-cancel-button:hover {
-  border-color: var(--clr-dark);
-  color: var(--clr-dark);
+  background-color: var(--clr-border);
 }
 
 .events-filter-row {
@@ -336,7 +335,6 @@
 .events-card {
   position: relative;
   border: 1.5px solid var(--clr-border);
-  border-left-width: 4px;
   padding: var(--space-5);
   transition: box-shadow 0.2s, border-color 0.2s;
   min-width: 0;
@@ -349,7 +347,6 @@
 
 .events-card--editing {
   border-color: var(--clr-green);
-  border-left-color: var(--clr-green) !important;
   box-shadow: 0 0 0 3px rgba(38, 172, 0, 0.1);
 }
 
@@ -395,65 +392,9 @@
   text-overflow: ellipsis;
 }
 
-.events-card-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--space-2);
-  flex-shrink: 0;
-}
-
-.events-card-when {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--space-0-5);
-}
-
-.events-card-relative {
-  font-size: 0.8125rem;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.events-card-datetime {
-  font-size: 0.6875rem;
-  font-weight: 600;
-  color: var(--clr-muted);
-  white-space: nowrap;
-}
-
-.events-card-buttons {
-  display: flex;
-  gap: var(--space-1);
-}
-
-.events-card-button {
-  width: 1.875rem;
-  height: 1.875rem;
-  border: none;
-  border-radius: var(--radius-sm);
-  background: transparent;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.15s, color 0.15s;
-  color: var(--clr-muted);
-}
-
-.events-card-button--edit:hover {
-  background-color: rgba(38, 172, 0, 0.1);
-  color: var(--clr-green);
-}
-
-.events-card-button--del:hover {
-  background-color: #fff0f0;
-  color: #ef4444;
-}
-
 .events-card-actions {
   position: relative;
+  flex-shrink: 0;
 }
 
 .events-card-menu-trigger {
@@ -533,15 +474,21 @@
   background-color: #fff0f0;
 }
 
+.events-card-time {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--clr-muted);
+  white-space: nowrap;
+}
+
 .events-card-notes {
   font-size: 0.8125rem;
   color: var(--clr-muted);
-  background-color: var(--clr-bg-2);
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--clr-border);
   line-height: 1.6;
-  margin: 0;
+  margin: var(--space-2-5) 0 0;
   overflow-wrap: break-word;
   word-break: break-word;
 }
@@ -690,7 +637,7 @@
 .events-task-add {
   width: 2.375rem;
   height: 2.375rem;
-  background-color: var(--clr-dark);
+  background-color: var(--clr-green);
   color: var(--clr-white);
   border: none;
   border-radius: var(--radius-md);
@@ -703,7 +650,7 @@
 }
 
 .events-task-add:hover {
-  background-color: #000;
+  background-color: var(--clr-green-dk);
 }
 
 .events-task-list {
@@ -814,8 +761,6 @@
   }
 
   .events-card-top {
-    flex-wrap: wrap;
-    row-gap: var(--space-2-5);
     margin-bottom: var(--space-2);
     padding-right: var(--space-10);
   }
@@ -826,32 +771,14 @@
     font-size: 0.8125rem;
   }
 
-  .events-card-right {
-    flex-basis: 100%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    flex-shrink: 0;
-    gap: var(--space-2);
-  }
-
   .events-card-actions {
     position: absolute;
     top: var(--space-4);
     right: var(--space-4);
   }
 
-  .events-card-when {
-    align-items: flex-start;
-  }
-
-  .events-card-relative {
-    font-size: 0.75rem;
-  }
-
-  .events-card-button {
-    width: 2.25rem;
-    height: 2.25rem;
+  .events-card-time {
+    font-size: 0.6875rem;
   }
 
   .events-card-menu-trigger {

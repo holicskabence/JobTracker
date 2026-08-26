@@ -1,6 +1,7 @@
 .landing-v2-dashboard-preview {
     background: #fcfcfd;
     padding-top: 0;
+    border-top: 1px solid var(--landing-v2-line);
 }
 
 .landing-v2-dashboard-preview-inner {
@@ -82,9 +83,6 @@
     min-width: 0;
 }
 
-/* --- Medium screens ------------------------------------------------------ */
-/* The mockup is a fixed-size piece of interface: below roughly 1700px the
-   split leaves it too little room, so the copy moves above it. */
 @media (max-width: 1700px) {
     .landing-v2-dashboard-preview-inner {
         grid-template-columns: minmax(0, 1fr);

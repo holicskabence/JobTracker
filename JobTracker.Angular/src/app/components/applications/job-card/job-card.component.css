@@ -87,3 +87,14 @@
   background-color: var(--clr-green);
   color: var(--clr-white);
 }
+
+/* On mobile the edit / open-link actions live in the three-dot menu instead */
+@media (max-width: 767px) {
+  .card-actions {
+    display: none;
+  }
+
+  .card-footer {
+    padding-top: var(--space-2-5);
+  }
+}
