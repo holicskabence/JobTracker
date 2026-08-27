@@ -85,4 +85,10 @@
   .search-toolbar-count {
     display: none;
   }
+
+  /* Mobilon a kereso a teljes sort kitolti, nincs szelesseg-plafon. */
+  .search-toolbar-search-wrap,
+  :host(.search-toolbar--compact) .search-toolbar-search-wrap {
+    max-width: none;
+  }
 }

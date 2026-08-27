@@ -241,5 +241,6 @@
   .table-view-container {
     overflow-y: auto;
     overflow-x: hidden;
+    padding-top: 0;
   }
 }

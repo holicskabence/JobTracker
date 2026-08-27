@@ -43,7 +43,6 @@
   background-color: var(--clr-bg);
   border-radius: var(--radius-md);
   padding: var(--space-1);
-  margin-bottom: var(--space-4);
   box-sizing: border-box;
 }
 
@@ -74,6 +73,7 @@
 }
 
 @media (max-width: 860px) {
+
   .events-tabs,
   .events-tab {
     width: 100%;
@@ -329,7 +329,7 @@
 .events-list {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-form);
+  gap: var(--gap-section);
 }
 
 .events-card {
@@ -341,13 +341,8 @@
   cursor: pointer;
 }
 
-.events-card:hover {
-  box-shadow: 0 4px 14px var(--clr-shadow-md);
-}
-
 .events-card--editing {
   border-color: var(--clr-green);
-  box-shadow: 0 0 0 3px rgba(38, 172, 0, 0.1);
 }
 
 .events-card-top {
@@ -668,15 +663,11 @@
   padding: var(--space-3);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-md);
-  transition: border-color 0.15s, opacity 0.2s;
+  transition: border-color 0.15s;
 }
 
 .events-task:hover {
   border-color: var(--clr-muted);
-}
-
-.events-task--done {
-  opacity: 0.55;
 }
 
 .events-task-check {
@@ -693,10 +684,6 @@
   transition: border-color 0.15s, background-color 0.15s;
 }
 
-.events-task-check:hover {
-  border-color: var(--clr-green);
-}
-
 .events-task-check--done {
   background-color: var(--clr-green);
   border-color: var(--clr-green);
@@ -704,6 +691,7 @@
 
 .events-task-text {
   flex: 1;
+  transition: color 0.15s, opacity 0.2s;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--clr-dark);
@@ -716,6 +704,7 @@
 .events-task--done .events-task-text {
   text-decoration: line-through;
   color: var(--clr-muted);
+  opacity: 0.55;
 }
 
 .events-task-del {
@@ -739,10 +728,6 @@
 }
 
 @media (max-width: 767px) {
-  .events-left {
-    gap: var(--space-4);
-  }
-
   .events-form-card {
     padding: var(--space-4);
   }
@@ -806,5 +791,28 @@
   .events-cancel-button {
     width: 100%;
     padding: var(--space-2-5) var(--space-4);
+  }
+}
+
+/* In tab mode the visible panel fills the leftover page height,
+   so a short or empty list doesn't leave a gap under the card. */
+@media (max-width: 1399px) {
+  .events-grid {
+    flex: 1;
+    align-items: stretch;
+  }
+
+  .events-list,
+  .events-task-list {
+    flex: 1 0 auto;
+  }
+
+  .events-task-list {
+    max-height: none;
+  }
+
+  .events-empty,
+  .events-task-empty {
+    flex: 1;
   }
 }

@@ -43,7 +43,6 @@
   background-color: var(--clr-bg);
   border-radius: var(--radius-md);
   padding: var(--space-1);
-  margin-bottom: var(--space-4);
   box-sizing: border-box;
 }
 
@@ -656,10 +655,6 @@
 }
 
 @media (max-width: 767px) {
-  .documents-left {
-    gap: var(--space-4);
-  }
-
   .documents-form-card {
     padding: var(--space-4);
   }

@@ -450,7 +450,6 @@
     flex: 1;
     min-height: 0;
     max-height: 800px;
-    padding-bottom: calc(var(--space-12) + env(safe-area-inset-bottom));
 }
 
 .practice-aside {
@@ -693,7 +692,8 @@
     padding: var(--space-3) var(--space-4);
     border: 1px dashed var(--clr-border);
     border-radius: var(--radius-md);
-    background: transparent;
+    border-color: rgba(38, 172, 0, 0.25);
+    background: rgba(38, 172, 0, 0.04);
     font-family: 'Poppins', sans-serif;
     text-align: left;
     cursor: pointer;
@@ -701,14 +701,11 @@
 }
 
 .practice-hint-toggle:hover {
-    background: var(--clr-bg);
-    border-color: var(--clr-muted);
+    border-color: var(--clr-green);
 }
 
 .practice-hint-toggle--open {
     border-style: solid;
-    border-color: rgba(38, 172, 0, 0.25);
-    background: rgba(38, 172, 0, 0.04);
 }
 
 .practice-hint-icon-circle {
@@ -784,8 +781,8 @@
     width: 100%;
     flex: 1;
     min-height: 9rem;
-    background: transparent;
-    border: 1px solid var(--clr-green);
+    background: rgba(38, 172, 0, 0.025);
+    border: 1px solid var(--clr-bg);
     border-radius: var(--radius-md);
     padding: var(--space-4) var(--space-5);
     font-family: 'Poppins', sans-serif;
@@ -2105,7 +2102,6 @@
     }
 }
 
-/* Mobile: shrink the flashcard's text to something reasonable for a small screen. */
 @media (max-width: 600px) {
     .practice-tab {
         padding: var(--space-2) var(--space-2-5);
@@ -2113,7 +2109,8 @@
     }
 
     .practice-body {
-        gap: var(--space-4);
+        gap: var(--gap-section);
+        padding-bottom: calc(var(--space-12) + env(safe-area-inset-bottom));
     }
 
     .practice-card {

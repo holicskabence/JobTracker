@@ -140,7 +140,6 @@
     gap: var(--space-0-5);
     padding: var(--space-3) var(--space-2);
     overflow: hidden;
-    /* clips labels during width transition */
 }
 
 .sidebar-button {
@@ -156,7 +155,7 @@
     justify-content: flex-start;
     gap: var(--gap-card);
     padding: 0 var(--space-4);
-    transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.2s, color 0.2s, padding 0.25s cubic-bezier(0.4, 0, 0.2, 1), gap 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
     overflow: hidden;
     flex-shrink: 0;
@@ -164,18 +163,16 @@
     text-decoration: none;
 }
 
+.sidebar-button:hover {
+    background-color: var(--clr-bg);
+}
+
 .sidebar-button:hover:not(.sidebar-button--active) {
-    background-color: rgba(234, 232, 229, 0.6);
     color: var(--clr-dark);
 }
 
 .sidebar-button--active {
-    background-color: rgba(38, 172, 0, 0.08);
     color: var(--clr-green);
-}
-
-.sidebar-button--active:hover {
-    background-color: rgba(38, 172, 0, 0.16);
 }
 
 .sidebar-icon {
@@ -241,7 +238,7 @@
     flex-shrink: 0;
     cursor: pointer;
     border-radius: var(--radius-md);
-    transition: background-color 0.15s;
+    transition: background-color 0.15s, padding 0.25s cubic-bezier(0.4, 0, 0.2, 1), gap 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar-user:hover {
@@ -280,7 +277,7 @@
     flex: 1;
     overflow: hidden;
     opacity: 0;
-    transition: opacity 0.15s;
+    transition: opacity 0.15s, max-width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar--expanded .sidebar-user-info {
@@ -313,4 +310,20 @@
 .sidebar-button--logout:hover {
     background-color: rgba(239, 68, 68, 0.12) !important;
     color: #ef4444 !important;
+}
+
+@media (min-width: 768px) {
+
+    .sidebar:not(.sidebar--expanded) .sidebar-button,
+    .sidebar:not(.sidebar--expanded) .sidebar-user {
+        justify-content: center;
+        gap: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .sidebar:not(.sidebar--expanded) .sidebar-user-info {
+        flex: 0 0 0;
+        max-width: 0;
+    }
 }
