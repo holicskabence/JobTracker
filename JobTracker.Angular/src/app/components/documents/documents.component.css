@@ -82,7 +82,7 @@
 }
 
 .documents-form-title {
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--clr-dark);
   margin-bottom: var(--space-4);
@@ -316,7 +316,7 @@
 
 .documents-item-name {
   display: block;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--clr-dark);
   white-space: nowrap;
@@ -599,7 +599,7 @@
 }
 
 .documents-template-name {
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--clr-dark);
   margin: 0;

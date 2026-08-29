@@ -87,7 +87,7 @@
     background: transparent;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: var(--clr-dark);
     text-align: left;
     transition: background-color 0.1s;

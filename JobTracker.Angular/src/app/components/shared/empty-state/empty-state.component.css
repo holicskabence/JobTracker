@@ -11,7 +11,7 @@
 }
 
 .empty-state-message {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: var(--clr-muted);
     margin: 0;
 }

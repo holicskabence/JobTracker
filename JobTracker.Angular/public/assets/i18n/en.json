@@ -668,7 +668,9 @@
     "tabs": { "practice": "Practice", "questions": "Questions", "results": "Results" },
     "categories": {
       "title": "Categories",
-      "noMatch": "No matching category."
+      "noMatch": "No matching category.",
+      "showMore": "Show more",
+      "showLess": "Show less"
     },
     "filters": {
       "all": "All",
@@ -695,6 +697,17 @@
       "showHintSubtitle": "Reveal a hint to help you think through the answer.",
       "yourAnswerLabel": "YOUR ANSWER",
       "answerPlaceholder": "Type a draft of your answer or keywords…",
+      "answerFieldLabel": "Your answer",
+      "charactersSuffix": "characters",
+      "addBookmarkTitle": "Bookmark this question",
+      "removeBookmarkTitle": "Remove bookmark",
+      "formatBold": "Bold",
+      "formatItalic": "Italic",
+      "formatBulletList": "Bulleted list",
+      "formatNumberedList": "Numbered list",
+      "formatCode": "Code",
+      "formatLink": "Link",
+      "linkTextPlaceholder": "link text",
       "aiEvaluationBtn": "AI evaluation",
       "viewAnswerBtn": "View answer",
       "dontKnowBtn": "I don't know",

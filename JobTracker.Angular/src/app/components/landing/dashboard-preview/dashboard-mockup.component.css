@@ -97,7 +97,7 @@
 }
 
 .landing-dashboard-mockup-new-application-button {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #ffffff;
     background: var(--landing-green-gradient);
@@ -243,7 +243,7 @@
 }
 
 .landing-dashboard-mockup-interview-company {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #1b212b;
     line-height: 1.35;

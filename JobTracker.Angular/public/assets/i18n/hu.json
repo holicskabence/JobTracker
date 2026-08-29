@@ -668,7 +668,9 @@
     "tabs": { "practice": "Gyakorlás", "questions": "Kérdések", "results": "Eredmények" },
     "categories": {
       "title": "Kategóriák",
-      "noMatch": "Nincs ilyen kategória."
+      "noMatch": "Nincs ilyen kategória.",
+      "showMore": "Több megjelenítése",
+      "showLess": "Kevesebb megjelenítése"
     },
     "filters": {
       "all": "Mind",
@@ -695,6 +697,17 @@
       "showHintSubtitle": "Mutass egy tippet, ami segít végiggondolni a választ.",
       "yourAnswerLabel": "A TE VÁLASZOD",
       "answerPlaceholder": "Gépeld be a válaszod vázlatát vagy kulcsszavait…",
+      "answerFieldLabel": "A válaszod",
+      "charactersSuffix": "karakter",
+      "addBookmarkTitle": "Kérdés megjelölése könyvjelzővel",
+      "removeBookmarkTitle": "Könyvjelző eltávolítása",
+      "formatBold": "Félkövér",
+      "formatItalic": "Dőlt",
+      "formatBulletList": "Felsorolás",
+      "formatNumberedList": "Számozott lista",
+      "formatCode": "Kód",
+      "formatLink": "Hivatkozás",
+      "linkTextPlaceholder": "hivatkozás szövege",
       "aiEvaluationBtn": "AI értékelés",
       "viewAnswerBtn": "Válasz megtekintése",
       "dontKnowBtn": "Nem tudom",

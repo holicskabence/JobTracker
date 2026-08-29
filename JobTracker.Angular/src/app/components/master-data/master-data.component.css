@@ -436,7 +436,7 @@
     border-radius: var(--radius-md);
     background-color: var(--clr-bg);
     font-family: 'Poppins', sans-serif;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 500;
     color: var(--clr-dark);
     cursor: pointer;

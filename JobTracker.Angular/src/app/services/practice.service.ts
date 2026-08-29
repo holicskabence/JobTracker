@@ -6,6 +6,7 @@ import { FeedbackType, PracticeAttempt, PracticeCategory, PrepQuestion } from '.
 import { CreatePracticeQuestionPayload, PracticeApiService, UpdatePracticeQuestionPayload } from './practice-api.service';
 
 const PRACTICE_DATES_KEY = 'practice_dates';
+const PRACTICE_BOOKMARKS_KEY = 'practice_bookmarks';
 
 @Injectable({ providedIn: 'root' })
 export class PracticeService {
@@ -15,6 +16,7 @@ export class PracticeService {
   readonly error = signal<string>('');
 
   private readonly _practiceDates = signal<string[]>(this._loadDates());
+  private readonly _bookmarkedIds = signal<Set<number>>(this._loadBookmarks());
 
   readonly practiceStreak = computed(() => {
     const dates = new Set(this._practiceDates());
@@ -58,6 +60,26 @@ export class PracticeService {
   private _loadDates(): string[] {
     try { return JSON.parse(localStorage.getItem(PRACTICE_DATES_KEY) ?? '[]'); }
     catch { return []; }
+  }
+
+  private _loadBookmarks(): Set<number> {
+    try {
+      const parsed: unknown = JSON.parse(localStorage.getItem(PRACTICE_BOOKMARKS_KEY) ?? '[]');
+      if (!Array.isArray(parsed)) return new Set();
+      return new Set(parsed.filter((id): id is number => typeof id === 'number'));
+    }
+    catch { return new Set(); }
+  }
+
+  isBookmarked(questionId: number): boolean {
+    return this._bookmarkedIds().has(questionId);
+  }
+
+  toggleBookmark(questionId: number): void {
+    const updated = new Set(this._bookmarkedIds());
+    if (updated.has(questionId)) { updated.delete(questionId); } else { updated.add(questionId); }
+    localStorage.setItem(PRACTICE_BOOKMARKS_KEY, JSON.stringify([...updated]));
+    this._bookmarkedIds.set(updated);
   }
 
   private _saveToday(): void {

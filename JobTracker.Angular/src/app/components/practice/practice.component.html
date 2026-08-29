@@ -39,6 +39,16 @@
                             <span class="practice-deck-progress-fill" [style.width.%]="deckProgress()"></span>
                         </span>
                     </div>
+
+                    <button type="button" class="practice-bookmark-button"
+                        [class.practice-bookmark-button--active]="isBookmarked(q.id)" (click)="toggleBookmark(q.id)"
+                        [attr.aria-pressed]="isBookmarked(q.id)"
+                        [title]="(isBookmarked(q.id) ? 'practice.card.removeBookmarkTitle' : 'practice.card.addBookmarkTitle') | translate">
+                        <svg width="17" height="17" viewBox="0 0 24 24" [attr.fill]="isBookmarked(q.id) ? 'currentColor' : 'none'"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                        </svg>
+                    </button>
                 </div>
 
                 <h2 class="practice-question">{{ q.question }}</h2>
@@ -68,15 +78,69 @@
                 @if (!showSample()) {
 
                 <div class="practice-answer-block">
-                    <label class="practice-input-label">{{ 'practice.card.yourAnswerLabel' | translate }}</label>
-                    <textarea class="practice-textarea" [ngModel]="userAnswer()" (ngModelChange)="userAnswer.set($event)"
-                        rows="4" [placeholder]="'practice.card.answerPlaceholder' | translate"></textarea>
+                    <label class="practice-answer-label" for="practiceAnswerInput">{{ 'practice.card.answerFieldLabel' | translate }}</label>
+
+                    <div class="practice-answer-editor">
+                        <div class="practice-format-toolbar">
+                            <button type="button" class="practice-format-button practice-format-button--bold" (mousedown)="$event.preventDefault()"
+                                (click)="applyAnswerFormat('bold')" [title]="'practice.card.formatBold' | translate">B</button>
+                            <button type="button" class="practice-format-button practice-format-button--italic" (mousedown)="$event.preventDefault()"
+                                (click)="applyAnswerFormat('italic')" [title]="'practice.card.formatItalic' | translate">I</button>
+                            <button type="button" class="practice-format-button" (mousedown)="$event.preventDefault()" (click)="applyAnswerFormat('bulletList')"
+                                [title]="'practice.card.formatBulletList' | translate">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="9" y1="6" x2="20" y2="6" />
+                                    <line x1="9" y1="12" x2="20" y2="12" />
+                                    <line x1="9" y1="18" x2="20" y2="18" />
+                                    <circle cx="4.5" cy="6" r="1.3" fill="currentColor" stroke="none" />
+                                    <circle cx="4.5" cy="12" r="1.3" fill="currentColor" stroke="none" />
+                                    <circle cx="4.5" cy="18" r="1.3" fill="currentColor" stroke="none" />
+                                </svg>
+                            </button>
+                            <button type="button" class="practice-format-button" (mousedown)="$event.preventDefault()" (click)="applyAnswerFormat('numberedList')"
+                                [title]="'practice.card.formatNumberedList' | translate">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="10" y1="6" x2="20" y2="6" />
+                                    <line x1="10" y1="12" x2="20" y2="12" />
+                                    <line x1="10" y1="18" x2="20" y2="18" />
+                                    <path d="M4 5.5h1.2V10" stroke-width="1.7" />
+                                    <path d="M3.6 19h2.8" stroke-width="1.7" />
+                                    <path d="M3.6 15.2a1.4 1.4 0 1 1 2.4 1c-.5.6-2.4 1.9-2.4 2.8" stroke-width="1.7" />
+                                </svg>
+                            </button>
+                            <button type="button" class="practice-format-button" (mousedown)="$event.preventDefault()" (click)="applyAnswerFormat('code')"
+                                [title]="'practice.card.formatCode' | translate">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="16 18 22 12 16 6" />
+                                    <polyline points="8 6 2 12 8 18" />
+                                </svg>
+                            </button>
+                            <button type="button" class="practice-format-button" (mousedown)="$event.preventDefault()" (click)="applyAnswerFormat('link')"
+                                [title]="'practice.card.formatLink' | translate">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <textarea #answerInput id="practiceAnswerInput" class="practice-answer-textarea" [ngModel]="userAnswer()"
+                            (ngModelChange)="userAnswer.set($event)" rows="4" [maxlength]="answerMaxLength"
+                            [placeholder]="'practice.card.answerPlaceholder' | translate"></textarea>
+                    </div>
+
+                    <span class="practice-char-counter">
+                        {{ userAnswer().length }} / {{ answerMaxLength }} {{ 'practice.card.charactersSuffix' | translate }}
+                    </span>
                 </div>
 
                 <div class="practice-card-footer">
                     <div class="practice-footer-actions">
-                        <button class="practice-reveal-button" [disabled]="!userAnswer().trim()"
-                            (click)="revealSample()">
+                        <button class="practice-reveal-button" (click)="revealSample()">
                             @if (useAiEvaluation()) {
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -313,7 +377,7 @@
                     }
                 </div>
 
-                <div class="practice-cat-list">
+                <div class="practice-cat-list" [class.practice-cat-list--expanded]="categoriesExpanded()">
                     <button class="practice-cat-row practice-cat-row--all practice-cat-row--with-progress" [class.practice-cat-row--active]="!hasActiveFilters()"
                         (click)="clearFilters()">
                         <span class="practice-cat-row-main">
@@ -378,7 +442,7 @@
 
                     <span class="practice-cat-divider"></span>
 
-                    @for (category of practice.categories(); track category.id) {
+                    @for (category of visibleCategories(); track category.id) {
                     <button class="practice-cat-row practice-cat-row--with-progress" [class.practice-cat-row--active]="selectedCategory() === category.name"
                         (click)="toggleCategoryFilter(category.name)">
                         <span class="practice-cat-row-main">
@@ -395,6 +459,17 @@
                     <p class="practice-cat-empty">{{ 'practice.categories.noMatch' | translate }}</p>
                     }
                 </div>
+
+                @if (hasHiddenCategories()) {
+                <button type="button" class="practice-cat-more" (click)="toggleCategoriesExpanded()"
+                    [attr.aria-expanded]="categoriesExpanded()">
+                    {{ (categoriesExpanded() ? 'practice.categories.showLess' : 'practice.categories.showMore') | translate }}
+                    <svg class="practice-cat-more-chevron" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                }
             </app-card>
         </aside>
 

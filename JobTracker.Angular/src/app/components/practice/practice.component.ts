@@ -1,4 +1,4 @@
-import { Component, computed, HostListener, inject, signal } from '@angular/core';
+import { Component, computed, ElementRef, HostListener, inject, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PracticeService } from '../../services/practice.service';
@@ -15,6 +15,7 @@ import { DataTableComponent } from '../shared/data-table/data-table.component';
 type Tab = 'practice' | 'questions' | 'results';
 type FeedbackFilter = 'failed' | 'unanswered';
 type QSortKey = 'category' | 'question' | 'feedback';
+type AnswerFormat = 'bold' | 'italic' | 'bulletList' | 'numberedList' | 'code' | 'link';
 
 @Component({
   selector: 'app-practice',
@@ -70,6 +71,8 @@ export class PracticeComponent {
 
   readonly currentIdx = signal(0);
   readonly userAnswer = signal('');
+  readonly answerMaxLength = 5000;
+  private readonly answerInput = viewChild<ElementRef<HTMLTextAreaElement>>('answerInput');
   readonly hintOpen = signal(false);
   readonly showSample = signal(false);
   readonly dontKnowMode = signal(false);
@@ -117,6 +120,19 @@ export class PracticeComponent {
     if (total === 0) return 0;
     return ((this.currentIdx() + 1) / total) * 100;
   });
+
+  // ── Practice tab: category list (collapsed until "show more") ────────────────
+  private readonly collapsedCategoryCount = 10;
+  readonly categoriesExpanded = signal(false);
+
+  readonly visibleCategories = computed(() => {
+    const list = this.practice.categories();
+    return this.categoriesExpanded() ? list : list.slice(0, this.collapsedCategoryCount);
+  });
+
+  readonly hasHiddenCategories = computed(() =>
+    this.practice.categories().length > this.collapsedCategoryCount
+  );
 
   // ── Practice tab: jump-to-question search ───────────────────────────────────
   readonly jumpSearch = signal('');
@@ -278,7 +294,12 @@ export class PracticeComponent {
   }
 
   revealSample(): void {
-    if (!this.userAnswer().trim()) return;
+    // The button stays enabled so the action row never reads as unavailable; an empty
+    // answer just sends the caret back to the editor instead of burning an evaluation.
+    if (!this.userAnswer().trim()) {
+      this.answerInput()?.nativeElement.focus();
+      return;
+    }
     if (this.useAiEvaluation()) {
       this.requestAiEvaluation();
     } else {
@@ -421,6 +442,82 @@ export class PracticeComponent {
     this.goToIndex(index);
     this.jumpSearch.set('');
     this.jumpDropOpen.set(false);
+  }
+
+  toggleCategoriesExpanded(): void {
+    this.categoriesExpanded.update(expanded => !expanded);
+  }
+
+  isBookmarked(questionId: number): boolean {
+    return this.practice.isBookmarked(questionId);
+  }
+
+  toggleBookmark(questionId: number): void {
+    this.practice.toggleBookmark(questionId);
+  }
+
+  // ── Practice tab: markdown shortcuts for the answer editor ──────────────────
+  applyAnswerFormat(format: AnswerFormat): void {
+    const textarea = this.answerInput()?.nativeElement;
+    if (!textarea) return;
+
+    const value = textarea.value;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selected = value.slice(start, end);
+
+    if (format === 'bulletList' || format === 'numberedList') {
+      const blockStart = value.lastIndexOf('\n', start - 1) + 1;
+      const blockEnd = this.lineEndIndex(value, end);
+      const listed = value.slice(blockStart, blockEnd)
+        .split('\n')
+        .map((line, index) => (format === 'bulletList' ? '- ' : `${index + 1}. `) + line)
+        .join('\n');
+      this.replaceAnswerRange(textarea, blockStart, blockEnd, listed, listed.length);
+      return;
+    }
+
+    if (format === 'link') {
+      const label = selected || this.translate.instant('practice.card.linkTextPlaceholder');
+      const snippet = `[${label}](https://)`;
+      // Caret lands just inside the closing paren so the URL can be typed straight away.
+      this.replaceAnswerRange(textarea, start, end, snippet, snippet.length - 1);
+      return;
+    }
+
+    if (format === 'code' && selected.includes('\n')) {
+      const fence = '```';
+      const snippet = `${fence}\n${selected}\n${fence}`;
+      this.replaceAnswerRange(textarea, start, end, snippet, snippet.length);
+      return;
+    }
+
+    const wrapper = format === 'bold' ? '**' : format === 'italic' ? '*' : '`';
+    const snippet = `${wrapper}${selected}${wrapper}`;
+    this.replaceAnswerRange(textarea, start, end, snippet, selected ? snippet.length : wrapper.length);
+  }
+
+  private lineEndIndex(value: string, from: number): number {
+    const next = value.indexOf('\n', from);
+    return next === -1 ? value.length : next;
+  }
+
+  private replaceAnswerRange(
+    textarea: HTMLTextAreaElement,
+    start: number,
+    end: number,
+    text: string,
+    caretOffset: number
+  ): void {
+    const next = textarea.value.slice(0, start) + text + textarea.value.slice(end);
+    if (next.length > this.answerMaxLength) return;
+    this.userAnswer.set(next);
+    // The signal write only reaches the textarea on the next tick, so restore the caret after it.
+    const caret = start + caretOffset;
+    setTimeout(() => {
+      textarea.focus();
+      textarea.setSelectionRange(caret, caret);
+    });
   }
 
   openAddQuestionModal(): void {

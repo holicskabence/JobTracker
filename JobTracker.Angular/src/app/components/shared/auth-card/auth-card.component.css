@@ -60,7 +60,7 @@
 }
 
 .auth-card-subtitle {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: var(--clr-muted);
     margin: 0 0 var(--space-6);
     text-align: center;

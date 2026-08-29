@@ -46,7 +46,7 @@
 }
 
 .card-value-subtitle {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 500;
     color: var(--clr-muted);
 }
@@ -82,7 +82,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-1-5);
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 500;
 }
 
@@ -197,7 +197,7 @@
 }
 
 .ai-coach-text {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: var(--clr-muted);
     line-height: 1.55;
 }
@@ -344,7 +344,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 700;
     flex-shrink: 0;
 }
@@ -355,7 +355,7 @@
 }
 
 .timeline-company {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 700;
     color: var(--clr-dark);
     white-space: nowrap;
@@ -499,7 +499,7 @@
 }
 
 .recent-link {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--clr-green);
     background: none;
@@ -590,7 +590,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--clr-dark);
     min-width: 8rem;

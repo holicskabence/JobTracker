@@ -168,7 +168,7 @@
 
 .landing-analytics-card-change {
     margin-top: 0.1875rem;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: #8b929b;
 }
 
@@ -240,7 +240,7 @@
 .landing-analytics-funnel-total {
     margin-top: 1rem;
     text-align: center;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: #8b929b;
 }
 
@@ -322,7 +322,7 @@
     }
 
     .landing-analytics-paragraph {
-        font-size: 0.875rem;
+        font-size: 0.9rem;
     }
 
     .landing-analytics-checklist-item {
@@ -335,7 +335,7 @@
     }
 
     .landing-analytics-cta {
-        font-size: 0.875rem;
+        font-size: 0.9rem;
         padding: 0.6875rem 1.125rem;
     }
 
