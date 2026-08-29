@@ -670,7 +670,9 @@
       "title": "Categories",
       "noMatch": "No matching category.",
       "showMore": "Show more",
-      "showLess": "Show less"
+      "showLess": "Show less",
+      "collapseTitle": "Hide categories",
+      "expandTitle": "Show categories"
     },
     "filters": {
       "all": "All",
@@ -713,6 +715,8 @@
       "dontKnowBtn": "I don't know",
       "dontKnowTitle": "Show the sample answer without evaluating my answer",
       "backBtn": "Back",
+      "prevBtn": "Previous",
+      "nextBtn": "Next",
       "sampleAnswerLabel": "SAMPLE ANSWER",
       "didItSucceed": "Did it succeed?",
       "incorrectBtn": "Incorrect",

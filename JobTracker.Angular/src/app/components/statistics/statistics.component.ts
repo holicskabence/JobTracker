@@ -214,8 +214,20 @@ export class StatisticsComponent implements OnInit {
 
   private isResponded(status: string): boolean {
     const cfg = this.configOf(status);
-    return !!cfg && (cfg.isInterview || cfg.statsCategory !== 'None');
+    return !!cfg && (cfg.isInterview === true || (cfg.statsCategory ?? 'None') !== 'None');
   }
+
+  /** Jobs the company ever reacted to (interview, offer or rejection), via history + current status. */
+  private readonly everRespondedIds = computed(() => {
+    const ids = new Set<number>();
+    for (const j of this.store.jobs()) {
+      if (this.isResponded(j.status)) ids.add(j.id);
+    }
+    for (const h of this.history()) {
+      if (this.isResponded(h.newStatus)) ids.add(h.jobId);
+    }
+    return ids;
+  });
 
   /** First history entry (or none) marking a "response" (interview / success / rejected) for a job. */
   private firstResponseEntry(jobId: number): JobStatusHistoryEntry | null {
@@ -231,7 +243,7 @@ export class StatisticsComponent implements OnInit {
   private countInterview(jobs: Job[]): number { return jobs.filter(j => this.configOf(j.status)?.isInterview).length; }
   private countOffers(jobs: Job[]): number { return jobs.filter(j => this.configOf(j.status)?.statsCategory === 'Success').length; }
   private countRejections(jobs: Job[]): number { return jobs.filter(j => this.configOf(j.status)?.statsCategory === 'Rejected').length; }
-  private countResponded(jobs: Job[]): number { return jobs.filter(j => this.isResponded(j.status) || this.everInterviewedIds().has(j.id)).length; }
+  private countResponded(jobs: Job[]): number { return jobs.filter(j => this.everRespondedIds().has(j.id)).length; }
 
   private avgResponseDays(jobs: Job[]): number | null {
     const deltas: number[] = [];

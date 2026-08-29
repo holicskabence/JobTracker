@@ -4,6 +4,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PracticeService } from '../../services/practice.service';
 import { CreatePracticeQuestionPayload, PracticeApiService } from '../../services/practice-api.service';
 import { AuthService } from '../../services/auth.service';
+import { BreakpointService } from '../../services/breakpoint.service';
 import { FeedbackType, PracticeAttempt, PrepQuestion, QuestionCategory } from '../../models/practice.model';
 import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
@@ -29,6 +30,9 @@ export class PracticeComponent {
   private readonly api = inject(PracticeApiService);
   private readonly auth = inject(AuthService);
   private readonly translate = inject(TranslateService);
+  private readonly breakpoints = inject(BreakpointService);
+  // Same breakpoint the stylesheet uses to stack the aside above the deck.
+  readonly isCompactAside = this.breakpoints.watch('(max-width: 1200px)');
 
   // ── Tab navigation ──────────────────────────────────────────────────────────
   readonly activeTab = signal<Tab>('practice');
@@ -124,14 +128,22 @@ export class PracticeComponent {
   // ── Practice tab: category list (collapsed until "show more") ────────────────
   private readonly collapsedCategoryCount = 10;
   readonly categoriesExpanded = signal(false);
+  private readonly categoryList = viewChild<ElementRef<HTMLElement>>('categoryList');
+  // Expanding must never resize the aside: the list is frozen at the height it had
+  // while collapsed, so the extra categories scroll inside that same box.
+  readonly categoryListLockedHeight = signal<number | null>(null);
+  // On mobile the whole panel sits above the deck, so it starts folded away.
+  readonly categoriesPanelOpen = signal(false);
 
   readonly visibleCategories = computed(() => {
     const list = this.practice.categories();
+    // The compact panel is a scroll box, so it always carries the full list.
+    if (this.isCompactAside()) return list;
     return this.categoriesExpanded() ? list : list.slice(0, this.collapsedCategoryCount);
   });
 
   readonly hasHiddenCategories = computed(() =>
-    this.practice.categories().length > this.collapsedCategoryCount
+    !this.isCompactAside() && this.practice.categories().length > this.collapsedCategoryCount
   );
 
   // ── Practice tab: jump-to-question search ───────────────────────────────────
@@ -445,7 +457,17 @@ export class PracticeComponent {
   }
 
   toggleCategoriesExpanded(): void {
+    if (this.categoriesExpanded()) {
+      this.categoryListLockedHeight.set(null);
+    } else {
+      const element = this.categoryList()?.nativeElement;
+      this.categoryListLockedHeight.set(element ? Math.round(element.getBoundingClientRect().height) : null);
+    }
     this.categoriesExpanded.update(expanded => !expanded);
+  }
+
+  toggleCategoriesPanel(): void {
+    this.categoriesPanelOpen.update(open => !open);
   }
 
   isBookmarked(questionId: number): boolean {

@@ -44,18 +44,24 @@ export class JobStoreService {
     for (const h of this.statusHistory()) {
       if (configOf(h.newStatus)?.isInterview) everInterviewedIds.add(h.jobId);
     }
-    const everActiveIds = new Set<number>();
+    // A job counts as answered only once the company actually reacted: an interview
+    // round, an offer or a rejection. Sitting in an active status is not a response.
+    const isResponse = (status: string) => {
+      const cfg = configOf(status);
+      return !!cfg && (cfg.isInterview === true || (cfg.statsCategory ?? 'None') !== 'None');
+    };
+    const everRespondedIds = new Set<number>();
     for (const j of jobs) {
-      if (configOf(j.status)?.isActive) everActiveIds.add(j.id);
+      if (isResponse(j.status)) everRespondedIds.add(j.id);
     }
     for (const h of this.statusHistory()) {
-      if (configOf(h.newStatus)?.isActive) everActiveIds.add(h.jobId);
+      if (isResponse(h.newStatus)) everRespondedIds.add(h.jobId);
     }
 
     const offers = jobs.filter(j => configOf(j.status)?.statsCategory === 'Success').length;
     const rejects = jobs.filter(j => configOf(j.status)?.statsCategory === 'Rejected').length;
     const decided = offers + rejects;
-    const responded = jobs.filter(j => everActiveIds.has(j.id)).length;
+    const responded = jobs.filter(j => everRespondedIds.has(j.id)).length;
     const submitted = jobs.filter(j => {
       const cfg = configOf(j.status);
       return cfg?.isActive || cfg?.isInterview || (cfg?.statsCategory && cfg.statsCategory !== 'None');

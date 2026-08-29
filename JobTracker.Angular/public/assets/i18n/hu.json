@@ -670,7 +670,9 @@
       "title": "Kategóriák",
       "noMatch": "Nincs ilyen kategória.",
       "showMore": "Több megjelenítése",
-      "showLess": "Kevesebb megjelenítése"
+      "showLess": "Kevesebb megjelenítése",
+      "collapseTitle": "Kategóriák elrejtése",
+      "expandTitle": "Kategóriák megjelenítése"
     },
     "filters": {
       "all": "Mind",
@@ -713,6 +715,8 @@
       "dontKnowBtn": "Nem tudom",
       "dontKnowTitle": "Mintaválasz megjelenítése értékelés nélkül",
       "backBtn": "Vissza",
+      "prevBtn": "Előző",
+      "nextBtn": "Következő",
       "sampleAnswerLabel": "MINTAVÁLASZ",
       "didItSucceed": "Sikerült?",
       "incorrectBtn": "Helytelen",

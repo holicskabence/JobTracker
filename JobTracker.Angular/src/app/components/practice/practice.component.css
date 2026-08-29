@@ -30,9 +30,11 @@
     text-overflow: ellipsis;
 }
 
-.practice-tab:hover:not(.practice-tab--active) {
-    color: var(--clr-dark);
-    background: rgba(255, 255, 255, 0.6);
+@media (hover: hover) {
+    .practice-tab:hover:not(.practice-tab--active) {
+        color: var(--clr-dark);
+        background: rgba(255, 255, 255, 0.6);
+    }
 }
 
 .practice-tab--active {
@@ -70,6 +72,44 @@
     padding: 1px var(--space-2);
 }
 
+.practice-categories-header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+/* Folding the panel away only makes sense on mobile, where it sits above the deck. */
+.practice-categories-collapse {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--clr-muted);
+    cursor: pointer;
+}
+
+.practice-categories-collapse-chevron {
+    transition: transform 0.2s;
+}
+
+.practice-categories-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+/* The built-in filters sit above the scroll area so they stay reachable. */
+.practice-cat-filters {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-0-5);
+    flex-shrink: 0;
+    padding-right: var(--space-2);
+}
+
 .practice-cat-list {
     display: flex;
     flex-direction: column;
@@ -95,12 +135,10 @@
     border-radius: var(--radius-sm);
 }
 
-.practice-cat-list::-webkit-scrollbar-thumb:hover {
-    background: var(--clr-muted);
-}
-
-.practice-cat-list--expanded {
-    max-height: 26rem;
+@media (hover: hover) {
+    .practice-cat-list::-webkit-scrollbar-thumb:hover {
+        background: var(--clr-muted);
+    }
 }
 
 .practice-cat-more {
@@ -123,10 +161,12 @@
     transition: all 0.2s;
 }
 
-.practice-cat-more:hover {
-    background: rgba(38, 172, 0, 0.09);
-    border-color: rgba(38, 172, 0, 0.35);
-    color: var(--clr-green-dk);
+@media (hover: hover) {
+    .practice-cat-more:hover {
+        background: rgba(38, 172, 0, 0.09);
+        border-color: rgba(38, 172, 0, 0.35);
+        color: var(--clr-green-dk);
+    }
 }
 
 .practice-cat-more-chevron {
@@ -187,8 +227,10 @@
     transition: width 0.3s ease-out;
 }
 
-.practice-cat-row:hover:not(.practice-cat-row--active) {
-    background: var(--clr-bg);
+@media (hover: hover) {
+    .practice-cat-row:hover:not(.practice-cat-row--active) {
+        background: var(--clr-bg);
+    }
 }
 
 .practice-cat-row--active {
@@ -261,6 +303,12 @@
     text-align: center;
 }
 
+.practice-cat-row-chevron {
+    display: none;
+    flex-shrink: 0;
+    color: var(--clr-muted);
+}
+
 .practice-cat-row--active .practice-cat-row-count {
     background: rgba(38, 172, 0, 0.14);
     color: var(--clr-green-dk);
@@ -307,9 +355,11 @@
     transition: all 0.15s;
 }
 
-.practice-pill:hover {
-    border-color: var(--clr-green);
-    color: var(--clr-dark);
+@media (hover: hover) {
+    .practice-pill:hover {
+        border-color: var(--clr-green);
+        color: var(--clr-dark);
+    }
 }
 
 .practice-pill--active {
@@ -319,10 +369,12 @@
     font-weight: 600;
 }
 
-.practice-pill--active:hover {
-    background: var(--clr-green-dk);
-    border-color: var(--clr-green-dk);
-    color: #fff;
+@media (hover: hover) {
+    .practice-pill--active:hover {
+        background: var(--clr-green-dk);
+        border-color: var(--clr-green-dk);
+        color: #fff;
+    }
 }
 
 .practice-jump-wrap {
@@ -385,9 +437,11 @@
     transition: background-color 0.15s;
 }
 
-.practice-jump-search-clear:hover {
-    background-color: var(--clr-muted);
-    color: #fff;
+@media (hover: hover) {
+    .practice-jump-search-clear:hover {
+        background-color: var(--clr-muted);
+        color: #fff;
+    }
 }
 
 .practice-jump-panel {
@@ -439,8 +493,10 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.practice-jump-option:hover {
-    background-color: var(--clr-bg);
+@media (hover: hover) {
+    .practice-jump-option:hover {
+        background-color: var(--clr-bg);
+    }
 }
 
 .practice-jump-option--current {
@@ -544,49 +600,89 @@
         padding: var(--space-2-5) var(--space-3);
     }
 
+    /* The panel stacks above the deck here, so it folds shut and the list scrolls. */
+    .practice-categories-collapse {
+        display: inline-flex;
+    }
+
+    .practice-categories-collapse[aria-expanded="false"] .practice-categories-collapse-chevron {
+        transform: rotate(-90deg);
+    }
+
+    .practice-categories-body--collapsed {
+        display: none;
+    }
+
     .practice-cat-list {
         flex: none;
+        max-height: 15rem;
+    }
+
+    /* Built-in filters turn into a chip row above the category list. */
+    .practice-cat-filters {
         flex-direction: row;
-        max-height: none;
-        overflow-x: auto;
-        overflow-y: hidden;
-        padding-bottom: var(--space-2-5);
-        mask-image: linear-gradient(to right, black calc(100% - var(--space-7)), transparent);
-        -webkit-mask-image: linear-gradient(to right, black calc(100% - var(--space-7)), transparent);
+        flex-wrap: wrap;
+        gap: var(--space-2);
+        padding-right: 0;
+        margin-bottom: var(--space-2-5);
     }
 
-    .practice-cat-row {
+    .practice-cat-filters .practice-cat-row {
+        flex: 1 1 auto;
         width: auto;
-        flex-shrink: 0;
-        border-left: none;
-        border-bottom: 3px solid transparent;
-        border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+        justify-content: center;
+        border: 1px solid var(--clr-border);
+        border-radius: var(--radius-md);
+        padding: var(--space-2) var(--space-3);
     }
 
-    .practice-cat-row--with-progress {
-        min-width: 108px;
+    .practice-cat-filters .practice-cat-row--with-progress {
+        flex-direction: row;
+        align-items: center;
     }
 
-    .practice-cat-row--active {
-        border-left-color: transparent;
-        border-bottom-color: var(--clr-green);
+    .practice-cat-filters .practice-cat-row-main {
+        width: auto;
     }
 
-    .practice-cat-row--failed.practice-cat-row--active {
-        border-left-color: transparent;
-        border-bottom-color: var(--clr-red);
+    .practice-cat-filters .practice-cat-row-name {
+        flex: 0 1 auto;
     }
 
-    .practice-cat-row--unanswered.practice-cat-row--active {
-        border-left-color: transparent;
-        border-bottom-color: var(--clr-blue);
+    .practice-cat-filters .practice-cat-row--active {
+        background: transparent;
+        border-color: var(--clr-green);
+    }
+
+    .practice-cat-filters .practice-cat-row--failed.practice-cat-row--active {
+        border-color: var(--clr-red);
+    }
+
+    .practice-cat-filters .practice-cat-row--unanswered.practice-cat-row--active {
+        border-color: var(--clr-blue);
+    }
+
+    /* Shuffle is the odd one out, so it takes the row under the three chips. */
+    .practice-cat-row--shuffle {
+        flex-basis: 100%;
     }
 
     .practice-cat-divider {
-        width: 1px;
-        height: auto;
-        align-self: stretch;
-        margin: 0 var(--space-1);
+        display: none;
+    }
+
+    /* Category rows trade the mastery bar for a chevron and stay single-line. */
+    .practice-cat-list .practice-cat-row--with-progress {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .practice-cat-row-progress-track {
+        display: none;
+    }
+
+    .practice-cat-row-chevron {
+        display: block;
     }
 }
 
@@ -603,7 +699,7 @@
     flex: 1;
     min-height: 0;
     padding: var(--space-7);
-    gap: var(--space-4);
+    gap: var(--space-5);
 }
 
 .practice-card--empty {
@@ -616,8 +712,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    row-gap: var(--space-2);
-    gap: var(--space-2-5);
+    gap: var(--space-10);
 }
 
 .practice-category-badge {
@@ -708,11 +803,18 @@
     margin: 0;
 }
 
-.practice-index-input:hover,
 .practice-index-input:focus {
     border-color: var(--clr-border);
     background: var(--clr-bg);
     outline: none;
+}
+
+@media (hover: hover) {
+    .practice-index-input:hover {
+        border-color: var(--clr-border);
+        background: var(--clr-bg);
+        outline: none;
+    }
 }
 
 .practice-bookmark-button {
@@ -730,10 +832,12 @@
     transition: all 0.15s;
 }
 
-.practice-bookmark-button:hover {
-    background: var(--clr-bg);
-    border-color: var(--clr-muted);
-    color: var(--clr-dark);
+@media (hover: hover) {
+    .practice-bookmark-button:hover {
+        background: var(--clr-bg);
+        border-color: var(--clr-muted);
+        color: var(--clr-dark);
+    }
 }
 
 .practice-bookmark-button--active {
@@ -767,8 +871,10 @@
     transition: background 0.2s, border-color 0.2s;
 }
 
-.practice-hint-toggle:hover {
-    border-color: var(--clr-green);
+@media (hover: hover) {
+    .practice-hint-toggle:hover {
+        border-color: var(--clr-green);
+    }
 }
 
 .practice-hint-toggle--open {
@@ -821,7 +927,7 @@
 .practice-answer-block {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--space-3);
     flex: 1;
     min-height: 0;
 }
@@ -848,8 +954,7 @@
     flex-direction: column;
     flex: 1;
     min-height: 0;
-    background: rgba(38, 172, 0, 0.025);
-    border: 1px solid var(--clr-bg);
+    border: 1px solid var(--clr-border);
     border-radius: var(--radius-md);
     overflow: hidden;
     transition: border-color 0.2s, box-shadow 0.2s;
@@ -861,7 +966,7 @@
 }
 
 .practice-format-toolbar {
-    display: flex;
+    display: none;
     align-items: center;
     gap: var(--space-1);
     flex-shrink: 0;
@@ -886,9 +991,11 @@
     transition: background 0.15s, color 0.15s;
 }
 
-.practice-format-button:hover {
-    background: rgba(38, 172, 0, 0.09);
-    color: var(--clr-green-dk);
+@media (hover: hover) {
+    .practice-format-button:hover {
+        background: rgba(38, 172, 0, 0.09);
+        color: var(--clr-green-dk);
+    }
 }
 
 .practice-format-button--bold {
@@ -979,10 +1086,12 @@
     transition: all 0.2s;
 }
 
-.practice-dontknow-button:hover {
-    background: var(--clr-bg);
-    color: var(--clr-dark);
-    border-color: var(--clr-muted);
+@media (hover: hover) {
+    .practice-dontknow-button:hover {
+        background: var(--clr-bg);
+        color: var(--clr-dark);
+        border-color: var(--clr-muted);
+    }
 }
 
 .practice-reveal-button {
@@ -995,14 +1104,16 @@
     border-radius: var(--radius-full);
     padding: var(--space-2-5) var(--space-5);
     font-family: 'Poppins', sans-serif;
-    font-size: 0.8125rem;
+    font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
 }
 
-.practice-reveal-button:hover {
-    background: var(--clr-green-dk);
+@media (hover: hover) {
+    .practice-reveal-button:hover {
+        background: var(--clr-green-dk);
+    }
 }
 
 .practice-nav {
@@ -1024,9 +1135,15 @@
     transition: all 0.15s;
 }
 
-.practice-nav-button:hover:not(:disabled) {
-    background: var(--clr-bg);
-    border-color: var(--clr-muted);
+.practice-nav-button-label {
+    display: none;
+}
+
+@media (hover: hover) {
+    .practice-nav-button:hover:not(:disabled) {
+        background: var(--clr-bg);
+        border-color: var(--clr-muted);
+    }
 }
 
 .practice-nav-button:disabled {
@@ -1092,10 +1209,12 @@
     transition: all 0.2s;
 }
 
-.practice-back-button:hover {
-    background: var(--clr-bg);
-    color: var(--clr-dark);
-    border-color: var(--clr-muted);
+@media (hover: hover) {
+    .practice-back-button:hover {
+        background: var(--clr-bg);
+        color: var(--clr-dark);
+        border-color: var(--clr-muted);
+    }
 }
 
 .practice-rating-row--compact {
@@ -1135,10 +1254,12 @@
     color: var(--clr-red);
 }
 
-.practice-rate-button--no:hover {
-    background: var(--clr-red);
-    border-color: var(--clr-red);
-    color: #fff;
+@media (hover: hover) {
+    .practice-rate-button--no:hover {
+        background: var(--clr-red);
+        border-color: var(--clr-red);
+        color: #fff;
+    }
 }
 
 .practice-rate-button--ok {
@@ -1147,10 +1268,12 @@
     color: var(--clr-green);
 }
 
-.practice-rate-button--ok:hover {
-    background: var(--clr-green);
-    border-color: var(--clr-green);
-    color: #fff;
+@media (hover: hover) {
+    .practice-rate-button--ok:hover {
+        background: var(--clr-green);
+        border-color: var(--clr-green);
+        color: #fff;
+    }
 }
 
 .practice-ai-box {
@@ -1339,8 +1462,10 @@
     transition: background 0.2s;
 }
 
-.practice-proceed-button:hover {
-    background: var(--clr-green-dk);
+@media (hover: hover) {
+    .practice-proceed-button:hover {
+        background: var(--clr-green-dk);
+    }
 }
 
 .practice-rate-sm {
@@ -1364,10 +1489,12 @@
     color: var(--clr-green);
 }
 
-.practice-rate-sm--ok:hover {
-    background: var(--clr-green);
-    border-color: var(--clr-green);
-    color: #fff;
+@media (hover: hover) {
+    .practice-rate-sm--ok:hover {
+        background: var(--clr-green);
+        border-color: var(--clr-green);
+        color: #fff;
+    }
 }
 
 .practice-rate-sm--no {
@@ -1375,10 +1502,12 @@
     color: var(--clr-red);
 }
 
-.practice-rate-sm--no:hover {
-    background: var(--clr-red);
-    border-color: var(--clr-red);
-    color: #fff;
+@media (hover: hover) {
+    .practice-rate-sm--no:hover {
+        background: var(--clr-red);
+        border-color: var(--clr-red);
+        color: #fff;
+    }
 }
 
 
@@ -1424,8 +1553,10 @@
     transition: background 0.2s;
 }
 
-.practice-add-button:hover {
-    background: var(--clr-green-dk);
+@media (hover: hover) {
+    .practice-add-button:hover {
+        background: var(--clr-green-dk);
+    }
 }
 
 .practice-section-actions {
@@ -1450,9 +1581,11 @@
     transition: all 0.15s;
 }
 
-.practice-import-button:hover:not(:disabled) {
-    border-color: var(--clr-green);
-    color: var(--clr-green-dk);
+@media (hover: hover) {
+    .practice-import-button:hover:not(:disabled) {
+        border-color: var(--clr-green);
+        color: var(--clr-green-dk);
+    }
 }
 
 .practice-import-button:disabled {
@@ -1491,8 +1624,8 @@
 }
 
 .practice-input {
-    background: var(--clr-white);
-    border: 1px solid var(--clr-border);
+    background: rgba(38, 172, 0, 0.025);
+    border: 1px solid var(--clr-bg);
     border-radius: var(--radius-md);
     padding: var(--padding-input);
     font-family: 'Poppins', sans-serif;
@@ -1505,8 +1638,8 @@
 }
 
 .practice-input:focus {
-    border-color: var(--clr-green);
-    box-shadow: 0 0 0 2px rgba(38, 172, 0, 0.18);
+    border-color: var(--clr-green-dk);
+    box-shadow: 0 0 0 1px var(--clr-green-dk);
 }
 
 .practice-form-error {
@@ -1606,8 +1739,10 @@
     text-align: left;
 }
 
-.category-dropdown-option:hover {
-    background-color: var(--clr-bg);
+@media (hover: hover) {
+    .category-dropdown-option:hover {
+        background-color: var(--clr-bg);
+    }
 }
 
 .category-dropdown-option--current {
@@ -1714,9 +1849,11 @@
     transition: background 0.12s;
 }
 
-.practice-result-row:hover {
-    background: var(--clr-bg);
-    border-radius: var(--radius-sm);
+@media (hover: hover) {
+    .practice-result-row:hover {
+        background: var(--clr-bg);
+        border-radius: var(--radius-sm);
+    }
 }
 
 .practice-result-row--correct {
@@ -1809,8 +1946,6 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
-    max-height: 480px;
-    overflow-y: auto;
 }
 
 .practice-log-group {
@@ -1833,6 +1968,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-1-5);
+    border-bottom: 1px solid var(--clr-border);
 }
 
 .practice-log-item-header {
@@ -1910,8 +2046,10 @@
     color: var(--clr-muted);
 }
 
-.practice-q-bulk-clear:hover {
-    color: var(--clr-dark);
+@media (hover: hover) {
+    .practice-q-bulk-clear:hover {
+        color: var(--clr-dark);
+    }
 }
 
 .practice-q-bulk-delete {
@@ -1919,8 +2057,10 @@
     color: #fff;
 }
 
-.practice-q-bulk-delete:hover {
-    filter: brightness(0.92);
+@media (hover: hover) {
+    .practice-q-bulk-delete:hover {
+        filter: brightness(0.92);
+    }
 }
 
 .practice-q-checkbox {
@@ -1951,8 +2091,10 @@
     color: #fff;
 }
 
-.button--danger:hover:not(:disabled) {
-    filter: brightness(0.9);
+@media (hover: hover) {
+    .button--danger:hover:not(:disabled) {
+        filter: brightness(0.9);
+    }
 }
 
 .practice-q-card {
@@ -2024,8 +2166,10 @@
     cursor: pointer;
 }
 
-.practice-q-header-cell--sortable:hover {
-    color: var(--clr-dark);
+@media (hover: hover) {
+    .practice-q-header-cell--sortable:hover {
+        color: var(--clr-dark);
+    }
 }
 
 .practice-q-header-cell--actions {
@@ -2038,8 +2182,10 @@
     cursor: pointer;
 }
 
-.practice-q-tr:hover {
-    background-color: var(--clr-bg);
+@media (hover: hover) {
+    .practice-q-tr:hover {
+        background-color: var(--clr-bg);
+    }
 }
 
 .practice-q-cell {
@@ -2077,19 +2223,23 @@
     transition: all 0.15s;
 }
 
-.practice-icon-button:hover {
-    background: var(--clr-bg);
-    color: var(--clr-dark);
+@media (hover: hover) {
+    .practice-icon-button:hover {
+        background: var(--clr-bg);
+        color: var(--clr-dark);
+    }
 }
 
 .practice-icon-button+.practice-icon-button {
     margin-left: var(--space-1-5);
 }
 
-.practice-icon-button--danger:hover {
-    background: rgba(239, 68, 68, 0.08);
-    border-color: rgba(239, 68, 68, 0.4);
-    color: var(--clr-red);
+@media (hover: hover) {
+    .practice-icon-button--danger:hover {
+        background: rgba(239, 68, 68, 0.08);
+        border-color: rgba(239, 68, 68, 0.4);
+        color: var(--clr-red);
+    }
 }
 
 .practice-feedback-badge {
@@ -2141,6 +2291,11 @@
     animation: modal-in 0.18s ease-out;
 }
 
+/* The add/edit question modal carries long question and sample answer textareas. */
+.modal--question {
+    max-width: 44rem;
+}
+
 @keyframes modal-in {
     from {
         opacity: 0;
@@ -2182,9 +2337,11 @@
     transition: background-color 0.2s, color 0.2s;
 }
 
-.modal-close:hover {
-    background-color: var(--clr-border);
-    color: var(--clr-dark);
+@media (hover: hover) {
+    .modal-close:hover {
+        background-color: var(--clr-border);
+        color: var(--clr-dark);
+    }
 }
 
 .modal-form {
@@ -2217,8 +2374,10 @@
     color: var(--clr-dark);
 }
 
-.button--ghost:hover {
-    background-color: var(--clr-border);
+@media (hover: hover) {
+    .button--ghost:hover {
+        background-color: var(--clr-border);
+    }
 }
 
 .button--primary {
@@ -2226,8 +2385,10 @@
     color: var(--clr-white);
 }
 
-.button--primary:hover:not(:disabled) {
-    background-color: var(--clr-green-dk);
+@media (hover: hover) {
+    .button--primary:hover:not(:disabled) {
+        background-color: var(--clr-green-dk);
+    }
 }
 
 @media (max-width: 700px) {
@@ -2300,15 +2461,13 @@
         display: none;
     }
 
-    .practice-deck-progress-track,
-    .practice-cat-row-progress-track {
-        display: none;
+    /* The counter is gone here, so the bookmark takes over as the right-hand anchor. */
+    .practice-bookmark-button {
+        margin-left: auto;
     }
 
-    .practice-cat-row--active,
-    .practice-cat-row--failed.practice-cat-row--active,
-    .practice-cat-row--unanswered.practice-cat-row--active {
-        background: transparent;
+    .practice-deck-progress-track {
+        display: none;
     }
 
     .practice-hint-toggle {
@@ -2344,16 +2503,23 @@
         padding: var(--space-2) var(--space-4);
     }
 
-    .practice-nav-button {
-        width: var(--space-8);
-        height: var(--space-8);
-    }
-
     .practice-card-footer {
         flex-direction: column;
         align-items: stretch;
         gap: var(--space-3);
         margin-top: var(--space-2);
+    }
+
+    /* Answer mode: AI evaluation / I don't know above Previous / Next. */
+    .practice-card-footer--answer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-2-5);
+    }
+
+    .practice-card-footer--answer .practice-footer-actions,
+    .practice-card-footer--answer .practice-nav {
+        display: contents;
     }
 
     .practice-footer-actions {
@@ -2382,6 +2548,18 @@
     }
 
     .practice-nav-button {
+        width: auto;
+        height: auto;
         flex: 1;
+        gap: var(--space-1-5);
+        padding: var(--space-2-5) var(--space-3);
+        border-radius: var(--radius-md);
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.8125rem;
+        font-weight: 600;
+    }
+
+    .practice-nav-button-label {
+        display: inline;
     }
 }
