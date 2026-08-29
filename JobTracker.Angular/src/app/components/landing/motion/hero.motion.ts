@@ -48,11 +48,13 @@ export function initHeroAnimation(scope: MotionScope): void {
 
     if (scrollHint) {
         settleIn(timeline, [scrollHint], 0.46, { duration: 0.45 });
-        initScrollHint(scope, hero, scrollHint);
+        initScrollHint(hero, scrollHint);
     }
 }
 
-function initScrollHint(scope: MotionScope, hero: HTMLElement, scrollHint: HTMLElement): void {
+const HINT_FADE_SCROLL_PX = 140;
+
+function initScrollHint(hero: HTMLElement, scrollHint: HTMLElement): void {
     const arrow = motionElement(hero, 'hero-scroll-arrow');
     if (!arrow) return;
 
@@ -63,17 +65,13 @@ function initScrollHint(scope: MotionScope, hero: HTMLElement, scrollHint: HTMLE
         yoyo: true,
         repeat: -1
     });
-
-    const featureStrip = motionSection(scope.root, 'feature-strip');
-    if (!featureStrip) return;
-
     gsap.to(scrollHint, {
         opacity: 0,
-        duration: 0.4,
+        duration: 0.35,
         ease: EASE.micro,
         scrollTrigger: {
-            trigger: featureStrip,
-            start: 'top 92%',
+            start: HINT_FADE_SCROLL_PX,
+            end: 'max',
             toggleActions: 'play none none reverse'
         },
         onComplete: () => { bob.pause(); },

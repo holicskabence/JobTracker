@@ -158,7 +158,20 @@
 }
 
 @media (max-width: 640px) {
-    .landing-site-footer-column {
+    .landing-site-footer {
+        padding: var(--landing-section-space) 0;
+    }
+
+    .landing-site-footer-inner {
+        gap: 1.25rem 0;
+    }
+
+    .landing-site-footer-column,
+    .landing-site-footer-social {
         width: 50%;
+    }
+
+    .landing-site-footer-social-row {
+        margin-top: 0.6875rem;
     }
 }

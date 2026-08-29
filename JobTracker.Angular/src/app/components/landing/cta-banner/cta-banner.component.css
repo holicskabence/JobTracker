@@ -16,8 +16,7 @@
             rgba(255, 255, 255, 0.52) 40%,
             rgba(255, 255, 255, 0) 76%),
         linear-gradient(100deg, #e6f2d9 0%, #eff6e7 48%, #e9f3de 100%);
-    border: 1px solid rgba(94, 179, 55, 0.34);
-    
+    border: 1px solid rgb(94 179 55 / 16%);
     border-radius: 1.625rem;
     display: flex;
     align-items: center;
@@ -133,19 +132,28 @@
 }
 
 @media (max-width: 640px) {
-    /* Down here the banner wraps to a full-height block and the mockup above it
-       has stacked into one column, so it stops overlapping and just clears. */
     .landing-cta-banner-section {
-        margin-top: -2.5rem;
+        margin-top: 0;
+    }
+
+    .landing-cta-banner {
+        min-height: 0;
+        padding: 1.25rem 1.25rem 1.375rem;
+        gap: 0.875rem;
+    }
+
+    .landing-cta-banner-rocket-media {
+        width: 6.25rem;
     }
 
     .landing-cta-banner-actions {
         flex-wrap: wrap;
+        gap: 0.625rem;
     }
 
     .landing-cta-banner-primary-button,
     .landing-cta-banner-secondary-button {
         width: 100%;
+        padding: 0.75rem 1.0625rem;
     }
 }
-

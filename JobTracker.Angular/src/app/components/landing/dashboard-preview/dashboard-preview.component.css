@@ -69,7 +69,6 @@
     height: 1em;
 }
 
-/* Hand-drawn arrow pointing from the call to action across to the preview. */
 .landing-dashboard-preview-doodle-arrow {
     display: block;
     width: 5.375rem;
@@ -118,3 +117,29 @@
     }
 }
 
+
+@media (max-width: 640px) {
+    .landing-dashboard-preview-inner {
+        padding: var(--landing-section-space) 0;
+    }
+
+    .landing-dashboard-preview-copy {
+        padding-top: 0;
+        padding-bottom: 1.25rem;
+    }
+
+    .landing-dashboard-preview-paragraph {
+        margin-top: 0.75rem;
+    }
+
+    .landing-dashboard-preview-cta-row {
+        margin-top: 1.375rem;
+        gap: 0.875rem;
+    }
+
+    .landing-dashboard-preview-doodle-arrow {
+        width: 4rem;
+        height: 2.125rem;
+        margin-top: 0.5rem;
+    }
+}

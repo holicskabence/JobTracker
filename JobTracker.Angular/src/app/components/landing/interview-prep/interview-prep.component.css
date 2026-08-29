@@ -313,3 +313,43 @@
     }
 }
 
+@media (max-width: 640px) {
+    .landing-interview-prep {
+        padding: var(--landing-section-space) 0;
+    }
+
+    .landing-interview-prep-inner {
+        gap: 1.375rem;
+    }
+
+    .landing-interview-prep-paragraph {
+        margin-top: 0.75rem;
+    }
+
+    .landing-interview-prep-checklist {
+        margin-top: 1.125rem;
+    }
+
+    .landing-interview-prep-checklist-item {
+        margin-bottom: 0.625rem;
+    }
+
+    .landing-interview-prep-cta {
+        margin-top: 1.25rem;
+    }
+
+    .landing-interview-prep-panel {
+        width: 100%;
+        max-width: none;
+    }
+
+    .landing-interview-prep-robot-visual {
+        width: min(62%, 15rem);
+        margin-inline: auto;
+    }
+
+    .landing-interview-prep-robot-image {
+        width: 100%;
+        margin-inline: 0;
+    }
+}

@@ -79,6 +79,6 @@
         border-radius: 0;
         box-shadow: none;
         justify-content: center;
-        padding: var(--space-10) var(--space-6);
+        padding: var(--space-6);
     }
 }

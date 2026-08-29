@@ -17,6 +17,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
 const DESKTOP_QUERY = '(min-width: 941px)';
+const COMPACT_QUERY = '(max-width: 940px)';
 const READY_TIMEOUT_MS = 900;
 const DEFERRED_BUILD_GRACE_MS = 120;
 
@@ -70,11 +71,6 @@ export function createLandingMotion(root: HTMLElement, onBuilt: () => void): Lan
     };
 }
 
-/**
- * The translated copy and Poppins both land after Angular's first paint and both
- * change the layout. Animating before them plays the entrance against a layout
- * that is about to move. The deadline keeps a slow font from blocking the page.
- */
 function whenContentIsSettled(root: HTMLElement): Promise<void> {
     const deadline = performance.now() + READY_TIMEOUT_MS;
 
@@ -115,6 +111,7 @@ function buildTimelines(
         mediaQueries.add(
             {
                 isDesktop: DESKTOP_QUERY,
+                isCompact: COMPACT_QUERY,
                 prefersReducedMotion: '(prefers-reduced-motion: reduce)'
             },
             mediaContext => {
@@ -169,12 +166,6 @@ function buildTimelines(
     });
 }
 
-/**
- * Uncovering the page costs a style and paint pass. A timeline started in that
- * same frame loses its first frames to it, which is what makes smooth motion
- * look like a stutter. The timeout inside the frame callback runs after the
- * browser has painted, so the intro always begins on a settled thread.
- */
 function afterNextPaint(run: () => void): () => void {
     let timer = 0;
     const frame = requestAnimationFrame(() => { timer = window.setTimeout(run, 0); });
@@ -190,13 +181,6 @@ function introDuration(intros: gsap.core.Timeline[]): number {
     return longest * 1000;
 }
 
-/**
- * The scroll sections are five SplitTexts and twenty ScrollTriggers, none of
- * them needed until the reader moves. Built with the intro they block the main
- * thread exactly where the intro starts; built during it they stall its tail.
- * So they wait for the intro to finish and then go up one section at a time,
- * unless the reader scrolls first, in which case they are needed now.
- */
 function deferBuild(tasks: Array<() => void>, notBeforeMs: number): () => void {
     const queue = tasks.slice();
     let cancelled = false;
@@ -217,7 +201,7 @@ function deferBuild(tasks: Array<() => void>, notBeforeMs: number): () => void {
         while (queue.length) queue.shift()?.();
     };
 
-    const onScroll = () => drainAll();
+    const onScroll = () => { stopListening(); window.setTimeout(drainAll, 0); };
     const stopListening = () => window.removeEventListener('scroll', onScroll);
 
     window.addEventListener('scroll', onScroll, { passive: true });

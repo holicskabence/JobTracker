@@ -158,3 +158,8 @@
     }
 }
 
+@media (max-width: 640px) {
+    .landing-nav-bar-inner {
+        height: 3.5rem;
+    }
+}

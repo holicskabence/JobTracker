@@ -12,10 +12,26 @@
     object-fit: contain;
 }
 
+
 @media (max-width: 940px) {
     .landing-hero-illustration-image {
         height: auto;
         width: min(100%, 31.875rem);
         margin-inline: auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .landing-hero-illustration-image {
+        aspect-ratio: 1659 / 948;
+        width: 97%;
+        height: auto;
+        flex: none;
+    }
+}
+
+@media (max-width: 380px) {
+    .landing-hero-illustration-image {
+        width: 93%;
     }
 }
