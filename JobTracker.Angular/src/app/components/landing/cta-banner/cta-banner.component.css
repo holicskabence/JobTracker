@@ -26,13 +26,18 @@
     min-height: 8.75rem;
 }
 
-.landing-cta-banner-rocket {
+.landing-cta-banner-rocket-media {
     display: block;
     width: 8.75rem;
-    aspect-ratio: 98 / 78;
-    object-fit: contain;
     margin-left: 5.5rem;
     flex: none;
+}
+
+.landing-cta-banner-rocket {
+    display: block;
+    width: 100%;
+    aspect-ratio: 98 / 78;
+    object-fit: contain;
 }
 
 .landing-cta-banner-headline {
@@ -102,7 +107,7 @@
         gap: 1.125rem;
     }
 
-    .landing-cta-banner-rocket {
+    .landing-cta-banner-rocket-media {
         margin-left: 0;
     }
 
@@ -143,3 +148,4 @@
         width: 100%;
     }
 }
+

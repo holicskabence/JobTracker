@@ -398,3 +398,13 @@
         grid-template-columns: 1fr;
     }
 }
+
+.landing-analytics-card {
+    transition: border-color 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 941px) {
+    .landing-analytics-card:hover {
+        border-color: rgba(255, 255, 255, 0.14);
+    }
+}

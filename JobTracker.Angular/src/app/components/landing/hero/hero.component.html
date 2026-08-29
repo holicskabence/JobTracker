@@ -1,16 +1,16 @@
-<section class="landing-hero" id="hero">
+<section class="landing-hero" id="hero" data-section="hero">
     <div class="landing-hero-inner">
 
-        <div class="landing-hero-copy">
-            <h1 class="landing-hero-headline">
+        <div class="landing-hero-copy" data-animate="hero-copy">
+            <h1 class="landing-hero-headline" data-animate="hero-headline">
                 {{ 'landing.hero.headlineLine1' | translate }}<br />
                 {{ 'landing.hero.headlineLine2' | translate }}
             </h1>
 
-            <p class="landing-hero-paragraph">{{ 'landing.hero.paragraph' | translate }}</p>
+            <p class="landing-hero-paragraph" data-animate="hero-paragraph">{{ 'landing.hero.paragraph' | translate }}</p>
 
             <div class="landing-hero-actions">
-                <a class="landing-hero-primary-button" routerLink="/register">
+                <a class="landing-hero-primary-button" data-animate="hero-action" routerLink="/register">
                     {{ 'landing.hero.ctaPrimary' | translate }}
                     <svg class="landing-hero-button-arrow-icon" viewBox="0 0 24 24">
                         <path d="M4 12h15M13.5 5.5L20 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2"
@@ -18,7 +18,7 @@
                     </svg>
                 </a>
 
-                <a class="landing-hero-secondary-button" href="#dashboard-preview"
+                <a class="landing-hero-secondary-button" data-animate="hero-action" href="#dashboard-preview"
                     (click)="onSectionLinkClick($event, '#dashboard-preview')">
                     {{ 'landing.hero.ctaSecondary' | translate }}
                     <svg class="landing-hero-button-play-icon" viewBox="0 0 24 24">
@@ -28,7 +28,7 @@
             </div>
 
             <ul class="landing-hero-trust-row">
-                <li class="landing-hero-trust-item">
+                <li class="landing-hero-trust-item" data-animate="hero-trust">
                     <svg viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8" />
                         <path d="M8 12.4l2.6 2.6 5.4-5.8" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -36,7 +36,7 @@
                     </svg>
                     {{ 'landing.hero.trust1' | translate }}
                 </li>
-                <li class="landing-hero-trust-item">
+                <li class="landing-hero-trust-item" data-animate="hero-trust">
                     <svg viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8" />
                         <path d="M8 12.4l2.6 2.6 5.4-5.8" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -44,7 +44,7 @@
                     </svg>
                     {{ 'landing.hero.trust2' | translate }}
                 </li>
-                <li class="landing-hero-trust-item">
+                <li class="landing-hero-trust-item" data-animate="hero-trust">
                     <svg viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8" />
                         <path d="M8 12.4l2.6 2.6 5.4-5.8" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -55,15 +55,16 @@
             </ul>
         </div>
 
-        <div class="landing-hero-visual">
-            <app-landing-hero-illustration></app-landing-hero-illustration>
+        <div class="landing-hero-visual" data-animate="hero-media-frame">
+            <app-landing-hero-illustration class="landing-motion-media"
+                data-animate="hero-media"></app-landing-hero-illustration>
         </div>
 
     </div>
 
-    <div class="landing-hero-scroll-hint">
+    <div class="landing-hero-scroll-hint" data-animate="hero-scroll-hint">
         {{ 'landing.hero.scrollHint' | translate }}
-        <svg viewBox="0 0 24 24">
+        <svg viewBox="0 0 24 24" data-animate="hero-scroll-arrow">
             <path d="M12 4v15M5.5 13.5L12 20l6.5-6.5" fill="none" stroke="currentColor" stroke-width="1.8"
                 stroke-linecap="round" stroke-linejoin="round" />
         </svg>

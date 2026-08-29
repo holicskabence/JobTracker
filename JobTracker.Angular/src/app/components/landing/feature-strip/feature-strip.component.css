@@ -3,8 +3,8 @@
     align-items: center;
     background: #fdfdfe;
     border-top: 1px solid #eeeef1;
-    min-height: clamp(50px, 25vh, 225px);
-    padding: 4rem 0;
+    min-height: calc(var(--landing-fold-height) * 0.225);
+    padding: calc(var(--landing-fold-unit) * 2.5) 0;
 }
 
 .landing-feature-strip-grid {
@@ -98,5 +98,16 @@
 @media (max-width: 460px) {
     .landing-feature-strip-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+
+.landing-feature-strip-title {
+    transition: color 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .landing-feature-strip-column:hover .landing-feature-strip-title {
+        color: var(--landing-green-text);
     }
 }

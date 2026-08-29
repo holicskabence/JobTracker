@@ -118,7 +118,7 @@
 
 .landing-hero-visual {
     min-width: 0;
-    min-height: 56vh;
+    min-height: calc(var(--landing-fold-height) * 0.56);
 }
 
 .landing-hero-scroll-hint {
@@ -175,6 +175,7 @@
     }
 
     .landing-hero-visual {
+        min-height: 0;
         margin-top: 1.6875rem;
     }
 }
@@ -185,3 +186,4 @@
         width: 100%;
     }
 }
+

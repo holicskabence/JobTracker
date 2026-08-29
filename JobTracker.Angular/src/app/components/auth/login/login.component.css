@@ -64,6 +64,7 @@
 .login-card-button {
   width: 100%;
   padding: var(--space-3-5) var(--space-4);
+  line-height: 1.5;
   border-radius: var(--radius-md);
   font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
@@ -83,6 +84,7 @@
 }
 
 .auth-spinner {
+  height: 1.5em;
   animation: auth-spinner 0.8s linear infinite;
 }
 
@@ -162,6 +164,7 @@
 
 .oauth-button {
   width: 100%;
+  line-height: 1.5;
   display: flex;
   align-items: center;
   justify-content: center;

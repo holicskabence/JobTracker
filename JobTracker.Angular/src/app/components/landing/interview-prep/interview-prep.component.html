@@ -1,12 +1,12 @@
-<section class="landing-interview-prep" id="interview-prep">
+<section class="landing-interview-prep" id="interview-prep" data-section="interview-prep">
     <div class="landing-interview-prep-inner">
 
-        <div class="landing-interview-prep-copy">
-            <h2 class="landing-interview-prep-headline">{{ 'landing.interview.headline' | translate }}</h2>
-            <p class="landing-interview-prep-paragraph">{{ 'landing.interview.paragraph' | translate }}</p>
+        <div class="landing-interview-prep-copy" data-animate="interview-copy">
+            <h2 class="landing-interview-prep-headline" data-animate="interview-headline">{{ 'landing.interview.headline' | translate }}</h2>
+            <p class="landing-interview-prep-paragraph" data-animate="interview-paragraph">{{ 'landing.interview.paragraph' | translate }}</p>
 
             <ul class="landing-interview-prep-checklist">
-                <li class="landing-interview-prep-checklist-item">
+                <li class="landing-interview-prep-checklist-item" data-animate="interview-check">
                     <svg viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8" />
                         <path d="M8 12.4l2.6 2.6 5.4-5.8" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -14,7 +14,7 @@
                     </svg>
                     {{ 'landing.interview.check1' | translate }}
                 </li>
-                <li class="landing-interview-prep-checklist-item">
+                <li class="landing-interview-prep-checklist-item" data-animate="interview-check">
                     <svg viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8" />
                         <path d="M8 12.4l2.6 2.6 5.4-5.8" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -22,7 +22,7 @@
                     </svg>
                     {{ 'landing.interview.check2' | translate }}
                 </li>
-                <li class="landing-interview-prep-checklist-item">
+                <li class="landing-interview-prep-checklist-item" data-animate="interview-check">
                     <svg viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8" />
                         <path d="M8 12.4l2.6 2.6 5.4-5.8" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -30,7 +30,7 @@
                     </svg>
                     {{ 'landing.interview.check3' | translate }}
                 </li>
-                <li class="landing-interview-prep-checklist-item">
+                <li class="landing-interview-prep-checklist-item" data-animate="interview-check">
                     <svg viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8" />
                         <path d="M8 12.4l2.6 2.6 5.4-5.8" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -40,7 +40,7 @@
                 </li>
             </ul>
 
-            <a class="landing-interview-prep-cta" routerLink="/register">
+            <a class="landing-interview-prep-cta" data-animate="interview-cta" routerLink="/register">
                 {{ 'landing.interview.cta' | translate }}
                 <svg viewBox="0 0 24 24">
                     <path d="M4 12h15M13.5 5.5L20 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2"
@@ -49,34 +49,34 @@
             </a>
         </div>
 
-        <div class="landing-interview-prep-panel">
-            <div class="landing-interview-prep-panel-label">{{ 'landing.interview.questionLabel' | translate }}</div>
-            <p class="landing-interview-prep-panel-question">{{ 'landing.interview.question' | translate }}</p>
+        <div class="landing-interview-prep-panel" data-animate="interview-panel">
+            <div class="landing-interview-prep-panel-label" data-animate="interview-question-label">{{ 'landing.interview.questionLabel' | translate }}</div>
+            <p class="landing-interview-prep-panel-question" data-animate="interview-question">{{ 'landing.interview.question' | translate }}</p>
 
-            <div class="landing-interview-prep-panel-answer">
+            <div class="landing-interview-prep-panel-answer" data-animate="interview-answer">
                 <div class="landing-interview-prep-panel-label">{{ 'landing.interview.answerLabel' | translate }}</div>
                 <p class="landing-interview-prep-panel-answer-text">{{ 'landing.interview.answer' | translate }}</p>
             </div>
 
             <div class="landing-interview-prep-evaluation">
-                <div class="landing-interview-prep-panel-label">{{ 'landing.interview.evaluationLabel' | translate }}</div>
+                <div class="landing-interview-prep-panel-label" data-animate="interview-evaluation-label">{{ 'landing.interview.evaluationLabel' | translate }}</div>
 
-                <div class="landing-interview-prep-evaluation-score-row">
+                <div class="landing-interview-prep-evaluation-score-row" data-animate="interview-verdict">
                     <span class="landing-interview-prep-evaluation-verdict">{{ 'landing.interview.evaluationTitle' | translate }} 👍</span>
                     <span class="landing-interview-prep-evaluation-score">
-                        <b class="landing-interview-prep-evaluation-score-value">8</b>/10
+                        <b class="landing-interview-prep-evaluation-score-value" data-animate="interview-score">8</b>/10
                     </span>
                 </div>
 
                 <ul class="landing-interview-prep-evaluation-points">
-                    <li class="landing-interview-prep-evaluation-point">
+                    <li class="landing-interview-prep-evaluation-point" data-animate="interview-feedback">
                         <svg viewBox="0 0 24 24">
                             <path d="M5 12.8l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.4"
                                 stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         {{ 'landing.interview.feedback1' | translate }}
                     </li>
-                    <li class="landing-interview-prep-evaluation-point">
+                    <li class="landing-interview-prep-evaluation-point" data-animate="interview-feedback">
                         <svg viewBox="0 0 24 24">
                             <path d="M5 12.8l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.4"
                                 stroke-linecap="round" stroke-linejoin="round" />
@@ -85,7 +85,7 @@
                     </li>
                 </ul>
 
-                <div class="landing-interview-prep-evaluation-tip">
+                <div class="landing-interview-prep-evaluation-tip" data-animate="interview-feedback">
                     <span>☝️</span>
                     <span>
                         <b class="landing-interview-prep-evaluation-tip-label">{{ 'landing.interview.tipLabel' | translate }}</b>
@@ -95,7 +95,7 @@
             </div>
         </div>
 
-        <div class="landing-interview-prep-robot-visual">
+        <div class="landing-interview-prep-robot-visual landing-motion-media" data-animate="interview-robot">
             <img class="landing-interview-prep-robot-image" src="/assets/landing/interview-robot.png"
                 [alt]="'landing.interview.robotAlt' | translate" />
         </div>

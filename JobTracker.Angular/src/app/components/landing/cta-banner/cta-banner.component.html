@@ -1,17 +1,18 @@
-<section class="landing-cta-banner-section">
+<section class="landing-cta-banner-section" data-section="cta-banner">
     <div class="landing-cta-banner-container">
-        <div class="landing-cta-banner">
-
-            <img class="landing-cta-banner-rocket" src="/assets/landing/cta-rocket.png" alt="" />
+        <div class="landing-cta-banner" data-animate="cta-banner">
+            <div class="landing-cta-banner-rocket-media landing-motion-media" data-animate="cta-rocket">
+                <img class="landing-cta-banner-rocket" src="/assets/landing/cta-rocket.png" alt="" />
+            </div>
 
             <div class="landing-cta-banner-copy">
-                <h2 class="landing-cta-banner-headline">{{ 'landing.cta.headline' | translate }}</h2>
-                <p class="landing-cta-banner-paragraph">{{ 'landing.cta.paragraph' | translate }}</p>
+                <h2 class="landing-cta-banner-headline" data-animate="cta-text">{{ 'landing.cta.headline' | translate }}</h2>
+                <p class="landing-cta-banner-paragraph" data-animate="cta-text">{{ 'landing.cta.paragraph' | translate }}</p>
             </div>
 
             <div class="landing-cta-banner-actions">
-                <a class="landing-cta-banner-primary-button" routerLink="/register">{{ 'landing.cta.ctaPrimary' | translate }}</a>
-                <a class="landing-cta-banner-secondary-button" routerLink="/login">{{ 'landing.cta.ctaSecondary' | translate }}</a>
+                <a class="landing-cta-banner-primary-button" data-animate="cta-button" routerLink="/register">{{ 'landing.cta.ctaPrimary' | translate }}</a>
+                <a class="landing-cta-banner-secondary-button" data-animate="cta-button" routerLink="/login">{{ 'landing.cta.ctaSecondary' | translate }}</a>
             </div>
 
         </div>

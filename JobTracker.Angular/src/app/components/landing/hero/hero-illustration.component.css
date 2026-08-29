@@ -1,13 +1,13 @@
 :host {
-    display: block;
-    min-width: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .landing-hero-illustration-image {
-    height: min(33.375rem, 48vh);
+    height: calc(var(--landing-fold-height) * 0.534);
     width: auto;
     max-width: 100%;
-    margin-left: auto;
     aspect-ratio: 588 / 302;
     object-fit: contain;
 }

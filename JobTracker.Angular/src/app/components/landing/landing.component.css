@@ -66,13 +66,16 @@
     --landing-bleed-right: max(0px, calc((100% - var(--landing-content-max)) / 2));
 
     /* The opening screen -- nav, hero, feature strip -- has to end inside the
-       window, and on a short one the only give is in the spacing: the type is
-       fixed. Everything stacked above the fold measures its vertical rhythm in
-       this unit rather than in rem. It holds the design value of 1.625rem down
-       to roughly a 1000px-tall window, then falls off with the window -- the
-       ramp is what a 768px laptop needs to still end the strip on screen -- and
-       floors at 0.75rem so the rhythm never collapses entirely. */
-    --landing-fold-unit: clamp(0.75rem, calc(3.92vh - 0.825rem), 1.625rem);
+       window, so everything stacked above the fold sizes off this height rather
+       than off 100vh directly. It tracks a short window down, and stops at
+       1000px: past that a taller window shows more of the page below instead of
+       stretching the opening apart. */
+    --landing-fold-height: min(100vh, 1000px);
+
+    /* The rhythm above the fold. On a short window the only give is in the
+       spacing -- the type is fixed -- so this rides the fold height and floors
+       at 0.75rem, reaching the design value of 1.625rem once the fold caps. */
+    --landing-fold-unit: clamp(0.75rem, calc(var(--landing-fold-height) * 0.0392 - 0.825rem), 1.625rem);
 
     --landing-radius-card: 1.25rem;
     --landing-radius-button: 0.8125rem;

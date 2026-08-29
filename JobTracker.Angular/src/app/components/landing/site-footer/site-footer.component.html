@@ -1,7 +1,7 @@
-<footer class="landing-site-footer">
+<footer class="landing-site-footer" data-section="site-footer">
     <div class="landing-site-footer-inner">
 
-        <div class="landing-site-footer-brand">
+        <div class="landing-site-footer-brand" data-animate="footer-brand">
             <a class="landing-site-footer-brand-link" routerLink="/">
                 <svg class="landing-site-footer-brand-mark" viewBox="0 0 24 24">
                     <rect x="2" y="2" width="9.2" height="9.2" rx="2.6" fill="currentColor" />
@@ -13,7 +13,7 @@
             </a>
         </div>
 
-        <div class="landing-site-footer-column">
+        <div class="landing-site-footer-column" data-animate="footer-column">
             <h4 class="landing-site-footer-column-title">{{ 'landing.footer.productTitle' | translate }}</h4>
             <a class="landing-site-footer-link" href="#features"
                 (click)="onSectionLinkClick($event, '#features')">{{ 'landing.footer.productLink1' | translate }}</a>
@@ -23,7 +23,7 @@
                 (click)="onSectionLinkClick($event, '#changelog')">{{ 'landing.footer.productLink3' | translate }}</a>
         </div>
 
-        <div class="landing-site-footer-column">
+        <div class="landing-site-footer-column" data-animate="footer-column">
             <h4 class="landing-site-footer-column-title">{{ 'landing.footer.companyTitle' | translate }}</h4>
             <a class="landing-site-footer-link" href="#about"
                 (click)="onSectionLinkClick($event, '#about')">{{ 'landing.footer.companyLink1' | translate }}</a>
@@ -33,7 +33,7 @@
                 (click)="onSectionLinkClick($event, '#blog')">{{ 'landing.footer.companyLink3' | translate }}</a>
         </div>
 
-        <div class="landing-site-footer-column">
+        <div class="landing-site-footer-column" data-animate="footer-column">
             <h4 class="landing-site-footer-column-title">{{ 'landing.footer.supportTitle' | translate }}</h4>
             <a class="landing-site-footer-link" href="#help"
                 (click)="onSectionLinkClick($event, '#help')">{{ 'landing.footer.supportLink1' | translate }}</a>
@@ -43,7 +43,7 @@
                 (click)="onSectionLinkClick($event, '#terms')">{{ 'landing.footer.supportLink3' | translate }}</a>
         </div>
 
-        <div class="landing-site-footer-social">
+        <div class="landing-site-footer-social" data-animate="footer-social">
             <h4 class="landing-site-footer-column-title">{{ 'landing.footer.followTitle' | translate }}</h4>
             <div class="landing-site-footer-social-row">
                 <a class="landing-site-footer-social-link" href="#" aria-label="GitHub"
