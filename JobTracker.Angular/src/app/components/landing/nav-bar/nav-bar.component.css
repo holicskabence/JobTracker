@@ -95,7 +95,8 @@
 
 @media (max-width: 940px) {
     .landing-nav-bar-links,
-    .landing-nav-bar-login-link {
+    .landing-nav-bar-login-link,
+    .landing-nav-bar-register-button {
         display: none;
     }
 
@@ -122,18 +123,9 @@
         height: 1.25rem;
     }
 
-    .landing-nav-bar-brand-name {
-        font-size: 1.25rem;
-    }
-
     .landing-nav-bar-brand-mark {
         width: 1.5rem;
         height: 1.5rem;
-    }
-
-    .landing-nav-bar-register-button {
-        font-size: 0.8125rem;
-        padding: 0.5rem 1.0625rem;
     }
 
     .landing-nav-bar--menu-open .landing-nav-bar-mobile-menu {

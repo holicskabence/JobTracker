@@ -238,15 +238,6 @@
 
     .landing-interview-prep-headline {
         width: auto;
-        font-size: 1.5rem;
-    }
-
-    .landing-interview-prep-paragraph {
-        font-size: 0.9rem;
-    }
-
-    .landing-interview-prep-checklist-item {
-        font-size: 0.8125rem;
     }
 
     .landing-interview-prep-checklist-item svg {
@@ -255,7 +246,6 @@
     }
 
     .landing-interview-prep-cta {
-        font-size: 0.9rem;
         padding: 0.6875rem 1.125rem;
     }
 
@@ -267,35 +257,6 @@
     .landing-interview-prep-evaluation {
         margin-inline: -1.125rem;
         padding-inline: 1.125rem;
-    }
-
-    .landing-interview-prep-panel-label {
-        font-size: 0.625rem;
-    }
-
-    .landing-interview-prep-panel-question {
-        font-size: 0.9rem;
-    }
-
-    .landing-interview-prep-panel-answer-text {
-        font-size: 0.8125rem;
-    }
-
-    .landing-interview-prep-evaluation-verdict {
-        font-size: 0.9375rem;
-    }
-
-    .landing-interview-prep-evaluation-score {
-        font-size: 0.8125rem;
-    }
-
-    .landing-interview-prep-evaluation-score-value {
-        font-size: 1.0625rem;
-    }
-
-    .landing-interview-prep-evaluation-point,
-    .landing-interview-prep-evaluation-tip {
-        font-size: 0.75rem;
     }
 
     .landing-interview-prep-evaluation-point svg {
@@ -344,12 +305,6 @@
     }
 
     .landing-interview-prep-robot-visual {
-        width: min(62%, 15rem);
-        margin-inline: auto;
-    }
-
-    .landing-interview-prep-robot-image {
-        width: 100%;
-        margin-inline: 0;
+        display: none;
     }
 }

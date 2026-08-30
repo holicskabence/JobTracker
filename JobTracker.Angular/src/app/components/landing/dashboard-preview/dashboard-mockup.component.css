@@ -303,12 +303,7 @@
         height: 0.9375rem;
     }
 
-    .landing-dashboard-mockup-sidebar-brand-name {
-        font-size: 0.75rem;
-    }
-
     .landing-dashboard-mockup-sidebar-menu-item {
-        font-size: 0.6875rem;
         padding: 0.5rem 0.5625rem;
     }
 
@@ -317,12 +312,7 @@
         height: 0.8125rem;
     }
 
-    .landing-dashboard-mockup-header-title {
-        font-size: 0.9375rem;
-    }
-
     .landing-dashboard-mockup-new-application-button {
-        font-size: 0.6875rem;
         padding: 0.4375rem 0.6875rem;
     }
 
@@ -331,48 +321,14 @@
         height: 1.625rem;
     }
 
-    .landing-dashboard-mockup-card-label {
-        font-size: 0.625rem;
-    }
-
-    .landing-dashboard-mockup-card-value {
-        font-size: 1rem;
-    }
-
-    .landing-dashboard-mockup-card-badge {
-        font-size: 0.5625rem;
-    }
-
     .landing-dashboard-mockup-card-badge svg {
         width: 0.625rem;
         height: 0.625rem;
     }
 
-    .landing-dashboard-mockup-panel-title {
-        font-size: 0.75rem;
-    }
-
     .landing-dashboard-mockup-interview-avatar {
         width: 1.3125rem;
         height: 1.3125rem;
-        font-size: 0.5625rem;
-    }
-
-    .landing-dashboard-mockup-interview-company {
-        font-size: 0.6875rem;
-    }
-
-    .landing-dashboard-mockup-interview-type,
-    .landing-dashboard-mockup-interview-time {
-        font-size: 0.5625rem;
-    }
-
-    .landing-dashboard-mockup-interview-date {
-        font-size: 0.625rem;
-    }
-
-    .landing-dashboard-mockup-task-item {
-        font-size: 0.6875rem;
     }
 
     .landing-dashboard-mockup-task-checkbox {
@@ -430,7 +386,6 @@
     }
 
     .landing-dashboard-mockup-new-application-button {
-        font-size: 0.625rem;
         padding: 0.375rem 0.5625rem;
     }
 }

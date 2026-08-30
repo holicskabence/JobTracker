@@ -110,14 +110,6 @@
         margin-left: 0;
     }
 
-    .landing-cta-banner-headline {
-        font-size: 1.0625rem;
-    }
-
-    .landing-cta-banner-paragraph {
-        font-size: 0.75rem;
-    }
-
     .landing-cta-banner-actions {
         margin-left: 0;
         padding-right: 0;
@@ -126,7 +118,6 @@
 
     .landing-cta-banner-primary-button,
     .landing-cta-banner-secondary-button {
-        font-size: 0.8125rem;
         padding: 0.625rem 1.0625rem;
     }
 }

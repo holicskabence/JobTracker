@@ -156,7 +156,6 @@
   flex-shrink: 0;
 }
 
-/* A fejlecben a kereso sajat sorba tordelodik mobilon, ott toltse ki a teljes szelesseget. */
 @media (max-width: 767px) {
   app-search-toolbar {
     width: 100%;

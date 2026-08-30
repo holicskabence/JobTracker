@@ -76,6 +76,11 @@ body {
     }
 }
 
+html:has(.page),
+body:has(.page) {
+    overscroll-behavior: none;
+}
+
 ::selection {
     background-color: var(--clr-green);
     color: var(--clr-white);

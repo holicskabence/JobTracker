@@ -4,7 +4,6 @@
     background: #fdfdfe;
     border-top: 1px solid #eeeef1;
     min-height: calc(var(--landing-fold-height) * 0.225);
-    padding: calc(var(--landing-fold-unit) * 2.5) 0;
 }
 
 .landing-feature-strip-grid {
@@ -79,14 +78,6 @@
         width: 1.125rem;
         height: 1.125rem;
     }
-
-    .landing-feature-strip-title {
-        font-size: 0.9rem;
-    }
-
-    .landing-feature-strip-description {
-        font-size: 0.75rem;
-    }
 }
 
 @media (max-width: 640px) {
@@ -124,7 +115,6 @@
         line-height: 1.4;
     }
 }
-
 
 .landing-feature-strip-title {
     transition: color 0.25s ease;

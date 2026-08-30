@@ -75,7 +75,6 @@
     background: #ffffff;
     color: #1a202a;
     border: 1px solid #e2e3e7;
-    box-shadow: 0 2px 6px rgba(20, 25, 40, 0.05);
 }
 
 .landing-hero-button-arrow-icon {
@@ -136,26 +135,9 @@
 }
 
 @media (max-width: 940px) {
-    .landing-hero-headline {
-        font-size: 2rem;
-    }
-
-    .landing-hero-paragraph {
-        font-size: 0.9rem;
-    }
-
     .landing-hero-primary-button,
     .landing-hero-secondary-button {
-        font-size: 0.9rem;
         padding: 0.6875rem 1.125rem;
-    }
-
-    .landing-hero-trust-item {
-        font-size: 0.75rem;
-    }
-
-    .landing-hero-scroll-hint {
-        font-size: 0.6875rem;
     }
 
     .landing-hero-inner {
@@ -173,11 +155,6 @@
         flex-wrap: wrap;
         gap: 0.875rem;
     }
-
-    .landing-hero-visual {
-        min-height: 0;
-        margin-top: 1.6875rem;
-    }
 }
 
 @media (max-width: 640px) {
@@ -191,7 +168,6 @@
     }
 
     .landing-hero-headline {
-        font-size: clamp(1.75rem, 8.2vw, 2.5rem);
         line-height: 1.04;
     }
 
@@ -221,6 +197,7 @@
     }
 
     .landing-hero-visual {
+        min-height: 0;
         margin-block-start: clamp(1.5rem, 6vw, 2.5rem);
         margin-inline: calc(-1 * var(--landing-page-gutter));
         height: auto;
