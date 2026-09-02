@@ -6,6 +6,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../services/auth.service';
 import { LanguageService } from '../../../services/language.service';
 import { AuthCardComponent } from '../../shared/auth-card/auth-card.component';
+import { isValidEmail } from '../../../utils/email';
 
 @Component({
   selector: 'app-register',
@@ -35,6 +36,7 @@ export class RegisterComponent {
     if (!this.firstName.trim()) this.errors['firstName'] = this.translate.instant('auth.register.firstNameRequiredError');
     if (!this.lastName.trim()) this.errors['lastName'] = this.translate.instant('auth.register.lastNameRequiredError');
     if (!this.email.trim()) this.errors['email'] = this.translate.instant('auth.register.emailRequiredError');
+    else if (!isValidEmail(this.email)) this.errors['email'] = this.translate.instant('auth.register.emailInvalidError');
     if (!this.password) this.errors['password'] = this.translate.instant('auth.register.passwordRequiredError');
     else if (this.password.length < 6) this.errors['password'] = this.translate.instant('auth.register.passwordTooShortError');
     if (this.password && this.password !== this.confirm) this.errors['confirm'] = this.translate.instant('auth.register.passwordMismatchError');
@@ -54,7 +56,9 @@ export class RegisterComponent {
         this.router.navigate(['/login']);
       },
       error: (err: HttpErrorResponse) => {
-        this.errors['general'] = err.error?.message ?? this.translate.instant('auth.register.registrationFailedError');
+        this.errors['general'] = this.translate.instant(err.status === 409
+          ? 'auth.register.emailTakenError'
+          : 'auth.register.registrationFailedError');
         this.loading.set(false);
       }
     });

@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PlannerService } from '../../services/planner.service';
-import { DOCUMENT_TYPES, OUTREACH_TEMPLATES } from '../../models/planner.model';
+import { DOCUMENT_TYPES, OUTREACH_TEMPLATES, OutreachTemplate, outreachTemplateKey } from '../../models/planner.model';
 import { SelectDropdownComponent } from '../shared/select-dropdown/select-dropdown.component';
 import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
@@ -148,9 +148,13 @@ export class DocumentsComponent {
     this.planner.downloadDocumentFile(id, fileName);
   }
 
-  copyTemplate(text: string, id: number): void {
-    navigator.clipboard.writeText(text);
-    this.copiedId.set(id);
+  templateKey(template: OutreachTemplate, field: 'title' | 'desc' | 'text'): string {
+    return outreachTemplateKey(template, field);
+  }
+
+  copyTemplate(template: OutreachTemplate): void {
+    navigator.clipboard.writeText(this.translate.instant(outreachTemplateKey(template, 'text')));
+    this.copiedId.set(template.id);
     if (this.copyTimer) clearTimeout(this.copyTimer);
     this.copyTimer = setTimeout(() => this.copiedId.set(null), 2500);
   }

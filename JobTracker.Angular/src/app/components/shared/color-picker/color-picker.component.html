@@ -1,0 +1,11 @@
+@for (preset of presets; track preset) {
+<button type="button" class="color-picker-dot" [style.background-color]="preset"
+    [class.color-picker-dot--active]="isSelected(preset)" (click)="pick(preset)" [title]="preset"></button>
+}
+<label class="color-picker-dot color-picker-dot--custom" [class.color-picker-dot--active]="isCustomColor"
+    [style.background-image]="isCustomColor ? 'none' : null"
+    [style.background-color]="isCustomColor ? value : null"
+    [title]="'masterData.customColor' | translate">
+    <input type="color" class="color-picker-native-input" [value]="value"
+        (input)="pick($any($event.target).value)" />
+</label>

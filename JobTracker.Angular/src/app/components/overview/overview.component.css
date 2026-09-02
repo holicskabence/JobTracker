@@ -524,7 +524,7 @@
 .recent-item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: var(--gap-section);
     padding: var(--space-5);
     box-shadow: inset 0 0 0 transparent;
     transition: background-color 0.15s, box-shadow 0.15s;
@@ -541,8 +541,14 @@
 
 .recent-item-left {
     display: flex;
+    flex: 1;
     align-items: center;
     gap: var(--space-4);
+    min-width: 0;
+}
+
+.recent-item-text {
+    min-width: 0;
 }
 
 .recent-avatar {
@@ -561,22 +567,23 @@
     font-size: 0.9375rem;
     font-weight: 700;
     color: var(--clr-dark);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .recent-position {
     font-size: 0.8125rem;
     color: var(--clr-muted);
-}
-
-.recent-item-right {
-    display: flex;
-    align-items: center;
-    gap: var(--gap-section);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .recent-date {
     font-size: 0.8125rem;
     color: var(--clr-muted);
+    text-align: right;
     display: none;
 }
 
@@ -595,6 +602,14 @@
     color: var(--clr-dark);
     min-width: 8rem;
     justify-content: flex-end;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+    .recent-status {
+        justify-content: flex-start;
+    }
 }
 
 .recent-dot {
@@ -602,6 +617,25 @@
     height: 8px;
     border-radius: var(--radius-full);
     flex-shrink: 0;
+}
+
+@supports (grid-template-columns: subgrid) {
+    .recent-list {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .recent-item {
+        display: grid;
+        grid-column: 1 / -1;
+        grid-template-columns: subgrid;
+    }
+
+    @media (min-width: 640px) {
+        .recent-list {
+            grid-template-columns: minmax(0, 1fr) auto auto;
+        }
+    }
 }
 
 @media (max-width: 479px) {

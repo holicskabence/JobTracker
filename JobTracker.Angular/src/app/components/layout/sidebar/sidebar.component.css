@@ -155,7 +155,7 @@
     justify-content: flex-start;
     gap: var(--gap-card);
     padding: 0 var(--space-4);
-    transition: background-color 0.2s, color 0.2s, padding 0.25s cubic-bezier(0.4, 0, 0.2, 1), gap 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.2s, color 0.2s;
     white-space: nowrap;
     overflow: hidden;
     flex-shrink: 0;
@@ -233,12 +233,12 @@
     display: flex;
     align-items: center;
     gap: var(--gap-card);
-    padding: var(--space-2-5) var(--space-3);
+    padding: var(--space-2-5) calc(var(--space-2) - 1px);
     overflow: hidden;
     flex-shrink: 0;
     cursor: pointer;
     border-radius: var(--radius-md);
-    transition: background-color 0.15s, padding 0.25s cubic-bezier(0.4, 0, 0.2, 1), gap 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.15s;
 }
 
 .sidebar-user:hover {
@@ -313,15 +313,6 @@
 }
 
 @media (min-width: 768px) {
-
-    .sidebar:not(.sidebar--expanded) .sidebar-button,
-    .sidebar:not(.sidebar--expanded) .sidebar-user {
-        justify-content: center;
-        gap: 0;
-        padding-left: 0;
-        padding-right: 0;
-    }
-
     .sidebar:not(.sidebar--expanded) .sidebar-user-info {
         flex: 0 0 0;
         max-width: 0;

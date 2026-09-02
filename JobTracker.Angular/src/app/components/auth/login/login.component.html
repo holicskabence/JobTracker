@@ -41,7 +41,7 @@
             <span>{{ 'auth.login.orEmailDivider' | translate }}</span>
         </div>
 
-        <form class="login-card-form" (ngSubmit)="submit()">
+        <form class="login-card-form" (ngSubmit)="submit()" novalidate>
 
             <div class="lf">
                 <label class="auth-form-label">{{ 'auth.login.emailLabel' | translate }}</label>

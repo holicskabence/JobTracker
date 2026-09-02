@@ -234,18 +234,15 @@
 }
 
 .practice-cat-row--active {
-    border-left-color: var(--clr-green);
     background: rgba(38, 172, 0, 0.07);
     font-weight: 700;
 }
 
 .practice-cat-row--failed.practice-cat-row--active {
-    border-left-color: var(--clr-red);
     background: rgba(239, 68, 68, 0.06);
 }
 
 .practice-cat-row--unanswered.practice-cat-row--active {
-    border-left-color: var(--clr-blue);
     background: rgba(95, 185, 250, 0.08);
 }
 

@@ -19,11 +19,15 @@ export class AddJobModalComponent implements OnChanges {
   company = '';
   position = '';
   link = '';
-  status: JobStatus = 'Mentett';
+  status: JobStatus = '';
   submitted = false;
   duplicate = false;
 
   constructor(private readonly store: JobStoreService) { }
+
+  private get defaultStatus(): JobStatus {
+    return this.store.statusConfigs()[0]?.key ?? '';
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['editJob']) {
@@ -37,7 +41,7 @@ export class AddJobModalComponent implements OnChanges {
         this.company = '';
         this.position = '';
         this.link = '';
-        this.status = 'Mentett';
+        this.status = this.defaultStatus;
         this.submitted = false;
       }
       this.duplicate = false;

@@ -1,12 +1,18 @@
-<app-page-section class="applications-header" [title]="'applicationsView.sectionTitle' | translate" [subtitle]="'applicationsView.sectionSubtitle' | translate">
+<app-page-section class="applications-header" [title]="titleKey() | translate" [subtitle]="subtitleKey() | translate">
     <app-search-toolbar pageActions [value]="search()" (valueChange)="search.set($event)"
         [placeholder]="'tableView.searchPlaceholder' | translate" [clearTitle]="'tableView.clear' | translate"
         [countLabel]="'tableView.resultsCount' | translate:{ count: resultCount() }" [size]="'compact'">
         <app-applications-view-toggle searchToolbarLeading />
     </app-search-toolbar>
 </app-page-section>
-@if (viewService.view() === 'kanban') {
+@switch (viewService.view()) {
+@case ('kanban') {
 <app-kanban [search]="search()" />
-} @else {
+}
+@case ('history') {
+<app-application-changes [search]="search()" />
+}
+@default {
 <app-table-view [search]="search()" />
+}
 }

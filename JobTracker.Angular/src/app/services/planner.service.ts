@@ -8,8 +8,12 @@ import { PlannerApiService, EventTypeDto } from './planner-api.service';
 export class PlannerService {
   private readonly _eventTypeObjects = signal<EventTypeDto[]>([]);
 
+  private readonly _tasks = signal<Task[]>([]);
+
   readonly events = signal<CalendarEvent[]>([]);
-  readonly tasks = signal<Task[]>([]);
+  readonly tasks = computed(() =>
+    [...this._tasks()].sort((a, b) => Number(a.completed) - Number(b.completed) || b.id - a.id)
+  );
   readonly documents = signal<UserDocument[]>([]);
   readonly eventTypes = computed(() => this._eventTypeObjects().map(t => t.name));
   readonly loading = signal<boolean>(true);
@@ -20,7 +24,7 @@ export class PlannerService {
     this.loading.set(true);
 
     const events$ = this.api.getEvents().pipe(tap(data => this.events.set(data)), catchError(() => of(null)));
-    const tasks$ = this.api.getTasks().pipe(tap(data => this.tasks.set(data)), catchError(() => of(null)));
+    const tasks$ = this.api.getTasks().pipe(tap(data => this._tasks.set(data)), catchError(() => of(null)));
     const documents$ = this.api.getDocuments().pipe(tap(data => this.documents.set(data)), catchError(() => of(null)));
     const eventTypes$ = this.api.getEventTypes().pipe(tap(data => this._eventTypeObjects.set(data)), catchError(() => of(null)));
 
@@ -47,19 +51,19 @@ export class PlannerService {
 
   addTask(text: string): void {
     this.api.createTask(text).subscribe(created =>
-      this.tasks.update(prev => [...prev, created])
+      this._tasks.update(prev => [created, ...prev])
     );
   }
 
   toggleTask(id: number): void {
     this.api.toggleTask(id).subscribe(updated =>
-      this.tasks.update(prev => prev.map(t => t.id === id ? { ...t, completed: updated.completed } : t))
+      this._tasks.update(prev => prev.map(t => t.id === id ? { ...t, completed: updated.completed } : t))
     );
   }
 
   deleteTask(id: number): void {
     this.api.deleteTask(id).subscribe(() =>
-      this.tasks.update(prev => prev.filter(t => t.id !== id))
+      this._tasks.update(prev => prev.filter(t => t.id !== id))
     );
   }
 

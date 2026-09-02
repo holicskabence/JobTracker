@@ -9,7 +9,6 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { DashboardComponent } from './components/layout/dashboard/dashboard.component';
 import { OverviewComponent } from './components/overview/overview.component';
 import { ApplicationsViewComponent } from './components/applications/applications-view/applications-view.component';
-import { ApplicationChangesComponent } from './components/application-changes/application-changes.component';
 import { EventsComponent } from './components/events/events.component';
 import { DocumentsComponent } from './components/documents/documents.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
@@ -36,7 +35,7 @@ export const routes: Routes = [
       { path: 'overview', component: OverviewComponent },
       { path: 'applications', component: ApplicationsViewComponent },
       { path: 'table', redirectTo: 'applications' },
-      { path: 'changes', component: ApplicationChangesComponent },
+      { path: 'changes', redirectTo: 'applications' },
       { path: 'events', component: EventsComponent },
       { path: 'documents', component: DocumentsComponent },
       { path: 'statistics', component: StatisticsComponent },

@@ -4,6 +4,10 @@
     width: 100%;
 }
 
+.landing-hero-illustration-picture {
+    display: contents;
+}
+
 .landing-hero-illustration-image {
     height: calc(var(--landing-fold-height) * 0.534);
     width: auto;
@@ -22,16 +26,14 @@
 }
 
 @media (max-width: 640px) {
-    .landing-hero-illustration-image {
-        aspect-ratio: 1659 / 948;
-        width: 97%;
+    .landing-hero-illustration-media {
+        display: block;
+        width: 100%;
         height: auto;
+        max-width: none;
+        margin-inline: 0;
+        aspect-ratio: 1280 / 679;
+        object-fit: contain;
         flex: none;
-    }
-}
-
-@media (max-width: 380px) {
-    .landing-hero-illustration-image {
-        width: 93%;
     }
 }

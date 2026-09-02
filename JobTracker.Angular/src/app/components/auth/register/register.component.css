@@ -189,3 +189,9 @@
 .login-card-link:hover {
   color: var(--clr-green);
 }
+
+.auth-form-error {
+  font-size: 0.8rem;
+  color: #ef4444;
+  text-align: center;
+}

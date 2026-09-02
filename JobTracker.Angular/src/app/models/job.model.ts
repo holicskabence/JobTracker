@@ -14,7 +14,7 @@ export interface JobStatusConfig {
   statsCategory?: StatsCategory;
 }
 
-export type DashboardTab = 'overview' | 'applications' | 'changes' | 'events' | 'documents' | 'statistics' | 'profile' | 'master-data' | 'practice';
+export type DashboardTab = 'overview' | 'applications' | 'events' | 'documents' | 'statistics' | 'profile' | 'master-data' | 'practice';
 
 export interface Job {
   id: number;
@@ -56,11 +56,11 @@ export interface JobStats {
 }
 
 export const DEFAULT_STATUS_CONFIGS: JobStatusConfig[] = [
-  { key: 'Mentett',     label: 'Mentett',     color: '#9b9b99' },
-  { key: 'Beadva',      label: 'Beadva',      color: '#5fb9fa' },
-  { key: 'Visszahivas', label: 'Visszahívás', color: '#f59e0b' },
-  { key: 'Ajanlat',     label: 'Ajánlat',     color: '#26ac00' },
-  { key: 'Elutasitva',  label: 'Elutasítva',  color: '#ef4444' },
+  { key: 'Saved',     label: 'Saved',     color: '#9b9b99' },
+  { key: 'Applied',   label: 'Applied',   color: '#5fb9fa' },
+  { key: 'Interview', label: 'Interview', color: '#f59e0b' },
+  { key: 'Offer',     label: 'Offer',     color: '#26ac00' },
+  { key: 'Rejected',  label: 'Rejected',  color: '#ef4444' },
 ];
 
 export const KANBAN_COLUMNS: { status: JobStatus; label: string }[] =
@@ -73,6 +73,6 @@ export const STATUS_COLORS: Record<string, string> =
   Object.fromEntries(DEFAULT_STATUS_CONFIGS.map(c => [c.key, c.color]));
 
 export const STATUS_CSS_KEYS: Record<string, string> = {
-  Mentett: 'mentett', Beadva: 'beadva', Visszahivas: 'visszahivas',
-  Ajanlat: 'ajanlat', Elutasitva: 'elutasitva'
+  Saved: 'saved', Applied: 'applied', Interview: 'interview',
+  Offer: 'offer', Rejected: 'rejected'
 };

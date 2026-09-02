@@ -1,2 +1,5 @@
-<img class="landing-hero-illustration-image" src="/assets/landing/hero-workflow.png"
-    [alt]="'landing.hero.illustrationAlt' | translate" />
+<picture class="landing-hero-illustration-picture">
+    <source media="(max-width: 640px)" srcset="/assets/landing/hero-workflow-mobile.png" />
+    <img class="landing-hero-illustration-image landing-hero-illustration-media"
+        src="/assets/landing/hero-workflow.png" [alt]="'landing.hero.illustrationAlt' | translate" />
+</picture>

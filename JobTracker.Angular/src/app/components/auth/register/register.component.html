@@ -1,5 +1,5 @@
 <app-auth-card [title]="'auth.register.title' | translate" [subtitle]="'auth.register.subtitle' | translate" maxWidth="460px">
-        <form class="login-card-form" (ngSubmit)="submit()">
+        <form class="login-card-form" (ngSubmit)="submit()" novalidate>
 
             <div class="register-row">
                 <div class="lf">
@@ -29,7 +29,7 @@
                         <polyline points="22,6 12,13 2,6" />
                     </svg>
                     <input class="auth-form-input" [class.auth-form-input--error]="errors['email']" type="email"
-                        placeholder="bence@saas.io" autocomplete="email" [(ngModel)]="email" name="email" />
+                        [placeholder]="'auth.register.emailPlaceholder' | translate" autocomplete="email" [(ngModel)]="email" name="email" />
                 </div>
                 @if (errors['email']) {
                 <span class="auth-form-error-inline">{{ errors['email'] }}</span>
@@ -84,6 +84,10 @@
                 <span class="auth-form-error-inline">{{ errors['confirm'] }}</span>
                 }
             </div>
+
+            @if (errors['general']) {
+            <p class="auth-form-error">{{ errors['general'] }}</p>
+            }
 
             <button class="login-card-button login-card-button--primary" type="submit">
                 {{ 'auth.register.submitBtn' | translate }}

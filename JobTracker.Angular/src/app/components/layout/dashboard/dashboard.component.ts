@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private syncTab(url: string): void {
     const seg = url.split('/').filter(Boolean).pop() as DashboardTab;
     const valid: DashboardTab[] = [
-      'overview', 'applications', 'changes', 'events',
+      'overview', 'applications', 'events',
       'documents', 'statistics', 'master-data', 'profile', 'practice'
     ];
     this.activeTab.set(valid.includes(seg) ? seg : 'overview');

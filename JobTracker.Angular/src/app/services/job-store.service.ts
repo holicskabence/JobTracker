@@ -93,6 +93,18 @@ export class JobStoreService {
     );
   }
 
+  filterStatusHistory(term: string): JobStatusHistoryEntry[] {
+    const needle = term.trim().toLowerCase();
+    const entries = this.statusHistory();
+    if (!needle) return entries;
+    return entries.filter(e =>
+      e.company.toLowerCase().includes(needle) ||
+      e.position.toLowerCase().includes(needle) ||
+      this.labelFor(e.newStatus).toLowerCase().includes(needle) ||
+      (!!e.previousStatus && this.labelFor(e.previousStatus).toLowerCase().includes(needle))
+    );
+  }
+
   labelFor(key: string): string {
     return this.statusConfigs().find(c => c.key === key)?.label ?? key;
   }

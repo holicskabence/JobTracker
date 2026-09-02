@@ -40,7 +40,7 @@
         </a>
 
         <a class="sidebar-button" routerLink="/dashboard/applications"
-            [class.sidebar-button--active]="activeTab === 'applications' || activeTab === 'changes'"
+            [class.sidebar-button--active]="activeTab === 'applications'"
             (click)="closeMobile.emit()" [title]="'nav.applications' | translate">
             <span class="sidebar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

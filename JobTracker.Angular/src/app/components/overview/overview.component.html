@@ -146,18 +146,16 @@
                         [style.background-color]="colorAlpha(job.status, 0.12)">
                         {{ initial(job.company) }}
                     </div>
-                    <div>
+                    <div class="recent-item-text">
                         <h4 class="recent-company">{{ job.company }}</h4>
                         <p class="recent-position">{{ job.position }}</p>
                     </div>
                 </div>
-                <div class="recent-item-right">
-                    <span class="recent-date">{{ job.date }}</span>
-                    <div class="recent-status">
-                        <span class="recent-dot" [style.background-color]="colorFor(job.status)"></span>
-                        {{ statusLabel(job.status) }}
-                    </div>
+                <div class="recent-status">
+                    <span class="recent-dot" [style.background-color]="colorFor(job.status)"></span>
+                    {{ statusLabel(job.status) }}
                 </div>
+                <span class="recent-date">{{ job.date }}</span>
             </div>
             }
         </div>

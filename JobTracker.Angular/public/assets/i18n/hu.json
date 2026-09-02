@@ -164,7 +164,7 @@
       "facebookBtn": "Folytatás Facebook-kal",
       "orEmailDivider": "VAGY E-MAIL-LAL",
       "emailLabel": "E-MAIL CÍM",
-      "emailPlaceholder": "bence@saas.io",
+      "emailPlaceholder": "nev@example.com",
       "passwordLabel": "JELSZÓ",
       "hidePassword": "Elrejtés",
       "showPassword": "Megjelenítés",
@@ -174,6 +174,7 @@
       "noAccountText": "Nincs még fiókod?",
       "registerLink": "Regisztrálj itt",
       "missingFieldsError": "Add meg az e-mail címed és a jelszavadat.",
+      "invalidEmailError": "Adj meg egy érvényes e-mail címet.",
       "invalidCredentialsError": "Hibás e-mail cím vagy jelszó.",
       "serverConnectionError": "Nem sikerült csatlakozni a szerverhez.",
       "facebookLoginError": "Sikertelen Facebook bejelentkezés.",
@@ -185,6 +186,7 @@
       "firstNameLabel": "KERESZTNÉV",
       "lastNameLabel": "VEZETÉKNÉV",
       "emailLabel": "E-MAIL CÍM",
+      "emailPlaceholder": "nev@example.com",
       "passwordLabel": "JELSZÓ",
       "passwordPlaceholder": "Min. 6 karakter",
       "confirmPasswordLabel": "JELSZÓ MEGERŐSÍTÉSE",
@@ -194,10 +196,12 @@
       "firstNameRequiredError": "Keresztnév megadása kötelező.",
       "lastNameRequiredError": "Vezetéknév megadása kötelező.",
       "emailRequiredError": "E-mail cím megadása kötelező.",
+      "emailInvalidError": "Adj meg egy érvényes e-mail címet.",
       "passwordRequiredError": "Jelszó megadása kötelező.",
       "passwordTooShortError": "Legalább 6 karakter szükséges.",
       "passwordMismatchError": "A két jelszó nem egyezik.",
-      "registrationFailedError": "Regisztráció sikertelen. Próbáld meg újra."
+      "registrationFailedError": "Regisztráció sikertelen. Próbáld meg újra.",
+      "emailTakenError": "Ezzel az e-mail címmel már regisztráltak."
     }
   },
   "sidebar": {
@@ -475,6 +479,18 @@
       "templates": "Sablonok"
     }
   },
+  "outreachTemplates": {
+    "afterApplying": {
+      "title": "Kapcsolatfelvétel jelentkezés után",
+      "desc": "Használd ezt a sablont, ha LinkedIn-en szeretnél írni a cég toborzójának közvetlenül a jelentkezés leadása után.",
+      "text": "Kedves [Toborzó Neve]!\n\nA mai napon jelentkeztem a [Cég Neve] [Pozíció Neve] pozíciójára. Több mint 4 év frontend tapasztalatommal nagyon motivált vagyok, hogy hozzájáruljak a csapat sikereihez. Mellékelten küldtem az önéletrajzomat, de örömmel küldök további részleteket is itt.\n\nSzép napot kívánok!\n\nÜdvözlettel,\n[Neved]"
+    },
+    "afterInterview": {
+      "title": "Köszönőlevél interjú után",
+      "desc": "Küldd el az interjút követő 24 órán belül, hogy megerősítsd az elhivatottságodat.",
+      "text": "Kedves [Interjúztató Neve]!\n\nSzeretném megköszönni a mai lehetőséget és a tartalmas beszélgetést a [Pozíció Neve] pozíció kapcsán. Nagyon tetszett az a jövőkép és technológiai szemlélet, amit bemutattatok.\n\nBízom benne, hogy hamarosan együtt dolgozhatunk!\n\nÜdvözlettel,\n[Neved]"
+    }
+  },
   "statistics": {
     "title": "Statisztikai Dashboard",
     "subtitle": "Teljes kép az álláskeresésedről – aktivitás, konverzió, és hogy honnan jön a lendület.",
@@ -653,6 +669,7 @@
     },
     "badge": { "count": "{{count}} db" },
     "selectToEdit": "Kiválasztás módosításhoz",
+    "customColor": "Egyéni szín",
     "delete": "Törlés",
     "cancel": "Mégse",
     "save": "Mentés",

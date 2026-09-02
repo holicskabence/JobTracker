@@ -8,14 +8,15 @@ import { AuthService } from '../../services/auth.service';
 import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
+import { ColorPickerComponent } from '../shared/color-picker/color-picker.component';
 import { JobStatusConfig, StatsCategory } from '../../models/job.model';
 import { PracticeCategory } from '../../models/practice.model';
-import { OUTREACH_TEMPLATES } from '../../models/planner.model';
+import { OUTREACH_TEMPLATES, OutreachTemplate, outreachTemplateKey } from '../../models/planner.model';
 
 @Component({
   selector: 'app-master-data',
   standalone: true,
-  imports: [FormsModule, TranslateModule, CardComponent, BadgeComponent, PageSectionComponent],
+  imports: [FormsModule, TranslateModule, CardComponent, BadgeComponent, PageSectionComponent, ColorPickerComponent],
   templateUrl: './master-data.component.html',
   styleUrl: './master-data.component.css'
 })
@@ -42,10 +43,12 @@ export class MasterDataComponent {
   newCategoryColor = '#5fb9fa';
   categoryFormOpen = false;
 
-  readonly STATUS_PRESETS = ['#9b9b99', '#5fb9fa', '#f59e0b', '#26ac00', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4'];
-
   readonly outreachTemplates = OUTREACH_TEMPLATES;
   outreachTemplateFileNames: Record<number, string> = {};
+
+  templateKey(template: OutreachTemplate, field: 'title' | 'desc' | 'text'): string {
+    return outreachTemplateKey(template, field);
+  }
 
   onOutreachTemplateFileSelected(id: number, event: Event): void {
     const input = event.target as HTMLInputElement;

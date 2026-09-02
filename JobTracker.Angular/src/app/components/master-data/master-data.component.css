@@ -582,32 +582,6 @@
     }
 }
 
-.master-data-color-picker {
-    display: flex;
-    gap: var(--space-1-5);
-    align-items: center;
-    flex-shrink: 0;
-}
-
-.master-data-color-dot {
-    width: var(--space-5);
-    height: var(--space-5);
-    border-radius: 50%;
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: transform 0.15s, border-color 0.15s;
-    padding: 0;
-}
-
-.master-data-color-dot:hover {
-    transform: scale(1.2);
-}
-
-.master-data-color-dot--active {
-    border-color: var(--clr-dark);
-    transform: scale(1.15);
-}
-
 .master-data-info {
     display: flex;
     align-items: flex-start;

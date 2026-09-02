@@ -1,9 +1,9 @@
 <div class="applications-view-toggle" role="group">
 
     @if (viewService.canUseKanban()) {
-    <a class="applications-view-toggle-button" routerLink="/dashboard/applications"
-        [class.applications-view-toggle-button--active]="activeBoardView() === 'kanban'"
-        (click)="selectBoardView('kanban')" [title]="'applicationsView.switchToKanban' | translate"
+    <button type="button" class="applications-view-toggle-button"
+        [class.applications-view-toggle-button--active]="viewService.view() === 'kanban'"
+        (click)="selectView('kanban')" [title]="'applicationsView.switchToKanban' | translate"
         [attr.aria-label]="'applicationsView.switchToKanban' | translate">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
@@ -11,12 +11,12 @@
             <rect x="9.5" y="3" width="5" height="13" rx="1.5" />
             <rect x="16" y="3" width="5" height="9" rx="1.5" />
         </svg>
-    </a>
+    </button>
     }
 
-    <a class="applications-view-toggle-button" routerLink="/dashboard/applications"
-        [class.applications-view-toggle-button--active]="activeBoardView() === 'table'"
-        (click)="selectBoardView('table')" [title]="'applicationsView.switchToTable' | translate"
+    <button type="button" class="applications-view-toggle-button"
+        [class.applications-view-toggle-button--active]="viewService.view() === 'table'"
+        (click)="selectView('table')" [title]="'applicationsView.switchToTable' | translate"
         [attr.aria-label]="'applicationsView.switchToTable' | translate">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
@@ -27,11 +27,11 @@
             <line x1="3.5" y1="12" x2="3.51" y2="12" />
             <line x1="3.5" y1="18" x2="3.51" y2="18" />
         </svg>
-    </a>
+    </button>
 
-    <a class="applications-view-toggle-button" routerLink="/dashboard/changes"
-        [class.applications-view-toggle-button--active]="historyActive()"
-        [title]="'applicationsView.switchToHistory' | translate"
+    <button type="button" class="applications-view-toggle-button"
+        [class.applications-view-toggle-button--active]="viewService.view() === 'history'"
+        (click)="selectView('history')" [title]="'applicationsView.switchToHistory' | translate"
         [attr.aria-label]="'applicationsView.switchToHistory' | translate">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
@@ -39,6 +39,6 @@
             <path d="M3.05 13A9 9 0 1 0 6 5.3L3 8" />
             <polyline points="12 7 12 12 16 14" />
         </svg>
-    </a>
+    </button>
 
 </div>

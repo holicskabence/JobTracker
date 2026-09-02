@@ -22,7 +22,6 @@ export class DashboardHeaderComponent {
   private readonly PAGE_TITLE_KEYS: Record<DashboardTab, string> = {
     overview: 'header.titles.overview',
     applications: 'header.titles.applications',
-    changes: 'header.titles.applicationChanges',
     events: 'header.titles.events',
     documents: 'header.titles.documents',
     statistics: 'header.titles.statistics',

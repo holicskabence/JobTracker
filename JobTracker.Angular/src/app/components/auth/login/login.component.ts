@@ -6,6 +6,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../services/auth.service';
 import { SocialAuthService } from '../../../services/social-auth.service';
 import { AuthCardComponent } from '../../shared/auth-card/auth-card.component';
+import { isValidEmail } from '../../../utils/email';
 
 @Component({
   selector: 'app-login',
@@ -42,14 +43,18 @@ export class LoginComponent implements AfterViewInit {
       this.error = this.translate.instant('auth.login.missingFieldsError');
       return;
     }
+    if (!isValidEmail(this.email)) {
+      this.error = this.translate.instant('auth.login.invalidEmailError');
+      return;
+    }
     this.loading.set(true);
     this.loadingAction.set('email');
     this.auth.login(this.email.trim(), this.password).subscribe({
       next: () => this.router.navigate(['/dashboard']),
       error: (err: HttpErrorResponse) => {
-        this.error = err.status === 401
-          ? (err.error?.message ?? this.translate.instant('auth.login.invalidCredentialsError'))
-          : this.translate.instant('auth.login.serverConnectionError');
+        this.error = this.translate.instant(err.status === 401
+          ? 'auth.login.invalidCredentialsError'
+          : 'auth.login.serverConnectionError');
         this.loading.set(false);
         this.loadingAction.set(null);
       }

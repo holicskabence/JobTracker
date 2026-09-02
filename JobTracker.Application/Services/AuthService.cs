@@ -119,11 +119,11 @@ public sealed class AuthService(
     {
         var defaults = new[]
         {
-            new JobStatusConfig { UserId = userId, Key = "Mentett", Label = "Mentett", Color = "#9b9b99", SortOrder = 0 },
-            new JobStatusConfig { UserId = userId, Key = "Beadva", Label = "Beadva", Color = "#5fb9fa", SortOrder = 1, IsActive = true },
-            new JobStatusConfig { UserId = userId, Key = "Visszahivas", Label = "Visszahívás", Color = "#f59e0b", SortOrder = 2, IsActive = true, IsInterview = true },
-            new JobStatusConfig { UserId = userId, Key = "Ajanlat", Label = "Ajánlat", Color = "#26ac00", SortOrder = 3, StatsCategory = "Success" },
-            new JobStatusConfig { UserId = userId, Key = "Elutasitva", Label = "Elutasítva", Color = "#ef4444", SortOrder = 4, StatsCategory = "Rejected" }
+            new JobStatusConfig { UserId = userId, Key = "Saved", Label = "Saved", Color = "#9b9b99", SortOrder = 0 },
+            new JobStatusConfig { UserId = userId, Key = "Applied", Label = "Applied", Color = "#5fb9fa", SortOrder = 1, IsActive = true },
+            new JobStatusConfig { UserId = userId, Key = "Interview", Label = "Interview", Color = "#f59e0b", SortOrder = 2, IsActive = true, IsInterview = true },
+            new JobStatusConfig { UserId = userId, Key = "Offer", Label = "Offer", Color = "#26ac00", SortOrder = 3, StatsCategory = "Success" },
+            new JobStatusConfig { UserId = userId, Key = "Rejected", Label = "Rejected", Color = "#ef4444", SortOrder = 4, StatsCategory = "Rejected" }
         };
         foreach (var config in defaults) await statusConfigRepo.AddAsync(config);
     }
@@ -132,11 +132,11 @@ public sealed class AuthService(
     {
         var defaults = new[]
         {
-            new EventType { UserId = userId, Name = "HR Megkeresés" },
-            new EventType { UserId = userId, Name = "Technikai Interjú" },
-            new EventType { UserId = userId, Name = "Rendszertervezés" },
-            new EventType { UserId = userId, Name = "Tesztfeladat" },
-            new EventType { UserId = userId, Name = "Ajánlat egyeztetés" }
+            new EventType { UserId = userId, Name = "HR Screening", Color = "#f59e0b" },
+            new EventType { UserId = userId, Name = "Technical Interview", Color = "#5fb9fa" },
+            new EventType { UserId = userId, Name = "System Design", Color = "#8b5cf6" },
+            new EventType { UserId = userId, Name = "Take-home Task", Color = "#f97316" },
+            new EventType { UserId = userId, Name = "Offer Discussion", Color = "#26ac00" }
         };
         foreach (var type in defaults) await eventTypeRepo.AddAsync(type);
     }
@@ -145,9 +145,9 @@ public sealed class AuthService(
     {
         var defaults = new[]
         {
-            new PracticeCategory { UserId = userId, Name = "Technikai", Color = "#26ac00" },
+            new PracticeCategory { UserId = userId, Name = "Technical", Color = "#26ac00" },
             new PracticeCategory { UserId = userId, Name = "HR", Color = "#f59e0b" },
-            new PracticeCategory { UserId = userId, Name = "Rendszertervezés", Color = "#8b5cf6" }
+            new PracticeCategory { UserId = userId, Name = "System Design", Color = "#8b5cf6" }
         };
         foreach (var category in defaults) await practiceCategoryRepo.AddAsync(category);
     }
@@ -159,26 +159,26 @@ public sealed class AuthService(
             new PracticeQuestion
             {
                 UserId = userId,
-                Category = "Technikai",
-                Question = "Hogyan működik a React/Angular Virtual DOM / Change Detection és miért nyújt jobb teljesítményt?",
-                Hint = "Angularban: zone.js, OnPush stratégia, signals. Általánosan: diffing algoritmus, batch update.",
-                SampleAnswer = "Az Angular alapból zone.js segítségével figyeli az aszinkron eseményeket és indít change detection ciklust. Az OnPush stratégiával csak akkor fut le, ha az Input-ok referenciája változik. Az újabb Signals rendszerben a reaktivitás granulárissá válik: csak a signal-t olvasó kifejezések frissülnek."
+                Category = "Technical",
+                Question = "How does Angular change detection work, and what does the OnPush strategy actually change?",
+                Hint = "zone.js, the component tree walk, reference equality on inputs, signals as the granular alternative.",
+                SampleAnswer = "By default Angular patches the async APIs through zone.js, so any event triggers a change detection pass over the whole component tree. With OnPush a component is only checked when an input reference changes, when an event fires inside it, or when it is marked dirty explicitly. Signals go further still: reading a signal registers a fine-grained dependency, so only the expressions that depend on the changed value are recomputed."
             },
             new PracticeQuestion
             {
                 UserId = userId,
                 Category = "HR",
-                Question = "Mesélj el egy helyzetet, amikor nézeteltérésed volt egy fejlesztőtársaddal. Hogyan oldottad meg?",
-                Hint = "Használd a STAR módszert. Fókuszálj az empátiára, az adatokon alapuló érvelésre és a kompromisszumra.",
-                SampleAnswer = "Egy projektben a PM azonnali kiadást kért, ami szerintem rontotta a minőséget. Ahelyett, hogy konfrontálódtam volna, méréseket végeztem és bemutattam egy kompromisszumos megoldást. A tanulság: az adatokkal alátámasztott javaslat sokkal meggyőzőbb a konfrontációnál."
+                Question = "Tell me about a time you disagreed with a teammate. How did you resolve it?",
+                Hint = "Use STAR. Focus on empathy, evidence and the compromise you landed on.",
+                SampleAnswer = "On one project the product manager wanted to ship immediately and I thought the quality was not there yet. Instead of arguing in the standup I measured both options and brought the numbers, then proposed a smaller version we could ship on the original date. The lesson I took away is that a measured proposal moves a disagreement forward much faster than a strongly held opinion."
             },
             new PracticeQuestion
             {
                 UserId = userId,
-                Category = "Rendszertervezés",
-                Question = "Hogyan terveznél meg egy képekkel teli közösségi feedet minimális betöltési idővel?",
-                Hint = "Lazy loading, CDN, modern képformátumok, lista-virtualizáció.",
-                SampleAnswer = "CDN-t használnék modern formátumokban (WebP/AVIF) és reszponzív méretekben tárolt képekhez, Intersection Observer alapú lazy loading-gal és virtualizált listával (pl. CDK Virtual Scroll), hogy mindig csak a látható elemek legyenek a DOM-ban."
+                Category = "System Design",
+                Question = "How would you design an image-heavy social feed that still loads fast?",
+                Hint = "CDN, modern formats, responsive sources, lazy loading, list virtualisation.",
+                SampleAnswer = "I would serve the images from a CDN in modern formats such as WebP or AVIF, generate several widths and let srcset pick the right one. Below the fold everything is lazy loaded with a reserved layout box so nothing shifts, and the list itself is virtualised, so only the visible rows exist in the DOM regardless of feed length."
             }
         };
         foreach (var question in defaults) await practiceQuestionRepo.AddAsync(question);

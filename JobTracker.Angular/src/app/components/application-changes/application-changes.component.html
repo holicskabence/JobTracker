@@ -1,10 +1,4 @@
-<app-page-section [title]="'applicationChanges.sectionTitle' | translate" [subtitle]="'applicationChanges.sectionSubtitle' | translate">
-
-  <app-search-toolbar pageActions [value]="searchRaw()" (valueChange)="searchRaw.set($event)"
-    [placeholder]="'tableView.searchPlaceholder' | translate" [clearTitle]="'tableView.clear' | translate"
-    [countLabel]="'tableView.resultsCount' | translate:{ count: sortedEntries().length }" [size]="'compact'">
-    <app-applications-view-toggle searchToolbarLeading />
-  </app-search-toolbar>
+<div class="table-view-container">
 
   <app-data-table>
 
@@ -55,8 +49,8 @@
       @if (sortedEntries().length === 0) {
       <tr>
         <td colspan="3" class="table-view-empty">
-          @if (searchRaw()) {
-          {{ 'tableView.noResultsFor' | translate:{ term: searchRaw() } }}
+          @if (search()) {
+          {{ 'tableView.noResultsFor' | translate:{ term: search() } }}
           } @else {
           {{ 'applicationChanges.noEntriesYet' | translate }}
           }
@@ -100,8 +94,8 @@
 
       @if (sortedEntries().length === 0) {
       <div class="table-view-empty">
-        @if (searchRaw()) {
-        {{ 'tableView.noResultsFor' | translate:{ term: searchRaw() } }}
+        @if (search()) {
+        {{ 'tableView.noResultsFor' | translate:{ term: search() } }}
         } @else {
         {{ 'applicationChanges.noEntriesYet' | translate }}
         }
@@ -111,4 +105,4 @@
 
   </app-data-table>
 
-</app-page-section>
+</div>

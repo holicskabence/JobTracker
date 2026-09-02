@@ -252,13 +252,13 @@
 
         @for (template of templates; track template.id) {
           <app-card class="documents-template-card" radius="md">
-            <h4 class="documents-template-name">{{ template.title }}</h4>
-            <p class="documents-template-description">{{ template.desc }}</p>
-            <pre class="documents-template-text">{{ template.text }}</pre>
+            <h4 class="documents-template-name">{{ templateKey(template, 'title') | translate }}</h4>
+            <p class="documents-template-description">{{ templateKey(template, 'desc') | translate }}</p>
+            <pre class="documents-template-text">{{ templateKey(template, 'text') | translate }}</pre>
             <button
               class="documents-template-copy"
               [class.documents-template-copy--done]="copiedId() === template.id"
-              (click)="copyTemplate(template.text, template.id)"
+              (click)="copyTemplate(template)"
             >
               @if (copiedId() === template.id) {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"

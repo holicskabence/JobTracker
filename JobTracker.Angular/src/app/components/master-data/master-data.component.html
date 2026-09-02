@@ -43,13 +43,7 @@
             <form class="master-data-add-form master-data-add-form--color" (ngSubmit)="addEventType()">
                 <input class="master-data-input" type="text" [placeholder]="'masterData.eventTypes.newPlaceholder' | translate" [(ngModel)]="newEventTypeName"
                     name="newEventType" />
-                <div class="master-data-color-picker">
-                    @for (preset of STATUS_PRESETS; track preset) {
-                    <button type="button" class="master-data-color-dot" [style.background-color]="preset"
-                        [class.master-data-color-dot--active]="newEventTypeColor === preset"
-                        (click)="newEventTypeColor = preset" [title]="preset"></button>
-                    }
-                </div>
+                <app-color-picker [(value)]="newEventTypeColor"></app-color-picker>
                 @if (selectedEventType) {
                 <button type="button" class="master-data-cancel-button" (click)="cancelEventTypeEdit()">{{ 'masterData.cancel' | translate }}</button>
                 }
@@ -112,13 +106,7 @@
             <form class="master-data-add-form master-data-add-form--color" (ngSubmit)="addCategory()">
                 <input class="master-data-input" type="text" [placeholder]="'masterData.categories.newPlaceholder' | translate"
                     [(ngModel)]="newCategoryName" name="newCategoryName" />
-                <div class="master-data-color-picker">
-                    @for (preset of STATUS_PRESETS; track preset) {
-                    <button type="button" class="master-data-color-dot" [style.background-color]="preset"
-                        [class.master-data-color-dot--active]="newCategoryColor === preset"
-                        (click)="newCategoryColor = preset" [title]="preset"></button>
-                    }
-                </div>
+                <app-color-picker [(value)]="newCategoryColor"></app-color-picker>
                 @if (selectedCategoryId !== null) {
                 <button type="button" class="master-data-cancel-button" (click)="cancelCategoryEdit()">{{ 'masterData.cancel' | translate }}</button>
                 }
@@ -173,8 +161,8 @@
                 </div>
 
                 <div class="master-data-outreach-template-body">
-                    <span class="master-data-outreach-template-name">{{ template.title }}</span>
-                    <p class="master-data-outreach-template-desc">{{ template.desc }}</p>
+                    <span class="master-data-outreach-template-name">{{ templateKey(template, 'title') | translate }}</span>
+                    <p class="master-data-outreach-template-desc">{{ templateKey(template, 'desc') | translate }}</p>
                 </div>
 
                 <div class="master-data-outreach-template-actions">
@@ -337,13 +325,7 @@
         <form class="master-data-add-form master-data-add-form--color" (ngSubmit)="addStatus()">
             <input class="master-data-input" type="text" [placeholder]="'masterData.statuses.newPlaceholder' | translate" [(ngModel)]="newStatusLabel"
                 name="newStatusLabel" />
-            <div class="master-data-color-picker">
-                @for (preset of STATUS_PRESETS; track preset) {
-                <button type="button" class="master-data-color-dot" [style.background-color]="preset"
-                    [class.master-data-color-dot--active]="newStatusColor === preset"
-                    (click)="newStatusColor = preset" [title]="preset"></button>
-                }
-            </div>
+            <app-color-picker [(value)]="newStatusColor"></app-color-picker>
             @if (selectedStatusKey) {
             <button type="button" class="master-data-cancel-button" (click)="cancelStatusEdit()">{{ 'masterData.cancel' | translate }}</button>
             }
