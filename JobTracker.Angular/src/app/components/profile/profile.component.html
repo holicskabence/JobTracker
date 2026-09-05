@@ -48,6 +48,68 @@
             <h3 class="profile-display-name">{{ user?.name }}</h3>
             <p class="profile-display-position">{{ user?.position }}</p>
 
+            @if (user?.linkedInUrl || user?.gitHubUrl || user?.portfolioUrl) {
+            <div class="profile-links">
+                @if (user!.linkedInUrl) {
+                <a class="profile-link" [href]="user!.linkedInUrl" target="_blank" rel="noopener noreferrer"
+                    [title]="'profile.professionalLinks.linkedInLabel' | translate">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
+                        <rect x="2" y="9" width="4" height="12" />
+                        <circle cx="4" cy="4" r="2" />
+                    </svg>
+                </a>
+                }
+                @if (user!.gitHubUrl) {
+                <a class="profile-link" [href]="user!.gitHubUrl" target="_blank" rel="noopener noreferrer"
+                    [title]="'profile.professionalLinks.gitHubLabel' | translate">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                    </svg>
+                </a>
+                }
+                @if (user!.portfolioUrl) {
+                <a class="profile-link" [href]="user!.portfolioUrl" target="_blank" rel="noopener noreferrer"
+                    [title]="'profile.professionalLinks.portfolioLabel' | translate">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="2" y1="12" x2="22" y2="12" />
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                    </svg>
+                </a>
+                }
+            </div>
+            }
+
+            <div class="profile-completeness">
+                <div class="profile-completeness-head">
+                    <span class="profile-completeness-label">{{ 'profile.completeness.title' | translate }}</span>
+                    <span class="profile-completeness-percent">{{ completeness.percent }}%</span>
+                </div>
+                <div class="profile-completeness-track">
+                    <div class="profile-completeness-fill" [style.width.%]="completeness.percent"></div>
+                </div>
+                @if (completeness.missing.length) {
+                <p class="profile-completeness-hint">
+                    {{ 'profile.completeness.missingCount' | translate: { count: completeness.missing.length } }}
+                </p>
+                <div class="profile-completeness-missing">
+                    @for (field of completeness.missing.slice(0, 3); track field.field) {
+                    <span class="profile-completeness-chip">{{ field.labelKey | translate }}</span>
+                    }
+                    @if (completeness.missing.length > 3) {
+                    <span class="profile-completeness-chip">+{{ completeness.missing.length - 3 }}</span>
+                    }
+                </div>
+                } @else {
+                <p class="profile-completeness-hint">{{ 'profile.completeness.complete' | translate }}</p>
+                }
+            </div>
+
             <div class="profile-meta">
                 <div class="profile-meta-item">
                     <span class="profile-meta-label">{{ 'profile.summary.emailLabel' | translate }}</span>
@@ -57,6 +119,34 @@
                 <div class="profile-meta-item">
                     <span class="profile-meta-label">{{ 'profile.summary.phoneLabel' | translate }}</span>
                     <span class="profile-meta-value">{{ user!.phone }}</span>
+                </div>
+                }
+                @if (user?.location) {
+                <div class="profile-meta-item">
+                    <span class="profile-meta-label">{{ 'profile.summary.locationLabel' | translate }}</span>
+                    <span class="profile-meta-value">{{ user!.location }}</span>
+                </div>
+                }
+                @if (user?.yearsOfExperience != null) {
+                <div class="profile-meta-item">
+                    <span class="profile-meta-label">{{ 'profile.summary.experienceLabel' | translate }}</span>
+                    <span class="profile-meta-value">{{ user!.yearsOfExperience }} {{ 'profile.summary.experienceUnit' | translate }}</span>
+                </div>
+                }
+                @if (user?.preferredLocations) {
+                <div class="profile-meta-item">
+                    <span class="profile-meta-label">{{ 'profile.summary.preferredLocationsLabel' | translate }}</span>
+                    <span class="profile-meta-value">{{ user!.preferredLocations }}</span>
+                </div>
+                }
+                @if (userSkillChips.length) {
+                <div class="profile-meta-item">
+                    <span class="profile-meta-label">{{ 'profile.summary.mainSkillsLabel' | translate }}</span>
+                    <div class="profile-skill-chips">
+                        @for (skill of userSkillChips; track skill) {
+                        <span class="profile-skill-chip">{{ skill }}</span>
+                        }
+                    </div>
                 </div>
                 }
                 <div class="profile-meta-item">
@@ -83,70 +173,196 @@
 
         <app-card class="profile-card--form" radius="xl" padding="lg" gap="none">
 
-            <h3 class="profile-form-title">{{ 'profile.personalData.title' | translate }}</h3>
+            <h3 class="profile-form-title">{{ 'profile.personalInformation.title' | translate }}</h3>
 
-            <form class="profile-form" (ngSubmit)="save()">
+            <form class="profile-form" (ngSubmit)="save('personalInformation')">
 
                 <div class="profile-row">
                     <div class="profile-field">
-                        <label class="profile-label">{{ 'profile.personalData.firstNameLabel' | translate }}</label>
+                        <label class="profile-label">{{ 'profile.personalInformation.firstNameLabel' | translate }}</label>
                         <input class="profile-input" type="text" [(ngModel)]="firstName" name="firstName"
-                            [placeholder]="'profile.personalData.firstNamePlaceholder' | translate" />
+                            [placeholder]="'profile.personalInformation.firstNamePlaceholder' | translate" />
                     </div>
                     <div class="profile-field">
-                        <label class="profile-label">{{ 'profile.personalData.lastNameLabel' | translate }}</label>
+                        <label class="profile-label">{{ 'profile.personalInformation.lastNameLabel' | translate }}</label>
                         <input class="profile-input" type="text" [(ngModel)]="lastName" name="lastName"
-                            [placeholder]="'profile.personalData.lastNamePlaceholder' | translate" />
+                            [placeholder]="'profile.personalInformation.lastNamePlaceholder' | translate" />
                     </div>
                 </div>
 
                 <div class="profile-row">
                     <div class="profile-field">
-                        <label class="profile-label">{{ 'profile.personalData.positionLabel' | translate }}</label>
-                        <input class="profile-input" type="text" [(ngModel)]="position" name="position"
-                            [placeholder]="'profile.personalData.positionPlaceholder' | translate" />
-                    </div>
-                    <div class="profile-field">
-                        <label class="profile-label">{{ 'profile.personalData.phoneLabel' | translate }}</label>
+                        <label class="profile-label">{{ 'profile.personalInformation.phoneLabel' | translate }}</label>
                         <input class="profile-input" type="tel" [(ngModel)]="phone" name="phone"
                             placeholder="+36 30 000 0000" />
                     </div>
+                    <div class="profile-field">
+                        <label class="profile-label">{{ 'profile.personalInformation.emailLabel' | translate }}</label>
+                        <input class="profile-input" type="email" [(ngModel)]="email" name="email" required />
+                    </div>
                 </div>
 
                 <div class="profile-field">
-                    <label class="profile-label">{{ 'profile.personalData.emailLabel' | translate }}</label>
-                    <input class="profile-input" type="email" [(ngModel)]="email" name="email" required />
+                    <label class="profile-label">{{ 'profile.personalInformation.locationLabel' | translate }}</label>
+                    <input class="profile-input" type="text" [(ngModel)]="location" name="location"
+                        [placeholder]="'profile.personalInformation.locationPlaceholder' | translate" />
+                </div>
+
+                <ng-container [ngTemplateOutlet]="sectionFeedback"
+                    [ngTemplateOutletContext]="{ section: 'personalInformation', labelKey: 'profile.personalInformation.saveBtn' }"></ng-container>
+
+            </form>
+
+            <div class="profile-section-divider"></div>
+
+            <div class="profile-section-header">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--clr-muted)" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                </svg>
+                <h4 class="profile-section-heading">{{ 'profile.careerPreferences.title' | translate }}</h4>
+            </div>
+            <p class="profile-section-description">{{ 'profile.careerPreferences.description' | translate }}</p>
+
+            <form class="profile-form" (ngSubmit)="save('careerPreferences')">
+
+                <div class="profile-row">
+                    <div class="profile-field">
+                        <label class="profile-label">{{ 'profile.careerPreferences.currentTitleLabel' | translate }}</label>
+                        <input class="profile-input" type="text" [(ngModel)]="position" name="position"
+                            [placeholder]="'profile.careerPreferences.currentTitlePlaceholder' | translate" />
+                    </div>
+                    <div class="profile-field">
+                        <label class="profile-label">{{ 'profile.careerPreferences.targetPositionLabel' | translate }}</label>
+                        <input class="profile-input" type="text" [(ngModel)]="targetPosition" name="targetPosition"
+                            [placeholder]="'profile.careerPreferences.targetPositionPlaceholder' | translate" />
+                    </div>
+                </div>
+
+                <div class="profile-row">
+                    <div class="profile-field">
+                        <label class="profile-label">{{ 'profile.careerPreferences.yearsOfExperienceLabel' | translate }}</label>
+                        <input class="profile-input" type="number" min="0" max="60" [(ngModel)]="yearsOfExperience"
+                            name="yearsOfExperience"
+                            [placeholder]="'profile.careerPreferences.yearsOfExperiencePlaceholder' | translate" />
+                    </div>
+                    <div class="profile-field">
+                        <label class="profile-label">{{ 'profile.careerPreferences.noticePeriodLabel' | translate }}</label>
+                        <input class="profile-input" type="number" min="0" max="365" [(ngModel)]="noticePeriodDays"
+                            name="noticePeriodDays"
+                            [placeholder]="'profile.careerPreferences.noticePeriodPlaceholder' | translate" />
+                    </div>
                 </div>
 
                 <div class="profile-field">
-                    <label class="profile-label">{{ 'profile.personalData.goalLabel' | translate }}</label>
-                    <input class="profile-input" type="number" min="1" [(ngModel)]="goal" name="goal" required />
-                    <span class="profile-hint">{{ 'profile.personalData.goalHint' | translate }}</span>
-                </div>
-
-                @if (saveError) {
-                <div class="profile-pwd-feedback profile-pwd-feedback--error">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="12" y1="8" x2="12" y2="12" />
-                        <line x1="12" y1="16" x2="12.01" y2="16" />
-                    </svg>
-                    {{ saveError }}
-                </div>
-                }
-
-                <div class="profile-actions">
-                    <button class="profile-save-button" type="submit" [class.profile-save-button--saved]="saved">
-                        @if (saved) {
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12" />
-                        </svg>
+                    <label class="profile-label">{{ 'profile.careerPreferences.workModeLabel' | translate }}</label>
+                    <div class="profile-work-mode-group">
+                        @for (mode of workModes; track mode) {
+                        <button type="button" class="profile-work-mode-option"
+                            [class.profile-work-mode-option--active]="preferredWorkMode === mode"
+                            (click)="toggleWorkMode(mode)">
+                            {{ 'shared.workMode.' + mode | translate }}
+                        </button>
                         }
-                        {{ saved ? ('profile.personalData.savedBtn' | translate) : ('profile.personalData.saveBtn' | translate) }}
-                    </button>
+                    </div>
                 </div>
+
+                <div class="profile-row">
+                    <div class="profile-field">
+                        <label class="profile-label">{{ 'profile.careerPreferences.preferredLocationsLabel' | translate }}</label>
+                        <input class="profile-input" type="text" [(ngModel)]="preferredLocations"
+                            name="preferredLocations"
+                            [placeholder]="'profile.careerPreferences.preferredLocationsPlaceholder' | translate" />
+                    </div>
+                    <div class="profile-field">
+                        <label class="profile-label">{{ 'profile.careerPreferences.salaryExpectationLabel' | translate }}</label>
+                        <input class="profile-input" type="text" [(ngModel)]="salaryExpectation"
+                            name="salaryExpectation"
+                            [placeholder]="'profile.careerPreferences.salaryExpectationPlaceholder' | translate" />
+                    </div>
+                </div>
+
+                <div class="profile-field">
+                    <label class="profile-label">{{ 'profile.careerPreferences.mainSkillsLabel' | translate }}</label>
+                    <input class="profile-input" type="text" [(ngModel)]="mainSkills" name="mainSkills"
+                        [placeholder]="'profile.careerPreferences.mainSkillsPlaceholder' | translate" />
+                    @if (skillChips.length) {
+                    <div class="profile-skill-chips">
+                        @for (skill of skillChips; track skill) {
+                        <span class="profile-skill-chip">{{ skill }}</span>
+                        }
+                    </div>
+                    } @else {
+                    <span class="profile-hint">{{ 'profile.careerPreferences.mainSkillsHint' | translate }}</span>
+                    }
+                </div>
+
+                <ng-container [ngTemplateOutlet]="sectionFeedback"
+                    [ngTemplateOutletContext]="{ section: 'careerPreferences', labelKey: 'profile.careerPreferences.saveBtn' }"></ng-container>
+
+            </form>
+
+            <div class="profile-section-divider"></div>
+
+            <div class="profile-section-header">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--clr-muted)" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>
+                <h4 class="profile-section-heading">{{ 'profile.professionalLinks.title' | translate }}</h4>
+            </div>
+            <p class="profile-section-description">{{ 'profile.professionalLinks.description' | translate }}</p>
+
+            <form class="profile-form" (ngSubmit)="save('professionalLinks')">
+
+                <div class="profile-field">
+                    <label class="profile-label">{{ 'profile.professionalLinks.linkedInLabel' | translate }}</label>
+                    <input class="profile-input" type="url" [(ngModel)]="linkedInUrl" name="linkedInUrl"
+                        placeholder="https://linkedin.com/in/..." />
+                </div>
+
+                <div class="profile-field">
+                    <label class="profile-label">{{ 'profile.professionalLinks.gitHubLabel' | translate }}</label>
+                    <input class="profile-input" type="url" [(ngModel)]="gitHubUrl" name="gitHubUrl"
+                        placeholder="https://github.com/..." />
+                </div>
+
+                <div class="profile-field">
+                    <label class="profile-label">{{ 'profile.professionalLinks.portfolioLabel' | translate }}</label>
+                    <input class="profile-input" type="url" [(ngModel)]="portfolioUrl" name="portfolioUrl"
+                        placeholder="https://..." />
+                </div>
+
+                <ng-container [ngTemplateOutlet]="sectionFeedback"
+                    [ngTemplateOutletContext]="{ section: 'professionalLinks', labelKey: 'profile.professionalLinks.saveBtn' }"></ng-container>
+
+            </form>
+
+            <div class="profile-section-divider"></div>
+
+            <div class="profile-section-header">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--clr-muted)" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <circle cx="12" cy="12" r="6" />
+                    <circle cx="12" cy="12" r="2" />
+                </svg>
+                <h4 class="profile-section-heading">{{ 'profile.goal.title' | translate }}</h4>
+            </div>
+            <p class="profile-section-description">{{ 'profile.goal.description' | translate }}</p>
+
+            <form class="profile-form" (ngSubmit)="save('goal')">
+
+                <div class="profile-field">
+                    <label class="profile-label">{{ 'profile.goal.goalLabel' | translate }}</label>
+                    <input class="profile-input" type="number" min="1" [(ngModel)]="goal" name="goal" required />
+                    <span class="profile-hint">{{ 'profile.goal.goalHint' | translate }}</span>
+                </div>
+
+                <ng-container [ngTemplateOutlet]="sectionFeedback"
+                    [ngTemplateOutletContext]="{ section: 'goal', labelKey: 'profile.goal.saveBtn' }"></ng-container>
 
             </form>
 
@@ -176,28 +392,23 @@
             </div>
             <p class="profile-section-description">{{ 'profile.aiSettings.description' | translate }}</p>
 
-            <div class="profile-ai-toggle-row">
-                <div class="profile-ai-toggle-info">
-                    <span class="profile-ai-toggle-label">{{ 'profile.aiSettings.toggleLabel' | translate }}</span>
-                    <span class="profile-ai-toggle-subtitle">{{ 'profile.aiSettings.toggleSub' | translate }}</span>
-                </div>
-                <button type="button" class="profile-toggle" [class.profile-toggle--on]="useAiEvaluation"
-                    (click)="useAiEvaluation = !useAiEvaluation" [attr.aria-checked]="useAiEvaluation" role="switch">
-                    <span class="profile-toggle-thumb"></span>
-                </button>
-            </div>
+            <form class="profile-form" (ngSubmit)="save('aiSettings')">
 
-            <div class="profile-actions">
-                <button class="profile-save-button" type="button" [class.profile-save-button--saved]="saved" (click)="save()">
-                    @if (saved) {
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    }
-                    {{ saved ? ('profile.aiSettings.savedBtn' | translate) : ('profile.aiSettings.saveBtn' | translate) }}
-                </button>
-            </div>
+                <div class="profile-ai-toggle-row">
+                    <div class="profile-ai-toggle-info">
+                        <span class="profile-ai-toggle-label">{{ 'profile.aiSettings.toggleLabel' | translate }}</span>
+                        <span class="profile-ai-toggle-subtitle">{{ 'profile.aiSettings.toggleSub' | translate }}</span>
+                    </div>
+                    <button type="button" class="profile-toggle" [class.profile-toggle--on]="useAiEvaluation"
+                        (click)="useAiEvaluation = !useAiEvaluation" [attr.aria-checked]="useAiEvaluation" role="switch">
+                        <span class="profile-toggle-thumb"></span>
+                    </button>
+                </div>
+
+                <ng-container [ngTemplateOutlet]="sectionFeedback"
+                    [ngTemplateOutletContext]="{ section: 'aiSettings', labelKey: 'profile.aiSettings.saveBtn' }"></ng-container>
+
+            </form>
 
             <div class="profile-section-divider"></div>
 
@@ -325,5 +536,30 @@
 
     </div>
 
+    <ng-template #sectionFeedback let-section="section" let-labelKey="labelKey">
+        @if (errorSection === section) {
+        <div class="profile-pwd-feedback profile-pwd-feedback--error">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            {{ saveError }}
+        </div>
+        }
+        <div class="profile-actions">
+            <button class="profile-save-button" type="submit"
+                [class.profile-save-button--saved]="savedSection === section">
+                @if (savedSection === section) {
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                </svg>
+                }
+                {{ (savedSection === section ? 'profile.savedBtn' : labelKey) | translate }}
+            </button>
+        </div>
+    </ng-template>
 
 </app-page-section>

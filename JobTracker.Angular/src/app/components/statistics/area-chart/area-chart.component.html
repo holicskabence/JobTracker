@@ -1,68 +1,77 @@
 <div class="chart-wrap">
-  @if (!series.length) {
-  <app-empty-state [message]="'statistics.emptyState.selectMetric' | translate"></app-empty-state>
-  } @else if (!categories.length) {
-  <app-empty-state [message]="'statistics.emptyState.noApplications' | translate"></app-empty-state>
-  } @else {
-  <svg class="chart-svg" [attr.viewBox]="'0 0 ' + VW + ' ' + VH" preserveAspectRatio="xMidYMid meet"
-    xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      @for (s of seriesLines; track s.key) {
-      <linearGradient [attr.id]="'areaGrad-' + s.key" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" [attr.stop-color]="s.color" stop-opacity="0.2" />
-        <stop offset="100%" [attr.stop-color]="s.color" stop-opacity="0" />
-      </linearGradient>
+  <div class="chart-canvas" #wrapElement>
+    @if (!series.length || !categories.length) {
+    <app-empty-state [message]="emptyMessage | translate"></app-empty-state>
+    } @else {
+    <svg class="chart-svg" [attr.viewBox]="'0 0 ' + viewWidth + ' ' + viewHeight" preserveAspectRatio="xMidYMid meet"
+      xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        @for (line of seriesLines; track line.key) {
+        <linearGradient [attr.id]="'areaGradient-' + line.key" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" [attr.stop-color]="line.color" stop-opacity="0.22" />
+          <stop offset="100%" [attr.stop-color]="line.color" stop-opacity="0" />
+        </linearGradient>
       }
-    </defs>
+      </defs>
 
-    @for (g of gridLines; track g.y) {
-    <line [attr.x1]="x0" [attr.y1]="g.y" [attr.x2]="VW - PAD.right" [attr.y2]="g.y" class="grid-line" />
-    <text [attr.x]="x0 - 8" [attr.y]="g.y + 4" class="axis-label axis-label--y">{{ g.label }}</text>
-    }
-
-    @if (seriesLines.length === 1) {
-    <path [attr.d]="seriesLines[0].areaPath" [attr.fill]="'url(#areaGrad-' + seriesLines[0].key + ')'" />
-    }
-
-    @for (s of seriesLines; track s.key) {
-    <path [attr.d]="s.path" class="line" [style.stroke]="s.color" fill="none" />
-    }
-
-    @for (s of seriesLines; track s.key) {
-    @for (pt of s.points; track $index; let i = $index) {
-    <circle [attr.cx]="pt.x" [attr.cy]="pt.y" r="4" class="dot" [attr.data-column]="i" [style.fill]="s.color" />
-    }
-    }
-
-    @for (label of xLabels; track label.x) {
-    <text [attr.x]="label.x" [attr.y]="yBottom + 20" class="axis-label axis-label--x">{{ label.text }}</text>
-    }
-
-    @for (position of colPositions; track position.x; let i = $index) {
-    <rect class="hit-column" [attr.x]="position.x - colHalfWidth" [attr.y]="y0" [attr.width]="colHalfWidth * 2"
-      [attr.height]="ch + 10" (mouseenter)="onColEnter(i)" (mouseleave)="onColLeave()" />
-    }
-
-    @if (hovered) {
-    <g class="chart-tooltip">
-      <line class="tooltip-vertical-line" [attr.x1]="hovered.x" [attr.y1]="y0" [attr.x2]="hovered.x" [attr.y2]="yBottom" />
-      <rect class="tooltip-rect" [attr.x]="tooltipX(hovered.x)" [attr.y]="y0 + 4" [attr.width]="tooltipW"
-        [attr.height]="tooltipHeight()" rx="7" />
-      <text class="tooltip-title" [attr.x]="tooltipCenterX(hovered.x)" [attr.y]="y0 + 19">{{ hovered.label }}</text>
-      @for (row of hovered.rows; track row.key; let i = $index) {
-      <text class="tooltip-row" [style.fill]="row.color" [attr.x]="tooltipCenterX(hovered.x)"
-        [attr.y]="y0 + 33 + i * 13">{{ row.label }}: {{ row.value }}</text>
+      @for (grid of gridLines; track grid.y) {
+      <line [attr.x1]="padLeft" [attr.y1]="grid.y" [attr.x2]="viewWidth - padRight" [attr.y2]="grid.y"
+        class="grid-line" />
+      <text [attr.x]="padLeft - 10" [attr.y]="grid.y + 4" class="axis-label axis-label--y">{{ grid.label }}</text>
       }
-    </g>
-    }
-  </svg>
-  }
 
-  @if (series.length) {
+      @if (showArea && seriesLines.length === 1) {
+      <path [attr.d]="seriesLines[0].areaPath" [attr.fill]="'url(#areaGradient-' + seriesLines[0].key + ')'" />
+      }
+
+      @for (line of seriesLines; track line.key) {
+      <path [attr.d]="line.path" class="line" [style.stroke]="line.color" fill="none" />
+      }
+
+      @for (line of seriesLines; track line.key) {
+      @for (point of line.points; track $index; let i = $index) {
+      <circle [attr.cx]="point.x" [attr.cy]="point.y" r="4" class="dot"
+        [class.dot--hidden]="!showDots && hovered?.index !== i" [style.fill]="line.color" />
+      @if (showPointLabels) {
+      <text [attr.x]="point.x" [attr.y]="point.y - 14" class="point-label">{{ formatValue(point.value) }}</text>
+      }
+      }
+      }
+
+      @for (label of xLabels; track label.x) {
+      <text [attr.x]="label.x" [attr.y]="chartBottom + 20" [attr.text-anchor]="label.anchor"
+        class="axis-label axis-label--x">{{ label.text }}</text>
+      }
+
+      @for (position of columnPositions; track $index; let i = $index) {
+      <rect class="hit-column" [attr.x]="position - columnHalfWidth" [attr.y]="chartTop"
+        [attr.width]="columnHalfWidth * 2" [attr.height]="chartHeight + 10" (mouseenter)="onColumnEnter(i)"
+        (mouseleave)="onColumnLeave()" />
+      }
+
+      @if (hovered) {
+      <g class="chart-tooltip">
+        <line class="tooltip-vertical-line" [attr.x1]="hovered.x" [attr.y1]="chartTop" [attr.x2]="hovered.x"
+          [attr.y2]="chartBottom" />
+        <rect class="tooltip-rect" [attr.x]="tooltipX(hovered.x)" [attr.y]="chartTop + 4" [attr.width]="tooltipWidth"
+          [attr.height]="tooltipHeight()" rx="7" />
+        <text class="tooltip-title" [attr.x]="tooltipCenterX(hovered.x)" [attr.y]="chartTop + 19">{{ hovered.label
+          }}</text>
+        @for (row of hovered.rows; track row.key; let i = $index) {
+        <text class="tooltip-row" [style.fill]="row.color" [attr.x]="tooltipCenterX(hovered.x)"
+          [attr.y]="chartTop + 34 + i * 14">{{ row.label }}: {{ row.value }}</text>
+        }
+      </g>
+      }
+    </svg>
+    }
+  </div>
+
+  @if (showLegend && series.length) {
   <div class="legend">
-    @for (s of series; track s.key) {
+    @for (line of series; track line.key) {
     <span class="legend-item">
-      <span class="legend-dot" [style.background-color]="s.color"></span>{{ s.label }}
+      <span class="legend-dot" [style.background-color]="line.color"></span>{{ line.label }}
     </span>
     }
   </div>

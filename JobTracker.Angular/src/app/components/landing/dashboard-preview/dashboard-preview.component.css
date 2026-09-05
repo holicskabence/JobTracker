@@ -45,7 +45,6 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5em;
     font-family: var(--landing-font-heading);
     font-size: 1rem;
     font-weight: 600;
@@ -63,12 +62,6 @@
     filter: brightness(1.05);
 }
 
-.landing-dashboard-preview-cta svg {
-    display: block;
-    width: 1em;
-    height: 1em;
-}
-
 .landing-dashboard-preview-doodle-arrow {
     display: block;
     width: 5.375rem;
@@ -80,6 +73,20 @@
 
 .landing-dashboard-preview-visual {
     min-width: 0;
+}
+
+/* The shot is a full screenshot of the app, so it carries the window frame
+   itself. It is held to the preview box the section was designed around and
+   cropped from the top; what falls off the bottom sits under the CTA banner. */
+.landing-dashboard-preview-shot {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1312 / 566;
+    object-fit: cover;
+    object-position: top;
+    border: 1px solid #ebedf0;
+    border-radius: 1.4375rem;
+    box-shadow: 0 1.625rem 4.0625rem -1.8125rem rgba(25, 30, 45, 0.18);
 }
 
 @media (max-width: 1700px) {

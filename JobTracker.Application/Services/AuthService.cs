@@ -1,5 +1,6 @@
 using JobTracker.Application.DTOs;
 using JobTracker.Application.Interfaces;
+using JobTracker.Application.Mapping;
 using JobTracker.Domain.Entities;
 using JobTracker.Domain.Interfaces;
 
@@ -24,7 +25,7 @@ public sealed class AuthService(
 
         await demoReset.ResetIfDemoAccountAsync(user.Id, user.Email);
 
-        return new AuthResponse(jwt.GenerateToken(user), MapProfile(user));
+        return new AuthResponse(jwt.GenerateToken(user), user.ToResponse());
     }
 
     public async Task<AuthResponse?> RegisterAsync(RegisterRequest request)
@@ -44,10 +45,11 @@ public sealed class AuthService(
             JoinDate = DateTime.Now.ToString("yyyy. MMMM", new System.Globalization.CultureInfo("hu-HU")),
             PreferredLanguage = request.PreferredLanguage is "en" or "hu" ? request.PreferredLanguage : "hu"
         };
+        user.ApplyCareerFields(request);
         await repo.AddAsync(user);
         await SeedDefaultsAsync(user.Id);
 
-        return new AuthResponse(jwt.GenerateToken(user), MapProfile(user));
+        return new AuthResponse(jwt.GenerateToken(user), user.ToResponse());
     }
 
     public async Task<AuthResponse?> GoogleLoginAsync(string idToken)
@@ -58,7 +60,7 @@ public sealed class AuthService(
         var user = await ResolveExternalUserAsync(info, isGoogle: true);
         await demoReset.ResetIfDemoAccountAsync(user.Id, user.Email);
 
-        return new AuthResponse(jwt.GenerateToken(user), MapProfile(user));
+        return new AuthResponse(jwt.GenerateToken(user), user.ToResponse());
     }
 
     public async Task<AuthResponse?> FacebookLoginAsync(string accessToken)
@@ -69,7 +71,7 @@ public sealed class AuthService(
         var user = await ResolveExternalUserAsync(info, isGoogle: false);
         await demoReset.ResetIfDemoAccountAsync(user.Id, user.Email);
 
-        return new AuthResponse(jwt.GenerateToken(user), MapProfile(user));
+        return new AuthResponse(jwt.GenerateToken(user), user.ToResponse());
     }
 
     private async Task<AppUser> ResolveExternalUserAsync(ExternalUserInfo info, bool isGoogle)
@@ -183,7 +185,4 @@ public sealed class AuthService(
         };
         foreach (var question in defaults) await practiceQuestionRepo.AddAsync(question);
     }
-
-    private static UserProfileResponse MapProfile(AppUser u) =>
-        new(u.Id, u.FirstName, u.LastName, u.Position, u.Email, u.Phone, u.Goal, u.JoinDate, u.AvatarBlobName is not null, u.UseAiEvaluation, u.PreferredLanguage);
 }

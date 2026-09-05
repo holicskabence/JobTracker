@@ -6,12 +6,8 @@
             <p class="landing-dashboard-preview-paragraph" data-animate="dashboard-paragraph">{{ 'landing.dashboard.paragraph' | translate }}</p>
 
             <div class="landing-dashboard-preview-cta-row">
-                <a class="landing-dashboard-preview-cta" data-animate="dashboard-cta" routerLink="/register">
+                <a class="landing-dashboard-preview-cta" data-animate="dashboard-cta" [routerLink]="ctaLink()">
                     {{ 'landing.dashboard.cta' | translate }}
-                    <svg viewBox="0 0 24 24">
-                        <path d="M4 12h15M13.5 5.5L20 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
                 </a>
 
                 <svg class="landing-dashboard-preview-doodle-arrow" viewBox="0 0 70 34" aria-hidden="true">
@@ -24,7 +20,8 @@
         </div>
 
         <div class="landing-dashboard-preview-visual" data-animate="dashboard-frame">
-            <app-landing-dashboard-mockup></app-landing-dashboard-mockup>
+            <img class="landing-dashboard-preview-shot" data-animate="dashboard-mockup"
+                src="/assets/landing/overview.png" [alt]="'landing.dashboard.previewAlt' | translate" />
         </div>
     </div>
 </section>

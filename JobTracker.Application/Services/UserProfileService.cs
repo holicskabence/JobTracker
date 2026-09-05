@@ -1,5 +1,6 @@
 using JobTracker.Application.DTOs;
 using JobTracker.Application.Interfaces;
+using JobTracker.Application.Mapping;
 using JobTracker.Domain.Interfaces;
 
 namespace JobTracker.Application.Services;
@@ -9,7 +10,7 @@ public sealed class UserProfileService(IAppUserRepository repo, IBlobStorageServ
     public async Task<UserProfileResponse?> GetByIdAsync(int userId)
     {
         var user = await repo.GetByIdAsync(userId);
-        return user is null ? null : Map(user);
+        return user?.ToResponse();
     }
 
     public async Task<UserProfileResponse?> UpdateAsync(int userId, UpdateProfileRequest request)
@@ -25,9 +26,10 @@ public sealed class UserProfileService(IAppUserRepository repo, IBlobStorageServ
         user.Goal = request.Goal;
         user.UseAiEvaluation = request.UseAiEvaluation;
         user.PreferredLanguage = request.PreferredLanguage is "en" or "hu" ? request.PreferredLanguage : user.PreferredLanguage;
+        user.ApplyCareerFields(request);
 
         await repo.UpdateAsync(user);
-        return Map(user);
+        return user.ToResponse();
     }
 
     public async Task<bool> ChangePasswordAsync(int userId, ChangePasswordRequest request)
@@ -50,7 +52,7 @@ public sealed class UserProfileService(IAppUserRepository repo, IBlobStorageServ
         await blob.UploadAsync(blobName, content, contentType);
         user.AvatarBlobName = blobName;
         await repo.UpdateAsync(user);
-        return Map(user);
+        return user.ToResponse();
     }
 
     public async Task<(Stream Content, string ContentType)?> GetAvatarAsync(int userId)
@@ -72,7 +74,4 @@ public sealed class UserProfileService(IAppUserRepository repo, IBlobStorageServ
         }
         return true;
     }
-
-    private static UserProfileResponse Map(Domain.Entities.AppUser u) =>
-        new(u.Id, u.FirstName, u.LastName, u.Position, u.Email, u.Phone, u.Goal, u.JoinDate, u.AvatarBlobName is not null, u.UseAiEvaluation, u.PreferredLanguage);
 }

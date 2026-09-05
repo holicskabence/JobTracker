@@ -50,7 +50,6 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5em;
     font-family: var(--landing-font-heading);
     font-size: 1rem;
     font-weight: 600;
@@ -75,18 +74,6 @@
     background: #ffffff;
     color: #1a202a;
     border: 1px solid #e2e3e7;
-}
-
-.landing-hero-button-arrow-icon {
-    display: block;
-    width: 1em;
-    height: 1em;
-}
-
-.landing-hero-button-play-icon {
-    display: block;
-    width: 0.72em;
-    height: 0.72em;
 }
 
 .landing-hero-trust-row {

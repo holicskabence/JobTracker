@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
 import { langGuard } from './guards/lang.guard';
 import { langRedirectGuard } from './guards/lang-redirect.guard';
+import { landingGuard } from './guards/landing.guard';
 import { langMatcher } from './utils/lang-route-matcher';
 import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './components/auth/login/login.component';
@@ -21,7 +22,7 @@ export const routes: Routes = [
     matcher: langMatcher,
     canActivate: [langGuard],
     children: [
-      { path: '', component: LandingComponent, pathMatch: 'full' },
+      { path: '', canActivate: [landingGuard], component: LandingComponent, pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
     ]
@@ -46,6 +47,6 @@ export const routes: Routes = [
   },
   { path: 'login', canActivate: [langRedirectGuard], pathMatch: 'full', component: LoginComponent },
   { path: 'register', canActivate: [langRedirectGuard], pathMatch: 'full', component: RegisterComponent },
-  { path: '', canActivate: [langRedirectGuard], pathMatch: 'full', component: LandingComponent },
+  { path: '', canActivate: [landingGuard, langRedirectGuard], pathMatch: 'full', component: LandingComponent },
   { path: '**', redirectTo: 'dashboard' }
 ];

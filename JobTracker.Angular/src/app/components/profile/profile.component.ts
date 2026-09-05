@@ -1,17 +1,21 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../services/auth.service';
-import { UserProfile } from '../../models/user.model';
+import { UserProfile, WorkMode, WORK_MODES } from '../../models/user.model';
+import { calculateProfileCompleteness, ProfileCompleteness } from '../../utils/profile-completeness';
 import { CardComponent } from '../shared/card/card.component';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
 import { LanguageSwitcherComponent } from '../shared/language-switcher/language-switcher.component';
 
+type ProfileSection = 'personalInformation' | 'careerPreferences' | 'professionalLinks' | 'goal' | 'aiSettings';
+
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule, TranslateModule, CardComponent, PageSectionComponent, LanguageSwitcherComponent],
+  imports: [FormsModule, NgTemplateOutlet, TranslateModule, CardComponent, PageSectionComponent, LanguageSwitcherComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -19,14 +23,32 @@ export class ProfileComponent implements OnInit {
   readonly auth = inject(AuthService);
   private readonly translate = inject(TranslateService);
 
+  readonly workModes = WORK_MODES;
+
   firstName = '';
   lastName = '';
   phone = '';
-  position = '';
   email = '';
+  location = '';
+
+  position = '';
+  targetPosition = '';
+  yearsOfExperience: number | null = null;
+  preferredWorkMode: WorkMode | null = null;
+  preferredLocations = '';
+  salaryExpectation = '';
+  noticePeriodDays: number | null = null;
+  mainSkills = '';
+
+  linkedInUrl = '';
+  gitHubUrl = '';
+  portfolioUrl = '';
+
   goal = 30;
   useAiEvaluation = false;
-  saved = false;
+
+  savedSection: ProfileSection | null = null;
+  errorSection: ProfileSection | null = null;
   saveError = '';
 
   currentPwd = '';
@@ -43,15 +65,29 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     const u = this.auth.currentUser();
-    if (u) {
-      this.firstName = u.firstName;
-      this.lastName = u.lastName;
-      this.phone = u.phone;
-      this.position = u.position;
-      this.email = u.email;
-      this.goal = u.goal;
-      this.useAiEvaluation = u.useAiEvaluation;
-    }
+    if (!u) return;
+
+    this.firstName = u.firstName;
+    this.lastName = u.lastName;
+    this.phone = u.phone;
+    this.email = u.email;
+    this.location = u.location ?? '';
+
+    this.position = u.position;
+    this.targetPosition = u.targetPosition ?? '';
+    this.yearsOfExperience = u.yearsOfExperience;
+    this.preferredWorkMode = u.preferredWorkMode;
+    this.preferredLocations = u.preferredLocations ?? '';
+    this.salaryExpectation = u.salaryExpectation ?? '';
+    this.noticePeriodDays = u.noticePeriodDays;
+    this.mainSkills = u.mainSkills ?? '';
+
+    this.linkedInUrl = u.linkedInUrl ?? '';
+    this.gitHubUrl = u.gitHubUrl ?? '';
+    this.portfolioUrl = u.portfolioUrl ?? '';
+
+    this.goal = u.goal;
+    this.useAiEvaluation = u.useAiEvaluation;
   }
 
   get initials(): string {
@@ -61,8 +97,47 @@ export class ProfileComponent implements OnInit {
 
   get user(): UserProfile | null { return this.auth.currentUser(); }
 
-  save(): void {
+  get completeness(): ProfileCompleteness {
+    return calculateProfileCompleteness({
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      phone: this.phone,
+      location: this.location,
+      position: this.position,
+      targetPosition: this.targetPosition,
+      yearsOfExperience: this.yearsOfExperience,
+      preferredWorkMode: this.preferredWorkMode,
+      preferredLocations: this.preferredLocations,
+      salaryExpectation: this.salaryExpectation,
+      noticePeriodDays: this.noticePeriodDays,
+      mainSkills: this.mainSkills,
+      linkedInUrl: this.linkedInUrl,
+      gitHubUrl: this.gitHubUrl,
+      portfolioUrl: this.portfolioUrl
+    });
+  }
+
+  get skillChips(): string[] {
+    return this.splitSkills(this.mainSkills);
+  }
+
+  get userSkillChips(): string[] {
+    return this.splitSkills(this.user?.mainSkills ?? '');
+  }
+
+  private splitSkills(value: string): string[] {
+    return value.split(',').map(s => s.trim()).filter(Boolean);
+  }
+
+  toggleWorkMode(mode: WorkMode): void {
+    this.preferredWorkMode = this.preferredWorkMode === mode ? null : mode;
+  }
+
+  save(section: ProfileSection): void {
     this.saveError = '';
+    this.errorSection = null;
+
     this.auth.updateProfile({
       firstName: this.firstName.trim(),
       lastName: this.lastName.trim(),
@@ -71,16 +146,34 @@ export class ProfileComponent implements OnInit {
       phone: this.phone.trim(),
       goal: this.goal,
       useAiEvaluation: this.useAiEvaluation,
-      preferredLanguage: this.user?.preferredLanguage ?? 'hu'
+      preferredLanguage: this.user?.preferredLanguage ?? 'hu',
+      location: this.trimmedOrNull(this.location),
+      targetPosition: this.trimmedOrNull(this.targetPosition),
+      yearsOfExperience: this.yearsOfExperience,
+      preferredWorkMode: this.preferredWorkMode,
+      preferredLocations: this.trimmedOrNull(this.preferredLocations),
+      salaryExpectation: this.trimmedOrNull(this.salaryExpectation),
+      noticePeriodDays: this.noticePeriodDays,
+      linkedInUrl: this.trimmedOrNull(this.linkedInUrl),
+      gitHubUrl: this.trimmedOrNull(this.gitHubUrl),
+      portfolioUrl: this.trimmedOrNull(this.portfolioUrl),
+      mainSkills: this.trimmedOrNull(this.mainSkills)
     }).subscribe({
       next: () => {
-        this.saved = true;
-        setTimeout(() => this.saved = false, 2000);
+        this.savedSection = section;
+        setTimeout(() => {
+          if (this.savedSection === section) this.savedSection = null;
+        }, 2000);
       },
       error: () => {
-        this.saveError = this.translate.instant('profile.personalData.saveError');
+        this.errorSection = section;
+        this.saveError = this.translate.instant('profile.saveError');
       }
     });
+  }
+
+  private trimmedOrNull(value: string): string | null {
+    return value.trim() || null;
   }
 
   changePassword(): void {

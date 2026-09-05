@@ -61,6 +61,10 @@
       "check4": "Sikerességi pontszám",
       "cta": "Nézd meg a statisztikákat",
       "comparedToLastMonth": "az előző hónaphoz képest",
+      "chartMonthFebruary": "febr.",
+      "chartMonthApril": "ápr.",
+      "chartMonthJune": "jún.",
+      "chartMonthAugust": "aug.",
       "responseRateLabel": "Válaszadási arány",
       "responseRateChangeValue": "+8%",
       "avgResponseTimeLabel": "Átlagos válaszidő",
@@ -132,7 +136,8 @@
       "quickTasksTitle": "Gyors feladatok",
       "task1": "Küldj utólagos emailt a jelentkezésről",
       "task2": "Készíts új önéletrajz verziót",
-      "task3": "Gyakorolj 3 technikai kérdést"
+      "task3": "Gyakorolj 3 technikai kérdést",
+      "previewAlt": "A JobTracker áttekintő irányítópultja: jelentkezések, közelgő interjúk és teendők egy képernyőn."
     },
     "cta": {
       "headline": "Kezdd el ma, és lépj közelebb az álommelédhez!",
@@ -201,7 +206,31 @@
       "passwordTooShortError": "Legalább 6 karakter szükséges.",
       "passwordMismatchError": "A két jelszó nem egyezik.",
       "registrationFailedError": "Regisztráció sikertelen. Próbáld meg újra.",
-      "emailTakenError": "Ezzel az e-mail címmel már regisztráltak."
+      "emailTakenError": "Ezzel az e-mail címmel már regisztráltak.",
+      "detailsTitle": "Néhány adat rólad",
+      "detailsSubtitle": "Ezekkel pontosabb képet kapsz az álláskeresésedről. Bármikor kihagyhatod.",
+      "stepIndicator": "{{current}}/{{total}}. LÉPÉS",
+      "optionalNote": "Minden mező opcionális, később a profilodban is kitöltheted.",
+      "skipLink": "Kihagyom",
+      "continueBtn": "Tovább",
+      "backBtn": "Vissza",
+      "locationLabel": "LAKHELY",
+      "locationPlaceholder": "pl. Budapest, Magyarország",
+      "targetPositionLabel": "CÉLPOZÍCIÓ",
+      "targetPositionPlaceholder": "pl. .NET Full-Stack Developer",
+      "yearsOfExperienceLabel": "TAPASZTALAT (ÉV)",
+      "yearsOfExperiencePlaceholder": "pl. 3",
+      "noticePeriodLabel": "FELMONDÁSI IDŐ (NAP)",
+      "noticePeriodPlaceholder": "pl. 30",
+      "workModeLabel": "PREFERÁLT MUNKAVÉGZÉS",
+      "salaryExpectationLabel": "FIZETÉSI IGÉNY",
+      "salaryExpectationPlaceholder": "pl. 1,3M Ft bruttó / hó",
+      "mainSkillsLabel": "FŐ TECHNOLÓGIÁK",
+      "mainSkillsPlaceholder": "pl. .NET, Angular, SQL, Azure",
+      "mainSkillsHint": "Vesszővel elválasztva.",
+      "linkedInLabel": "LINKEDIN",
+      "gitHubLabel": "GITHUB",
+      "portfolioLabel": "PORTFÓLIÓ / WEBOLDAL"
     }
   },
   "sidebar": {
@@ -227,6 +256,8 @@
   "profile": {
     "title": "Profil Beállítások",
     "subtitle": "Szerkeszd a személyes adataidat és a céljaidat.",
+    "savedBtn": "Mentve!",
+    "saveError": "Mentés sikertelen. Próbáld meg újra.",
     "summary": {
       "avatarAlt": "Profilkép",
       "deleteAvatarTitle": "Profilkép törlése",
@@ -238,23 +269,65 @@
       "joinedLabel": "CSATLAKOZVA",
       "logout": "Kijelentkezés",
       "avatarUploadError": "Feltöltés sikertelen.",
-      "avatarDeleteError": "Törlés sikertelen."
+      "avatarDeleteError": "Törlés sikertelen.",
+      "locationLabel": "LAKHELY",
+      "experienceLabel": "TAPASZTALAT",
+      "experienceUnit": "év",
+      "preferredLocationsLabel": "PREFERÁLT HELYSZÍNEK",
+      "mainSkillsLabel": "FŐ TECHNOLÓGIÁK"
     },
-    "personalData": {
-      "title": "Személyes adatok módosítása",
+    "completeness": {
+      "title": "Profil kitöltöttség",
+      "missingCount": "Még {{count}} mező hiányzik.",
+      "complete": "A profilod teljesen ki van töltve."
+    },
+    "personalInformation": {
+      "title": "Személyes adatok",
       "firstNameLabel": "Keresztnév",
       "firstNamePlaceholder": "pl. Bence",
       "lastNameLabel": "Vezetéknév",
       "lastNamePlaceholder": "pl. Kovács",
-      "positionLabel": "Pozíció / Titulus",
-      "positionPlaceholder": "pl. Senior Frontend Developer",
       "phoneLabel": "Telefonszám",
       "emailLabel": "E-mail cím",
-      "goalLabel": "Jelentkezési Cél (Darabszám)",
+      "locationLabel": "Lakhely",
+      "locationPlaceholder": "pl. Budapest, Magyarország",
+      "saveBtn": "Módosítások mentése"
+    },
+    "careerPreferences": {
+      "title": "Karrier preferenciák",
+      "description": "Ezek alapján látod egy helyen, hogy a jelentkezéseid mennyire illeszkednek a céljaidhoz.",
+      "currentTitleLabel": "Jelenlegi pozíció",
+      "currentTitlePlaceholder": "pl. Medior .NET Developer",
+      "targetPositionLabel": "Célpozíció",
+      "targetPositionPlaceholder": "pl. .NET Full-Stack Developer",
+      "yearsOfExperienceLabel": "Tapasztalat (év)",
+      "yearsOfExperiencePlaceholder": "pl. 3",
+      "noticePeriodLabel": "Felmondási idő (nap)",
+      "noticePeriodPlaceholder": "pl. 30",
+      "workModeLabel": "Preferált munkavégzés",
+      "preferredLocationsLabel": "Preferált helyszínek",
+      "preferredLocationsPlaceholder": "pl. Budapest, Bécs",
+      "salaryExpectationLabel": "Fizetési igény",
+      "salaryExpectationPlaceholder": "pl. 1,3M Ft bruttó / hó",
+      "mainSkillsLabel": "Fő technológiák",
+      "mainSkillsPlaceholder": "pl. .NET, Angular, SQL, Azure",
+      "mainSkillsHint": "Vesszővel elválasztva.",
+      "saveBtn": "Módosítások mentése"
+    },
+    "professionalLinks": {
+      "title": "Szakmai linkek",
+      "description": "Egy helyen tartva gyorsan be tudod illeszteni őket a jelentkezéseidbe.",
+      "linkedInLabel": "LinkedIn",
+      "gitHubLabel": "GitHub",
+      "portfolioLabel": "Portfólió / Weboldal",
+      "saveBtn": "Módosítások mentése"
+    },
+    "goal": {
+      "title": "Jelentkezési cél",
+      "description": "Állítsd be, hány jelentkezést szeretnél összesen beadni.",
+      "goalLabel": "Jelentkezési cél (darabszám)",
       "goalHint": "Ezt a mérőt használjuk az Áttekintés oldali cél-folyamat sáv kiszámításánál.",
-      "savedBtn": "Mentve!",
-      "saveBtn": "Módosítások mentése",
-      "saveError": "Mentés sikertelen. Próbáld meg újra."
+      "saveBtn": "Cél mentése"
     },
     "language": {
       "title": "Nyelv és lokalizáció",
@@ -265,7 +338,6 @@
       "description": "Kapcsold be az AI-alapú válaszkiértékelést a Gyakorlás modulban. Az AI elemzi a válaszodat és személyre szabott visszajelzést ad.",
       "toggleLabel": "AI értékelés bekapcsolva",
       "toggleSub": "Azure OpenAI GPT-4o alapú elemzés",
-      "savedBtn": "Mentve!",
       "saveBtn": "AI beállítás mentése"
     },
     "password": {
@@ -318,11 +390,31 @@
       "viewAll": "Összes megtekintése"
     },
     "coachTip": {
-      "prepTime": { "title": "Felkészülési idő!", "text": "{{company}} – {{type}} közeleg ({{date}}). Nézd át a noteszed, készítsd elő a kérdéseidet.", "cta": "Eseményekhez" },
-      "callback": { "title": "Van visszahívásod!", "text": "{{count}} aktív visszahívás vár rád. A gyors reagálás sokat számít a kiválasztásnál.", "cta": "Megnézem" },
-      "startSearch": { "title": "Indítsd be a keresést!", "text": "Még kevés a jelentkezésed. Napi 2–3 célzott pályázat a leghatékonyabb stratégia – kezdd el ma!", "cta": "Jelentkezések" },
-      "patience": { "title": "Türelem – a folyamat halad!", "text": "{{count}} pályázatod van útban. Frissítsd a LinkedIn profilod és kövesd fel a cégeket egy héttel az interjú után.", "cta": "Összes megtekintése" },
-      "goodProgress": { "title": "Jól haladsz!", "text": "{{count}} jelentkezéssel, {{rate}}%-os sikerrátával komoly keresés folyik. Tartsd fenn a lendületet!", "cta": "Összes megtekintése" }
+      "prepTime": {
+        "title": "Felkészülési idő!",
+        "text": "{{company}} – {{type}} közeleg ({{date}}). Nézd át a noteszed, készítsd elő a kérdéseidet.",
+        "cta": "Eseményekhez"
+      },
+      "callback": {
+        "title": "Van visszahívásod!",
+        "text": "{{count}} aktív visszahívás vár rád. A gyors reagálás sokat számít a kiválasztásnál.",
+        "cta": "Megnézem"
+      },
+      "startSearch": {
+        "title": "Indítsd be a keresést!",
+        "text": "Még kevés a jelentkezésed. Napi 2–3 célzott pályázat a leghatékonyabb stratégia – kezdd el ma!",
+        "cta": "Jelentkezések"
+      },
+      "patience": {
+        "title": "Türelem – a folyamat halad!",
+        "text": "{{count}} pályázatod van útban. Frissítsd a LinkedIn profilod és kövesd fel a cégeket egy héttel az interjú után.",
+        "cta": "Összes megtekintése"
+      },
+      "goodProgress": {
+        "title": "Jól haladsz!",
+        "text": "{{count}} jelentkezéssel, {{rate}}%-os sikerrátával komoly keresés folyik. Tartsd fenn a lendületet!",
+        "cta": "Összes megtekintése"
+      }
     },
     "streak": {
       "none": "Ma még nem volt jelentkezés",
@@ -497,44 +589,173 @@
     "sampleBadge": "Minta adat",
     "filters": {
       "dateRangeLabel": "Időszak",
-      "dateRange": { "all": "Teljes időszak", "last30": "Utolsó 30 nap", "last90": "Utolsó 90 nap", "thisYear": "Idei év", "custom": "Egyéni" },
+      "dateRange": {
+        "all": "Teljes időszak",
+        "last30": "Utolsó 30 nap",
+        "last90": "Utolsó 90 nap",
+        "thisYear": "Idei év",
+        "custom": "Egyéni"
+      },
       "companyLabel": "Cég",
       "allCompanies": "Összes cég",
       "statusLabel": "Státusz",
-      "clear": "Szűrők törlése"
+      "clear": "Szűrők törlése",
+      "allStatuses": "Összes státusz",
+      "statusesSelected": "{{count}} státusz",
+      "customFrom": "Kezdet",
+      "customTo": "Vége"
     },
     "kpi": {
-      "total": { "label": "Összes jelentkezés", "sub": "az előző 30 naphoz képest" },
-      "active": { "label": "Aktív jelentkezések", "sub": "jelenleg folyamatban" },
-      "interviews": { "label": "Interjúk", "sub": "{{count}} jelenleg interjú szakaszban" },
-      "offers": { "label": "Ajánlatok", "sub": "az előző 30 naphoz képest" },
-      "rejections": { "label": "Elutasítások", "sub": "az előző 30 naphoz képest" },
-      "successRate": { "label": "Sikerráta", "sub": "ajánlat az eldöntött jelentkezésekből" },
-      "responseRate": { "label": "Válaszadási arány", "sub": "jelentkezés, amire érkezett bármilyen válasz" },
-      "avgResponseTime": { "label": "Átlagos válaszidő", "sub": "nap a jelentkezéstől az első válaszig" },
-      "avgInterviewDays": { "label": "Átlagos idő az interjúig", "sub": "nap a jelentkezéstől az interjúig" },
-      "pipeline": { "label": "Jelenlegi interjú pipeline", "sub": "jelentkezés jelenleg interjú szakaszban" }
+      "total": {
+        "label": "Összes jelentkezés",
+        "sub": "az előző 30 naphoz képest",
+        "note": "jelentkezés a kiválasztott időszakban"
+      },
+      "active": {
+        "label": "Aktív jelentkezések",
+        "sub": "jelenleg folyamatban"
+      },
+      "interviews": {
+        "label": "Interjúk",
+        "sub": "{{count}} jelenleg interjú szakaszban"
+      },
+      "offers": {
+        "label": "Ajánlatok",
+        "sub": "az előző 30 naphoz képest"
+      },
+      "rejections": {
+        "label": "Elutasítások",
+        "sub": "az előző 30 naphoz képest"
+      },
+      "successRate": {
+        "label": "Sikerráta",
+        "sub": "ajánlat az eldöntött jelentkezésekből"
+      },
+      "responseRate": {
+        "label": "Válaszadási arány",
+        "sub": "jelentkezés, amire érkezett bármilyen válasz",
+        "note": "a jelentkezésekre érkezett válasz"
+      },
+      "avgResponseTime": {
+        "label": "Átlagos válaszidő",
+        "sub": "nap a jelentkezéstől az első válaszig",
+        "note": "a jelentkezéstől az első válaszig"
+      },
+      "avgInterviewDays": {
+        "label": "Átlagos idő az interjúig",
+        "sub": "nap a jelentkezéstől az interjúig"
+      },
+      "pipeline": {
+        "label": "Aktív pipeline",
+        "sub": "jelentkezés jelenleg interjú szakaszban",
+        "note": "Folyamatban lévő jelentkezés"
+      },
+      "versusRange": "vs. {{range}}",
+      "dayValue": "{{days}} nap",
+      "unit": {
+        "percentagePoints": "szp.",
+        "days": "nap"
+      },
+      "interviewRate": {
+        "label": "Interjú arány",
+        "note": "a jelentkezésekből jutott interjúig"
+      }
     },
     "charts": {
       "sectionTitle": "Grafikonok & Trendek",
       "sectionSubtitle": "Ugyanaz az adat, egy tucat különböző nézetben.",
-      "monthly": { "title": "Jelentkezések havi bontásban", "subtitle": "Elmúlt 12 hónap", "applications": "Jelentkezések", "interviews": "Interjúk" },
-      "weekly": { "title": "Jelentkezések heti bontásban", "subtitle": "Elmúlt 12 hét" },
-      "statusDistribution": { "subtitle": "Hol tart most minden jelentkezésed" },
-      "weekday": { "title": "Heti aktivitás", "subtitle": "Melyik napon jelentkezel a legtöbbet" },
-      "responseTime": {
-        "title": "Válaszidő eloszlása", "subtitle": "Nap a jelentkezés és az első válasz között",
-        "b1": "0-2 nap", "b2": "3-5 nap", "b3": "6-10 nap", "b4": "11-20 nap", "b5": "21+ nap"
+      "monthly": {
+        "title": "Jelentkezések havi bontásban",
+        "subtitle": "Elmúlt 12 hónap",
+        "applications": "Jelentkezések",
+        "interviews": "Interjúk"
       },
-      "source": { "title": "Jelentkezések forrás szerint", "subtitle": "Becsült csatorna megoszlás" },
-      "salary": { "title": "Fizetési elvárás vs. válaszsebesség", "subtitle": "Becsült fizetés (ezer) vs. valós válaszidő napokban" },
-      "heatmap": { "subtitle": "Az elmúlt 12 hónap minden napja, egy pillantásra" }
+      "weekly": {
+        "title": "Jelentkezések heti bontásban",
+        "subtitle": "Elmúlt 12 hét"
+      },
+      "statusDistribution": {
+        "subtitle": "Hol tart most minden jelentkezésed"
+      },
+      "weekday": {
+        "title": "Napok teljesítménye",
+        "subtitle": "Jelentkezések és válaszadási arány",
+        "applications": "Jelentkezések",
+        "responseRate": "Válaszadási arány",
+        "bestBadge": "Legjobb nap",
+        "callout": {
+          "title": "A legjobb nap a jelentkezésre:",
+          "body": "A legmagasabb válaszadási arány ({{rate}}%), {{count}} jelentkezésből."
+        }
+      },
+      "responseTime": {
+        "title": "Válaszidő eloszlása",
+        "subtitle": "Nap a jelentkezés és az első válasz között",
+        "b1": "0-2 nap",
+        "b2": "3-5 nap",
+        "b3": "6-10 nap",
+        "b4": "11-20 nap",
+        "b5": "21+ nap"
+      },
+      "source": {
+        "title": "Források megoszlása",
+        "subtitle": "Honnan érkeznek a jelentkezéseid",
+        "note": {
+          "title": "A(z) {{source}} a legerősebb forrásod.",
+          "body": "Használd tovább a bevált csatornákat.",
+          "emptyTitle": "Még nincs forrás",
+          "emptyBody": "Vegyél fel jelentkezéseket a megoszlás megjelenítéséhez."
+        }
+      },
+      "salary": {
+        "title": "Fizetési elvárás vs. válaszsebesség",
+        "subtitle": "Becsült fizetés (ezer) vs. valós válaszidő napokban"
+      },
+      "heatmap": {
+        "subtitle": "Az elmúlt 12 hónap minden napja, egy pillantásra"
+      },
+      "timeline": {
+        "title": "Jelentkezések időben",
+        "subtitle": "Beadott jelentkezések a kiválasztott időszakban",
+        "seriesLabel": "Jelentkezések",
+        "note": {
+          "emptyTitle": "Nincs jelentkezés ebben az időszakban",
+          "emptyBody": "Módosítsd a szűrőket, vagy vedd fel az első jelentkezésed.",
+          "risingTitle": "Növekszik az aktivitásod",
+          "risingBody": "{{recent}} jelentkezés az időszak második felében, szemben {{earlier}} korábbival.",
+          "slowingTitle": "Lassult az aktivitásod",
+          "slowingBody": "{{recent}} jelentkezés az időszak második felében, szemben {{earlier}} korábbival.",
+          "steadyTitle": "Egyenletes aktivitás",
+          "steadyBody": "{{recent}} jelentkezés a második félidőben, {{earlier}} az elsőben. Csak így tovább!"
+        }
+      },
+      "responseTrend": {
+        "title": "Válaszidő trend",
+        "subtitle": "Átlagos válaszidő (nap)",
+        "seriesLabel": "Átlagos válaszidő",
+        "empty": "Még nincs elég válasz a trend megjelenítéséhez.",
+        "callout": {
+          "improvingTitle": "Javuló trend",
+          "improvingBody": "Az átlagos válaszidőd {{days}} nappal javult {{month}} óta.",
+          "slowingTitle": "Lassuló válaszok",
+          "slowingBody": "Az átlagos válaszidőd {{days}} nappal nőtt {{month}} óta.",
+          "steadyTitle": "Egyenletes válaszidő",
+          "steadyBody": "Átlagosan {{days}} nap az első válaszig."
+        }
+      }
     },
     "funnel": {
-      "title": "Sikertölcsér", "subtitle": "Hogyan halad a jelentkezés a beadástól az ajánlatig",
-      "applied": "Beadva", "interview": "Interjú", "offer": "Ajánlat", "converted": "konvertált"
+      "title": "Sikertölcsér",
+      "subtitle": "Hogyan halad a jelentkezés a beadástól az ajánlatig",
+      "applied": "Beadva",
+      "interview": "Interjú",
+      "offer": "Ajánlat",
+      "converted": "konvertált"
     },
-    "statusDistribution": { "title": "Státusz megoszlás", "total": "Összes" },
+    "statusDistribution": {
+      "title": "Státusz megoszlás",
+      "total": "Összes"
+    },
     "activityHeatmap": {
       "title": "Aktivitási naptár",
       "subtitle": "{{count}} aktív nap az elmúlt 12 hónapban",
@@ -544,7 +765,8 @@
       "legendMore": "Több"
     },
     "interviewTimeline": {
-      "title": "Interjú idővonal", "subtitle": "A legutóbbi interjú szakaszaid",
+      "title": "Interjú idővonal",
+      "subtitle": "A legutóbbi interjú szakaszaid",
       "empty": "Még nincs rögzített interjú."
     },
     "insights": {
@@ -562,9 +784,15 @@
     "goals": {
       "title": "Célok",
       "subtitle": "Kövesd nyomon a haladásod a számodra fontos célok felé.",
-      "applications": { "label": "Jelentkezési cél" },
-      "interview": { "label": "Interjú cél" },
-      "offers": { "label": "Ajánlat cél" },
+      "applications": {
+        "label": "Jelentkezési cél"
+      },
+      "interview": {
+        "label": "Interjú cél"
+      },
+      "offers": {
+        "label": "Ajánlat cél"
+      },
       "editTitle": "Cél"
     },
     "activity": {
@@ -584,7 +812,12 @@
       "title": "Top cégek",
       "empty": "Még nincs rangsorolható cég.",
       "rowMeta": "{{apps}} jelentkezés · {{interviews}} interjú · {{offers}} ajánlat",
-      "metric": { "interviews": "Interjúk", "offers": "Ajánlatok", "response": "Válaszsebesség", "salary": "Fizetés" }
+      "metric": {
+        "interviews": "Interjúk",
+        "offers": "Ajánlatok",
+        "response": "Válaszsebesség",
+        "salary": "Fizetés"
+      }
     },
     "skills": {
       "title": "Készségek a jelentkezéseidben",
@@ -608,8 +841,24 @@
       "avgDays": "átl. {{days}} nap"
     },
     "weekday": {
-      "short": { "mon": "H", "tue": "K", "wed": "Sze", "thu": "Cs", "fri": "P", "sat": "Szo", "sun": "V" },
-      "full": { "mon": "Hétfő", "tue": "Kedd", "wed": "Szerda", "thu": "Csütörtök", "fri": "Péntek", "sat": "Szombat", "sun": "Vasárnap" }
+      "short": {
+        "mon": "H",
+        "tue": "K",
+        "wed": "Sze",
+        "thu": "Cs",
+        "fri": "P",
+        "sat": "Szo",
+        "sun": "V"
+      },
+      "full": {
+        "mon": "Hétfő",
+        "tue": "Kedd",
+        "wed": "Szerda",
+        "thu": "Csütörtök",
+        "fri": "Péntek",
+        "sat": "Szombat",
+        "sun": "Vasárnap"
+      }
     },
     "weekdayActivity": {
       "title": "Heti aktivitás",
@@ -626,6 +875,67 @@
     "emptyState": {
       "noApplications": "Még nincsenek rögzített jelentkezések.",
       "selectMetric": "Válassz ki legalább egy mutatót a megjelenítéshez."
+    },
+    "granularity": {
+      "daily": "Napi",
+      "weekly": "Heti",
+      "monthly": "Havi"
+    },
+    "statusOverview": {
+      "title": "Státusz áttekintés",
+      "subtitle": "Hol tartanak a jelentkezéseid",
+      "note": {
+        "title": "A legtöbb jelentkezés „{{status}}” státuszban van.",
+        "defaultBody": "Küldj utánkövetést.",
+        "interviewBody": "Jó úton haladsz – készülj a következő körre.",
+        "successBody": "Erős eredmény. Tartsd meg, ami működik.",
+        "rejectedBody": "Koncentrálj a még futó jelentkezésekre.",
+        "emptyTitle": "Még nincs mit mutatni",
+        "emptyBody": "Nincs a szűrőknek megfelelő jelentkezés."
+      }
+    },
+    "summary": {
+      "title": "Amit az adat mutat",
+      "momentumUp": {
+        "title": "Erős a lendület",
+        "body": "{{percent}}%-kal több jelentkezést adtál be, mint az előző időszakban."
+      },
+      "momentumDown": {
+        "title": "Lassul a lendület",
+        "body": "{{percent}}%-kal kevesebb jelentkezést adtál be, mint az előző időszakban."
+      },
+      "momentumFlat": {
+        "title": "Egyenletes lendület",
+        "body": "Ugyanannyi jelentkezést adtál be, mint az előző időszakban."
+      },
+      "volume": {
+        "title": "Rögzített jelentkezések",
+        "body": "{{count}} jelentkezés a kiválasztott időszakban."
+      },
+      "responseImproved": {
+        "title": "Javult a válaszidő",
+        "body": "Az átlagos válaszidő {{days}} nappal csökkent, most {{current}} nap."
+      },
+      "responseSlowed": {
+        "title": "Lassultak a válaszok",
+        "body": "Az átlagos válaszidő {{days}} nappal nőtt, most {{current}} nap."
+      },
+      "responseSteady": {
+        "title": "Egyenletes válaszidő",
+        "body": "A cégek átlagosan {{current}} nap alatt válaszolnak."
+      },
+      "followUp": {
+        "title": "Fókuszálj az utánkövetésre",
+        "body": "A jelentkezések {{percent}}%-a „{{status}}” státuszban áll – kövesd utána, hogy haladjanak."
+      },
+      "bestDay": {
+        "title": "Válaszd a legjobb napot",
+        "body": "{{day}} a legmagasabb válaszadási arányod ({{rate}}%), {{count}} jelentkezésből."
+      },
+      "reach": {
+        "title": "Elért cégek",
+        "body": "{{count}} különböző céghez jelentkeztél."
+      }
     }
   },
   "masterData": {
@@ -667,7 +977,9 @@
       "uploadTitle": "Felülíró fájl feltöltése",
       "removeTitle": "Felülírás törlése – vissza az alapértelmezett szöveghez"
     },
-    "badge": { "count": "{{count}} db" },
+    "badge": {
+      "count": "{{count}} db"
+    },
     "selectToEdit": "Kiválasztás módosításhoz",
     "customColor": "Egyéni szín",
     "delete": "Törlés",
@@ -681,8 +993,15 @@
     "demoNotice": "A törzsadatok jelenleg csak a munkamenet idejére tárolódnak."
   },
   "practice": {
-    "pageHeader": { "title": "Gyakorlás", "subtitle": "Interjúra való felkészülés kártyákkal" },
-    "tabs": { "practice": "Gyakorlás", "questions": "Kérdések", "results": "Eredmények" },
+    "pageHeader": {
+      "title": "Gyakorlás",
+      "subtitle": "Interjúra való felkészülés kártyákkal"
+    },
+    "tabs": {
+      "practice": "Gyakorlás",
+      "questions": "Kérdések",
+      "results": "Eredmények"
+    },
     "categories": {
       "title": "Kategóriák",
       "noMatch": "Nincs ilyen kategória.",
@@ -819,9 +1138,17 @@
       "importItemMissingFieldsPrefix": "A",
       "importItemMissingFieldsSuffix": ". kérdésnél hiányzik a kategória, a kérdés szövege vagy a mintaválasz."
     },
-    "import": { "successSuffix": "kérdés sikeresen importálva." },
-    "feedbackLabel": { "correct": "HELYES", "incorrect": "HELYTELEN" },
-    "dateLabel": { "today": "Ma", "yesterday": "Tegnap" }
+    "import": {
+      "successSuffix": "kérdés sikeresen importálva."
+    },
+    "feedbackLabel": {
+      "correct": "HELYES",
+      "incorrect": "HELYTELEN"
+    },
+    "dateLabel": {
+      "today": "Ma",
+      "yesterday": "Tegnap"
+    }
   },
   "shared": {
     "addJobModal": {
@@ -852,11 +1179,28 @@
     "dateTimePicker": {
       "selectDatePlaceholder": "Válassz dátumot…",
       "month": {
-        "january": "Január", "february": "Február", "march": "Március", "april": "Április",
-        "may": "Május", "june": "Június", "july": "Július", "august": "Augusztus",
-        "september": "Szeptember", "october": "Október", "november": "November", "december": "December"
+        "january": "Január",
+        "february": "Február",
+        "march": "Március",
+        "april": "Április",
+        "may": "Május",
+        "june": "Június",
+        "july": "Július",
+        "august": "Augusztus",
+        "september": "Szeptember",
+        "october": "Október",
+        "november": "November",
+        "december": "December"
       },
-      "weekday": { "mon": "H", "tue": "K", "wed": "Sze", "thu": "Cs", "fri": "P", "sat": "Szo", "sun": "V" },
+      "weekday": {
+        "mon": "H",
+        "tue": "K",
+        "wed": "Sze",
+        "thu": "Cs",
+        "fri": "P",
+        "sat": "Szo",
+        "sun": "V"
+      },
       "allDay": "Egész nap",
       "hourColumnHeader": "Óra",
       "minuteColumnHeader": "Perc"
@@ -895,6 +1239,11 @@
       "title": "Jelentkezés előzményei",
       "closeAriaLabel": "Bezárás",
       "noEntriesYet": "Nincs még státusz változás"
+    },
+    "workMode": {
+      "Remote": "Távmunka",
+      "Hybrid": "Hibrid",
+      "Onsite": "Irodai"
     }
   }
 }

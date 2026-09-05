@@ -2,12 +2,10 @@ import { gsap } from 'gsap';
 import {
     EASE,
     MotionScope,
-    START,
-    STAGGER,
+    START,
     drawStroke,
     hintCompositing,
-    motionElement,
-    motionElements,
+    motionElement,
     motionSection,
     revealHeadlineLines,
     settleIn
@@ -66,29 +64,5 @@ function initProductReveal(scope: MotionScope, dashboard: HTMLElement): void {
         duration: 0.9,
         ease: EASE.reveal,
         keepTransform: true
-    });
-
-    if (scope.isDesktop) initInteriorReveal(timeline, dashboard);
-}
-
-function initInteriorReveal(timeline: gsap.core.Timeline, dashboard: HTMLElement): void {
-    const sidebar = motionElement(dashboard, 'dashboard-sidebar');
-    settleIn(timeline, sidebar ? [sidebar] : [], 0.24, { duration: 0.5, ease: EASE.micro });
-
-    const header = motionElement(dashboard, 'dashboard-header');
-    settleIn(timeline, header ? [header] : [], 0.28, { y: 5, duration: 0.45, ease: EASE.micro });
-
-    settleIn(timeline, motionElements(dashboard, 'dashboard-stat-card'), 0.34, {
-        y: 6,
-        duration: 0.45,
-        ease: EASE.micro,
-        stagger: STAGGER.tight
-    });
-
-    settleIn(timeline, motionElements(dashboard, 'dashboard-panel'), 0.46, {
-        y: 6,
-        duration: 0.45,
-        ease: EASE.micro,
-        stagger: 0.07
     });
 }

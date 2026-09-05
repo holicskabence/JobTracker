@@ -5,8 +5,19 @@ public record RegisterRequest(
     string LastName,
     string Email,
     string Password,
-    string? PreferredLanguage = null
-);
+    string? PreferredLanguage = null,
+    string? Location = null,
+    string? TargetPosition = null,
+    int? YearsOfExperience = null,
+    string? PreferredWorkMode = null,
+    string? PreferredLocations = null,
+    string? SalaryExpectation = null,
+    int? NoticePeriodDays = null,
+    string? LinkedInUrl = null,
+    string? GitHubUrl = null,
+    string? PortfolioUrl = null,
+    string? MainSkills = null
+) : ICareerProfileFields;
 
 public record LoginRequest(string Email, string Password);
 

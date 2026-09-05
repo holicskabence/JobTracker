@@ -6,13 +6,13 @@
             </div>
 
             <div class="landing-cta-banner-copy">
-                <h2 class="landing-cta-banner-headline" data-animate="cta-text">{{ 'landing.cta.headline' | translate }}</h2>
-                <p class="landing-cta-banner-paragraph" data-animate="cta-text">{{ 'landing.cta.paragraph' | translate }}</p>
+                <h2 class="landing-cta-banner-headline" data-animate="cta-text">{{ copy().headlineKey | translate }}</h2>
+                <p class="landing-cta-banner-paragraph" data-animate="cta-text">{{ copy().paragraphKey | translate }}</p>
             </div>
 
             <div class="landing-cta-banner-actions">
-                <a class="landing-cta-banner-primary-button" data-animate="cta-button" routerLink="/register">{{ 'landing.cta.ctaPrimary' | translate }}</a>
-                <a class="landing-cta-banner-secondary-button" data-animate="cta-button" routerLink="/login">{{ 'landing.cta.ctaSecondary' | translate }}</a>
+                <a class="landing-cta-banner-primary-button" data-animate="cta-button" [routerLink]="copy().primaryLink">{{ copy().primaryLabelKey | translate }}</a>
+                <a class="landing-cta-banner-secondary-button" data-animate="cta-button" [routerLink]="copy().secondaryLink">{{ copy().secondaryLabelKey | translate }}</a>
             </div>
 
         </div>

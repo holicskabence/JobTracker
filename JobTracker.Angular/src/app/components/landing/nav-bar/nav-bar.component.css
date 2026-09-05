@@ -64,7 +64,15 @@
     text-decoration: none;
 }
 
-.landing-nav-bar-register-button {
+.landing-nav-bar-greeting {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #3a4149;
+    white-space: nowrap;
+}
+
+.landing-nav-bar-register-button,
+.landing-nav-bar-dashboard-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -81,7 +89,8 @@
     transition: filter 0.15s ease;
 }
 
-.landing-nav-bar-register-button:hover {
+.landing-nav-bar-register-button:hover,
+.landing-nav-bar-dashboard-button:hover {
     filter: brightness(1.05);
 }
 
@@ -96,7 +105,9 @@
 @media (max-width: 940px) {
     .landing-nav-bar-links,
     .landing-nav-bar-login-link,
-    .landing-nav-bar-register-button {
+    .landing-nav-bar-register-button,
+    .landing-nav-bar-greeting,
+    .landing-nav-bar-dashboard-button {
         display: none;
     }
 

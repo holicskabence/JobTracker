@@ -2,14 +2,14 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap, map } from 'rxjs';
-import { UserProfile } from '../models/user.model';
+import { CareerProfile, UserProfile } from '../models/user.model';
 
 interface AuthResponse {
   token: string;
   profile: UserProfile;
 }
 
-interface UserProfileResponse {
+interface UserProfileResponse extends CareerProfile {
   id: number;
   firstName: string;
   lastName: string;
@@ -23,7 +23,7 @@ interface UserProfileResponse {
   preferredLanguage: string;
 }
 
-interface UpdateProfileRequest {
+export interface UpdateProfileRequest extends CareerProfile {
   firstName: string;
   lastName: string;
   position: string;
@@ -32,6 +32,14 @@ interface UpdateProfileRequest {
   goal: number;
   useAiEvaluation: boolean;
   preferredLanguage: string;
+}
+
+export interface RegisterPayload extends Partial<CareerProfile> {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  preferredLanguage?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -119,7 +127,7 @@ export class AuthService {
     );
   }
 
-  register(data: { firstName: string; lastName: string; email: string; password: string; preferredLanguage?: string }): Observable<void> {
+  register(data: RegisterPayload): Observable<void> {
     return this.http.post<AuthResponse>('/api/auth/register', data).pipe(
       tap(res => this.persistSession(res)),
       map(() => undefined)
@@ -189,7 +197,18 @@ export class AuthService {
       joinDate: r.joinDate,
       hasAvatar: r.hasAvatar ?? false,
       useAiEvaluation: r.useAiEvaluation ?? false,
-      preferredLanguage: r.preferredLanguage ?? 'hu'
+      preferredLanguage: r.preferredLanguage ?? 'hu',
+      location: r.location ?? null,
+      targetPosition: r.targetPosition ?? null,
+      yearsOfExperience: r.yearsOfExperience ?? null,
+      preferredWorkMode: r.preferredWorkMode ?? null,
+      preferredLocations: r.preferredLocations ?? null,
+      salaryExpectation: r.salaryExpectation ?? null,
+      noticePeriodDays: r.noticePeriodDays ?? null,
+      linkedInUrl: r.linkedInUrl ?? null,
+      gitHubUrl: r.gitHubUrl ?? null,
+      portfolioUrl: r.portfolioUrl ?? null,
+      mainSkills: r.mainSkills ?? null
     };
   }
 

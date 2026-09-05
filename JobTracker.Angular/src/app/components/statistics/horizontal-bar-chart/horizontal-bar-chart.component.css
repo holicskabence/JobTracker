@@ -15,7 +15,7 @@
 
 .hbar-row {
   display: grid;
-  grid-template-columns: 8.5rem 1fr 2.75rem;
+  grid-template-columns: minmax(0, 8rem) 1fr auto auto;
   align-items: center;
   gap: var(--space-3);
   animation: hbar-row-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -34,8 +34,8 @@
 }
 
 .hbar-label {
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 500;
   color: var(--clr-dark);
   white-space: nowrap;
   overflow: hidden;
@@ -43,7 +43,7 @@
 }
 
 .hbar-track {
-  height: 10px;
+  height: 8px;
   background-color: var(--clr-bg);
   border-radius: var(--radius-full);
   overflow: hidden;
@@ -56,18 +56,24 @@
 }
 
 .hbar-value {
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 700;
+  color: var(--clr-dark);
+  text-align: right;
+  min-width: 1.5rem;
+}
+
+.hbar-percent {
+  font-size: 0.75rem;
+  font-weight: 500;
   color: var(--clr-muted);
   text-align: right;
+  min-width: 3.25rem;
 }
 
 @media (max-width: 479px) {
   .hbar-row {
-    grid-template-columns: 5.5rem 1fr 2.25rem;
-  }
-
-  .hbar-label {
-    font-size: 0.75rem;
+    grid-template-columns: minmax(0, 5.5rem) 1fr auto auto;
+    gap: var(--space-2);
   }
 }

@@ -1,0 +1,71 @@
+<div class="chart-wrap">
+  <div class="chart-canvas" #wrapElement>
+    @if (!items.length) {
+    <app-empty-state [message]="'statistics.emptyState.noApplications' | translate"></app-empty-state>
+    } @else {
+    <svg class="chart-svg" [attr.viewBox]="'0 0 ' + viewWidth + ' ' + viewHeight" preserveAspectRatio="xMidYMid meet"
+      xmlns="http://www.w3.org/2000/svg">
+
+      @for (tick of leftTicks; track $index) {
+      <line [attr.x1]="padLeft" [attr.y1]="tick.y" [attr.x2]="viewWidth - padRight" [attr.y2]="tick.y"
+        class="grid-line" />
+      <text [attr.x]="padLeft - 8" [attr.y]="tick.y + 4" class="axis-label axis-label--left">{{ tick.label }}</text>
+      }
+
+      @for (tick of rightTicks; track $index) {
+      <text [attr.x]="viewWidth - padRight + 8" [attr.y]="tick.y + 4" class="axis-label axis-label--right">{{
+        tick.label }}</text>
+      }
+
+      @for (bar of renderedBars; track bar.label; let i = $index) {
+      <rect class="bar" [class.bar--hovered]="hoveredIndex === i" [attr.x]="bar.x" [attr.y]="bar.y"
+        [attr.width]="bar.width" [attr.height]="bar.height" rx="4" [style.fill]="barColor"
+        [style.animation-delay.ms]="i * 50" />
+      <text [attr.x]="bar.centerX" [attr.y]="chartBottom + 18" class="axis-label axis-label--x">{{ bar.label }}</text>
+      }
+
+      <path [attr.d]="linePath" class="line" [style.stroke]="lineColor" fill="none" />
+
+      @for (point of linePoints; track $index) {
+      <circle [attr.cx]="point.x" [attr.cy]="point.y" r="4" class="dot" [style.fill]="lineColor" />
+      }
+
+      @if (badge) {
+      <g class="best-badge">
+        <rect [attr.x]="badge.x - 34" [attr.y]="badge.y - 10" width="68" height="20" rx="10" />
+        <text [attr.x]="badge.x" [attr.y]="badge.y + 4">{{ bestBadgeLabel }}</text>
+      </g>
+      }
+
+      @for (item of items; track $index; let i = $index) {
+      <rect class="hit-column" [attr.x]="columnX(i)" [attr.y]="padTop" [attr.width]="columnWidth"
+        [attr.height]="chartHeight" (mouseenter)="onColumnEnter(i)" (mouseleave)="onColumnLeave()" />
+      }
+
+      @if (hoveredIndex !== null) {
+      <g class="chart-tooltip">
+        <rect class="tooltip-rect" [attr.x]="tooltipX(hoveredIndex)" [attr.y]="padTop + 2" width="108" height="46"
+          rx="7" />
+        <text class="tooltip-title" [attr.x]="tooltipX(hoveredIndex) + 54" [attr.y]="padTop + 17">{{
+          items[hoveredIndex].label }}</text>
+        <text class="tooltip-row" [style.fill]="barColor" [attr.x]="tooltipX(hoveredIndex) + 54"
+          [attr.y]="padTop + 30">{{ barLegendLabel }}: {{ items[hoveredIndex].barValue }}</text>
+        <text class="tooltip-row" [style.fill]="lineColor" [attr.x]="tooltipX(hoveredIndex) + 54"
+          [attr.y]="padTop + 42">{{ lineLegendLabel }}: {{ items[hoveredIndex].lineValue }}{{ lineSuffix }}</text>
+      </g>
+      }
+    </svg>
+    }
+  </div>
+
+  @if (items.length) {
+  <div class="legend">
+    <span class="legend-item">
+      <span class="legend-swatch legend-swatch--bar" [style.background-color]="barColor"></span>{{ barLegendLabel }}
+    </span>
+    <span class="legend-item">
+      <span class="legend-swatch legend-swatch--line" [style.background-color]="lineColor"></span>{{ lineLegendLabel }}
+    </span>
+  </div>
+  }
+</div>

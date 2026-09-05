@@ -1,14 +1,17 @@
 <div class="hbar-wrap">
-  @if (!sorted.length) {
+  @if (!rows.length) {
   <app-empty-state [message]="'statistics.emptyState.noApplications' | translate"></app-empty-state>
   } @else {
-  @for (item of sorted; track item.label; let i = $index) {
+  @for (row of rows; track row.label; let i = $index) {
   <div class="hbar-row" [style.animation-delay.ms]="i * 60">
-    <span class="hbar-label">{{ item.label }}</span>
+    <span class="hbar-label">{{ row.label }}</span>
     <div class="hbar-track">
-      <div class="hbar-fill" [style.width.%]="widthPct(item.value)" [style.background-color]="item.color"></div>
+      <div class="hbar-fill" [style.width.%]="row.widthPercent" [style.background-color]="row.color"></div>
     </div>
-    <span class="hbar-value">{{ item.value }}{{ valueSuffix }}</span>
+    <span class="hbar-value">{{ row.value }}{{ valueSuffix }}</span>
+    @if (showPercent) {
+    <span class="hbar-percent">({{ row.percent }}%)</span>
+    }
   </div>
   }
   }

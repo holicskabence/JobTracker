@@ -61,6 +61,10 @@
       "check4": "Success score",
       "cta": "View your statistics",
       "comparedToLastMonth": "vs last month",
+      "chartMonthFebruary": "Feb",
+      "chartMonthApril": "Apr",
+      "chartMonthJune": "Jun",
+      "chartMonthAugust": "Aug",
       "responseRateLabel": "Response rate",
       "responseRateChangeValue": "+8%",
       "avgResponseTimeLabel": "Average response time",
@@ -132,7 +136,8 @@
       "quickTasksTitle": "Quick tasks",
       "task1": "Send a follow-up email about your application",
       "task2": "Create a new resume version",
-      "task3": "Practice 3 technical questions"
+      "task3": "Practice 3 technical questions",
+      "previewAlt": "The JobTracker overview dashboard: applications, upcoming interviews and tasks on one screen."
     },
     "cta": {
       "headline": "Start today, and get closer to your dream job!",
@@ -201,7 +206,31 @@
       "passwordTooShortError": "At least 6 characters are required.",
       "passwordMismatchError": "The two passwords do not match.",
       "registrationFailedError": "Registration failed. Please try again.",
-      "emailTakenError": "This email address is already registered."
+      "emailTakenError": "This email address is already registered.",
+      "detailsTitle": "A few details about you",
+      "detailsSubtitle": "These give you a sharper picture of your job search. You can skip them.",
+      "stepIndicator": "STEP {{current}}/{{total}}",
+      "optionalNote": "Every field is optional, you can fill them in later on your profile.",
+      "skipLink": "Skip",
+      "continueBtn": "Continue",
+      "backBtn": "Back",
+      "locationLabel": "LOCATION",
+      "locationPlaceholder": "e.g. Budapest, Hungary",
+      "targetPositionLabel": "TARGET POSITION",
+      "targetPositionPlaceholder": "e.g. .NET Full-Stack Developer",
+      "yearsOfExperienceLabel": "YEARS OF EXPERIENCE",
+      "yearsOfExperiencePlaceholder": "e.g. 3",
+      "noticePeriodLabel": "NOTICE PERIOD (DAYS)",
+      "noticePeriodPlaceholder": "e.g. 30",
+      "workModeLabel": "PREFERRED WORK MODE",
+      "salaryExpectationLabel": "SALARY EXPECTATION",
+      "salaryExpectationPlaceholder": "e.g. 1.3M HUF gross / month",
+      "mainSkillsLabel": "MAIN SKILLS",
+      "mainSkillsPlaceholder": "e.g. .NET, Angular, SQL, Azure",
+      "mainSkillsHint": "Separate them with commas.",
+      "linkedInLabel": "LINKEDIN",
+      "gitHubLabel": "GITHUB",
+      "portfolioLabel": "PORTFOLIO / WEBSITE"
     }
   },
   "sidebar": {
@@ -227,6 +256,8 @@
   "profile": {
     "title": "Profile Settings",
     "subtitle": "Edit your personal data and goals.",
+    "savedBtn": "Saved!",
+    "saveError": "Save failed. Please try again.",
     "summary": {
       "avatarAlt": "Profile picture",
       "deleteAvatarTitle": "Delete profile picture",
@@ -238,23 +269,65 @@
       "joinedLabel": "JOINED",
       "logout": "Log out",
       "avatarUploadError": "Upload failed.",
-      "avatarDeleteError": "Delete failed."
+      "avatarDeleteError": "Delete failed.",
+      "locationLabel": "LOCATION",
+      "experienceLabel": "EXPERIENCE",
+      "experienceUnit": "years",
+      "preferredLocationsLabel": "PREFERRED LOCATIONS",
+      "mainSkillsLabel": "MAIN SKILLS"
     },
-    "personalData": {
-      "title": "Edit personal data",
+    "completeness": {
+      "title": "Profile completeness",
+      "missingCount": "{{count}} field(s) still missing.",
+      "complete": "Your profile is fully filled in."
+    },
+    "personalInformation": {
+      "title": "Personal information",
       "firstNameLabel": "First name",
       "firstNamePlaceholder": "e.g. Bence",
       "lastNameLabel": "Last name",
       "lastNamePlaceholder": "e.g. Smith",
-      "positionLabel": "Position / Title",
-      "positionPlaceholder": "e.g. Senior Frontend Developer",
       "phoneLabel": "Phone number",
       "emailLabel": "Email address",
+      "locationLabel": "Location",
+      "locationPlaceholder": "e.g. Budapest, Hungary",
+      "saveBtn": "Save changes"
+    },
+    "careerPreferences": {
+      "title": "Career preferences",
+      "description": "These keep your goals and your applications side by side in one place.",
+      "currentTitleLabel": "Current title",
+      "currentTitlePlaceholder": "e.g. Mid-level .NET Developer",
+      "targetPositionLabel": "Target position",
+      "targetPositionPlaceholder": "e.g. .NET Full-Stack Developer",
+      "yearsOfExperienceLabel": "Years of experience",
+      "yearsOfExperiencePlaceholder": "e.g. 3",
+      "noticePeriodLabel": "Notice period (days)",
+      "noticePeriodPlaceholder": "e.g. 30",
+      "workModeLabel": "Preferred work mode",
+      "preferredLocationsLabel": "Preferred locations",
+      "preferredLocationsPlaceholder": "e.g. Budapest, Vienna",
+      "salaryExpectationLabel": "Salary expectation",
+      "salaryExpectationPlaceholder": "e.g. 1.3M HUF gross / month",
+      "mainSkillsLabel": "Main skills",
+      "mainSkillsPlaceholder": "e.g. .NET, Angular, SQL, Azure",
+      "mainSkillsHint": "Separate them with commas.",
+      "saveBtn": "Save changes"
+    },
+    "professionalLinks": {
+      "title": "Professional links",
+      "description": "Keeping them together makes them quick to paste into your applications.",
+      "linkedInLabel": "LinkedIn",
+      "gitHubLabel": "GitHub",
+      "portfolioLabel": "Portfolio / Website",
+      "saveBtn": "Save changes"
+    },
+    "goal": {
+      "title": "Application goal",
+      "description": "Set how many applications you want to submit in total.",
       "goalLabel": "Application goal (count)",
       "goalHint": "This metric is used to calculate the goal progress bar on the Overview page.",
-      "savedBtn": "Saved!",
-      "saveBtn": "Save changes",
-      "saveError": "Save failed. Please try again."
+      "saveBtn": "Save goal"
     },
     "language": {
       "title": "Language & Localization",
@@ -265,7 +338,6 @@
       "description": "Enable AI-based answer evaluation in the Practice module. The AI analyzes your answer and gives personalized feedback.",
       "toggleLabel": "AI evaluation enabled",
       "toggleSub": "Powered by Azure OpenAI GPT-4o analysis",
-      "savedBtn": "Saved!",
       "saveBtn": "Save AI setting"
     },
     "password": {
@@ -318,11 +390,31 @@
       "viewAll": "View all"
     },
     "coachTip": {
-      "prepTime": { "title": "Time to prepare!", "text": "{{company}} – {{type}} is approaching ({{date}}). Review your notes and prepare your questions.", "cta": "Go to events" },
-      "callback": { "title": "You have a callback!", "text": "{{count}} active callback(s) are waiting for you. Responding quickly matters a lot in the selection process.", "cta": "View it" },
-      "startSearch": { "title": "Kick off your search!", "text": "You still have few applications. 2-3 targeted applications a day is the most effective strategy – start today!", "cta": "Applications" },
-      "patience": { "title": "Patience – the process is moving!", "text": "You have {{count}} applications in progress. Update your LinkedIn profile and follow up with companies a week after the interview.", "cta": "View all" },
-      "goodProgress": { "title": "You're making good progress!", "text": "With {{count}} applications and a {{rate}}% success rate, your search is going well. Keep up the momentum!", "cta": "View all" }
+      "prepTime": {
+        "title": "Time to prepare!",
+        "text": "{{company}} – {{type}} is approaching ({{date}}). Review your notes and prepare your questions.",
+        "cta": "Go to events"
+      },
+      "callback": {
+        "title": "You have a callback!",
+        "text": "{{count}} active callback(s) are waiting for you. Responding quickly matters a lot in the selection process.",
+        "cta": "View it"
+      },
+      "startSearch": {
+        "title": "Kick off your search!",
+        "text": "You still have few applications. 2-3 targeted applications a day is the most effective strategy – start today!",
+        "cta": "Applications"
+      },
+      "patience": {
+        "title": "Patience – the process is moving!",
+        "text": "You have {{count}} applications in progress. Update your LinkedIn profile and follow up with companies a week after the interview.",
+        "cta": "View all"
+      },
+      "goodProgress": {
+        "title": "You're making good progress!",
+        "text": "With {{count}} applications and a {{rate}}% success rate, your search is going well. Keep up the momentum!",
+        "cta": "View all"
+      }
     },
     "streak": {
       "none": "No applications yet today",
@@ -497,44 +589,173 @@
     "sampleBadge": "Sample data",
     "filters": {
       "dateRangeLabel": "Date range",
-      "dateRange": { "all": "All time", "last30": "Last 30 days", "last90": "Last 90 days", "thisYear": "This year", "custom": "Custom" },
+      "dateRange": {
+        "all": "All time",
+        "last30": "Last 30 days",
+        "last90": "Last 90 days",
+        "thisYear": "This year",
+        "custom": "Custom"
+      },
       "companyLabel": "Company",
       "allCompanies": "All companies",
       "statusLabel": "Status",
-      "clear": "Clear filters"
+      "clear": "Clear filters",
+      "allStatuses": "All statuses",
+      "statusesSelected": "{{count}} statuses",
+      "customFrom": "From",
+      "customTo": "To"
     },
     "kpi": {
-      "total": { "label": "Total applications", "sub": "vs previous 30 days" },
-      "active": { "label": "Active applications", "sub": "currently in progress" },
-      "interviews": { "label": "Interviews", "sub": "{{count}} currently in interview stage" },
-      "offers": { "label": "Offers", "sub": "vs previous 30 days" },
-      "rejections": { "label": "Rejections", "sub": "vs previous 30 days" },
-      "successRate": { "label": "Success rate", "sub": "offers vs. decided applications" },
-      "responseRate": { "label": "Response rate", "sub": "applications that got any reply" },
-      "avgResponseTime": { "label": "Avg. response time", "sub": "days from applied to first reply" },
-      "avgInterviewDays": { "label": "Avg. days until interview", "sub": "days from applied to interview" },
-      "pipeline": { "label": "Current interview pipeline", "sub": "applications at interview stage now" }
+      "total": {
+        "label": "Total applications",
+        "sub": "vs previous 30 days",
+        "note": "applications in the selected period"
+      },
+      "active": {
+        "label": "Active applications",
+        "sub": "currently in progress"
+      },
+      "interviews": {
+        "label": "Interviews",
+        "sub": "{{count}} currently in interview stage"
+      },
+      "offers": {
+        "label": "Offers",
+        "sub": "vs previous 30 days"
+      },
+      "rejections": {
+        "label": "Rejections",
+        "sub": "vs previous 30 days"
+      },
+      "successRate": {
+        "label": "Success rate",
+        "sub": "offers vs. decided applications"
+      },
+      "responseRate": {
+        "label": "Response rate",
+        "sub": "applications that got any reply",
+        "note": "of applications got a reply"
+      },
+      "avgResponseTime": {
+        "label": "Avg. response time",
+        "sub": "days from applied to first reply",
+        "note": "from applying to the first reply"
+      },
+      "avgInterviewDays": {
+        "label": "Avg. days until interview",
+        "sub": "days from applied to interview"
+      },
+      "pipeline": {
+        "label": "Active pipeline",
+        "sub": "applications at interview stage now",
+        "note": "Applications in progress"
+      },
+      "versusRange": "vs {{range}}",
+      "dayValue": "{{days}} days",
+      "unit": {
+        "percentagePoints": "pp",
+        "days": "days"
+      },
+      "interviewRate": {
+        "label": "Interview rate",
+        "note": "of applications reached an interview"
+      }
     },
     "charts": {
       "sectionTitle": "Charts & Trends",
       "sectionSubtitle": "The same data, sliced a dozen different ways.",
-      "monthly": { "title": "Applications per month", "subtitle": "Last 12 months", "applications": "Applications", "interviews": "Interviews" },
-      "weekly": { "title": "Applications by week", "subtitle": "Last 12 weeks" },
-      "statusDistribution": { "subtitle": "Where every application stands right now" },
-      "weekday": { "title": "Weekly activity", "subtitle": "Which day of the week you apply most" },
-      "responseTime": {
-        "title": "Response time distribution", "subtitle": "Days between applying and first reply",
-        "b1": "0-2d", "b2": "3-5d", "b3": "6-10d", "b4": "11-20d", "b5": "21d+"
+      "monthly": {
+        "title": "Applications per month",
+        "subtitle": "Last 12 months",
+        "applications": "Applications",
+        "interviews": "Interviews"
       },
-      "source": { "title": "Applications by source", "subtitle": "Estimated channel breakdown" },
-      "salary": { "title": "Salary expectations vs. response speed", "subtitle": "Estimated salary (k) vs. real response time in days" },
-      "heatmap": { "subtitle": "Every day of the last 12 months, at a glance" }
+      "weekly": {
+        "title": "Applications by week",
+        "subtitle": "Last 12 weeks"
+      },
+      "statusDistribution": {
+        "subtitle": "Where every application stands right now"
+      },
+      "weekday": {
+        "title": "Day of week performance",
+        "subtitle": "Applications vs. response rate",
+        "applications": "Applications",
+        "responseRate": "Response rate",
+        "bestBadge": "Best day",
+        "callout": {
+          "title": "Best day to apply:",
+          "body": "Highest response rate ({{rate}}%) from {{count}} applications."
+        }
+      },
+      "responseTime": {
+        "title": "Response time distribution",
+        "subtitle": "Days between applying and first reply",
+        "b1": "0-2d",
+        "b2": "3-5d",
+        "b3": "6-10d",
+        "b4": "11-20d",
+        "b5": "21d+"
+      },
+      "source": {
+        "title": "Source breakdown",
+        "subtitle": "Where your applications come from",
+        "note": {
+          "title": "{{source}} is your strongest source.",
+          "body": "Keep leveraging the channels that work.",
+          "emptyTitle": "No sources yet",
+          "emptyBody": "Add applications to see the breakdown."
+        }
+      },
+      "salary": {
+        "title": "Salary expectations vs. response speed",
+        "subtitle": "Estimated salary (k) vs. real response time in days"
+      },
+      "heatmap": {
+        "subtitle": "Every day of the last 12 months, at a glance"
+      },
+      "timeline": {
+        "title": "Applications over time",
+        "subtitle": "Applications submitted in the selected period",
+        "seriesLabel": "Applications",
+        "note": {
+          "emptyTitle": "No applications in this period",
+          "emptyBody": "Adjust the filters, or add your first application.",
+          "risingTitle": "Your activity is picking up",
+          "risingBody": "{{recent}} applications in the second half of the period vs {{earlier}} in the first.",
+          "slowingTitle": "Your activity has slowed",
+          "slowingBody": "{{recent}} applications in the second half of the period vs {{earlier}} in the first.",
+          "steadyTitle": "Consistent activity",
+          "steadyBody": "{{recent}} applications in the second half, {{earlier}} in the first. Keep it up!"
+        }
+      },
+      "responseTrend": {
+        "title": "Response time trend",
+        "subtitle": "Average response time (days)",
+        "seriesLabel": "Avg. response time",
+        "empty": "Not enough replies yet to plot a trend.",
+        "callout": {
+          "improvingTitle": "Improving trend",
+          "improvingBody": "Your average response time improved by {{days}} days since {{month}}.",
+          "slowingTitle": "Slower responses",
+          "slowingBody": "Your average response time grew by {{days}} days since {{month}}.",
+          "steadyTitle": "Steady response time",
+          "steadyBody": "Averaging {{days}} days to the first reply."
+        }
+      }
     },
     "funnel": {
-      "title": "Success funnel", "subtitle": "How applications move from applied to offer",
-      "applied": "Applied", "interview": "Interview", "offer": "Offer", "converted": "converted"
+      "title": "Success funnel",
+      "subtitle": "How applications move from applied to offer",
+      "applied": "Applied",
+      "interview": "Interview",
+      "offer": "Offer",
+      "converted": "converted"
     },
-    "statusDistribution": { "title": "Status distribution", "total": "Total" },
+    "statusDistribution": {
+      "title": "Status distribution",
+      "total": "Total"
+    },
     "activityHeatmap": {
       "title": "Activity calendar",
       "subtitle": "{{count}} active days in the last 12 months",
@@ -544,7 +765,8 @@
       "legendMore": "More"
     },
     "interviewTimeline": {
-      "title": "Interview timeline", "subtitle": "Your most recent interview stages",
+      "title": "Interview timeline",
+      "subtitle": "Your most recent interview stages",
       "empty": "No interviews recorded yet."
     },
     "insights": {
@@ -562,9 +784,15 @@
     "goals": {
       "title": "Goals",
       "subtitle": "Track your progress toward the targets that matter.",
-      "applications": { "label": "Applications goal" },
-      "interview": { "label": "Interview goal" },
-      "offers": { "label": "Offers goal" },
+      "applications": {
+        "label": "Applications goal"
+      },
+      "interview": {
+        "label": "Interview goal"
+      },
+      "offers": {
+        "label": "Offers goal"
+      },
       "editTitle": "Target"
     },
     "activity": {
@@ -584,7 +812,12 @@
       "title": "Top companies",
       "empty": "No companies to rank yet.",
       "rowMeta": "{{apps}} applications · {{interviews}} interviews · {{offers}} offers",
-      "metric": { "interviews": "Interviews", "offers": "Offers", "response": "Response speed", "salary": "Salary" }
+      "metric": {
+        "interviews": "Interviews",
+        "offers": "Offers",
+        "response": "Response speed",
+        "salary": "Salary"
+      }
     },
     "skills": {
       "title": "Skills in your applications",
@@ -608,8 +841,24 @@
       "avgDays": "avg. {{days}}d"
     },
     "weekday": {
-      "short": { "mon": "Mon", "tue": "Tue", "wed": "Wed", "thu": "Thu", "fri": "Fri", "sat": "Sat", "sun": "Sun" },
-      "full": { "mon": "Monday", "tue": "Tuesday", "wed": "Wednesday", "thu": "Thursday", "fri": "Friday", "sat": "Saturday", "sun": "Sunday" }
+      "short": {
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat",
+        "sun": "Sun"
+      },
+      "full": {
+        "mon": "Monday",
+        "tue": "Tuesday",
+        "wed": "Wednesday",
+        "thu": "Thursday",
+        "fri": "Friday",
+        "sat": "Saturday",
+        "sun": "Sunday"
+      }
     },
     "weekdayActivity": {
       "title": "Weekly activity",
@@ -626,6 +875,67 @@
     "emptyState": {
       "noApplications": "No applications recorded yet.",
       "selectMetric": "Select at least one metric to display."
+    },
+    "granularity": {
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly"
+    },
+    "statusOverview": {
+      "title": "Status overview",
+      "subtitle": "Where your applications stand",
+      "note": {
+        "title": "Most applications are in \"{{status}}\".",
+        "defaultBody": "Keep sending follow-ups.",
+        "interviewBody": "Good momentum — keep preparing for the next round.",
+        "successBody": "Strong results. Keep doing what works.",
+        "rejectedBody": "Focus on the applications still in progress.",
+        "emptyTitle": "Nothing to show yet",
+        "emptyBody": "No applications match the current filters."
+      }
+    },
+    "summary": {
+      "title": "What the data shows",
+      "momentumUp": {
+        "title": "Momentum is strong",
+        "body": "You submitted {{percent}}% more applications than in the previous period."
+      },
+      "momentumDown": {
+        "title": "Momentum is slowing",
+        "body": "You submitted {{percent}}% fewer applications than in the previous period."
+      },
+      "momentumFlat": {
+        "title": "Steady momentum",
+        "body": "You submitted the same number of applications as in the previous period."
+      },
+      "volume": {
+        "title": "Applications tracked",
+        "body": "{{count}} applications in the selected period."
+      },
+      "responseImproved": {
+        "title": "Response time improved",
+        "body": "Average response time dropped by {{days}} days, down to {{current}}."
+      },
+      "responseSlowed": {
+        "title": "Responses got slower",
+        "body": "Average response time grew by {{days}} days, up to {{current}}."
+      },
+      "responseSteady": {
+        "title": "Steady response time",
+        "body": "Companies reply in {{current}} days on average."
+      },
+      "followUp": {
+        "title": "Focus on follow-ups",
+        "body": "{{percent}}% of applications sit in \"{{status}}\" — follow up to move them forward."
+      },
+      "bestDay": {
+        "title": "Pick your best day",
+        "body": "{{day}} has your highest response rate ({{rate}}%) across {{count}} applications."
+      },
+      "reach": {
+        "title": "Companies reached",
+        "body": "You've applied to {{count}} different companies."
+      }
     }
   },
   "masterData": {
@@ -667,7 +977,9 @@
       "uploadTitle": "Upload override file",
       "removeTitle": "Remove override — revert to default text"
     },
-    "badge": { "count": "{{count}}" },
+    "badge": {
+      "count": "{{count}}"
+    },
     "selectToEdit": "Select to edit",
     "customColor": "Custom color",
     "delete": "Delete",
@@ -681,8 +993,15 @@
     "demoNotice": "Master data is currently stored only for the duration of the session."
   },
   "practice": {
-    "pageHeader": { "title": "Practice", "subtitle": "Interview preparation with flashcards" },
-    "tabs": { "practice": "Practice", "questions": "Questions", "results": "Results" },
+    "pageHeader": {
+      "title": "Practice",
+      "subtitle": "Interview preparation with flashcards"
+    },
+    "tabs": {
+      "practice": "Practice",
+      "questions": "Questions",
+      "results": "Results"
+    },
     "categories": {
       "title": "Categories",
       "noMatch": "No matching category.",
@@ -819,9 +1138,17 @@
       "importItemMissingFieldsPrefix": "Question",
       "importItemMissingFieldsSuffix": "is missing the category, the question text, or the sample answer."
     },
-    "import": { "successSuffix": "question(s) imported successfully." },
-    "feedbackLabel": { "correct": "CORRECT", "incorrect": "INCORRECT" },
-    "dateLabel": { "today": "Today", "yesterday": "Yesterday" }
+    "import": {
+      "successSuffix": "question(s) imported successfully."
+    },
+    "feedbackLabel": {
+      "correct": "CORRECT",
+      "incorrect": "INCORRECT"
+    },
+    "dateLabel": {
+      "today": "Today",
+      "yesterday": "Yesterday"
+    }
   },
   "shared": {
     "addJobModal": {
@@ -852,11 +1179,28 @@
     "dateTimePicker": {
       "selectDatePlaceholder": "Select a date…",
       "month": {
-        "january": "January", "february": "February", "march": "March", "april": "April",
-        "may": "May", "june": "June", "july": "July", "august": "August",
-        "september": "September", "october": "October", "november": "November", "december": "December"
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
       },
-      "weekday": { "mon": "Mo", "tue": "Tu", "wed": "We", "thu": "Th", "fri": "Fr", "sat": "Sa", "sun": "Su" },
+      "weekday": {
+        "mon": "Mo",
+        "tue": "Tu",
+        "wed": "We",
+        "thu": "Th",
+        "fri": "Fr",
+        "sat": "Sa",
+        "sun": "Su"
+      },
       "allDay": "All day",
       "hourColumnHeader": "Hour",
       "minuteColumnHeader": "Minute"
@@ -895,6 +1239,11 @@
     "jobCard": {
       "edit": "Edit",
       "open": "Open"
+    },
+    "workMode": {
+      "Remote": "Remote",
+      "Hybrid": "Hybrid",
+      "Onsite": "On-site"
     }
   }
 }

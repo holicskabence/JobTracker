@@ -10,20 +10,13 @@
             <p class="landing-hero-paragraph" data-animate="hero-paragraph">{{ 'landing.hero.paragraph' | translate }}</p>
 
             <div class="landing-hero-actions">
-                <a class="landing-hero-primary-button" data-animate="hero-action" routerLink="/register">
-                    {{ 'landing.hero.ctaPrimary' | translate }}
-                    <svg class="landing-hero-button-arrow-icon" viewBox="0 0 24 24">
-                        <path d="M4 12h15M13.5 5.5L20 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
+                <a class="landing-hero-primary-button" data-animate="hero-action" [routerLink]="primaryAction().link">
+                    {{ primaryAction().labelKey | translate }}
                 </a>
 
                 <a class="landing-hero-secondary-button" data-animate="hero-action" href="#dashboard-preview"
                     (click)="onSectionLinkClick($event, '#dashboard-preview')">
                     {{ 'landing.hero.ctaSecondary' | translate }}
-                    <svg class="landing-hero-button-play-icon" viewBox="0 0 24 24">
-                        <path d="M7 4.5v15l13-7.5z" fill="currentColor" />
-                    </svg>
                 </a>
             </div>
 

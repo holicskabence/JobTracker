@@ -195,3 +195,110 @@
   color: #ef4444;
   text-align: center;
 }
+
+.register-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  margin-bottom: var(--space-5);
+}
+
+.register-progress-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--clr-border);
+  transition: background-color 0.25s;
+}
+
+.register-progress-bar--active {
+  background-color: var(--clr-green);
+}
+
+.register-optional-note {
+  font-size: 0.8rem;
+  color: var(--clr-muted);
+  line-height: 1.5;
+}
+
+.register-skip-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--clr-dark);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.register-skip-link:hover:not(:disabled) {
+  color: var(--clr-green);
+}
+
+.register-field-hint {
+  font-size: 0.7rem;
+  color: var(--clr-muted);
+}
+
+.register-work-mode-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+}
+
+.register-work-mode-option {
+  padding: var(--space-3) var(--space-2);
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--clr-border);
+  background-color: var(--clr-white);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--clr-dark);
+  cursor: pointer;
+  transition: background-color 0.18s, border-color 0.18s, color 0.18s;
+}
+
+.register-work-mode-option:hover {
+  border-color: var(--clr-green);
+}
+
+.register-work-mode-option--active {
+  background-color: var(--clr-green);
+  border-color: var(--clr-green);
+  color: var(--clr-white);
+}
+
+.register-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2-5);
+}
+
+.login-card-button--ghost {
+  background-color: var(--clr-bg);
+  color: var(--clr-dark);
+}
+
+.login-card-button--ghost:hover:not(:disabled) {
+  background-color: var(--clr-border);
+}
+
+.login-card-button:disabled,
+.register-skip-link:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+@media (max-width: 560px) {
+  .register-row {
+    grid-template-columns: 1fr;
+  }
+
+  .register-work-mode-group {
+    grid-template-columns: 1fr;
+  }
+}

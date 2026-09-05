@@ -23,8 +23,13 @@
         </nav>
 
         <div class="landing-nav-bar-actions">
+            @if (auth.isLoggedIn()) {
+            <span class="landing-nav-bar-greeting" data-animate="nav-action">{{ 'landing.nav.greeting' | translate:{ name: firstName() } }}</span>
+            <a class="landing-nav-bar-dashboard-button" data-animate="nav-action" routerLink="/dashboard">{{ 'landing.nav.dashboard' | translate }}</a>
+            } @else {
             <a class="landing-nav-bar-login-link" data-animate="nav-action" routerLink="/login">{{ 'landing.nav.login' | translate }}</a>
             <a class="landing-nav-bar-register-button" data-animate="nav-action" routerLink="/register">{{ 'landing.nav.register' | translate }}</a>
+            }
 
             <button class="landing-nav-bar-menu-button" data-animate="nav-action" type="button" (click)="toggleMobileMenu()"
                 [attr.aria-expanded]="isMobileMenuOpen()" [attr.aria-label]="'landing.nav.menu' | translate">
@@ -47,7 +52,11 @@
                 (click)="onSectionLinkClick($event, '#about')">{{ 'landing.nav.about' | translate }}</a>
             <a class="landing-nav-bar-mobile-menu-link" href="#blog"
                 (click)="onSectionLinkClick($event, '#blog')">{{ 'landing.nav.blog' | translate }}</a>
+            @if (auth.isLoggedIn()) {
+            <a class="landing-nav-bar-mobile-menu-link" routerLink="/dashboard">{{ 'landing.nav.dashboard' | translate }}</a>
+            } @else {
             <a class="landing-nav-bar-mobile-menu-link" routerLink="/login">{{ 'landing.nav.login' | translate }}</a>
+            }
         </div>
     </div>
 </header>

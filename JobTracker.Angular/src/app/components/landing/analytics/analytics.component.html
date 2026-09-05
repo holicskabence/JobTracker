@@ -70,12 +70,8 @@
                 </li>
             </ul>
 
-            <a class="landing-analytics-cta" data-animate="analytics-cta" routerLink="/register">
+            <a class="landing-analytics-cta" data-animate="analytics-cta" [routerLink]="ctaLink()">
                 {{ 'landing.analytics.cta' | translate }}
-                <svg viewBox="0 0 24 24">
-                    <path d="M4 12h15M13.5 5.5L20 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
             </a>
         </div>
 
@@ -84,50 +80,69 @@
             <div class="landing-analytics-charts-column">
                 <div class="landing-analytics-chart-row">
 
-                    <div class="landing-analytics-card" data-animate="analytics-chart-card">
+                    <div class="landing-analytics-card landing-analytics-chart-card-response-rate"
+                        data-animate="analytics-chart-card">
                         <div class="landing-analytics-card-label">{{ 'landing.analytics.responseRateLabel' |
                             translate }}</div>
                         <div class="landing-analytics-card-value">24%</div>
                         <div class="landing-analytics-card-change">
                             <span class="landing-analytics-card-change-value">{{
                                 'landing.analytics.responseRateChangeValue' | translate }}</span>
-                            {{ 'landing.analytics.comparedToLastMonth' | translate }}
+                            <span class="landing-analytics-card-change-caption">{{
+                                'landing.analytics.comparedToLastMonth' | translate }}</span>
                         </div>
-                        <svg class="landing-analytics-card-chart" viewBox="0 0 210 64" preserveAspectRatio="none"
-                            aria-hidden="true">
-                            <defs>
-                                <linearGradient id="landing-analytics-area-gradient" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0" stop-color="#6FCB4A" stop-opacity=".28" />
-                                    <stop offset="1" stop-color="#6FCB4A" stop-opacity="0" />
-                                </linearGradient>
-                            </defs>
-                            <path data-animate="analytics-chart-area"
-                                d="M6 52 L22 44 36 48 50 40 64 44 78 35 92 39 106 29 120 33 134 23 148 27 162 17 176 21 190 12 203 8 L203 62 6 62 Z"
-                                fill="url(#landing-analytics-area-gradient)" />
-                            <path data-animate="analytics-chart-line"
-                                d="M6 52 L22 44 36 48 50 40 64 44 78 35 92 39 106 29 120 33 134 23 148 27 162 17 176 21 190 12 203 8"
-                                fill="none" stroke="#6FCB4A" stroke-width="1.8" stroke-linejoin="round" />
-                            <g fill="#8BDD68" data-animate="analytics-chart-points">
-                                <circle cx="6" cy="52" r="2" />
-                                <circle cx="22" cy="44" r="2" />
-                                <circle cx="36" cy="48" r="2" />
-                                <circle cx="50" cy="40" r="2" />
-                                <circle cx="64" cy="44" r="2" />
-                                <circle cx="78" cy="35" r="2" />
-                                <circle cx="92" cy="39" r="2" />
-                                <circle cx="106" cy="29" r="2" />
-                                <circle cx="120" cy="33" r="2" />
-                                <circle cx="134" cy="23" r="2" />
-                                <circle cx="148" cy="27" r="2" />
-                                <circle cx="162" cy="17" r="2" />
-                                <circle cx="176" cy="21" r="2" />
-                                <circle cx="190" cy="12" r="2" />
-                                <circle cx="203" cy="8" r="2" />
-                            </g>
-                        </svg>
+
+                        <div class="landing-analytics-chart">
+                            <div class="landing-analytics-chart-plot">
+                                <svg class="landing-analytics-chart-graphic" viewBox="0 0 240 100"
+                                    preserveAspectRatio="none" aria-hidden="true">
+                                    <defs>
+                                        <linearGradient id="landing-analytics-response-rate-area" x1="0" y1="0" x2="0"
+                                            y2="1">
+                                            <stop offset="0" stop-color="#6FCB4A" stop-opacity=".30" />
+                                            <stop offset="1" stop-color="#6FCB4A" stop-opacity="0" />
+                                        </linearGradient>
+                                    </defs>
+                                    <path data-animate="analytics-chart-area"
+                                        d="M12 76 L48 66 L84 71 L120 52 L156 58 L192 40 L228 22 L228 92 L12 92 Z"
+                                        fill="url(#landing-analytics-response-rate-area)" />
+                                    <g class="landing-analytics-chart-grid">
+                                        <line x1="12" y1="34" x2="228" y2="34" />
+                                        <line x1="12" y1="62" x2="228" y2="62" />
+                                    </g>
+                                    <line class="landing-analytics-chart-baseline" x1="12" y1="92" x2="228" y2="92" />
+                                    <path class="landing-analytics-chart-line" data-animate="analytics-chart-line"
+                                        d="M12 76 L48 66 L84 71 L120 52 L156 58 L192 40 L228 22" fill="none"
+                                        stroke="#6FCB4A" />
+                                </svg>
+
+                                <div class="landing-analytics-chart-points" data-animate="analytics-chart-points">
+                                    <span class="landing-analytics-chart-point" style="left: 5%; top: 76%"></span>
+                                    <span class="landing-analytics-chart-point" style="left: 20%; top: 66%"></span>
+                                    <span class="landing-analytics-chart-point" style="left: 35%; top: 71%"></span>
+                                    <span class="landing-analytics-chart-point" style="left: 50%; top: 52%"></span>
+                                    <span class="landing-analytics-chart-point" style="left: 65%; top: 58%"></span>
+                                    <span class="landing-analytics-chart-point" style="left: 80%; top: 40%"></span>
+                                    <span class="landing-analytics-chart-point landing-analytics-chart-point-latest"
+                                        data-animate="analytics-chart-latest-point" style="left: 95%; top: 22%"></span>
+                                </div>
+                            </div>
+
+                            <div class="landing-analytics-chart-axis" aria-hidden="true">
+                                <span class="landing-analytics-chart-axis-label" style="left: 5%">{{
+                                    'landing.analytics.chartMonthFebruary' | translate }}</span>
+                                <span class="landing-analytics-chart-axis-label" style="left: 35%">{{
+                                    'landing.analytics.chartMonthApril' | translate }}</span>
+                                <span class="landing-analytics-chart-axis-label" style="left: 65%">{{
+                                    'landing.analytics.chartMonthJune' | translate }}</span>
+                                <span class="landing-analytics-chart-axis-label" style="left: 95%">{{
+                                    'landing.analytics.chartMonthAugust' | translate }}</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="landing-analytics-card" data-animate="analytics-chart-card">
+                    <div class="landing-analytics-card landing-analytics-chart-card-response-time"
+                        data-animate="analytics-chart-card">
                         <div class="landing-analytics-card-label">{{ 'landing.analytics.avgResponseTimeLabel' |
                             translate }}</div>
                         <div class="landing-analytics-card-value">
@@ -138,32 +153,57 @@
                         <div class="landing-analytics-card-change">
                             <span class="landing-analytics-card-change-value">{{
                                 'landing.analytics.avgResponseTimeChangeValue' | translate }}</span>
-                            {{ 'landing.analytics.comparedToLastMonth' | translate }}
+                            <span class="landing-analytics-card-change-caption">{{
+                                'landing.analytics.comparedToLastMonth' | translate }}</span>
                         </div>
-                        <svg class="landing-analytics-card-chart" viewBox="0 0 210 64" preserveAspectRatio="none"
-                            aria-hidden="true">
-                            <path data-animate="analytics-chart-line"
-                                d="M6 50 L20 46 32 50 46 42 58 46 72 38 86 42 100 34 114 38 128 28 142 34 156 24 170 30 184 18 196 22 204 12"
-                                fill="none" stroke="#7B7BE8" stroke-width="1.8" stroke-linejoin="round" />
-                            <g fill="#9595F0" data-animate="analytics-chart-points">
-                                <circle cx="6" cy="50" r="2" />
-                                <circle cx="20" cy="46" r="2" />
-                                <circle cx="32" cy="50" r="2" />
-                                <circle cx="46" cy="42" r="2" />
-                                <circle cx="58" cy="46" r="2" />
-                                <circle cx="72" cy="38" r="2" />
-                                <circle cx="86" cy="42" r="2" />
-                                <circle cx="100" cy="34" r="2" />
-                                <circle cx="114" cy="38" r="2" />
-                                <circle cx="128" cy="28" r="2" />
-                                <circle cx="142" cy="34" r="2" />
-                                <circle cx="156" cy="24" r="2" />
-                                <circle cx="170" cy="30" r="2" />
-                                <circle cx="184" cy="18" r="2" />
-                                <circle cx="196" cy="22" r="2" />
-                                <circle cx="204" cy="12" r="2" />
-                            </g>
-                        </svg>
+
+                        <div class="landing-analytics-chart">
+                            <div class="landing-analytics-chart-plot">
+                                <svg class="landing-analytics-chart-graphic" viewBox="0 0 240 100"
+                                    preserveAspectRatio="none" aria-hidden="true">
+                                    <defs>
+                                        <linearGradient id="landing-analytics-response-time-area" x1="0" y1="0" x2="0"
+                                            y2="1">
+                                            <stop offset="0" stop-color="#7B7BE8" stop-opacity=".30" />
+                                            <stop offset="1" stop-color="#7B7BE8" stop-opacity="0" />
+                                        </linearGradient>
+                                    </defs>
+                                    <path data-animate="analytics-chart-area"
+                                        d="M12 22 L48 30 L84 26 L120 42 L156 38 L192 56 L228 78 L228 92 L12 92 Z"
+                                        fill="url(#landing-analytics-response-time-area)" />
+                                    <g class="landing-analytics-chart-grid">
+                                        <line x1="12" y1="34" x2="228" y2="34" />
+                                        <line x1="12" y1="62" x2="228" y2="62" />
+                                    </g>
+                                    <line class="landing-analytics-chart-baseline" x1="12" y1="92" x2="228" y2="92" />
+                                    <path class="landing-analytics-chart-line" data-animate="analytics-chart-line"
+                                        d="M12 22 L48 30 L84 26 L120 42 L156 38 L192 56 L228 78" fill="none"
+                                        stroke="#7B7BE8" />
+                                </svg>
+
+                                <div class="landing-analytics-chart-points" data-animate="analytics-chart-points">
+                                    <span class="landing-analytics-chart-point" style="left: 5%; top: 22%"></span>
+                                    <span class="landing-analytics-chart-point" style="left: 20%; top: 30%"></span>
+                                    <span class="landing-analytics-chart-point" style="left: 35%; top: 26%"></span>
+                                    <span class="landing-analytics-chart-point" style="left: 50%; top: 42%"></span>
+                                    <span class="landing-analytics-chart-point" style="left: 65%; top: 38%"></span>
+                                    <span class="landing-analytics-chart-point" style="left: 80%; top: 56%"></span>
+                                    <span class="landing-analytics-chart-point landing-analytics-chart-point-latest"
+                                        data-animate="analytics-chart-latest-point" style="left: 95%; top: 78%"></span>
+                                </div>
+                            </div>
+
+                            <div class="landing-analytics-chart-axis" aria-hidden="true">
+                                <span class="landing-analytics-chart-axis-label" style="left: 5%">{{
+                                    'landing.analytics.chartMonthFebruary' | translate }}</span>
+                                <span class="landing-analytics-chart-axis-label" style="left: 35%">{{
+                                    'landing.analytics.chartMonthApril' | translate }}</span>
+                                <span class="landing-analytics-chart-axis-label" style="left: 65%">{{
+                                    'landing.analytics.chartMonthJune' | translate }}</span>
+                                <span class="landing-analytics-chart-axis-label" style="left: 95%">{{
+                                    'landing.analytics.chartMonthAugust' | translate }}</span>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -174,11 +214,11 @@
                         <div class="landing-analytics-card-label">{{ 'landing.analytics.totalApplicationsLabel' |
                             translate }}</div>
                         <div class="landing-analytics-card-value" data-animate="analytics-count">86</div>
-
                         <div class="landing-analytics-card-change">
                             <span class="landing-analytics-card-change-value">{{
                                 'landing.analytics.totalApplicationsChangeValue' | translate }}</span>
-                            {{ 'landing.analytics.comparedToLastMonth' | translate }}
+                            <span class="landing-analytics-card-change-caption">{{
+                                'landing.analytics.comparedToLastMonth' | translate }}</span>
                         </div>
                     </div>
 
@@ -189,7 +229,8 @@
                         <div class="landing-analytics-card-change">
                             <span class="landing-analytics-card-change-value">{{
                                 'landing.analytics.interviewsChangeValue' | translate }}</span>
-                            {{ 'landing.analytics.comparedToLastMonth' | translate }}
+                            <span class="landing-analytics-card-change-caption">{{
+                                'landing.analytics.comparedToLastMonth' | translate }}</span>
                         </div>
                     </div>
 
@@ -200,7 +241,8 @@
                         <div class="landing-analytics-card-change">
                             <span class="landing-analytics-card-change-value">{{
                                 'landing.analytics.offersChangeValue' | translate }}</span>
-                            {{ 'landing.analytics.comparedToLastMonth' | translate }}
+                            <span class="landing-analytics-card-change-caption">{{
+                                'landing.analytics.comparedToLastMonth' | translate }}</span>
                         </div>
                     </div>
 
@@ -214,90 +256,89 @@
                     </div>
 
                     <div class="landing-analytics-funnel-body">
-    <svg
-        class="landing-analytics-funnel-shape"
-        viewBox="0 0 130 88"
-        aria-hidden="true"
-    >
-        <defs>
-            <linearGradient
-                id="landing-analytics-funnel-gradient"
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="1"
-            >
-                <stop offset="0" stop-color="#7A55C8" />
-                <stop offset="1" stop-color="#4F6BE8" />
-            </linearGradient>
-        </defs>
+                        <svg class="landing-analytics-funnel-shape" viewBox="0 0 132 96" aria-hidden="true">
+                            <defs>
+                                <linearGradient id="landing-analytics-funnel-gradient" gradientUnits="userSpaceOnUse" x1="0"
+                                    y1="2" x2="0" y2="94">
+                                    <stop offset="0" stop-color="#7A55C8" />
+                                    <stop offset="1" stop-color="#4F6BE8" />
+                                </linearGradient>
+                            </defs>
 
-        <g fill="url(#landing-analytics-funnel-gradient)">
-            <path data-animate="analytics-funnel-layer" d="M0 0 H130 L116 24 H14 Z" />
-            <path data-animate="analytics-funnel-layer" d="M16 26 H114 L102 44 H28 Z" />
-            <path data-animate="analytics-funnel-layer" d="M30 46 H100 L90 62 H40 Z" />
-            <path data-animate="analytics-funnel-layer" d="M42 64 H88 L82 84 H48 Z" />
-        </g>
-    </svg>
+                            <g fill="url(#landing-analytics-funnel-gradient)">
+                                <path data-animate="analytics-funnel-layer" d="M0 2 H132 L122 22 H10 Z" />
+                                <path data-animate="analytics-funnel-layer" d="M12 26 H120 L110 46 H22 Z" />
+                                <path data-animate="analytics-funnel-layer" d="M24 50 H108 L98 70 H34 Z" />
+                                <path data-animate="analytics-funnel-layer" d="M36 74 H96 L86 94 H46 Z" />
+                            </g>
+                        </svg>
 
-    <ul class="landing-analytics-funnel-rows">
-        <li class="landing-analytics-funnel-row" data-animate="analytics-funnel-row">
-            {{ 'landing.analytics.funnelApplied' | translate }}
-            <b class="landing-analytics-funnel-row-value">
-                86
-            </b>
-        </li>
+                        <ul class="landing-analytics-funnel-rows">
+                            <li class="landing-analytics-funnel-row" data-animate="analytics-funnel-row">
+                                <span class="landing-analytics-funnel-row-marker" style="background: #7558CC"></span>
+                                <span class="landing-analytics-funnel-row-name">{{ 'landing.analytics.funnelApplied' |
+                                    translate }}</span>
+                                <b class="landing-analytics-funnel-row-value">86</b>
+                            </li>
 
-        <li class="landing-analytics-funnel-row" data-animate="analytics-funnel-row">
-            {{ 'landing.analytics.funnelScreening' | translate }}
-            <b class="landing-analytics-funnel-row-value">
-                29
-            </b>
-        </li>
+                            <li class="landing-analytics-funnel-row" data-animate="analytics-funnel-row">
+                                <span class="landing-analytics-funnel-row-marker" style="background: #6A5DD4"></span>
+                                <span class="landing-analytics-funnel-row-name">{{ 'landing.analytics.funnelScreening' |
+                                    translate }}</span>
+                                <b class="landing-analytics-funnel-row-value">29</b>
+                            </li>
 
-        <li class="landing-analytics-funnel-row" data-animate="analytics-funnel-row">
-            {{ 'landing.analytics.funnelInterview' | translate }}
-            <b class="landing-analytics-funnel-row-value">
-                9
-            </b>
-        </li>
+                            <li class="landing-analytics-funnel-row" data-animate="analytics-funnel-row">
+                                <span class="landing-analytics-funnel-row-marker" style="background: #5F63DC"></span>
+                                <span class="landing-analytics-funnel-row-name">{{ 'landing.analytics.funnelInterview' |
+                                    translate }}</span>
+                                <b class="landing-analytics-funnel-row-value">9</b>
+                            </li>
 
-        <li class="landing-analytics-funnel-row" data-animate="analytics-funnel-row">
-            {{ 'landing.analytics.funnelOffer' | translate }}
-            <b class="landing-analytics-funnel-row-value">
-                3
-            </b>
-        </li>
-    </ul>
-</div>
+                            <li class="landing-analytics-funnel-row" data-animate="analytics-funnel-row">
+                                <span class="landing-analytics-funnel-row-marker" style="background: #5468E4"></span>
+                                <span class="landing-analytics-funnel-row-name">{{ 'landing.analytics.funnelOffer' |
+                                    translate }}</span>
+                                <b class="landing-analytics-funnel-row-value">3</b>
+                            </li>
+                        </ul>
+                    </div>
 
                     <div class="landing-analytics-funnel-total" data-animate="analytics-funnel-total">
-                        {{ 'landing.analytics.funnelConversion' | translate }}
+                        <span>{{ 'landing.analytics.funnelConversion' |
+                            translate }}</span>
                         <b class="landing-analytics-funnel-total-value">3.5%</b>
                     </div>
                 </div>
 
                 <div class="landing-analytics-card landing-analytics-gauge-card" data-animate="analytics-gauge-card">
-                    <div class="landing-analytics-card-label">{{ 'landing.analytics.successScoreLabel' | translate
-                        }}</div>
+                    <div class="landing-analytics-gauge-copy">
+                        <div class="landing-analytics-card-label">{{ 'landing.analytics.successScoreLabel' | translate
+                            }}</div>
+                        <div class="landing-analytics-gauge-caption" data-animate="analytics-gauge-caption">{{
+                            'landing.analytics.successScoreHint' | translate }}</div>
+                    </div>
 
                     <div class="landing-analytics-gauge">
-                        <svg viewBox="0 0 100 56" aria-hidden="true">
+                        <svg class="landing-analytics-gauge-graphic" viewBox="0 0 100 58" aria-hidden="true">
                             <defs>
                                 <linearGradient id="landing-analytics-gauge-gradient" x1="0" y1="0" x2="1" y2="0">
                                     <stop offset="0" stop-color="#B5E27C" />
                                     <stop offset="1" stop-color="#4CAF24" />
                                 </linearGradient>
                             </defs>
-                            <path d="M9 51 A41 41 0 0 1 91 51" fill="none" stroke="#242B30" stroke-width="8.5"
+                            <path class="landing-analytics-gauge-track" d="M9 51 A41 41 0 0 1 91 51" fill="none"
                                 stroke-linecap="round" />
-                            <path data-animate="analytics-gauge-arc" d="M9 51 A41 41 0 0 1 91 51" fill="none"
-                                stroke="url(#landing-analytics-gauge-gradient)" stroke-width="8.5"
-                                stroke-linecap="round" stroke-dasharray="93 129" />
+                            <path class="landing-analytics-gauge-arc" data-animate="analytics-gauge-arc"
+                                d="M9 51 A41 41 0 0 1 91 51" fill="none"
+                                stroke="url(#landing-analytics-gauge-gradient)" stroke-linecap="round"
+                                stroke-dasharray="93 129" />
                         </svg>
-                        <div class="landing-analytics-gauge-value" data-animate="analytics-gauge-count">72</div>
-                        <div class="landing-analytics-gauge-caption" data-animate="analytics-gauge-caption">{{ 'landing.analytics.successScoreHint' |
-                            translate }}</div>
+
+                        <div class="landing-analytics-gauge-readout">
+                            <span class="landing-analytics-gauge-value" data-animate="analytics-gauge-count">72</span>
+                            <span class="landing-analytics-gauge-scale">/100</span>
+                        </div>
                     </div>
                 </div>
 

@@ -10,13 +10,14 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  gap: var(--space-5);
+  gap: var(--space-4);
 }
 
 .donut-svg-wrap {
   position: relative;
-  width: 260px;
-  height: 260px;
+  width: 42%;
+  max-width: 180px;
+  aspect-ratio: 1;
   flex-shrink: 0;
 }
 
@@ -27,45 +28,22 @@
 }
 
 .slice {
-  transform-origin: 100px 100px;
   animation: slice-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   cursor: pointer;
   transition: filter 0.15s;
 }
 
-.slice:hover {
+.slice--active {
   filter: brightness(1.12);
-}
-
-.slice:nth-child(1) {
-  animation-delay: 0.1s;
-}
-
-.slice:nth-child(2) {
-  animation-delay: 0.18s;
-}
-
-.slice:nth-child(3) {
-  animation-delay: 0.26s;
-}
-
-.slice:nth-child(4) {
-  animation-delay: 0.34s;
-}
-
-.slice:nth-child(5) {
-  animation-delay: 0.42s;
 }
 
 @keyframes slice-pop {
   from {
     opacity: 0;
-    transform: scale(0.55);
   }
 
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 
@@ -80,21 +58,24 @@
 }
 
 .donut-center-value {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 800;
   color: var(--clr-dark);
   line-height: 1;
-  transform-origin: center;
 }
 
 .donut-center-label {
-  font-size: 0.625rem;
-  font-weight: 500;
+  font-size: 0.5625rem;
+  font-weight: 600;
   color: var(--clr-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-top: var(--space-1);
-  transform-origin: center;
+  max-width: 5.5rem;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .donut-legend {
@@ -106,45 +87,32 @@
 }
 
 .donut-legend-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
   align-items: center;
   gap: var(--space-2);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   cursor: pointer;
-  padding: var(--space-0-5) var(--space-1) var(--space-0-5) var(--space-1-5);
-  border-radius: var(--radius-sm);
-  border-left: 3px solid transparent;
-  transition: background 0.15s, border-color 0.15s;
+  padding: var(--space-1) var(--space-1-5);
+  border-radius: var(--radius-xs);
+  transition: background-color 0.15s;
 }
 
-.donut-legend-item:hover {
-  background: var(--clr-hover, rgba(0, 0, 0, 0.04));
-}
-
+.donut-legend-item:hover,
 .donut-legend-item--active {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.donut-legend-item--active .donut-legend-name {
-  font-weight: 700;
-  color: var(--clr-dark);
-}
-
-.donut-legend-item--active .donut-legend-value {
-  color: var(--clr-dark);
+  background-color: var(--clr-bg);
 }
 
 .donut-legend-dot {
-  width: var(--space-2-5);
-  height: var(--space-2-5);
+  width: var(--space-2);
+  height: var(--space-2);
   border-radius: var(--radius-full);
   flex-shrink: 0;
 }
 
 .donut-legend-name {
-  flex: 1;
   min-width: 0;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--clr-dark);
   white-space: nowrap;
   overflow: hidden;
@@ -153,17 +121,24 @@
 
 .donut-legend-value {
   font-weight: 700;
-  color: var(--clr-muted);
+  color: var(--clr-dark);
 }
 
-@media (max-width: 479px) {
+.donut-legend-percent {
+  font-weight: 500;
+  color: var(--clr-muted);
+  min-width: 3.25rem;
+  text-align: right;
+}
+
+@media (max-width: 560px) {
   .donut-wrap {
     flex-direction: column;
+    gap: var(--space-3);
   }
 
   .donut-svg-wrap {
-    width: 200px;
-    height: 200px;
+    width: 160px;
   }
 
   .donut-legend {

@@ -1,15 +1,15 @@
-import { Component, ElementRef, computed, inject, signal } from '@angular/core';
-import { gsap } from 'gsap';
-import { TranslateService } from '@ngx-translate/core';
-import { JobStoreService } from '../../../services/job-store.service';
+import { Component, Input, OnChanges, signal } from '@angular/core';
 
-export interface DonutSlice {
-  status: string;
+export interface DonutSliceInput {
+  key: string;
   label: string;
   value: number;
   color: string;
+}
+
+export interface DonutSlice extends DonutSliceInput {
+  percent: number;
   path: string;
-  midAngle: number;
 }
 
 @Component({
@@ -18,135 +18,83 @@ export interface DonutSlice {
   templateUrl: './donut-chart.component.html',
   styleUrl: './donut-chart.component.css'
 })
-export class DonutChartComponent {
-  private readonly store = inject(JobStoreService);
-  private readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
-  private readonly translate = inject(TranslateService);
+export class DonutChartComponent implements OnChanges {
+  @Input() slices: DonutSliceInput[] = [];
+  @Input() centerLabel = '';
 
-  readonly hoveredSlice = signal<DonutSlice | null>(null);
+  readonly CENTER = 100;
+  readonly OUTER_RADIUS = 76;
+  readonly INNER_RADIUS = 52;
+  readonly GAP_DEGREES = 3;
 
-  readonly CX = 100;
-  readonly CY = 100;
-  readonly R = 78;
-  readonly IR = 54;
-  readonly GAP_DEG = 4;
+  readonly hoveredKey = signal<string | null>(null);
 
-  private readonly eligibleKeys = computed(() => {
-    const configs = this.store.statusConfigs();
-    return new Set(configs.filter(c => c.isActive || c.isInterview).map(c => c.key));
-  });
+  renderedSlices: DonutSlice[] = [];
+  total = 0;
 
-  readonly total = computed(() => {
-    const keys = this.eligibleKeys();
-    return this.store.jobs().filter(j => keys.has(j.status)).length;
-  });
+  ngOnChanges(): void {
+    this.hoveredKey.set(null);
+    this.build();
+  }
 
-  readonly slices = computed(() => {
-    const jobs = this.store.jobs();
-    const configs = this.store.statusConfigs();
-    const keys = this.eligibleKeys();
-
-    const distMap: Record<string, number> = {};
-    for (const job of jobs) {
-      if (!keys.has(job.status)) continue;
-      distMap[job.status] = (distMap[job.status] ?? 0) + 1;
+  private build(): void {
+    const positive = this.slices.filter(slice => slice.value > 0);
+    this.total = positive.reduce((sum, slice) => sum + slice.value, 0);
+    if (this.total === 0) {
+      this.renderedSlices = [];
+      return;
     }
 
-    const nonZero = Object.entries(distMap).filter(([, v]) => v > 0);
-    const sum = nonZero.reduce((s, [, v]) => s + v, 0);
-    if (sum === 0) return [];
+    const available = 360 - positive.length * this.GAP_DEGREES;
+    let cursor = -90;
 
-    const gapTotal = nonZero.length * this.GAP_DEG;
-    const available = 360 - gapTotal;
-    let angle = -90;
-
-    return nonZero.map(([status, value]) => {
-      const cfg = configs.find(c => c.key === status);
-      const sweep = (value / sum) * available;
-      const startDeg = angle + this.GAP_DEG / 2;
-      const endDeg = startDeg + sweep;
-      angle = endDeg + this.GAP_DEG / 2;
-
+    this.renderedSlices = positive.map(slice => {
+      const sweep = (slice.value / this.total) * available;
+      const start = cursor + this.GAP_DEGREES / 2;
+      const end = start + sweep;
+      cursor = end + this.GAP_DEGREES / 2;
       return {
-        status,
-        label: cfg?.label ?? status,
-        value,
-        color: cfg?.color ?? '#9b9b99',
-        path: this.arc(startDeg, endDeg),
-        midAngle: (startDeg + endDeg) / 2
+        ...slice,
+        percent: Math.round((slice.value / this.total) * 1000) / 10,
+        path: this.arc(start, end)
       };
     });
-  });
+  }
 
   get centerValue(): string {
-    const h = this.hoveredSlice();
-    return h ? String(h.value) : String(this.total());
+    const hovered = this.renderedSlices.find(slice => slice.key === this.hoveredKey());
+    return hovered ? String(hovered.value) : String(this.total);
   }
 
-  get centerLabel(): string {
-    const h = this.hoveredSlice();
-    return h ? h.label : this.translate.instant('statistics.statusDistribution.total');
+  get centerCaption(): string {
+    const hovered = this.renderedSlices.find(slice => slice.key === this.hoveredKey());
+    return hovered ? hovered.label : this.centerLabel;
   }
 
-  hoverSlice(status: string): void {
-    if (this.hoveredSlice()?.status === status) return;
+  hoverSlice(key: string): void { this.hoveredKey.set(key); }
+  clearHover(): void { this.hoveredKey.set(null); }
 
-    const index = this.slices().findIndex(s => s.status === status);
-    const paths = this.el.nativeElement.querySelectorAll<SVGPathElement>('.slice');
+  private arc(startDegrees: number, endDegrees: number): string {
+    const toRadians = (degrees: number) => (degrees * Math.PI) / 180;
+    const cos = (degrees: number) => Math.cos(toRadians(degrees));
+    const sin = (degrees: number) => Math.sin(toRadians(degrees));
 
-    gsap.to(paths, { scale: 1, duration: 0.15 });
+    const x1 = this.CENTER + this.OUTER_RADIUS * cos(startDegrees);
+    const y1 = this.CENTER + this.OUTER_RADIUS * sin(startDegrees);
+    const x2 = this.CENTER + this.OUTER_RADIUS * cos(endDegrees);
+    const y2 = this.CENTER + this.OUTER_RADIUS * sin(endDegrees);
+    const x3 = this.CENTER + this.INNER_RADIUS * cos(endDegrees);
+    const y3 = this.CENTER + this.INNER_RADIUS * sin(endDegrees);
+    const x4 = this.CENTER + this.INNER_RADIUS * cos(startDegrees);
+    const y4 = this.CENTER + this.INNER_RADIUS * sin(startDegrees);
+    const largeArc = endDegrees - startDegrees > 180 ? 1 : 0;
 
-    if (index >= 0 && paths[index]) {
-      gsap.to(paths[index], { scale: 1.1, duration: 0.22, ease: 'back.out(1.5)' });
-    }
-
-    this.hoveredSlice.set(this.slices()[index] ?? null);
-
-    const value = this.el.nativeElement.querySelector('.donut-center-value')!;
-    const label = this.el.nativeElement.querySelector('.donut-center-label')!;
-    gsap.fromTo([value, label],
-      { opacity: 0, scale: 0.8 },
-      { opacity: 1, scale: 1, duration: 0.2, ease: 'back.out(1.4)', stagger: 0.04 }
-    );
-  }
-
-  clearHover(): void {
-    if (!this.hoveredSlice()) return;
-
-    const paths = this.el.nativeElement.querySelectorAll<SVGPathElement>('.slice');
-    gsap.to(paths, { scale: 1, duration: 0.18, ease: 'power2.out' });
-
-    this.hoveredSlice.set(null);
-
-    const value = this.el.nativeElement.querySelector('.donut-center-value')!;
-    const label = this.el.nativeElement.querySelector('.donut-center-label')!;
-    gsap.fromTo([value, label],
-      { opacity: 0.7, scale: 0.92 },
-      { opacity: 1, scale: 1, duration: 0.18, ease: 'power2.out', stagger: 0.03 }
-    );
-  }
-
-  private arc(startDeg: number, endDeg: number): string {
-    const toR = (d: number) => (d * Math.PI) / 180;
-    const cos = (d: number) => Math.cos(toR(d));
-    const sin = (d: number) => Math.sin(toR(d));
-
-    const x1 = this.CX + this.R * cos(startDeg);
-    const y1 = this.CY + this.R * sin(startDeg);
-    const x2 = this.CX + this.R * cos(endDeg);
-    const y2 = this.CY + this.R * sin(endDeg);
-    const x3 = this.CX + this.IR * cos(endDeg);
-    const y3 = this.CY + this.IR * sin(endDeg);
-    const x4 = this.CX + this.IR * cos(startDeg);
-    const y4 = this.CY + this.IR * sin(startDeg);
-    const large = endDeg - startDeg > 180 ? 1 : 0;
-
-    const f = (n: number) => n.toFixed(3);
+    const format = (value: number) => value.toFixed(3);
     return [
-      `M ${f(x1)} ${f(y1)}`,
-      `A ${this.R} ${this.R} 0 ${large} 1 ${f(x2)} ${f(y2)}`,
-      `L ${f(x3)} ${f(y3)}`,
-      `A ${this.IR} ${this.IR} 0 ${large} 0 ${f(x4)} ${f(y4)}`,
+      `M ${format(x1)} ${format(y1)}`,
+      `A ${this.OUTER_RADIUS} ${this.OUTER_RADIUS} 0 ${largeArc} 1 ${format(x2)} ${format(y2)}`,
+      `L ${format(x3)} ${format(y3)}`,
+      `A ${this.INNER_RADIUS} ${this.INNER_RADIUS} 0 ${largeArc} 0 ${format(x4)} ${format(y4)}`,
       'Z'
     ].join(' ');
   }

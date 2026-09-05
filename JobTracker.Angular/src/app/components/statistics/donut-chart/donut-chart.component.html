@@ -1,32 +1,33 @@
 <div class="donut-wrap">
   <div class="donut-svg-wrap">
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="donut-svg">
-      @if (slices().length > 0) {
-      @for (s of slices(); track s.status) {
-      <path [attr.d]="s.path" [attr.fill]="s.color" class="slice" (mouseenter)="hoverSlice(s.status)"
-        (mouseleave)="clearHover()" />
+      @if (renderedSlices.length) {
+      @for (slice of renderedSlices; track slice.key) {
+      <path [attr.d]="slice.path" [attr.fill]="slice.color" class="slice"
+        [class.slice--active]="hoveredKey() === slice.key"
+        (mouseenter)="hoverSlice(slice.key)" (mouseleave)="clearHover()" />
       }
       } @else {
-      <circle cx="100" cy="100" [attr.r]="R" fill="none" stroke-width="24" stroke="var(--clr-border)"
-        class="empty-ring" />
+      <circle cx="100" cy="100" [attr.r]="(OUTER_RADIUS + INNER_RADIUS) / 2" fill="none"
+        [attr.stroke-width]="OUTER_RADIUS - INNER_RADIUS" stroke="var(--clr-border)" />
       }
     </svg>
 
     <div class="donut-center">
       <span class="donut-center-value">{{ centerValue }}</span>
-      <span class="donut-center-label">{{ centerLabel }}</span>
+      <span class="donut-center-label">{{ centerCaption }}</span>
     </div>
   </div>
 
-  @if (slices().length > 0) {
+  @if (renderedSlices.length) {
   <div class="donut-legend">
-    @for (s of slices(); track s.status) {
-    <div class="donut-legend-item" [class.donut-legend-item--active]="hoveredSlice()?.status === s.status"
-      [style.border-left-color]="hoveredSlice()?.status === s.status ? s.color : 'transparent'"
-      (mouseenter)="hoverSlice(s.status)" (mouseleave)="clearHover()">
-      <span class="donut-legend-dot" [style.background-color]="s.color"></span>
-      <span class="donut-legend-name">{{ s.label }}</span>
-      <span class="donut-legend-value">{{ s.value }}</span>
+    @for (slice of renderedSlices; track slice.key) {
+    <div class="donut-legend-item" [class.donut-legend-item--active]="hoveredKey() === slice.key"
+      (mouseenter)="hoverSlice(slice.key)" (mouseleave)="clearHover()">
+      <span class="donut-legend-dot" [style.background-color]="slice.color"></span>
+      <span class="donut-legend-name">{{ slice.label }}</span>
+      <span class="donut-legend-value">{{ slice.value }}</span>
+      <span class="donut-legend-percent">({{ slice.percent }}%)</span>
     </div>
     }
   </div>

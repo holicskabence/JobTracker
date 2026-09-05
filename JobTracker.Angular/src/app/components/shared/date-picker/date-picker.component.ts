@@ -9,7 +9,10 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   standalone: true,
   imports: [TranslateModule],
   templateUrl: './date-picker.component.html',
-  styleUrl: './date-picker.component.css'
+  styleUrl: './date-picker.component.css',
+  host: {
+    '[class.date-picker--compact]': "variant === 'compact'"
+  }
 })
 export class DatePickerComponent {
   private readonly translate = inject(TranslateService);
@@ -17,6 +20,8 @@ export class DatePickerComponent {
   @Input() value = '';
   @Input() placeholder = 'shared.dateTimePicker.selectDatePlaceholder';
   @Input() hasError = false;
+  /** 'compact' matches the smaller pill controls used in filter bars. */
+  @Input() variant: 'default' | 'compact' = 'default';
   @Output() valueChange = new EventEmitter<string>();
 
   isOpen = false;

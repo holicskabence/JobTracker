@@ -8,6 +8,11 @@ export interface HBarItem {
   color: string;
 }
 
+interface RenderedHBarItem extends HBarItem {
+  percent: number;
+  widthPercent: number;
+}
+
 @Component({
   selector: 'app-horizontal-bar-chart',
   standalone: true,
@@ -18,16 +23,19 @@ export interface HBarItem {
 export class HorizontalBarChartComponent implements OnChanges {
   @Input() items: HBarItem[] = [];
   @Input() valueSuffix = '';
+  @Input() showPercent = false;
 
-  sorted: HBarItem[] = [];
-  maxValue = 1;
+  rows: RenderedHBarItem[] = [];
 
   ngOnChanges(): void {
-    this.sorted = [...this.items].sort((a, b) => b.value - a.value);
-    this.maxValue = Math.max(1, ...this.sorted.map(i => i.value));
-  }
+    const sorted = [...this.items].filter(item => item.value > 0).sort((a, b) => b.value - a.value);
+    const max = Math.max(1, ...sorted.map(item => item.value));
+    const total = sorted.reduce((sum, item) => sum + item.value, 0);
 
-  widthPct(value: number): number {
-    return this.maxValue > 0 ? Math.max(2, (value / this.maxValue) * 100) : 0;
+    this.rows = sorted.map(item => ({
+      ...item,
+      percent: total > 0 ? Math.round((item.value / total) * 1000) / 10 : 0,
+      widthPercent: Math.max(3, (item.value / max) * 100)
+    }));
   }
 }

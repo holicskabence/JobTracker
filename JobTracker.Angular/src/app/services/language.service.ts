@@ -53,16 +53,7 @@ export class LanguageService {
     if (this.auth.isLoggedIn()) {
       const user = this.auth.currentUser();
       if (user) {
-        this.auth.updateProfile({
-          firstName: user.firstName,
-          lastName: user.lastName,
-          position: user.position,
-          email: user.email,
-          phone: user.phone,
-          goal: user.goal,
-          useAiEvaluation: user.useAiEvaluation,
-          preferredLanguage: lang
-        }).subscribe();
+        this.auth.updateProfile({ ...user, preferredLanguage: lang }).subscribe();
       }
       return;
     }
