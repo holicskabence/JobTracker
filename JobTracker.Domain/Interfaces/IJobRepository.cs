@@ -8,4 +8,5 @@ public interface IJobRepository : IRepository<Job>
     Task<Job?> GetByIdAsync(int id, int userId);
     Task<Job?> PatchStatusAsync(int id, int userId, string status);
     Task<bool> DeleteAsync(int id, int userId);
+    Task RenameSourceAsync(string oldName, string newName, int userId);
 }

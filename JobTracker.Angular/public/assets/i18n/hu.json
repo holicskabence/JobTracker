@@ -372,7 +372,9 @@
       "offerCount": "{{count}} ajánlat",
       "rejectedCount": "{{count}} elutasítva",
       "callbacks": "Visszahívások",
-      "callbackRate": "{{rate}}% a beadottakból"
+      "callbackRate": "{{rate}}% a beadottakból",
+      "stalledCount": "{{count}} elakadt",
+      "closedWithoutDecisionCount": "{{count}} lezárt döntés nélkül"
     },
     "upcomingEvents": {
       "title": "Interjúk",
@@ -442,6 +444,12 @@
       "good": "Jó",
       "improvable": "Fejleszthető",
       "beginner": "Kezdő"
+    },
+    "stalled": {
+      "title": "Elakadt jelentkezések",
+      "subtitle": "A törzsadatban beállított határidőn túl nem mozdultak.",
+      "viewAll": "Összes",
+      "daysInStatus": "{{days}} napja „{{status}}”"
     }
   },
   "kanban": {
@@ -461,6 +469,7 @@
     "columns": {
       "companyPosition": "Cég / Pozíció",
       "status": "Státusz",
+      "source": "Forrás",
       "date": "Dátum",
       "link": "Link",
       "actions": "Műveletek"
@@ -659,6 +668,10 @@
       "interviewRate": {
         "label": "Interjú arány",
         "note": "a jelentkezésekből jutott interjúig"
+      },
+      "stalled": {
+        "label": "Elakadt",
+        "note": "A törzsadatban megadott napszám óta nem mozdult"
       }
     },
     "charts": {
@@ -700,6 +713,7 @@
       "source": {
         "title": "Források megoszlása",
         "subtitle": "Honnan érkeznek a jelentkezéseid",
+        "unknown": "Ismeretlen",
         "note": {
           "title": "A(z) {{source}} a legerősebb forrásod.",
           "body": "Használd tovább a bevált csatornákat.",
@@ -750,7 +764,18 @@
       "applied": "Beadva",
       "interview": "Interjú",
       "offer": "Ajánlat",
-      "converted": "konvertált"
+      "converted": "konvertált",
+      "stages": {
+        "tracked": "Nyilvántartva",
+        "submitted": "Beküldve",
+        "responded": "Válasz érkezett",
+        "interviewed": "Interjú",
+        "offer": "Ajánlat"
+      },
+      "note": {
+        "title": "A legnagyobb kiesés itt van: {{stage}}",
+        "body": "„{{from}}” után csak {{rate}}% jut el a „{{to}}” lépésig."
+      }
     },
     "statusDistribution": {
       "title": "Státusz megoszlás",
@@ -936,6 +961,21 @@
         "title": "Elért cégek",
         "body": "{{count}} különböző céghez jelentkeztél."
       }
+    },
+    "outcomes": {
+      "Open": "Folyamatban",
+      "Success": "Sikeres",
+      "Rejected": "Elutasítva",
+      "Withdrawn": "Visszaléptem",
+      "Ghosted": "Válasz nélkül lezárva"
+    },
+    "outcomeBreakdown": {
+      "title": "Kimenetelek",
+      "subtitle": "Hogyan zárultak a jelentkezéseid",
+      "note": {
+        "title": "{{rate}}%-os sikerarány a lezárt folyamatokon",
+        "body": "{{decided}} eldőlt jelentkezésből {{offers}} végződött ajánlattal."
+      }
     }
   },
   "masterData": {
@@ -950,24 +990,36 @@
     },
     "categories": {
       "title": "Felkészülési kategóriák",
-      "subtitle": "A gyakorló kérdések témakörei és szűrői",
-      "newPlaceholder": "Új kategória neve…"
+      "subtitle": "A gyakorló kérdések témakörei és szűrői – húzd vagy nyilazd a sorrendhez, rejtsd el amit a Gyakorlás ne kérdezzen",
+      "newPlaceholder": "Új kategória neve…",
+      "hiddenFlag": "Rejtett",
+      "hiddenTitle": "Rejtett – a Gyakorlás kihagyja ezt a kategóriát, kattints a megjelenítéshez",
+      "visibleTitle": "Látszik a Gyakorlásban – kattints az elrejtéshez"
     },
     "statuses": {
       "title": "Jelentkezés státuszok",
-      "subtitle": "A Kanban tábla, a szűrők és az Áttekintés statisztikáinak (Aktív, Interjú, sikeres/elutasított) forrása",
+      "subtitle": "A Kanban tábla, a szűrők és minden statisztikai mutató forrása. Nyisd meg a beállításokat, hogy megadd, mit jelent egy státusz.",
       "newPlaceholder": "Új státusz neve…",
-      "statsControlsLabel": "Statisztika:",
-      "activeFlagLabel": "Aktív",
-      "activeFlagTitle": "Beleszámít az Áttekintés \"Active in progress\" számába – kattints a be/kikapcsolásához",
-      "interviewFlagLabel": "Interjú",
-      "interviewFlagTitle": "Beleszámít az Áttekintés \"közelgő interjúk\" jelvényébe – kattints a be/kikapcsolásához",
-      "statsCategoryTitle": "Sikeres / elutasított / semleges – melyik kategóriába tartozzon ez a státusz",
-      "statsCategoryOptions": {
-        "None": "Nincs",
-        "Success": "Sikeres",
-        "Rejected": "Elutasítva"
+      "openSettings": "Beállítások",
+      "roles": {
+        "application": "Beküldött",
+        "response": "Válasz",
+        "interview": "Interjú",
+        "outcomeSuccess": "Sikeres",
+        "outcomeRejected": "Elutasítva",
+        "outcomeWithdrawn": "Visszaléptem",
+        "outcomeGhosted": "Válasz nélkül",
+        "terminal": "Lezárt",
+        "none": "Nem számít bele",
+        "stalledAfter": "{{days}} nap után elakadt"
       }
+    },
+    "sources": {
+      "title": "Jelentkezési források",
+      "subtitle": "Honnan találtad az állást. A mintát a jelentkezés linkjében keressük az automatikus felismeréshez",
+      "newPlaceholder": "Új forrás neve…",
+      "patternPlaceholder": "Minta a linkben (pl. linkedin.com)",
+      "noPattern": "nincs felismerés"
     },
     "outreachTemplates": {
       "title": "Kapcsolatfelvételi Sablonok",
@@ -990,7 +1042,93 @@
     "moveDown": "Lejjebb",
     "hiddenFromKanban": "Nem látszik a Kanban táblán – kattints a megjelenítéshez",
     "visibleInKanban": "Látszik a Kanban táblán – kattints az elrejtéshez",
-    "demoNotice": "A törzsadatok jelenleg csak a munkamenet idejére tárolódnak."
+    "demoNotice": "A törzsadatok jelenleg csak a munkamenet idejére tárolódnak.",
+    "statusSettings": {
+      "title": "Státusz beállítások",
+      "basics": {
+        "title": "Alapadatok",
+        "label": "Megnevezés",
+        "color": "Szín",
+        "description": "Leírás",
+        "descriptionPlaceholder": "Mit jelent ez a státusz?",
+        "showInKanban": "Megjelenik a Kanban táblán",
+        "showInKanbanEffect": "Külön oszlopot kap a Jelentkezések nézetben"
+      },
+      "role": {
+        "title": "Szerepe a folyamatban",
+        "hint": "Minden kapcsoló egy konkrét mutatót hajt. Az egymást feltételező beállítások automatikusan bekapcsolnak."
+      },
+      "flags": {
+        "countsAsApplication": {
+          "title": "Beküldött jelentkezésnek számít",
+          "effect": "Beküldött darabszám, és minden arány nevezője"
+        },
+        "countsAsResponse": {
+          "title": "Céges visszajelzésnek számít",
+          "effect": "Válaszarány és átlagos válaszidő"
+        },
+        "isInterview": {
+          "title": "Interjú kör",
+          "effect": "Interjú arány és visszahívások"
+        },
+        "isTerminal": {
+          "title": "Lezárt állapot",
+          "effect": "Kikerül az aktív pipeline-ból, és nem lehet elakadt"
+        }
+      },
+      "lockedBy": "A(z) „{{setting}}” miatt kötelező",
+      "lockNames": {
+        "countsAsResponse": "Céges visszajelzésnek számít",
+        "isInterview": "Interjú kör",
+        "outcome": "Kimenetel"
+      },
+      "outcome": {
+        "title": "Kimenetel",
+        "hint": "Egyszerre csak egy lehet. A siker- és elutasítási arány ebből számol.",
+        "options": {
+          "Open": {
+            "name": "Nyitott",
+            "effect": "Még nincs végeredmény"
+          },
+          "Success": {
+            "name": "Sikeres",
+            "effect": "Sikerarány számlálója"
+          },
+          "Rejected": {
+            "name": "Elutasítva",
+            "effect": "Sikerarány nevezője"
+          },
+          "Withdrawn": {
+            "name": "Visszaléptem",
+            "effect": "Lezárt, de nem rontja a sikerarányt"
+          },
+          "Ghosted": {
+            "name": "Válasz nélkül lezárva",
+            "effect": "Lezárt, válasz nélkül"
+          }
+        }
+      },
+      "stalled": {
+        "title": "Elakadás figyelése",
+        "toggle": "Jelezze, ha itt ragad a jelentkezés",
+        "effect": "Megjelenik az Áttekintésen és a Statisztikák „Elakadt\" mutatójában",
+        "unit": "nap után"
+      },
+      "impact": {
+        "title": "Ez a státusz ezekbe számít bele",
+        "empty": "Ez a státusz jelenleg egyetlen mutatóba sem számít bele.",
+        "metrics": {
+          "submitted": "Beküldött jelentkezések",
+          "activePipeline": "Aktív pipeline",
+          "responseRate": "Válaszarány",
+          "interviewRate": "Interjú arány",
+          "successRate": "Sikerarány",
+          "rejections": "Elutasítások",
+          "closedNeutral": "Lezárt, semleges",
+          "stalled": "Elakadt jelentkezések"
+        }
+      }
+    }
   },
   "practice": {
     "pageHeader": {
@@ -1096,7 +1234,12 @@
       "deleteTitle": "Törlés",
       "noSearchResultsPrefix": "Nincs találat a(z) „",
       "noSearchResultsSuffix": "” keresésre.",
-      "noQuestions": "Még nincs kérdés. Adj hozzá egyet a fenti gombbal!"
+      "noQuestions": "Még nincs kérdés. Adj hozzá egyet a fenti gombbal!",
+      "hiddenFlag": "Rejtett",
+      "hideSelectedBtn": "Kijelöltek elrejtése",
+      "showSelectedBtn": "Kijelöltek megjelenítése",
+      "hideTitle": "Kérdés elrejtése – a Gyakorlás nem kérdezi",
+      "showTitle": "Rejtett kérdés – kattints, hogy újra kérdezze a Gyakorlás"
     },
     "results": {
       "notEvaluated": "Nem értékelt",
@@ -1165,6 +1308,9 @@
       "linkLabel": "Link",
       "optionalLabel": "opcionális",
       "linkPlaceholder": "pl. careers.acme.com",
+      "sourceLabel": "Forrás",
+      "sourcePlaceholder": "pl. LinkedIn",
+      "sourceHint": "A linkből automatikusan kitöltjük, ha felismerhető forrás.",
       "initialStatusLabel": "Kezdeti státusz",
       "cancelBtn": "Mégse",
       "saveBtn": "Mentés",

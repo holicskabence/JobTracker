@@ -7,7 +7,8 @@
             <div class="profile-avatar-wrap">
                 <div class="profile-avatar">
                     @if (auth.avatarObjectUrl()) {
-                    <img class="profile-avatar-img" [src]="auth.avatarObjectUrl()!" [alt]="'profile.summary.avatarAlt' | translate" />
+                    <img class="profile-avatar-img" [src]="auth.avatarObjectUrl()!"
+                        [alt]="'profile.summary.avatarAlt' | translate" />
                     } @else {
                     <span class="profile-avatar-initials">{{ initials }}</span>
                     }
@@ -78,7 +79,8 @@
                         stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10" />
                         <line x1="2" y1="12" x2="22" y2="12" />
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                        <path
+                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                     </svg>
                 </a>
                 }
@@ -97,14 +99,6 @@
                 <p class="profile-completeness-hint">
                     {{ 'profile.completeness.missingCount' | translate: { count: completeness.missing.length } }}
                 </p>
-                <div class="profile-completeness-missing">
-                    @for (field of completeness.missing.slice(0, 3); track field.field) {
-                    <span class="profile-completeness-chip">{{ field.labelKey | translate }}</span>
-                    }
-                    @if (completeness.missing.length > 3) {
-                    <span class="profile-completeness-chip">+{{ completeness.missing.length - 3 }}</span>
-                    }
-                </div>
                 } @else {
                 <p class="profile-completeness-hint">{{ 'profile.completeness.complete' | translate }}</p>
                 }
@@ -130,13 +124,8 @@
                 @if (user?.yearsOfExperience != null) {
                 <div class="profile-meta-item">
                     <span class="profile-meta-label">{{ 'profile.summary.experienceLabel' | translate }}</span>
-                    <span class="profile-meta-value">{{ user!.yearsOfExperience }} {{ 'profile.summary.experienceUnit' | translate }}</span>
-                </div>
-                }
-                @if (user?.preferredLocations) {
-                <div class="profile-meta-item">
-                    <span class="profile-meta-label">{{ 'profile.summary.preferredLocationsLabel' | translate }}</span>
-                    <span class="profile-meta-value">{{ user!.preferredLocations }}</span>
+                    <span class="profile-meta-value">{{ user!.yearsOfExperience }} {{ 'profile.summary.experienceUnit' |
+                        translate }}</span>
                 </div>
                 }
                 @if (userSkillChips.length) {
@@ -151,7 +140,8 @@
                 }
                 <div class="profile-meta-item">
                     <span class="profile-meta-label">{{ 'profile.summary.goalLabel' | translate }}</span>
-                    <span class="profile-meta-value">{{ user?.goal }} {{ 'profile.summary.goalUnit' | translate }}</span>
+                    <span class="profile-meta-value">{{ user?.goal }} {{ 'profile.summary.goalUnit' | translate
+                        }}</span>
                 </div>
                 <div class="profile-meta-item">
                     <span class="profile-meta-label">{{ 'profile.summary.joinedLabel' | translate }}</span>
@@ -179,12 +169,14 @@
 
                 <div class="profile-row">
                     <div class="profile-field">
-                        <label class="profile-label">{{ 'profile.personalInformation.firstNameLabel' | translate }}</label>
+                        <label class="profile-label">{{ 'profile.personalInformation.firstNameLabel' | translate
+                            }}</label>
                         <input class="profile-input" type="text" [(ngModel)]="firstName" name="firstName"
                             [placeholder]="'profile.personalInformation.firstNamePlaceholder' | translate" />
                     </div>
                     <div class="profile-field">
-                        <label class="profile-label">{{ 'profile.personalInformation.lastNameLabel' | translate }}</label>
+                        <label class="profile-label">{{ 'profile.personalInformation.lastNameLabel' | translate
+                            }}</label>
                         <input class="profile-input" type="text" [(ngModel)]="lastName" name="lastName"
                             [placeholder]="'profile.personalInformation.lastNamePlaceholder' | translate" />
                     </div>
@@ -229,12 +221,14 @@
 
                 <div class="profile-row">
                     <div class="profile-field">
-                        <label class="profile-label">{{ 'profile.careerPreferences.currentTitleLabel' | translate }}</label>
+                        <label class="profile-label">{{ 'profile.careerPreferences.currentTitleLabel' | translate
+                            }}</label>
                         <input class="profile-input" type="text" [(ngModel)]="position" name="position"
                             [placeholder]="'profile.careerPreferences.currentTitlePlaceholder' | translate" />
                     </div>
                     <div class="profile-field">
-                        <label class="profile-label">{{ 'profile.careerPreferences.targetPositionLabel' | translate }}</label>
+                        <label class="profile-label">{{ 'profile.careerPreferences.targetPositionLabel' | translate
+                            }}</label>
                         <input class="profile-input" type="text" [(ngModel)]="targetPosition" name="targetPosition"
                             [placeholder]="'profile.careerPreferences.targetPositionPlaceholder' | translate" />
                     </div>
@@ -242,13 +236,15 @@
 
                 <div class="profile-row">
                     <div class="profile-field">
-                        <label class="profile-label">{{ 'profile.careerPreferences.yearsOfExperienceLabel' | translate }}</label>
+                        <label class="profile-label">{{ 'profile.careerPreferences.yearsOfExperienceLabel' | translate
+                            }}</label>
                         <input class="profile-input" type="number" min="0" max="60" [(ngModel)]="yearsOfExperience"
                             name="yearsOfExperience"
                             [placeholder]="'profile.careerPreferences.yearsOfExperiencePlaceholder' | translate" />
                     </div>
                     <div class="profile-field">
-                        <label class="profile-label">{{ 'profile.careerPreferences.noticePeriodLabel' | translate }}</label>
+                        <label class="profile-label">{{ 'profile.careerPreferences.noticePeriodLabel' | translate
+                            }}</label>
                         <input class="profile-input" type="number" min="0" max="365" [(ngModel)]="noticePeriodDays"
                             name="noticePeriodDays"
                             [placeholder]="'profile.careerPreferences.noticePeriodPlaceholder' | translate" />
@@ -270,13 +266,15 @@
 
                 <div class="profile-row">
                     <div class="profile-field">
-                        <label class="profile-label">{{ 'profile.careerPreferences.preferredLocationsLabel' | translate }}</label>
+                        <label class="profile-label">{{ 'profile.careerPreferences.preferredLocationsLabel' | translate
+                            }}</label>
                         <input class="profile-input" type="text" [(ngModel)]="preferredLocations"
                             name="preferredLocations"
                             [placeholder]="'profile.careerPreferences.preferredLocationsPlaceholder' | translate" />
                     </div>
                     <div class="profile-field">
-                        <label class="profile-label">{{ 'profile.careerPreferences.salaryExpectationLabel' | translate }}</label>
+                        <label class="profile-label">{{ 'profile.careerPreferences.salaryExpectationLabel' | translate
+                            }}</label>
                         <input class="profile-input" type="text" [(ngModel)]="salaryExpectation"
                             name="salaryExpectation"
                             [placeholder]="'profile.careerPreferences.salaryExpectationPlaceholder' | translate" />
@@ -400,7 +398,8 @@
                         <span class="profile-ai-toggle-subtitle">{{ 'profile.aiSettings.toggleSub' | translate }}</span>
                     </div>
                     <button type="button" class="profile-toggle" [class.profile-toggle--on]="useAiEvaluation"
-                        (click)="useAiEvaluation = !useAiEvaluation" [attr.aria-checked]="useAiEvaluation" role="switch">
+                        (click)="useAiEvaluation = !useAiEvaluation" [attr.aria-checked]="useAiEvaluation"
+                        role="switch">
                         <span class="profile-toggle-thumb"></span>
                     </button>
                 </div>
@@ -456,7 +455,8 @@
                         <label class="profile-label">{{ 'profile.password.newPwdLabel' | translate }}</label>
                         <div class="profile-pwd-wrap">
                             <input class="profile-input" [type]="showNewPwd ? 'text' : 'password'" [(ngModel)]="newPwd"
-                                name="newPwd" autocomplete="new-password" [placeholder]="'profile.password.newPwdPlaceholder' | translate" />
+                                name="newPwd" autocomplete="new-password"
+                                [placeholder]="'profile.password.newPwdPlaceholder' | translate" />
                             <button type="button" class="profile-eye-button" (click)="showNewPwd = !showNewPwd"
                                 [title]="(showNewPwd ? 'profile.password.hide' : 'profile.password.show') | translate">
                                 @if (showNewPwd) {
@@ -527,7 +527,8 @@
                 }
 
                 <div class="profile-actions">
-                    <button class="profile-change-pwd-button" type="submit">{{ 'profile.password.changeBtn' | translate }}</button>
+                    <button class="profile-change-pwd-button" type="submit">{{ 'profile.password.changeBtn' | translate
+                        }}</button>
                 </div>
 
             </form>

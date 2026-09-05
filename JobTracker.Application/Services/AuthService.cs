@@ -14,6 +14,7 @@ public sealed class AuthService(
     IFacebookAuthService facebookAuth,
     IJobStatusConfigRepository statusConfigRepo,
     IEventTypeRepository eventTypeRepo,
+    IJobSourceRepository jobSourceRepo,
     IPracticeQuestionRepository practiceQuestionRepo,
     IPracticeCategoryRepository practiceCategoryRepo) : IAuthService
 {
@@ -113,21 +114,14 @@ public sealed class AuthService(
     {
         await SeedDefaultStatusConfigsAsync(userId);
         await SeedDefaultEventTypesAsync(userId);
+        await SeedDefaultJobSourcesAsync(userId);
         await SeedDefaultPracticeCategoriesAsync(userId);
         await SeedDefaultPracticeQuestionsAsync(userId);
     }
 
     private async Task SeedDefaultStatusConfigsAsync(int userId)
     {
-        var defaults = new[]
-        {
-            new JobStatusConfig { UserId = userId, Key = "Saved", Label = "Saved", Color = "#9b9b99", SortOrder = 0 },
-            new JobStatusConfig { UserId = userId, Key = "Applied", Label = "Applied", Color = "#5fb9fa", SortOrder = 1, IsActive = true },
-            new JobStatusConfig { UserId = userId, Key = "Interview", Label = "Interview", Color = "#f59e0b", SortOrder = 2, IsActive = true, IsInterview = true },
-            new JobStatusConfig { UserId = userId, Key = "Offer", Label = "Offer", Color = "#26ac00", SortOrder = 3, StatsCategory = "Success" },
-            new JobStatusConfig { UserId = userId, Key = "Rejected", Label = "Rejected", Color = "#ef4444", SortOrder = 4, StatsCategory = "Rejected" }
-        };
-        foreach (var config in defaults) await statusConfigRepo.AddAsync(config);
+        foreach (var config in DefaultStatusConfigs.For(userId)) await statusConfigRepo.AddAsync(config);
     }
 
     private async Task SeedDefaultEventTypesAsync(int userId)
@@ -142,6 +136,9 @@ public sealed class AuthService(
         };
         foreach (var type in defaults) await eventTypeRepo.AddAsync(type);
     }
+
+    private async Task SeedDefaultJobSourcesAsync(int userId) =>
+        await jobSourceRepo.AddRangeAsync(DefaultJobSources.For(userId));
 
     private async Task SeedDefaultPracticeCategoriesAsync(int userId)
     {

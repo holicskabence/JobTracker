@@ -237,6 +237,22 @@
   text-decoration: underline;
 }
 
+.table-view-source-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-2-5);
+  border-radius: var(--radius-full);
+  background-color: var(--clr-bg);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--clr-muted);
+  white-space: nowrap;
+}
+
+.table-view-cell--source {
+  max-width: 10rem;
+}
+
 @media (max-width: 767px) {
   .table-view-container {
     overflow-y: auto;

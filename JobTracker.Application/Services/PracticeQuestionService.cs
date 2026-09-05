@@ -73,6 +73,16 @@ public sealed class PracticeQuestionService(
         return Map(question);
     }
 
+    public async Task<PracticeQuestionResponse?> SetHiddenAsync(int id, SetPracticeQuestionHiddenRequest request, int userId)
+    {
+        var question = await repo.GetByIdAsync(id, userId);
+        if (question is null) return null;
+
+        question.IsHidden = request.IsHidden;
+        await repo.UpdateAsync(question);
+        return Map(question);
+    }
+
     public async Task<bool> DeleteAsync(int id, int userId) => await repo.DeleteAsync(id, userId);
 
     public async Task<IReadOnlyList<PracticeQuestionResponse>> ResetStatisticsAsync(int userId)
@@ -94,5 +104,5 @@ public sealed class PracticeQuestionService(
     }
 
     private static PracticeQuestionResponse Map(PracticeQuestion q) =>
-        new(q.Id, q.Category, q.Question, q.Hint, q.SampleAnswer, q.Feedback);
+        new(q.Id, q.Category, q.Question, q.Hint, q.SampleAnswer, q.Feedback, q.IsHidden);
 }

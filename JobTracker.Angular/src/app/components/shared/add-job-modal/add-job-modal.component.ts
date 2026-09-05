@@ -4,11 +4,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Job, JobStatus } from '../../../models/job.model';
 import { JobStoreService } from '../../../services/job-store.service';
 import { StatusDropdownComponent } from '../status-dropdown/status-dropdown.component';
+import { AutocompleteInputComponent } from '../autocomplete-input/autocomplete-input.component';
 
 @Component({
   selector: 'app-add-job-modal',
   standalone: true,
-  imports: [FormsModule, StatusDropdownComponent, TranslateModule],
+  imports: [FormsModule, StatusDropdownComponent, AutocompleteInputComponent, TranslateModule],
   templateUrl: './add-job-modal.component.html',
   styleUrl: './add-job-modal.component.css'
 })
@@ -19,6 +20,8 @@ export class AddJobModalComponent implements OnChanges {
   company = '';
   position = '';
   link = '';
+  source = '';
+  lastDetectedSource = '';
   status: JobStatus = '';
   submitted = false;
   duplicate = false;
@@ -36,16 +39,32 @@ export class AddJobModalComponent implements OnChanges {
         this.company = job.company;
         this.position = job.position;
         this.link = job.link ?? '';
+        this.source = job.source ?? '';
+        this.lastDetectedSource = '';
         this.status = job.status;
       } else {
         this.company = '';
         this.position = '';
         this.link = '';
+        this.source = '';
+        this.lastDetectedSource = '';
         this.status = this.defaultStatus;
         this.submitted = false;
       }
       this.duplicate = false;
     }
+  }
+
+  onLinkChange(link: string): void {
+    this.link = link;
+    const detected = this.store.detectSource(link);
+    if (!detected) return;
+    if (!this.source.trim() || this.source === this.lastDetectedSource) this.source = detected;
+    this.lastDetectedSource = detected;
+  }
+
+  get sourceOptions(): string[] {
+    return this.store.sources().map(s => s.name);
   }
 
   get isEdit(): boolean { return this.editJob != null; }
@@ -75,6 +94,7 @@ export class AddJobModalComponent implements OnChanges {
       company,
       position,
       link: this.link.trim() || undefined,
+      source: this.source.trim() || undefined,
       status: this.status
     };
     if (this.isEdit) {

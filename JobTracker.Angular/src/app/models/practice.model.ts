@@ -8,12 +8,15 @@ export interface PrepQuestion {
   hint: string;
   sampleAnswer: string;
   feedback: FeedbackType | null;
+  isHidden: boolean;
 }
 
 export interface PracticeCategory {
   id: number;
   name: string;
   color: string;
+  sortOrder: number;
+  isHidden: boolean;
 }
 
 export interface PracticeAttempt {

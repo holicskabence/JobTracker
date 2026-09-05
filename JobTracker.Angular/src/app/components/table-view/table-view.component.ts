@@ -7,7 +7,7 @@ import { SortableHeaderCellComponent } from '../shared/sortable-header-cell/sort
 import { DataTableComponent } from '../shared/data-table/data-table.component';
 import { JobCardMenuComponent } from '../applications/job-card-menu/job-card-menu.component';
 
-type SortKey = 'company' | 'status' | 'date';
+type SortKey = 'company' | 'status' | 'source' | 'date';
 type SortDir = 'asc' | 'description';
 
 @Component({

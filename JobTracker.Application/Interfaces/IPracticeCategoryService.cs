@@ -8,4 +8,5 @@ public interface IPracticeCategoryService
     Task<PracticeCategoryResponse?> CreateAsync(CreatePracticeCategoryRequest request, int userId);
     Task<PracticeCategoryResponse?> UpdateAsync(int id, UpdatePracticeCategoryRequest request, int userId);
     Task<bool> DeleteAsync(int id, int userId);
+    Task<IReadOnlyList<PracticeCategoryResponse>> ReorderAsync(IEnumerable<ReorderPracticeCategoryItem> items, int userId);
 }

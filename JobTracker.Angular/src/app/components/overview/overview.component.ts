@@ -5,7 +5,7 @@ import { JobStoreService } from '../../services/job-store.service';
 import { PlannerService } from '../../services/planner.service';
 import { PracticeService } from '../../services/practice.service';
 import { AuthService } from '../../services/auth.service';
-import { DashboardTab } from '../../models/job.model';
+import { DashboardTab, Job } from '../../models/job.model';
 import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
@@ -42,6 +42,17 @@ export class OverviewComponent {
   });
 
   readonly interviewCount = computed(() => this.planner.events().length);
+
+  readonly stalledJobs = computed(() => this.store.stalledJobs().slice(0, 4));
+
+  readonly closedWithoutDecision = computed(() => {
+    const stats = this.stats();
+    return stats.withdrawn + stats.ghosted;
+  });
+
+  daysInStatus(job: Job): number {
+    return this.store.daysInStatus(job);
+  }
 
   readonly upcomingEvents = computed(() => {
     const today = new Date(); today.setHours(0, 0, 0, 0);

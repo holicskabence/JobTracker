@@ -47,21 +47,21 @@ export class PracticeComponent {
   readonly categoryResults = computed(() => {
     const term = this.jumpSearch().trim().toLowerCase();
     if (!term) return [];
-    return this.practice.categories()
+    return this.practice.visibleCategories()
       .filter(c => c.name.toLowerCase().includes(term))
       .slice(0, 5);
   });
 
   readonly failedCount = computed(() => {
     const category = this.selectedCategory();
-    let list = this.practice.questions().filter(q => q.feedback === 'incorrect');
+    let list = this.practice.askableQuestions().filter(q => q.feedback === 'incorrect');
     if (category !== null) list = list.filter(q => q.category === category);
     return list.length;
   });
 
   readonly unansweredCount = computed(() => {
     const category = this.selectedCategory();
-    let list = this.practice.questions().filter(q => q.feedback === null);
+    let list = this.practice.askableQuestions().filter(q => q.feedback === null);
     if (category !== null) list = list.filter(q => q.category === category);
     return list.length;
   });
@@ -87,7 +87,7 @@ export class PracticeComponent {
   private readonly naturalFilteredQuestions = computed<PrepQuestion[]>(() => {
     const status = this.selectedStatus();
     const category = this.selectedCategory();
-    let list = this.practice.questions();
+    let list = this.practice.askableQuestions();
     if (status === 'failed') {
       list = list.filter(q => q.feedback === 'incorrect');
     } else if (status === 'unanswered') {
@@ -135,15 +135,15 @@ export class PracticeComponent {
   // On mobile the whole panel sits above the deck, so it starts folded away.
   readonly categoriesPanelOpen = signal(false);
 
-  readonly visibleCategories = computed(() => {
-    const list = this.practice.categories();
+  readonly listedCategories = computed(() => {
+    const list = this.practice.visibleCategories();
     // The compact panel is a scroll box, so it always carries the full list.
     if (this.isCompactAside()) return list;
     return this.categoriesExpanded() ? list : list.slice(0, this.collapsedCategoryCount);
   });
 
-  readonly hasHiddenCategories = computed(() =>
-    !this.isCompactAside() && this.practice.categories().length > this.collapsedCategoryCount
+  readonly hasCollapsedCategories = computed(() =>
+    !this.isCompactAside() && this.practice.visibleCategories().length > this.collapsedCategoryCount
   );
 
   // ── Practice tab: jump-to-question search ───────────────────────────────────
@@ -192,6 +192,13 @@ export class PracticeComponent {
   readonly selectedQuestionIds = signal<Set<number>>(new Set());
   readonly showBulkDeleteConfirm = signal(false);
   readonly selectedQuestionCount = computed(() => this.selectedQuestionIds().size);
+  private readonly selectedQuestions = computed(() => {
+    const ids = this.selectedQuestionIds();
+    return this.practice.questions().filter(q => ids.has(q.id));
+  });
+  // A mixed selection offers both actions; a uniform one only the move that changes something.
+  readonly canHideSelected = computed(() => this.selectedQuestions().some(q => !q.isHidden));
+  readonly canShowSelected = computed(() => this.selectedQuestions().some(q => q.isHidden));
   readonly isAllQuestionsSelected = computed(() => {
     const list = this.sortedQuestions();
     return list.length > 0 && list.every(q => this.selectedQuestionIds().has(q.id));
@@ -222,7 +229,7 @@ export class PracticeComponent {
   readonly expandedResultId = signal<number | null>(null);
 
   readonly resultsSummary = computed(() => {
-    const qs = this.practice.questions();
+    const qs = this.practice.askableQuestions();
     return {
       correct: qs.filter(q => q.feedback === 'correct').length,
       incorrect: qs.filter(q => q.feedback === 'incorrect').length,
@@ -544,7 +551,8 @@ export class PracticeComponent {
 
   openAddQuestionModal(): void {
     this.editingQuestionId.set(null);
-    this.formCat.set(this.practice.categories()[0]?.name ?? '');
+    const categories = this.practice.visibleCategories();
+    this.formCat.set((categories[0] ?? this.practice.categories()[0])?.name ?? '');
     this.formQuestion.set('');
     this.formHint.set('');
     this.formSampleAnswer.set('');
@@ -584,6 +592,10 @@ export class PracticeComponent {
   }
 
   deleteQuestion(id: number): void { this.practice.deleteQuestion(id); }
+
+  toggleQuestionHidden(question: PrepQuestion): void {
+    this.practice.setQuestionsHidden([question.id], !question.isHidden);
+  }
 
   triggerImportFile(input: HTMLInputElement): void {
     this.importError.set('');
@@ -675,6 +687,12 @@ export class PracticeComponent {
   }
 
   clearQuestionSelection(): void { this.selectedQuestionIds.set(new Set()); }
+
+  // The rows stay put after hiding, so the selection is kept: it shows what just changed
+  // and makes the opposite action one click away.
+  hideSelectedQuestions(): void { this.practice.setQuestionsHidden(this.selectedQuestionIds(), true); }
+
+  showSelectedQuestions(): void { this.practice.setQuestionsHidden(this.selectedQuestionIds(), false); }
 
   openBulkDeleteConfirm(): void {
     if (this.selectedQuestionCount() === 0) return;
@@ -770,7 +788,7 @@ export class PracticeComponent {
 
   categoryCount(name: string): number {
     const status = this.selectedStatus();
-    let list = this.practice.questions().filter(q => q.category === name);
+    let list = this.practice.askableQuestions().filter(q => q.category === name);
     if (status === 'failed') {
       list = list.filter(q => q.feedback === 'incorrect');
     } else if (status === 'unanswered') {
@@ -780,7 +798,7 @@ export class PracticeComponent {
   }
 
   categoryMastery(name: string): number {
-    const qs = this.practice.questions().filter(q => q.category === name);
+    const qs = this.practice.askableQuestions().filter(q => q.category === name);
     if (!qs.length) return 0;
     return Math.round((qs.filter(q => q.feedback === 'correct').length / qs.length) * 100);
   }

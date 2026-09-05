@@ -1,0 +1,40 @@
+<div class="autocomplete-input-wrapper">
+    <input #textField class="autocomplete-input-field" type="text" autocomplete="off" [id]="inputId"
+        [placeholder]="placeholder" [value]="value" (input)="onInput($event)" (click)="onFieldClick($event)" />
+
+    @if (value) {
+    <button type="button" class="autocomplete-input-clear" (click)="clear($event)">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+            stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+    </button>
+    }
+
+    <button type="button" class="autocomplete-input-toggle" (click)="toggle($event)">
+        <svg class="autocomplete-input-chevron" [class.autocomplete-input-chevron--open]="isOpen" width="14" height="14"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9" />
+        </svg>
+    </button>
+</div>
+
+@if (isOpen && filteredOptions.length > 0) {
+<div class="autocomplete-input-panel" [style.top.px]="panelTop" [style.left.px]="panelLeft"
+    [style.width.px]="panelWidth" (click)="$event.stopPropagation()">
+    @for (option of filteredOptions; track option) {
+    <button type="button" class="autocomplete-input-option" [class.autocomplete-input-option--active]="option === value"
+        (click)="pick(option, $event)">
+        <span>{{ option }}</span>
+        @if (option === value) {
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+        </svg>
+        }
+    </button>
+    }
+</div>
+}

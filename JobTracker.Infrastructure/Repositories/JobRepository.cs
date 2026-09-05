@@ -32,4 +32,11 @@ public sealed class JobRepository(JobTrackerDbContext ctx)
         await Ctx.SaveChangesAsync();
         return true;
     }
+
+    public async Task RenameSourceAsync(string oldName, string newName, int userId)
+    {
+        await Ctx.Jobs
+            .Where(j => j.UserId == userId && j.Source == oldName)
+            .ExecuteUpdateAsync(s => s.SetProperty(j => j.Source, newName));
+    }
 }

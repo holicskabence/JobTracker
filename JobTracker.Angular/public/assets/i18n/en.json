@@ -372,7 +372,9 @@
       "offerCount": "{{count}} offers",
       "rejectedCount": "{{count}} rejected",
       "callbacks": "Callbacks",
-      "callbackRate": "{{rate}}% of submitted"
+      "callbackRate": "{{rate}}% of submitted",
+      "stalledCount": "{{count}} stalled",
+      "closedWithoutDecisionCount": "{{count}} closed without a decision"
     },
     "upcomingEvents": {
       "title": "Interviews",
@@ -442,6 +444,12 @@
       "good": "Good",
       "improvable": "Could improve",
       "beginner": "Beginner"
+    },
+    "stalled": {
+      "title": "Stalled applications",
+      "subtitle": "untouched past the limit",
+      "viewAll": "View all",
+      "daysInStatus": "{{days}} days in \"{{status}}\""
     }
   },
   "kanban": {
@@ -461,6 +469,7 @@
     "columns": {
       "companyPosition": "Company / Position",
       "status": "Status",
+      "source": "Source",
       "date": "Date",
       "link": "Link",
       "actions": "Actions"
@@ -659,6 +668,10 @@
       "interviewRate": {
         "label": "Interview rate",
         "note": "of applications reached an interview"
+      },
+      "stalled": {
+        "label": "Stalled",
+        "note": "Untouched past the limit set in master data"
       }
     },
     "charts": {
@@ -700,6 +713,7 @@
       "source": {
         "title": "Source breakdown",
         "subtitle": "Where your applications come from",
+        "unknown": "Unknown",
         "note": {
           "title": "{{source}} is your strongest source.",
           "body": "Keep leveraging the channels that work.",
@@ -750,7 +764,18 @@
       "applied": "Applied",
       "interview": "Interview",
       "offer": "Offer",
-      "converted": "converted"
+      "converted": "converted",
+      "stages": {
+        "tracked": "Tracked",
+        "submitted": "Submitted",
+        "responded": "Got a response",
+        "interviewed": "Interviewed",
+        "offer": "Offer"
+      },
+      "note": {
+        "title": "The biggest drop-off is here: {{stage}}",
+        "body": "Only {{rate}}% get from \"{{from}}\" to \"{{to}}\"."
+      }
     },
     "statusDistribution": {
       "title": "Status distribution",
@@ -936,6 +961,21 @@
         "title": "Companies reached",
         "body": "You've applied to {{count}} different companies."
       }
+    },
+    "outcomes": {
+      "Open": "In progress",
+      "Success": "Success",
+      "Rejected": "Rejected",
+      "Withdrawn": "Withdrawn",
+      "Ghosted": "Closed without an answer"
+    },
+    "outcomeBreakdown": {
+      "title": "Outcomes",
+      "subtitle": "How your applications ended",
+      "note": {
+        "title": "{{rate}}% success rate on decided processes",
+        "body": "{{offers}} of {{decided}} decided applications ended in an offer."
+      }
     }
   },
   "masterData": {
@@ -950,24 +990,36 @@
     },
     "categories": {
       "title": "Preparation Categories",
-      "subtitle": "Topics and filters for practice questions",
-      "newPlaceholder": "New category name…"
+      "subtitle": "Topics and filters for practice questions – drag or use the arrows to order them, hide the ones Practice should skip",
+      "newPlaceholder": "New category name…",
+      "hiddenFlag": "Hidden",
+      "hiddenTitle": "Hidden – Practice skips this category, click to show it",
+      "visibleTitle": "Visible in Practice – click to hide"
     },
     "statuses": {
       "title": "Application Statuses",
-      "subtitle": "Source of the Kanban board, filters, and the Overview stats (Active, Interview, success/rejection ratio)",
+      "subtitle": "Feeds the Kanban board, the filters and every statistic. Open the settings to define what a status means.",
       "newPlaceholder": "New status name…",
-      "statsControlsLabel": "Stats:",
-      "activeFlagLabel": "Active",
-      "activeFlagTitle": "Counts towards the Overview \"Active in progress\" figure – click to toggle",
-      "interviewFlagLabel": "Interview",
-      "interviewFlagTitle": "Counts towards the Overview \"upcoming interviews\" badge – click to toggle",
-      "statsCategoryTitle": "Successful / rejected / neither - which category this status belongs to",
-      "statsCategoryOptions": {
-        "None": "None",
-        "Success": "Success",
-        "Rejected": "Rejected"
+      "openSettings": "Settings",
+      "roles": {
+        "application": "Submitted",
+        "response": "Response",
+        "interview": "Interview",
+        "outcomeSuccess": "Success",
+        "outcomeRejected": "Rejected",
+        "outcomeWithdrawn": "Withdrawn",
+        "outcomeGhosted": "No answer",
+        "terminal": "Closed",
+        "none": "Not counted",
+        "stalledAfter": "Stalled after {{days}} days"
       }
+    },
+    "sources": {
+      "title": "Application Sources",
+      "subtitle": "Where you found the job. The pattern is matched against the application link for auto-detection",
+      "newPlaceholder": "New source name…",
+      "patternPlaceholder": "Pattern in the link (e.g. linkedin.com)",
+      "noPattern": "no auto-detection"
     },
     "outreachTemplates": {
       "title": "Outreach Templates",
@@ -990,7 +1042,93 @@
     "moveDown": "Move down",
     "hiddenFromKanban": "Hidden from the Kanban board – click to show",
     "visibleInKanban": "Visible on the Kanban board – click to hide",
-    "demoNotice": "Master data is currently stored only for the duration of the session."
+    "demoNotice": "Master data is currently stored only for the duration of the session.",
+    "statusSettings": {
+      "title": "Status settings",
+      "basics": {
+        "title": "Basics",
+        "label": "Name",
+        "color": "Colour",
+        "description": "Description",
+        "descriptionPlaceholder": "What does this status mean?",
+        "showInKanban": "Show on the Kanban board",
+        "showInKanbanEffect": "Gets its own column in the Applications view"
+      },
+      "role": {
+        "title": "Role in the pipeline",
+        "hint": "Each switch drives one specific metric. Settings that depend on each other turn on automatically."
+      },
+      "flags": {
+        "countsAsApplication": {
+          "title": "Counts as a submitted application",
+          "effect": "Submitted count, and the denominator of every rate"
+        },
+        "countsAsResponse": {
+          "title": "Counts as a company response",
+          "effect": "Response rate and average response time"
+        },
+        "isInterview": {
+          "title": "Interview round",
+          "effect": "Interview rate and callbacks"
+        },
+        "isTerminal": {
+          "title": "Closed state",
+          "effect": "Leaves the active pipeline and can never be stalled"
+        }
+      },
+      "lockedBy": "Required by \"{{setting}}\"",
+      "lockNames": {
+        "countsAsResponse": "Counts as a company response",
+        "isInterview": "Interview round",
+        "outcome": "Outcome"
+      },
+      "outcome": {
+        "title": "Outcome",
+        "hint": "Only one at a time. The success and rejection rates are built on this.",
+        "options": {
+          "Open": {
+            "name": "Open",
+            "effect": "No final result yet"
+          },
+          "Success": {
+            "name": "Success",
+            "effect": "Numerator of the success rate"
+          },
+          "Rejected": {
+            "name": "Rejected",
+            "effect": "Denominator of the success rate"
+          },
+          "Withdrawn": {
+            "name": "Withdrawn",
+            "effect": "Closed, but does not hurt the success rate"
+          },
+          "Ghosted": {
+            "name": "Closed without an answer",
+            "effect": "Closed, no response ever came"
+          }
+        }
+      },
+      "stalled": {
+        "title": "Stall tracking",
+        "toggle": "Flag applications stuck here",
+        "effect": "Shows up on the Overview and in the Statistics \"Stalled\" metric",
+        "unit": "days"
+      },
+      "impact": {
+        "title": "This status feeds",
+        "empty": "This status currently feeds no metric at all.",
+        "metrics": {
+          "submitted": "Submitted applications",
+          "activePipeline": "Active pipeline",
+          "responseRate": "Response rate",
+          "interviewRate": "Interview rate",
+          "successRate": "Success rate",
+          "rejections": "Rejections",
+          "closedNeutral": "Closed, neutral",
+          "stalled": "Stalled applications"
+        }
+      }
+    }
   },
   "practice": {
     "pageHeader": {
@@ -1096,7 +1234,12 @@
       "deleteTitle": "Delete",
       "noSearchResultsPrefix": "No results for “",
       "noSearchResultsSuffix": "”.",
-      "noQuestions": "No questions yet. Add one with the button above!"
+      "noQuestions": "No questions yet. Add one with the button above!",
+      "hiddenFlag": "Hidden",
+      "hideSelectedBtn": "Hide selected",
+      "showSelectedBtn": "Show selected",
+      "hideTitle": "Hide question – Practice will not ask it",
+      "showTitle": "Hidden question – click to let Practice ask it again"
     },
     "results": {
       "notEvaluated": "Not evaluated",
@@ -1165,6 +1308,9 @@
       "linkLabel": "Link",
       "optionalLabel": "optional",
       "linkPlaceholder": "e.g. careers.acme.com",
+      "sourceLabel": "Source",
+      "sourcePlaceholder": "e.g. LinkedIn",
+      "sourceHint": "Filled in automatically from the link when it matches a known source.",
       "initialStatusLabel": "Initial status",
       "cancelBtn": "Cancel",
       "saveBtn": "Save",

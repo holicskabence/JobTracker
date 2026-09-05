@@ -58,15 +58,6 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
-            },
-            "harness": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": false,
-              "outputPath": "dist/statistics-harness",
-              "index": "src/harness.index.html",
-              "browser": "src/harness.main.ts",
-              "tsConfig": "tsconfig.harness.json"
             }
           },
           "defaultConfiguration": "production"

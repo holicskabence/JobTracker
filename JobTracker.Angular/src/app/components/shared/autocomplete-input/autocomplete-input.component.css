@@ -1,0 +1,127 @@
+:host {
+    display: block;
+}
+
+.autocomplete-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.autocomplete-input-field {
+    width: 100%;
+    background-color: var(--clr-bg);
+    border: 1.5px solid transparent;
+    border-radius: var(--radius-md);
+    padding: var(--space-3) calc(var(--space-8) + var(--space-6)) var(--space-3) var(--space-4);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: var(--clr-dark);
+    outline: none;
+    transition: box-shadow 0.2s;
+}
+
+.autocomplete-input-field::placeholder {
+    color: var(--clr-muted);
+}
+
+.autocomplete-input-field:focus {
+    box-shadow: 0 0 0 2px rgba(38, 172, 0, 0.25);
+    border: 1.5px solid var(--clr-green);
+}
+
+.autocomplete-input-clear,
+.autocomplete-input-toggle {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: var(--clr-muted);
+    cursor: pointer;
+    padding: var(--space-1);
+    border-radius: var(--radius-xs);
+    transition: color 0.15s, background-color 0.15s;
+}
+
+.autocomplete-input-clear {
+    right: var(--space-8);
+}
+
+.autocomplete-input-toggle {
+    right: var(--space-2);
+}
+
+.autocomplete-input-clear:hover,
+.autocomplete-input-toggle:hover {
+    color: var(--clr-dark);
+}
+
+.autocomplete-input-chevron {
+    transition: transform 0.2s;
+}
+
+.autocomplete-input-chevron--open {
+    transform: rotate(180deg);
+}
+
+.autocomplete-input-panel {
+    position: fixed;
+    z-index: 9999;
+    max-height: 232px;
+    overflow-y: auto;
+    background-color: var(--clr-white);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+    padding: var(--space-1);
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    animation: autocomplete-input-panel-in 0.12s ease-out both;
+}
+
+@keyframes autocomplete-input-panel-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.autocomplete-input-option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border: none;
+    border-radius: var(--radius-xs);
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: var(--clr-dark);
+    text-align: left;
+    transition: background-color 0.1s;
+}
+
+.autocomplete-input-option:hover {
+    background-color: var(--clr-bg);
+}
+
+.autocomplete-input-option--active {
+    color: var(--clr-green);
+    font-weight: 600;
+}
+
+.autocomplete-input-option--active svg {
+    flex-shrink: 0;
+    color: var(--clr-green);
+}

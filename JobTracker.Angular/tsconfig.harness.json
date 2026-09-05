@@ -1,6 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": { "outDir": "./out-tsc/harness", "types": [] },
-  "files": ["src/harness.main.ts"],
-  "include": ["src/**/*.d.ts"]
-}

@@ -39,6 +39,13 @@ public sealed class PracticeQuestionsController(IPracticeQuestionService svc) : 
         return updated is null ? NotFound(new { message = "A kérdés nem található." }) : Ok(updated);
     }
 
+    [HttpPatch("{id:int}/hidden")]
+    public async Task<IActionResult> SetHidden(int id, [FromBody] SetPracticeQuestionHiddenRequest request)
+    {
+        var updated = await svc.SetHiddenAsync(id, request, CurrentUserId);
+        return updated is null ? NotFound(new { message = "A kérdés nem található." }) : Ok(updated);
+    }
+
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {

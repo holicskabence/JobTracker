@@ -44,7 +44,17 @@
                     <span class="field-optional">({{ 'shared.addJobModal.optionalLabel' | translate }})</span>
                 </label>
                 <input id="link" class="field-input" type="text" [placeholder]="'shared.addJobModal.linkPlaceholder' | translate" autocomplete="off"
-                    [(ngModel)]="link" name="link" />
+                    [ngModel]="link" (ngModelChange)="onLinkChange($event)" name="link" />
+            </div>
+
+            <div class="field">
+                <label class="field-label" for="source">
+                    {{ 'shared.addJobModal.sourceLabel' | translate }}
+                    <span class="field-optional">({{ 'shared.addJobModal.optionalLabel' | translate }})</span>
+                </label>
+                <app-autocomplete-input inputId="source" [options]="sourceOptions" [value]="source"
+                    [placeholder]="'shared.addJobModal.sourcePlaceholder' | translate"
+                    (valueChange)="source = $event" />
             </div>
 
             <div class="field">

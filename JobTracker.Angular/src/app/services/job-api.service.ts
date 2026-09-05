@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Job, JobStatus, JobStatusConfig, JobStatusHistoryEntry, StatsCategory, StatsGranularity, StatsSeriesPoint } from '../models/job.model';
+import { Job, JobSource, JobStatus, JobStatusConfig, JobStatusHistoryEntry, StatsGranularity, StatsSeriesPoint, StatusOutcome } from '../models/job.model';
 
 @Injectable({ providedIn: 'root' })
 export class JobApiService {
@@ -39,6 +39,23 @@ export class JobApiService {
     return this.http.get<StatsSeriesPoint[]>('/api/stats/series', { params: { granularity } });
   }
 
+  // ── Sources ─────────────────────────────────────────────
+  getJobSources(): Observable<JobSource[]> {
+    return this.http.get<JobSource[]>('/api/job-sources');
+  }
+
+  createJobSource(data: { name: string; matchPattern: string | null }): Observable<JobSource> {
+    return this.http.post<JobSource>('/api/job-sources', data);
+  }
+
+  updateJobSource(id: number, data: { name: string; matchPattern: string | null }): Observable<JobSource> {
+    return this.http.put<JobSource>(`/api/job-sources/${id}`, data);
+  }
+
+  deleteJobSource(id: number): Observable<void> {
+    return this.http.delete<void>(`/api/job-sources/${id}`);
+  }
+
   // ── Status configs ───────────────────────────────────────
   getStatusConfigs(): Observable<JobStatusConfig[]> {
     return this.http.get<JobStatusConfig[]>('/api/status-configs');
@@ -48,7 +65,19 @@ export class JobApiService {
     return this.http.post<JobStatusConfig>('/api/status-configs', data);
   }
 
-  updateStatusConfig(id: number, data: { label: string; color: string; sortOrder: number; showInKanban: boolean; isActive: boolean; isInterview: boolean; statsCategory: StatsCategory }): Observable<JobStatusConfig> {
+  updateStatusConfig(id: number, data: {
+    label: string;
+    color: string;
+    description: string | null;
+    sortOrder: number;
+    showInKanban: boolean;
+    countsAsApplication: boolean;
+    countsAsResponse: boolean;
+    isInterview: boolean;
+    isTerminal: boolean;
+    outcome: StatusOutcome;
+    staleAfterDays: number | null;
+  }): Observable<JobStatusConfig> {
     return this.http.put<JobStatusConfig>(`/api/status-configs/${id}`, data);
   }
 

@@ -148,7 +148,6 @@
 .profile-display-position {
     font-size: 0.8125rem;
     color: var(--clr-muted);
-    margin-bottom: var(--space-5);
 }
 
 .profile-meta {
@@ -177,7 +176,7 @@
 
 .profile-meta-value {
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--clr-dark);
 }
 
@@ -769,12 +768,6 @@
 .profile-completeness-hint {
     font-size: 0.75rem;
     color: var(--clr-muted);
-}
-
-.profile-completeness-missing {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-1-5);
 }
 
 .profile-completeness-chip {

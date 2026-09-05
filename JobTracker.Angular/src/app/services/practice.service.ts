@@ -15,6 +15,19 @@ export class PracticeService {
   readonly attempts = signal<PracticeAttempt[]>([]);
   readonly error = signal<string>('');
 
+  readonly visibleCategories = computed(() => this.categories().filter(c => !c.isHidden));
+
+  private readonly hiddenCategoryNames = computed(() =>
+    new Set(this.categories().filter(c => c.isHidden).map(c => c.name))
+  );
+
+  // Everything the practice deck may serve: hidden questions and questions living in a
+  // hidden category are never asked, so they stay out of the progress figures too.
+  readonly askableQuestions = computed(() => {
+    const hiddenCategories = this.hiddenCategoryNames();
+    return this.questions().filter(q => !q.isHidden && !hiddenCategories.has(q.category));
+  });
+
   private readonly _practiceDates = signal<string[]>(this._loadDates());
   private readonly _bookmarkedIds = signal<Set<number>>(this._loadBookmarks());
 
@@ -42,7 +55,7 @@ export class PracticeService {
   });
 
   readonly readinessScore = computed(() => {
-    const qs = this.questions();
+    const qs = this.askableQuestions();
     const total = qs.length;
     if (total === 0) return 0;
     const correct = qs.filter(q => q.feedback === 'correct').length;
@@ -50,7 +63,7 @@ export class PracticeService {
   });
 
   readonly answeredCount = computed(() =>
-    this.questions().filter(q => q.feedback !== null).length
+    this.askableQuestions().filter(q => q.feedback !== null).length
   );
 
   readonly loading = signal<boolean>(true);
@@ -135,9 +148,11 @@ export class PracticeService {
   updateCategory(id: number, name: string, color: string): void {
     const trimmed = name.trim();
     if (!trimmed) return;
-    const oldName = this.categories().find(c => c.id === id)?.name;
+    const existing = this.categories().find(c => c.id === id);
+    if (!existing) return;
+    const oldName = existing.name;
     this.error.set('');
-    this.api.updateCategory(id, { name: trimmed, color }).subscribe({
+    this.api.updateCategory(id, { name: trimmed, color, isHidden: existing.isHidden }).subscribe({
       next: updated => {
         this.categories.update(prev => prev.map(c => c.id === id ? updated : c));
         if (oldName && oldName !== trimmed) {
@@ -146,6 +161,52 @@ export class PracticeService {
       },
       error: (err: HttpErrorResponse) =>
         this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a kategóriát.')
+    });
+  }
+
+  toggleCategoryHidden(id: number): void {
+    const category = this.categories().find(c => c.id === id);
+    if (!category) return;
+    this.error.set('');
+    this.api.updateCategory(id, { name: category.name, color: category.color, isHidden: !category.isHidden }).subscribe({
+      next: updated => this.categories.update(prev => prev.map(c => c.id === id ? updated : c)),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a kategóriát.')
+    });
+  }
+
+  moveCategoryUp(id: number): void {
+    const categories = [...this.categories()];
+    const index = categories.findIndex(c => c.id === id);
+    if (index <= 0) return;
+    [categories[index - 1], categories[index]] = [categories[index], categories[index - 1]];
+    this.saveCategoryOrder(categories);
+  }
+
+  moveCategoryDown(id: number): void {
+    const categories = [...this.categories()];
+    const index = categories.findIndex(c => c.id === id);
+    if (index < 0 || index >= categories.length - 1) return;
+    [categories[index], categories[index + 1]] = [categories[index + 1], categories[index]];
+    this.saveCategoryOrder(categories);
+  }
+
+  moveCategoryToIndex(fromIndex: number, toIndex: number): void {
+    if (fromIndex === toIndex) return;
+    const categories = [...this.categories()];
+    const [moved] = categories.splice(fromIndex, 1);
+    categories.splice(toIndex, 0, moved);
+    this.saveCategoryOrder(categories);
+  }
+
+  private saveCategoryOrder(categories: PracticeCategory[]): void {
+    const reordered = categories.map((c, index) => ({ ...c, sortOrder: index }));
+    this.categories.set(reordered);
+    this.error.set('');
+    this.api.reorderCategories(reordered.map(c => ({ id: c.id, sortOrder: c.sortOrder }))).subscribe({
+      next: updated => this.categories.set(updated),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült menteni a kategóriák sorrendjét.')
     });
   }
 
@@ -216,6 +277,21 @@ export class PracticeService {
       },
       error: (err: HttpErrorResponse) =>
         this.error.set(err.error?.message ?? 'Nem sikerült alaphelyzetbe állítani a statisztikát.')
+    });
+  }
+
+  setQuestionsHidden(ids: Iterable<number>, isHidden: boolean): void {
+    const selected = new Set(ids);
+    const targets = this.questions().filter(q => selected.has(q.id) && q.isHidden !== isHidden);
+    if (targets.length === 0) return;
+    this.error.set('');
+    forkJoin(targets.map(q => this.api.setQuestionHidden(q.id, isHidden))).subscribe({
+      next: updated => {
+        const byId = new Map(updated.map(q => [q.id, q]));
+        this.questions.update(prev => prev.map(q => byId.get(q.id) ?? q));
+      },
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült módosítani a kérdések láthatóságát.')
     });
   }
 

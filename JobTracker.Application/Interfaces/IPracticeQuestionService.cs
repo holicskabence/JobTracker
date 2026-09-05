@@ -9,6 +9,7 @@ public interface IPracticeQuestionService
     Task<IReadOnlyList<PracticeQuestionResponse>> CreateManyAsync(IReadOnlyList<CreatePracticeQuestionRequest> requests, int userId);
     Task<PracticeQuestionResponse?> UpdateAsync(int id, UpdatePracticeQuestionRequest request, int userId);
     Task<PracticeQuestionResponse?> SetFeedbackAsync(int id, RatePracticeQuestionRequest request, int userId);
+    Task<PracticeQuestionResponse?> SetHiddenAsync(int id, SetPracticeQuestionHiddenRequest request, int userId);
     Task<bool> DeleteAsync(int id, int userId);
     Task<AiEvaluateResponse?> EvaluateAnswerAsync(int questionId, int userId, string userAnswer, string? customPrompt);
     Task<IReadOnlyList<PracticeQuestionResponse>> ResetStatisticsAsync(int userId);

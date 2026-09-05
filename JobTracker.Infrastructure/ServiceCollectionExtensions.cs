@@ -31,6 +31,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IUserDocumentRepository, UserDocumentRepository>();
         services.AddScoped<IEventTypeRepository, EventTypeRepository>();
         services.AddScoped<IJobStatusConfigRepository, JobStatusConfigRepository>();
+        services.AddScoped<IJobSourceRepository, JobSourceRepository>();
         services.AddScoped<IPracticeQuestionRepository, PracticeQuestionRepository>();
         services.AddScoped<IPracticeCategoryRepository, PracticeCategoryRepository>();
         services.AddScoped<IPracticeAttemptRepository, PracticeAttemptRepository>();

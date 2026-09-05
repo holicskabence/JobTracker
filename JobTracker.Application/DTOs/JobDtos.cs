@@ -5,6 +5,7 @@ public record JobResponse(
     string Company,
     string Position,
     string? Link,
+    string? Source,
     string Date,
     string Status
 );
@@ -13,6 +14,7 @@ public record CreateJobRequest(
     string Company,
     string Position,
     string? Link,
+    string? Source,
     string Date,
     string Status
 );
@@ -21,6 +23,7 @@ public record UpdateJobRequest(
     string Company,
     string Position,
     string? Link,
+    string? Source,
     string Date,
     string Status
 );

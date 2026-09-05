@@ -8,6 +8,10 @@
   <h5 class="card-company">{{ job.company }}</h5>
   <p class="card-position">{{ job.position }}</p>
 
+  @if (job.source) {
+  <span class="card-source">{{ job.source }}</span>
+  }
+
   <div class="card-footer">
     <div class="card-date">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

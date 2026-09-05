@@ -17,6 +17,15 @@ export interface CreatePracticeCategoryPayload {
   color: string;
 }
 
+export interface UpdatePracticeCategoryPayload extends CreatePracticeCategoryPayload {
+  isHidden: boolean;
+}
+
+export interface PracticeCategoryOrderItem {
+  id: number;
+  sortOrder: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class PracticeApiService {
   constructor(private readonly http: HttpClient) { }
@@ -41,6 +50,10 @@ export class PracticeApiService {
     return this.http.patch<PrepQuestion>(`/api/practice-questions/${id}/feedback`, { feedback });
   }
 
+  setQuestionHidden(id: number, isHidden: boolean): Observable<PrepQuestion> {
+    return this.http.patch<PrepQuestion>(`/api/practice-questions/${id}/hidden`, { isHidden });
+  }
+
   deleteQuestion(id: number): Observable<void> {
     return this.http.delete<void>(`/api/practice-questions/${id}`);
   }
@@ -53,12 +66,16 @@ export class PracticeApiService {
     return this.http.post<PracticeCategory>('/api/practice-categories', data);
   }
 
-  updateCategory(id: number, data: CreatePracticeCategoryPayload): Observable<PracticeCategory> {
+  updateCategory(id: number, data: UpdatePracticeCategoryPayload): Observable<PracticeCategory> {
     return this.http.put<PracticeCategory>(`/api/practice-categories/${id}`, data);
   }
 
   deleteCategory(id: number): Observable<void> {
     return this.http.delete<void>(`/api/practice-categories/${id}`);
+  }
+
+  reorderCategories(items: PracticeCategoryOrderItem[]): Observable<PracticeCategory[]> {
+    return this.http.post<PracticeCategory[]>('/api/practice-categories/reorder', items);
   }
 
   evaluateAnswer(questionId: number, userAnswer: string, customPrompt?: string): Observable<{ feedback: string; verdict: string }> {

@@ -9,4 +9,5 @@ public class PracticeQuestion
     public string Hint { get; set; } = string.Empty;
     public string SampleAnswer { get; set; } = string.Empty;
     public string? Feedback { get; set; }
+    public bool IsHidden { get; set; }
 }

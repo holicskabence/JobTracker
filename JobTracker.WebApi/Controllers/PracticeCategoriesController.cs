@@ -33,4 +33,11 @@ public sealed class PracticeCategoriesController(IPracticeCategoryService svc) :
         var deleted = await svc.DeleteAsync(id, CurrentUserId);
         return deleted ? NoContent() : NotFound(new { message = "A kategória nem található." });
     }
+
+    [HttpPost("reorder")]
+    public async Task<IActionResult> Reorder([FromBody] List<ReorderPracticeCategoryItem> items)
+    {
+        var result = await svc.ReorderAsync(items, CurrentUserId);
+        return Ok(result);
+    }
 }

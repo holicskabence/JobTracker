@@ -11,6 +11,10 @@
       {{ 'tableView.columns.status' | translate }}
     </th>
     <th tableHeaderCells appSortableHeaderCell class="table-view-header-cell table-view-header-cell--sortable"
+      [active]="sortKey() === 'source'" [direction]="sortDir()" (sortClick)="sort('source')">
+      {{ 'tableView.columns.source' | translate }}
+    </th>
+    <th tableHeaderCells appSortableHeaderCell class="table-view-header-cell table-view-header-cell--sortable"
       [active]="sortKey() === 'date'" [direction]="sortDir()" (sortClick)="sort('date')">
       {{ 'tableView.columns.date' | translate }}
     </th>
@@ -33,6 +37,14 @@
             <span class="table-view-status-dot" [style.background-color]="colorFor(job.status)"></span>
             {{ statusLabel(job.status) }}
           </span>
+        </td>
+
+        <td class="table-view-cell table-view-cell--source">
+          @if (job.source) {
+          <span class="table-view-source-badge">{{ job.source }}</span>
+          } @else {
+          <span class="table-view-no-link">—</span>
+          }
         </td>
 
         <td class="table-view-cell table-view-cell--date">{{ job.date }}</td>
@@ -71,7 +83,7 @@
 
       @if (sortedJobs().length === 0) {
       <tr>
-        <td colspan="5" class="table-view-empty">
+        <td colspan="6" class="table-view-empty">
           @if (search()) {
           {{ 'tableView.noResultsFor' | translate:{ term: search() } }}
           } @else {
@@ -102,6 +114,9 @@
             <span class="table-view-status-dot" [style.background-color]="colorFor(job.status)"></span>
             {{ statusLabel(job.status) }}
           </span>
+          @if (job.source) {
+          <span class="table-view-source-badge">{{ job.source }}</span>
+          }
         </div>
 
         <div class="table-view-card-footer">

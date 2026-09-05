@@ -1,4 +1,4 @@
-import { Component, computed, HostListener, inject } from '@angular/core';
+import { Component, computed, HostListener, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { PlannerService } from '../../services/planner.service';
@@ -9,14 +9,15 @@ import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
 import { ColorPickerComponent } from '../shared/color-picker/color-picker.component';
-import { JobStatusConfig, StatsCategory } from '../../models/job.model';
+import { StatusSettingsModalComponent } from './status-settings-modal/status-settings-modal.component';
+import { JobSource, JobStatusConfig } from '../../models/job.model';
 import { PracticeCategory } from '../../models/practice.model';
 import { OUTREACH_TEMPLATES, OutreachTemplate, outreachTemplateKey } from '../../models/planner.model';
 
 @Component({
   selector: 'app-master-data',
   standalone: true,
-  imports: [FormsModule, TranslateModule, CardComponent, BadgeComponent, PageSectionComponent, ColorPickerComponent],
+  imports: [FormsModule, TranslateModule, CardComponent, BadgeComponent, PageSectionComponent, ColorPickerComponent, StatusSettingsModalComponent],
   templateUrl: './master-data.component.html',
   styleUrl: './master-data.component.css'
 })
@@ -175,21 +176,34 @@ export class MasterDataComponent {
     this.jobStore.toggleStatusKanban(key);
   }
 
-  readonly STATS_CATEGORIES: StatsCategory[] = ['None', 'Success', 'Rejected'];
+  readonly settingsStatus = signal<JobStatusConfig | null>(null);
 
-  setStatusCategory(key: string, category: string, event: Event): void {
+  openStatusSettings(cfg: JobStatusConfig, event: MouseEvent): void {
     event.stopPropagation();
-    this.jobStore.setStatusCategory(key, category as StatsCategory);
+    this.settingsStatus.set(cfg);
   }
 
-  toggleStatusActive(key: string, event: MouseEvent): void {
-    event.stopPropagation();
-    this.jobStore.toggleStatusActive(key);
+  closeStatusSettings(): void {
+    this.settingsStatus.set(null);
   }
 
-  toggleStatusInterview(key: string, event: MouseEvent): void {
-    event.stopPropagation();
-    this.jobStore.toggleStatusInterview(key);
+  saveStatusSettings(patch: Partial<JobStatusConfig>): void {
+    const key = this.settingsStatus()?.key;
+    if (key) this.jobStore.saveStatus(key, patch);
+    this.closeStatusSettings();
+  }
+
+  /** The compact badges on a status row, mirroring what the settings modal lists as its impact. */
+  statusRoles(cfg: JobStatusConfig): { key: string; color: string }[] {
+    const roles: { key: string; color: string }[] = [];
+    if (cfg.countsAsApplication) roles.push({ key: 'application', color: 'var(--clr-blue)' });
+    if (cfg.countsAsResponse) roles.push({ key: 'response', color: 'var(--clr-yellow)' });
+    if (cfg.isInterview) roles.push({ key: 'interview', color: 'var(--clr-yellow)' });
+    const outcome = cfg.outcome ?? 'Open';
+    if (outcome !== 'Open') roles.push({ key: 'outcome' + outcome, color: outcome === 'Success' ? 'var(--clr-green)' : outcome === 'Rejected' ? 'var(--clr-red)' : 'var(--clr-muted)' });
+    else if (cfg.isTerminal) roles.push({ key: 'terminal', color: 'var(--clr-muted)' });
+    if (!roles.length) roles.push({ key: 'none', color: 'var(--clr-muted)' });
+    return roles;
   }
 
   catDropOpen = false;
@@ -221,41 +235,9 @@ export class MasterDataComponent {
     this.catDropOpen = false;
   }
 
-  statusCatDropOpen: string | null = null;
-  statusCatDropTop = 0;
-  statusCatDropLeft = 0;
-  statusCatDropWidth = 0;
-
-  toggleStatusCatDrop(cfg: JobStatusConfig, event: MouseEvent): void {
-    event.stopPropagation();
-    if (this.statusCatDropOpen === cfg.key) {
-      this.statusCatDropOpen = null;
-      return;
-    }
-    const button = event.currentTarget as HTMLElement;
-    const r = button.getBoundingClientRect();
-    const estimatedH = this.STATS_CATEGORIES.length * 40 + 10;
-    this.statusCatDropLeft = r.left;
-    this.statusCatDropWidth = Math.max(r.width, 140);
-    if (this.statusCatDropLeft + this.statusCatDropWidth > window.innerWidth - 8) {
-      this.statusCatDropLeft = window.innerWidth - this.statusCatDropWidth - 8;
-    }
-    this.statusCatDropTop = (window.innerHeight - r.bottom - 8 >= estimatedH || r.top < estimatedH)
-      ? r.bottom + 4
-      : r.top - estimatedH - 4;
-    this.statusCatDropOpen = cfg.key;
-  }
-
-  pickStatusCategory(key: string, category: string, event: MouseEvent): void {
-    event.stopPropagation();
-    this.jobStore.setStatusCategory(key, category as StatsCategory);
-    this.statusCatDropOpen = null;
-  }
-
   @HostListener('document:click')
   closeCatDrop(): void {
     this.catDropOpen = false;
-    this.statusCatDropOpen = null;
   }
 
   categoryColor(name: string): string {
@@ -327,5 +309,85 @@ export class MasterDataComponent {
     if (this.practice.categories().length <= 1) return;
     if (this.selectedCategoryId === id) this.cancelCategoryEdit();
     this.practice.deleteCategory(id);
+  }
+
+  toggleCategoryHidden(id: number, event: MouseEvent): void {
+    event.stopPropagation();
+    this.practice.toggleCategoryHidden(id);
+  }
+
+  moveCategoryUp(id: number, event: MouseEvent): void {
+    event.stopPropagation();
+    this.practice.moveCategoryUp(id);
+  }
+
+  moveCategoryDown(id: number, event: MouseEvent): void {
+    event.stopPropagation();
+    this.practice.moveCategoryDown(id);
+  }
+
+  draggedCategoryIndex: number | null = null;
+  dragOverCategoryIndex: number | null = null;
+
+  onCategoryDragStart(index: number): void {
+    this.draggedCategoryIndex = index;
+  }
+
+  onCategoryDragOver(event: DragEvent, index: number): void {
+    event.preventDefault();
+    this.dragOverCategoryIndex = index;
+  }
+
+  onCategoryDrop(event: DragEvent, targetIndex: number): void {
+    event.preventDefault();
+    if (this.draggedCategoryIndex !== null && this.draggedCategoryIndex !== targetIndex) {
+      this.practice.moveCategoryToIndex(this.draggedCategoryIndex, targetIndex);
+    }
+    this.draggedCategoryIndex = null;
+    this.dragOverCategoryIndex = null;
+  }
+
+  onCategoryDragEnd(): void {
+    this.draggedCategoryIndex = null;
+    this.dragOverCategoryIndex = null;
+  }
+
+  newSourceName = '';
+  newSourceMatchPattern = '';
+  selectedSourceId: number | null = null;
+
+  addSource(): void {
+    const trimmed = this.newSourceName.trim();
+    if (!trimmed) return;
+    if (this.selectedSourceId !== null) {
+      this.jobStore.updateSource(this.selectedSourceId, trimmed, this.newSourceMatchPattern);
+      this.cancelSourceEdit();
+      return;
+    }
+    this.jobStore.addSource(trimmed, this.newSourceMatchPattern);
+    this.newSourceName = '';
+    this.newSourceMatchPattern = '';
+  }
+
+  selectSource(source: JobSource): void {
+    if (this.selectedSourceId === source.id) {
+      this.cancelSourceEdit();
+      return;
+    }
+    this.selectedSourceId = source.id ?? null;
+    this.newSourceName = source.name;
+    this.newSourceMatchPattern = source.matchPattern ?? '';
+  }
+
+  cancelSourceEdit(): void {
+    this.selectedSourceId = null;
+    this.newSourceName = '';
+    this.newSourceMatchPattern = '';
+  }
+
+  deleteSource(id: number): void {
+    if (this.jobStore.sources().length <= 1) return;
+    if (this.selectedSourceId === id) this.cancelSourceEdit();
+    this.jobStore.deleteSource(id);
   }
 }

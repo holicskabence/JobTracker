@@ -2,11 +2,12 @@ import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { JobStoreService } from '../../services/job-store.service';
 import { JobApiService } from '../../services/job-api.service';
-import { Job, JobStatusHistoryEntry } from '../../models/job.model';
+import { Job, JobStatusConfig, JobStatusHistoryEntry, StatusOutcome } from '../../models/job.model';
 import { AreaChartComponent, ChartSeriesInput } from './area-chart/area-chart.component';
 import { ComboChartComponent, ComboChartItem } from './combo-chart/combo-chart.component';
 import { DonutChartComponent, DonutSliceInput } from './donut-chart/donut-chart.component';
 import { HorizontalBarChartComponent, HBarItem } from './horizontal-bar-chart/horizontal-bar-chart.component';
+import { FunnelChartComponent, FunnelStage } from './funnel-chart/funnel-chart.component';
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
 import { CardComponent } from '../shared/card/card.component';
 import { DatePickerComponent } from '../shared/date-picker/date-picker.component';
@@ -47,7 +48,6 @@ interface DataInsight {
 
 const DAY_MS = 86_400_000;
 
-const SOURCES = ['LinkedIn', 'Company Website', 'Referral', 'NoFluffJobs', 'Profession', 'Other'];
 const SOURCE_COLORS = ['#5fb9fa', '#14b8a6', '#f59e0b', '#ec4899', '#8b5cf6', '#9b9b99'];
 
 const ACCENT_BLUE = '#5fb9fa';
@@ -55,20 +55,19 @@ const ACCENT_GREEN = '#26ac00';
 const ACCENT_AMBER = '#f59e0b';
 const ACCENT_VIOLET = '#8b5cf6';
 const ACCENT_TEAL = '#14b8a6';
+const ACCENT_RED = '#ef4444';
+const ACCENT_MUTED = '#9b9b99';
+
+/** A status only reaches the charts when master data gives it at least one role. */
+function countsInMetrics(config: JobStatusConfig): boolean {
+  return !!config.countsAsApplication || !!config.countsAsResponse || !!config.isInterview
+    || !!config.isTerminal || (config.outcome ?? 'Open') !== 'Open';
+}
 
 const WEEKDAY_KEYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
 /** Bounded by default so every KPI can be compared against the preceding period. */
 const DEFAULT_DATE_RANGE: DateRangeKey = 'last90';
-
-function hash(value: string): number {
-  let result = 5381;
-  for (let i = 0; i < value.length; i++) result = ((result << 5) + result + value.charCodeAt(i)) >>> 0;
-  // djb2 alone clusters badly under a small modulo, so mix the bits before bucketing.
-  result ^= result >>> 15;
-  result = Math.imul(result, 0x85ebca6b) >>> 0;
-  return (result ^ (result >>> 13)) >>> 0;
-}
 
 function toDate(dateText: string): Date {
   return new Date(dateText.split('T')[0] + 'T00:00:00');
@@ -104,7 +103,7 @@ function round1(value: number): number {
   selector: 'app-statistics',
   standalone: true,
   imports: [
-    AreaChartComponent, ComboChartComponent, DonutChartComponent, HorizontalBarChartComponent,
+    AreaChartComponent, ComboChartComponent, DonutChartComponent, HorizontalBarChartComponent, FunnelChartComponent,
     FilterDropdownComponent, StatisticIconComponent, CardComponent, DatePickerComponent, PageSectionComponent,
     TranslateModule
   ],
@@ -175,7 +174,9 @@ export class StatisticsComponent implements OnInit {
   );
 
   readonly sortedStatusConfigs = computed(() =>
-    [...this.store.statusConfigs()].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+    [...this.store.statusConfigs()]
+      .filter(countsInMetrics)
+      .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
   );
 
   // ── Date range resolution ────────────────────────────────
@@ -287,8 +288,11 @@ export class StatisticsComponent implements OnInit {
   }
 
   private isResponse(status: string): boolean {
-    const config = this.configOf(status);
-    return !!config && (config.isInterview === true || (config.statsCategory ?? 'None') !== 'None');
+    return this.configOf(status)?.countsAsResponse === true;
+  }
+
+  private isApplication(status: string): boolean {
+    return this.configOf(status)?.countsAsApplication === true;
   }
 
   private readonly everInterviewedIds = computed(() => {
@@ -333,11 +337,17 @@ export class StatisticsComponent implements OnInit {
   private activeCount(jobs: Job[]): number {
     return jobs.filter(job => {
       const config = this.configOf(job.status);
-      return config?.isActive || config?.isInterview;
+      return !!config?.countsAsApplication && !config.isTerminal;
     }).length;
   }
 
-  // ── KPI cards ────────────────────────────────────────────
+  private readonly everAppliedIds = computed(() => {
+    const ids = new Set<number>();
+    for (const job of this.store.jobs()) if (this.isApplication(job.status)) ids.add(job.id);
+    for (const entry of this.history()) if (this.isApplication(entry.newStatus)) ids.add(entry.jobId);
+    return ids;
+  });
+
   readonly kpiCards = computed<KpiCard[]>(() => {
     this.language();
     const jobs = this.filteredJobs();
@@ -422,11 +432,19 @@ export class StatisticsComponent implements OnInit {
         value: String(this.activeCount(jobs)),
         delta: null,
         note: this.translate.instant('statistics.kpi.pipeline.note')
+      },
+      {
+        key: 'stalled',
+        icon: 'clock',
+        accent: ACCENT_RED,
+        label: this.translate.instant('statistics.kpi.stalled.label'),
+        value: String(this.stalledCount()),
+        delta: null,
+        note: this.translate.instant('statistics.kpi.stalled.note')
       }
     ];
   });
 
-  // ── Applications over time ───────────────────────────────
   private readonly timeline = computed<{ categories: string[]; values: number[] }>(() => {
     this.language();
     const { from, to } = this.plottedRange();
@@ -533,8 +551,9 @@ export class StatisticsComponent implements OnInit {
     }
     const dominant = [...slices].sort((a, b) => b.value - a.value)[0];
     const config = this.configOf(dominant.key);
-    const bodyKey = config?.statsCategory === 'Rejected' ? 'rejectedBody'
-      : config?.statsCategory === 'Success' ? 'successBody'
+    const outcome = config?.outcome ?? 'Open';
+    const bodyKey = outcome === 'Rejected' ? 'rejectedBody'
+      : outcome === 'Success' ? 'successBody'
         : config?.isInterview ? 'interviewBody'
           : 'defaultBody';
     return {
@@ -544,11 +563,93 @@ export class StatisticsComponent implements OnInit {
     };
   });
 
-  // ── Source breakdown (sample data — no source field is tracked yet) ──
+  // ── Pipeline funnel ──────────────────────────────────────
+  readonly stalledCount = computed(() => this.filteredJobs().filter(job => this.store.isStalled(job)).length);
+
+  /** Every stage is derived from the master data flags, so a renamed or added status lands in the right step. */
+  readonly funnelStages = computed<FunnelStage[]>(() => {
+    this.language();
+    const jobs = this.filteredJobs();
+    if (!jobs.length) return [];
+    const stageLabel = (key: string) => this.translate.instant('statistics.funnel.stages.' + key);
+    const reached = (ids: ReadonlySet<number>) => jobs.filter(job => ids.has(job.id)).length;
+    return [
+      { label: stageLabel('tracked'), value: jobs.length, color: ACCENT_VIOLET },
+      { label: stageLabel('submitted'), value: reached(this.everAppliedIds()), color: ACCENT_BLUE },
+      { label: stageLabel('responded'), value: reached(this.everRespondedIds()), color: ACCENT_TEAL },
+      { label: stageLabel('interviewed'), value: reached(this.everInterviewedIds()), color: ACCENT_AMBER },
+      { label: stageLabel('offer'), value: jobs.filter(job => this.configOf(job.status)?.outcome === 'Success').length, color: ACCENT_GREEN }
+    ];
+  });
+
+  readonly funnelNote = computed<PanelNote | null>(() => {
+    this.language();
+    const stages = this.funnelStages();
+    if (!stages.length) return null;
+    let weakest = 1;
+    let weakestRate = Number.POSITIVE_INFINITY;
+    for (let index = 1; index < stages.length; index++) {
+      const previous = stages[index - 1].value;
+      if (!previous) continue;
+      const rate = stages[index].value / previous;
+      if (rate < weakestRate) { weakestRate = rate; weakest = index; }
+    }
+    if (!Number.isFinite(weakestRate)) return null;
+    return {
+      accent: ACCENT_AMBER, icon: 'info',
+      title: this.translate.instant('statistics.funnel.note.title', { stage: stages[weakest].label }),
+      body: this.translate.instant('statistics.funnel.note.body', {
+        from: stages[weakest - 1].label,
+        to: stages[weakest].label,
+        rate: Math.round(weakestRate * 100)
+      })
+    };
+  });
+
+  // ── Outcome breakdown ────────────────────────────────────
+  readonly outcomeItems = computed<HBarItem[]>(() => {
+    this.language();
+    const jobs = this.filteredJobs();
+    const withOutcome = (outcome: StatusOutcome) =>
+      jobs.filter(job => (this.configOf(job.status)?.outcome ?? 'Open') === outcome).length;
+    const outcomeLabel = (key: string) => this.translate.instant('statistics.outcomes.' + key);
+    return [
+      { label: outcomeLabel('Open'), value: withOutcome('Open'), color: ACCENT_BLUE },
+      { label: outcomeLabel('Success'), value: withOutcome('Success'), color: ACCENT_GREEN },
+      { label: outcomeLabel('Rejected'), value: withOutcome('Rejected'), color: ACCENT_RED },
+      { label: outcomeLabel('Withdrawn'), value: withOutcome('Withdrawn'), color: ACCENT_VIOLET },
+      { label: outcomeLabel('Ghosted'), value: withOutcome('Ghosted'), color: ACCENT_MUTED }
+    ].filter(item => item.value > 0);
+  });
+
+  readonly outcomeNote = computed<PanelNote | null>(() => {
+    this.language();
+    const jobs = this.filteredJobs();
+    const decided = jobs.filter(job => {
+      const outcome = this.configOf(job.status)?.outcome ?? 'Open';
+      return outcome === 'Success' || outcome === 'Rejected';
+    });
+    if (!decided.length) return null;
+    const offers = decided.filter(job => this.configOf(job.status)?.outcome === 'Success').length;
+    return {
+      accent: ACCENT_GREEN, icon: 'star',
+      title: this.translate.instant('statistics.outcomeBreakdown.note.title', { rate: Math.round((offers / decided.length) * 100) }),
+      body: this.translate.instant('statistics.outcomeBreakdown.note.body', { offers, decided: decided.length })
+    };
+  });
+
+  // ── Source breakdown ─────────────────────────────────────
   readonly sourceItems = computed<HBarItem[]>(() => {
-    const counts = new Array(SOURCES.length).fill(0);
-    for (const job of this.filteredJobs()) counts[hash(job.company + job.position) % SOURCES.length]++;
-    return SOURCES.map((label, index) => ({ label, value: counts[index], color: SOURCE_COLORS[index] }));
+    this.language();
+    const unknown = this.translate.instant('statistics.charts.source.unknown');
+    const counts = new Map<string, number>();
+    for (const job of this.filteredJobs()) {
+      const label = job.source?.trim() || unknown;
+      counts.set(label, (counts.get(label) ?? 0) + 1);
+    }
+    return [...counts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .map(([label, value], index) => ({ label, value, color: SOURCE_COLORS[index % SOURCE_COLORS.length] }));
   });
 
   readonly sourceNote = computed<PanelNote>(() => {

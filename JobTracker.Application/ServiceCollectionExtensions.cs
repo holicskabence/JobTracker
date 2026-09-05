@@ -16,6 +16,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IEventTypeService, EventTypeService>();
         services.AddScoped<IStatsService, StatsService>();
         services.AddScoped<IJobStatusConfigService, JobStatusConfigService>();
+        services.AddScoped<IJobSourceService, JobSourceService>();
         services.AddScoped<IPracticeQuestionService, PracticeQuestionService>();
         services.AddScoped<IPracticeCategoryService, PracticeCategoryService>();
         services.AddScoped<IPracticeAttemptService, PracticeAttemptService>();

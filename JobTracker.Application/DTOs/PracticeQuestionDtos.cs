@@ -6,7 +6,8 @@ public record PracticeQuestionResponse(
     string Question,
     string Hint,
     string SampleAnswer,
-    string? Feedback
+    string? Feedback,
+    bool IsHidden
 );
 
 public record CreatePracticeQuestionRequest(
@@ -24,5 +25,7 @@ public record UpdatePracticeQuestionRequest(
 );
 
 public record RatePracticeQuestionRequest(string? Feedback);
+
+public record SetPracticeQuestionHiddenRequest(bool IsHidden);
 
 public record BulkCreatePracticeQuestionsRequest(IReadOnlyList<CreatePracticeQuestionRequest> Questions);

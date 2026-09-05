@@ -27,6 +27,7 @@ public sealed class JobService(IJobRepository repo, IJobStatusHistoryRepository 
             Company = request.Company,
             Position = request.Position,
             Link = request.Link,
+            Source = request.Source,
             Date = request.Date,
             Status = request.Status,
             UpdatedAt = DateTime.UtcNow
@@ -54,6 +55,7 @@ public sealed class JobService(IJobRepository repo, IJobStatusHistoryRepository 
         job.Company = request.Company;
         job.Position = request.Position;
         job.Link = request.Link;
+        job.Source = request.Source;
         job.Date = request.Date;
         job.Status = request.Status;
         job.UpdatedAt = DateTime.UtcNow;
@@ -100,5 +102,5 @@ public sealed class JobService(IJobRepository repo, IJobStatusHistoryRepository 
     public async Task<bool> DeleteAsync(int id, int userId) => await repo.DeleteAsync(id, userId);
 
     private static JobResponse Map(Job j) =>
-        new(j.Id, j.Company, j.Position, j.Link, j.Date, j.Status);
+        new(j.Id, j.Company, j.Position, j.Link, j.Source, j.Date, j.Status);
 }

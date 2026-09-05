@@ -6,12 +6,14 @@ import { JobApiService } from './job-api.service';
 import {
   Job,
   JobStats,
+  JobSource,
   JobStatus,
   JobStatusConfig,
   JobStatusHistoryEntry,
-  StatsCategory,
+  StatusOutcome,
   StatsGranularity,
-  StatsSeriesPoint
+  StatsSeriesPoint,
+  normalizeStatusConfig
 } from '../models/job.model';
 
 @Injectable({ providedIn: 'root' })
@@ -22,6 +24,7 @@ export class JobStoreService {
   readonly error = signal<string>('');
   readonly statusConfigs = signal<JobStatusConfig[]>([]);
   readonly statusHistory = signal<JobStatusHistoryEntry[]>([]);
+  readonly sources = signal<JobSource[]>([]);
 
   readonly modalOpen = signal(false);
   readonly editingJob = signal<Job | null>(null);
@@ -37,47 +40,74 @@ export class JobStoreService {
     const jobs = this.jobs();
     const configOf = (status: string) => this.statusConfigs().find(c => c.key === status);
 
-    const everInterviewedIds = new Set<number>();
-    for (const j of jobs) {
-      if (configOf(j.status)?.isInterview) everInterviewedIds.add(j.id);
-    }
-    for (const h of this.statusHistory()) {
-      if (configOf(h.newStatus)?.isInterview) everInterviewedIds.add(h.jobId);
-    }
-    // A job counts as answered only once the company actually reacted: an interview
-    // round, an offer or a rejection. Sitting in an active status is not a response.
-    const isResponse = (status: string) => {
-      const cfg = configOf(status);
-      return !!cfg && (cfg.isInterview === true || (cfg.statsCategory ?? 'None') !== 'None');
+    /** A job qualifies once it has ever touched a matching status, not only while it sits in one. */
+    const everReached = (matches: (config: JobStatusConfig) => boolean) => {
+      const ids = new Set<number>();
+      for (const job of jobs) {
+        const config = configOf(job.status);
+        if (config && matches(config)) ids.add(job.id);
+      }
+      for (const entry of this.statusHistory()) {
+        const config = configOf(entry.newStatus);
+        if (config && matches(config)) ids.add(entry.jobId);
+      }
+      return ids;
     };
-    const everRespondedIds = new Set<number>();
-    for (const j of jobs) {
-      if (isResponse(j.status)) everRespondedIds.add(j.id);
-    }
-    for (const h of this.statusHistory()) {
-      if (isResponse(h.newStatus)) everRespondedIds.add(h.jobId);
-    }
 
-    const offers = jobs.filter(j => configOf(j.status)?.statsCategory === 'Success').length;
-    const rejects = jobs.filter(j => configOf(j.status)?.statsCategory === 'Rejected').length;
-    const decided = offers + rejects;
-    const responded = jobs.filter(j => everRespondedIds.has(j.id)).length;
-    const submitted = jobs.filter(j => {
-      const cfg = configOf(j.status);
-      return cfg?.isActive || cfg?.isInterview || (cfg?.statsCategory && cfg.statsCategory !== 'None');
-    }).length;
+    const everInterviewed = everReached(config => config.isInterview === true);
+    const everResponded = everReached(config => config.countsAsResponse === true);
+    const everApplied = everReached(config => config.countsAsApplication === true);
+
+    const withOutcome = (outcome: StatusOutcome) =>
+      jobs.filter(job => (configOf(job.status)?.outcome ?? 'Open') === outcome).length;
+
+    const offers = withOutcome('Success');
+    const rejections = withOutcome('Rejected');
+    const decided = offers + rejections;
+    const submitted = jobs.filter(job => everApplied.has(job.id)).length;
+    const responded = jobs.filter(job => everResponded.has(job.id)).length;
+
     return {
       totalJobs: jobs.length,
       submitted,
-      activeJobs: jobs.filter(j => { const cfg = configOf(j.status); return cfg?.isActive || cfg?.isInterview; }).length,
-      callbacks: jobs.filter(j => everInterviewedIds.has(j.id)).length,
-      interviewCount: jobs.filter(j => configOf(j.status)?.isInterview).length,
+      activeJobs: jobs.filter(job => {
+        const config = configOf(job.status);
+        return !!config?.countsAsApplication && !config.isTerminal;
+      }).length,
+      stalledJobs: this.stalledJobs().length,
+      callbacks: jobs.filter(job => everInterviewed.has(job.id)).length,
+      interviewCount: jobs.filter(job => configOf(job.status)?.isInterview).length,
       offers,
-      rejections: rejects,
+      rejections,
+      withdrawn: withOutcome('Withdrawn'),
+      ghosted: withOutcome('Ghosted'),
+      closed: jobs.filter(job => configOf(job.status)?.isTerminal).length,
       successRate: decided > 0 ? Math.round((offers / decided) * 100) : 0,
-      responseRate: jobs.length > 0 ? Math.round((responded / jobs.length) * 100) : 0
+      responseRate: submitted > 0 ? Math.round((responded / submitted) * 100) : 0
     };
   });
+
+  /** The moment the job entered the status it is in now, so "how long has this been sitting" is measurable. */
+  statusEnteredAt(job: Job): Date {
+    const entries = this.statusHistory().filter(entry => entry.jobId === job.id && entry.newStatus === job.status);
+    if (!entries.length) return new Date(job.date);
+    return new Date(entries.reduce((latest, entry) => entry.changedAt > latest.changedAt ? entry : latest).changedAt);
+  }
+
+  daysInStatus(job: Job): number {
+    return Math.floor((Date.now() - this.statusEnteredAt(job).getTime()) / 86_400_000);
+  }
+
+  isStalled(job: Job): boolean {
+    const limit = this.statusConfigs().find(config => config.key === job.status)?.staleAfterDays;
+    return !!limit && this.daysInStatus(job) >= limit;
+  }
+
+  readonly stalledJobs = computed(() =>
+    this.jobs()
+      .filter(job => this.isStalled(job))
+      .sort((a, b) => this.daysInStatus(b) - this.daysInStatus(a))
+  );
 
   constructor(private readonly api: JobApiService) { }
 
@@ -89,6 +119,7 @@ export class JobStoreService {
     return jobs.filter(j =>
       j.company.toLowerCase().includes(needle) ||
       j.position.toLowerCase().includes(needle) ||
+      (j.source ?? '').toLowerCase().includes(needle) ||
       this.labelFor(j.status).toLowerCase().includes(needle)
     );
   }
@@ -121,6 +152,49 @@ export class JobStoreService {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 
+  addSource(name: string, matchPattern: string): void {
+    const trimmed = name.trim();
+    if (!trimmed) return;
+    if (this.sources().some(s => s.name.toLowerCase() === trimmed.toLowerCase())) return;
+    this.error.set('');
+    this.api.createJobSource({ name: trimmed, matchPattern: matchPattern.trim() || null }).subscribe({
+      next: created => this.sources.update(prev => [...prev, created]),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült létrehozni a forrást.')
+    });
+  }
+
+  updateSource(id: number, name: string, matchPattern: string): void {
+    const trimmed = name.trim();
+    if (!trimmed) return;
+    this.error.set('');
+    this.api.updateJobSource(id, { name: trimmed, matchPattern: matchPattern.trim() || null }).subscribe({
+      next: updated => this.sources.update(prev => prev.map(s => s.id === id ? updated : s)),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a forrást.')
+    });
+  }
+
+  deleteSource(id: number): void {
+    this.error.set('');
+    this.api.deleteJobSource(id).subscribe({
+      next: () => this.sources.update(prev => prev.filter(s => s.id !== id)),
+      error: (err: HttpErrorResponse) =>
+        this.error.set(err.error?.message ?? 'Nem sikerült törölni a forrást.')
+    });
+  }
+
+  /** Guesses the source from a job link by matching the master data patterns against the URL. */
+  detectSource(link: string): string {
+    const url = link.trim().toLowerCase();
+    if (!url) return '';
+    const match = this.sources().find(s => {
+      const pattern = s.matchPattern?.trim().toLowerCase();
+      return !!pattern && url.includes(pattern);
+    });
+    return match?.name ?? '';
+  }
+
   addStatus(label: string, color: string): void {
     const key = label.trim();
     if (!key) return;
@@ -133,101 +207,40 @@ export class JobStoreService {
     });
   }
 
-  updateStatus(key: string, label: string, color: string): void {
-    const cfg = this.statusConfigs().find(c => c.key === key);
-    if (!cfg?.id) return;
-    const trimmedLabel = label.trim();
-    if (!trimmedLabel) return;
+  saveStatus(key: string, patch: Partial<JobStatusConfig>): void {
+    const current = this.statusConfigs().find(config => config.key === key);
+    if (!current?.id) return;
+    const merged = normalizeStatusConfig({ ...current, ...patch });
+    const label = merged.label.trim();
+    if (!label) return;
     this.error.set('');
-    this.api.updateStatusConfig(cfg.id, {
-      label: trimmedLabel,
-      color,
-      sortOrder: cfg.sortOrder ?? 0,
-      showInKanban: cfg.showInKanban ?? true,
-      isActive: cfg.isActive ?? false,
-      isInterview: cfg.isInterview ?? false,
-      statsCategory: cfg.statsCategory ?? 'None'
+    this.api.updateStatusConfig(current.id, {
+      label,
+      color: merged.color,
+      description: merged.description?.trim() || null,
+      sortOrder: merged.sortOrder ?? 0,
+      showInKanban: merged.showInKanban ?? true,
+      countsAsApplication: merged.countsAsApplication ?? false,
+      countsAsResponse: merged.countsAsResponse ?? false,
+      isInterview: merged.isInterview ?? false,
+      isTerminal: merged.isTerminal ?? false,
+      outcome: merged.outcome ?? 'Open',
+      staleAfterDays: merged.staleAfterDays ?? null
     }).subscribe({
-      next: updated => this.statusConfigs.update(prev => prev.map(c => c.key === key ? updated : c)),
+      next: updated => this.statusConfigs.update(prev => prev.map(config => config.key === key ? updated : config)),
       error: (err: HttpErrorResponse) =>
         this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a státuszt.')
     });
+  }
+
+  updateStatus(key: string, label: string, color: string): void {
+    this.saveStatus(key, { label, color });
   }
 
   toggleStatusKanban(key: string): void {
-    const cfg = this.statusConfigs().find(c => c.key === key);
-    if (!cfg?.id) return;
-    this.error.set('');
-    this.api.updateStatusConfig(cfg.id, {
-      label: cfg.label,
-      color: cfg.color,
-      sortOrder: cfg.sortOrder ?? 0,
-      showInKanban: !(cfg.showInKanban ?? true),
-      isActive: cfg.isActive ?? false,
-      isInterview: cfg.isInterview ?? false,
-      statsCategory: cfg.statsCategory ?? 'None'
-    }).subscribe({
-      next: updated => this.statusConfigs.update(prev => prev.map(c => c.key === key ? updated : c)),
-      error: (err: HttpErrorResponse) =>
-        this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a státuszt.')
-    });
-  }
-
-  setStatusCategory(key: string, statsCategory: StatsCategory): void {
-    const cfg = this.statusConfigs().find(c => c.key === key);
-    if (!cfg?.id) return;
-    this.error.set('');
-    this.api.updateStatusConfig(cfg.id, {
-      label: cfg.label,
-      color: cfg.color,
-      sortOrder: cfg.sortOrder ?? 0,
-      showInKanban: cfg.showInKanban ?? true,
-      isActive: cfg.isActive ?? false,
-      isInterview: cfg.isInterview ?? false,
-      statsCategory
-    }).subscribe({
-      next: updated => this.statusConfigs.update(prev => prev.map(c => c.key === key ? updated : c)),
-      error: (err: HttpErrorResponse) =>
-        this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a státuszt.')
-    });
-  }
-
-  toggleStatusActive(key: string): void {
-    const cfg = this.statusConfigs().find(c => c.key === key);
-    if (!cfg?.id) return;
-    this.error.set('');
-    this.api.updateStatusConfig(cfg.id, {
-      label: cfg.label,
-      color: cfg.color,
-      sortOrder: cfg.sortOrder ?? 0,
-      showInKanban: cfg.showInKanban ?? true,
-      isActive: !(cfg.isActive ?? false),
-      isInterview: cfg.isInterview ?? false,
-      statsCategory: cfg.statsCategory ?? 'None'
-    }).subscribe({
-      next: updated => this.statusConfigs.update(prev => prev.map(c => c.key === key ? updated : c)),
-      error: (err: HttpErrorResponse) =>
-        this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a státuszt.')
-    });
-  }
-
-  toggleStatusInterview(key: string): void {
-    const cfg = this.statusConfigs().find(c => c.key === key);
-    if (!cfg?.id) return;
-    this.error.set('');
-    this.api.updateStatusConfig(cfg.id, {
-      label: cfg.label,
-      color: cfg.color,
-      sortOrder: cfg.sortOrder ?? 0,
-      showInKanban: cfg.showInKanban ?? true,
-      isActive: cfg.isActive ?? false,
-      isInterview: !(cfg.isInterview ?? false),
-      statsCategory: cfg.statsCategory ?? 'None'
-    }).subscribe({
-      next: updated => this.statusConfigs.update(prev => prev.map(c => c.key === key ? updated : c)),
-      error: (err: HttpErrorResponse) =>
-        this.error.set(err.error?.message ?? 'Nem sikerült frissíteni a státuszt.')
-    });
+    const config = this.statusConfigs().find(item => item.key === key);
+    if (!config) return;
+    this.saveStatus(key, { showInKanban: !(config.showInKanban ?? true) });
   }
 
   moveStatusUp(key: string): void {
@@ -312,12 +325,17 @@ export class JobStoreService {
       })
     );
 
+    const sources$ = this.api.getJobSources().pipe(
+      tap(sources => this.sources.set(sources)),
+      catchError(() => of(null))
+    );
+
     const statsSeries$ = this.api.getStatsSeries('day').pipe(
       tap(series => this.statsSeries.set(series)),
       catchError(() => of(null))
     );
 
-    forkJoin([statusConfigs$, jobs$, statusHistory$, statsSeries$]).subscribe(() => this.loading.set(false));
+    forkJoin([statusConfigs$, jobs$, statusHistory$, statsSeries$, sources$]).subscribe(() => this.loading.set(false));
   }
 
   loadStatsSeries(granularity: StatsGranularity): void {

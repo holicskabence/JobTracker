@@ -1,0 +1,145 @@
+<div class="status-settings-backdrop" (click)="onBackdropClick($event)">
+    <div class="status-settings-modal">
+
+        <div class="status-settings-header">
+            <span class="status-settings-header-dot" [style.background-color]="draft().color"></span>
+            <div class="status-settings-header-text">
+                <h3 class="status-settings-title">{{ 'masterData.statusSettings.title' | translate }}</h3>
+                <p class="status-settings-subtitle">{{ draft().label || config.key }}</p>
+            </div>
+            <button type="button" class="status-settings-close" (click)="close.emit()"
+                [title]="'masterData.cancel' | translate">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="status-settings-body">
+
+            <section class="status-settings-section">
+                <h4 class="status-settings-section-title">{{ 'masterData.statusSettings.basics.title' | translate }}</h4>
+
+                <label class="status-settings-field">
+                    <span class="status-settings-field-label">{{ 'masterData.statusSettings.basics.label' | translate
+                        }}</span>
+                    <input class="status-settings-input" type="text" [ngModel]="draft().label"
+                        (ngModelChange)="setLabel($event)" name="statusLabel" />
+                </label>
+
+                <div class="status-settings-field">
+                    <span class="status-settings-field-label">{{ 'masterData.statusSettings.basics.color' | translate
+                        }}</span>
+                    <app-color-picker [value]="draft().color" (valueChange)="setColor($event)"></app-color-picker>
+                </div>
+
+                <button type="button" class="status-settings-toggle-row" (click)="toggleKanban()">
+                    <span class="status-settings-toggle"
+                        [class.status-settings-toggle--on]="draft().showInKanban !== false"></span>
+                    <span class="status-settings-toggle-text">
+                        <span class="status-settings-toggle-title">{{ 'masterData.statusSettings.basics.showInKanban' |
+                            translate }}</span>
+                        <span class="status-settings-toggle-effect">{{
+                            'masterData.statusSettings.basics.showInKanbanEffect' | translate }}</span>
+                    </span>
+                </button>
+            </section>
+
+            <section class="status-settings-section">
+                <h4 class="status-settings-section-title">{{ 'masterData.statusSettings.role.title' | translate }}</h4>
+                <p class="status-settings-section-hint">{{ 'masterData.statusSettings.role.hint' | translate }}</p>
+
+                @for (row of flagRows(); track row.field) {
+                <button type="button" class="status-settings-toggle-row"
+                    [class.status-settings-toggle-row--locked]="row.lockedBy" (click)="toggleFlag(row.field)">
+                    <span class="status-settings-toggle" [class.status-settings-toggle--on]="row.on"></span>
+                    <span class="status-settings-toggle-text">
+                        <span class="status-settings-toggle-title">{{ 'masterData.statusSettings.flags.' + row.field +
+                            '.title' | translate }}</span>
+                        <span class="status-settings-toggle-effect">{{ 'masterData.statusSettings.flags.' + row.field +
+                            '.effect' | translate }}</span>
+                        @if (row.lockedBy) {
+                        <span class="status-settings-toggle-locked">
+                            {{ 'masterData.statusSettings.lockedBy' | translate: { setting:
+                            ('masterData.statusSettings.lockNames.' + row.lockedBy | translate) } }}
+                        </span>
+                        }
+                    </span>
+                </button>
+                }
+            </section>
+
+            <section class="status-settings-section">
+                <h4 class="status-settings-section-title">{{ 'masterData.statusSettings.outcome.title' | translate }}
+                </h4>
+                <p class="status-settings-section-hint">{{ 'masterData.statusSettings.outcome.hint' | translate }}</p>
+
+                <div class="status-settings-outcome-grid">
+                    @for (outcome of outcomes; track outcome) {
+                    <button type="button" class="status-settings-outcome-option"
+                        [class.status-settings-outcome-option--selected]="(draft().outcome ?? 'Open') === outcome"
+                        (click)="setOutcome(outcome)">
+                        <span class="status-settings-outcome-name">{{ 'masterData.statusSettings.outcome.options.' +
+                            outcome + '.name' | translate }}</span>
+                        <span class="status-settings-outcome-effect">{{ 'masterData.statusSettings.outcome.options.' +
+                            outcome + '.effect' | translate }}</span>
+                    </button>
+                    }
+                </div>
+            </section>
+
+            @if (stalledTrackingAvailable()) {
+            <section class="status-settings-section">
+                <h4 class="status-settings-section-title">{{ 'masterData.statusSettings.stalled.title' | translate }}
+                </h4>
+
+                <button type="button" class="status-settings-toggle-row" (click)="toggleStalledTracking()">
+                    <span class="status-settings-toggle" [class.status-settings-toggle--on]="stalledTrackingOn()"></span>
+                    <span class="status-settings-toggle-text">
+                        <span class="status-settings-toggle-title">{{ 'masterData.statusSettings.stalled.toggle' |
+                            translate }}</span>
+                        <span class="status-settings-toggle-effect">{{ 'masterData.statusSettings.stalled.effect' |
+                            translate }}</span>
+                    </span>
+                </button>
+
+                @if (stalledTrackingOn()) {
+                <label class="status-settings-stalled-days">
+                    <input class="status-settings-input status-settings-input--number" type="number" min="1" max="365"
+                        [ngModel]="draft().staleAfterDays" (ngModelChange)="setStaleAfterDays($event)"
+                        name="staleAfterDays" />
+                    <span class="status-settings-stalled-unit">{{ 'masterData.statusSettings.stalled.unit' | translate
+                        }}</span>
+                </label>
+                }
+            </section>
+            }
+
+            <section class="status-settings-impact">
+                <h4 class="status-settings-section-title">{{ 'masterData.statusSettings.impact.title' | translate }}</h4>
+                @if (impactChips().length) {
+                <div class="status-settings-impact-chips">
+                    @for (chip of impactChips(); track chip.key) {
+                    <span class="status-settings-impact-chip" [style.--chip-color]="chip.color">
+                        {{ 'masterData.statusSettings.impact.metrics.' + chip.key | translate }}
+                    </span>
+                    }
+                </div>
+                } @else {
+                <p class="status-settings-impact-empty">{{ 'masterData.statusSettings.impact.empty' | translate }}</p>
+                }
+            </section>
+
+        </div>
+
+        <div class="status-settings-footer">
+            <button type="button" class="status-settings-cancel-button" (click)="close.emit()">{{ 'masterData.cancel' |
+                translate }}</button>
+            <button type="button" class="status-settings-save-button" (click)="submit()">{{ 'masterData.save' |
+                translate }}</button>
+        </div>
+
+    </div>
+</div>

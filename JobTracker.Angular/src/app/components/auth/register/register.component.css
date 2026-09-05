@@ -297,8 +297,4 @@
   .register-row {
     grid-template-columns: 1fr;
   }
-
-  .register-work-mode-group {
-    grid-template-columns: 1fr;
-  }
 }

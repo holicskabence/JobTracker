@@ -13,6 +13,7 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
     public DbSet<UserDocument> UserDocuments => Set<UserDocument>();
     public DbSet<EventType> EventTypes => Set<EventType>();
     public DbSet<JobStatusConfig> JobStatusConfigs => Set<JobStatusConfig>();
+    public DbSet<JobSource> JobSources => Set<JobSource>();
     public DbSet<PracticeQuestion> PracticeQuestions => Set<PracticeQuestion>();
     public DbSet<PracticeCategory> PracticeCategories => Set<PracticeCategory>();
     public DbSet<PracticeAttempt> PracticeAttempts => Set<PracticeAttempt>();
@@ -26,6 +27,7 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
             e.Property(x => x.Company).IsRequired().HasMaxLength(200);
             e.Property(x => x.Position).IsRequired().HasMaxLength(200);
             e.Property(x => x.Date).IsRequired().HasMaxLength(10);
+            e.Property(x => x.Source).HasMaxLength(100);
             e.Property(x => x.Status).IsRequired().HasMaxLength(50);
             e.Property(x => x.UpdatedAt).IsRequired().HasDefaultValueSql("GETUTCDATE()");
             e.HasIndex(x => x.UserId);
@@ -90,11 +92,23 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
             e.Property(x => x.Key).IsRequired().HasMaxLength(50);
             e.Property(x => x.Label).IsRequired().HasMaxLength(100);
             e.Property(x => x.Color).IsRequired().HasMaxLength(20);
+            e.Property(x => x.Description).HasMaxLength(300);
             e.Property(x => x.ShowInKanban).HasDefaultValue(true);
-            e.Property(x => x.IsActive).HasDefaultValue(false);
+            e.Property(x => x.CountsAsApplication).HasDefaultValue(false);
+            e.Property(x => x.CountsAsResponse).HasDefaultValue(false);
             e.Property(x => x.IsInterview).HasDefaultValue(false);
-            e.Property(x => x.StatsCategory).IsRequired().HasMaxLength(20).HasDefaultValue("None");
+            e.Property(x => x.IsTerminal).HasDefaultValue(false);
+            e.Property(x => x.Outcome).IsRequired().HasMaxLength(20).HasDefaultValue("Open");
             e.HasIndex(x => new { x.UserId, x.Key }).IsUnique();
+            e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<JobSource>(e =>
+        {
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            e.Property(x => x.MatchPattern).HasMaxLength(200);
+            e.HasIndex(x => new { x.UserId, x.Name }).IsUnique();
             e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
         });
 

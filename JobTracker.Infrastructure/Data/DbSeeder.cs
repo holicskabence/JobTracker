@@ -1,6 +1,7 @@
 namespace JobTracker.Infrastructure.Data;
 
 using System.Globalization;
+using JobTracker.Application.Services;
 using JobTracker.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,6 +42,7 @@ public static class DbSeeder
         var demoUserId = SeedDemoUser(ctx);
         SeedStatusConfigs(ctx, demoUserId);
         SeedEventTypes(ctx, demoUserId);
+        SeedJobSources(ctx, demoUserId);
         SeedJobs(ctx, demoUserId);
         SeedCalendarEvents(ctx, demoUserId);
         SeedPlannerTasks(ctx, demoUserId);
@@ -57,6 +59,7 @@ public static class DbSeeder
         ctx.PlannerTasks.RemoveRange(ctx.PlannerTasks.Where(x => x.UserId == userId));
         ctx.UserDocuments.RemoveRange(ctx.UserDocuments.Where(x => x.UserId == userId));
         ctx.EventTypes.RemoveRange(ctx.EventTypes.Where(x => x.UserId == userId));
+        ctx.JobSources.RemoveRange(ctx.JobSources.Where(x => x.UserId == userId));
         ctx.JobStatusConfigs.RemoveRange(ctx.JobStatusConfigs.Where(x => x.UserId == userId));
         ctx.PracticeQuestions.RemoveRange(ctx.PracticeQuestions.Where(x => x.UserId == userId));
         ctx.PracticeCategories.RemoveRange(ctx.PracticeCategories.Where(x => x.UserId == userId));
@@ -68,6 +71,7 @@ public static class DbSeeder
 
         ctx.JobStatusConfigs.AddRange(BuildStatusConfigs(userId));
         ctx.EventTypes.AddRange(BuildEventTypes(userId));
+        ctx.JobSources.AddRange(DefaultJobSources.For(userId));
         var jobs = BuildJobs(userId);
         ctx.Jobs.AddRange(jobs);
         ctx.CalendarEvents.AddRange(BuildCalendarEvents(userId));
@@ -96,6 +100,13 @@ public static class DbSeeder
     {
         if (ctx.EventTypes.Any(t => t.UserId == userId)) return;
         ctx.EventTypes.AddRange(BuildEventTypes(userId));
+        ctx.SaveChanges();
+    }
+
+    private static void SeedJobSources(JobTrackerDbContext ctx, int userId)
+    {
+        if (ctx.JobSources.Any(s => s.UserId == userId)) return;
+        ctx.JobSources.AddRange(DefaultJobSources.For(userId));
         ctx.SaveChanges();
     }
 
@@ -185,14 +196,7 @@ public static class DbSeeder
     private static DateTime MomentAt(int daysFromToday, int hour) =>
         Today().AddDays(daysFromToday).ToDateTime(new TimeOnly(hour, 0));
 
-    private static JobStatusConfig[] BuildStatusConfigs(int userId) =>
-    [
-        new JobStatusConfig { UserId = userId, Key = StatusSaved, Label = "Saved", Color = "#9b9b99", SortOrder = 0, ShowInKanban = true },
-        new JobStatusConfig { UserId = userId, Key = StatusApplied, Label = "Applied", Color = "#5fb9fa", SortOrder = 1, ShowInKanban = true, IsActive = true },
-        new JobStatusConfig { UserId = userId, Key = StatusInterview, Label = "Interview", Color = "#f59e0b", SortOrder = 2, ShowInKanban = true, IsActive = true, IsInterview = true },
-        new JobStatusConfig { UserId = userId, Key = StatusOffer, Label = "Offer", Color = "#26ac00", SortOrder = 3, ShowInKanban = true, StatsCategory = "Success" },
-        new JobStatusConfig { UserId = userId, Key = StatusRejected, Label = "Rejected", Color = "#ef4444", SortOrder = 4, ShowInKanban = true, StatsCategory = "Rejected" }
-    ];
+    private static JobStatusConfig[] BuildStatusConfigs(int userId) => DefaultStatusConfigs.For(userId);
 
     private static EventType[] BuildEventTypes(int userId) =>
     [
@@ -205,10 +209,12 @@ public static class DbSeeder
 
     private static PracticeCategory[] BuildPracticeCategories(int userId) =>
     [
-        new PracticeCategory { UserId = userId, Name = PracticeTechnical, Color = "#26ac00" },
-        new PracticeCategory { UserId = userId, Name = PracticeHr, Color = "#f59e0b" },
-        new PracticeCategory { UserId = userId, Name = PracticeSystemDesign, Color = "#8b5cf6" }
+        new PracticeCategory { UserId = userId, Name = PracticeTechnical, Color = "#26ac00", SortOrder = 0 },
+        new PracticeCategory { UserId = userId, Name = PracticeHr, Color = "#f59e0b", SortOrder = 1 },
+        new PracticeCategory { UserId = userId, Name = PracticeSystemDesign, Color = "#8b5cf6", SortOrder = 2 }
     ];
+
+    private static readonly string[] DemoJobSources = ["LinkedIn", "Profession", "Indeed", "Glassdoor", "Referral"];
 
     private static readonly JobSeed[] JobSeeds =
     [
@@ -266,12 +272,13 @@ public static class DbSeeder
 
     private static Job[] BuildJobs(int userId) =>
         JobSeeds
-            .Select(seed => new Job
+            .Select((seed, index) => new Job
             {
                 UserId = userId,
                 Company = seed.Company,
                 Position = seed.Position,
                 Link = seed.Link,
+                Source = seed.Link is null ? DemoJobSources[index % DemoJobSources.Length] : "Company website",
                 Date = DateAt(-seed.AppliedDaysAgo),
                 Status = seed.Timeline[^1].Status,
                 UpdatedAt = MomentAt(seed.Timeline[^1].Day - seed.AppliedDaysAgo, 10)

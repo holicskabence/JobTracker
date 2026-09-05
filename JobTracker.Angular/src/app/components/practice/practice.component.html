@@ -322,7 +322,7 @@
                 <div class="practice-categories-header">
                     <h3 class="practice-categories-title">{{ 'practice.categories.title' | translate }}</h3>
                     <div class="practice-categories-header-actions">
-                        <span class="practice-categories-count">{{ practice.categories().length }}</span>
+                        <span class="practice-categories-count">{{ practice.visibleCategories().length }}</span>
                         <button type="button" class="practice-categories-collapse" (click)="toggleCategoriesPanel()"
                             [attr.aria-expanded]="categoriesPanelOpen()"
                             [title]="(categoriesPanelOpen() ? 'practice.categories.collapseTitle' : 'practice.categories.expandTitle') | translate">
@@ -460,7 +460,7 @@
 
                 <div #categoryList class="practice-cat-list"
                     [style.max-height.px]="categoryListLockedHeight()">
-                    @for (category of visibleCategories(); track category.id) {
+                    @for (category of listedCategories(); track category.id) {
                     <button class="practice-cat-row practice-cat-row--with-progress" [class.practice-cat-row--active]="selectedCategory() === category.name"
                         (click)="toggleCategoryFilter(category.name)">
                         <span class="practice-cat-row-main">
@@ -482,7 +482,7 @@
                     }
                 </div>
 
-                @if (hasHiddenCategories()) {
+                @if (hasCollapsedCategories()) {
                 <button type="button" class="practice-cat-more" (click)="toggleCategoriesExpanded()"
                     [attr.aria-expanded]="categoriesExpanded()">
                     {{ (categoriesExpanded() ? 'practice.categories.showLess' : 'practice.categories.showMore') | translate }}
@@ -537,6 +537,12 @@
                 <span class="practice-q-bulk-count">{{ selectedQuestionCount() }} {{ 'practice.questionsTab.selectedSuffix' | translate }}</span>
                 <div class="practice-q-bulk-actions">
                     <button class="practice-q-bulk-clear" (click)="clearQuestionSelection()">{{ 'practice.questionsTab.clearSelectionBtn' | translate }}</button>
+                    @if (canHideSelected()) {
+                    <button class="practice-q-bulk-visibility" (click)="hideSelectedQuestions()">{{ 'practice.questionsTab.hideSelectedBtn' | translate }}</button>
+                    }
+                    @if (canShowSelected()) {
+                    <button class="practice-q-bulk-visibility" (click)="showSelectedQuestions()">{{ 'practice.questionsTab.showSelectedBtn' | translate }}</button>
+                    }
                     <button class="practice-q-bulk-delete" (click)="openBulkDeleteConfirm()">{{ 'practice.questionsTab.deleteSelectedBtn' | translate }}</button>
                 </div>
             </div>
@@ -576,6 +582,9 @@
                         </td>
                         <td class="practice-q-cell practice-q-cell--main">
                             <p class="practice-q-text">{{ q.question }}</p>
+                            @if (q.isHidden) {
+                            <span class="practice-q-hidden-flag">{{ 'practice.questionsTab.hiddenFlag' | translate }}</span>
+                            }
                             @if (q.hint) {
                             <p class="practice-q-hint">{{ q.hint }}</p>
                             }
@@ -588,6 +597,22 @@
                             }
                         </td>
                         <td class="practice-q-cell practice-q-cell--actions" (click)="$event.stopPropagation()">
+                            <button class="practice-icon-button" (click)="toggleQuestionHidden(q)"
+                                [title]="(q.isHidden ? 'practice.questionsTab.showTitle' : 'practice.questionsTab.hideTitle') | translate">
+                                @if (!q.isHidden) {
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                                } @else {
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                                    <line x1="1" y1="1" x2="23" y2="23" />
+                                </svg>
+                                }
+                            </button>
                             <button class="practice-icon-button" (click)="openEditQuestionModal(q)" [title]="'practice.questionsTab.editTitle' | translate">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -635,6 +660,9 @@
                             }
                         </div>
                         <p class="practice-q-card-text">{{ q.question }}</p>
+                        @if (q.isHidden) {
+                        <span class="practice-q-hidden-flag">{{ 'practice.questionsTab.hiddenFlag' | translate }}</span>
+                        }
                         @if (q.hint) {
                         <p class="practice-q-card-hint">{{ q.hint }}</p>
                         }
@@ -643,6 +671,22 @@
                             {{ q.sampleAnswer }}
                         </p>
                         <div class="practice-q-card-actions" (click)="$event.stopPropagation()">
+                            <button class="practice-icon-button" (click)="toggleQuestionHidden(q)"
+                                [title]="(q.isHidden ? 'practice.questionsTab.showTitle' : 'practice.questionsTab.hideTitle') | translate">
+                                @if (!q.isHidden) {
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                                } @else {
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                                    <line x1="1" y1="1" x2="23" y2="23" />
+                                </svg>
+                                }
+                            </button>
                             <button class="practice-icon-button" (click)="openEditQuestionModal(q)" [title]="'practice.questionsTab.editTitle' | translate">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">

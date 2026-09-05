@@ -579,6 +579,7 @@
             "deck";
         min-height: auto;
         max-height: none;
+        flex: unset;
     }
 
     .practice-aside {
@@ -597,7 +598,6 @@
         padding: var(--space-2-5) var(--space-3);
     }
 
-    /* The panel stacks above the deck here, so it folds shut and the list scrolls. */
     .practice-categories-collapse {
         display: inline-flex;
     }
@@ -615,7 +615,6 @@
         max-height: 15rem;
     }
 
-    /* Built-in filters turn into a chip row above the category list. */
     .practice-cat-filters {
         flex-direction: row;
         flex-wrap: wrap;
@@ -659,7 +658,6 @@
         border-color: var(--clr-blue);
     }
 
-    /* Shuffle is the odd one out, so it takes the row under the three chips. */
     .practice-cat-row--shuffle {
         flex-basis: 100%;
     }
@@ -668,7 +666,6 @@
         display: none;
     }
 
-    /* Category rows trade the mastery bar for a chevron and stay single-line. */
     .practice-cat-list .practice-cat-row--with-progress {
         flex-direction: row;
         align-items: center;
@@ -1025,8 +1022,8 @@
     width: 100%;
     flex: 1;
     min-height: 9rem;
-    background: rgba(38, 172, 0, 0.025);
-    border: 1px solid var(--clr-bg);
+    background: var(--clr-white);
+    border: 1px solid var(--clr-border);
     border-radius: var(--radius-md);
     padding: var(--space-4) var(--space-5);
     font-family: 'Poppins', sans-serif;
@@ -1621,8 +1618,8 @@
 }
 
 .practice-input {
-    background: rgba(38, 172, 0, 0.025);
-    border: 1px solid var(--clr-bg);
+    background: var(--clr-white);
+    border: 1px solid var(--clr-border);
     border-radius: var(--radius-md);
     padding: var(--padding-input);
     font-family: 'Poppins', sans-serif;
@@ -1656,9 +1653,9 @@
     align-items: center;
     gap: var(--space-2-5);
     padding: var(--padding-input);
-    border: 1.5px solid var(--clr-border);
+    border: 1px solid var(--clr-border);
     border-radius: var(--radius-md);
-    background-color: var(--clr-bg);
+    background-color: var(--clr-white);
     font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
     font-weight: 500;
@@ -1670,8 +1667,8 @@
 }
 
 .category-dropdown--open .category-dropdown-trigger {
-    border-color: var(--clr-green);
-    box-shadow: 0 0 0 2px rgba(38, 172, 0, 0.18);
+    border-color: var(--clr-green-dk);
+    box-shadow: 0 0 0 1px var(--clr-green-dk);
 }
 
 .category-dropdown-dot {
@@ -2027,6 +2024,7 @@
 }
 
 .practice-q-bulk-clear,
+.practice-q-bulk-visibility,
 .practice-q-bulk-delete {
     border: none;
     border-radius: var(--radius-full);
@@ -2046,6 +2044,20 @@
 @media (hover: hover) {
     .practice-q-bulk-clear:hover {
         color: var(--clr-dark);
+    }
+}
+
+.practice-q-bulk-visibility {
+    background: var(--clr-white);
+    border: 1px solid var(--clr-border);
+    color: var(--clr-dark);
+}
+
+@media (hover: hover) {
+    .practice-q-bulk-visibility:hover {
+        background: var(--clr-green);
+        border-color: var(--clr-green);
+        color: #fff;
     }
 }
 
@@ -2239,6 +2251,21 @@
     }
 }
 
+.practice-q-hidden-flag {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    margin-top: var(--space-1-5);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--clr-muted);
+    background: var(--clr-bg);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-full);
+    padding: 2px var(--space-2);
+    white-space: nowrap;
+}
+
 .practice-feedback-badge {
     display: inline-flex;
     font-size: 0.6875rem;
@@ -2403,7 +2430,7 @@
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1400px) {
     .practice-tab {
         padding: var(--space-2) var(--space-2-5);
         font-size: 0.75rem;
@@ -2458,7 +2485,6 @@
         display: none;
     }
 
-    /* The counter is gone here, so the bookmark takes over as the right-hand anchor. */
     .practice-bookmark-button {
         margin-left: auto;
     }
