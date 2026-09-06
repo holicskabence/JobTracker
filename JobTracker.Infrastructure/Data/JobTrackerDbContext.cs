@@ -29,6 +29,11 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
             e.Property(x => x.Date).IsRequired().HasMaxLength(10);
             e.Property(x => x.Source).HasMaxLength(100);
             e.Property(x => x.Status).IsRequired().HasMaxLength(50);
+            e.Property(x => x.Salary).HasMaxLength(100);
+            e.Property(x => x.OfficeLocation).HasMaxLength(200);
+            e.Property(x => x.WorkMode).HasMaxLength(20);
+            e.Property(x => x.Benefits).HasMaxLength(500);
+            e.Property(x => x.Description).HasMaxLength(4000);
             e.Property(x => x.UpdatedAt).IsRequired().HasDefaultValueSql("GETUTCDATE()");
             e.HasIndex(x => x.UserId);
             e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
@@ -53,7 +58,9 @@ public sealed class JobTrackerDbContext(DbContextOptions<JobTrackerDbContext> op
             e.Property(x => x.Time).IsRequired().HasMaxLength(5);
             e.Property(x => x.Notes).HasMaxLength(1000);
             e.HasIndex(x => x.UserId);
+            e.HasIndex(x => x.JobId);
             e.HasOne<AppUser>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+            e.HasOne<Job>().WithMany().HasForeignKey(x => x.JobId).OnDelete(DeleteBehavior.NoAction);
         });
 
         builder.Entity<PlannerTask>(e =>

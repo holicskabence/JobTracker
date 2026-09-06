@@ -500,6 +500,7 @@
       "companyLabel": "Company name",
       "companyPlaceholder": "e.g. Stripe",
       "companyRequiredError": "Company name is required.",
+      "applicationLabel": "Application",
       "typeLabel": "Event type",
       "dateLabel": "Date",
       "dateRequiredError": "Date is required.",
@@ -1235,11 +1236,11 @@
       "noSearchResultsPrefix": "No results for “",
       "noSearchResultsSuffix": "”.",
       "noQuestions": "No questions yet. Add one with the button above!",
-      "hiddenFlag": "Hidden",
       "hideSelectedBtn": "Hide selected",
       "showSelectedBtn": "Show selected",
       "hideTitle": "Hide question – Practice will not ask it",
-      "showTitle": "Hidden question – click to let Practice ask it again"
+      "showTitle": "Hidden question – click to let Practice ask it again",
+      "loadingMore": "Loading more questions…"
     },
     "results": {
       "notEvaluated": "Not evaluated",
@@ -1314,7 +1315,39 @@
       "initialStatusLabel": "Initial status",
       "cancelBtn": "Cancel",
       "saveBtn": "Save",
-      "addBtn": "Add"
+      "addBtn": "Add",
+      "details": {
+        "sectionTitle": "Further details",
+        "salaryLabel": "Salary",
+        "salaryPlaceholder": "e.g. $70k / year",
+        "workModeLabel": "Work mode",
+        "officeLocationLabel": "Office location",
+        "officeLocationPlaceholder": "e.g. Budapest, District XIII",
+        "benefitsLabel": "Benefits",
+        "benefitsPlaceholder": "e.g. private health care, stock options",
+        "descriptionLabel": "Description",
+        "descriptionPlaceholder": "Notes about the role, expectations, the process…"
+      },
+      "info": {
+        "overviewTitle": "Overview",
+        "statusLabel": "Status",
+        "daysInStatusLabel": "In this status",
+        "daysValue": "{{count}} days",
+        "stalledText": "Stalled – no movement for more than {{count}} days.",
+        "appliedAtLabel": "Applied on",
+        "updatedAtLabel": "Last updated",
+        "sourceLabel": "Source",
+        "linkLabel": "Listing",
+        "openListing": "Open",
+        "eventsTitle": "Linked events",
+        "noEvents": "No event is linked to this application yet.",
+        "historyTitle": "History"
+      },
+      "tabs": {
+        "main": "Basics",
+        "details": "Details",
+        "info": "Info"
+      }
     },
     "statusDropdown": {
       "changeStatusTitle": "Change status"
@@ -1390,6 +1423,12 @@
       "Remote": "Remote",
       "Hybrid": "Hybrid",
       "Onsite": "On-site"
+    },
+    "applicationPicker": {
+      "placeholder": "Not linked to an application",
+      "searchPlaceholder": "Search by company or position…",
+      "none": "Not linked to an application",
+      "noMatch": "No match"
     }
   }
 }

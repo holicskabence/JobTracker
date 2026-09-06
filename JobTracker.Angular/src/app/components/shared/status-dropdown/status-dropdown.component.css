@@ -81,7 +81,6 @@
     flex-direction: column;
     gap: 1px;
     animation: panel-in 0.1s ease-out;
-    max-height: 60vh;
     overflow-y: auto;
 }
 

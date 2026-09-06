@@ -7,7 +7,13 @@ public record JobResponse(
     string? Link,
     string? Source,
     string Date,
-    string Status
+    string Status,
+    string? Salary,
+    string? OfficeLocation,
+    string? WorkMode,
+    string? Benefits,
+    string? Description,
+    DateTime UpdatedAt
 );
 
 public record CreateJobRequest(
@@ -25,7 +31,12 @@ public record UpdateJobRequest(
     string? Link,
     string? Source,
     string Date,
-    string Status
+    string Status,
+    string? Salary,
+    string? OfficeLocation,
+    string? WorkMode,
+    string? Benefits,
+    string? Description
 );
 
 public record PatchJobStatusRequest(string Status);

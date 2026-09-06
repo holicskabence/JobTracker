@@ -1,0 +1,197 @@
+:host {
+    display: block;
+    position: relative;
+}
+
+.application-picker-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: var(--padding-input);
+    background-color: var(--clr-white);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    color: var(--clr-dark);
+    transition: box-shadow 0.15s, border-color 0.15s;
+    text-align: left;
+    outline: none;
+}
+
+.application-picker-trigger:hover {
+    border-color: rgba(0, 0, 0, 0.22);
+}
+
+.application-picker-trigger--open,
+.application-picker-trigger:focus-visible {
+    border-color: var(--clr-green);
+    box-shadow: 0 0 0 2px rgba(38, 172, 0, 0.18);
+}
+
+.application-picker-value {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-1-5);
+}
+
+.application-picker-value-company {
+    flex: 0 0 auto;
+    max-width: 65%;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.application-picker-value-position {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 0.8125rem;
+    color: var(--clr-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.application-picker-placeholder {
+    flex: 1;
+    color: var(--clr-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.application-picker-chevron {
+    flex-shrink: 0;
+    color: var(--clr-muted);
+    transition: transform 0.2s;
+}
+
+.application-picker-chevron--open {
+    transform: rotate(180deg);
+}
+
+.application-picker-panel {
+    position: fixed;
+    z-index: 9999;
+    max-width: min(22rem, calc(100vw - var(--space-4)));
+    background-color: var(--clr-white);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+    padding: var(--space-1);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    animation: application-picker-in 0.12s ease-out both;
+}
+
+@keyframes application-picker-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.application-picker-search {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-xs);
+    background-color: var(--clr-bg);
+    color: var(--clr-muted);
+}
+
+.application-picker-search-field {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem;
+    color: var(--clr-dark);
+}
+
+.application-picker-options {
+    max-height: 15rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.application-picker-option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border: none;
+    border-radius: var(--radius-xs);
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem;
+    color: var(--clr-dark);
+    text-align: left;
+    transition: background-color 0.1s;
+}
+
+.application-picker-option:hover {
+    background-color: var(--clr-bg);
+}
+
+.application-picker-option--active {
+    color: var(--clr-green);
+}
+
+.application-picker-option--active svg {
+    flex-shrink: 0;
+    color: var(--clr-green);
+}
+
+.application-picker-option-text {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.application-picker-option-company {
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.application-picker-option-position {
+    font-size: 0.75rem;
+    color: var(--clr-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.application-picker-option--active .application-picker-option-position {
+    color: var(--clr-green);
+}
+
+.application-picker-empty {
+    margin: 0;
+    padding: var(--space-3);
+    font-size: 0.8125rem;
+    color: var(--clr-muted);
+    text-align: center;
+}

@@ -46,6 +46,11 @@
           </div>
 
           <div class="events-form-row events-form-row--notes">
+            <div class="events-field">
+              <label class="events-label">{{ 'events.modal.applicationLabel' | translate }}</label>
+              <app-application-picker [applications]="store.jobs()" [value]="newEventJobId"
+                (valueChange)="pickApplication($event)" />
+            </div>
             <div class="events-field events-field--grow">
               <label class="events-label">{{ 'events.modal.notesLabel' | translate }}</label>
               <input class="events-input" type="text" [placeholder]="'events.modal.notesPlaceholder' | translate"
@@ -182,13 +187,26 @@
             </div>
           </div>
 
-          <div class="events-card-time">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10" />
-              <polyline points="12 6 12 12 16 14" />
-            </svg>
-            {{ fmtDateShort(event.date) }} · {{ eventTimeLabel(event) }}
+          <div class="events-card-facts">
+            <div class="events-card-time">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              {{ fmtDateShort(event.date) }} · {{ eventTimeLabel(event) }}
+            </div>
+
+            @if (linkedApplication(event); as application) {
+            <span class="events-card-application" title="{{ application.company }} · {{ application.position }}">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" />
+                <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+              </svg>
+              {{ application.position }}
+            </span>
+            }
           </div>
 
           @if (event.notes) {

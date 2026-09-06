@@ -5,7 +5,7 @@ using JobTracker.Domain.Interfaces;
 
 namespace JobTracker.Application.Services;
 
-public sealed class JobService(IJobRepository repo, IJobStatusHistoryRepository historyRepo) : IJobService
+public sealed class JobService(IJobRepository repo, IJobStatusHistoryRepository historyRepo, ICalendarEventRepository calendarEventRepo) : IJobService
 {
     public async Task<IReadOnlyList<JobResponse>> GetAllAsync(int userId)
     {
@@ -58,6 +58,11 @@ public sealed class JobService(IJobRepository repo, IJobStatusHistoryRepository 
         job.Source = request.Source;
         job.Date = request.Date;
         job.Status = request.Status;
+        job.Salary = request.Salary;
+        job.OfficeLocation = request.OfficeLocation;
+        job.WorkMode = request.WorkMode;
+        job.Benefits = request.Benefits;
+        job.Description = request.Description;
         job.UpdatedAt = DateTime.UtcNow;
 
         await repo.UpdateAsync(job);
@@ -99,8 +104,13 @@ public sealed class JobService(IJobRepository repo, IJobStatusHistoryRepository 
         return Map(job);
     }
 
-    public async Task<bool> DeleteAsync(int id, int userId) => await repo.DeleteAsync(id, userId);
+    public async Task<bool> DeleteAsync(int id, int userId)
+    {
+        await calendarEventRepo.UnlinkJobAsync(id, userId);
+        return await repo.DeleteAsync(id, userId);
+    }
 
     private static JobResponse Map(Job j) =>
-        new(j.Id, j.Company, j.Position, j.Link, j.Source, j.Date, j.Status);
+        new(j.Id, j.Company, j.Position, j.Link, j.Source, j.Date, j.Status,
+            j.Salary, j.OfficeLocation, j.WorkMode, j.Benefits, j.Description, j.UpdatedAt);
 }

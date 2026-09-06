@@ -6,7 +6,8 @@ public record CalendarEventResponse(
     string Company,
     string Date,
     string Time,
-    string Notes
+    string Notes,
+    int? JobId
 );
 
 public record CreateCalendarEventRequest(
@@ -14,7 +15,8 @@ public record CreateCalendarEventRequest(
     string Company,
     string Date,
     string Time,
-    string Notes
+    string Notes,
+    int? JobId
 );
 
 public record UpdateCalendarEventRequest(
@@ -22,5 +24,6 @@ public record UpdateCalendarEventRequest(
     string Company,
     string Date,
     string Time,
-    string Notes
+    string Notes,
+    int? JobId
 );

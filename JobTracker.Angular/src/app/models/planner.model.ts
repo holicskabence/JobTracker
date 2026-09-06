@@ -1,5 +1,6 @@
 export interface CalendarEvent {
   id: number;
+  jobId: number | null;
   type: string;
   company: string;
   date: string;

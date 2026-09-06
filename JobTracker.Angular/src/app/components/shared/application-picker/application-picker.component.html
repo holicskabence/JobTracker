@@ -1,0 +1,60 @@
+<button type="button" class="application-picker-trigger" [class.application-picker-trigger--open]="isOpen"
+    (click)="toggle($event)">
+    @if (selectedApplication; as application) {
+    <span class="application-picker-value">
+        <span class="application-picker-value-company">{{ application.company }}</span>
+        <span class="application-picker-value-position">{{ application.position }}</span>
+    </span>
+    } @else {
+    <span class="application-picker-placeholder">{{ placeholder | translate }}</span>
+    }
+    <svg class="application-picker-chevron" [class.application-picker-chevron--open]="isOpen" width="14" height="14"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+        stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9" />
+    </svg>
+</button>
+
+@if (isOpen) {
+<div class="application-picker-panel" [style.top.px]="panelTop" [style.left.px]="panelLeft"
+    [style.min-width.px]="panelWidth" (click)="$event.stopPropagation()">
+
+    <div class="application-picker-search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input #searchField class="application-picker-search-field" type="text" autocomplete="off"
+            [placeholder]="'shared.applicationPicker.searchPlaceholder' | translate" [value]="search"
+            (input)="onSearch($event)" />
+    </div>
+
+    <div class="application-picker-options">
+        <button type="button" class="application-picker-option"
+            [class.application-picker-option--active]="value === null" (click)="clear($event)">
+            <span class="application-picker-option-company">{{ 'shared.applicationPicker.none' | translate }}</span>
+        </button>
+
+        @for (application of filteredApplications; track application.id) {
+        <button type="button" class="application-picker-option"
+            [class.application-picker-option--active]="application.id === value" (click)="pick(application, $event)">
+            <span class="application-picker-option-text">
+                <span class="application-picker-option-company">{{ application.company }}</span>
+                <span class="application-picker-option-position">{{ application.position }}</span>
+            </span>
+            @if (application.id === value) {
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+            }
+        </button>
+        }
+
+        @if (filteredApplications.length === 0) {
+        <p class="application-picker-empty">{{ 'shared.applicationPicker.noMatch' | translate }}</p>
+        }
+    </div>
+</div>
+}

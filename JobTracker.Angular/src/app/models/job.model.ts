@@ -1,3 +1,5 @@
+import { WorkMode } from './user.model';
+
 export type JobStatus = string;
 
 export type StatusOutcome = 'Open' | 'Success' | 'Rejected' | 'Withdrawn' | 'Ghosted';
@@ -36,6 +38,12 @@ export interface Job {
   source?: string;
   date: string;
   status: JobStatus;
+  salary?: string | null;
+  officeLocation?: string | null;
+  workMode?: WorkMode | null;
+  benefits?: string | null;
+  description?: string | null;
+  updatedAt?: string;
 }
 
 export interface JobStatusHistoryEntry {

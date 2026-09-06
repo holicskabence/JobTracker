@@ -125,7 +125,7 @@ export class StatisticsComponent implements OnInit {
   readonly customTo = signal('');
   readonly statusFilter = signal<ReadonlySet<string>>(new Set<string>());
   readonly companyFilter = signal('');
-  private readonly granularityOverride = signal<Granularity | null>(null);
+  readonly granularity = signal<Granularity>('weekly');
 
   readonly dateRangeKeys: DateRangeKey[] = ['all', 'last30', 'last90', 'thisYear', 'custom'];
   readonly granularityKeys: Granularity[] = ['daily', 'weekly', 'monthly'];
@@ -153,7 +153,7 @@ export class StatisticsComponent implements OnInit {
 
   setCompany(company: string): void { this.companyFilter.set(company); }
 
-  setGranularity(value: Granularity): void { this.granularityOverride.set(value); }
+  setGranularity(value: Granularity): void { this.granularity.set(value); }
 
   clearFilters(): void {
     this.dateRangeKey.set(DEFAULT_DATE_RANGE);
@@ -239,16 +239,6 @@ export class StatisticsComponent implements OnInit {
   readonly companyFilterLabel = computed(() => {
     this.language();
     return this.companyFilter() || this.translate.instant('statistics.filters.allCompanies');
-  });
-
-  readonly granularity = computed<Granularity>(() => {
-    const override = this.granularityOverride();
-    if (override) return override;
-    const { from, to } = this.plottedRange();
-    const span = daysBetween(from, to);
-    if (span <= 100) return 'daily';
-    if (span <= 300) return 'weekly';
-    return 'monthly';
   });
 
   readonly granularityLabel = computed(() => {

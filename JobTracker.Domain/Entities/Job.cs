@@ -10,5 +10,10 @@ public class Job
     public string? Source { get; set; }
     public string Date { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
+    public string? Salary { get; set; }
+    public string? OfficeLocation { get; set; }
+    public string? WorkMode { get; set; }
+    public string? Benefits { get; set; }
+    public string? Description { get; set; }
     public DateTime UpdatedAt { get; set; }
 }

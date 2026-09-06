@@ -10,6 +10,9 @@ import { TimePickerComponent } from '../shared/time-picker/time-picker.component
 import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { BreakpointService } from '../../services/breakpoint.service';
+import { JobStoreService } from '../../services/job-store.service';
+import { Job } from '../../models/job.model';
+import { ApplicationPickerComponent } from '../shared/application-picker/application-picker.component';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
 
 type EventFilter = 'all' | 'upcoming' | 'past';
@@ -18,12 +21,13 @@ type MobileTab = 'events' | 'tasks';
 @Component({
   selector: 'app-events',
   standalone: true,
-  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, DatePickerComponent, TimePickerComponent, CardComponent, EmptyStateComponent, TranslateModule, PageSectionComponent],
+  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, DatePickerComponent, TimePickerComponent, CardComponent, EmptyStateComponent, TranslateModule, PageSectionComponent, ApplicationPickerComponent],
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'
 })
 export class EventsComponent implements OnInit {
   readonly planner = inject(PlannerService);
+  readonly store = inject(JobStoreService);
   readonly breakpoint = inject(BreakpointService);
   private readonly translate = inject(TranslateService);
 
@@ -65,6 +69,7 @@ export class EventsComponent implements OnInit {
 
   newEventType    = '';
   newEventCompany = '';
+  newEventJobId: number | null = null;
   newEventDate    = '';
   newEventTime    = '';
   newEventNotes   = '';
@@ -80,6 +85,7 @@ export class EventsComponent implements OnInit {
     this.editingId.set(ev.id);
     this.newEventType    = ev.type;
     this.newEventCompany = ev.company;
+    this.newEventJobId   = ev.jobId;
     this.newEventDate    = ev.date;
     this.newEventTime    = ev.time;
     this.newEventNotes   = ev.notes;
@@ -118,7 +124,8 @@ export class EventsComponent implements OnInit {
       company: this.newEventCompany.trim(),
       date:    this.newEventDate,
       time:    this.newEventTime,
-      notes:   this.newEventNotes.trim()
+      notes:   this.newEventNotes.trim(),
+      jobId:   this.newEventJobId
     };
 
     const id = this.editingId();
@@ -134,6 +141,7 @@ export class EventsComponent implements OnInit {
 
   private resetForm(): void {
     this.newEventCompany = '';
+    this.newEventJobId   = null;
     this.newEventDate    = '';
     this.newEventTime    = '';
     this.newEventNotes   = '';
@@ -145,6 +153,16 @@ export class EventsComponent implements OnInit {
     if (!this.newTaskText.trim()) return;
     this.planner.addTask(this.newTaskText.trim());
     this.newTaskText = '';
+  }
+
+  pickApplication(jobId: number | null): void {
+    this.newEventJobId = jobId;
+    const application = this.store.jobs().find(job => job.id === jobId);
+    if (application) this.newEventCompany = application.company;
+  }
+
+  linkedApplication(ev: CalendarEvent): Job | undefined {
+    return ev.jobId === null ? undefined : this.store.jobs().find(job => job.id === ev.jobId);
   }
 
   eventTimeLabel(ev: CalendarEvent): string {

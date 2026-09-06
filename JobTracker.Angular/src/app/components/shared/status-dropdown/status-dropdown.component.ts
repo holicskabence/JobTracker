@@ -18,9 +18,11 @@ export class StatusDropdownComponent {
   @Output() valueChange = new EventEmitter<JobStatus>();
 
   isOpen = false;
-  panelTop = 0;
+  panelTop: number | null = 0;
+  panelBottom: number | null = null;
   panelLeft = 0;
   panelWidth = 192;
+  panelMaxHeight = 0;
 
   readonly options = computed(() => this.store.statusConfigs());
 
@@ -44,11 +46,17 @@ export class StatusDropdownComponent {
       }
       if (this.panelLeft < 8) this.panelLeft = 8;
 
-      const spaceBelow = window.innerHeight - r.bottom - 8;
-      if (spaceBelow >= estimatedH || r.top < estimatedH) {
+      const spaceBelow = window.innerHeight - r.bottom - 12;
+      const spaceAbove = r.top - 12;
+
+      if (spaceBelow >= estimatedH || spaceBelow >= spaceAbove) {
         this.panelTop = r.bottom + 4;
+        this.panelBottom = null;
+        this.panelMaxHeight = spaceBelow;
       } else {
-        this.panelTop = r.top - estimatedH - 4;
+        this.panelTop = null;
+        this.panelBottom = window.innerHeight - r.top + 4;
+        this.panelMaxHeight = spaceAbove;
       }
     }
     this.isOpen = !this.isOpen;

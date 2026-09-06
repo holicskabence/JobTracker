@@ -5,7 +5,7 @@ using JobTracker.Domain.Interfaces;
 
 namespace JobTracker.Application.Services;
 
-public sealed class CalendarEventService(ICalendarEventRepository repo) : ICalendarEventService
+public sealed class CalendarEventService(ICalendarEventRepository repo, IJobRepository jobRepo) : ICalendarEventService
 {
     public async Task<IReadOnlyList<CalendarEventResponse>> GetAllAsync(int userId)
     {
@@ -31,6 +31,7 @@ public sealed class CalendarEventService(ICalendarEventRepository repo) : ICalen
         var ev = new CalendarEvent
         {
             UserId = userId,
+            JobId = await ResolveJobIdAsync(request.JobId, userId),
             Type = request.Type,
             Company = request.Company,
             Date = request.Date,
@@ -46,6 +47,7 @@ public sealed class CalendarEventService(ICalendarEventRepository repo) : ICalen
         var ev = await repo.GetByIdAsync(id, userId);
         if (ev is null) return null;
 
+        ev.JobId = await ResolveJobIdAsync(request.JobId, userId);
         ev.Type = request.Type;
         ev.Company = request.Company;
         ev.Date = request.Date;
@@ -58,6 +60,13 @@ public sealed class CalendarEventService(ICalendarEventRepository repo) : ICalen
 
     public async Task<bool> DeleteAsync(int id, int userId) => await repo.DeleteAsync(id, userId);
 
+    private async Task<int?> ResolveJobIdAsync(int? jobId, int userId)
+    {
+        if (jobId is null) return null;
+        var job = await jobRepo.GetByIdAsync(jobId.Value, userId);
+        return job?.Id;
+    }
+
     private static CalendarEventResponse Map(CalendarEvent e) =>
-        new(e.Id, e.Type, e.Company, e.Date, e.Time, e.Notes);
+        new(e.Id, e.Type, e.Company, e.Date, e.Time, e.Notes, e.JobId);
 }

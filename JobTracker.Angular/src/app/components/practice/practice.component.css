@@ -1035,6 +1035,10 @@
     box-sizing: border-box;
 }
 
+.practice-textarea--tall {
+    min-height: 18rem;
+}
+
 .practice-textarea:focus {
     border-color: var(--clr-green-dk);
     box-shadow: 0 0 0 1px var(--clr-green-dk);
@@ -2020,7 +2024,18 @@
 .practice-q-bulk-actions {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: var(--space-2-5);
+}
+
+@media (max-width: 700px) {
+    .practice-q-bulk-actions {
+        width: 100%;
+    }
+
+    .practice-q-bulk-actions>button {
+        flex: 1 1 auto;
+    }
 }
 
 .practice-q-bulk-clear,
@@ -2239,6 +2254,10 @@
     }
 }
 
+.practice-icon-button--visible {
+    color: var(--clr-green);
+}
+
 .practice-icon-button+.practice-icon-button {
     margin-left: var(--space-1-5);
 }
@@ -2249,21 +2268,6 @@
         border-color: rgba(239, 68, 68, 0.4);
         color: var(--clr-red);
     }
-}
-
-.practice-q-hidden-flag {
-    display: inline-flex;
-    align-items: center;
-    align-self: flex-start;
-    margin-top: var(--space-1-5);
-    font-size: 0.6875rem;
-    font-weight: 600;
-    color: var(--clr-muted);
-    background: var(--clr-bg);
-    border: 1px solid var(--clr-border);
-    border-radius: var(--radius-full);
-    padding: 2px var(--space-2);
-    white-space: nowrap;
 }
 
 .practice-feedback-badge {
@@ -2585,4 +2589,11 @@
     .practice-nav-button-label {
         display: inline;
     }
+}
+.practice-q-more {
+  padding: var(--space-4);
+  text-align: center;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--clr-muted);
 }

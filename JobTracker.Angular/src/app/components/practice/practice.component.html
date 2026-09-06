@@ -482,7 +482,7 @@
                     }
                 </div>
 
-                @if (hasCollapsedCategories()) {
+                <!-- @if (hasCollapsedCategories()) {
                 <button type="button" class="practice-cat-more" (click)="toggleCategoriesExpanded()"
                     [attr.aria-expanded]="categoriesExpanded()">
                     {{ (categoriesExpanded() ? 'practice.categories.showLess' : 'practice.categories.showMore') | translate }}
@@ -491,7 +491,7 @@
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </button>
-                }
+                } -->
                 </div>
             </app-card>
         </aside>
@@ -526,7 +526,7 @@
             <p class="practice-import-message practice-import-message--success">{{ importSuccess() }}</p>
             }
 
-            <app-search-toolbar [value]="qSearch()" (valueChange)="qSearch.set($event)"
+            <app-search-toolbar [value]="qSearch()" (valueChange)="setQuestionSearch($event)"
                 [placeholder]="'practice.questionsTab.searchPlaceholder' | translate"
                 [clearTitle]="'practice.jump.clearTitle' | translate"
                 [countLabel]="sortedQuestions().length + ' ' + ('practice.questionsTab.resultsSuffix' | translate)"
@@ -569,7 +569,8 @@
                 <th tableHeaderCells class="practice-q-header-cell practice-q-header-cell--actions">{{ 'practice.questionsTab.colActions' | translate }}</th>
 
                 <ng-container tableRows>
-                    @for (q of sortedQuestions(); track q.id) {
+                    @if (!isQuestionListCompact()) {
+                    @for (q of visibleQuestions(); track q.id) {
                     <tr class="practice-q-tr" [class.practice-q-tr--selected]="isQuestionSelected(q.id)"
                         (click)="toggleQuestionSelection(q.id)">
                         <td class="practice-q-cell practice-q-cell--check">
@@ -582,9 +583,6 @@
                         </td>
                         <td class="practice-q-cell practice-q-cell--main">
                             <p class="practice-q-text">{{ q.question }}</p>
-                            @if (q.isHidden) {
-                            <span class="practice-q-hidden-flag">{{ 'practice.questionsTab.hiddenFlag' | translate }}</span>
-                            }
                             @if (q.hint) {
                             <p class="practice-q-hint">{{ q.hint }}</p>
                             }
@@ -597,21 +595,14 @@
                             }
                         </td>
                         <td class="practice-q-cell practice-q-cell--actions" (click)="$event.stopPropagation()">
-                            <button class="practice-icon-button" (click)="toggleQuestionHidden(q)"
+                            <button class="practice-icon-button"
+                                [class.practice-icon-button--visible]="!q.isHidden" (click)="toggleQuestionHidden(q)"
                                 [title]="(q.isHidden ? 'practice.questionsTab.showTitle' : 'practice.questionsTab.hideTitle') | translate">
-                                @if (!q.isHidden) {
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                                     <circle cx="12" cy="12" r="3" />
                                 </svg>
-                                } @else {
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-                                    <line x1="1" y1="1" x2="23" y2="23" />
-                                </svg>
-                                }
                             </button>
                             <button class="practice-icon-button" (click)="openEditQuestionModal(q)" [title]="'practice.questionsTab.editTitle' | translate">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -640,10 +631,20 @@
                         </td>
                     </tr>
                     }
+
+                    @if (hasMoreQuestions()) {
+                    <tr>
+                        <td colspan="5" class="practice-q-more" #questionSentinel>
+                            {{ 'practice.questionsTab.loadingMore' | translate }}
+                        </td>
+                    </tr>
+                    }
+                    }
                 </ng-container>
 
                 <ng-container cardItems>
-                    @for (q of sortedQuestions(); track q.id) {
+                    @if (isQuestionListCompact()) {
+                    @for (q of visibleQuestions(); track q.id) {
                     <app-card class="practice-q-card" [class.practice-q-card--selected]="isQuestionSelected(q.id)"
                         (click)="toggleQuestionSelection(q.id)">
                         <div class="practice-q-card-header">
@@ -660,9 +661,6 @@
                             }
                         </div>
                         <p class="practice-q-card-text">{{ q.question }}</p>
-                        @if (q.isHidden) {
-                        <span class="practice-q-hidden-flag">{{ 'practice.questionsTab.hiddenFlag' | translate }}</span>
-                        }
                         @if (q.hint) {
                         <p class="practice-q-card-hint">{{ q.hint }}</p>
                         }
@@ -671,21 +669,14 @@
                             {{ q.sampleAnswer }}
                         </p>
                         <div class="practice-q-card-actions" (click)="$event.stopPropagation()">
-                            <button class="practice-icon-button" (click)="toggleQuestionHidden(q)"
+                            <button class="practice-icon-button"
+                                [class.practice-icon-button--visible]="!q.isHidden" (click)="toggleQuestionHidden(q)"
                                 [title]="(q.isHidden ? 'practice.questionsTab.showTitle' : 'practice.questionsTab.hideTitle') | translate">
-                                @if (!q.isHidden) {
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                                     <circle cx="12" cy="12" r="3" />
                                 </svg>
-                                } @else {
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-                                    <line x1="1" y1="1" x2="23" y2="23" />
-                                </svg>
-                                }
                             </button>
                             <button class="practice-icon-button" (click)="openEditQuestionModal(q)" [title]="'practice.questionsTab.editTitle' | translate">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -708,6 +699,11 @@
                     } @empty {
                     <app-empty-state
                         [message]="qSearch() ? (('practice.questionsTab.noSearchResultsPrefix' | translate) + qSearch() + ('practice.questionsTab.noSearchResultsSuffix' | translate)) : ('practice.questionsTab.noQuestions' | translate)"></app-empty-state>
+                    }
+
+                    @if (hasMoreQuestions()) {
+                    <p class="practice-q-more" #questionSentinel>{{ 'practice.questionsTab.loadingMore' | translate }}</p>
+                    }
                     }
                 </ng-container>
 
@@ -831,8 +827,8 @@
                 </div>
                 <div class="practice-field">
                     <label class="practice-field-label">{{ 'practice.modal.questionLabel' | translate }} <span class="practice-required">*</span></label>
-                    <textarea class="practice-textarea" rows="2" [ngModel]="formQuestion()"
-                        (ngModelChange)="formQuestion.set($event)" [placeholder]="'practice.modal.questionPlaceholder' | translate"></textarea>
+                    <input class="practice-input" type="text" [ngModel]="formQuestion()"
+                        (ngModelChange)="formQuestion.set($event)" [placeholder]="'practice.modal.questionPlaceholder' | translate" />
                 </div>
                 <div class="practice-field">
                     <label class="practice-field-label">{{ 'practice.modal.hintLabel' | translate }}</label>
@@ -841,7 +837,7 @@
                 </div>
                 <div class="practice-field">
                     <label class="practice-field-label">{{ 'practice.modal.sampleAnswerLabel' | translate }} <span class="practice-required">*</span></label>
-                    <textarea class="practice-textarea" rows="3" [ngModel]="formSampleAnswer()"
+                    <textarea class="practice-textarea practice-textarea--tall" rows="12" [ngModel]="formSampleAnswer()"
                         (ngModelChange)="formSampleAnswer.set($event)"
                         [placeholder]="'practice.modal.sampleAnswerPlaceholder' | translate"></textarea>
                 </div>

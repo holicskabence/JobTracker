@@ -36,4 +36,11 @@ public sealed class CalendarEventRepository(JobTrackerDbContext ctx)
             .Where(e => e.UserId == userId && e.Type == oldName)
             .ExecuteUpdateAsync(s => s.SetProperty(e => e.Type, newName));
     }
+
+    public async Task UnlinkJobAsync(int jobId, int userId)
+    {
+        await Ctx.CalendarEvents
+            .Where(e => e.UserId == userId && e.JobId == jobId)
+            .ExecuteUpdateAsync(s => s.SetProperty(e => e.JobId, (int?)null));
+    }
 }

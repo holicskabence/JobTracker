@@ -53,8 +53,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   readonly editingJob = this.store.editingJob;
   readonly historyJob = this.store.historyJob;
 
+  // Practice data is a large payload and no first-paint surface reads it, so it loads alongside instead of blocking.
   readonly initialLoading = computed(() =>
-    this.store.loading() || this.planner.loading() || this.practice.loading()
+    this.store.loading() || this.planner.loading()
   );
 
   private routerSub?: Subscription;

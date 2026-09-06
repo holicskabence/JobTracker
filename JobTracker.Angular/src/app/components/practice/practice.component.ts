@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, HostListener, inject, signal, viewChild } from '@angular/core';
+import { Component, computed, effect, ElementRef, HostListener, inject, NgZone, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PracticeService } from '../../services/practice.service';
@@ -12,6 +12,8 @@ import { PageSectionComponent } from '../shared/page-section/page-section.compon
 import { SearchToolbarComponent } from '../shared/search-toolbar/search-toolbar.component';
 import { SortableHeaderCellComponent } from '../shared/sortable-header-cell/sortable-header-cell.component';
 import { DataTableComponent } from '../shared/data-table/data-table.component';
+
+const QUESTION_PAGE_SIZE = 60;
 
 type Tab = 'practice' | 'questions' | 'results';
 type FeedbackFilter = 'failed' | 'unanswered';
@@ -31,11 +33,27 @@ export class PracticeComponent {
   private readonly auth = inject(AuthService);
   private readonly translate = inject(TranslateService);
   private readonly breakpoints = inject(BreakpointService);
+  private readonly zone = inject(NgZone);
   // Same breakpoint the stylesheet uses to stack the aside above the deck.
   readonly isCompactAside = this.breakpoints.watch('(max-width: 1200px)');
+  // Same breakpoint app-data-table uses for its compact variant, so only the visible layout is built.
+  readonly isQuestionListCompact = this.breakpoints.watch('(max-width: 700px)');
 
   // ── Tab navigation ──────────────────────────────────────────────────────────
   readonly activeTab = signal<Tab>('practice');
+
+  constructor() {
+    effect(onCleanup => {
+      const sentinel = this.questionSentinel()?.nativeElement;
+      if (!sentinel) return;
+      const observer = new IntersectionObserver(entries => {
+        if (!entries.some(entry => entry.isIntersecting)) return;
+        this.zone.run(() => this.visibleQuestionCount.update(count => count + QUESTION_PAGE_SIZE));
+      }, { rootMargin: '200px' });
+      observer.observe(sentinel);
+      onCleanup(() => observer.disconnect());
+    });
+  }
 
   // ── Practice tab: filters ───────────────────────────────────────────────────
   // At most one built-in status filter (Mind/Failed/Unanswered) and at most one
@@ -185,6 +203,8 @@ export class PracticeComponent {
 
   // ── Questions tab: search & sort ────────────────────────────────────────────
   readonly qSearch = signal('');
+  // The questions table is built in chunks: 885 rows at once locks the main thread on tab switch.
+  readonly visibleQuestionCount = signal(QUESTION_PAGE_SIZE);
   readonly qSortKey = signal<QSortKey>('category');
   readonly qSortDir = signal<'asc' | 'description'>('asc');
 
@@ -204,6 +224,12 @@ export class PracticeComponent {
     return list.length > 0 && list.every(q => this.selectedQuestionIds().has(q.id));
   });
 
+  readonly visibleQuestions = computed(() => this.sortedQuestions().slice(0, this.visibleQuestionCount()));
+
+  readonly hasMoreQuestions = computed(() => this.sortedQuestions().length > this.visibleQuestionCount());
+
+  private readonly questionSentinel = viewChild<ElementRef<HTMLElement>>('questionSentinel');
+
   readonly sortedQuestions = computed<PrepQuestion[]>(() => {
     const term = this.qSearch().trim().toLowerCase();
     const key = this.qSortKey();
@@ -218,7 +244,13 @@ export class PracticeComponent {
       );
     }
 
+    const ranks = this.categoryRanks();
     return [...list].sort((a, b) => {
+      if (key === 'category') {
+        const ra = ranks.get(a.category) ?? Number.MAX_SAFE_INTEGER;
+        const rb = ranks.get(b.category) ?? Number.MAX_SAFE_INTEGER;
+        return ra < rb ? -dir : ra > rb ? dir : 0;
+      }
       const va = key === 'feedback' ? (a.feedback ?? '') : a[key];
       const vb = key === 'feedback' ? (b.feedback ?? '') : b[key];
       return va < vb ? -dir : va > vb ? dir : 0;
@@ -759,7 +791,13 @@ export class PracticeComponent {
     this.jumpDropOpen.set(false);
   }
 
+  setQuestionSearch(term: string): void {
+    this.qSearch.set(term);
+    this.visibleQuestionCount.set(QUESTION_PAGE_SIZE);
+  }
+
   qSort(key: QSortKey): void {
+    this.visibleQuestionCount.set(QUESTION_PAGE_SIZE);
     if (this.qSortKey() === key) {
       this.qSortDir.update(d => d === 'asc' ? 'description' : 'asc');
     } else {
@@ -782,8 +820,13 @@ export class PracticeComponent {
     return '';
   }
 
+  private readonly categoryColors = computed(() => new Map(this.practice.categories().map(c => [c.name, c.color])));
+
+  // Categories arrive in master-data rank order, so the index is the rank the questions list sorts by.
+  private readonly categoryRanks = computed(() => new Map(this.practice.categories().map((c, index) => [c.name, index] as const)));
+
   categoryColor(category: QuestionCategory): string {
-    return this.practice.categories().find(c => c.name === category)?.color ?? '#9b9b99';
+    return this.categoryColors().get(category) ?? '#9b9b99';
   }
 
   categoryCount(name: string): number {

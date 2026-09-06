@@ -500,6 +500,7 @@
       "companyLabel": "Cég neve",
       "companyPlaceholder": "pl. Stripe",
       "companyRequiredError": "A cég neve kötelező.",
+      "applicationLabel": "Jelentkezés",
       "typeLabel": "Esemény típusa",
       "dateLabel": "Dátum",
       "dateRequiredError": "A dátum megadása kötelező.",
@@ -1235,11 +1236,11 @@
       "noSearchResultsPrefix": "Nincs találat a(z) „",
       "noSearchResultsSuffix": "” keresésre.",
       "noQuestions": "Még nincs kérdés. Adj hozzá egyet a fenti gombbal!",
-      "hiddenFlag": "Rejtett",
       "hideSelectedBtn": "Kijelöltek elrejtése",
       "showSelectedBtn": "Kijelöltek megjelenítése",
       "hideTitle": "Kérdés elrejtése – a Gyakorlás nem kérdezi",
-      "showTitle": "Rejtett kérdés – kattints, hogy újra kérdezze a Gyakorlás"
+      "showTitle": "Rejtett kérdés – kattints, hogy újra kérdezze a Gyakorlás",
+      "loadingMore": "További kérdések betöltése…"
     },
     "results": {
       "notEvaluated": "Nem értékelt",
@@ -1314,7 +1315,39 @@
       "initialStatusLabel": "Kezdeti státusz",
       "cancelBtn": "Mégse",
       "saveBtn": "Mentés",
-      "addBtn": "Hozzáadás"
+      "addBtn": "Hozzáadás",
+      "details": {
+        "sectionTitle": "További részletek",
+        "salaryLabel": "Bér",
+        "salaryPlaceholder": "pl. 900 000 Ft/hó",
+        "workModeLabel": "Munkavégzés módja",
+        "officeLocationLabel": "Iroda helyszíne",
+        "officeLocationPlaceholder": "pl. Budapest, XIII. kerület",
+        "benefitsLabel": "Juttatások",
+        "benefitsPlaceholder": "pl. SZÉP kártya, magánegészségügy",
+        "descriptionLabel": "Leírás",
+        "descriptionPlaceholder": "Jegyzetek a pozícióról, elvárásokról, a folyamatról…"
+      },
+      "info": {
+        "overviewTitle": "Áttekintés",
+        "statusLabel": "Státusz",
+        "daysInStatusLabel": "Ebben a státuszban",
+        "daysValue": "{{count}} napja",
+        "stalledText": "Megrekedt – több mint {{count}} napja nincs mozgás.",
+        "appliedAtLabel": "Jelentkezés dátuma",
+        "updatedAtLabel": "Utolsó módosítás",
+        "sourceLabel": "Forrás",
+        "linkLabel": "Hirdetés",
+        "openListing": "Megnyitás",
+        "eventsTitle": "Kapcsolódó események",
+        "noEvents": "Nincs ehhez a jelentkezéshez kötött esemény.",
+        "historyTitle": "Előzmények"
+      },
+      "tabs": {
+        "main": "Alapadatok",
+        "details": "Részletek",
+        "info": "Infó"
+      }
     },
     "statusDropdown": {
       "changeStatusTitle": "Státusz módosítása"
@@ -1390,6 +1423,12 @@
       "Remote": "Távmunka",
       "Hybrid": "Hibrid",
       "Onsite": "Irodai"
+    },
+    "applicationPicker": {
+      "placeholder": "Nincs jelentkezéshez kötve",
+      "searchPlaceholder": "Keresés cég vagy pozíció szerint…",
+      "none": "Nincs jelentkezéshez kötve",
+      "noMatch": "Nincs találat"
     }
   }
 }

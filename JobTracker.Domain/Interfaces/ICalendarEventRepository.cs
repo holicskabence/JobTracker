@@ -9,4 +9,5 @@ public interface ICalendarEventRepository : IRepository<CalendarEvent>
     Task<CalendarEvent?> GetByIdAsync(int id, int userId);
     Task<bool> DeleteAsync(int id, int userId);
     Task RenameTypeAsync(string oldName, string newName, int userId);
+    Task UnlinkJobAsync(int jobId, int userId);
 }

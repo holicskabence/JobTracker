@@ -14,7 +14,7 @@ public sealed class JwtService(IConfiguration config) : IJwtService
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]!));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-        var expires = DateTime.UtcNow.AddDays(30);
+        var expires = DateTime.UtcNow.AddDays(1);
 
         var claims = new[]
         {
