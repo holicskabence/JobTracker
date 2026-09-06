@@ -2159,6 +2159,7 @@
     font-size: 0.8125rem;
     color: var(--clr-dark);
     line-height: 1.45;
+    white-space: pre-wrap;
     margin: 0;
 }
 

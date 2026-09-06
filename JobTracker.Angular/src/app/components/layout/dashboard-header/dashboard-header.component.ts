@@ -20,14 +20,14 @@ export class DashboardHeaderComponent {
   @Output() toggleSidebar = new EventEmitter<void>();
 
   private readonly PAGE_TITLE_KEYS: Record<DashboardTab, string> = {
-    overview: 'header.titles.overview',
-    applications: 'header.titles.applications',
-    events: 'header.titles.events',
-    documents: 'header.titles.documents',
-    statistics: 'header.titles.statistics',
-    profile: 'header.titles.profile',
-    'master-data': 'header.titles.masterData',
-    practice: 'header.titles.practice',
+    overview: 'nav.overview',
+    applications: 'nav.applications',
+    events: 'nav.events',
+    documents: 'nav.documents',
+    statistics: 'nav.statistics',
+    profile: 'nav.profile',
+    'master-data': 'nav.masterData',
+    practice: 'nav.practice',
   };
 
   private readonly ADD_BUTTON_LABEL_KEYS: Partial<Record<DashboardTab, string>> = {
