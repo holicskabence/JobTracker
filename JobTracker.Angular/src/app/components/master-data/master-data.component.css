@@ -44,10 +44,48 @@
 }
 
 .master-data-card-header {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-4);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: var(--space-4);
+    row-gap: var(--space-0-5);
     flex-shrink: 0;
+}
+
+.master-data-card-icon {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+}
+
+.master-data-card-title {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.master-data-badge {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.master-data-card-subtitle {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+/* On phones the icon column would leave the copy in a narrow well, so the subtitle takes the full width below. */
+@media (max-width: 767px) {
+    .master-data-card-header {
+        align-items: center;
+        row-gap: var(--space-1-5);
+    }
+
+    .master-data-card-icon {
+        grid-row: 1;
+    }
+
+    .master-data-card-subtitle {
+        grid-column: 1 / -1;
+    }
 }
 
 .master-data-card-icon {
@@ -84,17 +122,12 @@
     font-size: 1rem;
     font-weight: 700;
     color: var(--clr-dark);
-    margin-bottom: var(--space-0-5);
 }
 
 .master-data-card-subtitle {
     font-size: 0.8125rem;
     color: var(--clr-muted);
     line-height: 1.4;
-}
-
-.master-data-badge {
-    margin-left: auto;
 }
 
 .master-data-tags {
