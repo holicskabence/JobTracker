@@ -98,7 +98,7 @@
 }
 
 .profile-avatar-edit:hover {
-    background-color: var(--clr-green);
+    background-image: var(--gradient-green);
     color: var(--clr-white);
     border-color: var(--clr-green);
 }
@@ -271,7 +271,7 @@
 }
 
 .profile-save-button {
-    background-color: var(--clr-green);
+    background-image: var(--gradient-green);
     color: var(--clr-white);
     border: none;
     border-radius: var(--radius-full);
@@ -283,7 +283,7 @@
 }
 
 .profile-save-button:hover {
-    background-color: var(--clr-green-dk);
+    background-image: var(--gradient-green-hover);
 }
 
 .profile-save-button--saved {
@@ -375,7 +375,7 @@
 }
 
 .profile-change-pwd-button {
-    background-color: var(--clr-green);
+    background-image: var(--gradient-green);
     color: var(--clr-white);
     border: none;
     border-radius: var(--radius-full);
@@ -387,7 +387,7 @@
 }
 
 .profile-change-pwd-button:hover {
-    background-color: var(--clr-green-dk);
+    background-image: var(--gradient-green-hover);
 }
 
 .profile-save-button {
@@ -556,7 +556,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-xs);
-    background-color: var(--clr-green);
+    background-image: var(--gradient-green);
     color: var(--clr-white);
     border: none;
     border-radius: var(--radius-md);
@@ -571,7 +571,7 @@
 }
 
 .profile-data-add-button:hover {
-    background-color: var(--clr-green-dk);
+    background-image: var(--gradient-green-hover);
 }
 
 .profile-color-picker {
@@ -761,7 +761,7 @@
 .profile-completeness-fill {
     height: 100%;
     border-radius: var(--radius-full);
-    background-color: var(--clr-green);
+    background-image: var(--gradient-green);
     transition: width 0.3s ease;
 }
 
@@ -803,7 +803,7 @@
 }
 
 .profile-work-mode-option--active {
-    background-color: var(--clr-green);
+    background-image: var(--gradient-green);
     border-color: var(--clr-green);
     color: var(--clr-white);
 }

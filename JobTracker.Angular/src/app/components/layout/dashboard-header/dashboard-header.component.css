@@ -149,7 +149,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-xs);
-    background-color: var(--clr-green);
+    background-image: var(--gradient-green);
     color: var(--clr-white);
     border: none;
     border-radius: var(--radius-full);
@@ -164,7 +164,7 @@
 }
 
 .header-add-button:hover {
-    background-color: var(--clr-green-dk);
+    background-image: var(--gradient-green-hover);
 }
 
 

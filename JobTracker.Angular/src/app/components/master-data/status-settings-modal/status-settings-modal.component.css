@@ -17,6 +17,7 @@
 .status-settings-modal {
     background-color: var(--clr-white);
     border-radius: var(--radius-lg);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
     width: 100%;
     max-width: 75rem;
     max-height: 100%;
@@ -369,7 +370,7 @@
     padding: var(--padding-button);
     border: none;
     border-radius: var(--radius-full);
-    background-color: var(--clr-green);
+    background-image: var(--gradient-green);
     color: var(--clr-white);
     font-size: var(--font-size-md);
     font-weight: var(--font-weight-semibold);
@@ -378,30 +379,14 @@
 }
 
 .status-settings-save-button:hover {
-    background-color: var(--clr-green-dk);
+    background-image: var(--gradient-green-hover);
 }
 
 @media (max-width: 640px) {
-    .status-settings-backdrop {
-        padding: 0;
-        align-items: flex-end;
-    }
-
-    .status-settings-modal {
-        max-width: none;
-        max-height: 94%;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
     .status-settings-header,
     .status-settings-body,
     .status-settings-footer {
         padding-left: var(--space-md);
         padding-right: var(--space-md);
-    }
-
-    .status-settings-footer {
-        padding-bottom: max(var(--space-md), env(safe-area-inset-bottom));
     }
 }

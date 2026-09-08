@@ -1,4 +1,8 @@
 .page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     height: var(--viewport-height);
     max-height: var(--viewport-height);
     display: flex;

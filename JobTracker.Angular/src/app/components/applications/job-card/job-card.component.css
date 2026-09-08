@@ -82,11 +82,10 @@
 }
 
 .card-action-button:hover {
-  background-color: var(--clr-green);
+  background-image: var(--gradient-green);
   color: var(--clr-white);
 }
 
-/* On mobile the edit / open-link actions live in the three-dot menu instead */
 .card-source {
   display: inline-flex;
   align-items: center;

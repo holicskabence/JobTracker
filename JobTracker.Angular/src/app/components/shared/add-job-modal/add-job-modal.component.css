@@ -197,12 +197,12 @@
 }
 
 .button--primary {
-    background-color: var(--clr-green);
+    background-image: var(--gradient-green);
     color: var(--clr-white);
 }
 
 .button--primary:hover:not(:disabled) {
-    background-color: var(--clr-green-dk);
+    background-image: var(--gradient-green-hover);
 }
 
 .button--primary:disabled {
@@ -249,7 +249,7 @@
 }
 
 .work-mode-option--active {
-    background-color: var(--clr-green);
+    background-image: var(--gradient-green);
     border-color: var(--clr-green);
     color: var(--clr-white);
 }

@@ -724,7 +724,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--space-xs);
-    background-color: var(--clr-green);
+    background-image: var(--gradient-green);
     color: var(--clr-white);
     border: none;
     border-radius: var(--radius-full);
@@ -739,7 +739,7 @@
 }
 
 .master-data-add-button:hover {
-    background-color: var(--clr-green-dk);
+    background-image: var(--gradient-green-hover);
 }
 
 @media (max-width: 767px) {

@@ -165,12 +165,12 @@
 }
 
 .login-card-button--primary {
-  background-color: var(--clr-green);
+  background-image: var(--gradient-green);
   color: var(--clr-white);
 }
 
 .login-card-button--primary:hover {
-  background-color: var(--clr-green-dk);
+  background-image: var(--gradient-green-hover);
 }
 
 .login-card-register {
@@ -213,7 +213,7 @@
 }
 
 .register-progress-bar--active {
-  background-color: var(--clr-green);
+  background-image: var(--gradient-green);
 }
 
 .register-optional-note {
@@ -267,7 +267,7 @@
 }
 
 .register-work-mode-option--active {
-  background-color: var(--clr-green);
+  background-image: var(--gradient-green);
   border-color: var(--clr-green);
   color: var(--clr-white);
 }

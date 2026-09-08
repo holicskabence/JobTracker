@@ -27,6 +27,10 @@
     --clr-shadow-md: rgba(0, 0, 0, 0.1);
     --shadow-card: 0 1px 3px var(--clr-shadow);
 
+    /* ============ GRADIENT ============ */
+    --gradient-green: linear-gradient(90deg, var(--clr-green-dk), var(--clr-green));
+    --gradient-green-hover: linear-gradient(90deg, var(--clr-green-dk), var(--clr-green-dk));
+
     /* ============ SPACING — 8 steps ============ */
     --space-2xs: 0.25rem;
     --space-xs: 0.5rem;

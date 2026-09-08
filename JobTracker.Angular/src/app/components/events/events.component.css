@@ -200,7 +200,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-xs);
-  background-color: var(--clr-green);
+  background-image: var(--gradient-green);
   color: var(--clr-white);
   border: 1.5px solid transparent;
   border-radius: var(--radius-full);
@@ -214,7 +214,7 @@
 }
 
 .events-add-button:hover {
-  background-color: var(--clr-green-dk);
+  background-image: var(--gradient-green-hover);
 }
 
 .events-cancel-button {
@@ -661,7 +661,7 @@
 .events-task-add {
   width: 2.375rem;
   align-self: stretch;
-  background-color: var(--clr-green);
+  background-image: var(--gradient-green);
   color: var(--clr-white);
   border: none;
   border-radius: var(--radius-full);
@@ -674,7 +674,7 @@
 }
 
 .events-task-add:hover {
-  background-color: var(--clr-green-dk);
+  background-image: var(--gradient-green-hover);
 }
 
 .events-task-list {

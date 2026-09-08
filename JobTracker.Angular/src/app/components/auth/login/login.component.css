@@ -95,12 +95,12 @@
 }
 
 .login-card-button--primary {
-  background-color: var(--clr-green);
+  background-image: var(--gradient-green);
   color: var(--clr-white);
 }
 
 .login-card-button--primary:hover {
-  background-color: var(--clr-green-dk);
+  background-image: var(--gradient-green-hover);
 }
 
 .login-card-button--demo {

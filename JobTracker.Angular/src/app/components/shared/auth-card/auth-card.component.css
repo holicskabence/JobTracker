@@ -8,6 +8,7 @@
     padding: var(--padding-card);
     overflow-y: auto;
     overflow-x: hidden;
+    min-height: 100dvh;
 }
 
 .auth-page::before {
