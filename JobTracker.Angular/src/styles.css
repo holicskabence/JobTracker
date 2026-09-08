@@ -84,7 +84,6 @@
 html,
 body {
     font-size: clamp(15px, calc(11.73px + 0.2222vw), 16px);
-    height: var(--viewport-height);
     font-family: 'Poppins', sans-serif;
     background-color: var(--clr-bg);
     color: var(--clr-dark);
