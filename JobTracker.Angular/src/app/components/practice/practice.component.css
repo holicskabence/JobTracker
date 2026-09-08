@@ -692,8 +692,6 @@
     width: 100%;
     flex: 1;
     min-height: 0;
-    padding: var(--space-xl);
-    gap: var(--space-lg);
 }
 
 .practice-card--empty {
@@ -2502,7 +2500,7 @@
     }
 
     .practice-bookmark-button {
-        margin-left: auto;
+        display: none;
     }
 
     .practice-deck-progress-track {
@@ -2549,7 +2547,6 @@
         margin-top: var(--space-xs);
     }
 
-    /* Answer mode: AI evaluation / I don't know above Previous / Next. */
     .practice-card-footer--answer {
         display: grid;
         grid-template-columns: 1fr 1fr;

@@ -1,7 +1,6 @@
 .auth-page {
     position: relative;
     isolation: isolate;
-    height: var(--viewport-height);
     background-color: var(--clr-bg);
     display: flex;
     align-items: center;
