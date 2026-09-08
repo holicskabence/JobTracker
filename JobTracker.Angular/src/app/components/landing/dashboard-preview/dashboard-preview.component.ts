@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CtaBannerComponent } from "../cta-banner/cta-banner.component";
 import { AuthService } from '../../../services/auth.service';
+import { DoodleArrowComponent } from '../illustrations/doodle-arrow/doodle-arrow.component';
 
 @Component({
   selector: 'app-landing-dashboard-preview',
   standalone: true,
-  imports: [RouterLink, TranslateModule, CtaBannerComponent],
+  imports: [RouterLink, TranslateModule, CtaBannerComponent, DoodleArrowComponent],
   templateUrl: './dashboard-preview.component.html',
   styleUrl: './dashboard-preview.component.css'
 })

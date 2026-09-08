@@ -4,11 +4,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HeroIllustrationComponent } from './hero-illustration.component';
 import { scrollToFragment } from '../fragment-link';
 import { AuthService } from '../../../services/auth.service';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 @Component({
   selector: 'app-landing-hero',
   standalone: true,
-  imports: [RouterLink, TranslateModule, HeroIllustrationComponent],
+  imports: [RouterLink, TranslateModule, HeroIllustrationComponent, IconComponent],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css'
 })

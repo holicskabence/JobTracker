@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-search-toolbar',
   standalone: true,
+  imports: [IconComponent],
   templateUrl: './search-toolbar.component.html',
   styleUrl: './search-toolbar.component.css',
   host: {

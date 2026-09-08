@@ -352,6 +352,7 @@
   },
   "overview": {
     "sectionTitle": "Haladás és következő lépések",
+    "greeting": "Szia, {{name}}!",
     "sectionSubtitle": "Gyors kép az aktív jelentkezéseidről és a következő napokról.",
     "stats": {
       "totalApplications": "Összes jelentkezés",
@@ -1211,6 +1212,7 @@
       "importing": "Importálás…",
       "importBtn": "JSON importálás",
       "addBtn": "+ Új kérdés",
+      "headerAddBtn": "Új kérdés",
       "searchPlaceholder": "Keresés a kérdések között…",
       "resultsSuffix": "találat",
       "selectedSuffix": "kiválasztva",

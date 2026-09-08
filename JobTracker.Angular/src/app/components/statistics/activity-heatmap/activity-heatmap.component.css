@@ -14,7 +14,7 @@
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  padding-bottom: var(--space-1);
+  padding-bottom: var(--space-2xs);
 }
 
 .activity-heatmap-content {
@@ -24,14 +24,14 @@
 .activity-heatmap-months-row {
   position: relative;
   height: 16px;
-  margin-left: 26px;
+  margin-left: var(--space-lg);
 }
 
 .activity-heatmap-month-label {
   position: absolute;
   top: 0;
-  font-size: 0.625rem;
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-muted);
   white-space: nowrap;
 }
@@ -39,7 +39,7 @@
 .activity-heatmap-main-row {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-1-5);
+  gap: var(--space-xs);
 }
 
 .activity-heatmap-weekday-col {
@@ -54,10 +54,10 @@
   height: 12px;
   display: flex;
   align-items: center;
-  font-size: 0.5625rem;
-  font-weight: 500;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
   color: var(--clr-muted);
-  line-height: 1;
+  line-height: var(--leading-none);
 }
 
 .activity-heatmap-weeks-row {
@@ -132,7 +132,7 @@
   transform: translate(-50%, calc(-100% - 8px));
   background-color: var(--clr-dark, #1a1a2e);
   color: #fff;
-  padding: var(--space-1-5) var(--space-2-5);
+  padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-sm);
   pointer-events: none;
   white-space: nowrap;
@@ -154,8 +154,8 @@
 }
 
 .activity-heatmap-tooltip-date {
-  font-size: 0.625rem;
-  font-weight: 700;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: rgba(255, 255, 255, 0.7);
@@ -163,8 +163,8 @@
 }
 
 .activity-heatmap-tooltip-count {
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   margin: 2px 0 0;
 }
 
@@ -173,14 +173,14 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
-  padding-top: var(--space-3);
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
   border-top: 1px solid var(--clr-border);
 }
 
 .activity-heatmap-summary {
-  font-size: 0.75rem;
+  font-size: var(--font-size-sm);
   color: var(--clr-muted);
   margin: 0;
 }
@@ -188,11 +188,11 @@
 .activity-heatmap-legend {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-2xs);
 }
 
 .activity-heatmap-legend-label {
-  font-size: 0.6875rem;
+  font-size: var(--font-size-xs);
   color: var(--clr-muted);
   margin: 0 2px;
 }

@@ -1,0 +1,13 @@
+<svg viewBox="0 0 132 96" aria-hidden="true">
+  <defs>
+    <linearGradient id="funnel-shape-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="2" x2="0" y2="94">
+      <stop offset="0" stop-color="#7A55C8" />
+      <stop offset="1" stop-color="#4F6BE8" />
+    </linearGradient>
+  </defs>
+  <g fill="url(#funnel-shape-gradient)">
+    @for (layer of layers; track layer) {
+    <path data-animate="analytics-funnel-layer" [attr.d]="layer" />
+    }
+  </g>
+</svg>

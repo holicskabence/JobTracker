@@ -46,26 +46,26 @@
 .gauge-readout {
   display: flex;
   align-items: baseline;
-  gap: var(--space-1);
+  gap: var(--space-2xs);
   margin-top: -2.75rem;
 }
 
 .gauge-number {
-  font-size: 2.5rem;
-  font-weight: 800;
-  line-height: 1;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-none);
   transition: color 0.3s;
 }
 
 .gauge-max {
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-muted);
 }
 
 .gauge-label {
-  margin-top: var(--space-1);
-  font-size: 0.8125rem;
+  margin-top: var(--space-2xs);
+  font-size: var(--font-size-md);
   color: var(--clr-muted);
   text-align: center;
 }

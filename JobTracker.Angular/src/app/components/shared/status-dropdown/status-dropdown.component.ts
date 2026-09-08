@@ -2,11 +2,12 @@ import { Component, computed, HostListener, inject, Input, Output, EventEmitter 
 import { TranslateModule } from '@ngx-translate/core';
 import { JobStatus } from '../../../models/job.model';
 import { JobStoreService } from '../../../services/job-store.service';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-status-dropdown',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, IconComponent],
   templateUrl: './status-dropdown.component.html',
   styleUrl: './status-dropdown.component.css'
 })

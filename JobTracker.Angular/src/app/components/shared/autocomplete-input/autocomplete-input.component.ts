@@ -1,8 +1,10 @@
 import { Component, ElementRef, HostListener, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-autocomplete-input',
   standalone: true,
+  imports: [IconComponent],
   templateUrl: './autocomplete-input.component.html',
   styleUrl: './autocomplete-input.component.css'
 })

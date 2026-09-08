@@ -5,12 +5,7 @@
         [class.applications-view-toggle-button--active]="viewService.view() === 'kanban'"
         (click)="selectView('kanban')" [title]="'applicationsView.switchToKanban' | translate"
         [attr.aria-label]="'applicationsView.switchToKanban' | translate">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="5" height="18" rx="1.5" />
-            <rect x="9.5" y="3" width="5" height="13" rx="1.5" />
-            <rect x="16" y="3" width="5" height="9" rx="1.5" />
-        </svg>
+        <app-icon name="columns" [size]="17" />
     </button>
     }
 
@@ -18,27 +13,14 @@
         [class.applications-view-toggle-button--active]="viewService.view() === 'table'"
         (click)="selectView('table')" [title]="'applicationsView.switchToTable' | translate"
         [attr.aria-label]="'applicationsView.switchToTable' | translate">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="8" y1="6" x2="21" y2="6" />
-            <line x1="8" y1="12" x2="21" y2="12" />
-            <line x1="8" y1="18" x2="21" y2="18" />
-            <line x1="3.5" y1="6" x2="3.51" y2="6" />
-            <line x1="3.5" y1="12" x2="3.51" y2="12" />
-            <line x1="3.5" y1="18" x2="3.51" y2="18" />
-        </svg>
+        <app-icon name="list-lines" [size]="17" />
     </button>
 
     <button type="button" class="applications-view-toggle-button"
         [class.applications-view-toggle-button--active]="viewService.view() === 'history'"
         (click)="selectView('history')" [title]="'applicationsView.switchToHistory' | translate"
         [attr.aria-label]="'applicationsView.switchToHistory' | translate">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 3v5h5" />
-            <path d="M3.05 13A9 9 0 1 0 6 5.3L3 8" />
-            <polyline points="12 7 12 12 16 14" />
-        </svg>
+        <app-icon name="history" [size]="17" />
     </button>
 
 </div>

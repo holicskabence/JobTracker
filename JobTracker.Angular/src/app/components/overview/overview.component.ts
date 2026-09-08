@@ -10,11 +10,12 @@ import { CardComponent } from '../shared/card/card.component';
 import { BadgeComponent } from '../shared/badge/badge.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
+import { IconComponent } from '../shared/icon/icon.component';
 
 @Component({
   selector: 'app-overview',
   standalone: true,
-  imports: [CardComponent, BadgeComponent, EmptyStateComponent, PageSectionComponent, TranslateModule],
+  imports: [CardComponent, BadgeComponent, EmptyStateComponent, PageSectionComponent, TranslateModule, IconComponent],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.css'
 })
@@ -29,6 +30,11 @@ export class OverviewComponent {
   navigate(tab: DashboardTab): void {
     this.router.navigate(['/dashboard', tab]);
   }
+
+  readonly firstName = computed(() => {
+    const user = this.auth.currentUser();
+    return user?.firstName?.trim() || user?.name?.trim() || '';
+  });
 
   readonly stats = this.store.stats;
   readonly recentJobs = computed(() => this.store.jobs().slice(0, 5));

@@ -1,0 +1,6 @@
+<svg data-animate="analytics-background" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
+  @for (ring of rings; track ring.radius) {
+  <circle cx="-100" cy="980" [attr.r]="ring.radius" fill="none" stroke="#2C5738" stroke-width="1.1"
+    [attr.stroke-opacity]="ring.strokeOpacity" vector-effect="non-scaling-stroke" />
+  }
+</svg>

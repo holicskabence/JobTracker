@@ -12,20 +12,20 @@ import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.compo
 import { CardComponent } from '../shared/card/card.component';
 import { DatePickerComponent } from '../shared/date-picker/date-picker.component';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
-import { StatisticIconComponent, StatisticIconName } from './statistic-icon/statistic-icon.component';
+import { IconComponent, IconName } from '../shared/icon/icon.component';
 
 type DateRangeKey = 'all' | 'last30' | 'last90' | 'thisYear' | 'custom';
 type Granularity = 'daily' | 'weekly' | 'monthly';
 
 interface KpiDelta {
   text: string;
-  icon: StatisticIconName;
+  icon: IconName;
   good: boolean;
 }
 
 interface KpiCard {
   key: string;
-  icon: StatisticIconName;
+  icon: IconName;
   accent: string;
   label: string;
   value: string;
@@ -35,7 +35,7 @@ interface KpiCard {
 
 interface PanelNote {
   accent: string;
-  icon: StatisticIconName;
+  icon: IconName;
   title: string;
   body: string;
 }
@@ -104,7 +104,7 @@ function round1(value: number): number {
   standalone: true,
   imports: [
     AreaChartComponent, ComboChartComponent, DonutChartComponent, HorizontalBarChartComponent, FunnelChartComponent,
-    FilterDropdownComponent, StatisticIconComponent, CardComponent, DatePickerComponent, PageSectionComponent,
+    FilterDropdownComponent, IconComponent, CardComponent, DatePickerComponent, PageSectionComponent,
     TranslateModule
   ],
   templateUrl: './statistics.component.html',

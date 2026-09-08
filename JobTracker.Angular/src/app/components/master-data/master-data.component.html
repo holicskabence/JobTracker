@@ -5,13 +5,7 @@
         <app-card class="master-data-card" radius="xl">
             <div class="master-data-card-header">
                 <div class="master-data-card-icon master-data-card-icon--purple">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 4h6v6H4z" />
-                        <path d="M14 4h6v6h-6z" />
-                        <path d="M4 14h6v6H4z" />
-                        <path d="M14 14h6v6h-6z" />
-                    </svg>
+                    <app-icon name="squares-four" [size]="18" />
                 </div>
                 <h3 class="master-data-card-title">{{ 'masterData.categories.title' | translate }}</h3>
                 <p class="master-data-card-subtitle">{{ 'masterData.categories.subtitle' | translate }}</p>
@@ -34,18 +28,12 @@
                         <button type="button" class="master-data-order-button"
                             (click)="moveCategoryUp(category.id, $event)" [disabled]="first"
                             [title]="'masterData.moveUp' | translate">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="18 15 12 9 6 15" />
-                            </svg>
+                            <app-icon name="chevron-up" [size]="10" />
                         </button>
                         <button type="button" class="master-data-order-button"
                             (click)="moveCategoryDown(category.id, $event)" [disabled]="last"
                             [title]="'masterData.moveDown' | translate">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9" />
-                            </svg>
+                            <app-icon name="chevron-down" [size]="10" />
                         </button>
                     </div>
 
@@ -62,29 +50,16 @@
                         (click)="toggleCategoryHidden(category.id, $event)"
                         [title]="(category.isHidden ? 'masterData.categories.hiddenTitle' : 'masterData.categories.visibleTitle') | translate">
                         @if (!category.isHidden) {
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                            <circle cx="12" cy="12" r="3" />
-                        </svg>
+                        <app-icon name="eye" [size]="13" />
                         } @else {
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-                            <line x1="1" y1="1" x2="23" y2="23" />
-                        </svg>
+                        <app-icon name="eye-off" [size]="13" />
                         }
                     </button>
 
                     <button type="button" class="master-data-tag-del"
                         (click)="$event.stopPropagation(); deleteCategory(category.id)"
                         [disabled]="practice.categories().length <= 1" [title]="'masterData.delete' | translate">
-                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                            stroke-linecap="round">
-                            <line x1="18" y1="6" x2="6" y2="18" />
-                            <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
+                        <app-icon name="close" [size]="9" [strokeWidth]="3" />
                     </button>
                 </div>
                 }
@@ -101,17 +76,10 @@
                 }
                 <button class="master-data-add-button" type="submit">
                     @if (selectedCategoryId !== null) {
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
+                    <app-icon name="check" [size]="11" />
                     {{ 'masterData.save' | translate }}
                     } @else {
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round">
-                        <line x1="12" y1="5" x2="12" y2="19" />
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                    </svg>
+                    <app-icon name="plus" [size]="13" />
                     {{ 'masterData.add' | translate }}
                     }
                 </button>
@@ -120,11 +88,7 @@
         <app-card class="master-data-card master-data-card--wide" radius="xl">
         <div class="master-data-card-header">
             <div class="master-data-card-icon master-data-card-icon--yellow">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 3v18h18" />
-                    <path d="M18.7 8l-5.1 5.1-3-3L7 13.6" />
-                </svg>
+                <app-icon name="chart-line" [size]="18" />
             </div>
             <h3 class="master-data-card-title">{{ 'masterData.statuses.title' | translate }}</h3>
             <p class="master-data-card-subtitle">{{ 'masterData.statuses.subtitle' | translate }}</p>
@@ -145,17 +109,11 @@
                     <div class="status-row-order">
                         <button type="button" class="status-order-button" (click)="moveStatusUp(cfg.key, $event)"
                             [disabled]="first" [title]="'masterData.moveUp' | translate">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="18 15 12 9 6 15" />
-                            </svg>
+                            <app-icon name="chevron-up" [size]="10" />
                         </button>
                         <button type="button" class="status-order-button" (click)="moveStatusDown(cfg.key, $event)"
                             [disabled]="last" [title]="'masterData.moveDown' | translate">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9" />
-                            </svg>
+                            <app-icon name="chevron-down" [size]="10" />
                         </button>
                     </div>
 
@@ -172,29 +130,16 @@
                         (click)="toggleStatusKanban(cfg.key, $event)"
                         [title]="(cfg.showInKanban === false ? 'masterData.hiddenFromKanban' : 'masterData.visibleInKanban') | translate">
                         @if (cfg.showInKanban !== false) {
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                            <circle cx="12" cy="12" r="3" />
-                        </svg>
+                        <app-icon name="eye" [size]="13" />
                         } @else {
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-                            <line x1="1" y1="1" x2="23" y2="23" />
-                        </svg>
+                        <app-icon name="eye-off" [size]="13" />
                         }
                     </button>
 
                     <button type="button" class="master-data-tag-del"
                         (click)="$event.stopPropagation(); deleteStatus(cfg.key)"
                         [disabled]="jobStore.statusConfigs().length <= 1" [title]="'masterData.delete' | translate">
-                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                            stroke-linecap="round">
-                            <line x1="18" y1="6" x2="6" y2="18" />
-                            <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
+                        <app-icon name="close" [size]="9" [strokeWidth]="3" />
                     </button>
                 </div>
 
@@ -210,12 +155,7 @@
                     </span>
                     }
                     <button type="button" class="status-settings-open-button" (click)="openStatusSettings(cfg, $event)">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="3" />
-                            <path
-                                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                        </svg>
+                        <app-icon name="settings" [size]="12" />
                         {{ 'masterData.statuses.openSettings' | translate }}
                     </button>
                 </div>
@@ -234,17 +174,10 @@
             }
             <button class="master-data-add-button" type="submit">
                 @if (selectedStatusKey) {
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                </svg>
+                <app-icon name="check" [size]="11" />
                 {{ 'masterData.save' | translate }}
                 } @else {
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round">
-                    <line x1="12" y1="5" x2="12" y2="19" />
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
+                <app-icon name="plus" [size]="13" />
                 {{ 'masterData.add' | translate }}
                 }
             </button>
@@ -256,12 +189,7 @@
     <app-card class="master-data-card master-data-card--wide" radius="xl">
         <div class="master-data-card-header">
             <div class="master-data-card-icon master-data-card-icon--blue">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="17 8 12 3 7 8" />
-                    <line x1="12" y1="3" x2="12" y2="15" />
-                </svg>
+                <app-icon name="upload" [size]="18" [strokeWidth]="2" />
             </div>
             <h3 class="master-data-card-title">{{ 'masterData.outreachTemplates.title' | translate }}</h3>
             <p class="master-data-card-subtitle">{{ 'masterData.outreachTemplates.subtitle' | translate }}</p>
@@ -274,11 +202,7 @@
             <div class="master-data-outreach-template-row">
                 <div class="master-data-outreach-template-icon"
                     [class.master-data-outreach-template-icon--overridden]="outreachTemplateFileNames[template.id]">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 4h16v16H4z" />
-                        <path d="M22 6l-10 7L2 6" />
-                    </svg>
+                    <app-icon name="mail" [size]="16" />
                 </div>
 
                 <div class="master-data-outreach-template-body">
@@ -295,11 +219,7 @@
                     <button type="button" class="master-data-tag-del"
                         (click)="clearOutreachTemplateOverride(template.id)"
                         [title]="'masterData.outreachTemplates.removeTitle' | translate">
-                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                            stroke-linecap="round">
-                            <line x1="18" y1="6" x2="6" y2="18" />
-                            <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
+                        <app-icon name="close" [size]="9" [strokeWidth]="3" />
                     </button>
                     } @else {
                     <span class="master-data-outreach-template-status">{{ 'masterData.outreachTemplates.default' |
@@ -310,12 +230,7 @@
                         <input type="file" class="master-data-outreach-template-upload-input"
                             (change)="onOutreachTemplateFileSelected(template.id, $event)"
                             accept=".pdf,.doc,.docx,.txt" />
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                            <polyline points="17 8 12 3 7 8" />
-                            <line x1="12" y1="3" x2="12" y2="15" />
-                        </svg>
+                        <app-icon name="upload" [size]="14" />
                     </label>
                 </div>
             </div>
@@ -328,13 +243,7 @@
  <app-card class="master-data-card" radius="xl">
         <div class="master-data-card-header">
             <div class="master-data-card-icon master-data-card-icon--green">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" />
-                    <line x1="8" y1="2" x2="8" y2="6" />
-                    <line x1="3" y1="10" x2="21" y2="10" />
-                </svg>
+                <app-icon name="calendar" [size]="18" />
             </div>
             <h3 class="master-data-card-title">{{ 'masterData.eventTypes.title' | translate }}</h3>
             <p class="master-data-card-subtitle">{{ 'masterData.eventTypes.subtitle' | translate }}</p>
@@ -351,11 +260,7 @@
                 <button type="button" class="master-data-tag-del"
                     (click)="$event.stopPropagation(); deleteEventType(type)"
                     [disabled]="planner.eventTypes().length <= 1" [title]="'masterData.delete' | translate">
-                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                        stroke-linecap="round">
-                        <line x1="18" y1="6" x2="6" y2="18" />
-                        <line x1="6" y1="6" x2="18" y2="18" />
-                    </svg>
+                    <app-icon name="close" [size]="9" [strokeWidth]="3" />
                 </button>
             </div>
             }
@@ -372,17 +277,10 @@
             }
             <button class="master-data-add-button" type="submit">
                 @if (selectedEventType) {
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                </svg>
+                <app-icon name="check" [size]="11" />
                 {{ 'masterData.save' | translate }}
                 } @else {
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round">
-                    <line x1="12" y1="5" x2="12" y2="19" />
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
+                <app-icon name="plus" [size]="13" />
                 {{ 'masterData.add' | translate }}
                 }
             </button>
@@ -391,11 +289,7 @@
     <app-card class="master-data-card master-data-card--wide" radius="xl">
         <div class="master-data-card-header">
             <div class="master-data-card-icon master-data-card-icon--blue">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                </svg>
+                <app-icon name="link" [size]="18" />
             </div>
             <h3 class="master-data-card-title">{{ 'masterData.sources.title' | translate }}</h3>
             <p class="master-data-card-subtitle">{{ 'masterData.sources.subtitle' | translate }}</p>
@@ -420,11 +314,7 @@
                 <button type="button" class="master-data-tag-del"
                     (click)="$event.stopPropagation(); deleteSource(source.id!)"
                     [disabled]="jobStore.sources().length <= 1" [title]="'masterData.delete' | translate">
-                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                        stroke-linecap="round">
-                        <line x1="18" y1="6" x2="6" y2="18" />
-                        <line x1="6" y1="6" x2="18" y2="18" />
-                    </svg>
+                    <app-icon name="close" [size]="9" [strokeWidth]="3" />
                 </button>
             </div>
             }
@@ -442,17 +332,10 @@
             }
             <button class="master-data-add-button" type="submit">
                 @if (selectedSourceId !== null) {
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                </svg>
+                <app-icon name="check" [size]="11" />
                 {{ 'masterData.save' | translate }}
                 } @else {
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round">
-                    <line x1="12" y1="5" x2="12" y2="19" />
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
+                <app-icon name="plus" [size]="13" />
                 {{ 'masterData.add' | translate }}
                 }
             </button>
@@ -468,12 +351,7 @@
 
     @if (isDemoUser()) {
     <div class="master-data-info">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--clr-muted)" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="8" x2="12" y2="12" />
-            <line x1="12" y1="16" x2="12.01" y2="16" />
-        </svg>
+        <app-icon name="alert-circle" [size]="16" style="color: var(--clr-muted)" />
         <span>{{ 'masterData.demoNotice' | translate }}</span>
     </div>
     }

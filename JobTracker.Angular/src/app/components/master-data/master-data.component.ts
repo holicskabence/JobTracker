@@ -13,11 +13,12 @@ import { StatusSettingsModalComponent } from './status-settings-modal/status-set
 import { JobSource, JobStatusConfig } from '../../models/job.model';
 import { PracticeCategory } from '../../models/practice.model';
 import { OUTREACH_TEMPLATES, OutreachTemplate, outreachTemplateKey } from '../../models/planner.model';
+import { IconComponent } from '../shared/icon/icon.component';
 
 @Component({
   selector: 'app-master-data',
   standalone: true,
-  imports: [FormsModule, TranslateModule, CardComponent, BadgeComponent, PageSectionComponent, ColorPickerComponent, StatusSettingsModalComponent],
+  imports: [FormsModule, TranslateModule, CardComponent, BadgeComponent, PageSectionComponent, ColorPickerComponent, StatusSettingsModalComponent, IconComponent],
   templateUrl: './master-data.component.html',
   styleUrl: './master-data.component.css'
 })

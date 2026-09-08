@@ -7,7 +7,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-xs);
   padding: var(--padding-input);
   background-color: var(--clr-white);
   border: 1.5px solid var(--clr-border);
@@ -23,11 +23,11 @@
 .date-picker-trigger--filled { color: var(--clr-dark); }
 
 :host(.date-picker--compact) .date-picker-trigger {
-  padding: var(--space-2-5) var(--space-3-5);
+  padding: var(--space-sm) var(--space-md);
   border-width: 1px;
   border-radius: var(--radius-sm);
-  font-size: 0.8125rem;
-  font-weight: 500;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
 }
 
 .date-picker-trigger:hover:not(.date-picker-trigger--open) {
@@ -71,9 +71,9 @@
   overflow-y: auto;
   background-color: var(--clr-white);
   border: 1px solid var(--clr-border);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   box-shadow: 0 12px 40px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.07);
-  padding: var(--space-4);
+  padding: var(--space-md);
   animation: date-picker-in 0.14s ease-out both;
 }
 
@@ -86,7 +86,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-3-5);
+  margin-bottom: var(--space-md);
 }
 
 .date-picker-nav {
@@ -109,25 +109,25 @@
 }
 
 .date-picker-month-label {
-  font-size: 0.9375rem;
-  font-weight: 700;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
   color: var(--clr-dark);
 }
 
 .date-picker-weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-2xs);
 }
 
 .date-picker-weekday {
   text-align: center;
-  font-size: 0.6875rem;
-  font-weight: 700;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--clr-muted);
-  padding: var(--space-1) 0;
+  padding: var(--space-2xs) 0;
 }
 
 .date-picker-grid {
@@ -149,8 +149,8 @@
   border-radius: 50%;
   background: transparent;
   font-family: 'Poppins', sans-serif;
-  font-size: 0.8125rem;
-  font-weight: 500;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
   color: var(--clr-dark);
   cursor: pointer;
   transition: background-color 0.12s, color 0.12s;
@@ -162,7 +162,7 @@
 
 .date-picker-day--today:not(.date-picker-day--selected) {
   color: var(--clr-green);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   box-shadow: inset 0 0 0 1.5px var(--clr-green);
   border-radius: 50%;
 }
@@ -170,5 +170,5 @@
 .date-picker-day--selected {
   background-color: var(--clr-green);
   color: #fff;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }

@@ -1,0 +1,15 @@
+svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.gauge-graphic-track {
+    stroke: #2b333b;
+    stroke-width: 9;
+}
+
+.gauge-graphic-arc {
+    stroke-width: 9;
+    filter: drop-shadow(0 0 0.125rem rgba(126, 212, 91, 0.28));
+}

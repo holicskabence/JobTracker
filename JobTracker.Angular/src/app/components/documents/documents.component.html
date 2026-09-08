@@ -47,12 +47,7 @@
           <div class="documents-form-actions">
             <label class="documents-file-label">
               <input type="file" class="documents-file-input" (change)="onFileSelected($event)" accept=".pdf,.documents-container,.docx" />
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="17 8 12 3 7 8"/>
-                <line x1="12" y1="3" x2="12" y2="15"/>
-              </svg>
+              <app-icon name="upload" [size]="14" />
               @if (selectedFile) {
                 <span class="documents-file-name">{{ selectedFile.name }}</span>
               } @else {
@@ -61,10 +56,7 @@
             </label>
 
             <button class="documents-add-button" type="submit">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-              </svg>
+              <app-icon name="plus" [size]="14" />
               {{ 'documents.submitBtn' | translate }}
             </button>
           </div>
@@ -79,10 +71,7 @@
               <div class="modal-header">
                 <h2 class="modal-title" id="documents-modal-title">{{ 'documents.newFileOrLinkTitle' | translate }}</h2>
                 <button class="modal-close" type="button" (click)="closeForm()" [attr.aria-label]="'documents.closeBtn' | translate">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                    <line x1="18" y1="6" x2="6" y2="18"/>
-                    <line x1="6" y1="6" x2="18" y2="18"/>
-                  </svg>
+                  <app-icon name="close" [size]="20" />
                 </button>
               </div>
               <div class="modal-form">
@@ -115,19 +104,9 @@
           <div class="documents-item" [class.documents-item--first]="i === 0">
             <div class="documents-item-icon" [class.documents-item-icon--has-file]="documents.hasFile">
               @if (documents.hasFile) {
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                  <polyline points="8 13 10 15 16 13"/>
-                  <line x1="10" y1="15" x2="10" y2="9"/>
-                </svg>
+                <app-icon name="file-chart" [size]="16" />
               } @else {
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                </svg>
+                <app-icon name="file" [size]="16" />
               }
             </div>
             <div class="documents-item-body">
@@ -148,23 +127,14 @@
             <div class="documents-item-actions">
               <button class="documents-item-menu-trigger" [class.documents-item-menu-trigger--open]="openMenuId() === documents.id"
                       (click)="toggleMenu(documents.id, $event)" [title]="'documents.actionsTitle' | translate">
-                <svg width="15" height="15" viewBox="0 0 24 24">
-                  <circle cx="12" cy="5" r="2" fill="currentColor" />
-                  <circle cx="12" cy="12" r="2" fill="currentColor" />
-                  <circle cx="12" cy="19" r="2" fill="currentColor" />
-                </svg>
+                <app-icon name="more-vertical" [size]="15" />
               </button>
 
               @if (openMenuId() === documents.id) {
                 <div class="documents-item-menu-panel" [style.top.px]="menuTop" [style.left.px]="menuLeft" (click)="$event.stopPropagation()">
                   @if (documents.hasFile) {
                     <button class="documents-item-menu-option" (click)="downloadFile(documents.id, documents.fileName!); closeMenu()">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                           stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                        <polyline points="7 10 12 15 17 10"/>
-                        <line x1="12" y1="15" x2="12" y2="3"/>
-                      </svg>
+                      <app-icon name="download" [size]="14" />
                       {{ 'documents.downloadTitle' | translate }}
                     </button>
                   }
@@ -172,29 +142,15 @@
                   <label class="documents-item-menu-option">
                     <input type="file" class="documents-file-input" (change)="onUploadFile(documents.id, $event); closeMenu()" accept=".pdf,.documents-container,.docx" [disabled]="uploadingId() === documents.id" />
                     @if (uploadingId() === documents.id) {
-                      <svg class="documents-spinner" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                           stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                        <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
-                      </svg>
+                      <app-icon name="spinner" class="documents-spinner" [size]="14" />
                     } @else {
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                           stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                        <polyline points="17 8 12 3 7 8"/>
-                        <line x1="12" y1="3" x2="12" y2="15"/>
-                      </svg>
+                      <app-icon name="upload" [size]="14" />
                     }
                     {{ 'documents.uploadOrReplaceTitle' | translate }}
                   </label>
 
                   <button class="documents-item-menu-option documents-item-menu-option--danger" (click)="planner.deleteDocument(documents.id); closeMenu()">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <polyline points="3 6 5 6 21 6"/>
-                      <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
-                      <path d="M10 11v6M14 11v6"/>
-                      <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
-                    </svg>
+                    <app-icon name="trash" [size]="14" />
                     {{ 'documents.deleteTitle' | translate }}
                   </button>
                 </div>
@@ -218,30 +174,18 @@
       <button class="documents-template-toggle" (click)="toggleTemplates()">
         <div class="documents-template-toggle-left">
           <div class="documents-template-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 4h16v16H4z"/>
-              <path d="M22 6l-10 7L2 6"/>
-            </svg>
+            <app-icon name="mail" [size]="16" />
           </div>
           <span class="documents-template-title">{{ 'documents.outreachTemplatesTitle' | translate }}</span>
         </div>
-        <svg class="documents-template-chevron" [class.documents-template-chevron--open]="templatesOpen()"
-             width="16" height="16" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="6 9 12 15 18 9"/>
-        </svg>
+        <app-icon name="chevron-down" class="documents-template-chevron" [class.documents-template-chevron--open]="templatesOpen()" [size]="16" />
       </button>
 
       <div class="documents-template-body" [class.documents-template-body--open]="templatesOpen()">
 
         <div class="documents-template-header-inner">
           <div class="documents-template-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 4h16v16H4z"/>
-              <path d="M22 6l-10 7L2 6"/>
-            </svg>
+            <app-icon name="mail" [size]="16" />
           </div>
           <h3 class="documents-template-title">{{ 'documents.outreachTemplatesTitle' | translate }}</h3>
         </div>
@@ -261,17 +205,10 @@
               (click)="copyTemplate(template)"
             >
               @if (copiedId() === template.id) {
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
+                <app-icon name="check" [size]="14" />
                 {{ 'documents.copiedBtn' | translate }}
               } @else {
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                </svg>
+                <app-icon name="copy" [size]="14" />
                 {{ 'documents.copyBtn' | translate }}
               }
             </button>

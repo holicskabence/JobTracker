@@ -14,6 +14,7 @@ import { JobStoreService } from '../../services/job-store.service';
 import { Job } from '../../models/job.model';
 import { ApplicationPickerComponent } from '../shared/application-picker/application-picker.component';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
+import { IconComponent } from '../shared/icon/icon.component';
 
 type EventFilter = 'all' | 'upcoming' | 'past';
 type MobileTab = 'events' | 'tasks';
@@ -21,7 +22,7 @@ type MobileTab = 'events' | 'tasks';
 @Component({
   selector: 'app-events',
   standalone: true,
-  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, DatePickerComponent, TimePickerComponent, CardComponent, EmptyStateComponent, TranslateModule, PageSectionComponent, ApplicationPickerComponent],
+  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, DatePickerComponent, TimePickerComponent, CardComponent, EmptyStateComponent, TranslateModule, PageSectionComponent, ApplicationPickerComponent, IconComponent],
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'
 })

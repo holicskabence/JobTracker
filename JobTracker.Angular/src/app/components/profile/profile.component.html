@@ -14,29 +14,18 @@
                     }
                     @if (avatarUploading) {
                     <div class="profile-avatar-overlay">
-                        <svg class="profile-avatar-spinner" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-                        </svg>
+                        <app-icon name="spinner" class="profile-avatar-spinner" [size]="20" />
                     </div>
                     }
                     @if (auth.avatarObjectUrl()) {
                     <button class="profile-avatar-delete-button" type="button" (click)="deleteAvatar()"
                         [title]="'profile.summary.deleteAvatarTitle' | translate">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18" />
-                            <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
+                        <app-icon name="close" [size]="12" />
                     </button>
                     }
                     <label class="profile-avatar-edit" [class.profile-avatar-edit--loading]="avatarUploading"
                         [title]="'profile.summary.editAvatarTitle' | translate">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                        </svg>
+                        <app-icon name="edit" [size]="12" />
                         <input type="file" accept="image/*" (change)="onAvatarSelected($event)" hidden
                             [disabled]="avatarUploading" />
                     </label>
@@ -54,34 +43,19 @@
                 @if (user!.linkedInUrl) {
                 <a class="profile-link" [href]="user!.linkedInUrl" target="_blank" rel="noopener noreferrer"
                     [title]="'profile.professionalLinks.linkedInLabel' | translate">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
-                        <rect x="2" y="9" width="4" height="12" />
-                        <circle cx="4" cy="4" r="2" />
-                    </svg>
+                    <app-icon name="linkedin-outline" [size]="15" />
                 </a>
                 }
                 @if (user!.gitHubUrl) {
                 <a class="profile-link" [href]="user!.gitHubUrl" target="_blank" rel="noopener noreferrer"
                     [title]="'profile.professionalLinks.gitHubLabel' | translate">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                    </svg>
+                    <app-icon name="github-outline" [size]="15" />
                 </a>
                 }
                 @if (user!.portfolioUrl) {
                 <a class="profile-link" [href]="user!.portfolioUrl" target="_blank" rel="noopener noreferrer"
                     [title]="'profile.professionalLinks.portfolioLabel' | translate">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="2" y1="12" x2="22" y2="12" />
-                        <path
-                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                    </svg>
+                    <app-icon name="globe" [size]="15" />
                 </a>
                 }
             </div>
@@ -150,12 +124,7 @@
             </div>
 
             <button class="profile-logout-button" type="button" (click)="logout()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                    <polyline points="16 17 21 12 16 7" />
-                    <line x1="21" y1="12" x2="9" y2="12" />
-                </svg>
+                <app-icon name="log-out" [size]="16" />
                 {{ 'profile.summary.logout' | translate }}
             </button>
 
@@ -208,11 +177,7 @@
             <div class="profile-section-divider"></div>
 
             <div class="profile-section-header">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--clr-muted)" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-                </svg>
+                <app-icon name="briefcase-outline" [size]="17" style="color: var(--clr-muted)" />
                 <h4 class="profile-section-heading">{{ 'profile.careerPreferences.title' | translate }}</h4>
             </div>
             <p class="profile-section-description">{{ 'profile.careerPreferences.description' | translate }}</p>
@@ -304,11 +269,7 @@
             <div class="profile-section-divider"></div>
 
             <div class="profile-section-header">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--clr-muted)" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                </svg>
+                <app-icon name="link" [size]="17" style="color: var(--clr-muted)" />
                 <h4 class="profile-section-heading">{{ 'profile.professionalLinks.title' | translate }}</h4>
             </div>
             <p class="profile-section-description">{{ 'profile.professionalLinks.description' | translate }}</p>
@@ -341,12 +302,7 @@
             <div class="profile-section-divider"></div>
 
             <div class="profile-section-header">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--clr-muted)" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <circle cx="12" cy="12" r="6" />
-                    <circle cx="12" cy="12" r="2" />
-                </svg>
+                <app-icon name="target" [size]="17" style="color: var(--clr-muted)" />
                 <h4 class="profile-section-heading">{{ 'profile.goal.title' | translate }}</h4>
             </div>
             <p class="profile-section-description">{{ 'profile.goal.description' | translate }}</p>
@@ -367,11 +323,7 @@
             <div class="profile-section-divider"></div>
 
             <div class="profile-section-header">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--clr-muted)" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M12 6v6l4 2" />
-                </svg>
+                <app-icon name="clock" [size]="17" style="color: var(--clr-muted)" />
                 <h4 class="profile-section-heading">{{ 'profile.language.title' | translate }}</h4>
             </div>
             <p class="profile-section-description">{{ 'profile.language.description' | translate }}</p>
@@ -381,11 +333,7 @@
             <div class="profile-section-divider"></div>
 
             <div class="profile-section-header">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--clr-muted)" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M12 8v4l3 3" />
-                </svg>
+                <app-icon name="clock" [size]="17" style="color: var(--clr-muted)" />
                 <h4 class="profile-section-heading">{{ 'profile.aiSettings.title' | translate }}</h4>
             </div>
             <p class="profile-section-description">{{ 'profile.aiSettings.description' | translate }}</p>
@@ -412,11 +360,7 @@
             <div class="profile-section-divider"></div>
 
             <div class="profile-section-header">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--clr-muted)" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
+                <app-icon name="lock" [size]="17" style="color: var(--clr-muted)" />
                 <h4 class="profile-section-heading">{{ 'profile.password.title' | translate }}</h4>
             </div>
             <p class="profile-section-description">{{ 'profile.password.description' | translate }}</p>
@@ -432,19 +376,9 @@
                         <button type="button" class="profile-eye-button" (click)="showCurrentPwd = !showCurrentPwd"
                             [title]="(showCurrentPwd ? 'profile.password.hide' : 'profile.password.show') | translate">
                             @if (showCurrentPwd) {
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
-                                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
-                                <line x1="1" y1="1" x2="23" y2="23" />
-                            </svg>
+                            <app-icon name="eye-off" [size]="16" />
                             } @else {
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                <circle cx="12" cy="12" r="3" />
-                            </svg>
+                            <app-icon name="eye" [size]="16" />
                             }
                         </button>
                     </div>
@@ -460,19 +394,9 @@
                             <button type="button" class="profile-eye-button" (click)="showNewPwd = !showNewPwd"
                                 [title]="(showNewPwd ? 'profile.password.hide' : 'profile.password.show') | translate">
                                 @if (showNewPwd) {
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path
-                                        d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
-                                    <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
-                                    <line x1="1" y1="1" x2="23" y2="23" />
-                                </svg>
+                                <app-icon name="eye-off" [size]="16" />
                                 } @else {
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                    <circle cx="12" cy="12" r="3" />
-                                </svg>
+                                <app-icon name="eye" [size]="16" />
                                 }
                             </button>
                         </div>
@@ -486,19 +410,9 @@
                             <button type="button" class="profile-eye-button" (click)="showConfirmPwd = !showConfirmPwd"
                                 [title]="(showConfirmPwd ? 'profile.password.hide' : 'profile.password.show') | translate">
                                 @if (showConfirmPwd) {
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path
-                                        d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
-                                    <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
-                                    <line x1="1" y1="1" x2="23" y2="23" />
-                                </svg>
+                                <app-icon name="eye-off" [size]="16" />
                                 } @else {
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                    <circle cx="12" cy="12" r="3" />
-                                </svg>
+                                <app-icon name="eye" [size]="16" />
                                 }
                             </button>
                         </div>
@@ -507,21 +421,13 @@
 
                 @if (pwdError) {
                 <div class="profile-pwd-feedback profile-pwd-feedback--error">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="12" y1="8" x2="12" y2="12" />
-                        <line x1="12" y1="16" x2="12.01" y2="16" />
-                    </svg>
+                    <app-icon name="alert-circle" [size]="14" [strokeWidth]="2.5" />
                     {{ pwdError }}
                 </div>
                 }
                 @if (pwdSaved) {
                 <div class="profile-pwd-feedback profile-pwd-feedback--success">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
+                    <app-icon name="check" [size]="14" [strokeWidth]="2.5" />
                     {{ 'profile.password.changeSuccess' | translate }}
                 </div>
                 }
@@ -540,12 +446,7 @@
     <ng-template #sectionFeedback let-section="section" let-labelKey="labelKey">
         @if (errorSection === section) {
         <div class="profile-pwd-feedback profile-pwd-feedback--error">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" y1="8" x2="12" y2="12" />
-                <line x1="12" y1="16" x2="12.01" y2="16" />
-            </svg>
+            <app-icon name="alert-circle" [size]="14" [strokeWidth]="2.5" />
             {{ saveError }}
         </div>
         }
@@ -553,10 +454,7 @@
             <button class="profile-save-button" type="submit"
                 [class.profile-save-button--saved]="savedSection === section">
                 @if (savedSection === section) {
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                </svg>
+                <app-icon name="check" [size]="15" [strokeWidth]="2.5" />
                 }
                 {{ (savedSection === section ? 'profile.savedBtn' : labelKey) | translate }}
             </button>

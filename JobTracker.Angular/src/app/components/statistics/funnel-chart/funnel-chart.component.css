@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: var(--space-1);
+  gap: var(--space-2xs);
 }
 
 .funnel-stage {
@@ -40,8 +40,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-md);
   min-width: 40%;
   box-shadow: 0 2px 10px -4px rgba(0, 0, 0, 0.18);
@@ -55,15 +55,15 @@
 }
 
 .funnel-bar-label {
-  font-size: 0.8125rem;
-  font-weight: 700;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
   color: #fff;
   white-space: nowrap;
 }
 
 .funnel-bar-value {
-  font-size: 0.9375rem;
-  font-weight: 800;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
   color: #fff;
   white-space: nowrap;
 }
@@ -71,14 +71,14 @@
 .funnel-connector {
   display: flex;
   align-items: center;
-  gap: var(--space-1-5);
+  gap: var(--space-xs);
   color: var(--clr-muted);
-  padding: var(--space-1) 0;
+  padding: var(--space-2xs) 0;
 }
 
 .funnel-conversion {
-  font-size: 0.6875rem;
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -86,10 +86,10 @@
 @media (max-width: 479px) {
   .funnel-bar {
     min-width: 70%;
-    padding: var(--space-2-5) var(--space-3);
+    padding: var(--space-sm) var(--space-sm);
   }
 
   .funnel-bar-label {
-    font-size: 0.75rem;
+    font-size: var(--font-size-sm);
   }
 }

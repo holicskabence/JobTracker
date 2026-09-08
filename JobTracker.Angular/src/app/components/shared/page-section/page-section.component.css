@@ -21,19 +21,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-4);
+    gap: var(--space-md);
     flex-wrap: wrap;
 }
 
 .page-section-title {
-    font-size: 1.5rem;
-    font-weight: 800;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
     color: var(--clr-dark);
-    margin: 0 0 var(--space-1);
 }
 
 .page-section-subtitle {
-    font-size: 0.9rem;
+    font-size: var(--font-size-lg);
     color: var(--clr-muted);
     margin: 0;
 }

@@ -14,6 +14,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { DashboardHeaderComponent } from '../dashboard-header/dashboard-header.component';
 import { AddJobModalComponent } from '../../shared/add-job-modal/add-job-modal.component';
 import { JobHistoryModalComponent } from '../../shared/job-history-modal/job-history-modal.component';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 interface AddFormOpenable {
   openAddForm(): void;
@@ -33,6 +34,7 @@ function isAddFormOpenable(value: unknown): value is AddFormOpenable {
     DashboardHeaderComponent,
     AddJobModalComponent,
     JobHistoryModalComponent,
+    IconComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
@@ -55,7 +57,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   readonly editingJob = this.store.editingJob;
   readonly historyJob = this.store.historyJob;
 
-  // Practice data is a large payload and no first-paint surface reads it, so it loads alongside instead of blocking.
   readonly initialLoading = computed(() =>
     this.store.loading() || this.planner.loading()
   );
@@ -107,7 +108,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   handleHeaderAdd(): void {
     const tab = this.activeTab();
-    if ((tab === 'events' || tab === 'documents') && isAddFormOpenable(this.activeRouteComponent)) {
+    if ((tab === 'events' || tab === 'documents' || tab === 'practice') && isAddFormOpenable(this.activeRouteComponent)) {
       this.activeRouteComponent.openAddForm();
       return;
     }

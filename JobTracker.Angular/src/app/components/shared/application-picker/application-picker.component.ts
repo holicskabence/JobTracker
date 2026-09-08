@@ -1,11 +1,12 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Job } from '../../../models/job.model';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-application-picker',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, IconComponent],
   templateUrl: './application-picker.component.html',
   styleUrl: './application-picker.component.css'
 })

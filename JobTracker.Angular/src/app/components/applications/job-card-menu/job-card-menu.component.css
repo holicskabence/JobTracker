@@ -2,7 +2,7 @@
     width: 28px;
     height: 28px;
     border: none;
-    border-radius: var(--radius-xs);
+    border-radius: var(--radius-sm);
     background: transparent;
     color: var(--clr-muted);
     cursor: pointer;
@@ -25,7 +25,7 @@
     border: 1px solid var(--clr-border);
     border-radius: var(--radius-md);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.13), 0 2px 6px rgba(0, 0, 0, 0.06);
-    padding: var(--space-1);
+    padding: var(--space-2xs);
     display: flex;
     flex-direction: column;
     gap: 1px;
@@ -49,15 +49,15 @@
 .jcm-item {
     display: flex;
     align-items: center;
-    gap: var(--space-2-5);
-    padding: var(--space-2) var(--space-2-5);
+    gap: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
     border-radius: var(--radius-sm);
     border: none;
     background: transparent;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.8125rem;
-    font-weight: 500;
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
     color: var(--clr-dark);
     width: 100%;
     text-align: left;
@@ -85,7 +85,7 @@
 
 .jcm-item--back {
     color: var(--clr-muted);
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
 }
 
 .jcm-item-label {
@@ -103,21 +103,21 @@
 .jcm-divider {
     height: 1px;
     background-color: var(--clr-border);
-    margin: var(--space-1) 0;
+    margin: var(--space-2xs) 0;
 }
 
 .jcm-column-btn {
     display: flex;
     align-items: center;
-    gap: var(--space-2-5);
-    padding: var(--space-2) var(--space-2-5);
+    gap: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
     border-radius: var(--radius-sm);
     border: none;
     background: transparent;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.8125rem;
-    font-weight: 500;
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
     color: var(--clr-dark);
     width: 100%;
     text-align: left;
@@ -129,7 +129,7 @@
 }
 
 .jcm-column-btn--current {
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     background-color: var(--clr-bg);
     cursor: default;
 }
@@ -146,27 +146,27 @@
 }
 
 .jcm-confirm-text {
-    padding: var(--space-2) var(--space-2-5) var(--space-1-5);
-    font-size: 0.8125rem;
-    font-weight: 500;
+    padding: var(--space-xs) var(--space-sm) var(--space-xs);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
     color: var(--clr-dark);
-    line-height: 1.4;
+    line-height: var(--leading-normal);
 }
 
 .jcm-confirm-actions {
     display: flex;
-    gap: var(--space-1-5);
-    padding: var(--space-1) var(--space-2-5) var(--space-1-5);
+    gap: var(--space-xs);
+    padding: var(--space-2xs) var(--space-sm) var(--space-xs);
 }
 
 .jcm-confirm-btn {
     flex: 1;
-    padding: var(--space-1-5) var(--space-2);
+    padding: var(--space-xs) var(--space-xs);
     border-radius: var(--radius-sm);
     border: none;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
     cursor: pointer;
     transition: background-color 0.15s;
 }

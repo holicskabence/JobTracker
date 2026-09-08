@@ -3,11 +3,12 @@ import {
   Input, Output, EventEmitter, signal, inject
 } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-date-picker',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, IconComponent],
   templateUrl: './date-picker.component.html',
   styleUrl: './date-picker.component.css',
   host: {

@@ -11,11 +11,11 @@
     margin-inline: auto;
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 1.3125rem;
+    gap: var(--space-lg);
 }
 
 .landing-feature-strip-column {
-    padding-right: 0.3125rem;
+    padding-right: var(--space-2xs);
 }
 
 .landing-feature-strip-icon-container {
@@ -36,36 +36,36 @@
 }
 
 .landing-feature-strip-title {
-    margin-top: 0.875rem;
+    margin-top: var(--space-md);
     font-family: var(--landing-font-heading);
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.35;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-normal);
     color: #171c26;
 }
 
 .landing-feature-strip-description {
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    line-height: 1.45;
+    margin-top: var(--space-xs);
+    font-size: var(--font-size-lg);
+    line-height: var(--leading-normal);
     color: #868d96;
 }
 
 @media (max-width: 1150px) {
     .landing-feature-strip-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 1.75rem 1.5rem;
+        gap: var(--space-xl) var(--space-lg);
     }
 }
 
 @media (max-width: 940px) {
     .landing-feature-strip {
-        padding: 1.6875rem 0;
+        padding: var(--space-xl) 0;
     }
 
     .landing-feature-strip-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 1.6875rem 1.4375rem;
+        gap: var(--space-xl) var(--space-lg);
     }
 
     .landing-feature-strip-icon-container {
@@ -88,7 +88,7 @@
 
     .landing-feature-strip-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1.375rem 1.125rem;
+        gap: var(--space-lg) var(--space-md);
     }
 
     .landing-feature-strip-column {
@@ -106,13 +106,13 @@
     }
 
     .landing-feature-strip-title {
-        margin-top: 0.5rem;
-        line-height: 1.3;
+        margin-top: var(--space-xs);
+        line-height: var(--leading-snug);
     }
 
     .landing-feature-strip-description {
-        margin-top: 0.25rem;
-        line-height: 1.4;
+        margin-top: var(--space-2xs);
+        line-height: var(--leading-normal);
     }
 }
 

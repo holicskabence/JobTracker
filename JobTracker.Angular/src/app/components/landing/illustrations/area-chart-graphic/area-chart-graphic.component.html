@@ -1,0 +1,16 @@
+<svg viewBox="0 0 240 100" preserveAspectRatio="none" aria-hidden="true">
+  <defs>
+    <linearGradient [attr.id]="gradientId" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" [attr.stop-color]="color" stop-opacity=".30" />
+      <stop offset="1" [attr.stop-color]="color" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  <path data-animate="analytics-chart-area" [attr.d]="areaPath" [attr.fill]="areaFill" />
+  <g class="area-chart-graphic-grid">
+    <line x1="12" y1="34" x2="228" y2="34" />
+    <line x1="12" y1="62" x2="228" y2="62" />
+  </g>
+  <line class="area-chart-graphic-baseline" x1="12" y1="92" x2="228" y2="92" />
+  <path class="area-chart-graphic-line" data-animate="analytics-chart-line" [attr.d]="linePath" fill="none"
+    [attr.stroke]="color" />
+</svg>

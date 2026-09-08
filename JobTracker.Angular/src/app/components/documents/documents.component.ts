@@ -9,6 +9,7 @@ import { CardComponent } from '../shared/card/card.component';
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { BreakpointService } from '../../services/breakpoint.service';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
+import { IconComponent } from '../shared/icon/icon.component';
 
 type MobileTab = 'documents' | 'templates';
 
@@ -22,7 +23,7 @@ const DOC_TYPE_KEYS: Record<string, string> = {
 @Component({
   selector: 'app-documents',
   standalone: true,
-  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, CardComponent, EmptyStateComponent, TranslateModule, PageSectionComponent],
+  imports: [FormsModule, NgTemplateOutlet, SelectDropdownComponent, CardComponent, EmptyStateComponent, TranslateModule, PageSectionComponent, IconComponent],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.css'
 })

@@ -6,6 +6,7 @@ import { CardComponent } from '../shared/card/card.component';
 import { SortableHeaderCellComponent } from '../shared/sortable-header-cell/sortable-header-cell.component';
 import { DataTableComponent } from '../shared/data-table/data-table.component';
 import { JobCardMenuComponent } from '../applications/job-card-menu/job-card-menu.component';
+import { IconComponent } from '../shared/icon/icon.component';
 
 type SortKey = 'company' | 'status' | 'source' | 'date';
 type SortDir = 'asc' | 'description';
@@ -13,7 +14,7 @@ type SortDir = 'asc' | 'description';
 @Component({
   selector: 'app-table-view',
   standalone: true,
-  imports: [TranslateModule, CardComponent, SortableHeaderCellComponent, DataTableComponent, JobCardMenuComponent],
+  imports: [TranslateModule, CardComponent, SortableHeaderCellComponent, DataTableComponent, JobCardMenuComponent, IconComponent],
   templateUrl: './table-view.component.html',
   styleUrl: './table-view.component.css'
 })

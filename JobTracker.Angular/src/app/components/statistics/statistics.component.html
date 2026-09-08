@@ -10,7 +10,7 @@
           (click)="setDateRange(key); dateRangeDropdown.close()">
           <span class="filter-option-label">{{ 'statistics.filters.dateRange.' + key | translate }}</span>
           @if (dateRangeKey() === key) {
-          <app-statistic-icon name="check" [size]="13" />
+          <app-icon name="check" [size]="13" />
           }
         </button>
         }
@@ -33,7 +33,7 @@
           (click)="clearStatusFilter()">
           <span class="filter-option-label">{{ 'statistics.filters.allStatuses' | translate }}</span>
           @if (statusFilter().size === 0) {
-          <app-statistic-icon name="check" [size]="13" />
+          <app-icon name="check" [size]="13" />
           }
         </button>
         @for (config of sortedStatusConfigs(); track config.key) {
@@ -42,7 +42,7 @@
           <span class="filter-option-dot" [style.background-color]="config.color"></span>
           <span class="filter-option-label">{{ config.label }}</span>
           @if (statusFilter().has(config.key)) {
-          <app-statistic-icon name="check" [size]="13" />
+          <app-icon name="check" [size]="13" />
           }
         </button>
         }
@@ -55,7 +55,7 @@
           (click)="setCompany(''); companyDropdown.close()">
           <span class="filter-option-label">{{ 'statistics.filters.allCompanies' | translate }}</span>
           @if (!companyFilter()) {
-          <app-statistic-icon name="check" [size]="13" />
+          <app-icon name="check" [size]="13" />
           }
         </button>
         @for (company of companyOptions(); track company) {
@@ -63,7 +63,7 @@
           (click)="setCompany(company); companyDropdown.close()">
           <span class="filter-option-label">{{ company }}</span>
           @if (companyFilter() === company) {
-          <app-statistic-icon name="check" [size]="13" />
+          <app-icon name="check" [size]="13" />
           }
         </button>
         }
@@ -71,18 +71,18 @@
     </app-filter-dropdown>
 
     <button type="button" class="statistics-clear-filters" [disabled]="!hasActiveFilters()" (click)="clearFilters()">
-      <app-statistic-icon name="refresh" [size]="14" />
+      <app-icon name="refresh" [size]="14" />
       {{ 'statistics.filters.clear' | translate }}
     </button>
 
   </div>
 
-  <div class="statistics-kpi-grid">
+  <!-- <div class="statistics-kpi-grid">
     @for (kpi of kpiCards(); track kpi.key) {
     <app-card class="statistics-kpi-card">
       <div class="statistics-kpi-top">
         <span class="statistics-kpi-icon" [style.--kpi-accent]="kpi.accent">
-          <app-statistic-icon [name]="kpi.icon" [size]="19" />
+          <app-icon [name]="kpi.icon" [size]="19" />
         </span>
         <div class="statistics-kpi-text">
           <span class="statistics-kpi-label">{{ kpi.label }}</span>
@@ -93,7 +93,7 @@
         @if (kpi.delta; as delta) {
         <span class="statistics-kpi-delta" [class.statistics-kpi-delta--good]="delta.good"
           [class.statistics-kpi-delta--bad]="!delta.good">
-          <app-statistic-icon [name]="delta.icon" [size]="11" />
+          <app-icon [name]="delta.icon" [size]="11" />
           {{ delta.text }}
         </span>
         }
@@ -101,7 +101,7 @@
       </div>
     </app-card>
     }
-  </div>
+  </div> -->
 
   <div class="statistics-chart-row statistics-chart-row--primary">
 
@@ -119,7 +119,7 @@
               (click)="setGranularity(key); granularityDropdown.close()">
               <span class="filter-option-label">{{ 'statistics.granularity.' + key | translate }}</span>
               @if (granularity() === key) {
-              <app-statistic-icon name="check" [size]="13" />
+              <app-icon name="check" [size]="13" />
               }
             </button>
             }
@@ -133,7 +133,7 @@
       @if (timelineNote(); as note) {
       <div class="statistics-note" [style.--note-accent]="note.accent">
         <span class="statistics-note-icon">
-          <app-statistic-icon [name]="note.icon" [size]="15" />
+          <app-icon [name]="note.icon" [size]="15" />
         </span>
         <div class="statistics-note-text">
           <p class="statistics-note-title">{{ note.title }}</p>
@@ -156,7 +156,7 @@
       @if (statusNote(); as note) {
       <div class="statistics-note" [style.--note-accent]="note.accent">
         <span class="statistics-note-icon">
-          <app-statistic-icon [name]="note.icon" [size]="15" />
+          <app-icon [name]="note.icon" [size]="15" />
         </span>
         <div class="statistics-note-text">
           <p class="statistics-note-title">{{ note.title }}</p>
@@ -181,7 +181,7 @@
       @if (sourceNote(); as note) {
       <div class="statistics-note" [style.--note-accent]="note.accent">
         <span class="statistics-note-icon">
-          <app-statistic-icon [name]="note.icon" [size]="15" />
+          <app-icon [name]="note.icon" [size]="15" />
         </span>
         <div class="statistics-note-text">
           <p class="statistics-note-title">{{ note.title }}</p>
@@ -211,7 +211,7 @@
         @if (responseTrendCallout(); as callout) {
         <div class="statistics-callout" [style.--callout-accent]="callout.accent">
           <span class="statistics-callout-icon">
-            <app-statistic-icon [name]="callout.icon" [size]="18" />
+            <app-icon [name]="callout.icon" [size]="18" />
           </span>
           <p class="statistics-callout-title">{{ callout.title }}</p>
           <p class="statistics-callout-body">{{ callout.body }}</p>
@@ -235,7 +235,7 @@
         @if (weekdayCallout(); as callout) {
         <div class="statistics-callout" [style.--callout-accent]="callout.accent">
           <span class="statistics-callout-icon">
-            <app-statistic-icon [name]="callout.icon" [size]="18" />
+            <app-icon [name]="callout.icon" [size]="18" />
           </span>
           <p class="statistics-callout-caption">{{ 'statistics.charts.weekday.callout.title' | translate }}</p>
           <p class="statistics-callout-title statistics-callout-title--strong">{{ callout.title }}</p>
@@ -251,7 +251,7 @@
   <app-card class="statistics-summary" gap="none">
     <div class="statistics-summary-header">
       <span class="statistics-summary-icon">
-        <app-statistic-icon name="sparkles" [size]="18" />
+        <app-icon name="sparkles" [size]="18" />
       </span>
       <h3 class="statistics-summary-title">{{ 'statistics.summary.title' | translate }}</h3>
     </div>
@@ -259,7 +259,7 @@
       @for (insight of dataInsights(); track insight.key) {
       <div class="statistics-summary-item">
         <span class="statistics-summary-item-icon">
-          <app-statistic-icon name="check-circle" [size]="17" />
+          <app-icon name="check-circle" [size]="17" />
         </span>
         <div class="statistics-summary-item-text">
           <p class="statistics-summary-item-title">{{ insight.title }}</p>

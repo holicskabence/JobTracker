@@ -2,10 +2,10 @@
     height: 64px;
     background-color: var(--clr-white);
     border-bottom: 1px solid var(--clr-border);
-    padding: 0 var(--space-4);
+    padding: 0 var(--space-md);
     display: flex;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--space-md);
     flex-shrink: 0;
 }
 
@@ -16,10 +16,10 @@
     flex-shrink: 0;
     width: 240px;
     height: 100%;
-    margin-left: calc(-1 * var(--space-4));
-    padding-left: var(--space-4);
-    padding-right: var(--space-4);
-    margin-right: var(--space-1);
+    margin-left: calc(-1 * var(--space-md));
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+    margin-right: var(--space-2xs);
     border-right: 1px solid var(--clr-border);
 }
 
@@ -42,8 +42,8 @@
 }
 
 .dh-brand-name {
-    font-size: 1rem;
-    font-weight: 800;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
     color: var(--clr-dark);
     white-space: nowrap;
     font-family: 'Poppins', sans-serif;
@@ -108,8 +108,8 @@
 
 .header-title {
     flex: 1;
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
     color: var(--clr-dark);
     white-space: nowrap;
     overflow: hidden;
@@ -120,20 +120,20 @@
 
 @media (min-width: 768px) {
     .header-title {
-        font-size: 1.0625rem;
+        font-size: var(--font-size-lg);
     }
 }
 
 .header-right {
     display: flex;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--space-md);
     flex-shrink: 0;
 }
 
 .header-user {
-    font-size: 0.8125rem;
-    font-weight: 600;
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
     color: var(--clr-dark);
     white-space: nowrap;
     display: none;
@@ -148,14 +148,14 @@
 .header-add-button {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--space-xs);
     background-color: var(--clr-green);
     color: var(--clr-white);
     border: none;
     border-radius: var(--radius-full);
     padding: var(--padding-button);
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
     font-family: 'Poppins', sans-serif;
     cursor: pointer;
     box-shadow: 0 1px 3px var(--clr-shadow);

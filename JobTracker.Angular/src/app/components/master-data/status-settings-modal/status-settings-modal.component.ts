@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ColorPickerComponent } from '../../shared/color-picker/color-picker.component';
 import { JobStatusConfig, STATUS_OUTCOMES, StatusOutcome, normalizeStatusConfig } from '../../../models/job.model';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 type StatusFlag = 'countsAsApplication' | 'countsAsResponse' | 'isInterview' | 'isTerminal';
 
@@ -22,7 +23,7 @@ const DEFAULT_STALE_AFTER_DAYS = 21;
 @Component({
   selector: 'app-status-settings-modal',
   standalone: true,
-  imports: [FormsModule, TranslateModule, ColorPickerComponent],
+  imports: [FormsModule, TranslateModule, ColorPickerComponent, IconComponent],
   templateUrl: './status-settings-modal.component.html',
   styleUrl: './status-settings-modal.component.css'
 })

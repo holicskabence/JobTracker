@@ -1,11 +1,7 @@
 <div class="jcm">
     <button type="button" class="jcm-trigger" [class.jcm-trigger--open]="isOpen()" (click)="toggle($event)"
         [attr.title]="'shared.jobCardMenu.triggerTitle' | translate">
-        <svg width="15" height="15" viewBox="0 0 24 24">
-            <circle cx="12" cy="5" r="2" fill="currentColor" />
-            <circle cx="12" cy="12" r="2" fill="currentColor" />
-            <circle cx="12" cy="19" r="2" fill="currentColor" />
-        </svg>
+        <app-icon name="more-vertical" [size]="15" />
     </button>
 
     @if (isOpen()) {
@@ -15,56 +11,32 @@
         @switch (mode()) {
         @case ('main') {
         <button type="button" class="jcm-item" (click)="editJob($event)">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-            </svg>
+            <app-icon name="edit" [size]="15" [strokeWidth]="2" />
             {{ 'shared.jobCardMenu.edit' | translate }}
         </button>
 
         @if (jobLink(); as link) {
         <a class="jcm-item" [href]="link" target="_blank" rel="noreferrer" (click)="openLink()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-            </svg>
+            <app-icon name="link" [size]="15" />
             {{ 'shared.jobCardMenu.openLink' | translate }}
         </a>
         }
 
         <button type="button" class="jcm-item" (click)="viewHistory($event)">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9" />
-                <polyline points="12 7 12 12 16 14" />
-            </svg>
+            <app-icon name="clock" [size]="15" />
             {{ 'shared.jobCardMenu.history' | translate }}
         </button>
 
         <button type="button" class="jcm-item" [class.jcm-item--active]="moveOpen()" (click)="toggleMove($event)">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="16 3 21 3 21 8" />
-                <line x1="21" y1="3" x2="14" y2="10" />
-                <path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6" />
-            </svg>
+            <app-icon name="external-link" [size]="15" />
             <span class="jcm-item-label">{{ 'shared.jobCardMenu.moveToColumn' | translate }}</span>
-            <svg class="jcm-item-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-            </svg>
+            <app-icon name="chevron-right" class="jcm-item-chevron" [size]="13" />
         </button>
 
         <div class="jcm-divider"></div>
 
         <button type="button" class="jcm-item jcm-item--destructive" (click)="askDelete($event)">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="3 6 5 6 21 6" />
-                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-            </svg>
+            <app-icon name="trash" [size]="15" />
             {{ 'shared.jobCardMenu.delete' | translate }}
         </button>
         }
@@ -94,10 +66,7 @@
             <span class="jcm-column-dot" [style.background-color]="column.color"></span>
             <span class="jcm-item-label">{{ column.label }}</span>
             @if (column.key === job().status) {
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-            </svg>
+            <app-icon name="check" [size]="13" />
             }
         </button>
         }

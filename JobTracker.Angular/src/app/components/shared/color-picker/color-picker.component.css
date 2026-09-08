@@ -1,13 +1,13 @@
 :host {
     display: flex;
-    gap: var(--space-1-5);
+    gap: var(--space-xs);
     align-items: center;
     flex-shrink: 0;
 }
 
 .color-picker-dot {
-    width: var(--space-5);
-    height: var(--space-5);
+    width: var(--space-lg);
+    height: var(--space-lg);
     border-radius: 50%;
     border: 2px solid transparent;
     cursor: pointer;

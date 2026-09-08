@@ -15,8 +15,8 @@
     border-radius: var(--radius-md);
 }
 
-:host(.card--radius-xl) {
-    border-radius: var(--radius-xl);
+:host(.card--radius-lg) {
+    border-radius: var(--radius-lg);
 }
 
 :host(.card--padding-none) {

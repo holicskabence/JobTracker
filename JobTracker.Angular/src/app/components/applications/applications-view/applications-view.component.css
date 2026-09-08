@@ -2,13 +2,12 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    min-height: 0;
 }
 
 app-page-section.applications-header {
     display: block;
     flex: none;
-    padding: var(--space-4) var(--space-4) 0;
+    padding: var(--space-md) var(--space-md) 0;
 }
 
 @media (min-width: 768px) {
@@ -19,15 +18,13 @@ app-page-section.applications-header {
 
 @media (min-width: 1024px) {
     app-page-section.applications-header {
-        padding: var(--space-8) var(--space-8) 0;
+        padding: var(--space-xl) var(--space-xl) 0;
     }
 }
 
-/* Mobilon a kereso alatti hezag a fix fejlecre kerul, nem a gorgetheto kontenerre,
-   igy gorgetes kozben is megmarad - a kartyak nem futnak rea a keresore. */
 @media (max-width: 767px) {
     app-page-section.applications-header {
-        padding-bottom: var(--space-4);
+        padding-bottom: var(--space-md);
     }
 
     app-search-toolbar {

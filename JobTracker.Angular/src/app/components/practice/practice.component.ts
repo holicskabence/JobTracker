@@ -12,6 +12,7 @@ import { PageSectionComponent } from '../shared/page-section/page-section.compon
 import { SearchToolbarComponent } from '../shared/search-toolbar/search-toolbar.component';
 import { SortableHeaderCellComponent } from '../shared/sortable-header-cell/sortable-header-cell.component';
 import { DataTableComponent } from '../shared/data-table/data-table.component';
+import { IconComponent } from '../shared/icon/icon.component';
 
 const QUESTION_PAGE_SIZE = 60;
 
@@ -23,7 +24,7 @@ type AnswerFormat = 'bold' | 'italic' | 'bulletList' | 'numberedList' | 'code' |
 @Component({
   selector: 'app-practice',
   standalone: true,
-  imports: [FormsModule, CardComponent, EmptyStateComponent, PageSectionComponent, TranslateModule, SearchToolbarComponent, SortableHeaderCellComponent, DataTableComponent],
+  imports: [FormsModule, CardComponent, EmptyStateComponent, PageSectionComponent, TranslateModule, SearchToolbarComponent, SortableHeaderCellComponent, DataTableComponent, IconComponent],
   templateUrl: './practice.component.html',
   styleUrl: './practice.component.css'
 })
@@ -579,6 +580,11 @@ export class PracticeComponent {
       textarea.focus();
       textarea.setSelectionRange(caret, caret);
     });
+  }
+
+  openAddForm(): void {
+    this.activeTab.set('questions');
+    this.openAddQuestionModal();
   }
 
   openAddQuestionModal(): void {

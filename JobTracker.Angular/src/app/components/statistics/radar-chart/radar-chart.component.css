@@ -67,7 +67,7 @@
 
 .radar-axis-label {
   font-family: 'Poppins', sans-serif;
-  font-size: 10.5px;
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   fill: var(--clr-muted);
 }

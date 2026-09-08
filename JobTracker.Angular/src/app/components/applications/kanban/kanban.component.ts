@@ -3,11 +3,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Job, JobStatus } from '../../../models/job.model';
 import { JobStoreService } from '../../../services/job-store.service';
 import { KanbanColumnComponent } from '../kanban-column/kanban-column.component';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 @Component({
   selector: 'app-kanban',
   standalone: true,
-  imports: [KanbanColumnComponent, TranslateModule],
+  imports: [KanbanColumnComponent, TranslateModule, IconComponent],
   templateUrl: './kanban.component.html',
   styleUrl: './kanban.component.css'
 })

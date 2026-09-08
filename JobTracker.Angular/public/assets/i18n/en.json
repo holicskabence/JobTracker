@@ -352,6 +352,7 @@
   },
   "overview": {
     "sectionTitle": "Progress & what's next",
+    "greeting": "Hi, {{name}}!",
     "sectionSubtitle": "A quick read on your active applications and the days ahead.",
     "stats": {
       "totalApplications": "Total applications",
@@ -1211,6 +1212,7 @@
       "importing": "Importing…",
       "importBtn": "Import JSON",
       "addBtn": "+ New question",
+      "headerAddBtn": "New question",
       "searchPlaceholder": "Search questions…",
       "resultsSuffix": "results",
       "selectedSuffix": "selected",

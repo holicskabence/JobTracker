@@ -1,8 +1,8 @@
 .card {
   border: 1px solid var(--clr-border);
-  padding: var(--space-4);
+  padding: var(--space-md);
   position: relative;
-  gap: var(--space-1);
+  gap: var(--space-2xs);
   transition: box-shadow 0.2s, border-color 0.2s, background-color 0.2s, opacity 0.15s;
   cursor: grab;
 }
@@ -23,23 +23,23 @@
 
 .card-menu {
   position: absolute;
-  top: var(--space-2-5);
-  right: var(--space-2-5);
+  top: var(--space-sm);
+  right: var(--space-sm);
 }
 
 .card-company {
-  font-size: 0.9375rem;
-  font-weight: 700;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
   color: var(--clr-dark);
-  padding-right: 2.25rem;
-  margin-bottom: var(--space-0-5);
-  margin-top: var(--space-1);
+  padding-right: var(--space-xl);
+  margin-bottom: var(--space-2xs);
+  margin-top: var(--space-2xs);
 }
 
 .card-position {
-  font-size: 0.8125rem;
+  font-size: var(--font-size-md);
   color: var(--clr-muted);
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-xs);
 }
 
 .card-footer {
@@ -47,28 +47,28 @@
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid rgba(234, 232, 229, 0.6);
-  padding-top: var(--space-3);
+  padding-top: var(--space-sm);
   margin-top: auto;
 }
 
 .card-date {
   display: flex;
   align-items: center;
-  gap: var(--space-1-5);
-  font-size: 0.75rem;
-  font-weight: 500;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: var(--clr-muted);
 }
 
 .card-actions {
   display: flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: var(--space-2xs);
 }
 
 .card-action-button {
-  width: var(--space-7);
-  height: var(--space-7);
+  width: var(--space-xl);
+  height: var(--space-xl);
   border-radius: var(--radius-full);
   background-color: var(--clr-bg);
   color: var(--clr-muted);
@@ -91,13 +91,13 @@
   display: inline-flex;
   align-items: center;
   align-self: flex-start;
-  padding: var(--space-0-5) var(--space-2);
+  padding: var(--space-2xs) var(--space-xs);
   border-radius: var(--radius-full);
   background-color: var(--clr-bg);
-  font-size: 0.6875rem;
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-muted);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-sm);
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -110,6 +110,6 @@
   }
 
   .card-footer {
-    padding-top: var(--space-2-5);
+    padding-top: var(--space-sm);
   }
 }

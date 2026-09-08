@@ -8,13 +8,14 @@ import { JobStoreService } from '../../../services/job-store.service';
 import { PlannerService } from '../../../services/planner.service';
 import { StatusDropdownComponent } from '../status-dropdown/status-dropdown.component';
 import { AutocompleteInputComponent } from '../autocomplete-input/autocomplete-input.component';
+import { IconComponent } from '../icon/icon.component';
 
 type ModalTab = 'main' | 'details' | 'info';
 
 @Component({
   selector: 'app-add-job-modal',
   standalone: true,
-  imports: [FormsModule, StatusDropdownComponent, AutocompleteInputComponent, TranslateModule],
+  imports: [FormsModule, StatusDropdownComponent, AutocompleteInputComponent, TranslateModule, IconComponent],
   templateUrl: './add-job-modal.component.html',
   styleUrl: './add-job-modal.component.css'
 })

@@ -3,7 +3,7 @@
     background:
         radial-gradient(61.75rem 35.75rem at 12% 18%, rgba(52, 92, 44, 0.14), transparent 65%),
         linear-gradient(180deg, var(--landing-dark-background-top) 0%, var(--landing-dark-background-bottom) 100%);
-    padding: 4rem 0rem;
+    padding: var(--space-3xl) 0;
     overflow: hidden;
 }
 
@@ -22,41 +22,41 @@
     position: relative;
     display: grid;
     grid-template-columns: 25rem minmax(0, 1fr);
-    gap: 2.9375rem;
+    gap: var(--space-2xl);
 }
 
 .landing-analytics-copy {
-    padding-top: 0.875rem;
+    padding-top: var(--space-md);
 }
 
 .landing-analytics-headline {
     font-family: var(--landing-font-heading);
-    font-size: clamp(1.75rem, 2.5vw, 2.125rem);
-    font-weight: 700;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
     letter-spacing: -0.01em;
     color: var(--landing-dark-text);
 }
 
 .landing-analytics-paragraph {
-    margin-top: 1.125rem;
-    font-size: 1rem;
-    line-height: 1.5;
+    margin-top: var(--space-md);
+    font-size: var(--font-size-lg);
+    line-height: var(--leading-normal);
     color: var(--landing-dark-muted);
 }
 
 .landing-analytics-checklist {
-    margin-top: 1.625rem;
+    margin-top: var(--space-lg);
     list-style: none;
 }
 
 .landing-analytics-checklist-item {
     display: flex;
     align-items: center;
-    gap: 0.875rem;
-    margin-bottom: 0.8125rem;
-    font-size: 1rem;
-    line-height: 1.3;
-    font-weight: 500;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
+    font-size: var(--font-size-lg);
+    line-height: var(--leading-snug);
+    font-weight: var(--font-weight-medium);
     color: #c9cdd3;
 }
 
@@ -69,15 +69,15 @@
 }
 
 .landing-analytics-cta {
-    margin-top: 1.9375rem;
+    margin-top: var(--space-xl);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     font-family: var(--landing-font-heading);
-    font-size: 1rem;
-    font-weight: 600;
-    padding: 0.9375rem 1.6875rem;
-    border-radius: 999px;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-full);
     white-space: nowrap;
     text-decoration: none;
     background: var(--landing-green-gradient);
@@ -94,14 +94,14 @@
 .landing-analytics-panels {
     display: grid;
     grid-template-columns: 1.85fr 1fr;
-    gap: 1.3125rem;
+    gap: var(--space-lg);
     align-items: stretch;
 }
 
 .landing-analytics-charts-column {
     display: flex;
     flex-direction: column;
-    gap: 1.3125rem;
+    gap: var(--space-lg);
 }
 
 /* Both rows hand their cards a shared set of tracks, so a label that wraps to
@@ -113,20 +113,20 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto auto minmax(0, 1fr);
-    column-gap: 1.3125rem;
+    column-gap: var(--space-lg);
 }
 
 .landing-analytics-stat-row {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-rows: auto auto minmax(0, 1fr);
-    column-gap: 1.3125rem;
+    column-gap: var(--space-lg);
 }
 
 .landing-analytics-side-column {
     display: flex;
     flex-direction: column;
-    gap: 1.3125rem;
+    gap: var(--space-lg);
 }
 
 /* The funnel takes whatever height the gauge leaves, so the two columns end
@@ -154,54 +154,54 @@
     background: var(--landing-dark-card-background);
     border: 1px solid var(--landing-dark-card-border);
     border-radius: var(--landing-radius-card);
-    padding: 1.25rem 1.375rem;
+    padding: var(--space-lg) var(--space-lg);
     min-width: 0;
     transition: border-color 0.25s ease;
 }
 
 .landing-analytics-card-label {
-    font-size: 1rem;
-    font-weight: 500;
-    line-height: 1.25;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--leading-snug);
     color: var(--landing-dark-label);
 }
 
 .landing-analytics-card-value {
-    margin-top: 0.4375rem;
+    margin-top: var(--space-xs);
     font-family: var(--landing-font-heading);
-    font-size: 2.125rem;
-    font-weight: 700;
-    line-height: 1.1;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--leading-snug);
     letter-spacing: -0.01em;
     color: #ffffff;
 }
 
 .landing-analytics-card-value-unit {
-    font-size: 1.3125rem;
-    font-weight: 600;
-    margin-left: 0.3125rem;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-left: var(--space-2xs);
 }
 
 .landing-analytics-card-change {
-    margin-top: 0.5rem;
+    margin-top: var(--space-xs);
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 0.375rem;
+    gap: var(--space-xs);
 }
 
 .landing-analytics-card-change-value {
-    padding: 0.125rem 0.4375rem;
-    border-radius: 999px;
+    padding: 0.125rem var(--space-xs);
+    border-radius: var(--radius-full);
     background: rgba(126, 212, 91, 0.11);
-    font-size: 0.8125rem;
-    font-weight: 600;
-    line-height: 1.25;
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-snug);
     color: var(--landing-positive);
 }
 
 .landing-analytics-card-change-caption {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-md);
     color: #8b929b;
 }
 
@@ -221,7 +221,7 @@
 }
 
 .landing-analytics-chart {
-    margin-top: 1rem;
+    margin-top: var(--space-md);
 }
 
 .landing-analytics-chart-plot {
@@ -233,22 +233,6 @@
     display: block;
     width: 100%;
     height: 100%;
-}
-
-.landing-analytics-chart-grid line {
-    stroke: rgba(255, 255, 255, 0.07);
-    stroke-width: 1.3;
-}
-
-.landing-analytics-chart-baseline {
-    stroke: rgba(255, 255, 255, 0.13);
-    stroke-width: 1.3;
-}
-
-.landing-analytics-chart-line {
-    stroke-width: 2.6;
-    stroke-linecap: round;
-    stroke-linejoin: round;
 }
 
 .landing-analytics-chart-points {
@@ -282,15 +266,15 @@
 .landing-analytics-chart-axis {
     position: relative;
     height: 0.875rem;
-    margin-top: 0.5rem;
+    margin-top: var(--space-xs);
 }
 
 .landing-analytics-chart-axis-label {
     position: absolute;
     top: 0;
     transform: translateX(-50%);
-    font-size: 0.6875rem;
-    font-weight: 500;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
     letter-spacing: 0.02em;
     white-space: nowrap;
     color: #6d747d;
@@ -298,15 +282,15 @@
 
 /* --- Counter cards ------------------------------------------------------- */
 .landing-analytics-stat-card {
-    padding: 1.125rem 1.125rem 1.1875rem;
+    padding: var(--space-md) var(--space-md) var(--space-lg);
 }
 
 .landing-analytics-stat-card .landing-analytics-card-value {
-    font-size: 1.8125rem;
+    font-size: var(--font-size-2xl);
 }
 
 .landing-analytics-stat-card .landing-analytics-card-change-caption {
-    font-size: 0.75rem;
+    font-size: var(--font-size-sm);
 }
 
 /* --- Funnel -------------------------------------------------------------- */
@@ -322,9 +306,9 @@
     flex: 1;
     display: grid;
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
-    column-gap: 1.25rem;
+    column-gap: var(--space-lg);
     align-content: center;
-    margin-top: 1rem;
+    margin-top: var(--space-md);
 }
 
 .landing-analytics-funnel-shape {
@@ -344,9 +328,9 @@
 .landing-analytics-funnel-row {
     display: flex;
     align-items: center;
-    gap: 0.4375rem;
+    gap: var(--space-xs);
     min-width: 0;
-    font-size: 0.9375rem;
+    font-size: var(--font-size-lg);
     color: #a6acb4;
 }
 
@@ -370,26 +354,26 @@
 
 .landing-analytics-funnel-row-value {
     margin-left: auto;
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
     color: #ffffff;
 }
 
 .landing-analytics-funnel-total {
-    margin-top: 1rem;
-    padding-top: 0.8125rem;
+    margin-top: var(--space-md);
+    padding-top: var(--space-sm);
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem;
-    font-size: 0.8125rem;
+    gap: var(--space-sm);
+    font-size: var(--font-size-md);
     color: #8b929b;
 }
 
 .landing-analytics-funnel-total-value {
-    font-size: 0.9375rem;
-    font-weight: 700;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
     color: #ffffff;
 }
 
@@ -398,8 +382,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1.25rem;
-    padding: 1rem 1.375rem;
+    gap: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
 }
 
 .landing-analytics-gauge-copy {
@@ -407,9 +391,9 @@
 }
 
 .landing-analytics-gauge-caption {
-    margin-top: 0.3125rem;
-    font-size: 0.8125rem;
-    font-weight: 500;
+    margin-top: var(--space-2xs);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
     color: var(--landing-positive);
 }
 
@@ -425,16 +409,6 @@
     height: auto;
 }
 
-.landing-analytics-gauge-track {
-    stroke: #2b333b;
-    stroke-width: 9;
-}
-
-.landing-analytics-gauge-arc {
-    stroke-width: 9;
-    filter: drop-shadow(0 0 0.125rem rgba(126, 212, 91, 0.28));
-}
-
 .landing-analytics-gauge-readout {
     position: absolute;
     left: 0;
@@ -447,17 +421,17 @@
 
 .landing-analytics-gauge-value {
     font-family: var(--landing-font-heading);
-    font-size: 1.75rem;
-    font-weight: 700;
-    line-height: 1;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--leading-none);
     letter-spacing: -0.01em;
     color: #ffffff;
 }
 
 .landing-analytics-gauge-scale {
     margin-top: 0.125rem;
-    font-size: 0.6875rem;
-    font-weight: 600;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
     letter-spacing: 0.02em;
     color: #6d747d;
 }
@@ -465,7 +439,7 @@
 @media (max-width: 1700px) {
     .landing-analytics-inner {
         grid-template-columns: minmax(0, 1fr);
-        gap: 2.25rem;
+        gap: var(--space-xl);
     }
 
     .landing-analytics-copy {
@@ -476,12 +450,12 @@
 
 @media (max-width: 940px) {
     .landing-analytics {
-        padding: 2.25rem 0;
+        padding: var(--space-xl) 0;
     }
 
     .landing-analytics-inner {
         grid-template-columns: 1fr;
-        gap: 1.875rem;
+        gap: var(--space-xl);
     }
 
     .landing-analytics-checklist-item svg {
@@ -490,7 +464,7 @@
     }
 
     .landing-analytics-cta {
-        padding: 0.6875rem 1.125rem;
+        padding: var(--space-sm) var(--space-md);
     }
 
     /* The panels keep their two columns down to the stacking breakpoint, so the
@@ -501,12 +475,12 @@
     }
 
     .landing-analytics-funnel-body {
-        column-gap: 0.875rem;
+        column-gap: var(--space-md);
     }
 
     .landing-analytics-funnel-row {
-        gap: 0.375rem;
-        font-size: 0.875rem;
+        gap: var(--space-xs);
+        font-size: var(--font-size-lg);
     }
 
     .landing-analytics-funnel-row-marker {
@@ -515,15 +489,15 @@
     }
 
     .landing-analytics-funnel-row-value {
-        font-size: 0.9375rem;
+        font-size: var(--font-size-lg);
     }
 
     .landing-analytics-gauge-card .landing-analytics-card-label {
-        font-size: 0.9375rem;
+        font-size: var(--font-size-lg);
     }
 
     .landing-analytics-gauge-caption {
-        font-size: 0.75rem;
+        font-size: var(--font-size-sm);
     }
 
     .landing-analytics-gauge {
@@ -531,7 +505,7 @@
     }
 
     .landing-analytics-gauge-value {
-        font-size: 1.5rem;
+        font-size: var(--font-size-2xl);
     }
 }
 
@@ -541,13 +515,13 @@
     }
 
     .landing-analytics-inner {
-        gap: 1.5rem;
+        gap: var(--space-lg);
     }
 
     .landing-analytics-panels,
     .landing-analytics-charts-column,
     .landing-analytics-side-column {
-        gap: 0.75rem;
+        gap: var(--space-sm);
     }
 
     /* Stacked, so there is nothing left to line up and the row gap would
@@ -555,7 +529,7 @@
     .landing-analytics-chart-row {
         grid-template-columns: minmax(0, 1fr);
         grid-template-rows: none;
-        gap: 0.75rem;
+        gap: var(--space-sm);
     }
 
     .landing-analytics-chart-row > .landing-analytics-card {
@@ -565,53 +539,53 @@
 
     .landing-analytics-stat-row {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        column-gap: 0.75rem;
+        column-gap: var(--space-sm);
     }
 
     .landing-analytics-card {
-        padding: 0.875rem 1rem;
+        padding: var(--space-md) var(--space-md);
     }
 
     .landing-analytics-chart {
-        margin-top: 0.8125rem;
+        margin-top: var(--space-sm);
     }
 
     .landing-analytics-stat-card {
-        padding: 0.75rem 0.75rem 0.8125rem;
+        padding: var(--space-sm) var(--space-sm) var(--space-sm);
     }
 
     /* Three to a row, so the comparison has to be allowed to wrap. */
     .landing-analytics-stat-card .landing-analytics-card-change {
-        margin-top: 0.375rem;
-        gap: 0.25rem;
+        margin-top: var(--space-xs);
+        gap: var(--space-2xs);
     }
 
     .landing-analytics-stat-card .landing-analytics-card-change-caption {
-        line-height: 1.3;
+        line-height: var(--leading-snug);
     }
 
     .landing-analytics-checklist {
-        margin-top: 1.125rem;
+        margin-top: var(--space-md);
     }
 
     .landing-analytics-checklist-item {
-        margin-bottom: 0.625rem;
+        margin-bottom: var(--space-sm);
     }
 
     .landing-analytics-cta {
-        margin-top: 1.25rem;
+        margin-top: var(--space-lg);
     }
 
     /* Full width again below the split, so the rows get their desktop rhythm
        back. */
     .landing-analytics-funnel-body {
         grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
-        column-gap: 1rem;
+        column-gap: var(--space-md);
     }
 
     .landing-analytics-funnel-row {
-        gap: 0.4375rem;
-        font-size: 0.9375rem;
+        gap: var(--space-xs);
+        font-size: var(--font-size-lg);
     }
 
     .landing-analytics-funnel-row-marker {
@@ -620,11 +594,11 @@
     }
 
     .landing-analytics-funnel-row-value {
-        font-size: 1rem;
+        font-size: var(--font-size-lg);
     }
 
     .landing-analytics-gauge-card {
-        padding: 0.875rem 1rem;
+        padding: var(--space-md) var(--space-md);
     }
 
     .landing-analytics-gauge {
@@ -632,7 +606,7 @@
     }
 
     .landing-analytics-gauge-value {
-        font-size: 1.625rem;
+        font-size: var(--font-size-2xl);
     }
 }
 
@@ -646,7 +620,7 @@
     /* The odd one out drops to a second band, which a row gap cannot open up
        without also splitting the shared tracks. */
     .landing-analytics-stat-row > .landing-analytics-card:last-child {
-        margin-top: 0.75rem;
+        margin-top: var(--space-sm);
     }
 }
 

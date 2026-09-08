@@ -35,7 +35,7 @@
 
 .axis-label {
   font-family: 'Poppins', sans-serif;
-  font-size: 11px;
+  font-size: var(--font-size-xs);
   fill: var(--clr-muted);
 }
 
@@ -91,8 +91,8 @@
 
 .best-badge text {
   font-family: 'Poppins', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
   fill: var(--clr-green);
   text-anchor: middle;
 }
@@ -124,8 +124,8 @@
 
 .tooltip-title {
   font-family: 'Poppins', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
   fill: var(--clr-white);
   text-anchor: middle;
   letter-spacing: 0.05em;
@@ -134,24 +134,24 @@
 
 .tooltip-row {
   font-family: 'Poppins', sans-serif;
-  font-size: 10px;
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   text-anchor: middle;
 }
 
 .legend {
   display: flex;
   justify-content: center;
-  gap: var(--space-5);
-  padding-top: var(--space-2);
+  gap: var(--space-lg);
+  padding-top: var(--space-xs);
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: var(--space-1-5);
-  font-size: 0.75rem;
-  font-weight: 500;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: var(--clr-muted);
 }
 

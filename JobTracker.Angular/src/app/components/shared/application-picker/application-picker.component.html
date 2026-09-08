@@ -8,11 +8,7 @@
     } @else {
     <span class="application-picker-placeholder">{{ placeholder | translate }}</span>
     }
-    <svg class="application-picker-chevron" [class.application-picker-chevron--open]="isOpen" width="14" height="14"
-        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-        stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9" />
-    </svg>
+    <app-icon name="chevron-down" class="application-picker-chevron" [class.application-picker-chevron--open]="isOpen" [size]="14" />
 </button>
 
 @if (isOpen) {
@@ -20,11 +16,7 @@
     [style.min-width.px]="panelWidth" (click)="$event.stopPropagation()">
 
     <div class="application-picker-search">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="7" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-        </svg>
+        <app-icon name="search" [size]="14" />
         <input #searchField class="application-picker-search-field" type="text" autocomplete="off"
             [placeholder]="'shared.applicationPicker.searchPlaceholder' | translate" [value]="search"
             (input)="onSearch($event)" />
@@ -44,10 +36,7 @@
                 <span class="application-picker-option-position">{{ application.position }}</span>
             </span>
             @if (application.id === value) {
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-            </svg>
+            <app-icon name="check" [size]="13" />
             }
         </button>
         }

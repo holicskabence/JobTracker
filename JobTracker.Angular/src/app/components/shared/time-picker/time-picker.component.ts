@@ -3,11 +3,12 @@ import {
   Input, Output, EventEmitter, ViewChild
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-time-picker',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, IconComponent],
   templateUrl: './time-picker.component.html',
   styleUrl: './time-picker.component.css'
 })

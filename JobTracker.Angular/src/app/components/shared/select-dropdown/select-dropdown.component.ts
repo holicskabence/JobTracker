@@ -1,10 +1,11 @@
 import { Component, HostListener, Input, Output, EventEmitter } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-select-dropdown',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, IconComponent],
   templateUrl: './select-dropdown.component.html',
   styleUrl: './select-dropdown.component.css'
 })

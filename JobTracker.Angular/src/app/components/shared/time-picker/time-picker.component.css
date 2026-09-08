@@ -7,7 +7,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--space-xs);
     padding: var(--padding-input);
     background-color: var(--clr-white);
     border: 1.5px solid var(--clr-border);
@@ -59,7 +59,7 @@
     max-height: calc(var(--viewport-height) - 16px);
     background-color: var(--clr-white);
     border: 1px solid var(--clr-border);
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-lg);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0, 0, 0, 0.07);
     overflow: hidden;
     animation: time-picker-in 0.14s ease-out both;
@@ -89,13 +89,13 @@
 }
 
 .time-picker-column-header {
-    font-size: 0.625rem;
-    font-weight: 700;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--clr-muted);
     text-align: center;
-    padding: var(--space-2-5) 0 var(--space-1-5);
+    padding: var(--space-sm) 0 var(--space-xs);
     border-bottom: 1px solid var(--clr-border);
     flex-shrink: 0;
 }
@@ -109,7 +109,7 @@
 .time-picker-scroll {
     flex: 1;
     overflow-y: auto;
-    padding: var(--space-1);
+    padding: var(--space-2xs);
     scrollbar-width: thin;
     scrollbar-color: var(--clr-border) transparent;
 }
@@ -124,7 +124,7 @@
 
 .time-picker-scroll::-webkit-scrollbar-thumb {
     background-color: var(--clr-border);
-    border-radius: var(--radius-xs);
+    border-radius: var(--radius-sm);
 }
 
 .time-picker-minutes {
@@ -132,8 +132,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: var(--space-1);
-    padding: var(--space-1-5) var(--space-1);
+    gap: var(--space-2xs);
+    padding: var(--space-xs) var(--space-2xs);
 }
 
 .time-picker-item {
@@ -141,13 +141,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-2) 0;
+    padding: var(--space-xs) 0;
     border: none;
     border-radius: var(--radius-sm);
     background: transparent;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
     color: var(--clr-dark);
     cursor: pointer;
     transition: background-color 0.12s, color 0.12s;
@@ -161,14 +161,14 @@
 .time-picker-item--selected {
     background-color: var(--clr-green);
     color: #fff;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
 }
 
 .time-picker-footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-xs) var(--space-sm);
     border-top: 1px solid var(--clr-border);
     background-color: var(--clr-bg-2);
 }
@@ -176,12 +176,12 @@
 .time-picker-clear {
     display: flex;
     align-items: center;
-    gap: var(--space-1-5);
+    gap: var(--space-xs);
     border: none;
     background: transparent;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
     color: var(--clr-muted);
     cursor: pointer;
     transition: color 0.15s;
@@ -193,7 +193,7 @@
 }
 
 .time-picker-current {
-    font-size: 0.9rem;
-    font-weight: 700;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
     color: var(--clr-green);
 }

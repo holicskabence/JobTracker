@@ -2,11 +2,12 @@ import { Component, EventEmitter, Output, computed, inject, input } from '@angul
 import { TranslateModule } from '@ngx-translate/core';
 import { Job } from '../../../models/job.model';
 import { JobStoreService } from '../../../services/job-store.service';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-job-history-modal',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, IconComponent],
   templateUrl: './job-history-modal.component.html',
   styleUrl: './job-history-modal.component.css'
 })

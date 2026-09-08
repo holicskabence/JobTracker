@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { EmptyStateComponent } from '../../shared/empty-state/empty-state.component';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 export interface FunnelStage {
   label: string;
@@ -17,7 +18,7 @@ interface RenderedStage extends FunnelStage {
 @Component({
   selector: 'app-funnel-chart',
   standalone: true,
-  imports: [EmptyStateComponent, TranslateModule],
+  imports: [EmptyStateComponent, TranslateModule, IconComponent],
   templateUrl: './funnel-chart.component.html',
   styleUrl: './funnel-chart.component.css'
 })

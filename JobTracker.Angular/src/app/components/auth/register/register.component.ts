@@ -8,11 +8,12 @@ import { LanguageService } from '../../../services/language.service';
 import { AuthCardComponent } from '../../shared/auth-card/auth-card.component';
 import { WorkMode, WORK_MODES } from '../../../models/user.model';
 import { isValidEmail } from '../../../utils/email';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, RouterLink, AuthCardComponent, TranslateModule],
+  imports: [FormsModule, RouterLink, AuthCardComponent, TranslateModule, IconComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })

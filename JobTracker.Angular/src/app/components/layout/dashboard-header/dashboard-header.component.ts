@@ -1,11 +1,12 @@
 import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { DashboardTab } from '../../../models/job.model';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 @Component({
   selector: 'app-dashboard-header',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, IconComponent],
   templateUrl: './dashboard-header.component.html',
   styleUrl: './dashboard-header.component.css'
 })
@@ -33,6 +34,7 @@ export class DashboardHeaderComponent {
   private readonly ADD_BUTTON_LABEL_KEYS: Partial<Record<DashboardTab, string>> = {
     events: 'events.addEventBtn',
     documents: 'documents.recordFileOrLink',
+    practice: 'practice.questionsTab.headerAddBtn',
   };
 
   get pageTitle(): string {

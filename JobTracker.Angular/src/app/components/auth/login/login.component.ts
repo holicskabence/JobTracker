@@ -7,11 +7,12 @@ import { AuthService } from '../../../services/auth.service';
 import { SocialAuthService } from '../../../services/social-auth.service';
 import { AuthCardComponent } from '../../shared/auth-card/auth-card.component';
 import { isValidEmail } from '../../../utils/email';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink, AuthCardComponent, TranslateModule],
+  imports: [FormsModule, RouterLink, AuthCardComponent, TranslateModule, IconComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

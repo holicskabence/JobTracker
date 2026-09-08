@@ -9,13 +9,14 @@ import { calculateProfileCompleteness, ProfileCompleteness } from '../../utils/p
 import { CardComponent } from '../shared/card/card.component';
 import { PageSectionComponent } from '../shared/page-section/page-section.component';
 import { LanguageSwitcherComponent } from '../shared/language-switcher/language-switcher.component';
+import { IconComponent } from '../shared/icon/icon.component';
 
 type ProfileSection = 'personalInformation' | 'careerPreferences' | 'professionalLinks' | 'goal' | 'aiSettings';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule, NgTemplateOutlet, TranslateModule, CardComponent, PageSectionComponent, LanguageSwitcherComponent],
+  imports: [FormsModule, NgTemplateOutlet, TranslateModule, CardComponent, PageSectionComponent, LanguageSwitcherComponent, IconComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

@@ -4,20 +4,12 @@
 
     @if (value) {
     <button type="button" class="autocomplete-input-clear" (click)="clear($event)">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-            stroke-linecap="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-        </svg>
+        <app-icon name="close" [size]="10" [strokeWidth]="3" />
     </button>
     }
 
     <button type="button" class="autocomplete-input-toggle" (click)="toggle($event)">
-        <svg class="autocomplete-input-chevron" [class.autocomplete-input-chevron--open]="isOpen" width="14" height="14"
-            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-            stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9" />
-        </svg>
+        <app-icon name="chevron-down" class="autocomplete-input-chevron" [class.autocomplete-input-chevron--open]="isOpen" [size]="14" />
     </button>
 </div>
 
@@ -29,10 +21,7 @@
         (click)="pick(option, $event)">
         <span>{{ option }}</span>
         @if (option === value) {
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12" />
-        </svg>
+        <app-icon name="check" [size]="13" />
         }
     </button>
     }

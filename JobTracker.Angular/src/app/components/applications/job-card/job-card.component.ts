@@ -4,11 +4,12 @@ import { JobStoreService } from '../../../services/job-store.service';
 import { JobCardMenuComponent } from '../job-card-menu/job-card-menu.component';
 import { CardComponent } from '../../shared/card/card.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 @Component({
   selector: 'app-job-card',
   standalone: true,
-  imports: [JobCardMenuComponent, CardComponent, TranslateModule],
+  imports: [JobCardMenuComponent, CardComponent, TranslateModule, IconComponent],
   templateUrl: './job-card.component.html',
   styleUrl: './job-card.component.css'
 })

@@ -1,6 +1,6 @@
 .landing-site-footer {
     background: #fcfcfd;
-    padding: 4rem 0;
+    padding: var(--space-3xl) 0;
 }
 
 .landing-site-footer-inner {
@@ -13,13 +13,13 @@
 .landing-site-footer-brand {
     width: 27.4375rem;
     flex: none;
-    padding-top: 0.875rem;
+    padding-top: var(--space-md);
 }
 
 .landing-site-footer-brand-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.8125rem;
+    gap: var(--space-sm);
     text-decoration: none;
     color: inherit;
 }
@@ -33,8 +33,8 @@
 
 .landing-site-footer-brand-name {
     font-family: var(--landing-font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
     letter-spacing: -0.01em;
     color: #12161f;
 }
@@ -45,19 +45,19 @@
 }
 
 .landing-site-footer-column-title {
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
     color: #1a202a;
-    margin-bottom: 0.6875rem;
+    margin-bottom: var(--space-sm);
 }
 
 .landing-site-footer-link {
     display: block;
-    font-size: 0.9375rem;
-    line-height: 1.35;
+    font-size: var(--font-size-lg);
+    line-height: var(--leading-normal);
     color: #798089;
     text-decoration: none;
-    padding: 0.25rem 0;
+    padding: var(--space-2xs) 0;
 }
 
 .landing-site-footer-link:hover {
@@ -75,8 +75,8 @@
 
 .landing-site-footer-social-row {
     display: flex;
-    gap: 1.375rem;
-    margin-top: 1.0625rem;
+    gap: var(--space-lg);
+    margin-top: var(--space-md);
 }
 
 .landing-site-footer-social-link {
@@ -96,7 +96,7 @@
 @media (max-width: 1550px) {
     .landing-site-footer-inner {
         flex-wrap: wrap;
-        gap: 1.75rem 2.5rem;
+        gap: var(--space-xl) var(--space-2xl);
     }
 
     .landing-site-footer-brand {
@@ -111,12 +111,12 @@
 
 @media (max-width: 940px) {
     .landing-site-footer {
-        padding: 1.875rem 0;
+        padding: var(--space-xl) 0;
     }
 
     .landing-site-footer-inner {
         flex-wrap: wrap;
-        gap: 1.5rem 0;
+        gap: var(--space-lg) 0;
     }
 
     .landing-site-footer-brand {
@@ -151,7 +151,7 @@
     }
 
     .landing-site-footer-inner {
-        gap: 1.25rem 0;
+        gap: var(--space-lg) 0;
     }
 
     .landing-site-footer-column,
@@ -160,6 +160,6 @@
     }
 
     .landing-site-footer-social-row {
-        margin-top: 0.6875rem;
+        margin-top: var(--space-sm);
     }
 }

@@ -14,7 +14,7 @@
 .landing-nav-bar-brand {
     display: inline-flex;
     align-items: center;
-    gap: 0.8125rem;
+    gap: var(--space-sm);
     text-decoration: none;
     color: inherit;
 }
@@ -28,8 +28,8 @@
 
 .landing-nav-bar-brand-name {
     font-family: var(--landing-font-heading);
-    font-size: 1.625rem;
-    font-weight: 700;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
     letter-spacing: -0.01em;
     color: #12161f;
 }
@@ -37,12 +37,12 @@
 .landing-nav-bar-links {
     display: flex;
     justify-content: center;
-    gap: 4.25rem;
+    gap: var(--space-3xl);
 }
 
 .landing-nav-bar-link {
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
     color: #3a4149;
     text-decoration: none;
 }
@@ -54,19 +54,19 @@
 .landing-nav-bar-actions {
     display: flex;
     align-items: center;
-    gap: 2.25rem;
+    gap: var(--space-xl);
 }
 
 .landing-nav-bar-login-link {
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
     color: #1a202a;
     text-decoration: none;
 }
 
 .landing-nav-bar-greeting {
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
     color: #3a4149;
     white-space: nowrap;
 }
@@ -77,10 +77,10 @@
     align-items: center;
     justify-content: center;
     font-family: var(--landing-font-heading);
-    font-size: 0.9rem;
-    font-weight: 600;
-    padding: 0.6875rem 1.5625rem;
-    border-radius: 999px;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-full);
     white-space: nowrap;
     text-decoration: none;
     background: var(--landing-green-gradient);
@@ -113,7 +113,7 @@
 
     .landing-nav-bar-actions {
         justify-content: flex-end;
-        gap: 0.75rem;
+        gap: var(--space-sm);
     }
 
     .landing-nav-bar-menu-button {
@@ -143,7 +143,7 @@
         display: block;
         background: #fafafb;
         border-top: 1px solid var(--landing-line);
-        padding: 0.75rem 0 1.0625rem;
+        padding: var(--space-sm) 0 var(--space-md);
     }
 
     .landing-nav-bar-mobile-menu-inner {
@@ -153,9 +153,9 @@
 
     .landing-nav-bar-mobile-menu-link {
         display: block;
-        padding: 0.5rem 0;
-        font-size: 0.9rem;
-        font-weight: 500;
+        padding: var(--space-xs) 0;
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
         color: #1a202a;
         text-decoration: none;
     }

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { NavigationStart, Router, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
 import { ToastComponent } from './components/shared/toast/toast.component';
 
 @Component({
@@ -11,4 +12,14 @@ import { ToastComponent } from './components/shared/toast/toast.component';
 })
 export class AppComponent {
   title = 'JobTracker.Angular';
+
+  private readonly router = inject(Router);
+
+  constructor() {
+    // Reset while the leaving page is still scrollable: once the shell locks
+    // the document, iOS Safari keeps the old offset and scrollTo no longer takes.
+    this.router.events
+      .pipe(filter((event): event is NavigationStart => event instanceof NavigationStart))
+      .subscribe(() => window.scrollTo(0, 0));
+  }
 }

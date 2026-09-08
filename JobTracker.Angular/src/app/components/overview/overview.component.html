@@ -1,4 +1,6 @@
-<app-page-section [title]="'overview.sectionTitle' | translate" [subtitle]="'overview.sectionSubtitle' | translate">
+<app-page-section
+    [title]="firstName() ? ('overview.greeting' | translate: { name: firstName() }) : ('overview.sectionTitle' | translate)"
+    [subtitle]="'overview.sectionSubtitle' | translate">
 
     <div class="stats-grid">
 
@@ -32,29 +34,16 @@
             </div>
             <div class="card-metrics">
                 <span class="metric metric--green">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                        <polyline points="22 4 12 14.01 9 11.01" />
-                    </svg>
+                    <app-icon name="check-circle" [size]="16" />
                     {{ 'overview.stats.offerCount' | translate: { count: stats().offers } }}
                 </span>
                 <span class="metric metric--red">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="15" y1="9" x2="9" y2="15" />
-                        <line x1="9" y1="9" x2="15" y2="15" />
-                    </svg>
+                    <app-icon name="close-circle" [size]="16" />
                     {{ 'overview.stats.rejectedCount' | translate: { count: stats().rejections } }}
                 </span>
                 @if (closedWithoutDecision() > 0) {
                 <span class="metric metric--muted">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="8" y1="12" x2="16" y2="12" />
-                    </svg>
+                    <app-icon name="minus-circle" [size]="16" />
                     {{ 'overview.stats.closedWithoutDecisionCount' | translate: { count: closedWithoutDecision() } }}
                 </span>
                 }
@@ -124,10 +113,7 @@
                 <button class="quick-task" type="button" (click)="toggleTask(task.id)">
                     <span class="quick-task-check" [class.quick-task-check--done]="task.completed">
                         @if (task.completed) {
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12" />
-                        </svg>
+                        <app-icon name="check" [size]="10" [strokeWidth]="3.5" />
                         }
                     </span>
                     <span class="quick-task-text" [class.quick-task-text--done]="task.completed">{{ task.text }}</span>

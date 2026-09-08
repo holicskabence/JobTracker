@@ -2,7 +2,7 @@
     width: 28px;
     height: 28px;
     border: none;
-    border-radius: var(--radius-xs);
+    border-radius: var(--radius-sm);
     background: transparent;
     color: var(--clr-muted);
     cursor: pointer;
@@ -27,15 +27,15 @@
     width: 100%;
     display: flex;
     align-items: center;
-    gap: var(--space-2-5);
-    padding: var(--space-3) var(--space-4);
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
     /* matches .field-input's transparent border so both controls are the same height */
     border: 1.5px solid transparent;
     border-radius: var(--radius-md);
     background-color: var(--clr-bg);
     font-family: 'Poppins', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
     color: var(--clr-dark);
     cursor: pointer;
     text-align: left;
@@ -76,7 +76,7 @@
     border: 1px solid var(--clr-border);
     border-radius: var(--radius-md);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.13), 0 2px 6px rgba(0, 0, 0, 0.06);
-    padding: var(--space-1);
+    padding: var(--space-2xs);
     display: flex;
     flex-direction: column;
     gap: 1px;
@@ -99,15 +99,15 @@
 .status-dropdown-option {
     display: flex;
     align-items: center;
-    gap: var(--space-2-5);
-    padding: var(--space-2) var(--space-2-5);
+    gap: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
     border-radius: var(--radius-sm);
     border: none;
     background: transparent;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.8125rem;
-    font-weight: 500;
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
     color: var(--clr-dark);
     width: 100%;
     text-align: left;
@@ -119,7 +119,7 @@
 }
 
 .status-dropdown-option--current {
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     background-color: var(--clr-bg);
 }
 

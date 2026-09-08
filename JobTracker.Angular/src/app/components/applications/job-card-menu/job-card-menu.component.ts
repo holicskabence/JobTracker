@@ -2,13 +2,14 @@ import { Component, HostListener, computed, inject, input, signal } from '@angul
 import { TranslateModule } from '@ngx-translate/core';
 import { Job, JobStatus } from '../../../models/job.model';
 import { JobStoreService } from '../../../services/job-store.service';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 type PanelMode = 'main' | 'delete-confirm';
 
 @Component({
   selector: 'app-job-card-menu',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, IconComponent],
   templateUrl: './job-card-menu.component.html',
   styleUrl: './job-card-menu.component.css'
 })

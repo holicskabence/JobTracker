@@ -1,8 +1,10 @@
 import { Component, ElementRef, HostListener, Input, inject, signal } from '@angular/core';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 @Component({
   selector: 'app-filter-dropdown',
   standalone: true,
+  imports: [IconComponent],
   templateUrl: './filter-dropdown.component.html',
   styleUrl: './filter-dropdown.component.css'
 })
