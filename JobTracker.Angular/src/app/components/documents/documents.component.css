@@ -457,7 +457,10 @@
 
 .modal-backdrop {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--viewport-height);
   background-color: rgba(10, 10, 10, 0.4);
   backdrop-filter: blur(4px);
   display: flex;
@@ -465,6 +468,7 @@
   justify-content: center;
   z-index: 50;
   padding: var(--space-4);
+  padding-bottom: max(var(--space-4), env(safe-area-inset-bottom));
 }
 
 .modal {
@@ -473,7 +477,7 @@
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
   width: 100%;
   max-width: 32rem;
-  max-height: 90vh;
+  max-height: 100%;
   overflow-y: auto;
   animation: modal-in 0.18s ease-out;
 }

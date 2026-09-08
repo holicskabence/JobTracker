@@ -61,8 +61,7 @@
         top: 0;
         bottom: 0;
         width: 100%;
-        height: 100%;
-        height: 100dvh;
+        height: var(--viewport-height);
         overflow: hidden;
         transform: translateX(-100%);
         transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);

@@ -1,6 +1,6 @@
 .page {
-    height: 100vh;
-    height: 100dvh;
+    height: var(--viewport-height);
+    max-height: var(--viewport-height);
     display: flex;
     flex-direction: column;
     padding: 0px;

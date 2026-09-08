@@ -1,8 +1,7 @@
 .auth-page {
     position: relative;
     isolation: isolate;
-    min-height: 100vh;
-    min-height: 100dvh;
+    min-height: var(--viewport-height);
     background-color: var(--clr-bg);
     display: flex;
     align-items: center;
@@ -74,8 +73,7 @@
 
     .auth-card {
         max-width: 100%;
-        min-height: 100vh;
-        min-height: 100dvh;
+        min-height: var(--viewport-height);
         border-radius: 0;
         box-shadow: none;
         justify-content: center;
