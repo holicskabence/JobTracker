@@ -55,10 +55,6 @@
   text-anchor: end;
 }
 
-.axis-label--x {
-  text-anchor: middle;
-}
-
 .line {
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -81,7 +77,6 @@
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-bold);
   fill: var(--clr-dark);
-  text-anchor: middle;
   pointer-events: none;
 }
 

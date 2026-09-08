@@ -4,7 +4,9 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { EmptyStateComponent } from '../../shared/empty-state/empty-state.component';
 
-interface ChartPoint { x: number; y: number; value: number }
+const MIN_X_LABEL_SPACING = 68;
+
+interface ChartPoint { x: number; y: number; value: number; anchor: string }
 interface GridLine { y: number; label: string }
 interface XLabel { x: number; text: string; anchor: string }
 
@@ -130,7 +132,9 @@ export class AreaChartComponent implements OnChanges, AfterViewInit, OnDestroy {
     this.columnPositions = this.categories.map((_, index) => toX(index));
 
     this.seriesLines = this.series.map(s => {
-      const points = s.values.map((value, index) => ({ x: toX(index), y: toY(value), value }));
+      const points = s.values.map((value, index) => ({
+        x: toX(index), y: toY(value), value, anchor: this.edgeAnchor(index, s.values.length)
+      }));
       const path = this.smooth ? this.smoothPath(points) : this.straightPath(points);
       const first = points[0];
       const last = points[points.length - 1];
@@ -144,17 +148,28 @@ export class AreaChartComponent implements OnChanges, AfterViewInit, OnDestroy {
       return { y: toY(value), label: this.formatTick(value) };
     });
 
-    const stride = Math.max(1, Math.ceil(count / this.maxXLabels));
+    const fitting = Math.max(2, Math.floor(this.chartWidth / MIN_X_LABEL_SPACING));
+    const stride = Math.max(1, Math.ceil(count / Math.min(this.maxXLabels, fitting)));
     const shown = this.categories.map((text, index) => ({ text, index })).filter(item => item.index % stride === 0);
     const last = count - 1;
-    // The final tick is worth showing, but not on top of the previous one.
-    if (last - shown[shown.length - 1].index >= stride / 2) shown.push({ text: this.categories[last], index: last });
+    // The final tick is worth showing, but never crowded against the previous one.
+    if (shown[shown.length - 1].index !== last) {
+      const entry = { text: this.categories[last], index: last };
+      if (last - shown[shown.length - 1].index >= stride) shown.push(entry);
+      else shown[shown.length - 1] = entry;
+    }
     // Edge labels hug the plot edges so they cannot spill past the card padding.
     this.xLabels = shown.map((item, position) => ({
       x: toX(item.index),
       text: item.text,
       anchor: item.index === 0 ? 'start' : position === shown.length - 1 && item.index === count - 1 ? 'end' : 'middle'
     }));
+  }
+
+  private edgeAnchor(index: number, count: number): string {
+    if (index === 0) return 'start';
+    if (index === count - 1) return 'end';
+    return 'middle';
   }
 
   /** Four evenly spaced, round ticks read better than a tight fit to the maximum. */

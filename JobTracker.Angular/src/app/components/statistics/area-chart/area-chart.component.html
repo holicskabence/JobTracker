@@ -33,14 +33,15 @@
       <circle [attr.cx]="point.x" [attr.cy]="point.y" r="4" class="dot"
         [class.dot--hidden]="!showDots && hovered?.index !== i" [style.fill]="line.color" />
       @if (showPointLabels) {
-      <text [attr.x]="point.x" [attr.y]="point.y - 14" class="point-label">{{ formatValue(point.value) }}</text>
+      <text [attr.x]="point.x" [attr.y]="point.y - 14" [style.text-anchor]="point.anchor" class="point-label">{{
+        formatValue(point.value) }}</text>
       }
       }
       }
 
       @for (label of xLabels; track label.x) {
-      <text [attr.x]="label.x" [attr.y]="chartBottom + 20" [attr.text-anchor]="label.anchor"
-        class="axis-label axis-label--x">{{ label.text }}</text>
+      <text [attr.x]="label.x" [attr.y]="chartBottom + 20" [style.text-anchor]="label.anchor"
+        class="axis-label">{{ label.text }}</text>
       }
 
       @for (position of columnPositions; track $index; let i = $index) {

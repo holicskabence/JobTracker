@@ -208,13 +208,15 @@
             [showLegend]="false" [showPointLabels]="true" [decimals]="1"
             emptyMessage="statistics.charts.responseTrend.empty" />
         </div>
-        @if (responseTrendCallout(); as callout) {
-        <div class="statistics-callout" [style.--callout-accent]="callout.accent">
-          <span class="statistics-callout-icon">
-            <app-icon [name]="callout.icon" [size]="18" />
+        @if (responseTrendCallout(); as note) {
+        <div class="statistics-note" [style.--note-accent]="note.accent">
+          <span class="statistics-note-icon">
+            <app-icon [name]="note.icon" [size]="15" />
           </span>
-          <p class="statistics-callout-title">{{ callout.title }}</p>
-          <p class="statistics-callout-body">{{ callout.body }}</p>
+          <div class="statistics-note-text">
+            <p class="statistics-note-title">{{ note.title }}</p>
+            <p class="statistics-note-body">{{ note.body }}</p>
+          </div>
         </div>
         }
       </div>
@@ -232,14 +234,16 @@
           <app-combo-chart [items]="weekdayItems()" [barLegendLabel]="weekdayBarLabel()"
             [lineLegendLabel]="weekdayLineLabel()" [bestBadgeLabel]="bestDayBadge()" />
         </div>
-        @if (weekdayCallout(); as callout) {
-        <div class="statistics-callout" [style.--callout-accent]="callout.accent">
-          <span class="statistics-callout-icon">
-            <app-icon [name]="callout.icon" [size]="18" />
+        @if (weekdayCallout(); as note) {
+        <div class="statistics-note" [style.--note-accent]="note.accent">
+          <span class="statistics-note-icon">
+            <app-icon [name]="note.icon" [size]="15" />
           </span>
-          <p class="statistics-callout-caption">{{ 'statistics.charts.weekday.callout.title' | translate }}</p>
-          <p class="statistics-callout-title statistics-callout-title--strong">{{ callout.title }}</p>
-          <p class="statistics-callout-body">{{ callout.body }}</p>
+          <div class="statistics-note-text">
+            <p class="statistics-note-title">{{ 'statistics.charts.weekday.callout.title' | translate }} {{ note.title
+              }}</p>
+            <p class="statistics-note-body">{{ note.body }}</p>
+          </div>
         </div>
         }
       </div>

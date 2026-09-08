@@ -354,65 +354,6 @@
   line-height: var(--leading-normal);
 }
 
-.statistics-callout {
-  min-width: 0;
-  overflow-wrap: anywhere;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: start;
-  align-content: center;
-  column-gap: var(--space-sm);
-  row-gap: 2px;
-  flex: 1;
-  margin-top: auto;
-  padding: var(--space-sm);
-  border-radius: var(--radius-sm);
-  background-color: color-mix(in srgb, var(--callout-accent) 9%, white);
-}
-
-.statistics-callout-caption,
-.statistics-callout-title,
-.statistics-callout-body {
-  grid-column: 2;
-}
-
-.statistics-callout-icon {
-  grid-column: 1;
-  grid-row: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: var(--radius-sm);
-  color: var(--callout-accent);
-  background-color: var(--clr-white);
-}
-
-.statistics-callout-caption {
-  font-size: var(--font-size-xs);
-  color: var(--clr-muted);
-}
-
-.statistics-callout-title {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--clr-dark);
-  line-height: var(--leading-normal);
-}
-
-.statistics-callout-title--strong {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-  color: var(--callout-accent);
-}
-
-.statistics-callout-body {
-  font-size: var(--font-size-sm);
-  color: var(--clr-muted);
-  line-height: var(--leading-normal);
-}
-
 /* ── What the data shows ─────────────────────────────────── */
 .statistics-summary-header {
   display: flex;
