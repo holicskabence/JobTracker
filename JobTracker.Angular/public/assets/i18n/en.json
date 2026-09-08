@@ -1,5 +1,7 @@
 {
-  "common": {},
+  "common": {
+    "loading": "Loading…"
+  },
   "nav": {
     "overview": "Overview",
     "applications": "Applications",

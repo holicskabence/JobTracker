@@ -1,5 +1,14 @@
 <div class="page">
 
+    @if (initialLoading()) {
+    <div class="dashboard-loading" role="status" [attr.aria-label]="'common.loading' | translate">
+        <svg class="dashboard-loading-spinner" width="32" height="32" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+        </svg>
+    </div>
+    } @else {
+
     <app-dashboard-header [activeTab]="activeTab()" [userName]="auth.currentUser()?.name ?? ''"
         [sidebarCollapsed]="sidebarCollapsed()" (toggleSidebar)="sidebarCollapsed.set(!sidebarCollapsed())"
         (addJob)="handleHeaderAdd()" (openMobileMenu)="sidebarMobileOpen.set(true)" />
@@ -15,16 +24,7 @@
             <main class="content-body"
                 [class.content-body--kanban]="activeTab() === 'applications' && viewService.view() === 'kanban'"
                 [class.content-body--table]="activeTab() === 'applications' && viewService.view() !== 'kanban'">
-                @if (initialLoading()) {
-                <div class="dashboard-loading">
-                    <svg class="dashboard-loading-spinner" width="32" height="32" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-                    </svg>
-                </div>
-                } @else {
                 <router-outlet (activate)="onRouteActivate($event)" />
-                }
             </main>
         </div>
 
@@ -36,6 +36,8 @@
 
     @if (historyJob(); as job) {
     <app-job-history-modal [job]="job" (close)="closeHistory()" />
+    }
+
     }
 
 </div>

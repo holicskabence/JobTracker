@@ -2,6 +2,7 @@ import { Component, ElementRef, computed, inject, signal, NgZone, OnInit, OnDest
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 import { gsap } from 'gsap';
 import { DashboardTab } from '../../../models/job.model';
 import { JobStoreService } from '../../../services/job-store.service';
@@ -27,6 +28,7 @@ function isAddFormOpenable(value: unknown): value is AddFormOpenable {
   standalone: true,
   imports: [
     RouterOutlet,
+    TranslateModule,
     SidebarComponent,
     DashboardHeaderComponent,
     AddJobModalComponent,

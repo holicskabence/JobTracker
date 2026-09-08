@@ -1,5 +1,7 @@
 {
-  "common": {},
+  "common": {
+    "loading": "Betöltés…"
+  },
   "nav": {
     "overview": "Áttekintés",
     "applications": "Jelentkezések",

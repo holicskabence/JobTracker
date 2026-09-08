@@ -19,7 +19,7 @@
     border-radius: var(--radius-xl);
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
     width: 100%;
-    max-width: 40rem;
+    max-width: 30rem;
     max-height: 100%;
     display: flex;
     flex-direction: column;
