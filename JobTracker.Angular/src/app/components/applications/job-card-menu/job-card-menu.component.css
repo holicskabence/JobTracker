@@ -30,7 +30,7 @@
     flex-direction: column;
     gap: 1px;
     animation: jcm-panel-in 0.1s ease-out;
-    max-height: 60vh;
+    max-height: 60dvh;
     overflow-y: auto;
 }
 
