@@ -1,4 +1,4 @@
-<button type="button" class="select-dropdown-trigger" [class.select-dropdown-trigger--open]="isOpen"
+<button type="button" class="input-base input-base--trigger select-dropdown-trigger" [class.input-base--open]="isOpen"
     (click)="toggle($event)">
     <span class="select-dropdown-value">{{ value || (placeholder | translate) }}</span>
     <app-icon name="chevron-down" class="select-dropdown-chevron" [class.select-dropdown-chevron--open]="isOpen" [size]="14" />

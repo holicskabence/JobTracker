@@ -1,11 +1,11 @@
 <app-page-section [title]="'practice.pageHeader.title' | translate"
     [subtitle]="'practice.pageHeader.subtitle' | translate">
-    <div pageActions class="practice-tabs">
-        <button class="practice-tab" [class.practice-tab--active]="activeTab() === 'practice'"
+    <div pageActions class="toggle-base practice-tabs">
+        <button class="toggle-base-button" [class.toggle-base-button--active]="activeTab() === 'practice'"
             (click)="activeTab.set('practice')">{{ 'practice.tabs.practice' | translate }}</button>
-        <button class="practice-tab" [class.practice-tab--active]="activeTab() === 'questions'"
+        <button class="toggle-base-button" [class.toggle-base-button--active]="activeTab() === 'questions'"
             (click)="activeTab.set('questions')">{{ 'practice.tabs.questions' | translate }}</button>
-        <button class="practice-tab" [class.practice-tab--active]="activeTab() === 'results'"
+        <button class="toggle-base-button" [class.toggle-base-button--active]="activeTab() === 'results'"
             (click)="activeTab.set('results')">{{ 'practice.tabs.results' | translate }}</button>
     </div>
 
@@ -655,7 +655,8 @@
                 <div class="practice-field">
                     <label class="practice-field-label">{{ 'practice.modal.categoryLabel' | translate }}</label>
                     <div class="category-dropdown" [class.category-dropdown--open]="catDropOpen">
-                        <button type="button" class="category-dropdown-trigger" (click)="toggleCatDrop($event)">
+                        <button type="button" class="input-base input-base--trigger category-dropdown-trigger"
+                        [class.input-base--open]="catDropOpen" (click)="toggleCatDrop($event)">
                             <span class="category-dropdown-dot" [style.background-color]="categoryColor(formCat())"></span>
                             <span class="category-dropdown-label">{{ formCat() || ('practice.modal.categoryPlaceholder' | translate) }}</span>
                             <app-icon name="chevron-down" class="category-dropdown-chevron" [size]="16" />
@@ -680,17 +681,17 @@
                 </div>
                 <div class="practice-field">
                     <label class="practice-field-label">{{ 'practice.modal.questionLabel' | translate }} <span class="practice-required">*</span></label>
-                    <input class="practice-input" type="text" [ngModel]="formQuestion()"
+                    <input class="input-base" type="text" [ngModel]="formQuestion()"
                         (ngModelChange)="formQuestion.set($event)" [placeholder]="'practice.modal.questionPlaceholder' | translate" />
                 </div>
                 <div class="practice-field">
                     <label class="practice-field-label">{{ 'practice.modal.hintLabel' | translate }}</label>
-                    <input class="practice-input" type="text" [ngModel]="formHint()" (ngModelChange)="formHint.set($event)"
+                    <input class="input-base" type="text" [ngModel]="formHint()" (ngModelChange)="formHint.set($event)"
                         [placeholder]="'practice.modal.hintPlaceholder' | translate" />
                 </div>
                 <div class="practice-field">
                     <label class="practice-field-label">{{ 'practice.modal.sampleAnswerLabel' | translate }} <span class="practice-required">*</span></label>
-                    <textarea class="practice-textarea practice-textarea--tall" rows="12" [ngModel]="formSampleAnswer()"
+                    <textarea class="input-base practice-textarea practice-textarea--tall" rows="12" [ngModel]="formSampleAnswer()"
                         (ngModelChange)="formSampleAnswer.set($event)"
                         [placeholder]="'practice.modal.sampleAnswerPlaceholder' | translate"></textarea>
                 </div>

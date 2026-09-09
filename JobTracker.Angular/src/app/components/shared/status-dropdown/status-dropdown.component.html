@@ -6,8 +6,8 @@
     </button>
     }
     @if (variant === 'form') {
-    <button type="button" class="status-dropdown-trigger status-dropdown-trigger--form"
-        [class.status-dropdown-trigger--open]="isOpen" (click)="toggle($event)">
+    <button type="button" class="input-base input-base--trigger status-dropdown-trigger status-dropdown-trigger--form"
+        [class.input-base--open]="isOpen" (click)="toggle($event)">
         <span class="status-dropdown-form-dot" [style.background-color]="colorFor(value)"></span>
         <span class="status-dropdown-form-label">{{ labelFor(value) }}</span>
         <app-icon name="chevron-down" class="status-dropdown-form-chevron" [size]="16" />

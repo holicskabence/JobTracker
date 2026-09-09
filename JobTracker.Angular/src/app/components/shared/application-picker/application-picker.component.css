@@ -4,31 +4,7 @@
 }
 
 .application-picker-trigger {
-    width: 100%;
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: var(--space-xs);
-    padding: var(--padding-input);
-    background-color: var(--clr-white);
-    border: 1px solid var(--clr-border);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-    color: var(--clr-dark);
-    transition: box-shadow 0.15s, border-color 0.15s;
-    text-align: left;
-    outline: none;
-}
-
-.application-picker-trigger:hover {
-    border-color: rgba(0, 0, 0, 0.22);
-}
-
-.application-picker-trigger--open,
-.application-picker-trigger:focus-visible {
-    border-color: var(--clr-green);
-    box-shadow: 0 0 0 2px rgba(38, 172, 0, 0.18);
 }
 
 .application-picker-value {

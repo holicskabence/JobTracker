@@ -2,10 +2,10 @@
   [subtitle]="'events.sectionSubtitle' | translate">
 
   @if (stacked()) {
-  <div class="events-tabs">
-    <button class="events-tab" [class.events-tab--active]="mobileTab() === 'events'"
+  <div class="toggle-base toggle-base--full-width">
+    <button class="toggle-base-button" [class.toggle-base-button--active]="mobileTab() === 'events'"
       (click)="mobileTab.set('events')">{{ 'events.mobileTabs.events' | translate }}</button>
-    <button class="events-tab" [class.events-tab--active]="mobileTab() === 'tasks'"
+    <button class="toggle-base-button" [class.toggle-base-button--active]="mobileTab() === 'tasks'"
       (click)="mobileTab.set('tasks')">{{ 'events.mobileTabs.tasks' | translate }}</button>
   </div>
   }
@@ -19,9 +19,9 @@
           <div class="events-form-row">
             <div class="events-field">
               <label class="events-label">{{ 'events.modal.companyLabel' | translate }}</label>
-              <input class="events-input" type="text" [placeholder]="'events.modal.companyPlaceholder' | translate"
+              <input class="input-base" type="text" [placeholder]="'events.modal.companyPlaceholder' | translate"
                 [(ngModel)]="newEventCompany" name="evCompany"
-                [class.events-input--error]="submitted && !newEventCompany.trim()" />
+                [class.input-base--error]="submitted && !newEventCompany.trim()" />
               @if (submitted && !newEventCompany.trim()) {
               <span class="events-error">{{ 'events.modal.companyRequiredError' | translate }}</span>
               }
@@ -53,7 +53,7 @@
             </div>
             <div class="events-field events-field--grow">
               <label class="events-label">{{ 'events.modal.notesLabel' | translate }}</label>
-              <input class="events-input" type="text" [placeholder]="'events.modal.notesPlaceholder' | translate"
+              <input class="input-base" type="text" [placeholder]="'events.modal.notesPlaceholder' | translate"
                 [(ngModel)]="newEventNotes" name="evNotes" />
             </div>
             <div class="events-form-actions">
@@ -214,7 +214,7 @@
 
       <!-- Add task form -->
       <form class="events-task-form" (ngSubmit)="submitTask()">
-        <input class="events-task-input" type="text" [placeholder]="'events.tasks.addPlaceholder' | translate"
+        <input class="input-base events-task-input" type="text" [placeholder]="'events.tasks.addPlaceholder' | translate"
           [(ngModel)]="newTaskText" name="taskText" required />
         <button class="events-task-add" type="submit">
           <app-icon name="plus" [size]="16" />

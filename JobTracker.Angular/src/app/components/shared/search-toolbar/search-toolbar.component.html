@@ -2,7 +2,7 @@
 
 <div class="search-toolbar-search-wrap">
   <app-icon name="search" class="search-toolbar-search-icon" [size]="15" />
-  <input class="search-toolbar-search-input" type="text" [placeholder]="placeholder" [value]="value"
+  <input class="input-base search-toolbar-search-input" type="text" [placeholder]="placeholder" [value]="value"
     (input)="onInput($event)" name="search" />
   @if (value) {
   <button class="search-toolbar-clear-button" (click)="onClear()" [title]="clearTitle">

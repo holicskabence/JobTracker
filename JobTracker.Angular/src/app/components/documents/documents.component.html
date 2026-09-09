@@ -1,10 +1,10 @@
 <app-page-section [title]="'documents.sectionTitle' | translate" [subtitle]="'documents.sectionSubtitle' | translate">
 
   @if (stacked()) {
-  <div class="documents-tabs">
-    <button class="documents-tab" [class.documents-tab--active]="mobileTab() === 'documents'"
+  <div class="toggle-base toggle-base--full-width">
+    <button class="toggle-base-button" [class.toggle-base-button--active]="mobileTab() === 'documents'"
       (click)="mobileTab.set('documents')">{{ 'documents.mobileTabs.documents' | translate }}</button>
-    <button class="documents-tab" [class.documents-tab--active]="mobileTab() === 'templates'"
+    <button class="toggle-base-button" [class.toggle-base-button--active]="mobileTab() === 'templates'"
       (click)="mobileTab.set('templates')">{{ 'documents.mobileTabs.templates' | translate }}</button>
   </div>
   }
@@ -20,9 +20,9 @@
           <div class="documents-form-row">
             <div class="documents-field documents-field--name">
               <label class="documents-label">{{ 'documents.fileOrLinkNameLabel' | translate }}</label>
-              <input class="documents-input" type="text" [placeholder]="'documents.fileNamePlaceholder' | translate"
+              <input class="input-base" type="text" [placeholder]="'documents.fileNamePlaceholder' | translate"
                      [(ngModel)]="newDocName" name="docName" required
-                     [class.documents-input--error]="submitted && !newDocName.trim()" />
+                     [class.input-base--error]="submitted && !newDocName.trim()" />
               @if (submitted && !newDocName.trim()) {
                 <span class="documents-error">{{ 'documents.fileNameRequiredError' | translate }}</span>
               }
@@ -39,7 +39,7 @@
 
             <div class="documents-field">
               <label class="documents-label">{{ 'documents.versionLabel' | translate }}</label>
-              <input class="documents-input" type="text" placeholder="v1.0"
+              <input class="input-base" type="text" placeholder="v1.0"
                      [(ngModel)]="newDocVersion" name="docVersion" />
             </div>
           </div>

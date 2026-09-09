@@ -1,23 +1,23 @@
-<div class="applications-view-toggle" role="group">
+<div class="toggle-base" role="group">
 
     @if (viewService.canUseKanban()) {
-    <button type="button" class="applications-view-toggle-button"
-        [class.applications-view-toggle-button--active]="viewService.view() === 'kanban'"
+    <button type="button" class="toggle-base-button toggle-base-button--icon"
+        [class.toggle-base-button--active]="viewService.view() === 'kanban'"
         (click)="selectView('kanban')" [title]="'applicationsView.switchToKanban' | translate"
         [attr.aria-label]="'applicationsView.switchToKanban' | translate">
         <app-icon name="columns" [size]="17" />
     </button>
     }
 
-    <button type="button" class="applications-view-toggle-button"
-        [class.applications-view-toggle-button--active]="viewService.view() === 'table'"
+    <button type="button" class="toggle-base-button toggle-base-button--icon"
+        [class.toggle-base-button--active]="viewService.view() === 'table'"
         (click)="selectView('table')" [title]="'applicationsView.switchToTable' | translate"
         [attr.aria-label]="'applicationsView.switchToTable' | translate">
         <app-icon name="list-lines" [size]="17" />
     </button>
 
-    <button type="button" class="applications-view-toggle-button"
-        [class.applications-view-toggle-button--active]="viewService.view() === 'history'"
+    <button type="button" class="toggle-base-button toggle-base-button--icon"
+        [class.toggle-base-button--active]="viewService.view() === 'history'"
         (click)="selectView('history')" [title]="'applicationsView.switchToHistory' | translate"
         [attr.aria-label]="'applicationsView.switchToHistory' | translate">
         <app-icon name="history" [size]="17" />

@@ -140,13 +140,13 @@
                     <div class="profile-field">
                         <label class="profile-label">{{ 'profile.personalInformation.firstNameLabel' | translate
                             }}</label>
-                        <input class="profile-input" type="text" [(ngModel)]="firstName" name="firstName"
+                        <input class="input-base" type="text" [(ngModel)]="firstName" name="firstName"
                             [placeholder]="'profile.personalInformation.firstNamePlaceholder' | translate" />
                     </div>
                     <div class="profile-field">
                         <label class="profile-label">{{ 'profile.personalInformation.lastNameLabel' | translate
                             }}</label>
-                        <input class="profile-input" type="text" [(ngModel)]="lastName" name="lastName"
+                        <input class="input-base" type="text" [(ngModel)]="lastName" name="lastName"
                             [placeholder]="'profile.personalInformation.lastNamePlaceholder' | translate" />
                     </div>
                 </div>
@@ -154,18 +154,18 @@
                 <div class="profile-row">
                     <div class="profile-field">
                         <label class="profile-label">{{ 'profile.personalInformation.phoneLabel' | translate }}</label>
-                        <input class="profile-input" type="tel" [(ngModel)]="phone" name="phone"
+                        <input class="input-base" type="tel" [(ngModel)]="phone" name="phone"
                             placeholder="+36 30 000 0000" />
                     </div>
                     <div class="profile-field">
                         <label class="profile-label">{{ 'profile.personalInformation.emailLabel' | translate }}</label>
-                        <input class="profile-input" type="email" [(ngModel)]="email" name="email" required />
+                        <input class="input-base" type="email" [(ngModel)]="email" name="email" required />
                     </div>
                 </div>
 
                 <div class="profile-field">
                     <label class="profile-label">{{ 'profile.personalInformation.locationLabel' | translate }}</label>
-                    <input class="profile-input" type="text" [(ngModel)]="location" name="location"
+                    <input class="input-base" type="text" [(ngModel)]="location" name="location"
                         [placeholder]="'profile.personalInformation.locationPlaceholder' | translate" />
                 </div>
 
@@ -188,13 +188,13 @@
                     <div class="profile-field">
                         <label class="profile-label">{{ 'profile.careerPreferences.currentTitleLabel' | translate
                             }}</label>
-                        <input class="profile-input" type="text" [(ngModel)]="position" name="position"
+                        <input class="input-base" type="text" [(ngModel)]="position" name="position"
                             [placeholder]="'profile.careerPreferences.currentTitlePlaceholder' | translate" />
                     </div>
                     <div class="profile-field">
                         <label class="profile-label">{{ 'profile.careerPreferences.targetPositionLabel' | translate
                             }}</label>
-                        <input class="profile-input" type="text" [(ngModel)]="targetPosition" name="targetPosition"
+                        <input class="input-base" type="text" [(ngModel)]="targetPosition" name="targetPosition"
                             [placeholder]="'profile.careerPreferences.targetPositionPlaceholder' | translate" />
                     </div>
                 </div>
@@ -203,14 +203,14 @@
                     <div class="profile-field">
                         <label class="profile-label">{{ 'profile.careerPreferences.yearsOfExperienceLabel' | translate
                             }}</label>
-                        <input class="profile-input" type="number" min="0" max="60" [(ngModel)]="yearsOfExperience"
+                        <input class="input-base" type="number" min="0" max="60" [(ngModel)]="yearsOfExperience"
                             name="yearsOfExperience"
                             [placeholder]="'profile.careerPreferences.yearsOfExperiencePlaceholder' | translate" />
                     </div>
                     <div class="profile-field">
                         <label class="profile-label">{{ 'profile.careerPreferences.noticePeriodLabel' | translate
                             }}</label>
-                        <input class="profile-input" type="number" min="0" max="365" [(ngModel)]="noticePeriodDays"
+                        <input class="input-base" type="number" min="0" max="365" [(ngModel)]="noticePeriodDays"
                             name="noticePeriodDays"
                             [placeholder]="'profile.careerPreferences.noticePeriodPlaceholder' | translate" />
                     </div>
@@ -233,14 +233,14 @@
                     <div class="profile-field">
                         <label class="profile-label">{{ 'profile.careerPreferences.preferredLocationsLabel' | translate
                             }}</label>
-                        <input class="profile-input" type="text" [(ngModel)]="preferredLocations"
+                        <input class="input-base" type="text" [(ngModel)]="preferredLocations"
                             name="preferredLocations"
                             [placeholder]="'profile.careerPreferences.preferredLocationsPlaceholder' | translate" />
                     </div>
                     <div class="profile-field">
                         <label class="profile-label">{{ 'profile.careerPreferences.salaryExpectationLabel' | translate
                             }}</label>
-                        <input class="profile-input" type="text" [(ngModel)]="salaryExpectation"
+                        <input class="input-base" type="text" [(ngModel)]="salaryExpectation"
                             name="salaryExpectation"
                             [placeholder]="'profile.careerPreferences.salaryExpectationPlaceholder' | translate" />
                     </div>
@@ -248,7 +248,7 @@
 
                 <div class="profile-field">
                     <label class="profile-label">{{ 'profile.careerPreferences.mainSkillsLabel' | translate }}</label>
-                    <input class="profile-input" type="text" [(ngModel)]="mainSkills" name="mainSkills"
+                    <input class="input-base" type="text" [(ngModel)]="mainSkills" name="mainSkills"
                         [placeholder]="'profile.careerPreferences.mainSkillsPlaceholder' | translate" />
                     @if (skillChips.length) {
                     <div class="profile-skill-chips">
@@ -278,19 +278,19 @@
 
                 <div class="profile-field">
                     <label class="profile-label">{{ 'profile.professionalLinks.linkedInLabel' | translate }}</label>
-                    <input class="profile-input" type="url" [(ngModel)]="linkedInUrl" name="linkedInUrl"
+                    <input class="input-base" type="url" [(ngModel)]="linkedInUrl" name="linkedInUrl"
                         placeholder="https://linkedin.com/in/..." />
                 </div>
 
                 <div class="profile-field">
                     <label class="profile-label">{{ 'profile.professionalLinks.gitHubLabel' | translate }}</label>
-                    <input class="profile-input" type="url" [(ngModel)]="gitHubUrl" name="gitHubUrl"
+                    <input class="input-base" type="url" [(ngModel)]="gitHubUrl" name="gitHubUrl"
                         placeholder="https://github.com/..." />
                 </div>
 
                 <div class="profile-field">
                     <label class="profile-label">{{ 'profile.professionalLinks.portfolioLabel' | translate }}</label>
-                    <input class="profile-input" type="url" [(ngModel)]="portfolioUrl" name="portfolioUrl"
+                    <input class="input-base" type="url" [(ngModel)]="portfolioUrl" name="portfolioUrl"
                         placeholder="https://..." />
                 </div>
 
@@ -311,7 +311,7 @@
 
                 <div class="profile-field">
                     <label class="profile-label">{{ 'profile.goal.goalLabel' | translate }}</label>
-                    <input class="profile-input" type="number" min="1" [(ngModel)]="goal" name="goal" required />
+                    <input class="input-base" type="number" min="1" [(ngModel)]="goal" name="goal" required />
                     <span class="profile-hint">{{ 'profile.goal.goalHint' | translate }}</span>
                 </div>
 
@@ -370,7 +370,7 @@
                 <div class="profile-field">
                     <label class="profile-label">{{ 'profile.password.currentPwdLabel' | translate }}</label>
                     <div class="profile-pwd-wrap">
-                        <input class="profile-input" [type]="showCurrentPwd ? 'text' : 'password'"
+                        <input class="input-base" [type]="showCurrentPwd ? 'text' : 'password'"
                             [(ngModel)]="currentPwd" name="currentPwd" autocomplete="current-password"
                             placeholder="••••••••" />
                         <button type="button" class="profile-eye-button" (click)="showCurrentPwd = !showCurrentPwd"
@@ -388,7 +388,7 @@
                     <div class="profile-field">
                         <label class="profile-label">{{ 'profile.password.newPwdLabel' | translate }}</label>
                         <div class="profile-pwd-wrap">
-                            <input class="profile-input" [type]="showNewPwd ? 'text' : 'password'" [(ngModel)]="newPwd"
+                            <input class="input-base" [type]="showNewPwd ? 'text' : 'password'" [(ngModel)]="newPwd"
                                 name="newPwd" autocomplete="new-password"
                                 [placeholder]="'profile.password.newPwdPlaceholder' | translate" />
                             <button type="button" class="profile-eye-button" (click)="showNewPwd = !showNewPwd"
@@ -404,7 +404,7 @@
                     <div class="profile-field">
                         <label class="profile-label">{{ 'profile.password.confirmPwdLabel' | translate }}</label>
                         <div class="profile-pwd-wrap">
-                            <input class="profile-input" [type]="showConfirmPwd ? 'text' : 'password'"
+                            <input class="input-base" [type]="showConfirmPwd ? 'text' : 'password'"
                                 [(ngModel)]="confirmPwd" name="confirmPwd" autocomplete="new-password"
                                 [placeholder]="'profile.password.confirmPwdPlaceholder' | translate" />
                             <button type="button" class="profile-eye-button" (click)="showConfirmPwd = !showConfirmPwd"

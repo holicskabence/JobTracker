@@ -14,7 +14,7 @@
         <div class="register-row">
             <div class="lf">
                 <label class="auth-form-label">{{ 'auth.register.firstNameLabel' | translate }}</label>
-                <input class="auth-form-input" [class.auth-form-input--error]="errors['firstName']" type="text"
+                <input class="input-base auth-form-input" [class.input-base--error]="errors['firstName']" type="text"
                     placeholder="Bence" autocomplete="given-name" [(ngModel)]="firstName" name="firstName" />
                 @if (errors['firstName']) {
                 <span class="auth-form-error-inline">{{ errors['firstName'] }}</span>
@@ -22,7 +22,7 @@
             </div>
             <div class="lf">
                 <label class="auth-form-label">{{ 'auth.register.lastNameLabel' | translate }}</label>
-                <input class="auth-form-input" [class.auth-form-input--error]="errors['lastName']" type="text"
+                <input class="input-base auth-form-input" [class.input-base--error]="errors['lastName']" type="text"
                     placeholder="Kovács" autocomplete="family-name" [(ngModel)]="lastName" name="lastName" />
                 @if (errors['lastName']) {
                 <span class="auth-form-error-inline">{{ errors['lastName'] }}</span>
@@ -34,7 +34,7 @@
             <label class="auth-form-label">{{ 'auth.register.emailLabel' | translate }}</label>
             <div class="auth-form-wrap">
                 <app-icon name="mail" class="auth-form-icon" [size]="16" />
-                <input class="auth-form-input" [class.auth-form-input--error]="errors['email']" type="email"
+                <input class="input-base auth-form-input" [class.input-base--error]="errors['email']" type="email"
                     [placeholder]="'auth.register.emailPlaceholder' | translate" autocomplete="email"
                     [(ngModel)]="email" name="email" />
             </div>
@@ -47,7 +47,7 @@
             <label class="auth-form-label">{{ 'auth.register.passwordLabel' | translate }}</label>
             <div class="auth-form-wrap">
                 <app-icon name="lock" class="auth-form-icon" [size]="16" />
-                <input class="auth-form-input" [class.auth-form-input--error]="errors['password']"
+                <input class="input-base auth-form-input" [class.input-base--error]="errors['password']"
                     [type]="showPwd ? 'text' : 'password'"
                     [placeholder]="'auth.register.passwordPlaceholder' | translate" autocomplete="new-password"
                     [(ngModel)]="password" name="password" />
@@ -68,7 +68,7 @@
             <label class="auth-form-label">{{ 'auth.register.confirmPasswordLabel' | translate }}</label>
             <div class="auth-form-wrap">
                 <app-icon name="lock" class="auth-form-icon" [size]="16" />
-                <input class="auth-form-input" [class.auth-form-input--error]="errors['confirm']" type="password"
+                <input class="input-base auth-form-input" [class.input-base--error]="errors['confirm']" type="password"
                     placeholder="••••••••" autocomplete="new-password" [(ngModel)]="confirm" name="confirm" />
             </div>
             @if (errors['confirm']) {
@@ -80,12 +80,12 @@
         <div class="register-row">
             <div class="lf">
                 <label class="auth-form-label">{{ 'auth.register.locationLabel' | translate }}</label>
-                <input class="auth-form-input" type="text" [(ngModel)]="location" name="location"
+                <input class="input-base auth-form-input" type="text" [(ngModel)]="location" name="location"
                     autocomplete="address-level2" [placeholder]="'auth.register.locationPlaceholder' | translate" />
             </div>
             <div class="lf">
                 <label class="auth-form-label">{{ 'auth.register.targetPositionLabel' | translate }}</label>
-                <input class="auth-form-input" type="text" [(ngModel)]="targetPosition" name="targetPosition"
+                <input class="input-base auth-form-input" type="text" [(ngModel)]="targetPosition" name="targetPosition"
                     [placeholder]="'auth.register.targetPositionPlaceholder' | translate" />
             </div>
         </div>
@@ -93,12 +93,12 @@
         <div class="register-row">
             <div class="lf">
                 <label class="auth-form-label">{{ 'auth.register.yearsOfExperienceLabel' | translate }}</label>
-                <input class="auth-form-input" type="number" min="0" max="60" [(ngModel)]="yearsOfExperience"
+                <input class="input-base auth-form-input" type="number" min="0" max="60" [(ngModel)]="yearsOfExperience"
                     name="yearsOfExperience" [placeholder]="'auth.register.yearsOfExperiencePlaceholder' | translate" />
             </div>
             <div class="lf">
                 <label class="auth-form-label">{{ 'auth.register.noticePeriodLabel' | translate }}</label>
-                <input class="auth-form-input" type="number" min="0" max="365" [(ngModel)]="noticePeriodDays"
+                <input class="input-base auth-form-input" type="number" min="0" max="365" [(ngModel)]="noticePeriodDays"
                     name="noticePeriodDays" [placeholder]="'auth.register.noticePeriodPlaceholder' | translate" />
             </div>
         </div>
@@ -118,32 +118,32 @@
 
         <div class="lf">
             <label class="auth-form-label">{{ 'auth.register.salaryExpectationLabel' | translate }}</label>
-            <input class="auth-form-input" type="text" [(ngModel)]="salaryExpectation" name="salaryExpectation"
+            <input class="input-base auth-form-input" type="text" [(ngModel)]="salaryExpectation" name="salaryExpectation"
                 [placeholder]="'auth.register.salaryExpectationPlaceholder' | translate" />
         </div>
 
         <div class="lf">
             <label class="auth-form-label">{{ 'auth.register.mainSkillsLabel' | translate }}</label>
-            <input class="auth-form-input" type="text" [(ngModel)]="mainSkills" name="mainSkills"
+            <input class="input-base auth-form-input" type="text" [(ngModel)]="mainSkills" name="mainSkills"
                 [placeholder]="'auth.register.mainSkillsPlaceholder' | translate" />
             <span class="register-field-hint">{{ 'auth.register.mainSkillsHint' | translate }}</span>
         </div>
 
         <div class="lf">
             <label class="auth-form-label">{{ 'auth.register.linkedInLabel' | translate }}</label>
-            <input class="auth-form-input" type="url" [(ngModel)]="linkedInUrl" name="linkedInUrl"
+            <input class="input-base auth-form-input" type="url" [(ngModel)]="linkedInUrl" name="linkedInUrl"
                 placeholder="https://linkedin.com/in/..." />
         </div>
 
         <div class="lf">
             <label class="auth-form-label">{{ 'auth.register.gitHubLabel' | translate }}</label>
-            <input class="auth-form-input" type="url" [(ngModel)]="gitHubUrl" name="gitHubUrl"
+            <input class="input-base auth-form-input" type="url" [(ngModel)]="gitHubUrl" name="gitHubUrl"
                 placeholder="https://github.com/..." />
         </div>
 
         <div class="lf">
             <label class="auth-form-label">{{ 'auth.register.portfolioLabel' | translate }}</label>
-            <input class="auth-form-input" type="url" [(ngModel)]="portfolioUrl" name="portfolioUrl"
+            <input class="input-base auth-form-input" type="url" [(ngModel)]="portfolioUrl" name="portfolioUrl"
                 placeholder="https://..." />
         </div>
 

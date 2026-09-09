@@ -25,30 +25,12 @@
   pointer-events: none;
 }
 
-.search-toolbar-search-input {
-  width: 100%;
-  background-color: var(--clr-bg);
-  border: none;
-  border-radius: var(--radius-md);
+.input-base.search-toolbar-search-input {
   padding: var(--space-sm) var(--space-2xl);
-  font-family: 'Poppins', sans-serif;
-  font-size: var(--font-size-lg);
-  color: var(--clr-dark);
-  outline: none;
-  transition: box-shadow 0.2s;
-  box-sizing: border-box;
 }
 
-:host(.search-toolbar--compact) .search-toolbar-search-input {
+:host(.search-toolbar--compact) .input-base.search-toolbar-search-input {
   padding: var(--space-sm) 2.25rem;
-}
-
-.search-toolbar-search-input::placeholder {
-  color: var(--clr-muted);
-}
-
-.search-toolbar-search-input:focus {
-  box-shadow: 0 0 0 2px var(--clr-green);
 }
 
 .search-toolbar-clear-button {

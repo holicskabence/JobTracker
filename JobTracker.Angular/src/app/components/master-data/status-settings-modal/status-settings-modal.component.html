@@ -21,7 +21,7 @@
                 <label class="status-settings-field">
                     <span class="status-settings-field-label">{{ 'masterData.statusSettings.basics.label' | translate
                         }}</span>
-                    <input class="status-settings-input" type="text" [ngModel]="draft().label"
+                    <input class="input-base" type="text" [ngModel]="draft().label"
                         (ngModelChange)="setLabel($event)" name="statusLabel" />
                 </label>
 
@@ -103,7 +103,7 @@
 
                 @if (stalledTrackingOn()) {
                 <label class="status-settings-stalled-days">
-                    <input class="status-settings-input status-settings-input--number" type="number" min="1" max="365"
+                    <input class="input-base status-settings-input--number" type="number" min="1" max="365"
                         [ngModel]="draft().staleAfterDays" (ngModelChange)="setStaleAfterDays($event)"
                         name="staleAfterDays" />
                     <span class="status-settings-stalled-unit">{{ 'masterData.statusSettings.stalled.unit' | translate

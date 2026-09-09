@@ -1,5 +1,5 @@
 <div class="autocomplete-input-wrapper">
-    <input #textField class="autocomplete-input-field" type="text" autocomplete="off" [id]="inputId"
+    <input #textField class="input-base autocomplete-input-field" type="text" autocomplete="off" [id]="inputId"
         [placeholder]="placeholder" [value]="value" (input)="onInput($event)" (click)="onFieldClick($event)" />
 
     @if (value) {

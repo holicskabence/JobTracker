@@ -14,16 +14,16 @@
         </div>
 
         @if (isEdit) {
-        <div class="modal-tabs" role="tablist">
-            <button type="button" class="modal-tab" role="tab" [class.modal-tab--active]="activeTab === 'main'"
+        <div class="toggle-base modal-tabs" role="tablist">
+            <button type="button" class="toggle-base-button" role="tab" [class.toggle-base-button--active]="activeTab === 'main'"
                 [attr.aria-selected]="activeTab === 'main'" (click)="activeTab = 'main'">
                 {{ 'shared.addJobModal.tabs.main' | translate }}
             </button>
-            <button type="button" class="modal-tab" role="tab" [class.modal-tab--active]="activeTab === 'details'"
+            <button type="button" class="toggle-base-button" role="tab" [class.toggle-base-button--active]="activeTab === 'details'"
                 [attr.aria-selected]="activeTab === 'details'" (click)="activeTab = 'details'">
                 {{ 'shared.addJobModal.tabs.details' | translate }}
             </button>
-            <button type="button" class="modal-tab" role="tab" [class.modal-tab--active]="activeTab === 'info'"
+            <button type="button" class="toggle-base-button" role="tab" [class.toggle-base-button--active]="activeTab === 'info'"
                 [attr.aria-selected]="activeTab === 'info'" (click)="activeTab = 'info'">
                 {{ 'shared.addJobModal.tabs.info' | translate }}
             </button>
@@ -37,9 +37,9 @@
                 @if (!isEdit || activeTab === 'main') {
                 <div class="field">
                     <label class="field-label" for="company">{{ 'shared.addJobModal.companyLabel' | translate }}</label>
-                    <input id="company" class="field-input" type="text" [placeholder]="'shared.addJobModal.companyPlaceholder' | translate" autocomplete="off"
+                    <input id="company" class="input-base" type="text" [placeholder]="'shared.addJobModal.companyPlaceholder' | translate" autocomplete="off"
                         required [(ngModel)]="company" name="company" (ngModelChange)="duplicate = false"
-                        [class.field-input--error]="(submitted && !company.trim()) || duplicate" />
+                        [class.input-base--error]="(submitted && !company.trim()) || duplicate" />
                     @if (submitted && !company.trim()) {
                     <span class="field-error">{{ 'shared.addJobModal.companyRequiredError' | translate }}</span>
                     }
@@ -47,10 +47,10 @@
 
                 <div class="field">
                     <label class="field-label" for="position">{{ 'shared.addJobModal.positionLabel' | translate }}</label>
-                    <input id="position" class="field-input" type="text" [placeholder]="'shared.addJobModal.positionPlaceholder' | translate"
+                    <input id="position" class="input-base" type="text" [placeholder]="'shared.addJobModal.positionPlaceholder' | translate"
                         autocomplete="off" required [(ngModel)]="position" name="position"
                         (ngModelChange)="duplicate = false"
-                        [class.field-input--error]="(submitted && !position.trim()) || duplicate" />
+                        [class.input-base--error]="(submitted && !position.trim()) || duplicate" />
                     @if (submitted && !position.trim()) {
                     <span class="field-error">{{ 'shared.addJobModal.positionRequiredError' | translate }}</span>
                     }
@@ -64,7 +64,7 @@
                         {{ 'shared.addJobModal.linkLabel' | translate }}
                         <span class="field-optional">({{ 'shared.addJobModal.optionalLabel' | translate }})</span>
                     </label>
-                    <input id="link" class="field-input" type="text" [placeholder]="'shared.addJobModal.linkPlaceholder' | translate" autocomplete="off"
+                    <input id="link" class="input-base" type="text" [placeholder]="'shared.addJobModal.linkPlaceholder' | translate" autocomplete="off"
                         [ngModel]="link" (ngModelChange)="onLinkChange($event)" name="link" />
                 </div>
 
@@ -87,7 +87,7 @@
                 @if (isEdit && activeTab === 'details') {
                 <div class="field">
                     <label class="field-label" for="salary">{{ 'shared.addJobModal.details.salaryLabel' | translate }}</label>
-                    <input id="salary" class="field-input" type="text" autocomplete="off"
+                    <input id="salary" class="input-base" type="text" autocomplete="off"
                         [placeholder]="'shared.addJobModal.details.salaryPlaceholder' | translate"
                         [(ngModel)]="salary" name="salary" />
                 </div>
@@ -106,21 +106,21 @@
 
                 <div class="field">
                     <label class="field-label" for="officeLocation">{{ 'shared.addJobModal.details.officeLocationLabel' | translate }}</label>
-                    <input id="officeLocation" class="field-input" type="text" autocomplete="off"
+                    <input id="officeLocation" class="input-base" type="text" autocomplete="off"
                         [placeholder]="'shared.addJobModal.details.officeLocationPlaceholder' | translate"
                         [(ngModel)]="officeLocation" name="officeLocation" />
                 </div>
 
                 <div class="field">
                     <label class="field-label" for="benefits">{{ 'shared.addJobModal.details.benefitsLabel' | translate }}</label>
-                    <input id="benefits" class="field-input" type="text" autocomplete="off"
+                    <input id="benefits" class="input-base" type="text" autocomplete="off"
                         [placeholder]="'shared.addJobModal.details.benefitsPlaceholder' | translate"
                         [(ngModel)]="benefits" name="benefits" />
                 </div>
 
                 <div class="field">
                     <label class="field-label" for="description">{{ 'shared.addJobModal.details.descriptionLabel' | translate }}</label>
-                    <textarea id="description" class="field-input field-textarea" rows="6"
+                    <textarea id="description" class="input-base field-textarea" rows="6"
                         [placeholder]="'shared.addJobModal.details.descriptionPlaceholder' | translate"
                         [(ngModel)]="description" name="description"></textarea>
                 </div>

@@ -100,33 +100,6 @@
     color: var(--clr-muted);
 }
 
-.field-input {
-    width: 100%;
-    background-color: var(--clr-bg);
-    border: 1.5px solid transparent;
-    border-radius: var(--radius-md);
-    padding: var(--space-sm) var(--space-md);
-    font-family: 'Poppins', sans-serif;
-    font-size: var(--font-size-lg);
-    color: var(--clr-dark);
-    outline: none;
-    transition: box-shadow 0.2s;
-}
-
-.field-input::placeholder {
-    color: var(--clr-muted);
-}
-
-.field-input:focus {
-    box-shadow: 0 0 0 2px rgba(38, 172, 0, 0.25);
-    border: 1.5px solid var(--clr-green);
-}
-
-.field-input--error {
-    border: 1.5px solid #ef4444 !important;
-    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15) !important;
-}
-
 .field-error {
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
@@ -136,26 +109,6 @@
 
 .field-select-wrap {
     position: relative;
-}
-
-.field-select {
-    width: 100%;
-    background-color: var(--clr-bg);
-    border: none;
-    border-radius: var(--radius-md);
-    padding: var(--space-sm) 2.5rem var(--space-sm) var(--space-md);
-    font-family: 'Poppins', sans-serif;
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-medium);
-    color: var(--clr-dark);
-    outline: none;
-    appearance: none;
-    cursor: pointer;
-    transition: box-shadow 0.2s;
-}
-
-.field-select:focus {
-    box-shadow: 0 0 0 2px var(--clr-green);
 }
 
 .field-chevron {
@@ -254,44 +207,19 @@
     color: var(--clr-white);
 }
 
-.field-textarea {
-    resize: vertical;
+.input-base.field-textarea {
     min-height: 6rem;
-    line-height: var(--leading-normal);
 }
 
 .modal-tabs {
     flex-shrink: 0;
-    display: flex;
-    gap: var(--space-2xs);
     margin: var(--space-md) var(--padding-card) 0;
-    padding: var(--space-2xs);
-    background-color: var(--clr-bg);
-    border-radius: var(--radius-md);
 }
 
-.modal-tab {
+.modal-tabs .toggle-base-button {
     flex: 1;
+    min-width: 0;
     padding: var(--space-xs) var(--space-sm);
-    border: none;
-    border-radius: var(--radius-sm);
-    background: transparent;
-    font-family: \x27Poppins\x27, sans-serif;
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-semibold);
-    color: var(--clr-muted);
-    cursor: pointer;
-    transition: background-color 0.15s, color 0.15s;
-}
-
-.modal-tab:hover:not(.modal-tab--active) {
-    color: var(--clr-dark);
-}
-
-.modal-tab--active {
-    background-color: var(--clr-white);
-    color: var(--clr-dark);
-    box-shadow: var(--shadow-card);
 }
 
 .info-block {

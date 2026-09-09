@@ -8,26 +8,8 @@
     align-items: center;
 }
 
-.autocomplete-input-field {
-    width: 100%;
-    background-color: var(--clr-bg);
-    border: 1.5px solid transparent;
-    border-radius: var(--radius-md);
-    padding: var(--space-sm) calc(var(--space-xl) + var(--space-lg)) var(--space-sm) var(--space-md);
-    font-family: 'Poppins', sans-serif;
-    font-size: var(--font-size-lg);
-    color: var(--clr-dark);
-    outline: none;
-    transition: box-shadow 0.2s;
-}
-
-.autocomplete-input-field::placeholder {
-    color: var(--clr-muted);
-}
-
-.autocomplete-input-field:focus {
-    box-shadow: 0 0 0 2px rgba(38, 172, 0, 0.25);
-    border: 1.5px solid var(--clr-green);
+.input-base.autocomplete-input-field {
+    padding-right: calc(var(--space-xl) + var(--space-lg));
 }
 
 .autocomplete-input-clear,

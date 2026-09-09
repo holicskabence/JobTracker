@@ -5,44 +5,6 @@
     min-height: 0;
 }
 
-.practice-tabs {
-    display: flex;
-    gap: var(--space-2xs);
-    background-color: var(--clr-bg);
-    border-radius: var(--radius-md);
-    padding: var(--space-2xs);
-    box-sizing: content-box;
-}
-
-.practice-tab {
-    padding: var(--space-xs) var(--space-lg);
-    border: none;
-    border-radius: var(--radius-sm);
-    background: transparent;
-    font-family: 'Poppins', sans-serif;
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-semibold);
-    color: var(--clr-muted);
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-@media (hover: hover) {
-    .practice-tab:hover:not(.practice-tab--active) {
-        color: var(--clr-dark);
-        background: rgba(255, 255, 255, 0.6);
-    }
-}
-
-.practice-tab--active {
-    background: var(--clr-white);
-    color: var(--clr-dark);
-    box-shadow: var(--shadow-card);
-}
-
 .practice-categories-card {
     padding: var(--space-sm);
 }
@@ -178,7 +140,6 @@
 }
 
 .practice-cat-row {
-
     display: flex;
     align-items: center;
     gap: var(--space-sm);
@@ -562,12 +523,11 @@
 }
 
 @media (max-width: 1200px) {
-
     .practice-tabs {
         width: 100%;
     }
 
-    .practice-tab {
+    .practice-tabs .toggle-base-button {
         flex: 1 1 0;
         min-width: 0;
     }
@@ -839,7 +799,6 @@
 }
 
 .practice-question {
-
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     line-height: var(--leading-normal);
@@ -1015,30 +974,14 @@
     box-sizing: border-box;
 }
 
-.practice-textarea {
-    width: 100%;
+.input-base.practice-textarea {
     flex: 1;
     min-height: 9rem;
-    background: var(--clr-white);
-    border: 1px solid var(--clr-border);
-    border-radius: var(--radius-md);
     padding: var(--space-md) var(--space-lg);
-    font-family: 'Poppins', sans-serif;
-    color: var(--clr-dark);
-    line-height: var(--leading-normal);
-    resize: vertical;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    box-sizing: border-box;
 }
 
-.practice-textarea--tall {
+.input-base.practice-textarea--tall {
     min-height: 18rem;
-}
-
-.practice-textarea:focus {
-    border-color: var(--clr-green-dk);
-    box-shadow: 0 0 0 1px var(--clr-green-dk);
 }
 
 .practice-char-counter {
@@ -1505,7 +1448,6 @@
     }
 }
 
-
 .practice-management {
     display: flex;
     flex-direction: column;
@@ -1618,25 +1560,6 @@
     color: var(--clr-red);
 }
 
-.practice-input {
-    background: var(--clr-white);
-    border: 1px solid var(--clr-border);
-    border-radius: var(--radius-md);
-    padding: var(--padding-input);
-    font-family: 'Poppins', sans-serif;
-    font-size: var(--font-size-lg);
-    color: var(--clr-dark);
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.practice-input:focus {
-    border-color: var(--clr-green-dk);
-    box-shadow: 0 0 0 1px var(--clr-green-dk);
-}
-
 .practice-form-error {
     font-size: var(--font-size-md);
     color: var(--clr-red);
@@ -1649,27 +1572,8 @@
 }
 
 .category-dropdown-trigger {
-    width: 100%;
-    display: flex;
-    align-items: center;
     gap: var(--space-sm);
-    padding: var(--padding-input);
-    border: 1px solid var(--clr-border);
-    border-radius: var(--radius-md);
-    background-color: var(--clr-white);
-    font-family: 'Poppins', sans-serif;
-    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-medium);
-    color: var(--clr-dark);
-    cursor: pointer;
-    text-align: left;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.category-dropdown--open .category-dropdown-trigger {
-    border-color: var(--clr-green-dk);
-    box-shadow: 0 0 0 1px var(--clr-green-dk);
 }
 
 .category-dropdown-dot {
@@ -2445,7 +2349,7 @@
 }
 
 @media (max-width: 1400px) {
-    .practice-tab {
+    .practice-tabs .toggle-base-button {
         padding: var(--space-xs) var(--space-sm);
         font-size: var(--font-size-sm);
     }
@@ -2524,7 +2428,7 @@
         font-size: var(--font-size-sm);
     }
 
-    .practice-textarea,
+    .input-base.practice-textarea,
     .practice-answer-textarea {
         padding: var(--space-sm) var(--space-md);
     }

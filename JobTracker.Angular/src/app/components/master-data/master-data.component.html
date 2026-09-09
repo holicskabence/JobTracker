@@ -66,7 +66,7 @@
             </div>
 
             <form class="master-data-add-form master-data-add-form--color" (ngSubmit)="addCategory()">
-                <input class="master-data-input" type="text"
+                <input class="input-base master-data-input" type="text"
                     [placeholder]="'masterData.categories.newPlaceholder' | translate" [(ngModel)]="newCategoryName"
                     name="newCategoryName" />
                 <app-color-picker [(value)]="newCategoryColor"></app-color-picker>
@@ -164,7 +164,7 @@
         </div>
 
         <form class="master-data-add-form master-data-add-form--color" (ngSubmit)="addStatus()">
-            <input class="master-data-input" type="text"
+            <input class="input-base master-data-input" type="text"
                 [placeholder]="'masterData.statuses.newPlaceholder' | translate" [(ngModel)]="newStatusLabel"
                 name="newStatusLabel" />
             <app-color-picker [(value)]="newStatusColor"></app-color-picker>
@@ -267,7 +267,7 @@
         </div>
 
         <form class="master-data-add-form master-data-add-form--color" (ngSubmit)="addEventType()">
-            <input class="master-data-input" type="text"
+            <input class="input-base master-data-input" type="text"
                 [placeholder]="'masterData.eventTypes.newPlaceholder' | translate" [(ngModel)]="newEventTypeName"
                 name="newEventType" />
             <app-color-picker [(value)]="newEventTypeColor"></app-color-picker>
@@ -321,9 +321,9 @@
         </div>
 
         <form class="master-data-add-form" (ngSubmit)="addSource()">
-            <input class="master-data-input" type="text" [placeholder]="'masterData.sources.newPlaceholder' | translate"
+            <input class="input-base master-data-input" type="text" [placeholder]="'masterData.sources.newPlaceholder' | translate"
                 [(ngModel)]="newSourceName" name="newSourceName" />
-            <input class="master-data-input" type="text"
+            <input class="input-base master-data-input" type="text"
                 [placeholder]="'masterData.sources.patternPlaceholder' | translate" [(ngModel)]="newSourceMatchPattern"
                 name="newSourceMatchPattern" />
             @if (selectedSourceId !== null) {

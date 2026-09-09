@@ -1,7 +1,7 @@
 <div class="tp">
 
-    <button type="button" class="time-picker-trigger" [class.time-picker-trigger--filled]="!!value"
-        [class.time-picker-trigger--open]="isOpen" (click)="toggle($event)">
+    <button type="button" class="input-base input-base--trigger time-picker-trigger" [class.time-picker-trigger--filled]="!!value"
+        [class.input-base--open]="isOpen" (click)="toggle($event)">
         <app-icon name="clock" class="time-picker-icon" [size]="15" />
         <span class="time-picker-label">{{ value ? formatted : (placeholder | translate) }}</span>
         <app-icon name="chevron-down" class="time-picker-chevron" [size]="14" />

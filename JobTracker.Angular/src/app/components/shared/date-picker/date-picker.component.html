@@ -1,7 +1,7 @@
 <div class="dp">
 
-    <button type="button" class="date-picker-trigger" [class.date-picker-trigger--filled]="!!value"
-        [class.date-picker-trigger--error]="hasError" [class.date-picker-trigger--open]="isOpen"
+    <button type="button" class="input-base input-base--trigger date-picker-trigger" [class.date-picker-trigger--filled]="!!value"
+        [class.input-base--error]="hasError" [class.input-base--open]="isOpen"
         (click)="toggle($event)">
         <app-icon name="calendar" class="date-picker-icon" [size]="15" />
         <span class="date-picker-label">{{ value ? formatted : (placeholder | translate) }}</span>

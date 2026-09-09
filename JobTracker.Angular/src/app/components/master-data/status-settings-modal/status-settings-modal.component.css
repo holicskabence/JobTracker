@@ -140,31 +140,7 @@
     color: var(--clr-dark);
 }
 
-.status-settings-input,
-.status-settings-textarea {
-    width: 100%;
-    padding: var(--padding-input);
-    border: 1px solid var(--clr-border);
-    border-radius: var(--radius-sm);
-    background-color: var(--clr-white);
-    color: var(--clr-dark);
-    font-size: var(--font-size-lg);
-    font-family: inherit;
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-.status-settings-textarea {
-    resize: vertical;
-    min-height: 3.25rem;
-}
-
-.status-settings-input:focus,
-.status-settings-textarea:focus {
-    border-color: var(--clr-green);
-}
-
-.status-settings-input--number {
+.input-base.status-settings-input--number {
     width: 5rem;
 }
 
